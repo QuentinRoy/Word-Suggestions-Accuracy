@@ -1,0 +1,27 @@
+table {
+  border: 1px solid #ebebeb;
+  width: 100%;
+  max-width: 850px;
+  height: 30px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+}
+
+td {
+  height: 30px;
+  width: 33.33%;
+  border: 1px solid #ebebeb;
+  background-color: white;
+}
+
+button {
+  font-size: 15px;
+  height: 30px;
+  width: 100%;
+  border: none;
+  background-color: white;
+}
+
+button:hover {
+  background-color: #f7f7f7;
+}

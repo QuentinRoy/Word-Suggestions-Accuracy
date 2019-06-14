@@ -63,10 +63,6 @@ const Trial = ({ text }) => {
     }
   }
 
-  function onChange(button) {
-    setInput(input);
-  }
-
   return (
     <div>
       <TextToType
@@ -91,7 +87,6 @@ const Trial = ({ text }) => {
           Keyboard.keyboardRef = r;
         }}
         layoutName={layoutName}
-        onChange={button => onChange(button)}
         onKeyPress={onKeyPress}
       />
     </div>

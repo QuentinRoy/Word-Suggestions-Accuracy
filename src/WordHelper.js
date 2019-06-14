@@ -4,11 +4,13 @@ import "./WordHelper.css";
 import ReadCSV from "./ReadCSV";
 
 function WordHelper({ input, text, setInput, countSimilarChars }) {
-  const [help, setHelp] = useState(["hello", "is", "text"]);
+  const [help, setHelp] = useState([" ", " ", " "]);
 
   useEffect(() => {
-    ReadCSV(
-      input.slice(input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") : 0)
+    setHelp(
+      ReadCSV(
+        input.slice(input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") : 0)
+      )
     );
   }, [input]);
 

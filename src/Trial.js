@@ -31,7 +31,14 @@ const Trial = ({ text }) => {
   function onKeyPress(button) {
     if (button === "{shift}" || button === "{lock}") {
       handleShift();
+    } else if (button === "{bksp}") {
+      setInput(input.slice(0, -1));
     } else {
+      if (button === "{space}") {
+        setInput(`${input} `);
+      } else {
+        setInput(input + button);
+      }
       countSimilarChars(text, input);
     }
   }
@@ -54,6 +61,10 @@ const Trial = ({ text }) => {
     ) {
       onKeyPress(keyTyped.key);
     }
+  }
+
+  function onChange(button) {
+    setInput(input);
   }
 
   return (
@@ -80,7 +91,7 @@ const Trial = ({ text }) => {
           Keyboard.keyboardRef = r;
         }}
         layoutName={layoutName}
-        onChange={setInput}
+        onChange={button => onChange(button)}
         onKeyPress={onKeyPress}
       />
     </div>

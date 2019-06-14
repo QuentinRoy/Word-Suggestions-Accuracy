@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./WordHelper.css";
+import ReadCSV from "./ReadCSV";
 
 function WordHelper({ input, text, setInput, countSimilarChars }) {
-  const [wordHelp, setWordHelp] = useState([" ", " ", " "]);
+  const [help, setHelp] = useState(["hello", "is", "text"]);
 
   useEffect(() => {
-    setWordHelp(["hello", "is", "text"]);
-  }, []);
+    ReadCSV(
+      input.slice(input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") : 0)
+    );
+  }, [input]);
 
   function wordHelpHandler(word) {
     const i = input.lastIndexOf(" ");
@@ -21,18 +24,18 @@ function WordHelper({ input, text, setInput, countSimilarChars }) {
       <tbody>
         <tr>
           <td>
-            <button type="button" onClick={() => wordHelpHandler(wordHelp[0])}>
-              {wordHelp[0]}
+            <button type="button" onClick={() => wordHelpHandler(help[0])}>
+              {help[0]}
             </button>
           </td>
           <td>
-            <button type="button" onClick={() => wordHelpHandler(wordHelp[1])}>
-              {wordHelp[1]}
+            <button type="button" onClick={() => wordHelpHandler(help[1])}>
+              {help[1]}
             </button>
           </td>
           <td>
-            <button type="button" onClick={() => wordHelpHandler(wordHelp[2])}>
-              {wordHelp[2]}
+            <button type="button" onClick={() => wordHelpHandler(help[2])}>
+              {help[2]}
             </button>
           </td>
         </tr>

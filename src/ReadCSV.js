@@ -8,38 +8,50 @@ function ReadCSV(word) {
   );
 
   const getWord = parsedFile => {
-    const anotherFile = parsedFile.filter(
+    //parsing file to keep only:
+    //- words longer than 'word'
+    //- words with the same first letters
+    let reducedParsedFile = parsedFile.filter(
       v => v.length >= word.length && v.slice(0, word.length) === word
     );
-    let helpers = ["", "", ""];
-    for (let i = 0; i < anotherFile.length; i += 1) {
-      //changer .map => trouver autre chose
-      //reduce puis filter ?
-      helpers = helpers.map(v => {
-        if (v.length > anotherFile[i].length || v === "") {
-          return anotherFile[i];
-        }
-        return v;
-      });
+    //filter to select the 3 shortest ones of the parsed file
+    const helpers = ["", "", ""];
+    //add the shortest word of reducedParsedFile to helpers
+    for (let i = 0; i < helpers.length; i += 1) {
+      helpers[i] = reducedParsedFile.reduce((shortestWord, currentWord) => {
+        return currentWord.length < shortestWord.length
+          ? currentWord
+          : shortestWord;
+      }, reducedParsedFile[0]);
+      reducedParsedFile = reducedParsedFile.filter(w => w !== helpers[i]);
+      if (helpers[i] === undefined) {
+        helpers[i] = helpers[i - 1];
+      }
     }
-    console.log(helpers);
     return helpers;
   };
 
+  const testWords = [
+    "h",
+    "helicopter",
+    "hello",
+    "head",
+    "health",
+    "genius",
+    "the",
+    "there",
+    "tea"
+  ];
+
+  /*
   Papa.parse(fileFromWord, {
     complete(results) {
-      const testWords = [
-        "h",
-        "helicopter",
-        "hello",
-        "head",
-        "health",
-        "genius"
-      ];
-      getWord(testWords);
+      return getWord(testWords);
       //console.log("Finished:", results.data);
     }
-  });
+  });*/
+
+  return getWord(testWords);
 }
 
 ReadCSV.propTypes = {

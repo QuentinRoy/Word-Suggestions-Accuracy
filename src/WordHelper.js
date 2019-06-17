@@ -4,7 +4,7 @@ import "./WordHelper.css";
 import ReadCSV from "./ReadCSV";
 
 function WordHelper({ input, text, setInput, countSimilarChars }) {
-  const [help, setHelp] = useState([" ", " ", " "]);
+  const [help, setHelp] = useState(["", "", ""]);
 
   useEffect(() => {
     setHelp(
@@ -14,7 +14,7 @@ function WordHelper({ input, text, setInput, countSimilarChars }) {
     );
   }, [input]);
 
-  function wordHelpHandler(word) {
+  function helpHandler(word) {
     const i = input.lastIndexOf(" ");
     const newInput = input.slice(0, i + 1) + word;
     setInput(newInput);
@@ -26,17 +26,17 @@ function WordHelper({ input, text, setInput, countSimilarChars }) {
       <tbody>
         <tr>
           <td>
-            <button type="button" onClick={() => wordHelpHandler(help[0])}>
+            <button type="button" onClick={() => helpHandler(help[0])}>
               {help[0]}
             </button>
           </td>
           <td>
-            <button type="button" onClick={() => wordHelpHandler(help[1])}>
+            <button type="button" onClick={() => helpHandler(help[1])}>
               {help[1]}
             </button>
           </td>
           <td>
-            <button type="button" onClick={() => wordHelpHandler(help[2])}>
+            <button type="button" onClick={() => helpHandler(help[2])}>
               {help[2]}
             </button>
           </td>

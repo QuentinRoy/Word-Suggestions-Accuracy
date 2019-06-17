@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import Papa from "papaparse";
+//import Papa from "papaparse";
 
 function ReadCSV(word) {
-  const fileFromWord = "../Word_lists_csv/".concat(
+  /*const fileFromWord = "../Word_lists_csv/".concat(
     word.charAt(0).toUpperCase(),
     "word.csv"
-  );
+  );*/
 
   const getWord = parsedFile => {
     //parsing file to keep only:
@@ -42,12 +42,11 @@ function ReadCSV(word) {
     "there",
     "tea"
   ];
-
   /*
-  Papa.parse(fileFromWord, {
+  return Papa.parse(fileFromWord, {
     complete(results) {
-      return getWord(testWords);
-      //console.log("Finished:", results.data);
+      console.log(results.data);
+      getWord(results.data);
     }
   });*/
 

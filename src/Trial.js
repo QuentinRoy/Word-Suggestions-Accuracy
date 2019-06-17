@@ -33,34 +33,16 @@ const Trial = ({ text }) => {
       handleShift();
     } else if (button === "{bksp}") {
       setInput(input.slice(0, -1));
+    } else if (button === "{space}") {
+      setInput(`${input} `);
     } else {
-      if (button === "{space}") {
-        setInput(`${input} `);
-      } else {
-        setInput(input + button);
-      }
-      countSimilarChars(text, input);
+      setInput(input + button);
     }
   }
 
   function onChangeInput(event) {
     setInput(event.target.value);
     Keyboard.keyboardRef.keyboard.setInput(input);
-  }
-
-  function handlePhysicalKeyboard(keyTyped) {
-    if (keyTyped.keyCode === 8) {
-      // bksp
-      onKeyPress("{bksp}");
-    } else if (keyTyped.keyCode === 16 || keyTyped.keyCode === 20) {
-      // shift & caps lock
-      onKeyPress("{shift}");
-    } else if (
-      (keyTyped.keyCode >= 48 && keyTyped.keyCode <= 90) ||
-      keyTyped.keyCode === 32
-    ) {
-      onKeyPress(keyTyped.key);
-    }
   }
 
   return (
@@ -74,7 +56,6 @@ const Trial = ({ text }) => {
         value={input}
         placeholder="Tap on the virtual keyboard to start"
         onChange={onChangeInput}
-        onKeyDown={handlePhysicalKeyboard}
       />
       <WordHelper
         input={input}

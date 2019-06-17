@@ -9,7 +9,7 @@ function WordHelper({ input, text, setInput, countSimilarChars }) {
   useEffect(() => {
     setHelp(
       ReadCSV(
-        input.slice(input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") : 0)
+        input.slice(input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0)
       )
     );
   }, [input]);

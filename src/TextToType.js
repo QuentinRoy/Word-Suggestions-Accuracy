@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./TextToType.css";
 
 const TextToType = ({ text, correctCharsCount, input }) => {
   const isCorrect = correctCharsCount === text.length;

@@ -15,10 +15,12 @@ function WordHelper({ input, text, setInput, countSimilarChars }) {
   }, [input]);
 
   function helpHandler(word) {
-    const i = input.lastIndexOf(" ");
-    const newInput = input.slice(0, i + 1) + word;
-    setInput(newInput);
-    countSimilarChars(text, input);
+    if (word !== undefined) {
+      const i = input.lastIndexOf(" ");
+      const newInput = input.slice(0, i + 1) + word;
+      setInput(newInput);
+      countSimilarChars(text, input);
+    }
   }
 
   return (

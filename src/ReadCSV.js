@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 //import Papa from "papaparse";
 
 function ReadCSV(word) {
-  /*const fileFromWord = "../Word_lists_csv/".concat(
+  /*const fileFromWord = "file:///Users/sebastien/accuracy_autocorrect/Word_lists_csv/".concat(
     word.charAt(0).toUpperCase(),
     "word.csv"
   );*/
@@ -19,24 +19,26 @@ function ReadCSV(word) {
     "tea"
   ];
 
-  const getWord = parsedFile => {
-    //parsing file to only keep:
-    //- words longer than 'word'
-    //- words with the same first letters
-    let reducedParsedFile = parsedFile.filter(
-      w => w.length >= word.length && w.slice(0, word.length) === word
-    );
-    //filter to select the 3 shortest ones of the parsed file
+  const getHelpers = parsedFile => {
     const helpers = ["", "", ""];
-    //add the shortest word of reducedParsedFile to helpers
-    for (let i = 0; i < helpers.length; i += 1) {
-      helpers[i] = reducedParsedFile.reduce((shortestWord, currentWord) => {
-        return currentWord.length < shortestWord.length
-          ? currentWord
-          : shortestWord;
-      }, reducedParsedFile[0]);
-      reducedParsedFile = reducedParsedFile.filter(w => w !== helpers[i]);
-      if (helpers[i] === undefined) helpers[i] = helpers[i - 1];
+    if (word !== "") {
+      //parsing file to only keep:
+      //- words longer than 'word'
+      //- words with the same first letters
+      let reducedParsedFile = parsedFile.filter(
+        w => w.length >= word.length && w.slice(0, word.length) === word
+      );
+      //filter to select the 3 shortest ones of the parsed file
+      //add the shortest word of reducedParsedFile to helpers
+      for (let i = 0; i < helpers.length; i += 1) {
+        helpers[i] = reducedParsedFile.reduce((shortestWord, currentWord) => {
+          return currentWord.length < shortestWord.length
+            ? currentWord
+            : shortestWord;
+        }, reducedParsedFile[0]);
+        reducedParsedFile = reducedParsedFile.filter(w => w !== helpers[i]);
+        if (helpers[i] === undefined) helpers[i] = helpers[i - 1];
+      }
     }
     return helpers;
   };
@@ -59,7 +61,7 @@ function ReadCSV(word) {
     reader.readAsText(file);
   };*/
 
-  return word === " " ? [" ", " ", " "] : getWord(testWords);
+  return getHelpers(testWords);
 }
 
 ReadCSV.propTypes = {

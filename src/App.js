@@ -1,7 +1,7 @@
 import React from "react";
 import Trial from "./Trial";
 import Loading from "./Loading";
-import useDictionary, { LOADED, LOADING, CRASHED } from "./useDictionary";
+import useDictionary, { LOADED, LOADING } from "./useDictionary";
 
 function App() {
   const [dictionaryLoadingState, dictionary] = useDictionary();

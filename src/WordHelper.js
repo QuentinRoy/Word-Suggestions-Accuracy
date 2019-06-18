@@ -31,13 +31,13 @@ function WordHelper({ input, text, setInput, countSimilarChars, dictionary }) {
       <tbody>
         <tr>
           <td>
-            <button type="button" onClick={() => helpHandler(help[0])}>
-              {help[0]}
+            <button type="button" onClick={() => helpHandler(help[1])}>
+              {help[1]}
             </button>
           </td>
           <td>
-            <button type="button" onClick={() => helpHandler(help[1])}>
-              {help[1]}
+            <button type="button" onClick={() => helpHandler(help[0])}>
+              {help[0]}
             </button>
           </td>
           <td>

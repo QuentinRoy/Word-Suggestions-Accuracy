@@ -18,7 +18,7 @@ const countSimilarChars = (str1, str2) => {
   return correctCharsCount;
 };
 
-const Trial = ({ text }) => {
+const Trial = ({ text, dictionary }) => {
   const [layoutName, setLayout] = useState("default");
   const [input, setInput] = useState("");
 
@@ -58,6 +58,7 @@ const Trial = ({ text }) => {
         onChange={onChangeInput}
       />
       <WordHelper
+        dictionary={dictionary}
         input={input}
         text={text}
         setInput={setInput}
@@ -75,7 +76,8 @@ const Trial = ({ text }) => {
 };
 
 Trial.propTypes = {
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
+  dictionary: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default Trial;

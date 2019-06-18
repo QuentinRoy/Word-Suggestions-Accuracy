@@ -1,35 +1,20 @@
 import PropTypes from "prop-types";
 //import Papa from "papaparse";
 
-function ReadCSV(word) {
-  /*const fileFromWord = "file:///Users/sebastien/accuracy_autocorrect/Word_lists_csv/".concat(
+function ReadCSV(word, testWords) {
+  const fileFromWord = "file:///Users/sebastien/accuracy_autocorrect/Word_lists_csv/".concat(
     word.charAt(0).toUpperCase(),
     "word.csv"
-  );*/
-
-  const testWords = [
-    "h",
-    "helicopter",
-    "hello",
-    "head",
-    "health",
-    "genius",
-    "the",
-    "there",
-    "tea"
-  ];
+  );
 
   const getHelpers = parsedFile => {
     const helpers = ["", "", ""];
     if (word !== "") {
-      //parsing file to only keep:
-      //- words longer than 'word'
-      //- words with the same first letters
+      //parsing file to only keep words with the same first letters
       let reducedParsedFile = parsedFile.filter(
-        w => w.length >= word.length && w.slice(0, word.length) === word
+        w => w.slice(0, word.length) === word
       );
-      //filter to select the 3 shortest ones of the parsed file
-      //add the shortest word of reducedParsedFile to helpers
+      //add the 3 shortest words of reducedParsedFile to helpers
       for (let i = 0; i < helpers.length; i += 1) {
         helpers[i] = reducedParsedFile.reduce((shortestWord, currentWord) => {
           return currentWord.length < shortestWord.length
@@ -43,13 +28,12 @@ function ReadCSV(word) {
     return helpers;
   };
 
-  /* SOLUTION 1
-  return Papa.parse(fileFromWord, {
-    complete(results) {
-      console.log(results.data);
-      getWord(results.data);
-    }
-  });*/
+  // return Papa.parse(fileFromWord, {
+  //   complete(results) {
+  //     console.log(results.data);
+  //     getWord(results.data);
+  //   }
+  // });
 
   /* SOLUTION 2
   const openFile = file => {

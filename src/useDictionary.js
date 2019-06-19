@@ -4,7 +4,7 @@ export const LOADING = "loading";
 export const LOADED = "loaded";
 export const CRASHED = "crashed";
 
-const urls = Array.from("ABCDEFGHIJKLMNOPQRSTUVXWZ").map(
+const urls = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ").map(
   letter => `./Word_lists_csv/${letter}word.txt`
 );
 

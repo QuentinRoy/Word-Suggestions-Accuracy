@@ -29,19 +29,25 @@ const Trial = ({ text, dictionary }) => {
   }
 
   function onKeyPress(button) {
-    if (button === "{shift}" || button === "{lock}") {
-      handleShift();
-    } else if (button === "{bksp}") {
-      setInput(input.slice(0, -1));
-    } else if (button === "{space}") {
-      setInput(`${input} `);
-    } else {
-      setInput(input + button);
+    if (button === "{shift}" || button === "{lock}") handleShift();
+    else if (button === "{bksp}") setInput(input.slice(0, -1));
+    else if (button === "{space}") setInput(`${input} `);
+    else if (correctCharsCount !== text.length) setInput(input + button);
+  }
+
+  function physicalKeyboardHandler(event) {
+    if (event.keyCode === 8) onKeyPress("{bksp}");
+    else if (event.keyCode === 16 || event.keyCode === 20) {
+      onKeyPress("{shift}");
+    } else if (
+      (event.keyCode >= 48 && event.keyCode <= 90) ||
+      event.keyCode === 32
+    ) {
+      onKeyPress(event.key);
     }
   }
 
   function onChangeInput(event) {
-    setInput(event.target.value);
     Keyboard.keyboardRef.keyboard.setInput(input);
   }
 
@@ -56,6 +62,7 @@ const Trial = ({ text, dictionary }) => {
         value={input}
         placeholder="Tap on the virtual keyboard to start"
         onChange={onChangeInput}
+        onKeyDown={physicalKeyboardHandler}
       />
       <WordHelper
         dictionary={dictionary}

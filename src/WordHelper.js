@@ -20,7 +20,7 @@ function WordHelper({ input, text, setInput, countSimilarChars, dictionary }) {
   function helpHandler(word) {
     if (word !== undefined) {
       const i = input.lastIndexOf(" ");
-      const newInput = input.slice(0, i + 1) + word;
+      const newInput = `${input.slice(0, i + 1) + word} `;
       setInput(newInput);
       countSimilarChars(text, input);
     }

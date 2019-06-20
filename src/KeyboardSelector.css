@@ -1,0 +1,16 @@
+.button-keyboard-selector {
+  margin-left: 30%;
+}
+
+.kbselector-button {
+  height: 50px;
+  max-width: 30%;
+  border: 3px solid #ebebeb;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.typing-label {
+  text-align: center;
+  margin-top: 50px;
+}

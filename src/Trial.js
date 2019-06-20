@@ -18,20 +18,28 @@ const countSimilarChars = (str1, str2) => {
   return correctCharsCount;
 };
 
-const Trial = ({ text, dictionary }) => {
-  const [layoutName, setLayout] = useState("default");
+const Trial = ({ text, dictionary, keyboardLayout }) => {
+  const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
 
   const correctCharsCount = countSimilarChars(text, input);
 
   function handleShift() {
-    setLayout(layoutName === "default" ? "shift" : "default");
+    setLayoutName(layoutName === "default" ? "shift" : "default");
+  }
+
+  function handleNumbersOnMobile() {
+    setLayoutName(layoutName === "default" ? "numbers" : "default");
   }
 
   function onKeyPress(button) {
     if (button === "{shift}" || button === "{lock}") handleShift();
+    else if (button === "{numbers}" || button === "{abc}")
+      handleNumbersOnMobile();
     else if (button === "{bksp}") setInput(input.slice(0, -1));
     else if (button === "{space}") setInput(`${input} `);
+    else if (button === "{enter}" || button === "{tab}")
+      console.log("enter pressed");
     else if (correctCharsCount !== text.length) setInput(input + button);
   }
 
@@ -75,6 +83,8 @@ const Trial = ({ text, dictionary }) => {
         ref={r => {
           Keyboard.keyboardRef = r;
         }}
+        display={keyboardLayout.display}
+        layout={keyboardLayout.layout}
         layoutName={layoutName}
         onKeyPress={onKeyPress}
       />
@@ -84,7 +94,10 @@ const Trial = ({ text, dictionary }) => {
 
 Trial.propTypes = {
   text: PropTypes.string.isRequired,
-  dictionary: PropTypes.arrayOf(PropTypes.string).isRequired
+  dictionary: PropTypes.arrayOf(PropTypes.string).isRequired,
+  keyboardLayout: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
+  ).isRequired
 };
 
 export default Trial;

@@ -7,14 +7,10 @@ function WordHelper({ input, text, setInput, countSimilarChars, dictionary }) {
   const [help, setHelp] = useState(["", "", ""]);
 
   useEffect(() => {
-    setHelp(
-      ReadCSV(
-        input.slice(
-          input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
-        ),
-        dictionary
-      )
+    const word = input.slice(
+      input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
     );
+    setHelp(ReadCSV(word, dictionary));
   }, [dictionary, input]);
 
   function helpHandler(word) {

@@ -1,4 +1,7 @@
 import PropTypes from "prop-types";
+
+const distance = require("jaro-winkler");
+
 /*
 const levenshteinDistance = (str1, str2) => {
   const distanceMatrix = Array(str2.length + 1)
@@ -27,10 +30,15 @@ const levenshteinDistance = (str1, str2) => {
 };
 */
 function ReadCSV(word, testWords) {
-  //console.log("================= NEXT WORDS ====================");
+  console.log("================= NEXT WORDS ====================");
   const helpers = ["", "", ""];
+  const parsedFile = [...new Set(testWords)]; //delete duplicates
 
-  /*let minimumSize = 10;
+  //
+  // LEVENSHEIN DISTANCE
+  //
+  /*
+  let minimumSize = 10;
   const helpers2 = Array(testWords.length).fill(null);
   for (let i = 0; i < testWords.length; i += 1) {
     helpers2[i] = levenshteinDistance(word, testWords[i]);
@@ -44,12 +52,45 @@ function ReadCSV(word, testWords) {
     }
     minimumSize = helpers2[i] < minimumSize ? helpers2[i] : minimumSize;
   }
+  */
+
+  //
+  // JARO-WINKLER DISTANCE
+  //
+  /*
+  const topScores = [0, 0, 0];
+  const dist = Array(reducedParsedFile.length).fill(null);
+
+  for (let i = 0; i < reducedParsedFile.length; i += 1) {
+    dist[i] = distance(word, reducedParsedFile[i]);
+    if (reducedParsedFile[i] === "hello") {
+      console.log(dist[i]);
+    }
+    if (dist[i] > 0.8) {
+      if (dist[i] > topScores[0]) {
+        topScores[0] = dist[i];
+        helpers[0] = reducedParsedFile[i];
+      } else if (dist[i] > topScores[1]) {
+        topScores[1] = dist[i];
+        helpers[1] = reducedParsedFile[i];
+      } else if (dist[i] > topScores[2]) {
+        topScores[2] = dist[i];
+        helpers[2] = reducedParsedFile[i];
+      }
+    }
+  }
+  console.log("topScores", topScores);
+  console.log("helpers", helpers);
 */
+  //
+  // BASIC WORD COMPLETION
+  //
+
   let charUpper = false;
   if (word.charAt(0) === word.charAt(0).toUpperCase()) charUpper = true;
 
   if (word !== "") {
-    let reducedParsedFile = testWords.filter(
+    let reducedParsedFile = parsedFile.filter(
       w => w.slice(0, word.length) === word.toLowerCase()
     );
     for (let i = 0; i < helpers.length; i += 1) {
@@ -71,7 +112,8 @@ function ReadCSV(word, testWords) {
 }
 
 ReadCSV.propTypes = {
-  word: PropTypes.string.isRequired
+  word: PropTypes.string.isRequired,
+  testWords: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default ReadCSV;

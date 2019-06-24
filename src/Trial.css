@@ -1,5 +1,6 @@
 input {
   width: 100%;
+  max-width: 850px;
   height: 100px;
   padding: 20px;
   font-size: 20px;
@@ -26,6 +27,8 @@ h4 {
 }
 
 #text-to-type {
+  width: 100%;
+  max-width: 850px;
   padding: 20px;
   padding-top: 0px;
   border-bottom: 1px solid #c5c5c5;
@@ -41,4 +44,25 @@ h4 {
 
 .text {
   color: black;
+}
+
+.advance-workflow-div {
+  max-width: 850px;
+  width: 100%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.advance-workflow-button {
+  margin-left: 40%;
+  font-weight: bold;
+  color: white;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #0074cd;
+  width: 100px;
+}
+
+.advance-workflow-button:hover {
+  background-color: #008af3;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
 import "react-simple-keyboard/build/css/index.css";
@@ -18,11 +18,16 @@ const countSimilarChars = (str1, str2) => {
   return correctCharsCount;
 };
 
-const Trial = ({ text, dictionary, keyboardLayout }) => {
+const Trial = ({ text, dictionary, keyboardLayout, onAdvanceWorkflow }) => {
   const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
 
   const correctCharsCount = countSimilarChars(text, input);
+  const isCorrect = correctCharsCount === text.length;
+
+  useEffect(() => {
+    setInput("");
+  }, [text]);
 
   function handleShift() {
     setLayoutName(layoutName === "default" ? "shift" : "default");
@@ -40,7 +45,7 @@ const Trial = ({ text, dictionary, keyboardLayout }) => {
     else if (button === "{space}") setInput(`${input} `);
     else if (button === "{enter}" || button === "{tab}")
       console.log("enter pressed");
-    else if (correctCharsCount !== text.length) setInput(input + button);
+    else if (!isCorrect) setInput(input + button);
   }
 
   function physicalKeyboardHandler(event) {
@@ -88,6 +93,17 @@ const Trial = ({ text, dictionary, keyboardLayout }) => {
         layoutName={layoutName}
         onKeyPress={onKeyPress}
       />
+      <div className="advance-workflow-div">
+        {isCorrect ? (
+          <button
+            type="button"
+            onClick={onAdvanceWorkflow}
+            className="advance-workflow-button"
+          >
+            Continue
+          </button>
+        ) : null}
+      </div>
     </div>
   );
 };
@@ -97,7 +113,8 @@ Trial.propTypes = {
   dictionary: PropTypes.arrayOf(PropTypes.string).isRequired,
   keyboardLayout: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
-  ).isRequired
+  ).isRequired,
+  onAdvanceWorkflow: PropTypes.func.isRequired
 };
 
 export default Trial;

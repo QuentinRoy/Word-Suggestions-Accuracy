@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const distance = require("jaro-winkler");
+//const distance = require("jaro-winkler");
 
 /*
 const levenshteinDistance = (str1, str2) => {
@@ -30,7 +30,7 @@ const levenshteinDistance = (str1, str2) => {
 };
 */
 function ReadCSV(word, testWords) {
-  console.log("================= NEXT WORDS ====================");
+  //console.log("================= NEXT WORDS ====================");
   const helpers = ["", "", ""];
   const parsedFile = [...new Set(testWords)]; //delete duplicates
 

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import useDictionary, { LOADED, LOADING } from "./useDictionary";
 import Trial from "./Trial";
 import Loading from "./Loading";
 import KeyboardSelector from "./KeyboardSelector";
-import useDictionary, { LOADED, LOADING } from "./useDictionary";
 
-function App() {
+function App({ text, onAdvanceWorkflow }) {
   const [dictionaryLoadingState, dictionary] = useDictionary();
   const [keyboardLayout, setKeyboardLayout] = useState(null);
 
@@ -15,9 +16,10 @@ function App() {
       }
       return (
         <Trial
-          text="hello there"
+          text={text}
           dictionary={dictionary}
           keyboardLayout={keyboardLayout}
+          onAdvanceWorkflow={onAdvanceWorkflow}
         />
       );
     case LOADING:
@@ -26,5 +28,10 @@ function App() {
       return <div>Oh nooo...</div>;
   }
 }
+
+App.propTypes = {
+  text: PropTypes.string.isRequired,
+  onAdvanceWorkflow: PropTypes.func.isRequired
+};
 
 export default App;

@@ -6,6 +6,7 @@ import "./index.css";
 import "./Trial.css";
 import WordHelper from "./WordHelper";
 import TextToType from "./TextToType";
+import WorkflowButton from "./WorkflowButton";
 
 const countSimilarChars = (str1, str2) => {
   let correctCharsCount = 0;
@@ -22,12 +23,12 @@ const Trial = ({ text, dictionary, keyboardLayout, onAdvanceWorkflow }) => {
   const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
 
-  const correctCharsCount = countSimilarChars(text, input);
-  const isCorrect = correctCharsCount === text.length;
-
   useEffect(() => {
     setInput("");
   }, [text]);
+
+  const correctCharsCount = countSimilarChars(text, input);
+  const isCorrect = correctCharsCount === text.length;
 
   function handleShift() {
     setLayoutName(layoutName === "default" ? "shift" : "default");
@@ -93,17 +94,10 @@ const Trial = ({ text, dictionary, keyboardLayout, onAdvanceWorkflow }) => {
         layoutName={layoutName}
         onKeyPress={onKeyPress}
       />
-      <div className="advance-workflow-div">
-        {isCorrect ? (
-          <button
-            type="button"
-            onClick={onAdvanceWorkflow}
-            className="advance-workflow-button"
-          >
-            Continue
-          </button>
-        ) : null}
-      </div>
+      <WorkflowButton
+        isCorrect={isCorrect}
+        onAdvanceWorkflow={onAdvanceWorkflow}
+      />
     </div>
   );
 };

@@ -13,19 +13,23 @@ You are about to complete a human-computer interaction experiment. This experime
           label: "I consent to my data being collected in this experiment",
           required: true
         }
-      ]
+      ],
+      key: 0
     },
     {
       task: "App",
-      text: "hello world"
+      text: "hello world",
+      key: 1
     },
     {
       task: "App",
-      text: "it is not sunny today"
+      text: "it is not sunny today",
+      key: 2
     },
     {
       task: "App",
-      text: "This experiment is awesome"
+      text: "This experiment is awesome",
+      key: 3
     }
   ]
 };

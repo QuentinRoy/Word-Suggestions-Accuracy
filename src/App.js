@@ -1,19 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import useDictionary, { LOADED, LOADING } from "./useDictionary";
 import Trial from "./Trial";
+import useDictionary, { LOADED, LOADING } from "./useDictionary";
 import Loading from "./Loading";
-import KeyboardSelector from "./KeyboardSelector";
 
-function App({ text, onAdvanceWorkflow, onLog }) {
+function App({ text, onAdvanceWorkflow, onLog, keyboardLayout }) {
   const [dictionaryLoadingState, dictionary] = useDictionary();
-  const [keyboardLayout, setKeyboardLayout] = useState(null);
 
   switch (dictionaryLoadingState) {
     case LOADED:
-      if (keyboardLayout === null) {
-        return <KeyboardSelector setKeyboardLayout={setKeyboardLayout} />;
-      }
       return (
         <Trial
           text={text}
@@ -33,7 +28,10 @@ function App({ text, onAdvanceWorkflow, onLog }) {
 App.propTypes = {
   text: PropTypes.string.isRequired,
   onAdvanceWorkflow: PropTypes.func.isRequired,
-  onLog: PropTypes.func.isRequired
+  onLog: PropTypes.func.isRequired,
+  keyboardLayout: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
+  ).isRequired
 };
 
 export default App;

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./KeyboardSelector.css";
 
-const KeyboardSelector = ({ setKeyboardLayout }) => {
+const KeyboardSelector = ({ onEditConfig, onAdvanceWorkflow }) => {
   const mobileLayout = {
     id: "mobile",
     mergeDisplay: true,
@@ -62,7 +62,8 @@ const KeyboardSelector = ({ setKeyboardLayout }) => {
           className="kbselector-button"
           type="button"
           onClick={() => {
-            setKeyboardLayout(mobileLayout);
+            onEditConfig("keyboardLayout", mobileLayout);
+            onAdvanceWorkflow();
           }}
         >
           Mobile
@@ -71,7 +72,8 @@ const KeyboardSelector = ({ setKeyboardLayout }) => {
           className="kbselector-button"
           type="button"
           onClick={() => {
-            setKeyboardLayout(desktopLayout);
+            onEditConfig("keyboardLayout", desktopLayout);
+            onAdvanceWorkflow();
           }}
         >
           Desktop
@@ -82,7 +84,8 @@ const KeyboardSelector = ({ setKeyboardLayout }) => {
 };
 
 KeyboardSelector.propTypes = {
-  setKeyboardLayout: PropTypes.func.isRequired
+  onEditConfig: PropTypes.func.isRequired,
+  onAdvanceWorkflow: PropTypes.func.isRequired
 };
 
 export default KeyboardSelector;

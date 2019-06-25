@@ -1,7 +1,7 @@
 export default {
   participant: "yo",
   children: [
-    /*{
+    {
       task: "InformationScreen",
       centerX: true,
       centerY: true,
@@ -23,21 +23,25 @@ You are about to complete a human-computer interaction experiment. This experime
         }
       ],
       key: 1
-    },*/
+    },
     {
-      task: "App",
-      text: "hello world",
+      task: "KeyboardSelector",
       key: 2
     },
     {
       task: "App",
-      text: "it is sunny today",
+      text: "hello world",
       key: 3
-    } /*,
+    },
+    {
+      task: "App",
+      text: "it is sunny today",
+      key: 4
+    },
     {
       task: "App",
       text: "This experiment is awesome",
-      key: 4
-    }*/
+      key: 5
+    }
   ]
 };

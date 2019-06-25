@@ -5,7 +5,7 @@ import Trial from "./Trial";
 import Loading from "./Loading";
 import KeyboardSelector from "./KeyboardSelector";
 
-function App({ text, onAdvanceWorkflow }) {
+function App({ text, onAdvanceWorkflow, onLog }) {
   const [dictionaryLoadingState, dictionary] = useDictionary();
   const [keyboardLayout, setKeyboardLayout] = useState(null);
 
@@ -20,6 +20,7 @@ function App({ text, onAdvanceWorkflow }) {
           dictionary={dictionary}
           keyboardLayout={keyboardLayout}
           onAdvanceWorkflow={onAdvanceWorkflow}
+          onLog={onLog}
         />
       );
     case LOADING:
@@ -31,7 +32,8 @@ function App({ text, onAdvanceWorkflow }) {
 
 App.propTypes = {
   text: PropTypes.string.isRequired,
-  onAdvanceWorkflow: PropTypes.func.isRequired
+  onAdvanceWorkflow: PropTypes.func.isRequired,
+  onLog: PropTypes.func.isRequired
 };
 
 export default App;

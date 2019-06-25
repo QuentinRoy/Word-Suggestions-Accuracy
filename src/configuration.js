@@ -1,6 +1,14 @@
 export default {
   participant: "yo",
   children: [
+    /*{
+      task: "InformationScreen",
+      centerX: true,
+      centerY: true,
+      content: "Word completion accuracy experiment",
+      shortcutEnabled: true,
+      key: 0
+    },
     {
       task: "ConsentForm",
       letter: `
@@ -14,22 +22,22 @@ You are about to complete a human-computer interaction experiment. This experime
           required: true
         }
       ],
-      key: 0
-    },
+      key: 1
+    },*/
     {
       task: "App",
       text: "hello world",
-      key: 1
-    },
-    {
-      task: "App",
-      text: "it is not sunny today",
       key: 2
     },
     {
       task: "App",
-      text: "This experiment is awesome",
+      text: "it is sunny today",
       key: 3
-    }
+    } /*,
+    {
+      task: "App",
+      text: "This experiment is awesome",
+      key: 4
+    }*/
   ]
 };

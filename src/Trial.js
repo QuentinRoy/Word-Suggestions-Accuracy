@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
 import "react-simple-keyboard/build/css/index.css";
@@ -19,13 +19,15 @@ const countSimilarChars = (str1, str2) => {
   return correctCharsCount;
 };
 
-const Trial = ({ text, dictionary, keyboardLayout, onAdvanceWorkflow }) => {
+const Trial = ({
+  text,
+  dictionary,
+  keyboardLayout,
+  onAdvanceWorkflow,
+  onLog
+}) => {
   const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
-
-  useEffect(() => {
-    setInput("");
-  }, [text]);
 
   const correctCharsCount = countSimilarChars(text, input);
   const isCorrect = correctCharsCount === text.length;
@@ -45,7 +47,7 @@ const Trial = ({ text, dictionary, keyboardLayout, onAdvanceWorkflow }) => {
     else if (button === "{bksp}") setInput(input.slice(0, -1));
     else if (button === "{space}") setInput(`${input} `);
     else if (button === "{enter}" || button === "{tab}")
-      console.log("enter pressed");
+      console.log("enter or tab pressed");
     else if (!isCorrect) setInput(input + button);
   }
 
@@ -58,11 +60,15 @@ const Trial = ({ text, dictionary, keyboardLayout, onAdvanceWorkflow }) => {
       event.keyCode === 32
     ) {
       onKeyPress(event.key);
+    } else if (event.keyCode >= 112 && event.keyCode <= 114) {
+      //shortcuts on physical keyboard ??
     }
   }
 
   function onChangeInput(event) {
-    Keyboard.keyboardRef.keyboard.setInput(input);
+    if (keyboardLayout.id === "mobile") {
+      Keyboard.keyboardRef.keyboard.setInput(input);
+    }
   }
 
   return (
@@ -74,9 +80,14 @@ const Trial = ({ text, dictionary, keyboardLayout, onAdvanceWorkflow }) => {
       />
       <input
         value={input}
-        placeholder="Tap on the virtual keyboard to start"
+        placeholder={
+          keyboardLayout.id === "mobile"
+            ? "Tap on the virtual keyboard to start"
+            : "Tap on your keyboard to start"
+        }
         onChange={onChangeInput}
         onKeyDown={physicalKeyboardHandler}
+        autoFocus={keyboardLayout.id === "physical"}
       />
       <WordHelper
         dictionary={dictionary}
@@ -84,16 +95,19 @@ const Trial = ({ text, dictionary, keyboardLayout, onAdvanceWorkflow }) => {
         text={text}
         setInput={setInput}
         countSimilarChars={countSimilarChars}
+        onLog={onLog}
       />
-      <Keyboard
-        ref={r => {
-          Keyboard.keyboardRef = r;
-        }}
-        display={keyboardLayout.display}
-        layout={keyboardLayout.layout}
-        layoutName={layoutName}
-        onKeyPress={onKeyPress}
-      />
+      {keyboardLayout.id === "mobile" ? (
+        <Keyboard
+          ref={r => {
+            Keyboard.keyboardRef = r;
+          }}
+          display={keyboardLayout.display}
+          layout={keyboardLayout.layout}
+          layoutName={layoutName}
+          onKeyPress={onKeyPress}
+        />
+      ) : null}
       <WorkflowButton
         isCorrect={isCorrect}
         onAdvanceWorkflow={onAdvanceWorkflow}
@@ -108,7 +122,8 @@ Trial.propTypes = {
   keyboardLayout: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
   ).isRequired,
-  onAdvanceWorkflow: PropTypes.func.isRequired
+  onAdvanceWorkflow: PropTypes.func.isRequired,
+  onLog: PropTypes.func.isRequired
 };
 
 export default Trial;

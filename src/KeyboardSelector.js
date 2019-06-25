@@ -4,6 +4,7 @@ import "./KeyboardSelector.css";
 
 const KeyboardSelector = ({ setKeyboardLayout }) => {
   const mobileLayout = {
+    id: "mobile",
     mergeDisplay: true,
     layoutName: "default",
     layout: {
@@ -32,6 +33,7 @@ const KeyboardSelector = ({ setKeyboardLayout }) => {
   };
 
   const desktopLayout = {
+    id: "physical",
     mergeDisplay: true,
     layoutName: "default",
     layout: {

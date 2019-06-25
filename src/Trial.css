@@ -10,7 +10,6 @@ input {
 
 .simple-keyboard {
   max-width: 850px;
-  /*display: none;*/
 }
 
 h4 {
@@ -27,8 +26,7 @@ h4 {
 }
 
 #text-to-type {
-  width: 100%;
-  max-width: 850px;
+  max-width: 810px;
   padding: 20px;
   padding-top: 0px;
   border-bottom: 1px solid #c5c5c5;
@@ -54,7 +52,7 @@ h4 {
 }
 
 .advance-workflow-button {
-  margin-left: 40%;
+  margin-left: 45%;
   font-weight: bold;
   color: white;
   height: 40px;
@@ -64,5 +62,6 @@ h4 {
 }
 
 .advance-workflow-button:hover {
-  background-color: #008af3;
+  background-color: #008af0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
 }

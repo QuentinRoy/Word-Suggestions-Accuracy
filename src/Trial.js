@@ -44,27 +44,37 @@ const Trial = ({
     if (button === "{shift}" || button === "{lock}") handleShift();
     else if (button === "{numbers}" || button === "{abc}")
       handleNumbersOnMobile();
-    else if (button === "{bksp}") setInput(`${input.slice(0, -2)}‸`);
-    else if (button === "{space}") {
+    else if (button === "{bksp}") {
+      let idx = 1;
+      if (keyboardLayout.id === "mobile") idx = 2;
+      setInput(
+        `${input.slice(0, -idx) + (keyboardLayout.id === "mobile" ? "‸" : "")}`
+      );
+    } else if (button === "{space}" && !isCorrect) {
       if (
         keyboardLayout.id === "mobile" &&
         input.charAt(input.length - 2) === " " &&
         button === "{space}"
       ) {
         setInput(`${input.slice(0, -2)}. ‸`);
-      } else if (keyboardLayout.id === "mobile") {
-        setInput(`${input.slice(0, -1)} ‸`);
       } else {
-        setInput(`${input.slice(0, -1)} `);
+        setInput(
+          `${input.slice(0, -1) +
+            (keyboardLayout.id === "mobile" ? " ‸" : " ")}`
+        );
       }
     } else if (button === "{enter}" || button === "{tab}")
       console.log("enter or tab pressed");
     else if (!isCorrect) {
-      let idx = 1;
-      if (input.charAt(input.length - 2) === " " && button === ".") idx = 2;
-      if (keyboardLayout.id === "mobile") {
+      if (input.charAt(input.length - 1) === " " && button === ".") {
         setInput(
-          `${input.slice(0, -idx) +
+          `${input.slice(0, -1) +
+            button +
+            (keyboardLayout.id === "mobile" ? " ‸" : " ")}`
+        );
+      } else if (keyboardLayout.id === "mobile") {
+        setInput(
+          `${input.slice(0, -1) +
             button +
             (keyboardLayout.id === "mobile" ? "‸" : "")}`
         );

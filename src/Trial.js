@@ -45,10 +45,25 @@ const Trial = ({
     else if (button === "{numbers}" || button === "{abc}")
       handleNumbersOnMobile();
     else if (button === "{bksp}") setInput(input.slice(0, -1));
-    else if (button === "{space}") setInput(`${input} `);
-    else if (button === "{enter}" || button === "{tab}")
+    else if (button === "{space}") {
+      if (
+        keyboardLayout.id === "mobile" &&
+        input.charAt(input.length - 1) === " " &&
+        button === "{space}"
+      ) {
+        setInput(`${input.slice(0, -1)}. `);
+      } else {
+        setInput(`${input} `);
+      }
+    } else if (button === "{enter}" || button === "{tab}")
       console.log("enter or tab pressed");
-    else if (!isCorrect) setInput(input + button);
+    else if (!isCorrect) {
+      if (input.charAt(input.length - 1) === " " && button === ".") {
+        setInput(input.slice(0, -1) + button);
+      } else {
+        setInput(input + button);
+      }
+    }
   }
 
   function physicalKeyboardHandler(event) {
@@ -57,7 +72,8 @@ const Trial = ({
       onKeyPress("{shift}");
     } else if (
       (event.keyCode >= 48 && event.keyCode <= 90) ||
-      event.keyCode === 32
+      event.keyCode === 32 ||
+      (event.keyCode >= 186 && event.keyCode <= 192)
     ) {
       onKeyPress(event.key);
     } else if (event.keyCode >= 112 && event.keyCode <= 114) {

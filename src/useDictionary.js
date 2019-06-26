@@ -28,7 +28,8 @@ const useDictionary = () => {
         setDict(words);
         setLoadingState(LOADED);
       })
-      .catch(() => {
+      .catch(e => {
+        console.log("Error while loading dictionary", e);
         setLoadingState(CRASHED);
       });
   }, []);

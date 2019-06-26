@@ -44,24 +44,32 @@ const Trial = ({
     if (button === "{shift}" || button === "{lock}") handleShift();
     else if (button === "{numbers}" || button === "{abc}")
       handleNumbersOnMobile();
-    else if (button === "{bksp}") setInput(input.slice(0, -1));
+    else if (button === "{bksp}") setInput(`${input.slice(0, -2)}‸`);
     else if (button === "{space}") {
       if (
         keyboardLayout.id === "mobile" &&
-        input.charAt(input.length - 1) === " " &&
+        input.charAt(input.length - 2) === " " &&
         button === "{space}"
       ) {
-        setInput(`${input.slice(0, -1)}. `);
+        setInput(`${input.slice(0, -2)}. ‸`);
+      } else if (keyboardLayout.id === "mobile") {
+        setInput(`${input.slice(0, -1)} ‸`);
       } else {
-        setInput(`${input} `);
+        setInput(`${input.slice(0, -1)} `);
       }
     } else if (button === "{enter}" || button === "{tab}")
       console.log("enter or tab pressed");
     else if (!isCorrect) {
-      if (input.charAt(input.length - 1) === " " && button === ".") {
-        setInput(input.slice(0, -1) + button);
+      let idx = 1;
+      if (input.charAt(input.length - 2) === " " && button === ".") idx = 2;
+      if (keyboardLayout.id === "mobile") {
+        setInput(
+          `${input.slice(0, -idx) +
+            button +
+            (keyboardLayout.id === "mobile" ? "‸" : "")}`
+        );
       } else {
-        setInput(input + button);
+        setInput(`${input + button}`);
       }
     }
   }
@@ -81,18 +89,12 @@ const Trial = ({
     }
   }
 
-  function onChangeInput(event) {
-    if (keyboardLayout.id === "mobile") {
-      Keyboard.keyboardRef.keyboard.setInput(input);
-    }
-  }
-
   return (
     <div>
       <TextToType
         text={text}
         correctCharsCount={correctCharsCount}
-        input={input}
+        input={keyboardLayout.id === "mobile" ? input.slice(0, -1) : input}
       />
       <input
         value={input}
@@ -101,17 +103,18 @@ const Trial = ({
             ? "Tap on the virtual keyboard to start"
             : "Tap on your keyboard to start"
         }
-        onChange={onChangeInput}
+        readOnly={keyboardLayout.id === "mobile"}
         onKeyDown={physicalKeyboardHandler}
         autoFocus={keyboardLayout.id === "physical"}
       />
       <WordHelper
         dictionary={dictionary}
-        input={input}
+        input={keyboardLayout.id === "mobile" ? input.slice(0, -1) : input}
         text={text}
         setInput={setInput}
         countSimilarChars={countSimilarChars}
         onLog={onLog}
+        keyboardID={keyboardLayout.id}
       />
       {keyboardLayout.id === "mobile" ? (
         <Keyboard

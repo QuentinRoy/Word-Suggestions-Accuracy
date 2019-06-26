@@ -9,7 +9,8 @@ function WordHelper({
   setInput,
   countSimilarChars,
   dictionary,
-  onLog
+  onLog,
+  keyboardID
 }) {
   const [help, setHelp] = useState(["", "", ""]);
   const [suggestionUsedOnLog, setSuggestionUsedOnLog] = useState([]);
@@ -20,7 +21,7 @@ function WordHelper({
       input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
     );
     setHelp(ReadCSV(word, dictionary));
-  }, [dictionary, input]);
+  }, [input, dictionary]);
 
   useEffect(() => {
     onLog("suggested words used", suggestionUsedOnLog);
@@ -30,8 +31,10 @@ function WordHelper({
   function helpHandler(word) {
     if (word !== undefined && word !== "") {
       const i = input.lastIndexOf(" ");
-      const newInput = `${input.slice(0, i + 1) + word} `;
-      setWordReplacedOnLog(wordReplacedOnLog.concat(input.slice(i + 1)));
+      const newInput = `${input.slice(0, i + 1) +
+        word +
+        (keyboardID === "mobile" ? " ‸" : " ")}`;
+      setWordReplacedOnLog(wordReplacedOnLog.concat(input.slice(i + 1, -1)));
       setInput(newInput);
       countSimilarChars(text, input);
       setSuggestionUsedOnLog(suggestionUsedOnLog.concat(word));
@@ -69,7 +72,8 @@ WordHelper.propTypes = {
   text: PropTypes.string.isRequired,
   setInput: PropTypes.func.isRequired,
   dictionary: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onLog: PropTypes.func.isRequired
+  onLog: PropTypes.func.isRequired,
+  keyboardID: PropTypes.string.isRequired
 };
 
 export default WordHelper;

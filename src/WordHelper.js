@@ -35,7 +35,7 @@ function WordHelper({
     const thresholdCharPos =
       wordFromText.length > 3
         ? accuracyDistribution(wordFromText, accuracy)
-        : 30;
+        : 100;
     setHelp(ReadCSV(word, dictionary, thresholdCharPos, wordFromText));
   }, [input, dictionary, accuracy, text]);
 

@@ -62,12 +62,12 @@ const Trial = ({
     } else if (button === "{space}" && !isCorrect) {
       if (
         keyboardLayout.id === "mobile" &&
-        input.charAt(input.length - 2) === " " &&
+        input.charAt(input.length - 1) === " " &&
         button === "{space}"
       ) {
-        setInput(`${input.slice(0, -2)}. `);
+        setInput(`${input.slice(0, -1)}. `);
       } else {
-        setInput(`${input.slice(0, -1)} `);
+        setInput(`${input} `);
       }
     } else if (button === "{enter}") {
       setFocusIndex(0);
@@ -118,8 +118,16 @@ const Trial = ({
     }
   }
 
+  const divStyle = { outline: "none" };
+
+  // gerer les differents cas du focus en fonction des ref ?
   return (
-    <div onKeyDown={physicalKeyboardHandler}>
+    <div
+      onKeyDown={physicalKeyboardHandler}
+      role="button"
+      tabIndex="-1"
+      style={divStyle}
+    >
       <TextToType
         text={text}
         correctCharsCount={correctCharsCount}

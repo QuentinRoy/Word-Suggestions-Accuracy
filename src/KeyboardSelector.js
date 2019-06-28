@@ -55,8 +55,8 @@ const KeyboardSelector = ({ onEditConfig, onAdvanceWorkflow }) => {
   };
 
   return (
-    <div>
-      <p className="typing-label">I am typing on:</p>
+    <div className="selector-div">
+      <p>I am typing on:</p>
       <div className="button-keyboard-selector">
         <button
           className="kbselector-button"

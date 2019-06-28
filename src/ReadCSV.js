@@ -29,7 +29,7 @@ const levenshteinDistance = (str1, str2) => {
   return distanceMatrix[str2.length][str1.length];
 };
 */
-function ReadCSV(word, testWords) {
+function ReadCSV(word, testWords, accuracy) {
   //console.log("================= NEXT WORDS ====================");
   const helpers = ["", "", ""];
   const parsedFile = [...new Set(testWords)]; //delete duplicates
@@ -87,7 +87,8 @@ function ReadCSV(word, testWords) {
   //
 
   let charUpper = false;
-  if (word.charAt(0) === word.charAt(0).toUpperCase()) charUpper = true;
+  if (word !== undefined && word.charAt(0) === word.charAt(0).toUpperCase())
+    charUpper = true;
 
   if (word !== "") {
     let reducedParsedFile = parsedFile.filter(

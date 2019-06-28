@@ -10,7 +10,11 @@ function WordHelper({
   countSimilarChars,
   dictionary,
   onLog,
-  keyboardID
+  keyboardID,
+  accuracy,
+  buttonRef1,
+  buttonRef2,
+  buttonRef3
 }) {
   const [help, setHelp] = useState(["", "", ""]);
   const [suggestionUsedOnLog, setSuggestionUsedOnLog] = useState([]);
@@ -20,8 +24,8 @@ function WordHelper({
     const word = input.slice(
       input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
     );
-    setHelp(ReadCSV(word, dictionary));
-  }, [input, dictionary]);
+    setHelp(ReadCSV(word, dictionary, accuracy));
+  }, [input, dictionary, accuracy]);
 
   useEffect(() => {
     onLog("suggested words used", suggestionUsedOnLog);
@@ -31,9 +35,7 @@ function WordHelper({
   function helpHandler(word) {
     if (word !== undefined && word !== "") {
       const i = input.lastIndexOf(" ");
-      const newInput = `${input.slice(0, i + 1) +
-        word +
-        (keyboardID === "mobile" ? " ‸" : " ")}`;
+      const newInput = `${input.slice(0, i + 1) + word} `;
       setWordReplacedOnLog(wordReplacedOnLog.concat(input.slice(i + 1, -1)));
       setInput(newInput);
       countSimilarChars(text, input);
@@ -41,22 +43,36 @@ function WordHelper({
     }
   }
 
+  const kbWordIdx = keyboardID === "physical" ? 0 : 1;
+
   return (
     <table>
       <tbody>
         <tr>
           <td>
-            <button type="button" onClick={() => helpHandler(help[1])}>
-              {help[1]}
+            <button
+              ref={buttonRef1}
+              type="button"
+              onClick={() => helpHandler(help[kbWordIdx])}
+            >
+              {help[kbWordIdx]}
             </button>
           </td>
           <td>
-            <button type="button" onClick={() => helpHandler(help[0])}>
-              {help[0]}
+            <button
+              ref={buttonRef2}
+              type="button"
+              onClick={() => helpHandler(help[(kbWordIdx + 1) % 2])}
+            >
+              {help[(kbWordIdx + 1) % 2]}
             </button>
           </td>
           <td>
-            <button type="button" onClick={() => helpHandler(help[2])}>
+            <button
+              ref={buttonRef3}
+              type="button"
+              onClick={() => helpHandler(help[2])}
+            >
               {help[2]}
             </button>
           </td>
@@ -73,7 +89,20 @@ WordHelper.propTypes = {
   setInput: PropTypes.func.isRequired,
   dictionary: PropTypes.arrayOf(PropTypes.string).isRequired,
   onLog: PropTypes.func.isRequired,
-  keyboardID: PropTypes.string.isRequired
+  keyboardID: PropTypes.string.isRequired,
+  accuracy: PropTypes.number.isRequired,
+  buttonRef1: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+  ]).isRequired,
+  buttonRef2: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+  ]).isRequired,
+  buttonRef3: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+  ]).isRequired
 };
 
 export default WordHelper;

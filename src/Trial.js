@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
 import "react-simple-keyboard/build/css/index.css";
@@ -24,13 +24,26 @@ const Trial = ({
   dictionary,
   keyboardLayout,
   onAdvanceWorkflow,
-  onLog
+  onLog,
+  accuracy
 }) => {
   const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
 
+  const [focusIndex, setFocusIndex] = useState(0);
+  const inputRef = React.createRef();
+  const buttonRef1 = React.createRef();
+  const buttonRef2 = React.createRef();
+  const buttonRef3 = React.createRef();
+
   const correctCharsCount = countSimilarChars(text, input);
   const isCorrect = correctCharsCount === text.length;
+
+  useEffect(() => {
+    if (focusIndex === 0 && keyboardLayout.id === "physical") {
+      inputRef.current.focus();
+    }
+  }, [focusIndex, inputRef, keyboardLayout.id]);
 
   function handleShift() {
     setLayoutName(layoutName === "default" ? "shift" : "default");
@@ -45,41 +58,24 @@ const Trial = ({
     else if (button === "{numbers}" || button === "{abc}")
       handleNumbersOnMobile();
     else if (button === "{bksp}") {
-      let idx = 1;
-      if (keyboardLayout.id === "mobile") idx = 2;
-      setInput(
-        `${input.slice(0, -idx) + (keyboardLayout.id === "mobile" ? "‸" : "")}`
-      );
+      setInput(input.slice(0, -1));
     } else if (button === "{space}" && !isCorrect) {
       if (
         keyboardLayout.id === "mobile" &&
         input.charAt(input.length - 2) === " " &&
         button === "{space}"
       ) {
-        setInput(`${input.slice(0, -2)}. ‸`);
+        setInput(`${input.slice(0, -2)}. `);
       } else {
-        setInput(
-          `${input.slice(0, -1) +
-            (keyboardLayout.id === "mobile" ? " ‸" : " ")}`
-        );
+        setInput(`${input.slice(0, -1)} `);
       }
-    } else if (button === "{enter}" || button === "{tab}")
-      console.log("enter or tab pressed");
-    else if (!isCorrect) {
+    } else if (button === "{enter}") {
+      setFocusIndex(0);
+    } else if (!isCorrect) {
       if (input.charAt(input.length - 1) === " " && button === ".") {
-        setInput(
-          `${input.slice(0, -1) +
-            button +
-            (keyboardLayout.id === "mobile" ? " ‸" : " ")}`
-        );
-      } else if (keyboardLayout.id === "mobile") {
-        setInput(
-          `${input.slice(0, -1) +
-            button +
-            (keyboardLayout.id === "mobile" ? "‸" : "")}`
-        );
+        setInput(`${input.slice(0, -1) + button} `);
       } else {
-        setInput(`${input + button}`);
+        setInput(input + button);
       }
     }
   }
@@ -94,37 +90,64 @@ const Trial = ({
       (event.keyCode >= 186 && event.keyCode <= 192)
     ) {
       onKeyPress(event.key);
-    } else if (event.keyCode >= 112 && event.keyCode <= 114) {
-      //shortcuts on physical keyboard ??
+    } else if (event.keyCode === 9) {
+      setFocusIndex((focusIndex + 1) % 4);
+      if (keyboardLayout.id === "physical") {
+        switch (focusIndex) {
+          case 1:
+            buttonRef1.current.focus();
+            break;
+          case 2:
+            buttonRef2.current.focus();
+            break;
+          case 3:
+            buttonRef3.current.focus();
+            break;
+          default:
+            inputRef.current.focus();
+        }
+      }
+    } else if (event.keyCode === 13) {
+      onKeyPress("{enter}");
+    }
+  }
+
+  function onChange() {
+    if (keyboardLayout.id === "mobile") {
+      Keyboard.keyboard.ref.setInput(input);
     }
   }
 
   return (
-    <div>
+    <div onKeyDown={physicalKeyboardHandler}>
       <TextToType
         text={text}
         correctCharsCount={correctCharsCount}
-        input={keyboardLayout.id === "mobile" ? input.slice(0, -1) : input}
+        input={input}
       />
       <input
+        ref={inputRef}
         value={input}
         placeholder={
           keyboardLayout.id === "mobile"
             ? "Tap on the virtual keyboard to start"
             : "Tap on your keyboard to start"
         }
-        readOnly={keyboardLayout.id === "mobile"}
-        onKeyDown={physicalKeyboardHandler}
+        onChange={onChange}
         autoFocus={keyboardLayout.id === "physical"}
       />
       <WordHelper
         dictionary={dictionary}
-        input={keyboardLayout.id === "mobile" ? input.slice(0, -1) : input}
+        input={input}
         text={text}
         setInput={setInput}
         countSimilarChars={countSimilarChars}
         onLog={onLog}
         keyboardID={keyboardLayout.id}
+        accuracy={accuracy}
+        buttonRef1={buttonRef1}
+        buttonRef2={buttonRef2}
+        buttonRef3={buttonRef3}
       />
       {keyboardLayout.id === "mobile" ? (
         <Keyboard
@@ -152,7 +175,8 @@ Trial.propTypes = {
     PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
   ).isRequired,
   onAdvanceWorkflow: PropTypes.func.isRequired,
-  onLog: PropTypes.func.isRequired
+  onLog: PropTypes.func.isRequired,
+  accuracy: PropTypes.number.isRequired
 };
 
 export default Trial;

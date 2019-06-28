@@ -4,7 +4,7 @@ import Trial from "./Trial";
 import useDictionary, { LOADED, LOADING } from "./useDictionary";
 import Loading from "./Loading";
 
-function App({ text, onAdvanceWorkflow, onLog, keyboardLayout }) {
+function App({ text, onAdvanceWorkflow, onLog, keyboardLayout, accuracy }) {
   const [dictionaryLoadingState, dictionary] = useDictionary();
 
   switch (dictionaryLoadingState) {
@@ -16,6 +16,7 @@ function App({ text, onAdvanceWorkflow, onLog, keyboardLayout }) {
           keyboardLayout={keyboardLayout}
           onAdvanceWorkflow={onAdvanceWorkflow}
           onLog={onLog}
+          accuracy={accuracy}
         />
       );
     case LOADING:
@@ -31,7 +32,8 @@ App.propTypes = {
   onLog: PropTypes.func.isRequired,
   keyboardLayout: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
-  ).isRequired
+  ).isRequired,
+  accuracy: PropTypes.number.isRequired
 };
 
 export default App;

@@ -28,10 +28,12 @@ const useDictionary = () => {
         setDict(words);
         setLoadingState(LOADED);
       })
-      .catch(setLoadingState(CRASHED));
+      .catch(() => {
+        setLoadingState(CRASHED);
+      });
   }, []);
 
-  return [loadingState, dict];
+  return [loadingState, [...new Set(dict)]];
 };
 
 export default useDictionary;

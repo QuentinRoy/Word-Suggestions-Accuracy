@@ -30,7 +30,7 @@ const levenshteinDistance = (str1, str2) => {
 
 function computeSuggestions(
   word,
-  testWords,
+  wordList,
   thresholdCharPos,
   wordFromText,
   totalSuggestions
@@ -42,16 +42,16 @@ function computeSuggestions(
   //
   /*
   let minimumSize = 10;
-  const helpers2 = Array(testWords.length).fill(null);
-  for (let i = 0; i < testWords.length; i += 1) {
-    helpers2[i] = levenshteinDistance(word, testWords[i]);
+  const helpers2 = Array(parsedFile.length).fill(null);
+  for (let i = 0; i < parsedFile.length; i += 1) {
+    helpers2[i] = levenshteinDistance(word, parsedFile[i]);
     if (
       helpers2[i] > 0 &&
       helpers2[i] <= 1 &&
       helpers2[i] !== helpers2[i - 1] &&
       helpers2[i] !== ""
     ) {
-      console.log(testWords[i]);
+      console.log(parsedFile[i]);
     }
     minimumSize = helpers2[i] < minimumSize ? helpers2[i] : minimumSize;
   }
@@ -61,19 +61,18 @@ function computeSuggestions(
   // JARO-WINKLER DISTANCE
   //
 
-  const helpers = Array(totalSuggestions).fill(null);
-  const wordList = [...new Set(testWords)]; // delete duplicates
-  const topScores = Array(totalSuggestions).fill(0);
+  const topWords = Array(totalSuggestions).fill(null);
+  const topWordsScore = Array(totalSuggestions).fill(0);
 
-  const insertScore = (wordToInsert, score) => {
-    const firstSmallestIndex = topScores.findIndex(s => s < score);
+  const insertTopWord = (wordToInsert, score) => {
+    const firstSmallestIndex = topWordsScore.findIndex(s => s < score);
     if (firstSmallestIndex >= 0) {
       // Insert the word at the corresponding location.
-      topScores.splice(firstSmallestIndex, 0, score);
-      helpers.splice(firstSmallestIndex, 0, wordToInsert);
-      // Remove the extraneous word.
-      topScores.pop();
-      helpers.pop();
+      topWordsScore.splice(firstSmallestIndex, 0, score);
+      topWords.splice(firstSmallestIndex, 0, wordToInsert);
+      // Remove the extraneous words.
+      topWordsScore.pop();
+      topWords.pop();
     }
   };
 
@@ -88,10 +87,10 @@ function computeSuggestions(
         (word.length >= thresholdCharPos && accuracyDistance >= 0.65) ||
         thresholdCharPos === 0
       ) {
-        insertScore(wordList[i], Number.POSITIVE_INFINITY);
+        insertTopWord(wordList[i], Number.POSITIVE_INFINITY);
       }
     } else {
-      insertScore(wordList[i], dist);
+      insertTopWord(wordList[i], dist);
     }
   }
 
@@ -122,12 +121,13 @@ function computeSuggestions(
   }
   */
   if (charUpper) {
-    for (let j = 0; j < helpers.length; j += 1) {
-      if (helpers[j] !== undefined)
-        helpers[j] = helpers[j].charAt(0).toUpperCase() + helpers[j].slice(1);
+    for (let j = 0; j < topWords.length; j += 1) {
+      if (topWords[j] !== undefined)
+        topWords[j] =
+          topWords[j].charAt(0).toUpperCase() + topWords[j].slice(1);
     }
   }
-  return helpers;
+  return topWords;
 }
 
 export default computeSuggestions;

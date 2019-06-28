@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-//const distance = require("jaro-winkler");
+const distance = require("jaro-winkler");
 
 /*
 const levenshteinDistance = (str1, str2) => {
@@ -29,7 +29,8 @@ const levenshteinDistance = (str1, str2) => {
   return distanceMatrix[str2.length][str1.length];
 };
 */
-function ReadCSV(word, testWords, accuracy) {
+
+function ReadCSV(word, testWords, thresholdCharPos, wordFromText) {
   //console.log("================= NEXT WORDS ====================");
   const helpers = ["", "", ""];
   const parsedFile = [...new Set(testWords)]; //delete duplicates
@@ -57,39 +58,50 @@ function ReadCSV(word, testWords, accuracy) {
   //
   // JARO-WINKLER DISTANCE
   //
-  /*
-  const topScores = [0, 0, 0];
-  const dist = Array(reducedParsedFile.length).fill(null);
 
-  for (let i = 0; i < reducedParsedFile.length; i += 1) {
-    dist[i] = distance(word, reducedParsedFile[i]);
-    if (reducedParsedFile[i] === "hello") {
-      console.log(dist[i]);
-    }
-    if (dist[i] > 0.8) {
+  const topScores = [0, 0, 0];
+  const dist = Array(parsedFile.length).fill(null);
+
+  for (let i = 0; i < parsedFile.length; i += 1) {
+    dist[i] = distance(word.toLowerCase(), parsedFile[i]);
+    if (parsedFile[i] === wordFromText.toLowerCase()) {
+      const accuracyDistance = distance(
+        word.toLowerCase(),
+        wordFromText.slice(0, word.length)
+      );
+      if (
+        (word.length >= thresholdCharPos && accuracyDistance >= 0.65) ||
+        thresholdCharPos === 0
+      ) {
+        topScores[0] = 1;
+        helpers[0] = parsedFile[i];
+      }
+    } else if (dist[i] > 0.8) {
       if (dist[i] > topScores[0]) {
         topScores[0] = dist[i];
-        helpers[0] = reducedParsedFile[i];
+        helpers[0] = parsedFile[i];
       } else if (dist[i] > topScores[1]) {
         topScores[1] = dist[i];
-        helpers[1] = reducedParsedFile[i];
+        helpers[1] = parsedFile[i];
       } else if (dist[i] > topScores[2]) {
         topScores[2] = dist[i];
-        helpers[2] = reducedParsedFile[i];
+        helpers[2] = parsedFile[i];
       }
     }
   }
-  console.log("topScores", topScores);
-  console.log("helpers", helpers);
-*/
+
   //
   // BASIC WORD COMPLETION
   //
 
   let charUpper = false;
-  if (word !== undefined && word.charAt(0) === word.charAt(0).toUpperCase())
+  if (
+    word !== undefined &&
+    word !== "" &&
+    word.charAt(0) === word.charAt(0).toUpperCase()
+  )
     charUpper = true;
-
+  /*
   if (word !== "") {
     let reducedParsedFile = parsedFile.filter(
       w => w.slice(0, word.length) === word.toLowerCase()
@@ -102,7 +114,7 @@ function ReadCSV(word, testWords, accuracy) {
       }, reducedParsedFile[0]);
       reducedParsedFile = reducedParsedFile.filter(w => w !== helpers[i]);
     }
-  }
+  }*/
   if (charUpper) {
     for (let j = 0; j < helpers.length; j += 1) {
       if (helpers[j] !== undefined)

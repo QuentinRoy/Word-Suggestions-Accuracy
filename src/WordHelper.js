@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import "./WordHelper.css";
 import ReadCSV from "./ReadCSV";
 
+function accuracyDistribution(wordFromText, accuracy) {
+  return wordFromText.length - (wordFromText.length * accuracy) / 100;
+}
+
 function WordHelper({
   input,
   text,
@@ -24,8 +28,16 @@ function WordHelper({
     const word = input.slice(
       input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
     );
-    setHelp(ReadCSV(word, dictionary, accuracy));
-  }, [input, dictionary, accuracy]);
+    let wordFromText = text.slice(input.lastIndexOf(" ") + 1);
+    if (wordFromText.indexOf(" ") > 0) {
+      wordFromText = wordFromText.slice(0, wordFromText.indexOf(" "));
+    }
+    const thresholdCharPos =
+      wordFromText.length > 3
+        ? accuracyDistribution(wordFromText, accuracy)
+        : 30;
+    setHelp(ReadCSV(word, dictionary, thresholdCharPos, wordFromText));
+  }, [input, dictionary, accuracy, text]);
 
   useEffect(() => {
     onLog("suggested words used", suggestionUsedOnLog);

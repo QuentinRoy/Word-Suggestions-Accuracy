@@ -30,26 +30,25 @@ const levenshteinDistance = (str1, str2) => {
 };
 */
 
-function ReadCSV(word, testWords, thresholdCharPos, wordFromText) {
+function ReadCSV(word, parsedFile, thresholdCharPos, wordFromText) {
   //console.log("================= NEXT WORDS ====================");
   const helpers = ["", "", ""];
-  const parsedFile = [...new Set(testWords)]; //delete duplicates
 
   //
   // LEVENSHEIN DISTANCE
   //
   /*
   let minimumSize = 10;
-  const helpers2 = Array(testWords.length).fill(null);
-  for (let i = 0; i < testWords.length; i += 1) {
-    helpers2[i] = levenshteinDistance(word, testWords[i]);
+  const helpers2 = Array(parsedFile.length).fill(null);
+  for (let i = 0; i < parsedFile.length; i += 1) {
+    helpers2[i] = levenshteinDistance(word, parsedFile[i]);
     if (
       helpers2[i] > 0 &&
       helpers2[i] <= 1 &&
       helpers2[i] !== helpers2[i - 1] &&
       helpers2[i] !== ""
     ) {
-      console.log(testWords[i]);
+      console.log(parsedFile[i]);
     }
     minimumSize = helpers2[i] < minimumSize ? helpers2[i] : minimumSize;
   }

@@ -128,6 +128,7 @@ const Trial = ({
             : "Tap on your keyboard to start"
         }
         onChange={onChange}
+        readOnly={keyboardLayout.id === "mobile"}
       />
       <WordHelper
         dictionary={dictionary}

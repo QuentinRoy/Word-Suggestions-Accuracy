@@ -24,7 +24,8 @@ const useDictionary = () => {
   useEffect(() => {
     Promise.all(urls.map(fetchCSV))
       .then(wordLists => {
-        const words = wordLists.flat();
+        // Flatten the words lists, and remove duplicates.
+        const words = [...new Set(wordLists.flat())];
         setDict(words);
         setLoadingState(LOADED);
       })
@@ -33,7 +34,7 @@ const useDictionary = () => {
       });
   }, []);
 
-  return [loadingState, [...new Set(dict)]];
+  return [loadingState, dict];
 };
 
 export default useDictionary;

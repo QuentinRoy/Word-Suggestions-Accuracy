@@ -106,7 +106,6 @@ const Trial = ({
 
   const divStyle = { outline: "none" };
 
-  // gerer les differents cas du focus en fonction des ref ?
   return (
     <div
       onKeyDown={physicalKeyboardHandler}
@@ -120,6 +119,7 @@ const Trial = ({
         input={input}
       />
       <input
+        className="input"
         ref={inputRef}
         value={input}
         placeholder={
@@ -128,7 +128,6 @@ const Trial = ({
             : "Tap on your keyboard to start"
         }
         onChange={onChange}
-        // autoFocus={keyboardLayout.id === "physical"}
       />
       <WordHelper
         dictionary={dictionary}

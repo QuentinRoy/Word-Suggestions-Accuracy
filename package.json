@@ -44,6 +44,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "babel-eslint": "^10.0.1",
+    "css-loader": "^3.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^5.0.0",
@@ -54,6 +55,7 @@
     "eslint-plugin-react-hooks": "^1.6.0",
     "npm-install-webpack-plugin": "^4.0.5",
     "prettier": "^1.18.2",
+    "style-loader": "^0.23.1",
     "typescript": "^3.5.2"
   }
 }

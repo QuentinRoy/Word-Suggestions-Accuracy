@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./KeyboardSelector.css";
+import styles from "./KeyboardSelector.module.css";
 
 const KeyboardSelector = ({ onEditConfig, onAdvanceWorkflow }) => {
   const mobileLayout = {
@@ -55,11 +55,11 @@ const KeyboardSelector = ({ onEditConfig, onAdvanceWorkflow }) => {
   };
 
   return (
-    <div className="selector-div">
+    <div className={styles.keyboardSelectorDiv}>
       <p>I am typing on:</p>
-      <div className="button-keyboard-selector">
+      <div>
         <button
-          className="kbselector-button"
+          className={styles.keyboardSelectorButton}
           type="button"
           onClick={() => {
             onEditConfig("keyboardLayout", mobileLayout);
@@ -69,7 +69,7 @@ const KeyboardSelector = ({ onEditConfig, onAdvanceWorkflow }) => {
           Mobile
         </button>
         <button
-          className="kbselector-button"
+          className={styles.keyboardSelectorButton}
           type="button"
           onClick={() => {
             onEditConfig("keyboardLayout", desktopLayout);

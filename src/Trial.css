@@ -1,4 +1,4 @@
-input {
+.input {
   width: 100%;
   max-width: 850px;
   height: 100px;
@@ -10,58 +10,4 @@ input {
 
 .simple-keyboard {
   max-width: 850px;
-}
-
-h4 {
-  position: static;
-  padding-left: 5px;
-}
-
-#winner-label {
-  color: green;
-  top: 10px;
-  right: 10px;
-  padding: 10px;
-  position: absolute;
-}
-
-#text-to-type {
-  max-width: 810px;
-  padding: 20px;
-  padding-top: 0px;
-  border-bottom: 1px solid #c5c5c5;
-}
-
-.correct {
-  color: green;
-}
-
-.incorrect {
-  color: red;
-}
-
-.text {
-  color: black;
-}
-
-.advance-workflow-div {
-  max-width: 850px;
-  width: 100%;
-  margin: auto;
-  margin-top: 20px;
-}
-
-.advance-workflow-button {
-  margin-left: 45%;
-  font-weight: bold;
-  color: white;
-  height: 40px;
-  border-radius: 8px;
-  background-color: #0074cd;
-  width: 100px;
-}
-
-.advance-workflow-button:hover {
-  background-color: #008af0;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
 }

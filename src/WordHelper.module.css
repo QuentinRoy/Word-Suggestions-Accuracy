@@ -1,4 +1,4 @@
-table {
+.table {
   border: 1px solid #ebebeb;
   width: 100%;
   max-width: 850px;
@@ -7,14 +7,14 @@ table {
   table-layout: fixed;
 }
 
-td {
+.cell {
   height: 30px;
   border: 1px solid #ebebeb;
   background-color: white;
   padding: 0;
 }
 
-button {
+.btn {
   margin: 0;
   font-size: 15px;
   height: 30px;
@@ -23,6 +23,6 @@ button {
   background-color: white;
 }
 
-button:hover {
+.btn:hover {
   background-color: #f7f7f7;
 }

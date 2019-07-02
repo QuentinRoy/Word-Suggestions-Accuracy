@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import "./WordHelper.css";
+import styles from "./WordHelper.module.css";
 import computeSuggestions from "./computeSuggestions";
 import useMultiRef from "./useMultiRef";
 
@@ -100,8 +100,9 @@ function WordHelper({
     totalSuggestions,
     mainSuggestionPosition
   ).map((suggestionNum, i) => (
-    <td key={suggestionNum}>
+    <td key={suggestionNum} className={styles.cell}>
       <button
+        className={styles.btn}
         ref={buttonRefs[i]}
         type="button"
         onClick={() => helpHandler(help[suggestionNum])}
@@ -119,7 +120,7 @@ function WordHelper({
   }, [focusedSuggestion, buttonRefs]);
 
   return (
-    <table>
+    <table className={styles.table}>
       <tbody>{buttons}</tbody>
     </table>
   );

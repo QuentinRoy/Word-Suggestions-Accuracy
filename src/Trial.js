@@ -8,6 +8,8 @@ import WordHelper from "./WordHelper";
 import TextToType from "./TextToType";
 import WorkflowButton from "./WorkflowButton";
 
+const totalSuggestions = 3;
+
 const countSimilarChars = (str1, str2) => {
   let correctCharsCount = 0;
   for (let i = 0; i < str1.length; i += 1) {
@@ -32,18 +34,16 @@ const Trial = ({
 
   const [focusIndex, setFocusIndex] = useState(0);
   const inputRef = React.createRef();
-  const buttonRef1 = React.createRef();
-  const buttonRef2 = React.createRef();
-  const buttonRef3 = React.createRef();
 
   const correctCharsCount = countSimilarChars(text, input);
   const isCorrect = correctCharsCount === text.length;
 
+  const inputHasFocus = focusIndex === 0;
   useEffect(() => {
-    if (focusIndex === 0 && keyboardLayout.id === "physical") {
+    if (inputHasFocus) {
       inputRef.current.focus();
     }
-  }, [focusIndex, inputRef, keyboardLayout.id]);
+  }, [inputHasFocus, inputRef]);
 
   function handleShift() {
     setLayoutName(layoutName === "default" ? "shift" : "default");
@@ -90,23 +90,9 @@ const Trial = ({
       (event.keyCode >= 186 && event.keyCode <= 192)
     ) {
       onKeyPress(event.key);
-    } else if (event.keyCode === 9) {
-      setFocusIndex((focusIndex + 1) % 4);
-      if (keyboardLayout.id === "physical") {
-        switch (focusIndex) {
-          case 1:
-            buttonRef1.current.focus();
-            break;
-          case 2:
-            buttonRef2.current.focus();
-            break;
-          case 3:
-            buttonRef3.current.focus();
-            break;
-          default:
-            inputRef.current.focus();
-        }
-      }
+    } else if (event.keyCode === 9 && keyboardLayout.id === "physical") {
+      event.preventDefault();
+      setFocusIndex((focusIndex + 1) % (totalSuggestions + 1));
     } else if (event.keyCode === 13) {
       onKeyPress("{enter}");
     }
@@ -142,7 +128,7 @@ const Trial = ({
             : "Tap on your keyboard to start"
         }
         onChange={onChange}
-        autoFocus={keyboardLayout.id === "physical"}
+        // autoFocus={keyboardLayout.id === "physical"}
       />
       <WordHelper
         dictionary={dictionary}
@@ -151,11 +137,14 @@ const Trial = ({
         setInput={setInput}
         countSimilarChars={countSimilarChars}
         onLog={onLog}
-        keyboardID={keyboardLayout.id}
+        mainSuggestionPosition={
+          keyboardLayout.id === "physical"
+            ? 0
+            : Math.floor(totalSuggestions / 2)
+        }
+        totalSuggestions={totalSuggestions}
         accuracy={accuracy}
-        buttonRef1={buttonRef1}
-        buttonRef2={buttonRef2}
-        buttonRef3={buttonRef3}
+        focusedSuggestion={focusIndex > 0 ? focusIndex - 1 : null}
       />
       {keyboardLayout.id === "mobile" ? (
         <Keyboard

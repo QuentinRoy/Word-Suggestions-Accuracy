@@ -1,11 +1,43 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./WordHelper.css";
-import ReadCSV from "./ReadCSV";
+import computeSuggestions from "./computeSuggestions";
+import useMultiRef from "./useMultiRef";
 
 function accuracyDistribution(wordFromText, accuracy) {
   return wordFromText.length - (wordFromText.length * accuracy) / 100;
 }
+
+/**
+ * Create a distribution of suggestions indicating where the most relevant
+ * suggestions should be positioned.
+ *
+ * @param {number} totalSuggestions The total number of suggestions
+ * @param {number} mainPosition The position of the most relevant suggestion
+ * @returns {Array<Number>} An array containing the index of the most relevant
+ * positions (0 is the most relevant) and where they should be positioned.
+ *
+ * @example
+ * createSuggestionDistribution(5, 0)  // returns [0, 1, 2, 3, 4]
+ * createSuggestionDistribution(5, 4)  // returns [4, 3, 2, 1, 0]
+ * createSuggestionDistribution(3, 1)  // returns [2, 0, 1]
+ */
+const createSuggestionDistribution = (totalSuggestions, mainPosition) => {
+  const dist = [];
+  for (let i = 0; i < totalSuggestions; i += 1) {
+    const pos = i % 2 === 0 ? mainPosition - i / 2 : mainPosition + (i + 1) / 2;
+    if (pos >= totalSuggestions) {
+      dist.unshift(i);
+    } else if (pos < 0) {
+      dist.push(i);
+    } else if (pos < mainPosition) {
+      dist.unshift(i);
+    } else {
+      dist.push(i);
+    }
+  }
+  return dist;
+};
 
 function WordHelper({
   input,
@@ -14,13 +46,12 @@ function WordHelper({
   countSimilarChars,
   dictionary,
   onLog,
-  keyboardID,
-  accuracy,
-  buttonRef1,
-  buttonRef2,
-  buttonRef3
+  mainSuggestionPosition,
+  totalSuggestions,
+  focusedSuggestion,
+  accuracy
 }) {
-  const [help, setHelp] = useState(["", "", ""]);
+  const [help, setHelp] = useState([]);
   const [suggestionUsedOnLog, setSuggestionUsedOnLog] = useState([]);
   const [wordReplacedOnLog, setWordReplacedOnLog] = useState([]);
 
@@ -36,8 +67,16 @@ function WordHelper({
       wordFromText.length > 3
         ? accuracyDistribution(wordFromText, accuracy)
         : 100;
-    setHelp(ReadCSV(word, dictionary, thresholdCharPos, wordFromText));
-  }, [input, dictionary, accuracy, text]);
+    setHelp(
+      computeSuggestions(
+        word,
+        dictionary,
+        thresholdCharPos,
+        wordFromText,
+        totalSuggestions
+      )
+    );
+  }, [input, dictionary, accuracy, text, totalSuggestions]);
 
   useEffect(() => {
     onLog("suggested words used", suggestionUsedOnLog);
@@ -55,41 +94,33 @@ function WordHelper({
     }
   }
 
-  const kbWordIdx = keyboardID === "physical" ? 0 : 1;
+  const buttonRefs = useMultiRef(totalSuggestions);
+
+  const buttons = createSuggestionDistribution(
+    totalSuggestions,
+    mainSuggestionPosition
+  ).map((suggestionNum, i) => (
+    <td key={suggestionNum}>
+      <button
+        ref={buttonRefs[i]}
+        type="button"
+        onClick={() => helpHandler(help[suggestionNum])}
+      >
+        {help[suggestionNum]}
+      </button>
+    </td>
+  ));
+
+  useEffect(() => {
+    if (focusedSuggestion != null) {
+      const buttonRef = buttonRefs[focusedSuggestion];
+      buttonRef.current.focus();
+    }
+  }, [focusedSuggestion, buttonRefs]);
 
   return (
     <table>
-      <tbody>
-        <tr>
-          <td>
-            <button
-              ref={buttonRef1}
-              type="button"
-              onClick={() => helpHandler(help[kbWordIdx])}
-            >
-              {help[kbWordIdx]}
-            </button>
-          </td>
-          <td>
-            <button
-              ref={buttonRef2}
-              type="button"
-              onClick={() => helpHandler(help[(kbWordIdx + 1) % 2])}
-            >
-              {help[(kbWordIdx + 1) % 2]}
-            </button>
-          </td>
-          <td>
-            <button
-              ref={buttonRef3}
-              type="button"
-              onClick={() => helpHandler(help[2])}
-            >
-              {help[2]}
-            </button>
-          </td>
-        </tr>
-      </tbody>
+      <tbody>{buttons}</tbody>
     </table>
   );
 }
@@ -101,20 +132,14 @@ WordHelper.propTypes = {
   setInput: PropTypes.func.isRequired,
   dictionary: PropTypes.arrayOf(PropTypes.string).isRequired,
   onLog: PropTypes.func.isRequired,
-  keyboardID: PropTypes.string.isRequired,
-  accuracy: PropTypes.number.isRequired,
-  buttonRef1: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-  ]).isRequired,
-  buttonRef2: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-  ]).isRequired,
-  buttonRef3: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-  ]).isRequired
+  mainSuggestionPosition: PropTypes.number.isRequired,
+  totalSuggestions: PropTypes.number.isRequired,
+  focusedSuggestion: PropTypes.number,
+  accuracy: PropTypes.number.isRequired
+};
+
+WordHelper.defaultProps = {
+  focusedSuggestion: null
 };
 
 export default WordHelper;

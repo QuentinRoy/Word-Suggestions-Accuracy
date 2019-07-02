@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 const distance = require("jaro-winkler");
 
 /*
@@ -30,9 +28,14 @@ const levenshteinDistance = (str1, str2) => {
 };
 */
 
-function ReadCSV(word, parsedFile, thresholdCharPos, wordFromText) {
-  //console.log("================= NEXT WORDS ====================");
-  const helpers = ["", "", ""];
+function computeSuggestions(
+  word,
+  wordList,
+  thresholdCharPos,
+  wordFromText,
+  totalSuggestions
+) {
+  // console.log("================= NEXT WORDS ====================");
 
   //
   // LEVENSHEIN DISTANCE
@@ -58,12 +61,24 @@ function ReadCSV(word, parsedFile, thresholdCharPos, wordFromText) {
   // JARO-WINKLER DISTANCE
   //
 
-  const topScores = [0, 0, 0];
-  const dist = Array(parsedFile.length).fill(null);
+  const topWords = Array(totalSuggestions).fill(null);
+  const topWordsScore = Array(totalSuggestions).fill(0);
 
-  for (let i = 0; i < parsedFile.length; i += 1) {
-    dist[i] = distance(word.toLowerCase(), parsedFile[i]);
-    if (parsedFile[i] === wordFromText.toLowerCase()) {
+  const insertTopWord = (wordToInsert, score) => {
+    const firstSmallestIndex = topWordsScore.findIndex(s => s < score);
+    if (firstSmallestIndex >= 0) {
+      // Insert the word at the corresponding location.
+      topWordsScore.splice(firstSmallestIndex, 0, score);
+      topWords.splice(firstSmallestIndex, 0, wordToInsert);
+      // Remove the extraneous words.
+      topWordsScore.pop();
+      topWords.pop();
+    }
+  };
+
+  for (let i = 0; i < wordList.length; i += 1) {
+    const dist = distance(word.toLowerCase(), wordList[i]);
+    if (wordList[i] === wordFromText.toLowerCase()) {
       const accuracyDistance = distance(
         word.toLowerCase(),
         wordFromText.slice(0, word.length)
@@ -72,20 +87,10 @@ function ReadCSV(word, parsedFile, thresholdCharPos, wordFromText) {
         (word.length >= thresholdCharPos && accuracyDistance >= 0.65) ||
         thresholdCharPos === 0
       ) {
-        topScores[0] = 1;
-        helpers[0] = parsedFile[i];
+        insertTopWord(wordList[i], Number.POSITIVE_INFINITY);
       }
-    } else if (dist[i] > 0.8) {
-      if (dist[i] > topScores[0]) {
-        topScores[0] = dist[i];
-        helpers[0] = parsedFile[i];
-      } else if (dist[i] > topScores[1]) {
-        topScores[1] = dist[i];
-        helpers[1] = parsedFile[i];
-      } else if (dist[i] > topScores[2]) {
-        topScores[2] = dist[i];
-        helpers[2] = parsedFile[i];
-      }
+    } else {
+      insertTopWord(wordList[i], dist);
     }
   }
 
@@ -113,19 +118,16 @@ function ReadCSV(word, parsedFile, thresholdCharPos, wordFromText) {
       }, reducedParsedFile[0]);
       reducedParsedFile = reducedParsedFile.filter(w => w !== helpers[i]);
     }
-  }*/
+  }
+  */
   if (charUpper) {
-    for (let j = 0; j < helpers.length; j += 1) {
-      if (helpers[j] !== undefined)
-        helpers[j] = helpers[j].charAt(0).toUpperCase() + helpers[j].slice(1);
+    for (let j = 0; j < topWords.length; j += 1) {
+      if (topWords[j] !== undefined)
+        topWords[j] =
+          topWords[j].charAt(0).toUpperCase() + topWords[j].slice(1);
     }
   }
-  return helpers;
+  return topWords;
 }
 
-ReadCSV.propTypes = {
-  word: PropTypes.string.isRequired,
-  testWords: PropTypes.arrayOf(PropTypes.string).isRequired
-};
-
-export default ReadCSV;
+export default computeSuggestions;

@@ -2,19 +2,20 @@ table {
   border: 1px solid #ebebeb;
   width: 100%;
   max-width: 850px;
-  height: 30px;
   background-color: #e0e0e0;
   border-radius: 3px;
+  table-layout: fixed;
 }
 
 td {
   height: 30px;
-  width: 33.33%;
   border: 1px solid #ebebeb;
   background-color: white;
+  padding: 0;
 }
 
 button {
+  margin: 0;
   font-size: 15px;
   height: 30px;
   width: 100%;

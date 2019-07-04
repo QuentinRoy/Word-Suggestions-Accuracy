@@ -66,7 +66,7 @@ function WordHelper({
     const thresholdCharPos =
       wordFromText.length > 3
         ? accuracyDistribution(wordFromText, accuracy)
-        : 100;
+        : Number.POSITIVE_INFINITY;
     setHelp(
       computeSuggestions(
         word,
@@ -121,7 +121,9 @@ function WordHelper({
 
   return (
     <table className={styles.table}>
-      <tbody>{buttons}</tbody>
+      <tbody>
+        <tr>{buttons}</tr>
+      </tbody>
     </table>
   );
 }

@@ -36,27 +36,27 @@ You are about to complete a human-computer interaction experiment. This experime
     {
       task: "App",
       accuracy: 100,
-      key: 0
+      key: 1
     },
     {
       task: "App",
       accuracy: 50,
-      key: 0
+      key: 2
     },
     {
       task: "App",
       accuracy: 0,
-      key: 0
+      key: 3
     },
     {
       task: "App",
       accuracy: 100,
-      key: 0
+      key: 4
     },
     {
       task: "App",
       accuracy: 50,
-      key: 0
+      key: 5
     } /*
     {
       task: "DisplayTextTask",
@@ -66,52 +66,52 @@ You are about to complete a human-computer interaction experiment. This experime
     {
       task: "App",
       accuracy: 100,
-      key: 0
+      key: 6
     },
     {
       task: "App",
       accuracy: 50,
-      key: 0
+      key: 7
     },
     {
       task: "App",
       accuracy: 0,
-      key: 0
+      key: 8
     },
     {
       task: "App",
       accuracy: 100,
-      key: 0
+      key: 9
     },
     {
       task: "App",
       accuracy: 50,
-      key: 0
+      key: 10
     },
     {
       task: "App",
       accuracy: 100,
-      key: 0
+      key: 11
     },
     {
       task: "App",
       accuracy: 50,
-      key: 0
+      key: 12
     },
     {
       task: "App",
       accuracy: 0,
-      key: 0
+      key: 13
     },
     {
       task: "App",
       accuracy: 100,
-      key: 0
+      key: 14
     },
     {
       task: "App",
       accuracy: 50,
-      key: 0
+      key: 15
     }
   ]
 };

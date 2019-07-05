@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styles from "./TextToType.module.css";
 
 const TextToType = ({ text, correctCharsCount, input }) => {
-  const isCorrect = correctCharsCount === text.length - 1;
+  const isCorrect = correctCharsCount === text.length;
 
   return (
     <div>

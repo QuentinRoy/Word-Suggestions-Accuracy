@@ -22,7 +22,9 @@ const useTrialText = () => {
   useEffect(() => {
     Promise.all(url.map(fetchTxt))
       .then(text => {
-        setTrialText(text.flat()[Math.floor(Math.random() * 500)]);
+        setTrialText(
+          text.flat()[Math.floor(Math.random() * 500)].replace(/\r?\n|\r/, "")
+        );
         setLoadingState(LOADED_TRIAL_TEXT);
       })
       .catch(err => {

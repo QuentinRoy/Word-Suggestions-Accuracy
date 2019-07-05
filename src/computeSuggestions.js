@@ -35,6 +35,7 @@ function computeSuggestions(
   wordFromText,
   totalSuggestions
 ) {
+  let charUpper = false;
   // console.log("================= NEXT WORDS ====================");
 
   //
@@ -81,13 +82,16 @@ function computeSuggestions(
     if (wordList[i] === wordFromText.toLowerCase()) {
       const accuracyDistance = distance(
         word.toLowerCase(),
-        wordFromText.slice(0, word.length)
+        wordFromText.slice(0, word.length).toLowerCase()
       );
       if (
         (word.length >= thresholdCharPos && accuracyDistance >= 0.65) ||
         thresholdCharPos === 0
       ) {
         insertTopWord(wordList[i], Number.POSITIVE_INFINITY);
+        if (wordFromText.charAt(0) === wordFromText.charAt(0).toUpperCase()) {
+          charUpper = true;
+        }
       }
     } else {
       insertTopWord(wordList[i], dist);
@@ -97,8 +101,6 @@ function computeSuggestions(
   //
   // BASIC WORD COMPLETION
   //
-
-  let charUpper = false;
   if (
     word !== undefined &&
     word !== "" &&

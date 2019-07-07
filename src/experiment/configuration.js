@@ -29,19 +29,19 @@ You are about to complete a human-computer interaction experiment. This experime
       key: 2
     },
     {
-      task: "App",
+      task: "TypingTask",
       text: "hello world",
       accuracy: 100,
       key: 3
     },
     {
-      task: "App",
+      task: "TypingTask",
       text: "it is puzzlingly today",
       accuracy: 50,
       key: 4
     },
     {
-      task: "App",
+      task: "TypingTask",
       text: "This experiment is awesome",
       accuracy: 0,
       key: 5

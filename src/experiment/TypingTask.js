@@ -4,7 +4,13 @@ import Trial from "./Trial";
 import useDictionary, { LOADED, LOADING } from "./useDictionary";
 import Loading from "./Loading";
 
-function App({ text, onAdvanceWorkflow, onLog, keyboardLayout, accuracy }) {
+function TypingTask({
+  text,
+  onAdvanceWorkflow,
+  onLog,
+  keyboardLayout,
+  accuracy
+}) {
   const [dictionaryLoadingState, dictionary] = useDictionary();
 
   switch (dictionaryLoadingState) {
@@ -26,7 +32,7 @@ function App({ text, onAdvanceWorkflow, onLog, keyboardLayout, accuracy }) {
   }
 }
 
-App.propTypes = {
+TypingTask.propTypes = {
   text: PropTypes.string.isRequired,
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
@@ -36,4 +42,4 @@ App.propTypes = {
   accuracy: PropTypes.number.isRequired
 };
 
-export default App;
+export default TypingTask;

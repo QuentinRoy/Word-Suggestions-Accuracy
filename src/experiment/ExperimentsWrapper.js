@@ -1,13 +1,13 @@
 import React from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll } from "@hcikit/tasks";
-import App from "./App";
+import TypingTask from "./TypingTask";
 import KeyboardSelector from "./KeyboardSelector";
 
 import configuration from "./configuration";
 
 registerAll(registerTask);
-registerTask("App", App);
+registerTask("TypingTask", TypingTask);
 registerTask("KeyboardSelector", KeyboardSelector);
 
 export default function ExperimentsWrapper() {

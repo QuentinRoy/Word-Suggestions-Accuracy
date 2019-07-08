@@ -35,12 +35,12 @@ You are about to complete a human-computer interaction experiment. This experime
     },*/
     {
       task: "App",
-      accuracy: 100,
+      accuracy: 1,
       key: 1
     },
     {
       task: "App",
-      accuracy: 50,
+      accuracy: 0.5,
       key: 2
     },
     {
@@ -50,12 +50,12 @@ You are about to complete a human-computer interaction experiment. This experime
     },
     {
       task: "App",
-      accuracy: 100,
+      accuracy: 1,
       key: 4
     },
     {
       task: "App",
-      accuracy: 50,
+      accuracy: 0.5,
       key: 5
     } /*
     {

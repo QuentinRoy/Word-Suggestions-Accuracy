@@ -4,10 +4,6 @@ import styles from "./WordHelper.module.css";
 import computeSuggestions from "./computeSuggestions";
 import useMultiRef from "./useMultiRef";
 
-function accuracyDistribution(wordFromText, accuracy) {
-  return wordFromText.length - (wordFromText.length * accuracy) / 100;
-}
-
 /**
  * Create a distribution of suggestions indicating where the most relevant
  * suggestions should be positioned.
@@ -49,7 +45,8 @@ function WordHelper({
   mainSuggestionPosition,
   totalSuggestions,
   focusedSuggestion,
-  accuracy
+  accuracy,
+  thresholdPositions
 }) {
   const [help, setHelp] = useState([]);
   const [suggestionUsedOnLog, setSuggestionUsedOnLog] = useState([]);
@@ -63,20 +60,17 @@ function WordHelper({
     if (wordFromText.indexOf(" ") > 0) {
       wordFromText = wordFromText.slice(0, wordFromText.indexOf(" "));
     }
-    const thresholdCharPos =
-      wordFromText.length > 3
-        ? accuracyDistribution(wordFromText, accuracy)
-        : Number.POSITIVE_INFINITY;
+    const wordIndexInText = text.split(" ").indexOf(wordFromText);
     setHelp(
       computeSuggestions(
         word,
         dictionary,
-        thresholdCharPos,
+        thresholdPositions[wordIndexInText],
         wordFromText,
         totalSuggestions
       )
     );
-  }, [input, dictionary, accuracy, text, totalSuggestions]);
+  }, [input, dictionary, accuracy, text, totalSuggestions, thresholdPositions]);
 
   useEffect(() => {
     onLog("suggested words used", suggestionUsedOnLog);
@@ -138,7 +132,8 @@ WordHelper.propTypes = {
   mainSuggestionPosition: PropTypes.number.isRequired,
   totalSuggestions: PropTypes.number.isRequired,
   focusedSuggestion: PropTypes.number,
-  accuracy: PropTypes.number.isRequired
+  accuracy: PropTypes.number.isRequired,
+  thresholdPositions: PropTypes.arrayOf(PropTypes.number).isRequired
 };
 
 WordHelper.defaultProps = {

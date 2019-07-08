@@ -7,6 +7,7 @@ import useTrialText, {
   LOADING_TRIAL_TEXT
 } from "./useTrialText";
 import Loading from "./Loading";
+import accuracyDistribution from "./accuracyDistribution";
 
 function App({ onAdvanceWorkflow, onLog, keyboardLayout, accuracy }) {
   const [dictionaryLoadingState, dictionary] = useDictionary();
@@ -15,6 +16,12 @@ function App({ onAdvanceWorkflow, onLog, keyboardLayout, accuracy }) {
   switch (dictionaryLoadingState) {
     case LOADED:
       if (trialTextLoadingState === LOADED_TRIAL_TEXT) {
+        const thresholdPositions = accuracyDistribution(
+          trialText,
+          trialText,
+          accuracy
+        );
+        //console.log("thresholdPositions", thresholdPositions);
         return (
           <Trial
             text={trialText}
@@ -23,6 +30,7 @@ function App({ onAdvanceWorkflow, onLog, keyboardLayout, accuracy }) {
             onAdvanceWorkflow={onAdvanceWorkflow}
             onLog={onLog}
             accuracy={accuracy}
+            thresholdPositions={thresholdPositions}
           />
         );
       }

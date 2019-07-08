@@ -1,17 +1,22 @@
 const extractWord = str => {
-  return [str.slice(0, str.indexOf(" ")), str.slice(str.indexOf(" ") + 1)];
+  const word = str.split(" ").shift();
+  const newStr = str.slice(word.length + 1);
+  if (word !== "") {
+    return [word, newStr];
+  }
+  return [null, null];
 };
 
-const dma = (sks, text, a) => {
-  const sumSks = sks.reduce((y, z) => y + z, 0);
-  return Math.abs(sumSks / text.trim().length - a);
+const dma = (skippedKeyStroke, text, acc) => {
+  const sumSkippedKeyStroke = skippedKeyStroke.reduce((y, z) => y + z, 0);
+  return Math.abs(sumSkippedKeyStroke / text.trim().length - acc);
 };
 
 // standard deviation
-const sda = (m, text, wordList, sks) => {
+const sda = (mean, text, wordList, skippedKeyStroke) => {
   let sum = 0;
   for (let i = 0; i < wordList.length; i += 1) {
-    sum += Math.pow(sks[i] - m, 2);
+    sum += Math.pow(skippedKeyStroke[i] / text.trim().length - mean, 2);
   }
   return Math.sqrt((1 / text.trim().length) * sum);
 };
@@ -22,24 +27,42 @@ const sda = (m, text, wordList, sks) => {
 // score = (DMa + SDa) / 2
 // meilleur score = 0
 
-const sks = []; //skipped key stroke
-const wordList = [];
+let skippedKeyStroke = [];
+let wordList = [];
 let topScore = 1;
+let bestThresholdPositions = [];
 
-const accuracyDistribution = (textToType, text, trialAccuracy) => {
+const getBestThresholdPositions = (textToType, text, trialAccuracy) => {
   const [word, newTextToType] = extractWord(textToType);
-  if (word !== "") {
+  if (word !== null) {
     wordList.push(word);
     for (let i = 0; i < word.length; i += 1) {
-      sks.push(word.length - i); // on ajoute les sks du noeud
-      accuracyDistribution(newTextToType, text, trialAccuracy); // on descend dans l'arbre
-      sks.pop(); // ici on a termine une feuille donc on remonte et on enleve les sks de la feuille
+      skippedKeyStroke.push(word.length - i); // on ajoute les sks de la branche
+      getBestThresholdPositions(newTextToType, text, trialAccuracy); // on descend dans l'arbre
+      skippedKeyStroke.pop(); // ici on a termine une branche donc on remonte et on enleve les sks de la feuille
+    }
+    wordList.pop();
+  } else {
+    // ici on a termine une feuille, on calcule donc le score
+    const m = dma(skippedKeyStroke, text, trialAccuracy);
+    const score = (m + sda(m, text, wordList, skippedKeyStroke)) / 2;
+    if (score < topScore) {
+      bestThresholdPositions = [];
+      topScore = score;
+      for (let j = 0; j < skippedKeyStroke.length; j += 1) {
+        bestThresholdPositions.push(wordList[j].length - skippedKeyStroke[j]);
+      }
     }
   }
-  // ici on a termine une feuille, on calcule donc le score
-  const m = dma(sks, text, trialAccuracy);
-  const score = (m + sda(m)) / 2;
-  if (score < topScore) {
-    topScore = score;
-  }
+  return bestThresholdPositions;
 };
+
+const accuracyDistribution = (textToType, text, trialAccuracy) => {
+  skippedKeyStroke = [];
+  wordList = [];
+  topScore = 1;
+  bestThresholdPositions = [];
+  return getBestThresholdPositions(textToType, text, trialAccuracy);
+};
+
+export default accuracyDistribution;

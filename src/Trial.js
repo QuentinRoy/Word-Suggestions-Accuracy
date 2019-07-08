@@ -27,7 +27,8 @@ const Trial = ({
   keyboardLayout,
   onAdvanceWorkflow,
   onLog,
-  accuracy
+  accuracy,
+  thresholdPositions
 }) => {
   const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
@@ -145,6 +146,7 @@ const Trial = ({
         totalSuggestions={totalSuggestions}
         accuracy={accuracy}
         focusedSuggestion={focusIndex > 0 ? focusIndex - 1 : null}
+        thresholdPositions={thresholdPositions}
       />
       {keyboardLayout.id === "mobile" ? (
         <Keyboard
@@ -173,7 +175,8 @@ Trial.propTypes = {
   ).isRequired,
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
-  accuracy: PropTypes.number.isRequired
+  accuracy: PropTypes.number.isRequired,
+  thresholdPositions: PropTypes.arrayOf(PropTypes.number).isRequired
 };
 
 export default Trial;

@@ -31,7 +31,7 @@ const levenshteinDistance = (str1, str2) => {
 function computeSuggestions(
   word,
   wordList,
-  thresholdCharPos,
+  thresholdPosition,
   wordFromText,
   totalSuggestions
 ) {
@@ -85,8 +85,8 @@ function computeSuggestions(
         wordFromText.slice(0, word.length).toLowerCase()
       );
       if (
-        (word.length >= thresholdCharPos && accuracyDistance >= 0.65) ||
-        thresholdCharPos === 0
+        (word.length >= thresholdPosition && accuracyDistance >= 0.65) ||
+        thresholdPosition === 0
       ) {
         insertTopWord(wordList[i], Number.POSITIVE_INFINITY);
         if (wordFromText.charAt(0) === wordFromText.charAt(0).toUpperCase()) {

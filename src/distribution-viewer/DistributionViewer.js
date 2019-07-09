@@ -17,24 +17,9 @@ const KeyCodes = {
   right: 39
 };
 
-const getWordAccuracies = sentence => {
-  const d = shuffle([
-    0.5045,
-    0.001,
-    0.5458,
-    0.98,
-    0.423,
-    0.64,
-    0.49,
-    0.514,
-    0.31,
-    0.64,
-    0.671,
-    0.011,
-    1.0
-  ]);
+const getWordAccuracies = (sentence, targetAccuracy) => {
   const words = sentence.split(" ").filter(s => s !== "");
-  return words.map((w, i) => ({ word: w, normalizedSks: d[i] }));
+  return words.map(w => ({ word: w, normalizedSks: targetAccuracy }));
 };
 
 const DistributionViewer = () => {
@@ -66,7 +51,7 @@ const DistributionViewer = () => {
   if (loadingState === CRASHED) return <div>Crashed...</div>;
 
   // Compute the sentence words accuracy.
-  const words = getWordAccuracies(corpus[sentenceIndex]);
+  const words = getWordAccuracies(corpus[sentenceIndex], accuracy);
 
   return (
     <div className={main} style={{ height: pageHeight }}>

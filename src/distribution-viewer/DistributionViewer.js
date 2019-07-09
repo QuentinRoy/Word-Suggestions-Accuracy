@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { shuffle } from "lodash";
 import Slider from "@material-ui/core/Slider";
 import useSentenceCorpus, { LOADING, CRASHED } from "./useSentenceCorpus";
 import SentenceSelect from "./SentenceSelect";
@@ -14,8 +13,12 @@ import useWindowSize from "../utils/useWindowSize";
 
 const KeyCodes = {
   left: 37,
-  right: 39
+  top: 38,
+  right: 39,
+  bottom: 40
 };
+
+const accuracyMinStep = 0.01;
 
 const getWordAccuracies = (sentence, targetAccuracy) => {
   const words = sentence.split(" ").filter(s => s !== "");
@@ -33,12 +36,26 @@ const DistributionViewer = () => {
   useEffect(() => {
     if (corpus == null) return undefined;
     const handler = evt => {
-      if (evt.keyCode === KeyCodes.left) {
+      if (evt.keyCode === KeyCodes.top) {
+        evt.preventDefault();
+        // If the slider is focused, it will automatically move when arrow keys
+        //  are pressed. The next line overrides this behavior.
+        setAccuracy(accuracy);
+        document.activeElement.blur();
         setSentenceIndex(
           sentenceIndex === 0 ? corpus.length - 1 : sentenceIndex - 1
         );
-      } else if (evt.keyCode === KeyCodes.right) {
+      } else if (evt.keyCode === KeyCodes.bottom) {
+        evt.preventDefault();
+        document.activeElement.blur();
+        setAccuracy(accuracy);
         setSentenceIndex((sentenceIndex + 1) % corpus.length);
+      } else if (evt.keyCode === KeyCodes.left) {
+        evt.preventDefault();
+        setAccuracy(Math.max(0, Math.ceil(accuracy * 10 - 1) / 10));
+      } else if (evt.keyCode === KeyCodes.right) {
+        evt.preventDefault();
+        setAccuracy(Math.min(1, Math.floor(accuracy * 10 + 1) / 10));
       }
     };
     document.addEventListener("keydown", handler);
@@ -68,7 +85,7 @@ const DistributionViewer = () => {
           min={0}
           max={1}
           value={accuracy}
-          step={0.01}
+          step={accuracyMinStep}
           valueLabelDisplay="on"
           onChange={(evt, value) => setAccuracy(value)}
           aria-labelledby="input-slider"

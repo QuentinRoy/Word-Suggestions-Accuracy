@@ -19,7 +19,8 @@ const fontSize = 12;
 
 const histogram = Histogram()
   .domain([0, 1])
-  .thresholds(10)
+  // Last one is a bit bigger than 1 to make sure 1 is included.
+  .thresholds([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0001])
   .value(d => d.normalizedSks);
 
 const x = ScaleLinear()

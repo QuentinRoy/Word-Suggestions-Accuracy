@@ -64,7 +64,7 @@ function WordHelper({
     setHelp(
       computeSuggestions(
         word,
-        dictionary.map(w => w.word),
+        dictionary,
         thresholdPositions[wordIndexInText],
         wordFromText,
         totalSuggestions

@@ -78,8 +78,8 @@ function computeSuggestions(
   };
 
   for (let i = 0; i < wordList.length; i += 1) {
-    const dist = distance(word.toLowerCase(), wordList[i]);
-    if (wordList[i] === wordFromText.toLowerCase()) {
+    const dist = distance(word.toLowerCase(), wordList[i].word);
+    if (wordList[i].word === wordFromText.toLowerCase()) {
       const accuracyDistance = distance(
         word.toLowerCase(),
         wordFromText.slice(0, word.length).toLowerCase()
@@ -88,13 +88,13 @@ function computeSuggestions(
         (word.length >= thresholdPosition && accuracyDistance >= 0.65) ||
         thresholdPosition === 0
       ) {
-        insertTopWord(wordList[i], Number.POSITIVE_INFINITY);
+        insertTopWord(wordList[i].word, Number.POSITIVE_INFINITY);
         if (wordFromText.charAt(0) === wordFromText.charAt(0).toUpperCase()) {
           charUpper = true;
         }
       }
     } else {
-      insertTopWord(wordList[i], dist);
+      insertTopWord(wordList[i].word, dist);
     }
   }
 

@@ -169,7 +169,7 @@ const Trial = ({
 
 Trial.propTypes = {
   text: PropTypes.string.isRequired,
-  dictionary: PropTypes.arrayOf(PropTypes.string).isRequired,
+  dictionary: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   keyboardLayout: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
   ).isRequired,

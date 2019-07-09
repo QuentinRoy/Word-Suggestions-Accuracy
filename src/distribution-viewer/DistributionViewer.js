@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { shuffle } from "lodash";
+import Slider from "@material-ui/core/Slider";
 import useSentenceCorpus, { LOADING, CRASHED } from "./useSentenceCorpus";
 import SentenceSelect from "./SentenceSelect";
 import ViewerContent from "./ViewerContent";
-import { main, sentenceSelect, content } from "./DistributionViewer.module.css";
+import {
+  main,
+  sentenceSelect,
+  content,
+  accuracySelect
+} from "./DistributionViewer.module.css";
 import useWindowSize from "../utils/useWindowSize";
 
 const KeyCodes = {
@@ -34,6 +40,7 @@ const getWordAccuracies = sentence => {
 const DistributionViewer = () => {
   const [loadingState, corpus] = useSentenceCorpus();
   const [sentenceIndex, setSentenceIndex] = useState(0);
+  const [accuracy, setAccuracy] = useState(0.5);
   const { height: pageHeight } = useWindowSize();
 
   // Look for the left and right arrow key strokes to go to the next or the
@@ -68,6 +75,18 @@ const DistributionViewer = () => {
           corpus={corpus}
           selectedIndex={sentenceIndex}
           setSelectedIndex={setSentenceIndex}
+        />
+      </div>
+      <div className={accuracySelect}>
+        <div>Accuracy:</div>
+        <Slider
+          min={0}
+          max={1}
+          value={accuracy}
+          step={0.01}
+          valueLabelDisplay="on"
+          onChange={(evt, value) => setAccuracy(value)}
+          aria-labelledby="input-slider"
         />
       </div>
       <div className={content}>

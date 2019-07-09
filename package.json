@@ -6,7 +6,7 @@
     "@hcikit/hci-scripts": "^3.0.2",
     "@hcikit/tasks": "^0.1.0",
     "@hcikit/workflow": "^0.1.0",
-    "@material-ui/core": "^4.1.1",
+    "@material-ui/core": "^4.2.0",
     "create-react-app": "^3.0.1",
     "d3-array": "^2.2.0",
     "d3-scale": "^3.0.0",

@@ -1,0 +1,15 @@
+.main {
+  display: flex;
+  overflow: hidden;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.sentenceSelect {
+  height: 100%;
+  overflow: scroll;
+  flex-shrink: 0;
+}
+
+.content {
+  width: 100%;
+}

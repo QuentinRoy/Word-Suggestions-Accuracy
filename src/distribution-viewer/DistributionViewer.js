@@ -1,5 +1,80 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { shuffle } from "lodash";
+import useSentenceCorpus, { LOADING, CRASHED } from "./useSentenceCorpus";
+import SentenceSelect from "./SentenceSelect";
+import ViewerContent from "./ViewerContent";
+import { main, sentenceSelect, content } from "./DistributionViewer.module.css";
+import useWindowSize from "../utils/useWindowSize";
 
-const DistributionViewer = () => <div>Distro Viewer</div>;
+const KeyCodes = {
+  left: 37,
+  right: 39
+};
+
+const getWordAccuracies = sentence => {
+  const d = shuffle([
+    0.5045,
+    0.001,
+    0.5458,
+    0.98,
+    0.423,
+    0.64,
+    0.49,
+    0.514,
+    0.31,
+    0.64,
+    0.671,
+    0.011,
+    1.0
+  ]);
+  const words = sentence.split(" ").filter(s => s !== "");
+  return words.map((w, i) => ({ word: w, normalizedSks: d[i] }));
+};
+
+const DistributionViewer = () => {
+  const [loadingState, corpus] = useSentenceCorpus();
+  const [sentenceIndex, setSentenceIndex] = useState(0);
+  const { height: pageHeight } = useWindowSize();
+
+  // Look for the left and right arrow key strokes to go to the next or the
+  // previous sentence.
+  useEffect(() => {
+    if (corpus == null) return undefined;
+    const handler = evt => {
+      if (evt.keyCode === KeyCodes.left) {
+        setSentenceIndex(
+          sentenceIndex === 0 ? corpus.length - 1 : sentenceIndex - 1
+        );
+      } else if (evt.keyCode === KeyCodes.right) {
+        setSentenceIndex((sentenceIndex + 1) % corpus.length);
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => {
+      document.removeEventListener("keydown", handler);
+    };
+  });
+
+  if (loadingState === LOADING) return <div>Loading...</div>;
+  if (loadingState === CRASHED) return <div>Crashed...</div>;
+
+  // Compute the sentence words accuracy.
+  const words = getWordAccuracies(corpus[sentenceIndex]);
+
+  return (
+    <div className={main} style={{ height: pageHeight }}>
+      <div className={sentenceSelect}>
+        <SentenceSelect
+          corpus={corpus}
+          selectedIndex={sentenceIndex}
+          setSelectedIndex={setSentenceIndex}
+        />
+      </div>
+      <div className={content}>
+        <ViewerContent words={words} />
+      </div>
+    </div>
+  );
+};
 
 export default DistributionViewer;

@@ -1,6 +1,6 @@
 .main {
   display: grid;
-  overflow: hidden;
+  overflow: scroll;
   font-family: Helvetica, Arial, sans-serif;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
@@ -14,7 +14,6 @@
 }
 
 .content {
-  width: 100%;
   grid-area: content;
 }
 

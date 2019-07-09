@@ -7,8 +7,8 @@ import { content } from "./ViewerContent.module.css";
 export default function ViewerContent({ words }) {
   return (
     <div className={content}>
-      <SentencePlot words={words} />
       <SentenceTable words={words} />
+      <SentencePlot words={words} />
     </div>
   );
 }

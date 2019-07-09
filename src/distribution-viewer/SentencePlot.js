@@ -17,16 +17,6 @@ const height = 500 - margin.top - margin.bottom;
 const tickLength = 5;
 const fontSize = 12;
 
-const histogram = Histogram()
-  .domain([0, 1])
-  // Last one is a bit bigger than 1 to make sure 1 is included.
-  .thresholds([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0001])
-  .value(d => d.normalizedSks);
-
-const x = ScaleLinear()
-  .domain([0, 1])
-  .range([0, width]);
-
 const Bar = ({ scaleY, words, x0, x1 }) => {
   const { length: n } = words;
   if (words === 0) return null;
@@ -94,6 +84,16 @@ const Scale = () => {
     </>
   );
 };
+
+const histogram = Histogram()
+  .domain([0, 1])
+  // Last one is a bit bigger than 1 to make sure 1 is included.
+  .thresholds([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0001])
+  .value(d => d.sks / d.word.length);
+
+const x = ScaleLinear()
+  .domain([0, 1])
+  .range([0, width]);
 
 const SentencePlot = memo(({ words }) => {
   const data = histogram(words);

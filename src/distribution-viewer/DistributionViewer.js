@@ -10,6 +10,7 @@ import {
   accuracySelect
 } from "./DistributionViewer.module.css";
 import useWindowSize from "../utils/useWindowSize";
+import getWordAccuracies from "./getWordAccuracies";
 
 const KeyCodes = {
   left: 37,
@@ -19,11 +20,6 @@ const KeyCodes = {
 };
 
 const accuracyMinStep = 0.01;
-
-const getWordAccuracies = (sentence, targetAccuracy) => {
-  const words = sentence.split(" ").filter(s => s !== "");
-  return words.map(w => ({ word: w, normalizedSks: targetAccuracy }));
-};
 
 const DistributionViewer = () => {
   const [loadingState, corpus] = useSentenceCorpus();
@@ -68,7 +64,10 @@ const DistributionViewer = () => {
   if (loadingState === CRASHED) return <div>Crashed...</div>;
 
   // Compute the sentence words accuracy.
-  const words = getWordAccuracies(corpus[sentenceIndex], accuracy);
+  const { words, score, meanAccuracy } = getWordAccuracies(
+    corpus[sentenceIndex],
+    accuracy
+  );
 
   return (
     <div className={main} style={{ height: pageHeight }}>
@@ -92,7 +91,11 @@ const DistributionViewer = () => {
         />
       </div>
       <div className={content}>
-        <ViewerContent words={words} />
+        <ViewerContent
+          words={words}
+          score={score}
+          meanAccuracy={meanAccuracy}
+        />
       </div>
     </div>
   );

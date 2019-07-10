@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 import ExperimentWrapper from "./experiment/ExperimentsWrapper";
 
 const DistributionViewer = lazy(() =>

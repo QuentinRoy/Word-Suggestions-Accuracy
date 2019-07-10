@@ -23,18 +23,18 @@ const histogram = Histogram()
   .thresholds([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0001])
   .value(d => d.sks / d.word.length);
 
-const x = ScaleLinear()
+const scaleX = ScaleLinear()
   .domain([0, 1])
   .range([0, width]);
 
 const Bar = ({ scaleY, words, x0, x1 }) => {
-  const { length: n } = words;
-  if (words === 0) return null;
-  const barWidth = x(x1) - x(x0) - 2;
+  const n = words.length;
+  if (n === 0) return null;
+  const barWidth = scaleX(x1) - scaleX(x0) - 2;
   return (
     <g
       // eslint-disable-next-line react/no-array-index-key
-      transform={`translate(${x(x0)} ${scaleY(n)})`}
+      transform={`translate(${scaleX(x0)} ${scaleY(n)})`}
     >
       <rect
         x={1}
@@ -72,7 +72,7 @@ Bar.propTypes = {
 const Scale = () => {
   const ticks = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1].map(
     tValue => (
-      <g key={tValue} transform={`translate(${x(tValue)})`}>
+      <g key={tValue} transform={`translate(${scaleX(tValue)})`}>
         <line x0={0} x1={0} y0={0} y1={tickLength} className={tick} />
         <text
           className={tickLabel}
@@ -89,7 +89,7 @@ const Scale = () => {
   );
   return (
     <>
-      <line x0={0} x1={x(1)} y0={0} y1={0} className={scaleLine} />
+      <line x0={0} x1={scaleX(1)} y0={0} y1={0} className={scaleLine} />
       {ticks}
     </>
   );
@@ -98,13 +98,13 @@ const Scale = () => {
 const SentencePlot = memo(({ words }) => {
   const data = histogram(words);
   const yMax = max(data, d => d.length);
-  const y = ScaleLinear()
+  const scaleY = ScaleLinear()
     .domain([0, yMax])
     .range([height, 0]);
 
   const bars = data.map((d, i) => (
     // eslint-disable-next-line react/no-array-index-key
-    <Bar key={i} scaleY={y} words={d} x0={d.x0} x1={d.x1} />
+    <Bar key={i} scaleY={scaleY} words={d} x0={d.x0} x1={d.x1} />
   ));
 
   const barGroup = (
@@ -112,7 +112,7 @@ const SentencePlot = memo(({ words }) => {
   );
 
   const scale = (
-    <g transform={`translate(${margin.left} ${y(0) + margin.top})`}>
+    <g transform={`translate(${margin.left} ${scaleY(0) + margin.top})`}>
       <Scale />
     </g>
   );

@@ -1,11 +1,11 @@
 .table {
   border-collapse: collapse;
+  margin: 0 1em;
 }
 
 .table th,
 .table td {
   padding: 0.2em 1em;
-  text-align: center;
 }
 
 .table th:first-child,
@@ -23,7 +23,17 @@
 }
 
 .table tr:first-child th,
+.table td {
+  text-align: center;
+}
+
+.table tr:first-child th,
 .table tr:first-child td {
   border-bottom-style: solid;
-  border-width: 1px;
+  border-width: 2px;
+}
+
+.table tr:nth-child(2) td,
+.table tr:nth-child(2) th {
+  padding-top: 0.5em;
 }

@@ -58,10 +58,6 @@ function computeSuggestions(
   }
   */
 
-  //
-  // JARO-WINKLER DISTANCE
-  //
-
   const topWords = Array(totalSuggestions).fill(null);
   const topWordsScore = Array(totalSuggestions).fill(0);
 
@@ -78,8 +74,20 @@ function computeSuggestions(
   };
 
   for (let i = 0; i < wordList.length; i += 1) {
+    const frequencyScore =
+      (wordList[i].f / 255) *
+      (1 - wordList[i].word.length / (wordList[i].word.length - word.length));
+    insertTopWord(wordList[i], frequencyScore);
+  }
+
+  /*
+  for (let i = 0; i < wordList.length; i += 1) {
+    const frequencyScore =
+      (wordList[i].f / 255) *
+      (1 - wordList[i].word.length / (wordList[i].word.length - word.length));
     const dist = distance(word.toLowerCase(), wordList[i]);
-    if (wordList[i] === wordFromText.toLowerCase()) {
+
+    if (wordList[i].word === wordFromText.toLowerCase()) {
       const accuracyDistance = distance(
         word.toLowerCase(),
         wordFromText.slice(0, word.length).toLowerCase()
@@ -88,40 +96,24 @@ function computeSuggestions(
         (word.length >= thresholdPosition && accuracyDistance >= 0.65) ||
         thresholdPosition === 0
       ) {
-        insertTopWord(wordList[i], Number.POSITIVE_INFINITY);
+        insertTopWord(wordList[i].word, Number.POSITIVE_INFINITY);
         if (wordFromText.charAt(0) === wordFromText.charAt(0).toUpperCase()) {
           charUpper = true;
         }
       }
     } else {
-      insertTopWord(wordList[i], dist);
+      //handle frequencyScore
+      insertTopWord(wordList[i].word, dist);
     }
-  }
+  }*/
 
-  //
-  // BASIC WORD COMPLETION
-  //
   if (
     word !== undefined &&
     word !== "" &&
     word.charAt(0) === word.charAt(0).toUpperCase()
   )
     charUpper = true;
-  /*
-  if (word !== "") {
-    let reducedParsedFile = parsedFile.filter(
-      w => w.slice(0, word.length) === word.toLowerCase()
-    );
-    for (let i = 0; i < helpers.length; i += 1) {
-      helpers[i] = reducedParsedFile.reduce((shortestWord, currentWord) => {
-        return currentWord.length < shortestWord.length
-          ? currentWord
-          : shortestWord;
-      }, reducedParsedFile[0]);
-      reducedParsedFile = reducedParsedFile.filter(w => w !== helpers[i]);
-    }
-  }
-  */
+
   if (charUpper) {
     for (let j = 0; j < topWords.length; j += 1) {
       if (topWords[j] !== undefined)

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
 import "react-simple-keyboard/build/css/index.css";
-import "./index.css";
 import "./Trial.css";
 import WordHelper from "./WordHelper";
 import TextToType from "./TextToType";

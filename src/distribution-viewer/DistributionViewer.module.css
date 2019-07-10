@@ -1,0 +1,23 @@
+.main {
+  display: grid;
+  overflow: scroll;
+  font-family: Helvetica, Arial, sans-serif;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "left top" "left content";
+}
+
+.sentenceSelect {
+  height: 100%;
+  overflow: scroll;
+  grid-area: left;
+}
+
+.content {
+  grid-area: content;
+}
+
+.accuracySelect {
+  grid-area: top;
+  padding: 30px 30px 20px 30px;
+}

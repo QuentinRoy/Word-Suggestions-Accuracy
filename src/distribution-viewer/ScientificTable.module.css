@@ -1,0 +1,39 @@
+.table {
+  border-collapse: collapse;
+  margin: 0 1em;
+}
+
+.table th,
+.table td {
+  padding: 0.2em 1em;
+}
+
+.table th:first-child,
+.table td:first-child {
+  padding-left: 0;
+}
+
+.table th:last-child,
+.table td:last-child {
+  padding-right: 0;
+}
+
+.table th {
+  text-align: right;
+}
+
+.table tr:first-child th,
+.table td {
+  text-align: center;
+}
+
+.table tr:first-child th,
+.table tr:first-child td {
+  border-bottom-style: solid;
+  border-width: 2px;
+}
+
+.table tr:nth-child(2) td,
+.table tr:nth-child(2) th {
+  padding-top: 0.5em;
+}

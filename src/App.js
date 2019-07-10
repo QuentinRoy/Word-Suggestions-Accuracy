@@ -1,53 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Trial from "./Trial";
-import useDictionary, { LOADED, LOADING } from "./useDictionary";
-import useTrialText from "./useTrialText";
-import Loading from "./Loading";
-import accuracyDistribution from "./accuracyDistribution";
+import React, { Suspense, lazy } from "react";
+import { HashRouter as Router, Route } from "react-router-dom";
+import ExperimentWrapper from "./experiment/ExperimentsWrapper";
 
-function App({ onAdvanceWorkflow, onLog, keyboardLayout, accuracy }) {
-  const [dictionaryLoadingState, dictionary] = useDictionary();
-  const [trialTextLoadingState, trialText] = useTrialText();
+const DistributionViewer = lazy(() =>
+  import("./distribution-viewer/DistributionViewer")
+);
 
-  switch (dictionaryLoadingState) {
-    case LOADED:
-      if (trialTextLoadingState === LOADED) {
-        const thresholdPositions = accuracyDistribution(
-          trialText,
-          trialText,
-          accuracy
-        );
-        return (
-          <Trial
-            text={trialText}
-            dictionary={dictionary}
-            keyboardLayout={keyboardLayout}
-            onAdvanceWorkflow={onAdvanceWorkflow}
-            onLog={onLog}
-            accuracy={accuracy}
-            thresholdPositions={thresholdPositions}
-          />
-        );
-      }
-      if (trialTextLoadingState === LOADING) {
-        return <Loading />;
-      }
-      return <div>Something went wrong...</div>;
-    case LOADING:
-      return <Loading />;
-    default:
-      return <div>Oh nooo...</div>;
-  }
-}
+const DistributionViewerRoute = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <DistributionViewer />
+  </Suspense>
+);
 
-App.propTypes = {
-  onAdvanceWorkflow: PropTypes.func.isRequired,
-  onLog: PropTypes.func.isRequired,
-  keyboardLayout: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
-  ).isRequired,
-  accuracy: PropTypes.number.isRequired
-};
+const App = () => (
+  <Router>
+    <Route exact path="/" component={ExperimentWrapper} />
+    <Route path="/distribution-viewer" component={DistributionViewerRoute} />
+  </Router>
+);
 
 export default App;

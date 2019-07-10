@@ -1,0 +1,19 @@
+.bar {
+  fill: #4d5682;
+}
+
+.barLabel {
+  fill: white;
+}
+
+.tick,
+.scaleLine {
+  stroke: black;
+  stroke-linecap: round;
+  stroke-width: 1;
+}
+
+.plot {
+  height: 100%;
+  width: 100%;
+}

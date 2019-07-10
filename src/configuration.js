@@ -35,7 +35,7 @@ You are about to complete a human-computer interaction experiment. This experime
     },*/
     {
       task: "App",
-      accuracy: 1,
+      accuracy: 0.7,
       key: 1
     },
     {
@@ -50,7 +50,7 @@ You are about to complete a human-computer interaction experiment. This experime
     },
     {
       task: "App",
-      accuracy: 1,
+      accuracy: 0.4,
       key: 4
     },
     {
@@ -65,52 +65,52 @@ You are about to complete a human-computer interaction experiment. This experime
     },*/,
     {
       task: "App",
-      accuracy: 100,
+      accuracy: 0.8,
       key: 6
     },
     {
       task: "App",
-      accuracy: 50,
+      accuracy: 0.65,
       key: 7
     },
     {
       task: "App",
-      accuracy: 0,
+      accuracy: 0.1,
       key: 8
     },
     {
       task: "App",
-      accuracy: 100,
+      accuracy: 0.42,
       key: 9
     },
     {
       task: "App",
-      accuracy: 50,
+      accuracy: 0.34,
       key: 10
     },
     {
       task: "App",
-      accuracy: 100,
+      accuracy: 0.93,
       key: 11
     },
     {
       task: "App",
-      accuracy: 50,
+      accuracy: 0.58,
       key: 12
     },
     {
       task: "App",
-      accuracy: 0,
+      accuracy: 0.4,
       key: 13
     },
     {
       task: "App",
-      accuracy: 100,
+      accuracy: 0.86,
       key: 14
     },
     {
       task: "App",
-      accuracy: 50,
+      accuracy: 0.31,
       key: 15
     }
   ]

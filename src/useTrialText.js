@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-export const LOADING_TRIAL_TEXT = "loading";
-export const LOADED_TRIAL_TEXT = "loaded";
-export const CRASHED_TRIAL_TEXT = "crashed";
+const LOADING_TRIAL_TEXT = "loading";
+const LOADED_TRIAL_TEXT = "loaded";
+const CRASHED_TRIAL_TEXT = "crashed";
 
 const url = Array(`./phrases.txt`);
 

@@ -7,6 +7,7 @@ const extractWord = str => {
   return [null, null];
 };
 
+// mean
 const dma = (skippedKeyStroke, text, acc) => {
   const sumSkippedKeyStroke = skippedKeyStroke.reduce((y, z) => y + z, 0);
   return Math.abs(sumSkippedKeyStroke / text.trim().length - acc);
@@ -16,36 +17,36 @@ const dma = (skippedKeyStroke, text, acc) => {
 const sda = (mean, text, wordList, skippedKeyStroke) => {
   let sum = 0;
   for (let i = 0; i < wordList.length; i += 1) {
-    sum += Math.pow(skippedKeyStroke[i] / text.trim().length - mean, 2);
+    sum += Math.pow(skippedKeyStroke[i] / wordList[i].length - mean, 2);
   }
   return Math.sqrt((1 / text.trim().length) * sum);
 };
-
-// DMa = abs(mean(SKS/letters)-a)
-// SDa = sd(SKS/letters)
-//
-// score = (DMa + SDa) / 2
-// meilleur score = 0
 
 let skippedKeyStroke = [];
 let wordList = [];
 let topScore = 1;
 let bestThresholdPositions = [];
 
-const getBestThresholdPositions = (textToType, text, trialAccuracy) => {
+const getBestThresholdPositions = (
+  textToType,
+  text,
+  trialTheoricalAccuracy
+) => {
   const [word, newTextToType] = extractWord(textToType);
   if (word !== null) {
     wordList.push(word);
     for (let i = 0; i < word.length; i += 1) {
       skippedKeyStroke.push(word.length - i); // on ajoute les sks de la branche
-      getBestThresholdPositions(newTextToType, text, trialAccuracy); // on descend dans l'arbre
+      getBestThresholdPositions(newTextToType, text, trialTheoricalAccuracy); // on descend dans l'arbre
       skippedKeyStroke.pop(); // ici on a termine une branche donc on remonte et on enleve les sks de la feuille
     }
     wordList.pop();
   } else {
     // ici on a termine une feuille, on calcule donc le score
-    const m = dma(skippedKeyStroke, text, trialAccuracy);
-    const score = (m + sda(m, text, wordList, skippedKeyStroke)) / 2;
+    const m = dma(skippedKeyStroke, text, trialTheoricalAccuracy);
+    const sd = sda(m, text, wordList, skippedKeyStroke);
+    const score = (m + sd) / 2;
+
     if (score < topScore) {
       bestThresholdPositions = [];
       topScore = score;

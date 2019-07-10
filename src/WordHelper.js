@@ -127,7 +127,12 @@ WordHelper.propTypes = {
   input: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   setInput: PropTypes.func.isRequired,
-  dictionary: PropTypes.arrayOf(PropTypes.string).isRequired,
+  dictionary: PropTypes.arrayOf(
+    PropTypes.shape({
+      f: PropTypes.number.isRequired,
+      word: PropTypes.string.isRequired
+    })
+  ).isRequired,
   onLog: PropTypes.func.isRequired,
   mainSuggestionPosition: PropTypes.number.isRequired,
   totalSuggestions: PropTypes.number.isRequired,

@@ -21,7 +21,6 @@ function App({ onAdvanceWorkflow, onLog, keyboardLayout, accuracy }) {
           trialText,
           accuracy
         );
-        //console.log("thresholdPositions", thresholdPositions);
         return (
           <Trial
             text={trialText}

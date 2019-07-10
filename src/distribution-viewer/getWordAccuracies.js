@@ -1,24 +1,30 @@
 import { sd, mean } from "../utils/arrays";
 
-const branchScore = (wordEntries, targetAccuracy) => {
+const getBranchResult = (wordEntries, targetAccuracy, targetSd) => {
   const normalizedSks = wordEntries.map(d => d.sks / d.word.length);
   const meanAccuracy = mean(normalizedSks);
   const sdAccuracy = sd(normalizedSks, meanAccuracy);
   const diffAccuracy = Math.abs(targetAccuracy - meanAccuracy);
-  return (diffAccuracy + sdAccuracy) / 2;
+  const diffSd = Math.abs(sdAccuracy - targetSd);
+  const score = (diffAccuracy + diffSd) / 2;
+  return {
+    score,
+    words: wordEntries,
+    meanAccuracy,
+    sdAccuracy,
+    diffAccuracy,
+    diffSd
+  };
 };
 
 const getWordAccuraciesFromWordList = (
   wordList,
   targetAccuracy,
+  targetSd,
   branchWordEntries
 ) => {
   if (wordList.length === branchWordEntries.length) {
-    return {
-      score: branchScore(branchWordEntries, targetAccuracy),
-      words: branchWordEntries,
-      meanAccuracy: mean(branchWordEntries.map(d => d.sks / d.word.length))
-    };
+    return getBranchResult(branchWordEntries, targetAccuracy, targetSd);
   }
   const currentWord = wordList[branchWordEntries.length];
   let best = null;
@@ -30,6 +36,7 @@ const getWordAccuraciesFromWordList = (
     const subBranchResult = getWordAccuraciesFromWordList(
       wordList,
       targetAccuracy,
+      targetSd,
       [...branchWordEntries, thisWordEntry]
     );
     if (best == null || subBranchResult.score < best.score) {
@@ -39,10 +46,11 @@ const getWordAccuraciesFromWordList = (
   return best;
 };
 
-const getWordAccuracies = (sentence, targetAccuracy) =>
+const getWordAccuracies = (sentence, targetAccuracy, targetSd) =>
   getWordAccuraciesFromWordList(
     sentence.split(" ").filter(s => s !== ""),
     targetAccuracy,
+    targetSd,
     []
   );
 

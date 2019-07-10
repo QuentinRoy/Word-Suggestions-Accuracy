@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { table } from "./SentenceTable.module.css";
+import { table } from "./ScientificTable.module.css";
 
 const SentenceTable = ({ words }) => (
   <table className={table}>

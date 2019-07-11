@@ -10,7 +10,7 @@ import {
   accuracySelect
 } from "./DistributionViewer.module.css";
 import useWindowSize from "../utils/useWindowSize";
-import getWordAccuracies from "./getWordAccuracies";
+import getWordAccuracies from "../utils/getWordAccuracies";
 
 const KeyCodes = {
   left: 37,

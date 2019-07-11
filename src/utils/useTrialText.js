@@ -27,7 +27,7 @@ const useTrialText = () => {
         );
         setLoadingState(LOADED_TRIAL_TEXT);
       })
-      .catch(err => {
+      .catch(() => {
         setLoadingState(CRASHED_TRIAL_TEXT);
       });
   }, []);
@@ -36,3 +36,5 @@ const useTrialText = () => {
 };
 
 export default useTrialText;
+
+export const something = "something";

@@ -27,7 +27,7 @@ const scaleX = ScaleLinear()
   .domain([0, 1])
   .range([0, width]);
 
-const Bar = ({ scaleY, words, x0, x1 }) => {
+const WordBar = ({ scaleY, words, x0, x1 }) => {
   const n = words.length;
   if (n === 0) return null;
   const barWidth = scaleX(x1) - scaleX(x0) - 2;
@@ -61,7 +61,7 @@ const Bar = ({ scaleY, words, x0, x1 }) => {
   );
 };
 
-Bar.propTypes = {
+WordBar.propTypes = {
   scaleY: PropTypes.func.isRequired,
   words: PropTypes.arrayOf(PropTypes.shape({ word: PropTypes.string }))
     .isRequired,
@@ -104,7 +104,7 @@ const SentencePlot = memo(({ words }) => {
 
   const bars = data.map((d, i) => (
     // eslint-disable-next-line react/no-array-index-key
-    <Bar key={i} scaleY={scaleY} words={d} x0={d.x0} x1={d.x1} />
+    <WordBar key={i} scaleY={scaleY} words={d} x0={d.x0} x1={d.x1} />
   ));
 
   const barGroup = (

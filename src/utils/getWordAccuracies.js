@@ -1,4 +1,4 @@
-import { sd, mean, sum } from "../utils/arrays";
+import { sd, mean, sum } from "./arrays";
 
 const getBranchResult = (wordEntries, targetAccuracy, targetSd) => {
   const normalizedSks = wordEntries.map(d => d.sks / d.word.length);

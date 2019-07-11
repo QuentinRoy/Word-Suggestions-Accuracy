@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Trial from "./Trial";
 import useDictionary, { LOADED, LOADING } from "./useDictionary";
 import Loading from "./Loading";
-import getWordAccuracies from "../distribution-viewer/getWordAccuracies";
+import getWordAccuracies from "../utils/getWordAccuracies";
 
 function TypingTask({
   text,

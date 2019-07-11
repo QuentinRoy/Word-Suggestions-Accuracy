@@ -1,6 +1,13 @@
+const frequencyScore = (freq, dictionnaryWord, inputWord) => {
+  return (
+    (freq / 255) *
+    (1 - (dictionnaryWord.length - inputWord.length) / dictionnaryWord.length)
+  );
+};
+
 function computeSuggestions(
   inputWord,
-  wordList,
+  dictionary,
   thresholdPosition,
   wordFromText,
   totalSuggestions
@@ -22,23 +29,39 @@ function computeSuggestions(
     }
   };
 
-  for (let i = 0; i < wordList.length; i += 1) {
-    const frequencyScore = Math.abs(
-      (wordList[i].f / 255) *
-        (1 -
-          wordList[i].word.length /
-            (wordList[i].word.length - inputWord.length))
-    );
+  const getTotalFrequencyScores = () => {
+    let scoresSum = 0;
+    for (let i = 0; i < dictionary.length; i += 1) {
+      scoresSum += frequencyScore(
+        dictionary[i].f,
+        dictionary[i].word,
+        inputWord
+      );
+    }
+    return scoresSum;
+  };
 
-    if (wordList[i].word.toLowerCase() === wordFromText.toLowerCase()) {
+  const totalFrequencyScores = getTotalFrequencyScores();
+
+  for (let i = 0; i < dictionary.length; i += 1) {
+    const inputWordScore = frequencyScore(
+      dictionary[i].f,
+      dictionary[i].word,
+      inputWord
+    );
+    const normalizedInputWordScore = inputWordScore / totalFrequencyScores;
+    if (dictionary[i].word.toLowerCase() === wordFromText.toLowerCase()) {
       if (inputWord.length >= thresholdPosition || thresholdPosition === 0) {
-        insertTopWord(wordList[i].word, Number.POSITIVE_INFINITY);
+        insertTopWord(dictionary[i].word, Number.POSITIVE_INFINITY);
         if (wordFromText.charAt(0) === wordFromText.charAt(0).toUpperCase()) {
           charUpper = true;
         }
       }
-    } else if (wordList[i].word.length > inputWord.length || inputWord === "") {
-      insertTopWord(wordList[i].word, frequencyScore);
+    } else if (
+      dictionary[i].word.length > inputWord.length ||
+      inputWord === ""
+    ) {
+      insertTopWord(dictionary[i].word, normalizedInputWordScore);
     }
   }
 

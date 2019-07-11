@@ -175,7 +175,7 @@ Trial.propTypes = {
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
   accuracy: PropTypes.number.isRequired,
-  thresholdPositions: PropTypes.arrayOf(PropTypes.number).isRequired
+  thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default Trial;

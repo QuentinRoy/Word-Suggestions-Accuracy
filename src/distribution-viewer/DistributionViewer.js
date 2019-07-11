@@ -64,7 +64,7 @@ const DistributionViewer = () => {
   if (loadingState === CRASHED) return <div>Crashed...</div>;
 
   // Compute the sentence words accuracy.
-  const { words, score, meanAccuracy, sdAccuracy } = getWordAccuracies(
+  const distributionResult = getWordAccuracies(
     corpus[sentenceIndex],
     accuracy,
     0
@@ -92,12 +92,7 @@ const DistributionViewer = () => {
         />
       </div>
       <div className={content}>
-        <ViewerContent
-          words={words}
-          score={score}
-          meanAccuracy={meanAccuracy}
-          sdAccuracy={sdAccuracy}
-        />
+        <ViewerContent {...distributionResult} />
       </div>
     </div>
   );

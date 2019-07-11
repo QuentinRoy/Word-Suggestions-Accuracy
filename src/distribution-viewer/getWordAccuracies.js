@@ -1,8 +1,10 @@
-import { sd, mean } from "../utils/arrays";
+import { sd, mean, sum } from "../utils/arrays";
 
 const getBranchResult = (wordEntries, targetAccuracy, targetSd) => {
   const normalizedSks = wordEntries.map(d => d.sks / d.word.length);
   const meanAccuracy = mean(normalizedSks);
+  const weightedAccuracy =
+    sum(wordEntries.map(d => d.sks)) / sum(wordEntries.map(d => d.word.length));
   const sdAccuracy = sd(normalizedSks, meanAccuracy);
   const diffAccuracy = Math.abs(targetAccuracy - meanAccuracy);
   const diffSd = Math.abs(sdAccuracy - targetSd);
@@ -11,6 +13,7 @@ const getBranchResult = (wordEntries, targetAccuracy, targetSd) => {
     score,
     words: wordEntries,
     meanAccuracy,
+    weightedAccuracy,
     sdAccuracy,
     diffAccuracy,
     diffSd

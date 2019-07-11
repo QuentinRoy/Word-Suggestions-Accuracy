@@ -53,24 +53,34 @@ function WordHelper({
   const [wordReplacedOnLog, setWordReplacedOnLog] = useState([]);
 
   useEffect(() => {
-    const word = input.slice(
-      input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
-    );
-    let wordFromText = text.slice(input.lastIndexOf(" ") + 1);
-    if (wordFromText.indexOf(" ") > 0) {
-      wordFromText = wordFromText.slice(0, wordFromText.indexOf(" "));
+    if (countSimilarChars(text, input) !== text.length) {
+      const word = input.slice(
+        input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
+      );
+      let wordFromText = text.slice(input.lastIndexOf(" ") + 1);
+      if (wordFromText.indexOf(" ") > 0) {
+        wordFromText = wordFromText.slice(0, wordFromText.indexOf(" "));
+      }
+      const wordIndexInText = text.split(" ").indexOf(wordFromText);
+      setHelp(
+        computeSuggestions(
+          word,
+          dictionary,
+          thresholdPositions[wordIndexInText].sks,
+          wordFromText,
+          totalSuggestions
+        )
+      );
     }
-    const wordIndexInText = text.split(" ").indexOf(wordFromText);
-    setHelp(
-      computeSuggestions(
-        word,
-        dictionary,
-        thresholdPositions[wordIndexInText],
-        wordFromText,
-        totalSuggestions
-      )
-    );
-  }, [input, dictionary, accuracy, text, totalSuggestions, thresholdPositions]);
+  }, [
+    input,
+    dictionary,
+    accuracy,
+    text,
+    totalSuggestions,
+    thresholdPositions,
+    countSimilarChars
+  ]);
 
   useEffect(() => {
     onLog("suggested words used", suggestionUsedOnLog);

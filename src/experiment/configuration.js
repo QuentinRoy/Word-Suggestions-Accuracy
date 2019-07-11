@@ -34,12 +34,14 @@ You are about to complete a human-computer interaction experiment. This experime
       key: 0
     },*/
     {
-      task: "App",
+      task: "TypingTask",
+      text: "Here is a new experiment",
       accuracy: 0.7,
       key: 1
     },
     {
-      task: "App",
+      task: "TypingTask",
+      text: "This is another experiment",
       accuracy: 0.5,
       key: 2
     },

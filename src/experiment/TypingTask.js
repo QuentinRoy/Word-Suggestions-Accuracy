@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Trial from "./Trial";
 import useDictionary, { LOADED, LOADING } from "./useDictionary";
 import Loading from "./Loading";
+import getWordAccuracies from "../distribution-viewer/getWordAccuracies";
 
 function TypingTask({
   text,
@@ -12,9 +13,11 @@ function TypingTask({
   accuracy
 }) {
   const [dictionaryLoadingState, dictionary] = useDictionary();
+  let thresholdPositions;
 
   switch (dictionaryLoadingState) {
     case LOADED:
+      thresholdPositions = getWordAccuracies(text, accuracy, 0);
       return (
         <Trial
           text={text}
@@ -23,6 +26,7 @@ function TypingTask({
           onAdvanceWorkflow={onAdvanceWorkflow}
           onLog={onLog}
           accuracy={accuracy}
+          thresholdPositions={thresholdPositions.words}
         />
       );
     case LOADING:

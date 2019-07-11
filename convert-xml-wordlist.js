@@ -12,7 +12,10 @@ const main = async (inputPath, outputPath) => {
       else resolve(result);
     });
   });
-  const newObj = { ... obj.wordlist.$, words: obj.wordlist.w.map(w => ({...w.$, word: w._})) }
+  const newObj = {
+    ...obj.wordlist.$,
+    words: obj.wordlist.w.map(w => ({ ...w.$, word: w._ }))
+  };
   await writeFile(outputPath, JSON.stringify(newObj));
 };
 

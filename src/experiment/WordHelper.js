@@ -148,7 +148,7 @@ WordHelper.propTypes = {
   totalSuggestions: PropTypes.number.isRequired,
   focusedSuggestion: PropTypes.number,
   accuracy: PropTypes.number.isRequired,
-  thresholdPositions: PropTypes.arrayOf(PropTypes.number).isRequired
+  thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 WordHelper.defaultProps = {

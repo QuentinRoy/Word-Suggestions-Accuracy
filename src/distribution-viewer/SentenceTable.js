@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { table } from "./ScientificTable.module.css";
+import { wordSavedPart, wordStart } from "./SentenceTable.module.css";
 
 const SentenceTable = ({ words }) => (
   <table className={table}>
@@ -9,7 +10,14 @@ const SentenceTable = ({ words }) => (
         <th />
         {words.map((w, i) => (
           // eslint-disable-next-line react/no-array-index-key
-          <th key={i}>{w.word}</th>
+          <th key={i}>
+            <span className={wordStart}>
+              {w.word.slice(0, w.word.length - w.sks)}
+            </span>
+            <span className={wordSavedPart}>
+              {w.word.slice(w.word.length - w.sks, w.length)}
+            </span>
+          </th>
         ))}
       </tr>
       <tr>

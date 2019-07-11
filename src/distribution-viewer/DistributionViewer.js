@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Slider from "@material-ui/core/Slider";
-import useSentenceCorpus, { LOADING, CRASHED } from "./useSentenceCorpus";
+import useSentenceCorpus, {
+  LOADING,
+  CRASHED
+} from "../utils/useSentenceCorpus";
 import SentenceSelect from "./SentenceSelect";
 import ViewerContent from "./ViewerContent";
 import {

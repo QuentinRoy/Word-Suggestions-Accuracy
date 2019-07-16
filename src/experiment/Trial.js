@@ -22,7 +22,6 @@ const countSimilarChars = (str1, str2) => {
 
 const Trial = ({
   text,
-  dictionary,
   keyboardLayout,
   onAdvanceWorkflow,
   onLog,
@@ -131,7 +130,6 @@ const Trial = ({
         readOnly={keyboardLayout.id === "mobile"}
       />
       <WordHelper
-        dictionary={dictionary}
         input={input}
         text={text}
         setInput={setInput}
@@ -168,7 +166,6 @@ const Trial = ({
 
 Trial.propTypes = {
   text: PropTypes.string.isRequired,
-  dictionary: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   keyboardLayout: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
   ).isRequired,

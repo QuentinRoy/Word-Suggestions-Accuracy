@@ -4,18 +4,26 @@ import { registerAll } from "@hcikit/tasks";
 import TypingTask from "./TypingTask";
 import KeyboardSelector from "./KeyboardSelector";
 import useConfiguration from "./useConfiguration";
+import DictionaryProvider, { LOADING, CRASHED } from "./useDictionary";
+import Loading from "./Loading";
 
 registerAll(registerTask);
 registerTask("TypingTask", TypingTask);
 registerTask("KeyboardSelector", KeyboardSelector);
 
 export default function ExperimentsWrapper() {
-  const configuration = useConfiguration();
-  if (configuration === "loading") {
-    return <div>Loading corpus...</div>;
+  const [loadingState, configuration] = useConfiguration();
+
+  if (loadingState === LOADING) {
+    return <Loading />;
   }
-  if (configuration === "crashed") {
+  if (loadingState === CRASHED) {
     return <div>Loading corpus crashed...</div>;
   }
-  return <Experiment configuration={configuration} />;
+
+  return (
+    <DictionaryProvider>
+      <Experiment configuration={configuration} />
+    </DictionaryProvider>
+  );
 }

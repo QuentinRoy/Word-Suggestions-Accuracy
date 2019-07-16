@@ -1,16 +1,33 @@
-const frequencyScore = (freq, dictionnaryWord, inputWord) => {
+import { useCallback } from "react";
+import { useDictionary } from "./useDictionary";
+
+const getLettersCompleted = (dictionaryWord, inputWord) => {
+  let countLettersCompleted = 0;
+  for (let i = 0; i < dictionaryWord.length; i += 1) {
+    if (i === inputWord.length) {
+      countLettersCompleted += dictionaryWord.length - i;
+      break;
+    }
+    if (dictionaryWord[i] !== inputWord[i]) {
+      countLettersCompleted += 1;
+    }
+  }
+  return countLettersCompleted;
+};
+
+const frequencyScore = (freq, dictionaryWord, inputWord) => {
   return (
     (freq / 255) *
-    (1 - (dictionnaryWord.length - inputWord.length) / dictionnaryWord.length)
+    (1 - getLettersCompleted(dictionaryWord, inputWord) / dictionaryWord.length)
   );
 };
 
 function computeSuggestions(
   inputWord,
-  dictionary,
   thresholdPosition,
   wordFromText,
-  totalSuggestions
+  totalSuggestions,
+  dictionary
 ) {
   let charUpper = false;
 
@@ -82,4 +99,18 @@ function computeSuggestions(
   return topWords;
 }
 
-export default computeSuggestions;
+function useComputeSuggestions(
+  inputWord,
+  thresholdPosition,
+  wordFromText,
+  totalSuggestions
+) {
+  const dictionary = useDictionary();
+  const boundComputeSuggestions = useCallback(
+    (...args) => computeSuggestions(...args, dictionary),
+    [dictionary]
+  );
+  return boundComputeSuggestions;
+}
+
+export default useComputeSuggestions;

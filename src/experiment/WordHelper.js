@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./WordHelper.module.css";
-import computeSuggestions from "./computeSuggestions";
+import useComputeSuggestions from "./useComputeSuggestions";
 import useMultiRef from "../utils/useMultiRef";
 
 /**
@@ -40,7 +40,6 @@ function WordHelper({
   text,
   setInput,
   countSimilarChars,
-  dictionary,
   onLog,
   mainSuggestionPosition,
   totalSuggestions,
@@ -51,6 +50,7 @@ function WordHelper({
   const [help, setHelp] = useState([]);
   const [suggestionUsedOnLog, setSuggestionUsedOnLog] = useState([]);
   const [wordReplacedOnLog, setWordReplacedOnLog] = useState([]);
+  const computeSuggestions = useComputeSuggestions();
 
   useEffect(() => {
     if (countSimilarChars(text, input) !== text.length) {
@@ -65,7 +65,6 @@ function WordHelper({
       setHelp(
         computeSuggestions(
           word,
-          dictionary,
           thresholdPositions[wordIndexInText].sks,
           wordFromText,
           totalSuggestions
@@ -74,12 +73,12 @@ function WordHelper({
     }
   }, [
     input,
-    dictionary,
     accuracy,
     text,
     totalSuggestions,
     thresholdPositions,
-    countSimilarChars
+    countSimilarChars,
+    computeSuggestions
   ]);
 
   useEffect(() => {
@@ -137,12 +136,6 @@ WordHelper.propTypes = {
   input: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   setInput: PropTypes.func.isRequired,
-  dictionary: PropTypes.arrayOf(
-    PropTypes.shape({
-      f: PropTypes.number.isRequired,
-      word: PropTypes.string.isRequired
-    })
-  ).isRequired,
   onLog: PropTypes.func.isRequired,
   mainSuggestionPosition: PropTypes.number.isRequired,
   totalSuggestions: PropTypes.number.isRequired,

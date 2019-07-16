@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
+import PropTypes from "prop-types";
 import { parse } from "papaparse";
 
 export const LOADING = "loading";
@@ -7,8 +8,15 @@ export const CRASHED = "crashed";
 
 const path = "./dictionaries_en_US_wordlist.csv";
 
-const useDictionary = () => {
-  const [dict, setDict] = useState(null);
+const DictionaryContext = createContext();
+
+export const useDictionary = () => {
+  const dictionary = useContext(DictionaryContext);
+  return dictionary;
+};
+
+const DictionaryProvider = ({ children }) => {
+  const [dictionary, setDictionary] = useState(null);
   const [loadingState, setLoadingState] = useState(LOADING);
 
   useEffect(() => {
@@ -24,7 +32,7 @@ const useDictionary = () => {
         }
       },
       complete(results) {
-        setDict(results.data);
+        setDictionary(results.data);
         setLoadingState(LOADED);
       },
       error() {
@@ -33,7 +41,22 @@ const useDictionary = () => {
     });
   }, []);
 
-  return [loadingState, dict];
+  switch (loadingState) {
+    case LOADED:
+      return (
+        <DictionaryContext.Provider value={dictionary}>
+          {children}
+        </DictionaryContext.Provider>
+      );
+    case LOADING:
+      return <div>Loading dictionary...</div>;
+    default:
+      return <div>Loading dictionary crashed...</div>;
+  }
 };
 
-export default useDictionary;
+DictionaryProvider.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
+export default DictionaryProvider;

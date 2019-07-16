@@ -63,17 +63,17 @@ You are about to complete a human-computer interaction experiment. This experime
 
         if (i === 4) {
           config.children.push({
-            task: "DisplayTextTask",
+            task: "InformationScreen",
             content: "Practice is over, the real experiment begins here",
             key: 9
           });
         }
       }
-      return config;
+      return [LOADED, config];
     case LOADING:
-      return LOADING;
+      return [LOADING, null];
     default:
-      return CRASHED;
+      return [CRASHED, null];
   }
 };
 

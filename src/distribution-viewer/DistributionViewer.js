@@ -10,7 +10,8 @@ import {
   main,
   sentenceSelect,
   content,
-  accuracySelect
+  accuracySelect,
+  standardDeviationSelect
 } from "./DistributionViewer.module.css";
 import useWindowSize from "../utils/useWindowSize";
 import getWordAccuracies from "../utils/getWordAccuracies";
@@ -22,12 +23,13 @@ const KeyCodes = {
   bottom: 40
 };
 
-const accuracyMinStep = 0.01;
+const setterMinStep = 0.01;
 
 const DistributionViewer = () => {
   const [loadingState, corpus] = useSentenceCorpus();
   const [sentenceIndex, setSentenceIndex] = useState(0);
   const [accuracy, setAccuracy] = useState(0.5);
+  const [sdThreshold, setSdThreshold] = useState(0.25);
   const { height: pageHeight } = useWindowSize();
 
   // Look for the left and right arrow key strokes to go to the next or the
@@ -70,7 +72,8 @@ const DistributionViewer = () => {
   const distributionResult = getWordAccuracies(
     corpus[sentenceIndex],
     accuracy,
-    0
+    0,
+    sdThreshold
   );
 
   return (
@@ -88,9 +91,21 @@ const DistributionViewer = () => {
           min={0}
           max={1}
           value={accuracy}
-          step={accuracyMinStep}
+          step={setterMinStep}
           valueLabelDisplay="on"
           onChange={(evt, value) => setAccuracy(value)}
+          aria-labelledby="input-slider"
+        />
+      </div>
+      <div className={standardDeviationSelect}>
+        <div>Standard deviation theshold:</div>
+        <Slider
+          min={0}
+          max={0.5}
+          value={sdThreshold}
+          step={setterMinStep}
+          valueLabelDisplay="on"
+          onChange={(evt, value) => setSdThreshold(value)}
           aria-labelledby="input-slider"
         />
       </div>

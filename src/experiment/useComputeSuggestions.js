@@ -89,11 +89,15 @@ function computeSuggestions(
   )
     charUpper = true;
 
-  if (charUpper) {
-    for (let j = 0; j < topWords.length; j += 1) {
-      if (topWords[j] !== null)
+  for (let j = 0; j < topWords.length; j += 1) {
+    if (topWords[j] !== null) {
+      if (charUpper) {
         topWords[j] =
           topWords[j].charAt(0).toUpperCase() + topWords[j].slice(1);
+      } else {
+        topWords[j] =
+          topWords[j].charAt(0).toLowerCase() + topWords[j].slice(1);
+      }
     }
   }
   return topWords;

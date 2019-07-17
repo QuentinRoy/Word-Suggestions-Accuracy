@@ -54,7 +54,7 @@ function WordHelper({
 
   useEffect(() => {
     if (countSimilarChars(text, input) !== text.length) {
-      const word = input.slice(
+      const inputLastWord = input.slice(
         input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
       );
       let wordFromText = text.slice(input.lastIndexOf(" ") + 1);
@@ -64,7 +64,7 @@ function WordHelper({
       const wordIndexInText = text.split(" ").indexOf(wordFromText);
       setHelp(
         computeSuggestions(
-          word,
+          inputLastWord,
           thresholdPositions[wordIndexInText].sks,
           wordFromText,
           totalSuggestions

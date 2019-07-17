@@ -35,7 +35,8 @@ const Trial = ({
   const inputRef = React.createRef();
 
   const correctCharsCount = countSimilarChars(text, input);
-  const isCorrect = correctCharsCount === text.length;
+  const isCorrect =
+    correctCharsCount === text.length && text.length === input.length;
 
   const inputHasFocus = focusIndex === 0;
   useEffect(() => {

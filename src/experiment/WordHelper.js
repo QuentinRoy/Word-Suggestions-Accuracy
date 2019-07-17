@@ -57,11 +57,13 @@ function WordHelper({
       const inputLastWord = input.slice(
         input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
       );
-      let wordFromText = text.slice(input.lastIndexOf(" ") + 1);
-      if (wordFromText.indexOf(" ") > 0) {
-        wordFromText = wordFromText.slice(0, wordFromText.indexOf(" "));
-      }
-      const wordIndexInText = text.split(" ").indexOf(wordFromText);
+      const arrayText = text.split(" ");
+      const wordIndex = [...input].filter(c => c === " ").length;
+      const wordFromText =
+        wordIndex < arrayText.length
+          ? arrayText[wordIndex]
+          : arrayText[arrayText.length - 1];
+      const wordIndexInText = arrayText.indexOf(wordFromText);
       setHelp(
         computeSuggestions(
           inputLastWord,
@@ -92,7 +94,6 @@ function WordHelper({
       const newInput = `${input.slice(0, i + 1) + word} `;
       setWordReplacedOnLog(wordReplacedOnLog.concat(input.slice(i + 1, -1)));
       setInput(newInput);
-      countSimilarChars(text, input);
       setSuggestionUsedOnLog(suggestionUsedOnLog.concat(word));
     }
   }

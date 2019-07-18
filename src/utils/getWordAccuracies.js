@@ -1,23 +1,34 @@
 import { sd, mean, sum } from "./arrays";
 
-const getBranchResult = (wordEntries, targetAccuracy, targetSd, maxSd) => {
+export const getScore = (result, targetAccuracy, targetSd, maxSd) => {
+  const diffAccuracy = Math.abs(targetAccuracy - result.weightedAccuracy);
+  const diffSd = Math.abs(result.sdAccuracy - targetSd);
+  return diffSd > maxSd
+    ? Number.POSITIVE_INFINITY
+    : (diffAccuracy + diffSd) / 2;
+};
+
+export const getBranchResult = (
+  wordEntries,
+  targetAccuracy,
+  targetSd,
+  maxSd,
+  innerGetScore = getScore
+) => {
   const normalizedSks = wordEntries.map(d => d.sks / d.word.length);
   const meanAccuracy = mean(normalizedSks);
   const weightedAccuracy =
     sum(wordEntries.map(d => d.sks)) / sum(wordEntries.map(d => d.word.length));
   const sdAccuracy = sd(normalizedSks, meanAccuracy);
-  const diffAccuracy = Math.abs(targetAccuracy - meanAccuracy);
-  const diffSd = Math.abs(sdAccuracy - targetSd);
-  const score =
-    diffSd > maxSd ? Number.POSITIVE_INFINITY : (diffAccuracy + diffSd) / 2;
-  return {
-    score,
+  const result = {
     words: wordEntries,
     meanAccuracy,
     weightedAccuracy,
-    sdAccuracy,
-    diffAccuracy,
-    diffSd
+    sdAccuracy
+  };
+  return {
+    ...result,
+    score: innerGetScore(result, targetAccuracy, targetSd, maxSd)
   };
 };
 
@@ -26,10 +37,16 @@ const getWordAccuraciesFromWordList = (
   targetAccuracy,
   targetSd,
   maxSd,
-  branchWordEntries
+  branchWordEntries,
+  innerGetBranchResult = getBranchResult
 ) => {
   if (wordList.length === branchWordEntries.length) {
-    return getBranchResult(branchWordEntries, targetAccuracy, targetSd, maxSd);
+    return innerGetBranchResult(
+      branchWordEntries,
+      targetAccuracy,
+      targetSd,
+      maxSd
+    );
   }
   const currentWord = wordList[branchWordEntries.length];
   let best = null;

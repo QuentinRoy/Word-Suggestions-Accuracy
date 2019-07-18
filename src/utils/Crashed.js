@@ -1,7 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { main } from "./Crashed.module.css";
 
-const Crashed = ({ children }) => <div>{children}</div>;
+const Crashed = ({ children }) => (
+  <div className={main}>
+    <div>{children}</div>
+  </div>
+);
 
 Crashed.propTypes = {
   children: PropTypes.node

@@ -12,6 +12,7 @@ code {
 }
 
 body,
-html {
+html,
+#root {
   height: 100%;
 }

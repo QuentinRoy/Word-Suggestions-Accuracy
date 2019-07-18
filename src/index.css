@@ -10,3 +10,8 @@ body {
 code {
   font-family: "Courier New", monospace;
 }
+
+body,
+html {
+  height: 100%;
+}

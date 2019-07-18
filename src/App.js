@@ -1,22 +1,20 @@
 import React, { Suspense, lazy } from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
-import ExperimentWrapper from "./experiment/ExperimentsWrapper";
+import Loading from "./utils/Loading";
 
 const DistributionViewer = lazy(() =>
   import("./distribution-viewer/DistributionViewer")
 );
 
-const DistributionViewerRoute = () => (
-  <Suspense fallback={<div>Loading...</div>}>
-    <DistributionViewer />
-  </Suspense>
-);
+const ExperimentWrapper = lazy(() => import("./experiment/ExperimentsWrapper"));
 
 const App = () => (
-  <Router>
-    <Route exact path="/" component={ExperimentWrapper} />
-    <Route path="/distribution-viewer" component={DistributionViewerRoute} />
-  </Router>
+  <Suspense fallback={<Loading>Loading the application...</Loading>}>
+    <Router>
+      <Route exact path="/" component={ExperimentWrapper} />
+      <Route path="/distribution-viewer" component={DistributionViewer} />
+    </Router>
+  </Suspense>
 );
 
 export default App;

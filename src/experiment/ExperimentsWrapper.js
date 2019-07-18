@@ -5,7 +5,8 @@ import TypingTask from "./TypingTask";
 import KeyboardSelector from "./KeyboardSelector";
 import useConfiguration from "./useConfiguration";
 import DictionaryProvider, { LOADING, CRASHED } from "./useDictionary";
-import Loading from "./Loading";
+import Loading from "../utils/Loading";
+import Crashed from "../utils/Crashed";
 
 registerAll(registerTask);
 registerTask("TypingTask", TypingTask);
@@ -15,10 +16,10 @@ export default function ExperimentsWrapper() {
   const [loadingState, configuration] = useConfiguration();
 
   if (loadingState === LOADING) {
-    return <Loading />;
+    return <Loading>Loading experiment...</Loading>;
   }
   if (loadingState === CRASHED) {
-    return <div>Loading corpus crashed...</div>;
+    return <Crashed>Failed to load the experiment...</Crashed>;
   }
 
   return (

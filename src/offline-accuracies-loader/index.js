@@ -1,0 +1,59 @@
+const targetAccuracy = 0.5;
+const targetSd = 0;
+const maxSd = 0.1;
+const maxDiffAccuracy = 0.1;
+
+const fs = require("fs");
+const { getWordAccuracies } = require("./wordAccuracies");
+
+const fileURL = new URL(
+  "file:///Users/sebastien/accuracy_autocorrect/public/phrases.txt"
+);
+
+const obj = {
+  rows: [
+    [
+      "meanAccuracy",
+      "weightedAccuracy",
+      "sdAccuracy",
+      "words",
+      "diffAccuracy",
+      "diffSd",
+      "usable"
+    ]
+  ]
+};
+
+const file = fs.readFileSync(fileURL, "utf-8", (err, data) => {
+  if (err) throw err;
+  return data;
+});
+
+const parsedFile = file
+  .split("\n")
+  .map(s => s.trim())
+  .filter(s => s !== "");
+
+for (let i = 0; i < parsedFile.length; i += 1) {
+  const accuracyDistribution = getWordAccuracies(
+    parsedFile[i],
+    targetAccuracy,
+    targetSd,
+    maxSd
+  );
+  obj.rows.push([
+    accuracyDistribution.meanAccuracy.toFixed(2),
+    accuracyDistribution.weightedAccuracy.toFixed(2),
+    accuracyDistribution.sdAccuracy.toFixed(2),
+    accuracyDistribution.words,
+    accuracyDistribution.diffAccuracy.toFixed(2),
+    accuracyDistribution.diffSd.toFixed(2),
+    accuracyDistribution.diffAccuracy > maxDiffAccuracy
+  ]);
+}
+
+const jsonl = JSON.stringify(obj);
+fs.writeFile("accuraciesDistribution.jsonl", jsonl, "utf8", err => {
+  if (err) throw err;
+  console.log("The file has been saved!");
+});

@@ -1,0 +1,7727 @@
+{
+  "rows": [
+    [
+      "meanAccuracy",
+      "weightedAccuracy",
+      "sdAccuracy",
+      "words",
+      "diffAccuracy",
+      "diffSd",
+      "usable"
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.08",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "watch", "sks": 2 },
+        { "word": "fell", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "water", "sks": 3 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "prevailing", "sks": 5 },
+        { "word": "wind", "sks": 2 },
+        { "word": "from", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "east", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.57",
+      "0.56",
+      "0.10",
+      [
+        { "word": "never", "sks": 2 },
+        { "word": "too", "sks": 2 },
+        { "word": "rich", "sks": 2 },
+        { "word": "and", "sks": 2 },
+        { "word": "never", "sks": 3 },
+        { "word": "too", "sks": 2 },
+        { "word": "thin", "sks": 2 }
+      ],
+      "0.06",
+      "0.10",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.05",
+      [
+        { "word": "breathing", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "difficult", "sks": 5 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.95",
+      "0.91",
+      "0.08",
+      [
+        { "word": "I", "sks": 1 },
+        { "word": "can", "sks": 3 },
+        { "word": "see", "sks": 3 },
+        { "word": "the", "sks": 3 },
+        { "word": "rings", "sks": 4 },
+        { "word": "on", "sks": 2 },
+        { "word": "Saturn", "sks": 5 }
+      ],
+      "0.41",
+      "0.08",
+      true
+    ],
+    [
+      "0.57",
+      "0.54",
+      "0.09",
+      [
+        { "word": "physics", "sks": 4 },
+        { "word": "and", "sks": 2 },
+        { "word": "chemistry", "sks": 4 },
+        { "word": "are", "sks": 2 },
+        { "word": "hard", "sks": 2 }
+      ],
+      "0.04",
+      "0.09",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.04",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "bank", "sks": 2 },
+        { "word": "account", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "overdrawn", "sks": 4 }
+      ],
+      "0.00",
+      "0.04",
+      false
+    ],
+    [
+      "0.58",
+      "0.54",
+      "0.09",
+      [
+        { "word": "elections", "sks": 4 },
+        { "word": "bring", "sks": 3 },
+        { "word": "out", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "best", "sks": 2 }
+      ],
+      "0.04",
+      "0.09",
+      false
+    ],
+    [
+      "0.53",
+      "0.50",
+      "0.08",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "are", "sks": 2 },
+        { "word": "having", "sks": 3 },
+        { "word": "spaghetti", "sks": 4 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "time", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "go", "sks": 1 },
+        { "word": "shopping", "sks": 4 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.89",
+      "0.86",
+      "0.10",
+      [
+        { "word": "a", "sks": 1 },
+        { "word": "problem", "sks": 6 },
+        { "word": "with", "sks": 3 },
+        { "word": "the", "sks": 3 },
+        { "word": "engine", "sks": 5 }
+      ],
+      "0.36",
+      "0.10",
+      true
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "elephants", "sks": 4 },
+        { "word": "are", "sks": 2 },
+        { "word": "afraid", "sks": 3 },
+        { "word": "of", "sks": 1 },
+        { "word": "mice", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.06",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "favorite", "sks": 4 },
+        { "word": "place", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "visit", "sks": 3 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.38",
+      "0.39",
+      "0.06",
+      [
+        { "word": "three", "sks": 2 },
+        { "word": "two", "sks": 1 },
+        { "word": "one", "sks": 1 },
+        { "word": "zero", "sks": 2 },
+        { "word": "blast", "sks": 2 },
+        { "word": "off", "sks": 1 }
+      ],
+      "0.11",
+      "0.06",
+      true
+    ],
+    [
+      "0.49",
+      "0.48",
+      "0.03",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "favorite", "sks": 4 },
+        { "word": "subject", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "psychology", "sks": 5 }
+      ],
+      "0.02",
+      "0.03",
+      false
+    ],
+    [
+      "0.54",
+      "0.50",
+      "0.09",
+      [
+        { "word": "circumstances", "sks": 6 },
+        { "word": "are", "sks": 2 },
+        { "word": "unacceptable", "sks": 6 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.59",
+      "0.56",
+      "0.09",
+      [
+        { "word": "watch", "sks": 3 },
+        { "word": "out", "sks": 2 },
+        { "word": "for", "sks": 2 },
+        { "word": "low", "sks": 2 },
+        { "word": "flying", "sks": 3 },
+        { "word": "objects", "sks": 3 }
+      ],
+      "0.06",
+      "0.09",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.10",
+      [
+        { "word": "if", "sks": 1 },
+        { "word": "at", "sks": 1 },
+        { "word": "first", "sks": 2 },
+        { "word": "you", "sks": 2 },
+        { "word": "do", "sks": 1 },
+        { "word": "not", "sks": 2 },
+        { "word": "succeed", "sks": 3 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.05",
+      [
+        { "word": "please", "sks": 3 },
+        { "word": "provide", "sks": 4 },
+        { "word": "your", "sks": 2 },
+        { "word": "date", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "birth", "sks": 2 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.09",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "run", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "risk", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "failure", "sks": 3 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.05",
+      [
+        { "word": "prayer", "sks": 3 },
+        { "word": "in", "sks": 1 },
+        { "word": "schools", "sks": 3 },
+        { "word": "offends", "sks": 4 },
+        { "word": "some", "sks": 2 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "he", "sks": 1 },
+        { "word": "is", "sks": 1 },
+        { "word": "just", "sks": 2 },
+        { "word": "like", "sks": 2 },
+        { "word": "everyone", "sks": 4 },
+        { "word": "else", "sks": 2 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.10",
+      [
+        { "word": "great", "sks": 2 },
+        { "word": "disturbance", "sks": 5 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "force", "sks": 3 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.53",
+      "0.53",
+      "0.04",
+      [
+        { "word": "love", "sks": 2 },
+        { "word": "means", "sks": 3 },
+        { "word": "many", "sks": 2 },
+        { "word": "things", "sks": 3 }
+      ],
+      "0.03",
+      "0.04",
+      false
+    ],
+    [
+      "0.55",
+      "0.53",
+      "0.10",
+      [
+        { "word": "you", "sks": 2 },
+        { "word": "must", "sks": 2 },
+        { "word": "be", "sks": 1 },
+        { "word": "getting", "sks": 3 },
+        { "word": "old", "sks": 2 }
+      ],
+      "0.03",
+      "0.10",
+      false
+    ],
+    [
+      "0.92",
+      "0.88",
+      "0.10",
+      [
+        { "word": "the", "sks": 3 },
+        { "word": "world", "sks": 4 },
+        { "word": "is", "sks": 2 },
+        { "word": "a", "sks": 1 },
+        { "word": "stage", "sks": 4 }
+      ],
+      "0.38",
+      "0.10",
+      true
+    ],
+    [
+      "0.14",
+      "0.17",
+      "0.10",
+      [
+        { "word": "can", "sks": 0 },
+        { "word": "I", "sks": 0 },
+        { "word": "skate", "sks": 1 },
+        { "word": "with", "sks": 1 },
+        { "word": "sister", "sks": 1 },
+        { "word": "today", "sks": 1 }
+      ],
+      "0.33",
+      "0.10",
+      true
+    ],
+    [
+      "0.92",
+      "0.86",
+      "0.10",
+      [
+        { "word": "neither", "sks": 6 },
+        { "word": "a", "sks": 1 },
+        { "word": "borrower", "sks": 6 },
+        { "word": "nor", "sks": 3 },
+        { "word": "a", "sks": 1 },
+        { "word": "lender", "sks": 5 },
+        { "word": "be", "sks": 2 }
+      ],
+      "0.36",
+      "0.10",
+      true
+    ],
+    [
+      "0.93",
+      "0.89",
+      "0.10",
+      [
+        { "word": "one", "sks": 3 },
+        { "word": "heck", "sks": 3 },
+        { "word": "of", "sks": 2 },
+        { "word": "a", "sks": 1 },
+        { "word": "question", "sks": 7 }
+      ],
+      "0.39",
+      "0.10",
+      true
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "question", "sks": 4 },
+        { "word": "that", "sks": 2 },
+        { "word": "must", "sks": 2 },
+        { "word": "be", "sks": 1 },
+        { "word": "answered", "sks": 4 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.09",
+      [
+        { "word": "beware", "sks": 3 },
+        { "word": "the", "sks": 2 },
+        { "word": "ides", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "March", "sks": 2 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "double", "sks": 3 },
+        { "word": "double", "sks": 3 },
+        { "word": "toil", "sks": 2 },
+        { "word": "and", "sks": 2 },
+        { "word": "trouble", "sks": 3 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "power", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "denial", "sks": 3 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "agree", "sks": 0 },
+        { "word": "with", "sks": 0 },
+        { "word": "you", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.58",
+      "0.56",
+      "0.08",
+      [
+        { "word": "do", "sks": 1 },
+        { "word": "not", "sks": 2 },
+        { "word": "say", "sks": 2 },
+        { "word": "anything", "sks": 4 }
+      ],
+      "0.06",
+      "0.08",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.10",
+      [
+        { "word": "play", "sks": 2 },
+        { "word": "it", "sks": 1 },
+        { "word": "again", "sks": 2 },
+        { "word": "Sam", "sks": 2 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.59",
+      "0.59",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "force", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "with", "sks": 2 },
+        { "word": "you", "sks": 2 }
+      ],
+      "0.09",
+      "0.07",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "you", "sks": 0 },
+        { "word": "are", "sks": 0 },
+        { "word": "not", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "jedi", "sks": 0 },
+        { "word": "yet", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.09",
+      [
+        { "word": "an", "sks": 1 },
+        { "word": "offer", "sks": 2 },
+        { "word": "you", "sks": 2 },
+        { "word": "cannot", "sks": 3 },
+        { "word": "refuse", "sks": 3 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.55",
+      "0.53",
+      "0.10",
+      [
+        { "word": "are", "sks": 2 },
+        { "word": "you", "sks": 2 },
+        { "word": "talking", "sks": 3 },
+        { "word": "to", "sks": 1 },
+        { "word": "me", "sks": 1 }
+      ],
+      "0.03",
+      "0.10",
+      false
+    ],
+    [
+      "0.38",
+      "0.39",
+      "0.07",
+      [
+        { "word": "yes", "sks": 1 },
+        { "word": "you", "sks": 1 },
+        { "word": "are", "sks": 1 },
+        { "word": "very", "sks": 2 },
+        { "word": "smart", "sks": 2 }
+      ],
+      "0.11",
+      "0.07",
+      true
+    ],
+    [
+      "0.57",
+      "0.56",
+      "0.08",
+      [
+        { "word": "all", "sks": 2 },
+        { "word": "work", "sks": 2 },
+        { "word": "and", "sks": 2 },
+        { "word": "no", "sks": 1 },
+        { "word": "play", "sks": 2 }
+      ],
+      "0.06",
+      "0.08",
+      false
+    ],
+    [
+      "0.53",
+      "0.53",
+      "0.07",
+      [
+        { "word": "hair", "sks": 2 },
+        { "word": "gel", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "very", "sks": 2 },
+        { "word": "greasy", "sks": 3 }
+      ],
+      "0.03",
+      "0.07",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "Valium", "sks": 3 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "economy", "sks": 3 },
+        { "word": "size", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.63",
+      "0.63",
+      "0.06",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "facts", "sks": 3 },
+        { "word": "get", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "way", "sks": 2 }
+      ],
+      "0.13",
+      "0.06",
+      true
+    ],
+    [
+      "0.54",
+      "0.53",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "dreamers", "sks": 4 },
+        { "word": "of", "sks": 1 },
+        { "word": "dreams", "sks": 3 }
+      ],
+      "0.03",
+      "0.07",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "did", "sks": 0 },
+        { "word": "you", "sks": 0 },
+        { "word": "have", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "good", "sks": 0 },
+        { "word": "time", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.07",
+      "0.10",
+      "0.08",
+      [
+        { "word": "space", "sks": 1 },
+        { "word": "is", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "high", "sks": 0 },
+        { "word": "priority", "sks": 1 }
+      ],
+      "0.40",
+      "0.08",
+      true
+    ],
+    [
+      "0.07",
+      "0.13",
+      "0.09",
+      [
+        { "word": "you", "sks": 0 },
+        { "word": "are", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "wonderful", "sks": 2 },
+        { "word": "example", "sks": 1 }
+      ],
+      "0.37",
+      "0.09",
+      true
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "do", "sks": 1 },
+        { "word": "not", "sks": 2 },
+        { "word": "squander", "sks": 4 },
+        { "word": "your", "sks": 2 },
+        { "word": "time", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.59",
+      "0.59",
+      "0.07",
+      [
+        { "word": "do", "sks": 1 },
+        { "word": "not", "sks": 2 },
+        { "word": "drink", "sks": 3 },
+        { "word": "too", "sks": 2 },
+        { "word": "much", "sks": 2 }
+      ],
+      "0.09",
+      "0.07",
+      false
+    ],
+    [
+      "0.15",
+      "0.19",
+      "0.09",
+      [
+        { "word": "take", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "coffee", "sks": 1 },
+        { "word": "break", "sks": 1 }
+      ],
+      "0.31",
+      "0.09",
+      true
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "popularity", "sks": 5 },
+        { "word": "is", "sks": 1 },
+        { "word": "desired", "sks": 3 },
+        { "word": "by", "sks": 1 },
+        { "word": "all", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "music", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "better", "sks": 3 },
+        { "word": "than", "sks": 2 },
+        { "word": "it", "sks": 1 },
+        { "word": "sounds", "sks": 3 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.56",
+      "0.53",
+      "0.09",
+      [
+        { "word": "starlight", "sks": 4 },
+        { "word": "and", "sks": 2 },
+        { "word": "dewdrop", "sks": 4 }
+      ],
+      "0.03",
+      "0.09",
+      false
+    ],
+    [
+      "0.54",
+      "0.53",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "living", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "easy", "sks": 2 }
+      ],
+      "0.03",
+      "0.07",
+      false
+    ],
+    [
+      "0.53",
+      "0.50",
+      "0.10",
+      [
+        { "word": "fish", "sks": 2 },
+        { "word": "are", "sks": 2 },
+        { "word": "jumping", "sks": 3 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.54",
+      "0.53",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "cotton", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "high", "sks": 2 }
+      ],
+      "0.03",
+      "0.07",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.10",
+      [
+        { "word": "drove", "sks": 2 },
+        { "word": "my", "sks": 1 },
+        { "word": "chevy", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "levee", "sks": 3 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.35",
+      "0.35",
+      "0.03",
+      [
+        { "word": "but", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "levee", "sks": 2 },
+        { "word": "was", "sks": 1 },
+        { "word": "dry", "sks": 1 }
+      ],
+      "0.15",
+      "0.03",
+      true
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "took", "sks": 0 },
+        { "word": "the", "sks": 0 },
+        { "word": "rover", "sks": 0 },
+        { "word": "from", "sks": 0 },
+        { "word": "the", "sks": 0 },
+        { "word": "shop", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.16",
+      "0.20",
+      "0.08",
+      [
+        { "word": "movie", "sks": 1 },
+        { "word": "about", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "nutty", "sks": 1 },
+        { "word": "professor", "sks": 2 }
+      ],
+      "0.30",
+      "0.08",
+      true
+    ],
+    [
+      "0.64",
+      "0.63",
+      "0.06",
+      [
+        { "word": "come", "sks": 2 },
+        { "word": "and", "sks": 2 },
+        { "word": "see", "sks": 2 },
+        { "word": "our", "sks": 2 },
+        { "word": "new", "sks": 2 },
+        { "word": "car", "sks": 2 }
+      ],
+      "0.13",
+      "0.06",
+      true
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.06",
+      [
+        { "word": "coming", "sks": 3 },
+        { "word": "up", "sks": 1 },
+        { "word": "with", "sks": 2 },
+        { "word": "killer", "sks": 3 },
+        { "word": "sound", "sks": 2 },
+        { "word": "bites", "sks": 3 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.08",
+      "0.14",
+      "0.09",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "am", "sks": 0 },
+        { "word": "going", "sks": 1 },
+        { "word": "to", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "music", "sks": 1 },
+        { "word": "lesson", "sks": 1 }
+      ],
+      "0.36",
+      "0.09",
+      true
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "opposing", "sks": 4 },
+        { "word": "team", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "over", "sks": 2 },
+        { "word": "there", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.52",
+      "0.52",
+      "0.06",
+      [
+        { "word": "soon", "sks": 2 },
+        { "word": "we", "sks": 1 },
+        { "word": "will", "sks": 2 },
+        { "word": "return", "sks": 3 },
+        { "word": "from", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "city", "sks": 2 }
+      ],
+      "0.02",
+      "0.06",
+      false
+    ],
+    [
+      "0.96",
+      "0.92",
+      "0.07",
+      [
+        { "word": "I", "sks": 1 },
+        { "word": "am", "sks": 2 },
+        { "word": "wearing", "sks": 6 },
+        { "word": "a", "sks": 1 },
+        { "word": "tie", "sks": 3 },
+        { "word": "and", "sks": 3 },
+        { "word": "a", "sks": 1 },
+        { "word": "jacket", "sks": 5 }
+      ],
+      "0.42",
+      "0.07",
+      true
+    ],
+    [
+      "0.39",
+      "0.41",
+      "0.06",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "quick", "sks": 2 },
+        { "word": "brown", "sks": 2 },
+        { "word": "fox", "sks": 1 },
+        { "word": "jumped", "sks": 3 }
+      ],
+      "0.09",
+      "0.06",
+      false
+    ],
+    [
+      "0.58",
+      "0.57",
+      "0.08",
+      [
+        { "word": "all", "sks": 2 },
+        { "word": "together", "sks": 4 },
+        { "word": "in", "sks": 1 },
+        { "word": "one", "sks": 2 },
+        { "word": "big", "sks": 2 },
+        { "word": "pile", "sks": 2 }
+      ],
+      "0.07",
+      "0.08",
+      false
+    ],
+    [
+      "0.19",
+      "0.21",
+      "0.09",
+      [
+        { "word": "wear", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "crown", "sks": 1 },
+        { "word": "with", "sks": 1 },
+        { "word": "many", "sks": 1 },
+        { "word": "jewels", "sks": 1 }
+      ],
+      "0.29",
+      "0.09",
+      true
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.08",
+      [
+        { "word": "there", "sks": 3 },
+        { "word": "will", "sks": 2 },
+        { "word": "be", "sks": 1 },
+        { "word": "some", "sks": 2 },
+        { "word": "fog", "sks": 2 },
+        { "word": "tonight", "sks": 3 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.07",
+      "0.11",
+      "0.09",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "am", "sks": 0 },
+        { "word": "allergic", "sks": 1 },
+        { "word": "to", "sks": 0 },
+        { "word": "bees", "sks": 1 },
+        { "word": "and", "sks": 0 },
+        { "word": "peanuts", "sks": 1 }
+      ],
+      "0.39",
+      "0.09",
+      true
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.08",
+      [
+        { "word": "he", "sks": 1 },
+        { "word": "is", "sks": 1 },
+        { "word": "still", "sks": 2 },
+        { "word": "on", "sks": 1 },
+        { "word": "our", "sks": 2 },
+        { "word": "team", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.63",
+      "0.63",
+      "0.03",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "dow", "sks": 2 },
+        { "word": "jones", "sks": 3 },
+        { "word": "index", "sks": 3 },
+        { "word": "has", "sks": 2 },
+        { "word": "risen", "sks": 3 }
+      ],
+      "0.13",
+      "0.03",
+      true
+    ],
+    [
+      "0.52",
+      "0.52",
+      "0.05",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "preferred", "sks": 4 },
+        { "word": "treat", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "chocolate", "sks": 5 }
+      ],
+      "0.02",
+      "0.05",
+      false
+    ],
+    [
+      "0.43",
+      "0.44",
+      "0.10",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "king", "sks": 2 },
+        { "word": "sends", "sks": 2 },
+        { "word": "you", "sks": 1 },
+        { "word": "to", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "tower", "sks": 3 }
+      ],
+      "0.06",
+      "0.10",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.10",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "are", "sks": 1 },
+        { "word": "subjects", "sks": 4 },
+        { "word": "and", "sks": 2 },
+        { "word": "must", "sks": 2 },
+        { "word": "obey", "sks": 2 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.96",
+      "0.90",
+      "0.08",
+      [
+        { "word": "mom", "sks": 3 },
+        { "word": "made", "sks": 4 },
+        { "word": "her", "sks": 3 },
+        { "word": "a", "sks": 1 },
+        { "word": "turtleneck", "sks": 8 }
+      ],
+      "0.40",
+      "0.08",
+      true
+    ],
+    [
+      "0.59",
+      "0.54",
+      "0.10",
+      [
+        { "word": "goldilocks", "sks": 4 },
+        { "word": "and", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "three", "sks": 3 },
+        { "word": "bears", "sks": 3 }
+      ],
+      "0.04",
+      "0.10",
+      false
+    ],
+    [
+      "0.52",
+      "0.52",
+      "0.03",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "went", "sks": 2 },
+        { "word": "grocery", "sks": 4 },
+        { "word": "shopping", "sks": 4 }
+      ],
+      "0.02",
+      "0.03",
+      false
+    ],
+    [
+      "0.59",
+      "0.57",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "assignment", "sks": 5 },
+        { "word": "is", "sks": 1 },
+        { "word": "due", "sks": 2 },
+        { "word": "today", "sks": 3 }
+      ],
+      "0.07",
+      "0.07",
+      false
+    ],
+    [
+      "0.40",
+      "0.41",
+      "0.08",
+      [
+        { "word": "what", "sks": 2 },
+        { "word": "you", "sks": 1 },
+        { "word": "see", "sks": 1 },
+        { "word": "is", "sks": 1 },
+        { "word": "what", "sks": 2 },
+        { "word": "you", "sks": 1 },
+        { "word": "get", "sks": 1 }
+      ],
+      "0.09",
+      "0.08",
+      false
+    ],
+    [
+      "0.47",
+      "0.50",
+      "0.08",
+      [
+        { "word": "for", "sks": 1 },
+        { "word": "your", "sks": 2 },
+        { "word": "information", "sks": 6 },
+        { "word": "only", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.94",
+      "0.89",
+      "0.07",
+      [
+        { "word": "a", "sks": 1 },
+        { "word": "quarter", "sks": 6 },
+        { "word": "of", "sks": 2 },
+        { "word": "a", "sks": 1 },
+        { "word": "century", "sks": 6 }
+      ],
+      "0.39",
+      "0.07",
+      true
+    ],
+    [
+      "0.56",
+      "0.55",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "store", "sks": 2 },
+        { "word": "will", "sks": 2 },
+        { "word": "close", "sks": 3 },
+        { "word": "at", "sks": 1 },
+        { "word": "ten", "sks": 2 }
+      ],
+      "0.05",
+      "0.10",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.08",
+      [
+        { "word": "head", "sks": 2 },
+        { "word": "shoulders", "sks": 4 },
+        { "word": "knees", "sks": 3 },
+        { "word": "and", "sks": 2 },
+        { "word": "toes", "sks": 2 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.09",
+      [
+        { "word": "vanilla", "sks": 3 },
+        { "word": "flavored", "sks": 4 },
+        { "word": "ice", "sks": 2 },
+        { "word": "cream", "sks": 3 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.06",
+      [
+        { "word": "frequently", "sks": 5 },
+        { "word": "asked", "sks": 2 },
+        { "word": "questions", "sks": 5 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.08",
+      [
+        { "word": "round", "sks": 2 },
+        { "word": "robin", "sks": 3 },
+        { "word": "scheduling", "sks": 5 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.46",
+      "0.48",
+      "0.06",
+      [
+        { "word": "information", "sks": 6 },
+        { "word": "super", "sks": 2 },
+        { "word": "highway", "sks": 3 }
+      ],
+      "0.02",
+      "0.06",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.09",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "favorite", "sks": 4 },
+        { "word": "web", "sks": 2 },
+        { "word": "browser", "sks": 3 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.46",
+      "0.48",
+      "0.08",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "laser", "sks": 2 },
+        { "word": "printer", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "jammed", "sks": 3 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.08",
+      [
+        { "word": "all", "sks": 2 },
+        { "word": "good", "sks": 2 },
+        { "word": "boys", "sks": 2 },
+        { "word": "deserve", "sks": 3 },
+        { "word": "fudge", "sks": 3 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.09",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "second", "sks": 3 },
+        { "word": "largest", "sks": 3 },
+        { "word": "country", "sks": 4 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.09",
+      [
+        { "word": "call", "sks": 2 },
+        { "word": "for", "sks": 2 },
+        { "word": "more", "sks": 2 },
+        { "word": "details", "sks": 3 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.10",
+      [
+        { "word": "just", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "time", "sks": 2 },
+        { "word": "for", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "party", "sks": 2 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.04",
+      "0.06",
+      "0.06",
+      [
+        { "word": "have", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "good", "sks": 0 },
+        { "word": "weekend", "sks": 1 }
+      ],
+      "0.44",
+      "0.06",
+      true
+    ],
+    [
+      "0.19",
+      "0.21",
+      "0.09",
+      [
+        { "word": "video", "sks": 1 },
+        { "word": "camera", "sks": 1 },
+        { "word": "with", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "zoom", "sks": 1 },
+        { "word": "lens", "sks": 1 }
+      ],
+      "0.29",
+      "0.09",
+      true
+    ],
+    [
+      "0.07",
+      "0.11",
+      "0.10",
+      [
+        { "word": "what", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "monkey", "sks": 1 },
+        { "word": "sees", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "monkey", "sks": 1 },
+        { "word": "will", "sks": 1 },
+        { "word": "do", "sks": 0 }
+      ],
+      "0.39",
+      "0.10",
+      true
+    ],
+    [
+      "0.51",
+      "0.52",
+      "0.02",
+      [
+        { "word": "that", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "very", "sks": 2 },
+        { "word": "unfortunate", "sks": 6 }
+      ],
+      "0.02",
+      "0.02",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "back", "sks": 2 },
+        { "word": "yard", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "our", "sks": 2 },
+        { "word": "house", "sks": 2 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "this", "sks": 0 },
+        { "word": "is", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "very", "sks": 0 },
+        { "word": "good", "sks": 0 },
+        { "word": "idea", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.05",
+      [
+        { "word": "reading", "sks": 4 },
+        { "word": "week", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "just", "sks": 2 },
+        { "word": "about", "sks": 2 },
+        { "word": "here", "sks": 2 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.39",
+      "0.41",
+      "0.07",
+      [
+        { "word": "our", "sks": 1 },
+        { "word": "fax", "sks": 1 },
+        { "word": "number", "sks": 3 },
+        { "word": "has", "sks": 1 },
+        { "word": "changed", "sks": 3 }
+      ],
+      "0.09",
+      "0.07",
+      false
+    ],
+    [
+      "0.59",
+      "0.58",
+      "0.07",
+      [
+        { "word": "thank", "sks": 3 },
+        { "word": "you", "sks": 2 },
+        { "word": "for", "sks": 2 },
+        { "word": "your", "sks": 2 },
+        { "word": "help", "sks": 2 }
+      ],
+      "0.08",
+      "0.07",
+      false
+    ],
+    [
+      "0.10",
+      "0.14",
+      "0.09",
+      [
+        { "word": "no", "sks": 0 },
+        { "word": "exchange", "sks": 1 },
+        { "word": "without", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "bill", "sks": 1 }
+      ],
+      "0.36",
+      "0.09",
+      true
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "early", "sks": 2 },
+        { "word": "bird", "sks": 2 },
+        { "word": "gets", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "worm", "sks": 2 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.54",
+      "0.53",
+      "0.07",
+      [
+        { "word": "buckle", "sks": 3 },
+        { "word": "up", "sks": 1 },
+        { "word": "for", "sks": 2 },
+        { "word": "safety", "sks": 3 }
+      ],
+      "0.03",
+      "0.07",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.06",
+      [
+        { "word": "this", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "too", "sks": 2 },
+        { "word": "much", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "handle", "sks": 3 }
+      ],
+      "0.02",
+      "0.06",
+      false
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.05",
+      [
+        { "word": "protect", "sks": 3 },
+        { "word": "your", "sks": 2 },
+        { "word": "environment", "sks": 6 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.06",
+      [
+        { "word": "world", "sks": 2 },
+        { "word": "population", "sks": 5 },
+        { "word": "is", "sks": 1 },
+        { "word": "growing", "sks": 4 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.46",
+      "0.48",
+      "0.08",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "library", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "closed", "sks": 3 },
+        { "word": "today", "sks": 2 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "Mary", "sks": 0 },
+        { "word": "had", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "little", "sks": 0 },
+        { "word": "lamb", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "teaching", "sks": 4 },
+        { "word": "services", "sks": 4 },
+        { "word": "will", "sks": 2 },
+        { "word": "help", "sks": 2 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "accept", "sks": 3 },
+        { "word": "personal", "sks": 4 },
+        { "word": "checks", "sks": 3 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.06",
+      "0.11",
+      "0.08",
+      [
+        { "word": "this", "sks": 0 },
+        { "word": "is", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "non", "sks": 0 },
+        { "word": "profit", "sks": 1 },
+        { "word": "organization", "sks": 2 }
+      ],
+      "0.39",
+      "0.08",
+      true
+    ],
+    [
+      "0.48",
+      "0.48",
+      "0.03",
+      [
+        { "word": "user", "sks": 2 },
+        { "word": "friendly", "sks": 4 },
+        { "word": "interface", "sks": 4 }
+      ],
+      "0.02",
+      "0.03",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.09",
+      [
+        { "word": "healthy", "sks": 3 },
+        { "word": "food", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "good", "sks": 2 },
+        { "word": "for", "sks": 2 },
+        { "word": "you", "sks": 2 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.07",
+      "0.12",
+      "0.09",
+      [
+        { "word": "hands", "sks": 1 },
+        { "word": "on", "sks": 0 },
+        { "word": "experience", "sks": 2 },
+        { "word": "with", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "job", "sks": 0 }
+      ],
+      "0.38",
+      "0.09",
+      true
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.08",
+      [
+        { "word": "this", "sks": 2 },
+        { "word": "watch", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "too", "sks": 2 },
+        { "word": "expensive", "sks": 4 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.48",
+      "0.50",
+      "0.07",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "postal", "sks": 3 },
+        { "word": "service", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "very", "sks": 2 },
+        { "word": "slow", "sks": 2 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.46",
+      "0.48",
+      "0.06",
+      [
+        { "word": "communicate", "sks": 6 },
+        { "word": "through", "sks": 3 },
+        { "word": "email", "sks": 2 }
+      ],
+      "0.02",
+      "0.06",
+      false
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "capital", "sks": 3 },
+        { "word": "of", "sks": 1 },
+        { "word": "our", "sks": 2 },
+        { "word": "nation", "sks": 3 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.08",
+      [
+        { "word": "travel", "sks": 3 },
+        { "word": "at", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "speed", "sks": 3 },
+        { "word": "of", "sks": 1 },
+        { "word": "light", "sks": 2 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "do", "sks": 0 },
+        { "word": "not", "sks": 0 },
+        { "word": "fully", "sks": 0 },
+        { "word": "agree", "sks": 0 },
+        { "word": "with", "sks": 0 },
+        { "word": "you", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.57",
+      "0.55",
+      "0.09",
+      [
+        { "word": "gas", "sks": 2 },
+        { "word": "bills", "sks": 3 },
+        { "word": "are", "sks": 2 },
+        { "word": "sent", "sks": 2 },
+        { "word": "monthly", "sks": 3 }
+      ],
+      "0.05",
+      "0.09",
+      false
+    ],
+    [
+      "0.44",
+      "0.48",
+      "0.08",
+      [
+        { "word": "earth", "sks": 2 },
+        { "word": "quakes", "sks": 3 },
+        { "word": "are", "sks": 1 },
+        { "word": "predictable", "sks": 6 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "life", "sks": 0 },
+        { "word": "is", "sks": 0 },
+        { "word": "but", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "dream", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.07",
+      [
+        { "word": "take", "sks": 2 },
+        { "word": "it", "sks": 1 },
+        { "word": "to", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "recycling", "sks": 4 },
+        { "word": "depot", "sks": 3 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "sent", "sks": 2 },
+        { "word": "this", "sks": 2 },
+        { "word": "by", "sks": 1 },
+        { "word": "registered", "sks": 5 },
+        { "word": "mail", "sks": 2 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "fall", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "my", "sks": 1 },
+        { "word": "favorite", "sks": 4 },
+        { "word": "season", "sks": 3 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.05",
+      "0.09",
+      "0.08",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "fox", "sks": 0 },
+        { "word": "is", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "very", "sks": 0 },
+        { "word": "smart", "sks": 1 },
+        { "word": "animal", "sks": 1 }
+      ],
+      "0.41",
+      "0.08",
+      true
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "kids", "sks": 2 },
+        { "word": "are", "sks": 2 },
+        { "word": "very", "sks": 2 },
+        { "word": "excited", "sks": 3 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.07",
+      [
+        { "word": "parking", "sks": 3 },
+        { "word": "lot", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "full", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "trucks", "sks": 3 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "my", "sks": 0 },
+        { "word": "bike", "sks": 0 },
+        { "word": "has", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "flat", "sks": 0 },
+        { "word": "tire", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.55",
+      "0.53",
+      "0.10",
+      [
+        { "word": "do", "sks": 1 },
+        { "word": "not", "sks": 2 },
+        { "word": "walk", "sks": 2 },
+        { "word": "too", "sks": 2 },
+        { "word": "quickly", "sks": 3 }
+      ],
+      "0.03",
+      "0.10",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "duck", "sks": 0 },
+        { "word": "quacks", "sks": 0 },
+        { "word": "to", "sks": 0 },
+        { "word": "ask", "sks": 0 },
+        { "word": "for", "sks": 0 },
+        { "word": "food", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.08",
+      [
+        { "word": "limited", "sks": 3 },
+        { "word": "warranty", "sks": 4 },
+        { "word": "of", "sks": 1 },
+        { "word": "two", "sks": 2 },
+        { "word": "years", "sks": 3 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "four", "sks": 2 },
+        { "word": "seasons", "sks": 3 },
+        { "word": "will", "sks": 2 },
+        { "word": "come", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.40",
+      "0.40",
+      "0.07",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "sun", "sks": 1 },
+        { "word": "rises", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "east", "sks": 2 }
+      ],
+      "0.10",
+      "0.07",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.06",
+      [
+        { "word": "it", "sks": 1 },
+        { "word": "is", "sks": 1 },
+        { "word": "very", "sks": 2 },
+        { "word": "windy", "sks": 2 },
+        { "word": "today", "sks": 3 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.53",
+      "0.53",
+      "0.09",
+      [
+        { "word": "do", "sks": 1 },
+        { "word": "not", "sks": 2 },
+        { "word": "worry", "sks": 2 },
+        { "word": "about", "sks": 3 },
+        { "word": "this", "sks": 2 }
+      ],
+      "0.03",
+      "0.09",
+      false
+    ],
+    [
+      "0.46",
+      "0.48",
+      "0.09",
+      [
+        { "word": "dashing", "sks": 3 },
+        { "word": "through", "sks": 4 },
+        { "word": "the", "sks": 1 },
+        { "word": "snow", "sks": 2 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.08",
+      [
+        { "word": "want", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "join", "sks": 2 },
+        { "word": "us", "sks": 1 },
+        { "word": "for", "sks": 2 },
+        { "word": "lunch", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.49",
+      "0.48",
+      "0.02",
+      [
+        { "word": "stay", "sks": 2 },
+        { "word": "away", "sks": 2 },
+        { "word": "from", "sks": 2 },
+        { "word": "strangers", "sks": 4 }
+      ],
+      "0.02",
+      "0.02",
+      false
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.05",
+      [
+        { "word": "accompanied", "sks": 6 },
+        { "word": "by", "sks": 1 },
+        { "word": "an", "sks": 1 },
+        { "word": "adult", "sks": 2 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.41",
+      "0.45",
+      "0.09",
+      [
+        { "word": "see", "sks": 1 },
+        { "word": "you", "sks": 1 },
+        { "word": "later", "sks": 2 },
+        { "word": "alligator", "sks": 5 }
+      ],
+      "0.05",
+      "0.09",
+      false
+    ],
+    [
+      "0.57",
+      "0.56",
+      "0.08",
+      [
+        { "word": "make", "sks": 2 },
+        { "word": "my", "sks": 1 },
+        { "word": "day", "sks": 2 },
+        { "word": "you", "sks": 2 },
+        { "word": "sucker", "sks": 3 }
+      ],
+      "0.06",
+      "0.08",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "can", "sks": 0 },
+        { "word": "play", "sks": 0 },
+        { "word": "much", "sks": 0 },
+        { "word": "better", "sks": 0 },
+        { "word": "now", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.59",
+      "0.57",
+      "0.07",
+      [
+        { "word": "she", "sks": 2 },
+        { "word": "wears", "sks": 3 },
+        { "word": "too", "sks": 2 },
+        { "word": "much", "sks": 2 },
+        { "word": "makeup", "sks": 3 }
+      ],
+      "0.07",
+      "0.07",
+      false
+    ],
+    [
+      "0.53",
+      "0.53",
+      "0.06",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "bare", "sks": 2 },
+        { "word": "face", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "wind", "sks": 2 }
+      ],
+      "0.03",
+      "0.06",
+      false
+    ],
+    [
+      "0.15",
+      "0.19",
+      "0.09",
+      [
+        { "word": "batman", "sks": 1 },
+        { "word": "wears", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "cape", "sks": 1 }
+      ],
+      "0.31",
+      "0.09",
+      true
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "hate", "sks": 0 },
+        { "word": "baking", "sks": 0 },
+        { "word": "pies", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.06",
+      [
+        { "word": "lydia", "sks": 2 },
+        { "word": "wants", "sks": 3 },
+        { "word": "to", "sks": 1 },
+        { "word": "go", "sks": 1 },
+        { "word": "home", "sks": 2 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.42",
+      "0.44",
+      "0.09",
+      [
+        { "word": "win", "sks": 1 },
+        { "word": "first", "sks": 2 },
+        { "word": "prize", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "contest", "sks": 4 }
+      ],
+      "0.06",
+      "0.09",
+      false
+    ],
+    [
+      "0.39",
+      "0.39",
+      "0.06",
+      [
+        { "word": "freud", "sks": 2 },
+        { "word": "wrote", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "ego", "sks": 1 }
+      ],
+      "0.11",
+      "0.06",
+      true
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "do", "sks": 0 },
+        { "word": "not", "sks": 0 },
+        { "word": "care", "sks": 0 },
+        { "word": "if", "sks": 0 },
+        { "word": "you", "sks": 0 },
+        { "word": "do", "sks": 0 },
+        { "word": "that", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.39",
+      "0.41",
+      "0.06",
+      [
+        { "word": "always", "sks": 3 },
+        { "word": "cover", "sks": 2 },
+        { "word": "all", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "bases", "sks": 2 }
+      ],
+      "0.09",
+      "0.06",
+      false
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.07",
+      [
+        { "word": "nobody", "sks": 3 },
+        { "word": "cares", "sks": 2 },
+        { "word": "anymore", "sks": 4 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.46",
+      "0.48",
+      "0.08",
+      [
+        { "word": "can", "sks": 1 },
+        { "word": "we", "sks": 1 },
+        { "word": "play", "sks": 2 },
+        { "word": "cards", "sks": 2 },
+        { "word": "tonight", "sks": 4 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.56",
+      "0.52",
+      "0.09",
+      [
+        { "word": "get", "sks": 2 },
+        { "word": "rid", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "that", "sks": 2 },
+        { "word": "immediately", "sks": 5 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.11",
+      "0.14",
+      "0.06",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "watched", "sks": 1 },
+        { "word": "blazing", "sks": 1 },
+        { "word": "saddles", "sks": 1 }
+      ],
+      "0.36",
+      "0.06",
+      true
+    ],
+    [
+      "0.38",
+      "0.38",
+      "0.07",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "sum", "sks": 1 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "parts", "sks": 2 }
+      ],
+      "0.13",
+      "0.07",
+      true
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.08",
+      [
+        { "word": "they", "sks": 2 },
+        { "word": "love", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "yap", "sks": 2 },
+        { "word": "about", "sks": 3 },
+        { "word": "nothing", "sks": 3 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.58",
+      "0.56",
+      "0.08",
+      [
+        { "word": "peek", "sks": 2 },
+        { "word": "out", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "window", "sks": 3 }
+      ],
+      "0.06",
+      "0.08",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "be", "sks": 1 },
+        { "word": "home", "sks": 2 },
+        { "word": "before", "sks": 3 },
+        { "word": "midnight", "sks": 4 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.95",
+      "0.92",
+      "0.08",
+      [
+        { "word": "he", "sks": 2 },
+        { "word": "played", "sks": 5 },
+        { "word": "a", "sks": 1 },
+        { "word": "pimp", "sks": 4 },
+        { "word": "in", "sks": 2 },
+        { "word": "that", "sks": 4 },
+        { "word": "movie", "sks": 4 }
+      ],
+      "0.42",
+      "0.08",
+      true
+    ],
+    [
+      "0.84",
+      "0.81",
+      "0.09",
+      [
+        { "word": "I", "sks": 1 },
+        { "word": "skimmed", "sks": 6 },
+        { "word": "through", "sks": 6 },
+        { "word": "your", "sks": 3 },
+        { "word": "proposal", "sks": 6 }
+      ],
+      "0.31",
+      "0.09",
+      true
+    ],
+    [
+      "0.93",
+      "0.87",
+      "0.09",
+      [
+        { "word": "he", "sks": 2 },
+        { "word": "was", "sks": 3 },
+        { "word": "wearing", "sks": 6 },
+        { "word": "a", "sks": 1 },
+        { "word": "sweatshirt", "sks": 8 }
+      ],
+      "0.37",
+      "0.09",
+      true
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.07",
+      [
+        { "word": "no", "sks": 1 },
+        { "word": "more", "sks": 2 },
+        { "word": "war", "sks": 2 },
+        { "word": "no", "sks": 1 },
+        { "word": "more", "sks": 2 },
+        { "word": "bloodshed", "sks": 4 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.54",
+      "0.53",
+      "0.07",
+      [
+        { "word": "toss", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "ball", "sks": 2 },
+        { "word": "around", "sks": 3 }
+      ],
+      "0.03",
+      "0.07",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "will", "sks": 0 },
+        { "word": "meet", "sks": 0 },
+        { "word": "you", "sks": 0 },
+        { "word": "at", "sks": 0 },
+        { "word": "noon", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "want", "sks": 0 },
+        { "word": "to", "sks": 0 },
+        { "word": "hold", "sks": 0 },
+        { "word": "your", "sks": 0 },
+        { "word": "hand", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.60",
+      "0.57",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "children", "sks": 4 },
+        { "word": "are", "sks": 2 },
+        { "word": "playing", "sks": 4 }
+      ],
+      "0.07",
+      "0.07",
+      false
+    ],
+    [
+      "0.19",
+      "0.23",
+      "0.10",
+      [
+        { "word": "superman", "sks": 2 },
+        { "word": "never", "sks": 1 },
+        { "word": "wore", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "mask", "sks": 1 }
+      ],
+      "0.27",
+      "0.10",
+      true
+    ],
+    [
+      "0.09",
+      "0.13",
+      "0.10",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "listen", "sks": 1 },
+        { "word": "to", "sks": 0 },
+        { "word": "the", "sks": 0 },
+        { "word": "tape", "sks": 1 },
+        { "word": "everyday", "sks": 1 }
+      ],
+      "0.38",
+      "0.10",
+      true
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "he", "sks": 1 },
+        { "word": "is", "sks": 1 },
+        { "word": "shouting", "sks": 4 },
+        { "word": "loudly", "sks": 3 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.48",
+      "0.48",
+      "0.05",
+      [
+        { "word": "correct", "sks": 3 },
+        { "word": "your", "sks": 2 },
+        { "word": "diction", "sks": 3 },
+        { "word": "immediately", "sks": 6 }
+      ],
+      "0.02",
+      "0.05",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "seasoned", "sks": 4 },
+        { "word": "golfers", "sks": 3 },
+        { "word": "love", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "game", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.10",
+      [
+        { "word": "he", "sks": 1 },
+        { "word": "cooled", "sks": 3 },
+        { "word": "off", "sks": 2 },
+        { "word": "after", "sks": 2 },
+        { "word": "she", "sks": 2 },
+        { "word": "left", "sks": 2 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.59",
+      "0.59",
+      "0.07",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "dog", "sks": 2 },
+        { "word": "sheds", "sks": 3 },
+        { "word": "his", "sks": 2 },
+        { "word": "hair", "sks": 2 }
+      ],
+      "0.09",
+      "0.07",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.09",
+      [
+        { "word": "join", "sks": 2 },
+        { "word": "us", "sks": 1 },
+        { "word": "on", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "patio", "sks": 2 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.48",
+      "0.50",
+      "0.09",
+      [
+        { "word": "these", "sks": 2 },
+        { "word": "cookies", "sks": 4 },
+        { "word": "are", "sks": 1 },
+        { "word": "so", "sks": 1 },
+        { "word": "amazing", "sks": 4 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.05",
+      "0.08",
+      "0.08",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "can", "sks": 0 },
+        { "word": "still", "sks": 1 },
+        { "word": "feel", "sks": 0 },
+        { "word": "your", "sks": 0 },
+        { "word": "presence", "sks": 1 }
+      ],
+      "0.42",
+      "0.08",
+      true
+    ],
+    [
+      "0.60",
+      "0.59",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "dog", "sks": 2 },
+        { "word": "will", "sks": 2 },
+        { "word": "bite", "sks": 2 },
+        { "word": "you", "sks": 2 }
+      ],
+      "0.09",
+      "0.08",
+      false
+    ],
+    [
+      "0.16",
+      "0.20",
+      "0.10",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "most", "sks": 1 },
+        { "word": "ridiculous", "sks": 2 },
+        { "word": "thing", "sks": 1 }
+      ],
+      "0.30",
+      "0.10",
+      true
+    ],
+    [
+      "0.63",
+      "0.62",
+      "0.06",
+      [
+        { "word": "where", "sks": 3 },
+        { "word": "did", "sks": 2 },
+        { "word": "you", "sks": 2 },
+        { "word": "get", "sks": 2 },
+        { "word": "that", "sks": 2 },
+        { "word": "tie", "sks": 2 }
+      ],
+      "0.12",
+      "0.06",
+      true
+    ],
+    [
+      "0.12",
+      "0.15",
+      "0.10",
+      [
+        { "word": "what", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "lovely", "sks": 1 },
+        { "word": "red", "sks": 0 },
+        { "word": "jacket", "sks": 1 }
+      ],
+      "0.35",
+      "0.10",
+      true
+    ],
+    [
+      "0.52",
+      "0.52",
+      "0.06",
+      [
+        { "word": "do", "sks": 1 },
+        { "word": "you", "sks": 2 },
+        { "word": "like", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "shop", "sks": 2 },
+        { "word": "on", "sks": 1 },
+        { "word": "Sunday", "sks": 3 }
+      ],
+      "0.02",
+      "0.06",
+      false
+    ],
+    [
+      "0.08",
+      "0.12",
+      "0.08",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "spilled", "sks": 1 },
+        { "word": "coffee", "sks": 1 },
+        { "word": "on", "sks": 0 },
+        { "word": "the", "sks": 0 },
+        { "word": "carpet", "sks": 1 }
+      ],
+      "0.38",
+      "0.08",
+      true
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.09",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "largest", "sks": 3 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "five", "sks": 2 },
+        { "word": "oceans", "sks": 3 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.91",
+      "0.88",
+      "0.10",
+      [
+        { "word": "shall", "sks": 4 },
+        { "word": "we", "sks": 2 },
+        { "word": "play", "sks": 4 },
+        { "word": "a", "sks": 1 },
+        { "word": "round", "sks": 4 },
+        { "word": "of", "sks": 2 },
+        { "word": "cards", "sks": 4 }
+      ],
+      "0.38",
+      "0.10",
+      true
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.09",
+      [
+        { "word": "olympic", "sks": 3 },
+        { "word": "athletes", "sks": 4 },
+        { "word": "use", "sks": 2 },
+        { "word": "drugs", "sks": 3 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.05",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "mother", "sks": 3 },
+        { "word": "makes", "sks": 2 },
+        { "word": "good", "sks": 2 },
+        { "word": "cookies", "sks": 4 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.07",
+      "0.10",
+      "0.10",
+      [
+        { "word": "do", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "good", "sks": 0 },
+        { "word": "deed", "sks": 1 },
+        { "word": "to", "sks": 0 },
+        { "word": "someone", "sks": 1 }
+      ],
+      "0.40",
+      "0.10",
+      true
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "quick", "sks": 3 },
+        { "word": "there", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "someone", "sks": 3 },
+        { "word": "knocking", "sks": 4 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.47",
+      "0.48",
+      "0.09",
+      [
+        { "word": "flashing", "sks": 4 },
+        { "word": "red", "sks": 1 },
+        { "word": "light", "sks": 3 },
+        { "word": "means", "sks": 2 },
+        { "word": "stop", "sks": 2 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.57",
+      "0.52",
+      "0.10",
+      [
+        { "word": "sprawling", "sks": 4 },
+        { "word": "subdivisions", "sks": 6 },
+        { "word": "are", "sks": 2 },
+        { "word": "bad", "sks": 2 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.09",
+      "0.13",
+      "0.09",
+      [
+        { "word": "where", "sks": 1 },
+        { "word": "did", "sks": 0 },
+        { "word": "I", "sks": 0 },
+        { "word": "leave", "sks": 1 },
+        { "word": "my", "sks": 0 },
+        { "word": "glasses", "sks": 1 }
+      ],
+      "0.37",
+      "0.09",
+      true
+    ],
+    [
+      "0.43",
+      "0.45",
+      "0.10",
+      [
+        { "word": "on", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "way", "sks": 1 },
+        { "word": "to", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "cottage", "sks": 4 }
+      ],
+      "0.05",
+      "0.10",
+      false
+    ],
+    [
+      "0.95",
+      "0.92",
+      "0.08",
+      [
+        { "word": "a", "sks": 1 },
+        { "word": "lot", "sks": 3 },
+        { "word": "of", "sks": 2 },
+        { "word": "chlorine", "sks": 7 },
+        { "word": "in", "sks": 2 },
+        { "word": "the", "sks": 3 },
+        { "word": "water", "sks": 4 }
+      ],
+      "0.42",
+      "0.08",
+      true
+    ],
+    [
+      "0.39",
+      "0.39",
+      "0.06",
+      [
+        { "word": "do", "sks": 1 },
+        { "word": "not", "sks": 1 },
+        { "word": "drink", "sks": 2 },
+        { "word": "the", "sks": 1 },
+        { "word": "water", "sks": 2 }
+      ],
+      "0.11",
+      "0.06",
+      true
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.09",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "car", "sks": 1 },
+        { "word": "always", "sks": 3 },
+        { "word": "breaks", "sks": 3 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "winter", "sks": 3 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.38",
+      "0.39",
+      "0.03",
+      [
+        { "word": "santa", "sks": 2 },
+        { "word": "claus", "sks": 2 },
+        { "word": "got", "sks": 1 },
+        { "word": "stuck", "sks": 2 }
+      ],
+      "0.11",
+      "0.03",
+      true
+    ],
+    [
+      "0.51",
+      "0.52",
+      "0.03",
+      [
+        { "word": "public", "sks": 3 },
+        { "word": "transit", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "much", "sks": 2 },
+        { "word": "faster", "sks": 3 }
+      ],
+      "0.02",
+      "0.03",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.09",
+      [
+        { "word": "zero", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "on", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "facts", "sks": 2 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "make", "sks": 0 },
+        { "word": "up", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "few", "sks": 0 },
+        { "word": "more", "sks": 0 },
+        { "word": "phrases", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "fingers", "sks": 3 },
+        { "word": "are", "sks": 2 },
+        { "word": "very", "sks": 2 },
+        { "word": "cold", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "rain", "sks": 2 },
+        { "word": "rain", "sks": 2 },
+        { "word": "go", "sks": 1 },
+        { "word": "away", "sks": 2 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.39",
+      "0.45",
+      "0.09",
+      [
+        { "word": "bad", "sks": 1 },
+        { "word": "for", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "environment", "sks": 6 }
+      ],
+      "0.05",
+      "0.09",
+      false
+    ],
+    [
+      "0.57",
+      "0.52",
+      "0.10",
+      [
+        { "word": "universities", "sks": 6 },
+        { "word": "are", "sks": 2 },
+        { "word": "too", "sks": 2 },
+        { "word": "expensive", "sks": 4 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.54",
+      "0.53",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "price", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "gas", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "high", "sks": 2 }
+      ],
+      "0.03",
+      "0.10",
+      false
+    ],
+    [
+      "0.57",
+      "0.56",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "winner", "sks": 3 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "race", "sks": 2 }
+      ],
+      "0.06",
+      "0.08",
+      false
+    ],
+    [
+      "0.47",
+      "0.47",
+      "0.04",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "drive", "sks": 2 },
+        { "word": "on", "sks": 1 },
+        { "word": "parkways", "sks": 4 }
+      ],
+      "0.03",
+      "0.04",
+      false
+    ],
+    [
+      "0.49",
+      "0.47",
+      "0.02",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "park", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "driveways", "sks": 4 }
+      ],
+      "0.03",
+      "0.02",
+      false
+    ],
+    [
+      "0.41",
+      "0.42",
+      "0.08",
+      [
+        { "word": "go", "sks": 1 },
+        { "word": "out", "sks": 1 },
+        { "word": "for", "sks": 1 },
+        { "word": "some", "sks": 2 },
+        { "word": "pizza", "sks": 2 },
+        { "word": "and", "sks": 1 },
+        { "word": "beer", "sks": 2 }
+      ],
+      "0.08",
+      "0.08",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "effort", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "what", "sks": 2 },
+        { "word": "it", "sks": 1 },
+        { "word": "will", "sks": 2 },
+        { "word": "take", "sks": 2 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.10",
+      [
+        { "word": "where", "sks": 2 },
+        { "word": "can", "sks": 2 },
+        { "word": "my", "sks": 1 },
+        { "word": "little", "sks": 3 },
+        { "word": "dog", "sks": 2 },
+        { "word": "be", "sks": 1 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.10",
+      [
+        { "word": "if", "sks": 1 },
+        { "word": "you", "sks": 1 },
+        { "word": "were", "sks": 2 },
+        { "word": "not", "sks": 2 },
+        { "word": "so", "sks": 1 },
+        { "word": "stupid", "sks": 3 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.44",
+      "0.44",
+      "0.09",
+      [
+        { "word": "not", "sks": 1 },
+        { "word": "quite", "sks": 2 },
+        { "word": "so", "sks": 1 },
+        { "word": "smart", "sks": 2 },
+        { "word": "as", "sks": 1 },
+        { "word": "you", "sks": 1 },
+        { "word": "think", "sks": 3 }
+      ],
+      "0.06",
+      "0.09",
+      false
+    ],
+    [
+      "0.48",
+      "0.50",
+      "0.07",
+      [
+        { "word": "do", "sks": 1 },
+        { "word": "you", "sks": 1 },
+        { "word": "like", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "go", "sks": 1 },
+        { "word": "camping", "sks": 4 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.89",
+      "0.86",
+      "0.10",
+      [
+        { "word": "this", "sks": 3 },
+        { "word": "person", "sks": 5 },
+        { "word": "is", "sks": 2 },
+        { "word": "a", "sks": 1 },
+        { "word": "disaster", "sks": 7 }
+      ],
+      "0.36",
+      "0.10",
+      true
+    ],
+    [
+      "0.56",
+      "0.52",
+      "0.09",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "imagination", "sks": 5 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "nation", "sks": 3 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.05",
+      [
+        { "word": "universally", "sks": 6 },
+        { "word": "understood", "sks": 5 },
+        { "word": "to", "sks": 1 },
+        { "word": "be", "sks": 1 },
+        { "word": "wrong", "sks": 2 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.06",
+      [
+        { "word": "listen", "sks": 3 },
+        { "word": "to", "sks": 1 },
+        { "word": "five", "sks": 2 },
+        { "word": "hours", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "opera", "sks": 3 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.05",
+      [
+        { "word": "an", "sks": 1 },
+        { "word": "occasional", "sks": 5 },
+        { "word": "taste", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "chocolate", "sks": 5 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.48",
+      "0.48",
+      "0.06",
+      [
+        { "word": "victims", "sks": 3 },
+        { "word": "deserve", "sks": 3 },
+        { "word": "more", "sks": 2 },
+        { "word": "redress", "sks": 4 }
+      ],
+      "0.02",
+      "0.06",
+      false
+    ],
+    [
+      "0.57",
+      "0.53",
+      "0.09",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "protesters", "sks": 5 },
+        { "word": "blocked", "sks": 3 },
+        { "word": "all", "sks": 2 },
+        { "word": "traffic", "sks": 4 }
+      ],
+      "0.03",
+      "0.09",
+      false
+    ],
+    [
+      "0.57",
+      "0.54",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "acceptance", "sks": 5 },
+        { "word": "speech", "sks": 3 },
+        { "word": "was", "sks": 2 },
+        { "word": "boring", "sks": 3 }
+      ],
+      "0.04",
+      "0.08",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.08",
+      [
+        { "word": "work", "sks": 2 },
+        { "word": "hard", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "reach", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "summit", "sks": 3 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.11",
+      "0.18",
+      "0.10",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "little", "sks": 1 },
+        { "word": "encouragement", "sks": 3 },
+        { "word": "is", "sks": 0 },
+        { "word": "needed", "sks": 1 }
+      ],
+      "0.32",
+      "0.10",
+      true
+    ],
+    [
+      "0.43",
+      "0.45",
+      "0.09",
+      [
+        { "word": "stiff", "sks": 2 },
+        { "word": "penalty", "sks": 3 },
+        { "word": "for", "sks": 1 },
+        { "word": "staying", "sks": 4 },
+        { "word": "out", "sks": 1 },
+        { "word": "late", "sks": 2 }
+      ],
+      "0.05",
+      "0.09",
+      false
+    ],
+    [
+      "0.59",
+      "0.57",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "pen", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "mightier", "sks": 4 },
+        { "word": "than", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "sword", "sks": 3 }
+      ],
+      "0.07",
+      "0.08",
+      false
+    ],
+    [
+      "0.44",
+      "0.46",
+      "0.08",
+      [
+        { "word": "exceed", "sks": 3 },
+        { "word": "the", "sks": 1 },
+        { "word": "maximum", "sks": 4 },
+        { "word": "speed", "sks": 2 },
+        { "word": "limit", "sks": 2 }
+      ],
+      "0.04",
+      "0.08",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.06",
+      [
+        { "word": "in", "sks": 1 },
+        { "word": "sharp", "sks": 2 },
+        { "word": "contrast", "sks": 4 },
+        { "word": "to", "sks": 1 },
+        { "word": "your", "sks": 2 },
+        { "word": "words", "sks": 3 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.07",
+      [
+        { "word": "this", "sks": 2 },
+        { "word": "leather", "sks": 3 },
+        { "word": "jacket", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "too", "sks": 2 },
+        { "word": "warm", "sks": 2 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.93",
+      "0.88",
+      "0.09",
+      [
+        { "word": "consequences", "sks": 10 },
+        { "word": "of", "sks": 2 },
+        { "word": "a", "sks": 1 },
+        { "word": "wrong", "sks": 4 },
+        { "word": "turn", "sks": 4 }
+      ],
+      "0.38",
+      "0.09",
+      true
+    ],
+    [
+      "0.48",
+      "0.48",
+      "0.05",
+      [
+        { "word": "this", "sks": 2 },
+        { "word": "mission", "sks": 3 },
+        { "word": "statement", "sks": 5 },
+        { "word": "is", "sks": 1 },
+        { "word": "baloney", "sks": 3 }
+      ],
+      "0.02",
+      "0.05",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.09",
+      [
+        { "word": "you", "sks": 2 },
+        { "word": "will", "sks": 2 },
+        { "word": "loose", "sks": 3 },
+        { "word": "your", "sks": 2 },
+        { "word": "voice", "sks": 2 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.48",
+      "0.48",
+      "0.07",
+      [
+        { "word": "every", "sks": 2 },
+        { "word": "apple", "sks": 2 },
+        { "word": "from", "sks": 2 },
+        { "word": "every", "sks": 3 },
+        { "word": "tree", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.58",
+      "0.57",
+      "0.08",
+      [
+        { "word": "are", "sks": 2 },
+        { "word": "you", "sks": 2 },
+        { "word": "sure", "sks": 2 },
+        { "word": "you", "sks": 2 },
+        { "word": "want", "sks": 2 },
+        { "word": "this", "sks": 2 }
+      ],
+      "0.07",
+      "0.08",
+      false
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "fourth", "sks": 3 },
+        { "word": "edition", "sks": 3 },
+        { "word": "was", "sks": 2 },
+        { "word": "better", "sks": 3 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "this", "sks": 2 },
+        { "word": "system", "sks": 3 },
+        { "word": "of", "sks": 1 },
+        { "word": "taxation", "sks": 4 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.53",
+      "0.50",
+      "0.08",
+      [
+        { "word": "beautiful", "sks": 4 },
+        { "word": "paintings", "sks": 4 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "gallery", "sks": 4 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.93",
+      "0.89",
+      "0.10",
+      [
+        { "word": "a", "sks": 1 },
+        { "word": "yard", "sks": 3 },
+        { "word": "is", "sks": 2 },
+        { "word": "almost", "sks": 5 },
+        { "word": "as", "sks": 2 },
+        { "word": "long", "sks": 4 },
+        { "word": "as", "sks": 2 },
+        { "word": "a", "sks": 1 },
+        { "word": "meter", "sks": 4 }
+      ],
+      "0.39",
+      "0.10",
+      true
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "missed", "sks": 3 },
+        { "word": "your", "sks": 2 },
+        { "word": "birthday", "sks": 4 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.47",
+      "0.48",
+      "0.06",
+      [
+        { "word": "coalition", "sks": 4 },
+        { "word": "governments", "sks": 6 },
+        { "word": "never", "sks": 2 },
+        { "word": "work", "sks": 2 }
+      ],
+      "0.02",
+      "0.06",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.07",
+      [
+        { "word": "destruction", "sks": 5 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "rain", "sks": 2 },
+        { "word": "forest", "sks": 3 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "like", "sks": 0 },
+        { "word": "to", "sks": 0 },
+        { "word": "play", "sks": 0 },
+        { "word": "tennis", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.09",
+      [
+        { "word": "acutely", "sks": 3 },
+        { "word": "aware", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "her", "sks": 2 },
+        { "word": "good", "sks": 2 },
+        { "word": "looks", "sks": 3 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.10",
+      [
+        { "word": "you", "sks": 1 },
+        { "word": "want", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "eat", "sks": 2 },
+        { "word": "your", "sks": 2 },
+        { "word": "cake", "sks": 2 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.08",
+      [
+        { "word": "machinery", "sks": 5 },
+        { "word": "is", "sks": 1 },
+        { "word": "too", "sks": 2 },
+        { "word": "complicated", "sks": 5 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.10",
+      "0.15",
+      "0.10",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "glance", "sks": 1 },
+        { "word": "in", "sks": 0 },
+        { "word": "the", "sks": 0 },
+        { "word": "right", "sks": 1 },
+        { "word": "direction", "sks": 2 }
+      ],
+      "0.35",
+      "0.10",
+      true
+    ],
+    [
+      "0.94",
+      "0.92",
+      "0.08",
+      [
+        { "word": "I", "sks": 1 },
+        { "word": "just", "sks": 4 },
+        { "word": "cannot", "sks": 5 },
+        { "word": "figure", "sks": 5 },
+        { "word": "this", "sks": 4 },
+        { "word": "out", "sks": 3 }
+      ],
+      "0.42",
+      "0.08",
+      true
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.07",
+      [
+        { "word": "please", "sks": 3 },
+        { "word": "follow", "sks": 3 },
+        { "word": "the", "sks": 2 },
+        { "word": "guidelines", "sks": 5 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.05",
+      "0.08",
+      "0.08",
+      [
+        { "word": "an", "sks": 0 },
+        { "word": "airport", "sks": 1 },
+        { "word": "is", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "very", "sks": 0 },
+        { "word": "busy", "sks": 0 },
+        { "word": "place", "sks": 1 }
+      ],
+      "0.42",
+      "0.08",
+      true
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "mystery", "sks": 3 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "lost", "sks": 2 },
+        { "word": "lagoon", "sks": 3 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.08",
+      [
+        { "word": "is", "sks": 1 },
+        { "word": "there", "sks": 2 },
+        { "word": "any", "sks": 2 },
+        { "word": "indication", "sks": 5 },
+        { "word": "of", "sks": 1 },
+        { "word": "this", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.09",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "chamber", "sks": 4 },
+        { "word": "makes", "sks": 3 },
+        { "word": "important", "sks": 4 },
+        { "word": "decisions", "sks": 4 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.06",
+      [
+        { "word": "this", "sks": 2 },
+        { "word": "phenomenon", "sks": 5 },
+        { "word": "will", "sks": 2 },
+        { "word": "never", "sks": 2 },
+        { "word": "occur", "sks": 3 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.08",
+      [
+        { "word": "obligations", "sks": 5 },
+        { "word": "must", "sks": 2 },
+        { "word": "be", "sks": 1 },
+        { "word": "met", "sks": 2 },
+        { "word": "first", "sks": 3 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.43",
+      "0.44",
+      "0.10",
+      [
+        { "word": "valid", "sks": 2 },
+        { "word": "until", "sks": 3 },
+        { "word": "the", "sks": 1 },
+        { "word": "end", "sks": 1 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "year", "sks": 2 }
+      ],
+      "0.06",
+      "0.10",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "file", "sks": 2 },
+        { "word": "all", "sks": 2 },
+        { "word": "complaints", "sks": 5 },
+        { "word": "in", "sks": 1 },
+        { "word": "writing", "sks": 3 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.08",
+      [
+        { "word": "tickets", "sks": 4 },
+        { "word": "are", "sks": 2 },
+        { "word": "very", "sks": 2 },
+        { "word": "expensive", "sks": 4 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.87",
+      "0.83",
+      "0.10",
+      [
+        { "word": "a", "sks": 1 },
+        { "word": "picture", "sks": 6 },
+        { "word": "is", "sks": 2 },
+        { "word": "worth", "sks": 4 },
+        { "word": "many", "sks": 3 },
+        { "word": "words", "sks": 4 }
+      ],
+      "0.33",
+      "0.10",
+      true
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.05",
+      [
+        { "word": "this", "sks": 2 },
+        { "word": "camera", "sks": 3 },
+        { "word": "takes", "sks": 2 },
+        { "word": "nice", "sks": 2 },
+        { "word": "photographs", "sks": 6 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.92",
+      "0.88",
+      "0.10",
+      [
+        { "word": "it", "sks": 2 },
+        { "word": "looks", "sks": 4 },
+        { "word": "like", "sks": 4 },
+        { "word": "a", "sks": 1 },
+        { "word": "shack", "sks": 4 }
+      ],
+      "0.38",
+      "0.10",
+      true
+    ],
+    [
+      "0.60",
+      "0.58",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "dog", "sks": 2 },
+        { "word": "buried", "sks": 3 },
+        { "word": "the", "sks": 2 },
+        { "word": "bone", "sks": 2 }
+      ],
+      "0.08",
+      "0.08",
+      false
+    ],
+    [
+      "0.61",
+      "0.59",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "daring", "sks": 3 },
+        { "word": "young", "sks": 3 },
+        { "word": "man", "sks": 2 }
+      ],
+      "0.09",
+      "0.07",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.07",
+      [
+        { "word": "this", "sks": 2 },
+        { "word": "equation", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "too", "sks": 2 },
+        { "word": "complicated", "sks": 5 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.51",
+      "0.52",
+      "0.03",
+      [
+        { "word": "express", "sks": 4 },
+        { "word": "delivery", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "very", "sks": 2 },
+        { "word": "fast", "sks": 2 }
+      ],
+      "0.02",
+      "0.03",
+      false
+    ],
+    [
+      "0.07",
+      "0.11",
+      "0.10",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "will", "sks": 1 },
+        { "word": "put", "sks": 0 },
+        { "word": "on", "sks": 0 },
+        { "word": "my", "sks": 0 },
+        { "word": "glasses", "sks": 1 }
+      ],
+      "0.39",
+      "0.10",
+      true
+    ],
+    [
+      "0.06",
+      "0.12",
+      "0.09",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "touchdown", "sks": 2 },
+        { "word": "in", "sks": 0 },
+        { "word": "the", "sks": 0 },
+        { "word": "last", "sks": 0 },
+        { "word": "minute", "sks": 1 }
+      ],
+      "0.38",
+      "0.09",
+      true
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.09",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "treasury", "sks": 4 },
+        { "word": "department", "sks": 5 },
+        { "word": "is", "sks": 1 },
+        { "word": "broke", "sks": 2 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.08",
+      "0.12",
+      "0.09",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "good", "sks": 1 },
+        { "word": "response", "sks": 1 },
+        { "word": "to", "sks": 0 },
+        { "word": "the", "sks": 0 },
+        { "word": "question", "sks": 1 }
+      ],
+      "0.38",
+      "0.09",
+      true
+    ],
+    [
+      "0.49",
+      "0.48",
+      "0.02",
+      [
+        { "word": "well", "sks": 2 },
+        { "word": "connected", "sks": 4 },
+        { "word": "with", "sks": 2 },
+        { "word": "people", "sks": 3 }
+      ],
+      "0.02",
+      "0.02",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.09",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "bathroom", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "good", "sks": 2 },
+        { "word": "for", "sks": 2 },
+        { "word": "reading", "sks": 3 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.41",
+      "0.44",
+      "0.07",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "generation", "sks": 5 },
+        { "word": "gap", "sks": 1 },
+        { "word": "gets", "sks": 2 },
+        { "word": "wider", "sks": 2 }
+      ],
+      "0.06",
+      "0.07",
+      false
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.06",
+      [
+        { "word": "chemical", "sks": 4 },
+        { "word": "spill", "sks": 2 },
+        { "word": "took", "sks": 2 },
+        { "word": "forever", "sks": 4 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.53",
+      "0.50",
+      "0.10",
+      [
+        { "word": "prepare", "sks": 3 },
+        { "word": "for", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "exam", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "advance", "sks": 3 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.46",
+      "0.48",
+      "0.08",
+      [
+        { "word": "interesting", "sks": 5 },
+        { "word": "observation", "sks": 6 },
+        { "word": "was", "sks": 1 },
+        { "word": "made", "sks": 2 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.56",
+      "0.52",
+      "0.09",
+      [
+        { "word": "bank", "sks": 2 },
+        { "word": "transaction", "sks": 5 },
+        { "word": "was", "sks": 2 },
+        { "word": "not", "sks": 2 },
+        { "word": "registered", "sks": 5 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.05",
+      [
+        { "word": "your", "sks": 2 },
+        { "word": "etiquette", "sks": 4 },
+        { "word": "needs", "sks": 3 },
+        { "word": "some", "sks": 2 },
+        { "word": "work", "sks": 2 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.51",
+      "0.52",
+      "0.02",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "better", "sks": 3 },
+        { "word": "investigate", "sks": 6 },
+        { "word": "this", "sks": 2 }
+      ],
+      "0.02",
+      "0.02",
+      false
+    ],
+    [
+      "0.53",
+      "0.50",
+      "0.08",
+      [
+        { "word": "stability", "sks": 4 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "nation", "sks": 3 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.09",
+      [
+        { "word": "house", "sks": 3 },
+        { "word": "with", "sks": 2 },
+        { "word": "new", "sks": 2 },
+        { "word": "electrical", "sks": 5 },
+        { "word": "panel", "sks": 2 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.07",
+      [
+        { "word": "our", "sks": 2 },
+        { "word": "silver", "sks": 3 },
+        { "word": "anniversary", "sks": 5 },
+        { "word": "is", "sks": 1 },
+        { "word": "coming", "sks": 3 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "presidential", "sks": 6 },
+        { "word": "suite", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "very", "sks": 2 },
+        { "word": "busy", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.40",
+      "0.43",
+      "0.07",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "punishment", "sks": 5 },
+        { "word": "should", "sks": 3 },
+        { "word": "fit", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "crime", "sks": 2 }
+      ],
+      "0.07",
+      "0.07",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.10",
+      [
+        { "word": "sharp", "sks": 2 },
+        { "word": "cheese", "sks": 3 },
+        { "word": "keeps", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "mind", "sks": 2 },
+        { "word": "sharp", "sks": 3 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "registration", "sks": 6 },
+        { "word": "period", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "over", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.54",
+      "0.53",
+      "0.07",
+      [
+        { "word": "you", "sks": 2 },
+        { "word": "have", "sks": 2 },
+        { "word": "my", "sks": 1 },
+        { "word": "sympathy", "sks": 4 }
+      ],
+      "0.03",
+      "0.07",
+      false
+    ],
+    [
+      "0.56",
+      "0.52",
+      "0.09",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "objective", "sks": 4 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "exercise", "sks": 4 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.17",
+      "0.21",
+      "0.10",
+      [
+        { "word": "historic", "sks": 2 },
+        { "word": "meeting", "sks": 1 },
+        { "word": "without", "sks": 2 },
+        { "word": "a", "sks": 0 },
+        { "word": "result", "sks": 1 }
+      ],
+      "0.29",
+      "0.10",
+      true
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.06",
+      [
+        { "word": "very", "sks": 2 },
+        { "word": "reluctant", "sks": 4 },
+        { "word": "to", "sks": 1 },
+        { "word": "enter", "sks": 3 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.07",
+      [
+        { "word": "good", "sks": 2 },
+        { "word": "at", "sks": 1 },
+        { "word": "addition", "sks": 4 },
+        { "word": "and", "sks": 2 },
+        { "word": "subtraction", "sks": 5 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.58",
+      "0.54",
+      "0.09",
+      [
+        { "word": "six", "sks": 2 },
+        { "word": "daughters", "sks": 4 },
+        { "word": "and", "sks": 2 },
+        { "word": "seven", "sks": 3 },
+        { "word": "sons", "sks": 2 }
+      ],
+      "0.04",
+      "0.09",
+      false
+    ],
+    [
+      "0.10",
+      "0.16",
+      "0.10",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "thoroughly", "sks": 2 },
+        { "word": "disgusting", "sks": 2 },
+        { "word": "thing", "sks": 1 },
+        { "word": "to", "sks": 0 },
+        { "word": "say", "sks": 0 }
+      ],
+      "0.34",
+      "0.10",
+      true
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.07",
+      [
+        { "word": "sign", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "withdrawal", "sks": 5 },
+        { "word": "slip", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.53",
+      "0.50",
+      "0.08",
+      [
+        { "word": "relations", "sks": 4 },
+        { "word": "are", "sks": 2 },
+        { "word": "very", "sks": 2 },
+        { "word": "strained", "sks": 4 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "minimum", "sks": 3 },
+        { "word": "amount", "sks": 3 },
+        { "word": "of", "sks": 1 },
+        { "word": "time", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.94",
+      "0.88",
+      "0.09",
+      [
+        { "word": "a", "sks": 1 },
+        { "word": "very", "sks": 4 },
+        { "word": "traditional", "sks": 9 },
+        { "word": "way", "sks": 3 },
+        { "word": "to", "sks": 2 },
+        { "word": "dress", "sks": 4 }
+      ],
+      "0.38",
+      "0.09",
+      true
+    ],
+    [
+      "0.07",
+      "0.13",
+      "0.09",
+      [
+        { "word": "the", "sks": 0 },
+        { "word": "aspirations", "sks": 2 },
+        { "word": "of", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "nation", "sks": 1 }
+      ],
+      "0.37",
+      "0.09",
+      true
+    ],
+    [
+      "0.48",
+      "0.48",
+      "0.04",
+      [
+        { "word": "medieval", "sks": 4 },
+        { "word": "times", "sks": 2 },
+        { "word": "were", "sks": 2 },
+        { "word": "very", "sks": 2 },
+        { "word": "hard", "sks": 2 }
+      ],
+      "0.02",
+      "0.04",
+      false
+    ],
+    [
+      "0.87",
+      "0.83",
+      "0.10",
+      [
+        { "word": "a", "sks": 1 },
+        { "word": "security", "sks": 6 },
+        { "word": "force", "sks": 4 },
+        { "word": "of", "sks": 2 },
+        { "word": "eight", "sks": 4 },
+        { "word": "thousand", "sks": 7 }
+      ],
+      "0.33",
+      "0.10",
+      true
+    ],
+    [
+      "0.57",
+      "0.54",
+      "0.09",
+      [
+        { "word": "there", "sks": 3 },
+        { "word": "are", "sks": 2 },
+        { "word": "winners", "sks": 3 },
+        { "word": "and", "sks": 2 },
+        { "word": "losers", "sks": 3 }
+      ],
+      "0.04",
+      "0.09",
+      false
+    ],
+    [
+      "0.60",
+      "0.57",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "voters", "sks": 3 },
+        { "word": "turfed", "sks": 3 },
+        { "word": "him", "sks": 2 },
+        { "word": "out", "sks": 2 }
+      ],
+      "0.07",
+      "0.08",
+      false
+    ],
+    [
+      "0.95",
+      "0.92",
+      "0.08",
+      [
+        { "word": "pay", "sks": 3 },
+        { "word": "off", "sks": 3 },
+        { "word": "a", "sks": 1 },
+        { "word": "mortgage", "sks": 7 },
+        { "word": "for", "sks": 3 },
+        { "word": "a", "sks": 1 },
+        { "word": "house", "sks": 4 }
+      ],
+      "0.42",
+      "0.08",
+      true
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "collapse", "sks": 4 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "Roman", "sks": 2 },
+        { "word": "empire", "sks": 3 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.59",
+      "0.55",
+      "0.09",
+      [
+        { "word": "did", "sks": 2 },
+        { "word": "you", "sks": 2 },
+        { "word": "see", "sks": 2 },
+        { "word": "that", "sks": 2 },
+        { "word": "spectacular", "sks": 5 },
+        { "word": "explosion", "sks": 5 }
+      ],
+      "0.05",
+      "0.09",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.10",
+      [
+        { "word": "keep", "sks": 2 },
+        { "word": "receipts", "sks": 4 },
+        { "word": "for", "sks": 1 },
+        { "word": "all", "sks": 2 },
+        { "word": "your", "sks": 2 },
+        { "word": "expenses", "sks": 4 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "assault", "sks": 3 },
+        { "word": "took", "sks": 2 },
+        { "word": "six", "sks": 2 },
+        { "word": "months", "sks": 3 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.09",
+      [
+        { "word": "get", "sks": 2 },
+        { "word": "your", "sks": 2 },
+        { "word": "priorities", "sks": 5 },
+        { "word": "in", "sks": 1 },
+        { "word": "order", "sks": 2 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.94",
+      "0.89",
+      "0.09",
+      [
+        { "word": "traveling", "sks": 7 },
+        { "word": "requires", "sks": 7 },
+        { "word": "a", "sks": 1 },
+        { "word": "lot", "sks": 3 },
+        { "word": "of", "sks": 2 },
+        { "word": "fuel", "sks": 4 }
+      ],
+      "0.39",
+      "0.09",
+      true
+    ],
+    [
+      "0.17",
+      "0.21",
+      "0.09",
+      [
+        { "word": "longer", "sks": 1 },
+        { "word": "than", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "football", "sks": 2 },
+        { "word": "field", "sks": 1 }
+      ],
+      "0.29",
+      "0.09",
+      true
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "good", "sks": 0 },
+        { "word": "joke", "sks": 0 },
+        { "word": "deserves", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "good", "sks": 0 },
+        { "word": "laugh", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "union", "sks": 2 },
+        { "word": "will", "sks": 2 },
+        { "word": "go", "sks": 1 },
+        { "word": "on", "sks": 1 },
+        { "word": "strike", "sks": 3 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.59",
+      "0.56",
+      "0.07",
+      [
+        { "word": "never", "sks": 3 },
+        { "word": "mix", "sks": 2 },
+        { "word": "religion", "sks": 4 },
+        { "word": "and", "sks": 2 },
+        { "word": "politics", "sks": 4 }
+      ],
+      "0.06",
+      "0.07",
+      false
+    ],
+    [
+      "0.58",
+      "0.53",
+      "0.09",
+      [
+        { "word": "interactions", "sks": 5 },
+        { "word": "between", "sks": 4 },
+        { "word": "men", "sks": 2 },
+        { "word": "and", "sks": 2 },
+        { "word": "women", "sks": 3 }
+      ],
+      "0.03",
+      "0.09",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "where", "sks": 0 },
+        { "word": "did", "sks": 0 },
+        { "word": "you", "sks": 0 },
+        { "word": "get", "sks": 0 },
+        { "word": "such", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "silly", "sks": 0 },
+        { "word": "idea", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.48",
+      "0.48",
+      "0.04",
+      [
+        { "word": "it", "sks": 1 },
+        { "word": "should", "sks": 3 },
+        { "word": "be", "sks": 1 },
+        { "word": "sunny", "sks": 2 },
+        { "word": "tomorrow", "sks": 4 }
+      ],
+      "0.02",
+      "0.04",
+      false
+    ],
+    [
+      "0.95",
+      "0.88",
+      "0.10",
+      [
+        { "word": "a", "sks": 1 },
+        { "word": "psychiatrist", "sks": 9 },
+        { "word": "will", "sks": 4 },
+        { "word": "help", "sks": 4 },
+        { "word": "you", "sks": 3 }
+      ],
+      "0.38",
+      "0.10",
+      true
+    ],
+    [
+      "0.09",
+      "0.13",
+      "0.09",
+      [
+        { "word": "you", "sks": 0 },
+        { "word": "should", "sks": 1 },
+        { "word": "visit", "sks": 1 },
+        { "word": "to", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "doctor", "sks": 1 }
+      ],
+      "0.37",
+      "0.09",
+      true
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.07",
+      [
+        { "word": "you", "sks": 2 },
+        { "word": "must", "sks": 2 },
+        { "word": "make", "sks": 2 },
+        { "word": "an", "sks": 1 },
+        { "word": "appointment", "sks": 5 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "fax", "sks": 2 },
+        { "word": "machine", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "broken", "sks": 3 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.56",
+      "0.54",
+      "0.09",
+      [
+        { "word": "players", "sks": 3 },
+        { "word": "must", "sks": 2 },
+        { "word": "know", "sks": 2 },
+        { "word": "all", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "rules", "sks": 3 }
+      ],
+      "0.04",
+      "0.09",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "dog", "sks": 0 },
+        { "word": "is", "sks": 0 },
+        { "word": "the", "sks": 0 },
+        { "word": "best", "sks": 0 },
+        { "word": "friend", "sks": 0 },
+        { "word": "of", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "man", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.52",
+      "0.52",
+      "0.07",
+      [
+        { "word": "would", "sks": 2 },
+        { "word": "you", "sks": 2 },
+        { "word": "like", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "come", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "my", "sks": 1 },
+        { "word": "house", "sks": 3 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.59",
+      "0.57",
+      "0.07",
+      [
+        { "word": "February", "sks": 4 },
+        { "word": "has", "sks": 2 },
+        { "word": "an", "sks": 1 },
+        { "word": "extra", "sks": 3 },
+        { "word": "day", "sks": 2 }
+      ],
+      "0.07",
+      "0.07",
+      false
+    ],
+    [
+      "0.41",
+      "0.41",
+      "0.08",
+      [
+        { "word": "do", "sks": 1 },
+        { "word": "not", "sks": 1 },
+        { "word": "feel", "sks": 2 },
+        { "word": "too", "sks": 1 },
+        { "word": "bad", "sks": 1 },
+        { "word": "about", "sks": 2 },
+        { "word": "it", "sks": 1 }
+      ],
+      "0.09",
+      "0.08",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.08",
+      [
+        { "word": "this", "sks": 2 },
+        { "word": "library", "sks": 3 },
+        { "word": "has", "sks": 2 },
+        { "word": "many", "sks": 2 },
+        { "word": "books", "sks": 3 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.53",
+      "0.51",
+      "0.06",
+      [
+        { "word": "construction", "sks": 6 },
+        { "word": "makes", "sks": 3 },
+        { "word": "traveling", "sks": 4 },
+        { "word": "difficult", "sks": 5 }
+      ],
+      "0.01",
+      "0.06",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.07",
+      [
+        { "word": "he", "sks": 1 },
+        { "word": "called", "sks": 3 },
+        { "word": "seven", "sks": 2 },
+        { "word": "times", "sks": 3 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "that", "sks": 0 },
+        { "word": "is", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "very", "sks": 0 },
+        { "word": "odd", "sks": 0 },
+        { "word": "question", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.10",
+      "0.17",
+      "0.09",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "feeling", "sks": 1 },
+        { "word": "of", "sks": 0 },
+        { "word": "complete", "sks": 1 },
+        { "word": "exasperation", "sks": 3 }
+      ],
+      "0.33",
+      "0.09",
+      true
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "must", "sks": 2 },
+        { "word": "redouble", "sks": 4 },
+        { "word": "our", "sks": 2 },
+        { "word": "efforts", "sks": 3 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.08",
+      [
+        { "word": "no", "sks": 1 },
+        { "word": "kissing", "sks": 3 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "library", "sks": 4 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.51",
+      "0.52",
+      "0.02",
+      [
+        { "word": "that", "sks": 2 },
+        { "word": "agreement", "sks": 5 },
+        { "word": "is", "sks": 1 },
+        { "word": "rife", "sks": 2 },
+        { "word": "with", "sks": 2 },
+        { "word": "problems", "sks": 4 }
+      ],
+      "0.02",
+      "0.02",
+      false
+    ],
+    [
+      "0.49",
+      "0.48",
+      "0.02",
+      [
+        { "word": "vote", "sks": 2 },
+        { "word": "according", "sks": 4 },
+        { "word": "to", "sks": 1 },
+        { "word": "your", "sks": 2 },
+        { "word": "conscience", "sks": 5 }
+      ],
+      "0.02",
+      "0.02",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.05",
+      [
+        { "word": "my", "sks": 1 },
+        { "word": "favourite", "sks": 4 },
+        { "word": "sport", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "racketball", "sks": 5 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.53",
+      "0.53",
+      "0.07",
+      [
+        { "word": "sad", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "hear", "sks": 2 },
+        { "word": "that", "sks": 2 },
+        { "word": "news", "sks": 2 }
+      ],
+      "0.03",
+      "0.07",
+      false
+    ],
+    [
+      "0.57",
+      "0.54",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "gun", "sks": 2 },
+        { "word": "discharged", "sks": 5 },
+        { "word": "by", "sks": 1 },
+        { "word": "accident", "sks": 4 }
+      ],
+      "0.04",
+      "0.08",
+      false
+    ],
+    [
+      "0.57",
+      "0.55",
+      "0.09",
+      [
+        { "word": "one", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "poorest", "sks": 3 },
+        { "word": "nations", "sks": 4 }
+      ],
+      "0.05",
+      "0.09",
+      false
+    ],
+    [
+      "0.55",
+      "0.50",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "algorithm", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "too", "sks": 2 },
+        { "word": "complicated", "sks": 5 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.53",
+      "0.50",
+      "0.08",
+      [
+        { "word": "your", "sks": 2 },
+        { "word": "presentation", "sks": 6 },
+        { "word": "was", "sks": 2 },
+        { "word": "inspiring", "sks": 4 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.07",
+      [
+        { "word": "that", "sks": 2 },
+        { "word": "land", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "owned", "sks": 2 },
+        { "word": "by", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "government", "sks": 5 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.52",
+      "0.51",
+      "0.07",
+      [
+        { "word": "burglars", "sks": 4 },
+        { "word": "never", "sks": 2 },
+        { "word": "leave", "sks": 3 },
+        { "word": "their", "sks": 3 },
+        { "word": "business", "sks": 4 },
+        { "word": "card", "sks": 2 }
+      ],
+      "0.01",
+      "0.07",
+      false
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "fire", "sks": 2 },
+        { "word": "blazed", "sks": 3 },
+        { "word": "all", "sks": 2 },
+        { "word": "weekend", "sks": 3 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "if", "sks": 1 },
+        { "word": "diplomacy", "sks": 4 },
+        { "word": "does", "sks": 2 },
+        { "word": "not", "sks": 2 },
+        { "word": "work", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "please", "sks": 3 },
+        { "word": "keep", "sks": 2 },
+        { "word": "this", "sks": 2 },
+        { "word": "confidential", "sks": 6 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.44",
+      "0.48",
+      "0.09",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "rationale", "sks": 5 },
+        { "word": "behind", "sks": 3 },
+        { "word": "the", "sks": 1 },
+        { "word": "decision", "sks": 4 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.95",
+      "0.90",
+      "0.07",
+      [
+        { "word": "the", "sks": 3 },
+        { "word": "cat", "sks": 3 },
+        { "word": "has", "sks": 3 },
+        { "word": "a", "sks": 1 },
+        { "word": "pleasant", "sks": 7 },
+        { "word": "temperament", "sks": 9 }
+      ],
+      "0.40",
+      "0.07",
+      true
+    ],
+    [
+      "0.09",
+      "0.13",
+      "0.10",
+      [
+        { "word": "our", "sks": 0 },
+        { "word": "housekeeper", "sks": 2 },
+        { "word": "does", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "thorough", "sks": 1 },
+        { "word": "job", "sks": 0 }
+      ],
+      "0.37",
+      "0.10",
+      true
+    ],
+    [
+      "0.61",
+      "0.59",
+      "0.05",
+      [
+        { "word": "her", "sks": 2 },
+        { "word": "majesty", "sks": 4 },
+        { "word": "visited", "sks": 4 },
+        { "word": "our", "sks": 2 },
+        { "word": "country", "sks": 4 }
+      ],
+      "0.09",
+      "0.05",
+      false
+    ],
+    [
+      "0.52",
+      "0.51",
+      "0.04",
+      [
+        { "word": "handicapped", "sks": 6 },
+        { "word": "persons", "sks": 4 },
+        { "word": "need", "sks": 2 },
+        { "word": "consideration", "sks": 6 }
+      ],
+      "0.01",
+      "0.04",
+      false
+    ],
+    [
+      "0.41",
+      "0.44",
+      "0.07",
+      [
+        { "word": "these", "sks": 2 },
+        { "word": "barracks", "sks": 4 },
+        { "word": "are", "sks": 1 },
+        { "word": "big", "sks": 1 },
+        { "word": "enough", "sks": 3 }
+      ],
+      "0.06",
+      "0.07",
+      false
+    ],
+    [
+      "0.40",
+      "0.42",
+      "0.07",
+      [
+        { "word": "sing", "sks": 2 },
+        { "word": "the", "sks": 1 },
+        { "word": "gospel", "sks": 3 },
+        { "word": "and", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "blues", "sks": 2 }
+      ],
+      "0.08",
+      "0.07",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.04",
+      [
+        { "word": "he", "sks": 1 },
+        { "word": "underwent", "sks": 4 },
+        { "word": "triple", "sks": 3 },
+        { "word": "bypass", "sks": 3 },
+        { "word": "surgery", "sks": 4 }
+      ],
+      "0.00",
+      "0.04",
+      false
+    ],
+    [
+      "0.06",
+      "0.12",
+      "0.09",
+      [
+        { "word": "the", "sks": 0 },
+        { "word": "hopes", "sks": 1 },
+        { "word": "of", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "new", "sks": 0 },
+        { "word": "organization", "sks": 2 }
+      ],
+      "0.38",
+      "0.09",
+      true
+    ],
+    [
+      "0.15",
+      "0.17",
+      "0.08",
+      [
+        { "word": "peering", "sks": 1 },
+        { "word": "through", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "small", "sks": 1 },
+        { "word": "hole", "sks": 1 }
+      ],
+      "0.33",
+      "0.08",
+      true
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.08",
+      [
+        { "word": "rapidly", "sks": 4 },
+        { "word": "running", "sks": 4 },
+        { "word": "short", "sks": 2 },
+        { "word": "on", "sks": 1 },
+        { "word": "words", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.03",
+      [
+        { "word": "it", "sks": 1 },
+        { "word": "is", "sks": 1 },
+        { "word": "difficult", "sks": 4 },
+        { "word": "to", "sks": 1 },
+        { "word": "concentrate", "sks": 6 }
+      ],
+      "0.00",
+      "0.03",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.06",
+      [
+        { "word": "give", "sks": 2 },
+        { "word": "me", "sks": 1 },
+        { "word": "one", "sks": 2 },
+        { "word": "spoonful", "sks": 4 },
+        { "word": "of", "sks": 1 },
+        { "word": "coffee", "sks": 3 }
+      ],
+      "0.02",
+      "0.06",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.08",
+      [
+        { "word": "two", "sks": 2 },
+        { "word": "or", "sks": 1 },
+        { "word": "three", "sks": 2 },
+        { "word": "cups", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "coffee", "sks": 3 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.09",
+      [
+        { "word": "just", "sks": 2 },
+        { "word": "like", "sks": 2 },
+        { "word": "it", "sks": 1 },
+        { "word": "says", "sks": 2 },
+        { "word": "on", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "can", "sks": 2 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.16",
+      "0.21",
+      "0.10",
+      [
+        { "word": "companies", "sks": 2 },
+        { "word": "announce", "sks": 2 },
+        { "word": "a", "sks": 0 },
+        { "word": "merger", "sks": 1 }
+      ],
+      "0.29",
+      "0.10",
+      true
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.08",
+      [
+        { "word": "electric", "sks": 4 },
+        { "word": "cars", "sks": 2 },
+        { "word": "need", "sks": 2 },
+        { "word": "big", "sks": 2 },
+        { "word": "fuel", "sks": 2 },
+        { "word": "cells", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.60",
+      "0.58",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "plug", "sks": 2 },
+        { "word": "does", "sks": 2 },
+        { "word": "not", "sks": 2 },
+        { "word": "fit", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "socket", "sks": 3 }
+      ],
+      "0.08",
+      "0.08",
+      false
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.06",
+      [
+        { "word": "drugs", "sks": 2 },
+        { "word": "should", "sks": 3 },
+        { "word": "be", "sks": 1 },
+        { "word": "avoided", "sks": 4 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.53",
+      "0.50",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "most", "sks": 2 },
+        { "word": "beautiful", "sks": 4 },
+        { "word": "sunset", "sks": 3 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.10",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "dine", "sks": 2 },
+        { "word": "out", "sks": 1 },
+        { "word": "on", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "weekends", "sks": 4 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.09",
+      [
+        { "word": "get", "sks": 2 },
+        { "word": "aboard", "sks": 3 },
+        { "word": "the", "sks": 2 },
+        { "word": "ship", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "leaving", "sks": 3 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.40",
+      "0.44",
+      "0.08",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "water", "sks": 2 },
+        { "word": "was", "sks": 1 },
+        { "word": "monitored", "sks": 5 },
+        { "word": "daily", "sks": 2 }
+      ],
+      "0.06",
+      "0.08",
+      false
+    ],
+    [
+      "0.52",
+      "0.52",
+      "0.03",
+      [
+        { "word": "he", "sks": 1 },
+        { "word": "watched", "sks": 4 },
+        { "word": "in", "sks": 1 },
+        { "word": "astonishment", "sks": 6 }
+      ],
+      "0.02",
+      "0.03",
+      false
+    ],
+    [
+      "0.07",
+      "0.13",
+      "0.10",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "big", "sks": 0 },
+        { "word": "scratch", "sks": 1 },
+        { "word": "on", "sks": 0 },
+        { "word": "the", "sks": 0 },
+        { "word": "tabletop", "sks": 2 }
+      ],
+      "0.38",
+      "0.10",
+      true
+    ],
+    [
+      "0.48",
+      "0.48",
+      "0.06",
+      [
+        { "word": "salesmen", "sks": 4 },
+        { "word": "must", "sks": 2 },
+        { "word": "make", "sks": 2 },
+        { "word": "their", "sks": 2 },
+        { "word": "monthly", "sks": 4 },
+        { "word": "quota", "sks": 2 }
+      ],
+      "0.02",
+      "0.06",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.07",
+      [
+        { "word": "saving", "sks": 3 },
+        { "word": "that", "sks": 2 },
+        { "word": "child", "sks": 2 },
+        { "word": "was", "sks": 2 },
+        { "word": "an", "sks": 1 },
+        { "word": "heroic", "sks": 3 },
+        { "word": "effort", "sks": 3 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.46",
+      "0.48",
+      "0.10",
+      [
+        { "word": "granite", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "hardest", "sks": 4 },
+        { "word": "of", "sks": 1 },
+        { "word": "all", "sks": 1 },
+        { "word": "rocks", "sks": 2 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.47",
+      "0.50",
+      "0.09",
+      [
+        { "word": "bring", "sks": 2 },
+        { "word": "the", "sks": 1 },
+        { "word": "offenders", "sks": 5 },
+        { "word": "to", "sks": 1 },
+        { "word": "justice", "sks": 4 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.48",
+      "0.50",
+      "0.09",
+      [
+        { "word": "every", "sks": 2 },
+        { "word": "Saturday", "sks": 4 },
+        { "word": "he", "sks": 1 },
+        { "word": "folds", "sks": 3 },
+        { "word": "the", "sks": 1 },
+        { "word": "laundry", "sks": 4 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.11",
+      "0.14",
+      "0.09",
+      [
+        { "word": "careless", "sks": 1 },
+        { "word": "driving", "sks": 1 },
+        { "word": "results", "sks": 1 },
+        { "word": "in", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "fine", "sks": 1 }
+      ],
+      "0.36",
+      "0.09",
+      true
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.07",
+      [
+        { "word": "microscopes", "sks": 5 },
+        { "word": "make", "sks": 2 },
+        { "word": "small", "sks": 3 },
+        { "word": "things", "sks": 3 },
+        { "word": "look", "sks": 2 },
+        { "word": "big", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.06",
+      "0.10",
+      "0.08",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "coupon", "sks": 1 },
+        { "word": "for", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "free", "sks": 0 },
+        { "word": "sample", "sks": 1 }
+      ],
+      "0.40",
+      "0.08",
+      true
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "fine", "sks": 2 },
+        { "word": "but", "sks": 2 },
+        { "word": "only", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "moderation", "sks": 5 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.08",
+      "0.12",
+      "0.09",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "subject", "sks": 1 },
+        { "word": "one", "sks": 0 },
+        { "word": "can", "sks": 0 },
+        { "word": "really", "sks": 1 },
+        { "word": "enjoy", "sks": 1 }
+      ],
+      "0.38",
+      "0.09",
+      true
+    ],
+    [
+      "0.53",
+      "0.50",
+      "0.09",
+      [
+        { "word": "important", "sks": 4 },
+        { "word": "for", "sks": 2 },
+        { "word": "political", "sks": 4 },
+        { "word": "parties", "sks": 4 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.48",
+      "0.48",
+      "0.05",
+      [
+        { "word": "that", "sks": 2 },
+        { "word": "sticker", "sks": 3 },
+        { "word": "needs", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "be", "sks": 1 },
+        { "word": "validated", "sks": 5 }
+      ],
+      "0.02",
+      "0.05",
+      false
+    ],
+    [
+      "0.45",
+      "0.46",
+      "0.09",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "fire", "sks": 2 },
+        { "word": "raged", "sks": 2 },
+        { "word": "for", "sks": 1 },
+        { "word": "an", "sks": 1 },
+        { "word": "entire", "sks": 3 },
+        { "word": "month", "sks": 3 }
+      ],
+      "0.04",
+      "0.09",
+      false
+    ],
+    [
+      "0.58",
+      "0.55",
+      "0.08",
+      [
+        { "word": "one", "sks": 2 },
+        { "word": "never", "sks": 3 },
+        { "word": "takes", "sks": 3 },
+        { "word": "too", "sks": 2 },
+        { "word": "many", "sks": 2 },
+        { "word": "precautions", "sks": 5 }
+      ],
+      "0.05",
+      "0.08",
+      false
+    ],
+    [
+      "0.49",
+      "0.48",
+      "0.02",
+      [
+        { "word": "we", "sks": 1 },
+        { "word": "have", "sks": 2 },
+        { "word": "enough", "sks": 3 },
+        { "word": "witnesses", "sks": 4 }
+      ],
+      "0.02",
+      "0.02",
+      false
+    ],
+    [
+      "0.47",
+      "0.48",
+      "0.06",
+      [
+        { "word": "labour", "sks": 3 },
+        { "word": "unions", "sks": 3 },
+        { "word": "know", "sks": 2 },
+        { "word": "how", "sks": 1 },
+        { "word": "to", "sks": 1 },
+        { "word": "organize", "sks": 4 }
+      ],
+      "0.02",
+      "0.06",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "people", "sks": 0 },
+        { "word": "blow", "sks": 0 },
+        { "word": "their", "sks": 0 },
+        { "word": "horn", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "lot", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.93",
+      "0.85",
+      "0.10",
+      [
+        { "word": "a", "sks": 1 },
+        { "word": "correction", "sks": 8 },
+        { "word": "had", "sks": 3 },
+        { "word": "to", "sks": 2 },
+        { "word": "be", "sks": 2 },
+        { "word": "published", "sks": 7 }
+      ],
+      "0.35",
+      "0.10",
+      true
+    ],
+    [
+      "0.88",
+      "0.86",
+      "0.09",
+      [
+        { "word": "I", "sks": 1 },
+        { "word": "like", "sks": 3 },
+        { "word": "baroque", "sks": 6 },
+        { "word": "and", "sks": 3 },
+        { "word": "classical", "sks": 8 },
+        { "word": "music", "sks": 4 }
+      ],
+      "0.36",
+      "0.09",
+      true
+    ],
+    [
+      "0.57",
+      "0.52",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "proprietor", "sks": 5 },
+        { "word": "was", "sks": 2 },
+        { "word": "unavailable", "sks": 5 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.05",
+      [
+        { "word": "be", "sks": 1 },
+        { "word": "discreet", "sks": 4 },
+        { "word": "about", "sks": 2 },
+        { "word": "your", "sks": 2 },
+        { "word": "meeting", "sks": 4 }
+      ],
+      "0.00",
+      "0.05",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "meet", "sks": 2 },
+        { "word": "tomorrow", "sks": 4 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "lavatory", "sks": 4 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.08",
+      [
+        { "word": "suburbs", "sks": 4 },
+        { "word": "are", "sks": 2 },
+        { "word": "sprawling", "sks": 4 },
+        { "word": "up", "sks": 1 },
+        { "word": "everywhere", "sks": 5 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.08",
+      [
+        { "word": "shivering", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "one", "sks": 2 },
+        { "word": "way", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "keep", "sks": 2 },
+        { "word": "warm", "sks": 2 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.47",
+      "0.48",
+      "0.09",
+      [
+        { "word": "dolphins", "sks": 4 },
+        { "word": "leap", "sks": 2 },
+        { "word": "high", "sks": 2 },
+        { "word": "out", "sks": 1 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "water", "sks": 3 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.09",
+      [
+        { "word": "try", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "enjoy", "sks": 2 },
+        { "word": "your", "sks": 2 },
+        { "word": "maternity", "sks": 4 },
+        { "word": "leave", "sks": 3 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "ventilation", "sks": 5 },
+        { "word": "system", "sks": 3 },
+        { "word": "is", "sks": 1 },
+        { "word": "broken", "sks": 3 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "dinosaurs", "sks": 4 },
+        { "word": "have", "sks": 2 },
+        { "word": "been", "sks": 2 },
+        { "word": "extinct", "sks": 4 },
+        { "word": "for", "sks": 2 },
+        { "word": "ages", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.05",
+      "0.11",
+      "0.09",
+      [
+        { "word": "an", "sks": 0 },
+        { "word": "inefficient", "sks": 2 },
+        { "word": "way", "sks": 0 },
+        { "word": "to", "sks": 0 },
+        { "word": "heat", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "house", "sks": 1 }
+      ],
+      "0.39",
+      "0.09",
+      true
+    ],
+    [
+      "0.39",
+      "0.40",
+      "0.07",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "bus", "sks": 1 },
+        { "word": "was", "sks": 1 },
+        { "word": "very", "sks": 2 },
+        { "word": "crowded", "sks": 3 }
+      ],
+      "0.10",
+      "0.07",
+      false
+    ],
+    [
+      "0.53",
+      "0.50",
+      "0.08",
+      [
+        { "word": "an", "sks": 1 },
+        { "word": "injustice", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "committed", "sks": 4 },
+        { "word": "every", "sks": 3 },
+        { "word": "day", "sks": 2 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.57",
+      "0.54",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "coronation", "sks": 5 },
+        { "word": "was", "sks": 2 },
+        { "word": "very", "sks": 2 },
+        { "word": "exciting", "sks": 4 }
+      ],
+      "0.04",
+      "0.08",
+      false
+    ],
+    [
+      "0.57",
+      "0.55",
+      "0.08",
+      [
+        { "word": "look", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "syllabus", "sks": 4 },
+        { "word": "for", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "course", "sks": 3 }
+      ],
+      "0.05",
+      "0.08",
+      false
+    ],
+    [
+      "0.47",
+      "0.48",
+      "0.05",
+      [
+        { "word": "rectangular", "sks": 6 },
+        { "word": "objects", "sks": 3 },
+        { "word": "have", "sks": 2 },
+        { "word": "four", "sks": 2 },
+        { "word": "sides", "sks": 2 }
+      ],
+      "0.02",
+      "0.05",
+      false
+    ],
+    [
+      "0.17",
+      "0.21",
+      "0.09",
+      [
+        { "word": "prescription", "sks": 3 },
+        { "word": "drugs", "sks": 1 },
+        { "word": "require", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "note", "sks": 1 }
+      ],
+      "0.29",
+      "0.09",
+      true
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "insulation", "sks": 5 },
+        { "word": "is", "sks": 1 },
+        { "word": "not", "sks": 2 },
+        { "word": "working", "sks": 3 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.21",
+      "0.25",
+      "0.10",
+      [
+        { "word": "nothing", "sks": 2 },
+        { "word": "finer", "sks": 1 },
+        { "word": "than", "sks": 1 },
+        { "word": "discovering", "sks": 3 },
+        { "word": "a", "sks": 0 },
+        { "word": "treasure", "sks": 2 }
+      ],
+      "0.25",
+      "0.10",
+      true
+    ],
+    [
+      "0.44",
+      "0.48",
+      "0.09",
+      [
+        { "word": "our", "sks": 1 },
+        { "word": "life", "sks": 2 },
+        { "word": "expectancy", "sks": 5 },
+        { "word": "has", "sks": 1 },
+        { "word": "increased", "sks": 5 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.62",
+      "0.62",
+      "0.06",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "cream", "sks": 3 },
+        { "word": "rises", "sks": 3 },
+        { "word": "to", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "top", "sks": 2 }
+      ],
+      "0.12",
+      "0.06",
+      true
+    ],
+    [
+      "0.47",
+      "0.48",
+      "0.08",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "high", "sks": 2 },
+        { "word": "waves", "sks": 2 },
+        { "word": "will", "sks": 2 },
+        { "word": "swamp", "sks": 3 },
+        { "word": "us", "sks": 1 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.45",
+      "0.48",
+      "0.10",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "treasurer", "sks": 5 },
+        { "word": "must", "sks": 2 },
+        { "word": "balance", "sks": 4 },
+        { "word": "her", "sks": 1 },
+        { "word": "books", "sks": 2 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "completely", "sks": 5 },
+        { "word": "sold", "sks": 2 },
+        { "word": "out", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "that", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.59",
+      "0.57",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "location", "sks": 4 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "crime", "sks": 3 }
+      ],
+      "0.07",
+      "0.07",
+      false
+    ],
+    [
+      "0.57",
+      "0.54",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "chancellor", "sks": 5 },
+        { "word": "was", "sks": 2 },
+        { "word": "very", "sks": 2 },
+        { "word": "boring", "sks": 3 }
+      ],
+      "0.04",
+      "0.08",
+      false
+    ],
+    [
+      "0.91",
+      "0.88",
+      "0.10",
+      [
+        { "word": "the", "sks": 3 },
+        { "word": "accident", "sks": 7 },
+        { "word": "scene", "sks": 4 },
+        { "word": "is", "sks": 2 },
+        { "word": "a", "sks": 1 },
+        { "word": "shrine", "sks": 5 },
+        { "word": "for", "sks": 3 },
+        { "word": "fans", "sks": 3 }
+      ],
+      "0.38",
+      "0.10",
+      true
+    ],
+    [
+      "0.06",
+      "0.11",
+      "0.08",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "tumor", "sks": 1 },
+        { "word": "is", "sks": 0 },
+        { "word": "OK", "sks": 0 },
+        { "word": "provided", "sks": 1 },
+        { "word": "it", "sks": 0 },
+        { "word": "is", "sks": 0 },
+        { "word": "benign", "sks": 1 }
+      ],
+      "0.39",
+      "0.08",
+      true
+    ],
+    [
+      "0.19",
+      "0.21",
+      "0.09",
+      [
+        { "word": "please", "sks": 1 },
+        { "word": "take", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "bath", "sks": 1 },
+        { "word": "this", "sks": 1 },
+        { "word": "month", "sks": 1 }
+      ],
+      "0.29",
+      "0.09",
+      true
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.09",
+      [
+        { "word": "rent", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "paid", "sks": 2 },
+        { "word": "at", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "beginning", "sks": 4 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "month", "sks": 2 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.09",
+      "0.12",
+      "0.09",
+      [
+        { "word": "for", "sks": 0 },
+        { "word": "murder", "sks": 1 },
+        { "word": "you", "sks": 0 },
+        { "word": "get", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "long", "sks": 1 },
+        { "word": "prison", "sks": 1 },
+        { "word": "sentence", "sks": 1 }
+      ],
+      "0.38",
+      "0.09",
+      true
+    ],
+    [
+      "0.14",
+      "0.17",
+      "0.10",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "much", "sks": 1 },
+        { "word": "higher", "sks": 1 },
+        { "word": "risk", "sks": 1 },
+        { "word": "of", "sks": 0 },
+        { "word": "getting", "sks": 1 },
+        { "word": "cancer", "sks": 1 }
+      ],
+      "0.33",
+      "0.10",
+      true
+    ],
+    [
+      "0.61",
+      "0.60",
+      "0.06",
+      [
+        { "word": "quit", "sks": 2 },
+        { "word": "while", "sks": 3 },
+        { "word": "you", "sks": 2 },
+        { "word": "are", "sks": 2 },
+        { "word": "ahead", "sks": 3 }
+      ],
+      "0.10",
+      "0.06",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "knee", "sks": 2 },
+        { "word": "bone", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "connected", "sks": 4 },
+        { "word": "to", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "thigh", "sks": 3 },
+        { "word": "bone", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.09",
+      [
+        { "word": "safe", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "walk", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "streets", "sks": 3 },
+        { "word": "in", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "evening", "sks": 3 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.08",
+      [
+        { "word": "luckily", "sks": 3 },
+        { "word": "my", "sks": 1 },
+        { "word": "wallet", "sks": 3 },
+        { "word": "was", "sks": 2 },
+        { "word": "found", "sks": 3 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.45",
+      "0.48",
+      "0.09",
+      [
+        { "word": "one", "sks": 1 },
+        { "word": "hour", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "allotted", "sks": 4 },
+        { "word": "for", "sks": 1 },
+        { "word": "questions", "sks": 5 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.92",
+      "0.88",
+      "0.09",
+      [
+        { "word": "so", "sks": 2 },
+        { "word": "you", "sks": 3 },
+        { "word": "think", "sks": 4 },
+        { "word": "you", "sks": 3 },
+        { "word": "deserve", "sks": 6 },
+        { "word": "a", "sks": 1 },
+        { "word": "raise", "sks": 4 }
+      ],
+      "0.38",
+      "0.09",
+      true
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.08",
+      [
+        { "word": "they", "sks": 2 },
+        { "word": "watched", "sks": 3 },
+        { "word": "the", "sks": 2 },
+        { "word": "entire", "sks": 3 },
+        { "word": "movie", "sks": 3 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.46",
+      "0.48",
+      "0.07",
+      [
+        { "word": "good", "sks": 2 },
+        { "word": "jobs", "sks": 2 },
+        { "word": "for", "sks": 1 },
+        { "word": "those", "sks": 2 },
+        { "word": "with", "sks": 2 },
+        { "word": "education", "sks": 5 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.42",
+      "0.44",
+      "0.09",
+      [
+        { "word": "jumping", "sks": 4 },
+        { "word": "right", "sks": 2 },
+        { "word": "out", "sks": 1 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "water", "sks": 2 }
+      ],
+      "0.06",
+      "0.09",
+      false
+    ],
+    [
+      "0.57",
+      "0.55",
+      "0.08",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "trains", "sks": 3 },
+        { "word": "are", "sks": 2 },
+        { "word": "always", "sks": 3 },
+        { "word": "late", "sks": 2 }
+      ],
+      "0.05",
+      "0.08",
+      false
+    ],
+    [
+      "0.39",
+      "0.38",
+      "0.07",
+      [
+        { "word": "sit", "sks": 1 },
+        { "word": "at", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "front", "sks": 2 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "bus", "sks": 1 }
+      ],
+      "0.12",
+      "0.07",
+      true
+    ],
+    [
+      "0.06",
+      "0.09",
+      "0.08",
+      [
+        { "word": "do", "sks": 0 },
+        { "word": "you", "sks": 0 },
+        { "word": "prefer", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "window", "sks": 1 },
+        { "word": "seat", "sks": 0 }
+      ],
+      "0.41",
+      "0.08",
+      true
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "food", "sks": 2 },
+        { "word": "at", "sks": 1 },
+        { "word": "this", "sks": 2 },
+        { "word": "restaurant", "sks": 5 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.57",
+      "0.52",
+      "0.10",
+      [
+        { "word": "Canada", "sks": 3 },
+        { "word": "has", "sks": 2 },
+        { "word": "ten", "sks": 2 },
+        { "word": "provinces", "sks": 4 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.47",
+      "0.48",
+      "0.07",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "elevator", "sks": 4 },
+        { "word": "door", "sks": 2 },
+        { "word": "appears", "sks": 4 },
+        { "word": "to", "sks": 1 },
+        { "word": "be", "sks": 1 },
+        { "word": "stuck", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.04",
+      [
+        { "word": "raindrops", "sks": 4 },
+        { "word": "keep", "sks": 2 },
+        { "word": "falling", "sks": 4 },
+        { "word": "on", "sks": 1 },
+        { "word": "my", "sks": 1 },
+        { "word": "head", "sks": 2 }
+      ],
+      "0.00",
+      "0.04",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.09",
+      [
+        { "word": "spill", "sks": 2 },
+        { "word": "coffee", "sks": 3 },
+        { "word": "on", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "carpet", "sks": 3 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.07",
+      [
+        { "word": "an", "sks": 1 },
+        { "word": "excellent", "sks": 5 },
+        { "word": "way", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "communicate", "sks": 5 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.52",
+      "0.53",
+      "0.03",
+      [
+        { "word": "with", "sks": 2 },
+        { "word": "each", "sks": 2 },
+        { "word": "step", "sks": 2 },
+        { "word": "forward", "sks": 4 }
+      ],
+      "0.03",
+      "0.03",
+      false
+    ],
+    [
+      "0.17",
+      "0.20",
+      "0.09",
+      [
+        { "word": "faster", "sks": 1 },
+        { "word": "than", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "speeding", "sks": 2 },
+        { "word": "bullet", "sks": 1 }
+      ],
+      "0.30",
+      "0.09",
+      true
+    ],
+    [
+      "0.52",
+      "0.52",
+      "0.03",
+      [
+        { "word": "wishful", "sks": 4 },
+        { "word": "thinking", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "fine", "sks": 2 }
+      ],
+      "0.02",
+      "0.03",
+      false
+    ],
+    [
+      "0.56",
+      "0.54",
+      "0.08",
+      [
+        { "word": "nothing", "sks": 3 },
+        { "word": "wrong", "sks": 3 },
+        { "word": "with", "sks": 2 },
+        { "word": "his", "sks": 2 },
+        { "word": "style", "sks": 3 }
+      ],
+      "0.04",
+      "0.08",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.07",
+      [
+        { "word": "arguing", "sks": 3 },
+        { "word": "with", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "boss", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "futile", "sks": 3 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.47",
+      "0.48",
+      "0.08",
+      [
+        { "word": "taking", "sks": 3 },
+        { "word": "the", "sks": 1 },
+        { "word": "train", "sks": 2 },
+        { "word": "is", "sks": 1 },
+        { "word": "usually", "sks": 4 },
+        { "word": "faster", "sks": 3 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "what", "sks": 2 },
+        { "word": "goes", "sks": 2 },
+        { "word": "up", "sks": 1 },
+        { "word": "must", "sks": 2 },
+        { "word": "come", "sks": 2 },
+        { "word": "down", "sks": 2 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.06",
+      "0.13",
+      "0.09",
+      [
+        { "word": "be", "sks": 0 },
+        { "word": "persistent", "sks": 2 },
+        { "word": "to", "sks": 0 },
+        { "word": "win", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "strike", "sks": 1 }
+      ],
+      "0.38",
+      "0.09",
+      true
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.06",
+      [
+        { "word": "presidents", "sks": 5 },
+        { "word": "drive", "sks": 2 },
+        { "word": "expensive", "sks": 5 },
+        { "word": "cars", "sks": 2 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.10",
+      [
+        { "word": "the", "sks": 2 },
+        { "word": "stock", "sks": 2 },
+        { "word": "exchange", "sks": 4 },
+        { "word": "dipped", "sks": 3 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.41",
+      "0.44",
+      "0.09",
+      [
+        { "word": "why", "sks": 1 },
+        { "word": "do", "sks": 1 },
+        { "word": "you", "sks": 1 },
+        { "word": "ask", "sks": 1 },
+        { "word": "silly", "sks": 2 },
+        { "word": "questions", "sks": 5 }
+      ],
+      "0.06",
+      "0.09",
+      false
+    ],
+    [
+      "0.00",
+      "0.00",
+      "0.00",
+      [
+        { "word": "that", "sks": 0 },
+        { "word": "is", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "very", "sks": 0 },
+        { "word": "nasty", "sks": 0 },
+        { "word": "cut", "sks": 0 }
+      ],
+      "0.50",
+      "0.00",
+      true
+    ],
+    [
+      "0.48",
+      "0.48",
+      "0.10",
+      [
+        { "word": "what", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "do", "sks": 1 },
+        { "word": "when", "sks": 2 },
+        { "word": "the", "sks": 1 },
+        { "word": "oil", "sks": 1 },
+        { "word": "runs", "sks": 2 },
+        { "word": "dry", "sks": 2 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.10",
+      [
+        { "word": "learn", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "walk", "sks": 2 },
+        { "word": "before", "sks": 3 },
+        { "word": "you", "sks": 2 },
+        { "word": "run", "sks": 2 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.09",
+      [
+        { "word": "insurance", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "important", "sks": 4 },
+        { "word": "for", "sks": 2 },
+        { "word": "bad", "sks": 2 },
+        { "word": "drivers", "sks": 4 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.07",
+      [
+        { "word": "traveling", "sks": 5 },
+        { "word": "to", "sks": 1 },
+        { "word": "conferences", "sks": 5 },
+        { "word": "is", "sks": 1 },
+        { "word": "fun", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.58",
+      "0.56",
+      "0.09",
+      [
+        { "word": "do", "sks": 1 },
+        { "word": "you", "sks": 2 },
+        { "word": "get", "sks": 2 },
+        { "word": "nervous", "sks": 3 },
+        { "word": "when", "sks": 2 },
+        { "word": "you", "sks": 2 },
+        { "word": "speak", "sks": 3 }
+      ],
+      "0.06",
+      "0.09",
+      false
+    ],
+    [
+      "0.57",
+      "0.55",
+      "0.08",
+      [
+        { "word": "pumping", "sks": 3 },
+        { "word": "helps", "sks": 3 },
+        { "word": "if", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "roads", "sks": 3 },
+        { "word": "are", "sks": 2 },
+        { "word": "slippery", "sks": 4 }
+      ],
+      "0.05",
+      "0.08",
+      false
+    ],
+    [
+      "0.47",
+      "0.48",
+      "0.08",
+      [
+        { "word": "parking", "sks": 3 },
+        { "word": "tickets", "sks": 4 },
+        { "word": "can", "sks": 1 },
+        { "word": "be", "sks": 1 },
+        { "word": "challenged", "sks": 5 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.57",
+      "0.52",
+      "0.10",
+      [
+        { "word": "apartments", "sks": 5 },
+        { "word": "are", "sks": 2 },
+        { "word": "too", "sks": 2 },
+        { "word": "expensive", "sks": 4 }
+      ],
+      "0.02",
+      "0.10",
+      false
+    ],
+    [
+      "0.16",
+      "0.18",
+      "0.09",
+      [
+        { "word": "find", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "nearby", "sks": 1 },
+        { "word": "parking", "sks": 1 },
+        { "word": "spot", "sks": 1 }
+      ],
+      "0.32",
+      "0.09",
+      true
+    ],
+    [
+      "0.49",
+      "0.50",
+      "0.07",
+      [
+        { "word": "gun", "sks": 1 },
+        { "word": "powder", "sks": 3 },
+        { "word": "must", "sks": 2 },
+        { "word": "be", "sks": 1 },
+        { "word": "handled", "sks": 4 },
+        { "word": "with", "sks": 2 },
+        { "word": "care", "sks": 2 }
+      ],
+      "0.00",
+      "0.07",
+      false
+    ],
+    [
+      "0.52",
+      "0.50",
+      "0.08",
+      [
+        { "word": "just", "sks": 2 },
+        { "word": "what", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "doctor", "sks": 3 },
+        { "word": "ordered", "sks": 3 }
+      ],
+      "0.00",
+      "0.08",
+      false
+    ],
+    [
+      "0.12",
+      "0.15",
+      "0.10",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "rattle", "sks": 1 },
+        { "word": "snake", "sks": 1 },
+        { "word": "is", "sks": 0 },
+        { "word": "very", "sks": 1 },
+        { "word": "poisonous", "sks": 1 }
+      ],
+      "0.35",
+      "0.10",
+      true
+    ],
+    [
+      "0.46",
+      "0.48",
+      "0.09",
+      [
+        { "word": "weeping", "sks": 4 },
+        { "word": "willows", "sks": 4 },
+        { "word": "are", "sks": 1 },
+        { "word": "found", "sks": 2 },
+        { "word": "near", "sks": 2 },
+        { "word": "water", "sks": 2 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.09",
+      "0.13",
+      "0.09",
+      [
+        { "word": "I", "sks": 0 },
+        { "word": "cannot", "sks": 1 },
+        { "word": "believe", "sks": 1 },
+        { "word": "I", "sks": 0 },
+        { "word": "ate", "sks": 0 },
+        { "word": "the", "sks": 0 },
+        { "word": "whole", "sks": 1 },
+        { "word": "thing", "sks": 1 }
+      ],
+      "0.37",
+      "0.09",
+      true
+    ],
+    [
+      "0.23",
+      "0.25",
+      "0.10",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "biggest", "sks": 2 },
+        { "word": "hamburger", "sks": 2 },
+        { "word": "I", "sks": 0 },
+        { "word": "have", "sks": 1 },
+        { "word": "ever", "sks": 1 },
+        { "word": "seen", "sks": 1 }
+      ],
+      "0.25",
+      "0.10",
+      true
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.06",
+      [
+        { "word": "gamblers", "sks": 4 },
+        { "word": "eventually", "sks": 5 },
+        { "word": "loose", "sks": 2 },
+        { "word": "their", "sks": 3 },
+        { "word": "shirts", "sks": 3 }
+      ],
+      "0.00",
+      "0.06",
+      false
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.10",
+      [
+        { "word": "exercise", "sks": 4 },
+        { "word": "is", "sks": 1 },
+        { "word": "good", "sks": 2 },
+        { "word": "for", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "mind", "sks": 2 }
+      ],
+      "0.00",
+      "0.10",
+      false
+    ],
+    [
+      "0.56",
+      "0.53",
+      "0.09",
+      [
+        { "word": "irregular", "sks": 4 },
+        { "word": "verbs", "sks": 3 },
+        { "word": "are", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "hardest", "sks": 3 },
+        { "word": "to", "sks": 1 },
+        { "word": "learn", "sks": 3 }
+      ],
+      "0.03",
+      "0.09",
+      false
+    ],
+    [
+      "0.52",
+      "0.52",
+      "0.05",
+      [
+        { "word": "they", "sks": 2 },
+        { "word": "might", "sks": 3 },
+        { "word": "find", "sks": 2 },
+        { "word": "your", "sks": 2 },
+        { "word": "comment", "sks": 4 },
+        { "word": "offensive", "sks": 4 }
+      ],
+      "0.02",
+      "0.05",
+      false
+    ],
+    [
+      "0.76",
+      "0.74",
+      "0.10",
+      [
+        { "word": "tell", "sks": 3 },
+        { "word": "a", "sks": 1 },
+        { "word": "lie", "sks": 2 },
+        { "word": "and", "sks": 2 },
+        { "word": "your", "sks": 3 },
+        { "word": "nose", "sks": 3 },
+        { "word": "will", "sks": 3 },
+        { "word": "grow", "sks": 3 }
+      ],
+      "0.24",
+      "0.10",
+      true
+    ],
+    [
+      "0.03",
+      "0.06",
+      "0.05",
+      [
+        { "word": "an", "sks": 0 },
+        { "word": "enlarged", "sks": 1 },
+        { "word": "nose", "sks": 0 },
+        { "word": "suggests", "sks": 1 },
+        { "word": "you", "sks": 0 },
+        { "word": "are", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "liar", "sks": 0 }
+      ],
+      "0.44",
+      "0.05",
+      true
+    ],
+    [
+      "0.47",
+      "0.48",
+      "0.09",
+      [
+        { "word": "lie", "sks": 1 },
+        { "word": "detector", "sks": 4 },
+        { "word": "tests", "sks": 3 },
+        { "word": "never", "sks": 2 },
+        { "word": "work", "sks": 2 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.09",
+      [
+        { "word": "do", "sks": 1 },
+        { "word": "not", "sks": 2 },
+        { "word": "lie", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "court", "sks": 2 },
+        { "word": "or", "sks": 1 },
+        { "word": "else", "sks": 2 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "most", "sks": 2 },
+        { "word": "judges", "sks": 3 },
+        { "word": "are", "sks": 2 },
+        { "word": "very", "sks": 2 },
+        { "word": "honest", "sks": 3 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.09",
+      [
+        { "word": "only", "sks": 2 },
+        { "word": "an", "sks": 1 },
+        { "word": "idiot", "sks": 2 },
+        { "word": "would", "sks": 2 },
+        { "word": "lie", "sks": 2 },
+        { "word": "in", "sks": 1 },
+        { "word": "court", "sks": 3 }
+      ],
+      "0.00",
+      "0.09",
+      false
+    ],
+    [
+      "0.51",
+      "0.50",
+      "0.04",
+      [
+        { "word": "important", "sks": 4 },
+        { "word": "news", "sks": 2 },
+        { "word": "always", "sks": 3 },
+        { "word": "seems", "sks": 3 },
+        { "word": "to", "sks": 1 },
+        { "word": "be", "sks": 1 },
+        { "word": "late", "sks": 2 }
+      ],
+      "0.00",
+      "0.04",
+      false
+    ],
+    [
+      "0.52",
+      "0.52",
+      "0.06",
+      [
+        { "word": "please", "sks": 3 },
+        { "word": "try", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "be", "sks": 1 },
+        { "word": "home", "sks": 2 },
+        { "word": "before", "sks": 3 },
+        { "word": "midnight", "sks": 4 }
+      ],
+      "0.02",
+      "0.06",
+      false
+    ],
+    [
+      "0.54",
+      "0.53",
+      "0.09",
+      [
+        { "word": "if", "sks": 1 },
+        { "word": "you", "sks": 2 },
+        { "word": "come", "sks": 2 },
+        { "word": "home", "sks": 2 },
+        { "word": "late", "sks": 2 },
+        { "word": "the", "sks": 2 },
+        { "word": "doors", "sks": 2 },
+        { "word": "are", "sks": 2 },
+        { "word": "locked", "sks": 3 }
+      ],
+      "0.03",
+      "0.09",
+      false
+    ],
+    [
+      "0.54",
+      "0.52",
+      "0.07",
+      [
+        { "word": "dormitory", "sks": 4 },
+        { "word": "doors", "sks": 3 },
+        { "word": "are", "sks": 2 },
+        { "word": "locked", "sks": 3 },
+        { "word": "at", "sks": 1 },
+        { "word": "midnight", "sks": 4 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.07",
+      "0.11",
+      "0.10",
+      [
+        { "word": "staying", "sks": 1 },
+        { "word": "up", "sks": 0 },
+        { "word": "all", "sks": 0 },
+        { "word": "night", "sks": 1 },
+        { "word": "is", "sks": 0 },
+        { "word": "a", "sks": 0 },
+        { "word": "bad", "sks": 0 },
+        { "word": "idea", "sks": 1 }
+      ],
+      "0.39",
+      "0.10",
+      true
+    ],
+    [
+      "0.96",
+      "0.90",
+      "0.08",
+      [
+        { "word": "you", "sks": 3 },
+        { "word": "are", "sks": 3 },
+        { "word": "a", "sks": 1 },
+        { "word": "capitalist", "sks": 8 },
+        { "word": "pig", "sks": 3 }
+      ],
+      "0.40",
+      "0.08",
+      true
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "motivational", "sks": 6 },
+        { "word": "seminars", "sks": 4 },
+        { "word": "make", "sks": 2 },
+        { "word": "me", "sks": 1 },
+        { "word": "sick", "sks": 2 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.09",
+      [
+        { "word": "questioning", "sks": 5 },
+        { "word": "the", "sks": 2 },
+        { "word": "wisdom", "sks": 3 },
+        { "word": "of", "sks": 1 },
+        { "word": "the", "sks": 2 },
+        { "word": "courts", "sks": 3 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ],
+    [
+      "0.55",
+      "0.52",
+      "0.08",
+      [
+        { "word": "rejection", "sks": 4 },
+        { "word": "letters", "sks": 4 },
+        { "word": "are", "sks": 2 },
+        { "word": "discouraging", "sks": 6 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.48",
+      "0.48",
+      "0.08",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "first", "sks": 2 },
+        { "word": "time", "sks": 2 },
+        { "word": "he", "sks": 1 },
+        { "word": "tried", "sks": 3 },
+        { "word": "to", "sks": 1 },
+        { "word": "swim", "sks": 2 }
+      ],
+      "0.02",
+      "0.08",
+      false
+    ],
+    [
+      "0.20",
+      "0.24",
+      "0.10",
+      [
+        { "word": "that", "sks": 1 },
+        { "word": "referendum", "sks": 3 },
+        { "word": "asked", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "silly", "sks": 1 },
+        { "word": "question", "sks": 2 }
+      ],
+      "0.26",
+      "0.10",
+      true
+    ],
+    [
+      "0.12",
+      "0.17",
+      "0.10",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "steep", "sks": 1 },
+        { "word": "learning", "sks": 1 },
+        { "word": "curve", "sks": 1 },
+        { "word": "in", "sks": 0 },
+        { "word": "riding", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "unicycle", "sks": 2 }
+      ],
+      "0.33",
+      "0.10",
+      true
+    ],
+    [
+      "0.13",
+      "0.15",
+      "0.09",
+      [
+        { "word": "a", "sks": 0 },
+        { "word": "good", "sks": 1 },
+        { "word": "stimulus", "sks": 1 },
+        { "word": "deserves", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "good", "sks": 1 },
+        { "word": "response", "sks": 1 }
+      ],
+      "0.35",
+      "0.09",
+      true
+    ],
+    [
+      "0.52",
+      "0.52",
+      "0.05",
+      [
+        { "word": "everybody", "sks": 4 },
+        { "word": "looses", "sks": 3 },
+        { "word": "in", "sks": 1 },
+        { "word": "custody", "sks": 4 },
+        { "word": "battles", "sks": 4 }
+      ],
+      "0.02",
+      "0.05",
+      false
+    ],
+    [
+      "0.53",
+      "0.52",
+      "0.07",
+      [
+        { "word": "put", "sks": 2 },
+        { "word": "garbage", "sks": 4 },
+        { "word": "in", "sks": 1 },
+        { "word": "an", "sks": 1 },
+        { "word": "abandoned", "sks": 4 },
+        { "word": "mine", "sks": 2 }
+      ],
+      "0.02",
+      "0.07",
+      false
+    ],
+    [
+      "0.10",
+      "0.14",
+      "0.09",
+      [
+        { "word": "employee", "sks": 1 },
+        { "word": "recruitment", "sks": 2 },
+        { "word": "takes", "sks": 1 },
+        { "word": "a", "sks": 0 },
+        { "word": "lot", "sks": 0 },
+        { "word": "of", "sks": 0 },
+        { "word": "effort", "sks": 1 }
+      ],
+      "0.36",
+      "0.09",
+      true
+    ],
+    [
+      "0.50",
+      "0.50",
+      "0.00",
+      [
+        { "word": "experience", "sks": 5 },
+        { "word": "is", "sks": 1 },
+        { "word": "hard", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "come", "sks": 2 },
+        { "word": "by", "sks": 1 }
+      ],
+      "0.00",
+      "0.00",
+      false
+    ],
+    [
+      "0.44",
+      "0.46",
+      "0.09",
+      [
+        { "word": "everyone", "sks": 4 },
+        { "word": "wants", "sks": 2 },
+        { "word": "to", "sks": 1 },
+        { "word": "win", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "lottery", "sks": 4 }
+      ],
+      "0.04",
+      "0.09",
+      false
+    ],
+    [
+      "0.47",
+      "0.48",
+      "0.09",
+      [
+        { "word": "the", "sks": 1 },
+        { "word": "picket", "sks": 3 },
+        { "word": "line", "sks": 2 },
+        { "word": "gives", "sks": 3 },
+        { "word": "me", "sks": 1 },
+        { "word": "the", "sks": 1 },
+        { "word": "chills", "sks": 3 }
+      ],
+      "0.02",
+      "0.09",
+      false
+    ]
+  ]
+}

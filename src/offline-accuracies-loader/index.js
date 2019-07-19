@@ -41,15 +41,15 @@ for (let i = 0; i < parsedFile.length; i += 1) {
     targetSd,
     maxSd
   );
-  obj.rows.push([
-    accuracyDistribution.meanAccuracy.toFixed(2),
-    accuracyDistribution.weightedAccuracy.toFixed(2),
-    accuracyDistribution.sdAccuracy.toFixed(2),
-    accuracyDistribution.words,
-    accuracyDistribution.diffAccuracy.toFixed(2),
-    accuracyDistribution.diffSd.toFixed(2),
-    accuracyDistribution.diffAccuracy > maxDiffAccuracy
-  ]);
+  obj.rows.push({
+    meanAccuracy: accuracyDistribution.meanAccuracy.toFixed(2),
+    weightedAccuracy: accuracyDistribution.weightedAccuracy.toFixed(2),
+    sdAccuracy: accuracyDistribution.sdAccuracy.toFixed(2),
+    words: accuracyDistribution.words,
+    diffAccuracy: accuracyDistribution.diffAccuracy.toFixed(2),
+    diffSd: accuracyDistribution.diffSd.toFixed(2),
+    usable: accuracyDistribution.diffAccuracy > maxDiffAccuracy
+  });
 }
 
 const jsonl = JSON.stringify(obj);

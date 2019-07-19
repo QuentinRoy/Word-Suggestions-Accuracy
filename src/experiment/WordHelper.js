@@ -91,7 +91,10 @@ function WordHelper({
   function helpHandler(word) {
     if (word !== undefined && word !== "") {
       const i = input.lastIndexOf(" ");
-      const newInput = `${input.slice(0, i + 1) + word} `;
+      let newInput = `${input.slice(0, i + 1) + word} `;
+      if (i === text.lastIndexOf(" ")) {
+        newInput = newInput.slice(0, -1);
+      }
       setWordReplacedOnLog(wordReplacedOnLog.concat(input.slice(i + 1, -1)));
       setInput(newInput);
       setSuggestionUsedOnLog(suggestionUsedOnLog.concat(word));

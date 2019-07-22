@@ -1,6 +1,8 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import PropTypes from "prop-types";
 import { parse } from "papaparse";
+import Loading from "../utils/Loading";
+import Crashed from "../utils/Crashed";
 
 export const LOADING = "loading";
 export const LOADED = "loaded";
@@ -49,9 +51,9 @@ const DictionaryProvider = ({ children }) => {
         </DictionaryContext.Provider>
       );
     case LOADING:
-      return <div>Loading dictionary...</div>;
+      return <Loading>Loading dictionary...</Loading>;
     default:
-      return <div>Loading dictionary crashed...</div>;
+      return <Crashed>Failed to load the dictionary...</Crashed>;
   }
 };
 

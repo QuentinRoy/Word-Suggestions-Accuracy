@@ -15,6 +15,8 @@ import {
 } from "./DistributionViewer.module.css";
 import useWindowSize from "../utils/useWindowSize";
 import getWordAccuracies from "../utils/getWordAccuracies";
+import Loading from "../utils/Loading";
+import Crashed from "../utils/Crashed";
 
 const KeyCodes = {
   left: 37,
@@ -65,8 +67,12 @@ const DistributionViewer = () => {
     };
   });
 
-  if (loadingState === LOADING) return <div>Loading...</div>;
-  if (loadingState === CRASHED) return <div>Crashed...</div>;
+  if (loadingState === LOADING) {
+    return <Loading>Loading corpus...</Loading>;
+  }
+  if (loadingState === CRASHED) {
+    return <Crashed>Could not load the corpus...</Crashed>;
+  }
 
   // Compute the sentence words accuracy.
   const distributionResult = getWordAccuracies(

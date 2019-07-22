@@ -10,19 +10,7 @@ const fileURL = new URL(
   "file:///Users/sebastien/accuracy_autocorrect/public/phrases.txt"
 );
 
-const obj = {
-  rows: [
-    [
-      "meanAccuracy",
-      "weightedAccuracy",
-      "sdAccuracy",
-      "words",
-      "diffAccuracy",
-      "diffSd",
-      "usable"
-    ]
-  ]
-};
+const rows = [];
 
 const file = fs.readFileSync(fileURL, "utf-8", (err, data) => {
   if (err) throw err;
@@ -41,7 +29,7 @@ for (let i = 0; i < parsedFile.length; i += 1) {
     targetSd,
     maxSd
   );
-  obj.rows.push({
+  rows.push({
     meanAccuracy: accuracyDistribution.meanAccuracy.toFixed(2),
     weightedAccuracy: accuracyDistribution.weightedAccuracy.toFixed(2),
     sdAccuracy: accuracyDistribution.sdAccuracy.toFixed(2),
@@ -52,7 +40,7 @@ for (let i = 0; i < parsedFile.length; i += 1) {
   });
 }
 
-const jsonl = JSON.stringify(obj);
+const jsonl = JSON.stringify(rows);
 fs.writeFile("accuraciesDistribution.jsonl", jsonl, "utf8", err => {
   if (err) throw err;
   console.log("The file has been saved!");

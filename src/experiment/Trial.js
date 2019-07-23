@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
 import "react-simple-keyboard/build/css/index.css";
@@ -25,7 +25,6 @@ const Trial = ({
   keyboardLayout,
   onAdvanceWorkflow,
   onLog,
-  accuracy,
   thresholdPositions
 }) => {
   const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
@@ -45,6 +44,8 @@ const Trial = ({
     }
   }, [inputHasFocus, inputRef]);
 
+  const eventList = useRef([]);
+
   function handleShift() {
     setLayoutName(layoutName === "default" ? "shift" : "default");
   }
@@ -54,10 +55,17 @@ const Trial = ({
   }
 
   function onKeyPress(button) {
-    if (button === "{shift}" || button === "{lock}") handleShift();
-    else if (button === "{numbers}" || button === "{abc}")
+    let eventName;
+    let inputRemoved = null;
+    if (button === "{shift}" || button === "{lock}") {
+      handleShift();
+      eventName = "shift_keyboard";
+    } else if (button === "{numbers}" || button === "{abc}") {
       handleNumbersOnMobile();
-    else if (button === "{bksp}") {
+      eventName = "numToLet_keyboard";
+    } else if (button === "{bksp}") {
+      eventName = "remove_character";
+      inputRemoved = input[input.length - 1];
       setInput(input.slice(0, -1));
     } else if (button === "{space}" && !isCorrect) {
       if (
@@ -69,15 +77,27 @@ const Trial = ({
       } else {
         setInput(`${input} `);
       }
+      eventName = "add_space";
     } else if (button === "{enter}") {
       setFocusIndex(0);
+      eventName = "add_enter";
     } else if (!isCorrect) {
       if (input.charAt(input.length - 1) === " " && button === ".") {
         setInput(`${input.slice(0, -1) + button} `);
       } else {
         setInput(input + button);
       }
+      eventName = "add_character";
     }
+    eventList.current.push({
+      event: eventName,
+      input: inputRemoved === null ? button : inputRemoved,
+      total_correct_characters: correctCharsCount,
+      total_incorrect_characters: input.length - correctCharsCount,
+      total_sentence_characters: text.length,
+      time: new Date().toISOString()
+    });
+    onLog("events", eventList);
   }
 
   function physicalKeyboardHandler(event) {
@@ -93,6 +113,15 @@ const Trial = ({
     } else if (event.keyCode === 9 && keyboardLayout.id === "physical") {
       event.preventDefault();
       setFocusIndex((focusIndex + 1) % (totalSuggestions + 1));
+      eventList.current.push({
+        event: "focus_suggestion",
+        input: (focusIndex + 1) % (totalSuggestions + 1),
+        total_correct_characters: correctCharsCount,
+        total_incorrect_characters: input.length - correctCharsCount,
+        total_sentence_characters: text.length,
+        time: 0
+      });
+      onLog("events", eventList);
     } else if (event.keyCode === 13) {
       onKeyPress("{enter}");
     }
@@ -119,7 +148,7 @@ const Trial = ({
         input={input}
       />
       <input
-        className="input"
+        className="trial-input"
         ref={inputRef}
         value={input}
         placeholder={
@@ -142,7 +171,6 @@ const Trial = ({
             : Math.floor(totalSuggestions / 2)
         }
         totalSuggestions={totalSuggestions}
-        accuracy={accuracy}
         focusedSuggestion={focusIndex > 0 ? focusIndex - 1 : null}
         thresholdPositions={thresholdPositions}
       />
@@ -172,7 +200,6 @@ Trial.propTypes = {
   ).isRequired,
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
-  accuracy: PropTypes.number.isRequired,
   thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 

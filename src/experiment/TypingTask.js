@@ -18,7 +18,6 @@ function TypingTask({
       keyboardLayout={keyboardLayout}
       onAdvanceWorkflow={onAdvanceWorkflow}
       onLog={onLog}
-      accuracy={accuracy}
       thresholdPositions={thresholdPositions.words}
     />
   );

@@ -44,7 +44,6 @@ function WordHelper({
   mainSuggestionPosition,
   totalSuggestions,
   focusedSuggestion,
-  accuracy,
   thresholdPositions
 }) {
   const [help, setHelp] = useState([]);
@@ -75,7 +74,6 @@ function WordHelper({
     }
   }, [
     input,
-    accuracy,
     text,
     totalSuggestions,
     thresholdPositions,
@@ -84,9 +82,12 @@ function WordHelper({
   ]);
 
   useEffect(() => {
-    onLog("suggested words used", suggestionUsedOnLog);
-    onLog("input when suggestion used", wordReplacedOnLog);
-  }, [onLog, suggestionUsedOnLog, wordReplacedOnLog]);
+    for (let i = 0; i < totalSuggestions; i += 1) {
+      onLog(`suggestion_${i + 1}`, help[i]);
+    }
+    onLog("suggestion_used", suggestionUsedOnLog);
+    onLog("input_when_suggestion_used", wordReplacedOnLog);
+  }, [help, onLog, suggestionUsedOnLog, totalSuggestions, wordReplacedOnLog]);
 
   function helpHandler(word) {
     if (word !== undefined && word !== "") {
@@ -95,7 +96,7 @@ function WordHelper({
       if (i === text.lastIndexOf(" ")) {
         newInput = newInput.slice(0, -1);
       }
-      setWordReplacedOnLog(wordReplacedOnLog.concat(input.slice(i + 1, -1)));
+      setWordReplacedOnLog(wordReplacedOnLog.concat(input.slice(i + 1)));
       setInput(newInput);
       setSuggestionUsedOnLog(suggestionUsedOnLog.concat(word));
     }
@@ -144,7 +145,6 @@ WordHelper.propTypes = {
   mainSuggestionPosition: PropTypes.number.isRequired,
   totalSuggestions: PropTypes.number.isRequired,
   focusedSuggestion: PropTypes.number,
-  accuracy: PropTypes.number.isRequired,
   thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 

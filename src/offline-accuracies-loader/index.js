@@ -1,4 +1,4 @@
-const targetAccuracy = 0.5;
+const targetAccuracy = [0, 0.25, 0.5, 0.75, 1];
 const targetSd = 0;
 const maxSd = 0.1;
 const maxDiffAccuracy = 0.1;
@@ -22,26 +22,36 @@ const parsedFile = file
   .map(s => s.trim())
   .filter(s => s !== "");
 
-for (let i = 0; i < parsedFile.length; i += 1) {
-  const accuracyDistribution = getWordAccuracies(
-    parsedFile[i],
-    targetAccuracy,
-    targetSd,
-    maxSd
-  );
-  rows.push({
-    meanAccuracy: accuracyDistribution.meanAccuracy.toFixed(2),
-    weightedAccuracy: accuracyDistribution.weightedAccuracy.toFixed(2),
-    sdAccuracy: accuracyDistribution.sdAccuracy.toFixed(2),
-    words: accuracyDistribution.words,
-    diffAccuracy: accuracyDistribution.diffAccuracy.toFixed(2),
-    diffSd: accuracyDistribution.diffSd.toFixed(2),
-    usable: accuracyDistribution.diffAccuracy > maxDiffAccuracy
-  });
-}
+for (let a = 0; a < targetAccuracy.length; a += 1) {
+  console.log(targetAccuracy[a]);
+  for (let i = 0; i < parsedFile.length; i += 1) {
+    const accuracyDistribution = getWordAccuracies(
+      parsedFile[i],
+      targetAccuracy[a],
+      targetSd,
+      maxSd
+    );
+    rows.push({
+      meanAccuracy: accuracyDistribution.meanAccuracy.toFixed(2),
+      weightedAccuracy: accuracyDistribution.weightedAccuracy.toFixed(2),
+      sdAccuracy: accuracyDistribution.sdAccuracy.toFixed(2),
+      words: accuracyDistribution.words,
+      diffAccuracy: accuracyDistribution.diffAccuracy.toFixed(2),
+      diffSd: accuracyDistribution.diffSd.toFixed(2),
+      usable: accuracyDistribution.diffAccuracy > maxDiffAccuracy
+    });
+  }
 
-const jsonl = JSON.stringify(rows);
-fs.writeFile("accuraciesDistribution.jsonl", jsonl, "utf8", err => {
-  if (err) throw err;
-  console.log("The file has been saved!");
-});
+  const jsonl = JSON.stringify(rows);
+  fs.writeFile(
+    `accuraciesDistribution${targetAccuracy[a]}.jsonl`,
+    jsonl,
+    "utf8",
+    err => {
+      if (err) throw err;
+      console.log(
+        `The file accuraciesDistribution${targetAccuracy[a]}.jsonl has been saved!`
+      );
+    }
+  );
+}

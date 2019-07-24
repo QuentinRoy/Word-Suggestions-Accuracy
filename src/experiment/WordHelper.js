@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import styles from "./WordHelper.module.css";
 import useComputeSuggestions from "./useComputeSuggestions";
@@ -46,48 +46,45 @@ function WordHelper({
   focusedSuggestion,
   thresholdPositions
 }) {
-  const [help, setHelp] = useState([]);
-  const [suggestionUsedOnLog, setSuggestionUsedOnLog] = useState([]);
-  const [wordReplacedOnLog, setWordReplacedOnLog] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
   const computeSuggestions = useComputeSuggestions();
 
-  useEffect(() => {
-    if (countSimilarChars(text, input) !== text.length) {
-      const inputLastWord = input.slice(
-        input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
-      );
-      const arrayText = text.split(" ");
-      const wordIndex = [...input].filter(c => c === " ").length;
-      const wordFromText =
-        wordIndex < arrayText.length
-          ? arrayText[wordIndex]
-          : arrayText[arrayText.length - 1];
-      const wordIndexInText = arrayText.indexOf(wordFromText);
-      setHelp(
-        computeSuggestions(
-          inputLastWord,
-          thresholdPositions[wordIndexInText].sks,
-          wordFromText,
-          totalSuggestions
-        )
-      );
-    }
-  }, [
-    input,
-    text,
-    totalSuggestions,
-    thresholdPositions,
-    countSimilarChars,
-    computeSuggestions
-  ]);
+  const suggestionList = useRef([]);
 
   useEffect(() => {
-    for (let i = 0; i < totalSuggestions; i += 1) {
-      onLog(`suggestion_${i + 1}`, help[i]);
-    }
-    onLog("suggestion_used", suggestionUsedOnLog);
-    onLog("input_when_suggestion_used", wordReplacedOnLog);
-  }, [help, onLog, suggestionUsedOnLog, totalSuggestions, wordReplacedOnLog]);
+    const inputLastWord = input.slice(
+      input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
+    );
+    const arrayText = text.split(" ");
+    const wordIndex = [...input].filter(c => c === " ").length;
+    const wordFromText =
+      wordIndex < arrayText.length
+        ? arrayText[wordIndex]
+        : arrayText[arrayText.length - 1];
+    const wordIndexInText = arrayText.indexOf(wordFromText);
+    setSuggestions(
+      computeSuggestions(
+        inputLastWord,
+        thresholdPositions[wordIndexInText].sks,
+        wordFromText,
+        totalSuggestions
+      )
+    );
+    suggestionList.current.push({
+      suggestion_1: suggestions[0],
+      suggestion_2: suggestions[1],
+      suggestion_3: suggestions[2],
+      suggestion_used: null,
+      input_when_suggestion_used: null
+    });
+  }, [
+    computeSuggestions,
+    input,
+    suggestions,
+    text,
+    thresholdPositions,
+    totalSuggestions
+  ]);
 
   function helpHandler(word) {
     if (word !== undefined && word !== "") {
@@ -96,9 +93,15 @@ function WordHelper({
       if (i === text.lastIndexOf(" ")) {
         newInput = newInput.slice(0, -1);
       }
-      setWordReplacedOnLog(wordReplacedOnLog.concat(input.slice(i + 1)));
       setInput(newInput);
-      setSuggestionUsedOnLog(suggestionUsedOnLog.concat(word));
+      suggestionList.current.push({
+        suggestion_1: suggestions[0],
+        suggestion_2: suggestions[1],
+        suggestion_3: suggestions[2],
+        suggestion_used: word,
+        input_when_suggestion_used: input
+      });
+      onLog("suggestions", suggestionList);
     }
   }
 
@@ -113,9 +116,9 @@ function WordHelper({
         className={styles.btn}
         ref={buttonRefs[i]}
         type="button"
-        onClick={() => helpHandler(help[suggestionNum])}
+        onClick={() => helpHandler(suggestions[suggestionNum])}
       >
-        {help[suggestionNum]}
+        {suggestions[suggestionNum]}
       </button>
     </td>
   ));

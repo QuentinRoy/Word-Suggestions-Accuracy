@@ -8,9 +8,11 @@ const Login = ({ onEditConfig, onAdvanceWorkflow }) => {
     <div className={loginDiv}>
       <form
         onSubmit={e => {
-          onEditConfig("participant", value);
-          onAdvanceWorkflow();
-          e.preventDefault();
+          if (value !== "") {
+            onEditConfig("participant", value);
+            onAdvanceWorkflow();
+            e.preventDefault();
+          }
         }}
       >
         <input

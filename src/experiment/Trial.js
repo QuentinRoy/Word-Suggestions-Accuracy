@@ -57,6 +57,7 @@ const Trial = ({
   function onKeyPress(button) {
     let eventName;
     let inputRemoved = null;
+
     if (button === "{shift}" || button === "{lock}") {
       handleShift();
       eventName = "shift_keyboard";
@@ -91,6 +92,9 @@ const Trial = ({
     }
     eventList.current.push({
       event: eventName,
+      is_error:
+        button !== text[input.length] &&
+        (eventName === "add_character" || eventName === "add_space"),
       input: inputRemoved === null ? button : inputRemoved,
       total_correct_characters: correctCharsCount,
       total_incorrect_characters: input.length - correctCharsCount,
@@ -115,11 +119,12 @@ const Trial = ({
       setFocusIndex((focusIndex + 1) % (totalSuggestions + 1));
       eventList.current.push({
         event: "focus_suggestion",
-        input: (focusIndex + 1) % (totalSuggestions + 1),
+        is_error: false,
+        input: `focus_zone${(focusIndex + 1) % (totalSuggestions + 1)}`,
         total_correct_characters: correctCharsCount,
         total_incorrect_characters: input.length - correctCharsCount,
         total_sentence_characters: text.length,
-        time: 0
+        time: new Date().toISOString()
       });
       onLog("events", eventList);
     } else if (event.keyCode === 13) {

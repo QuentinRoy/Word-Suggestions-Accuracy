@@ -1,57 +1,72 @@
-const targetAccuracy = [0, 0.25, 0.5, 0.75, 1];
-const targetSd = 0;
-const maxSd = 0.1;
-const maxDiffAccuracy = 0.1;
-
 const fs = require("fs");
+const path = require("path");
 const { getWordAccuracies } = require("./wordAccuracies");
 
-const fileURL = new URL(
-  "file:///Users/sebastien/accuracy_autocorrect/public/phrases.txt"
-);
+const targetAccuracies = [0, 0.25, 0.5, 0.75, 1];
+const targetSd = 0;
+const maxSd = 0.1;
+const maxDiffAccuracy = 0.05;
+const addUnusableSentences = false;
 
-const file = fs.readFileSync(fileURL, "utf-8", (err, data) => {
+const sentencesPath = path.join(__dirname, "./sentences.txt");
+const outputDirPath = path.join(__dirname, "../public/sks-distributions");
+const targetFilePrefix = "acc-";
+
+const getTargetFileName = accuracy => `${targetFilePrefix}${accuracy}.json`;
+
+const file = fs.readFileSync(sentencesPath, "utf-8", (err, data) => {
   if (err) throw err;
   return data;
 });
 
-const parsedFile = file
+const sentences = file
   .split("\n")
   .map(s => s.trim())
   .filter(s => s !== "");
 
-for (let a = 0; a < targetAccuracy.length; a += 1) {
-  console.log(targetAccuracy[a]);
+console.log(`${sentences.length} sentences found in ${sentencesPath}.`);
+
+if (!fs.existsSync(outputDirPath)) {
+  fs.mkdirSync(outputDirPath);
+}
+
+for (let aIdx = 0; aIdx < targetAccuracies.length; aIdx += 1) {
+  console.log(
+    `Creating saved key strokes distributions for accuracy ${targetAccuracies[aIdx]}...`
+  );
   const rows = [];
 
-  for (let i = 0; i < parsedFile.length; i += 1) {
+  let totalUsableSentences = 0;
+
+  for (let sIdx = 0; sIdx < sentences.length; sIdx += 1) {
     const accuracyDistribution = getWordAccuracies(
-      parsedFile[i],
-      targetAccuracy[a],
+      sentences[sIdx],
+      targetAccuracies[aIdx],
       targetSd,
       maxSd
     );
-    rows.push({
-      meanAccuracy: accuracyDistribution.meanAccuracy.toFixed(2),
-      weightedAccuracy: accuracyDistribution.weightedAccuracy.toFixed(2),
-      sdAccuracy: accuracyDistribution.sdAccuracy.toFixed(2),
-      words: accuracyDistribution.words,
-      diffAccuracy: accuracyDistribution.diffAccuracy.toFixed(2),
-      diffSd: accuracyDistribution.diffSd.toFixed(2),
-      usable: accuracyDistribution.diffAccuracy <= maxDiffAccuracy
-    });
+    const usable = accuracyDistribution.diffAccuracy <= maxDiffAccuracy;
+    if (usable || addUnusableSentences) {
+      totalUsableSentences += 1;
+      rows.push({
+        meanAccuracy: accuracyDistribution.meanAccuracy,
+        weightedAccuracy: accuracyDistribution.weightedAccuracy,
+        sdAccuracy: accuracyDistribution.sdAccuracy,
+        words: accuracyDistribution.words,
+        diffAccuracy: accuracyDistribution.diffAccuracy,
+        diffSd: accuracyDistribution.diffSd,
+        usable
+      });
+    }
   }
 
   const jsonFile = JSON.stringify(rows);
-  fs.writeFile(
-    `accuraciesDistribution${targetAccuracy[a]}.json`,
-    jsonFile,
-    "utf8",
-    err => {
-      if (err) throw err;
-      console.log(
-        `The file accuraciesDistribution${targetAccuracy[a]}.json has been saved!`
-      );
-    }
+  const targetFile = path.join(
+    outputDirPath,
+    getTargetFileName(targetAccuracies[aIdx])
+  );
+  fs.writeFileSync(targetFile, jsonFile, "utf8");
+  console.log(
+    `${totalUsableSentences} usable sentences written in ${targetFile}!`
   );
 }

@@ -54,6 +54,7 @@ You are about to complete a human-computer interaction experiment. This experime
   switch (corpusLoadingState) {
     case LOADED:
       for (let i = 0; i < numberOfTypingTask; i += 1) {
+        const id = i <= 5 ? 5 + i : 6 + i;
         const typingTaskText =
           corpus[Math.floor(Math.random() * corpus.length)];
         config.children.push({
@@ -61,7 +62,8 @@ You are about to complete a human-computer interaction experiment. This experime
           text: typingTaskText,
           accuracy:
             accuracies[Math.floor(Math.random() * accuracies.length)] / 100,
-          key: i <= 5 ? 5 + i : 6 + i
+          key: id,
+          id
         });
         corpus.splice(corpus.indexOf(typingTaskText), 1);
 

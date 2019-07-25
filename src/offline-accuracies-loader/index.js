@@ -44,7 +44,7 @@ for (let a = 0; a < targetAccuracy.length; a += 1) {
 
   const jsonFile = JSON.stringify(rows);
   fs.writeFile(
-    `accuraciesDistribution${targetAccuracy[a]}.json`,
+    `./src/offline-accuracies-loader/accuraciesDistribution${targetAccuracy[a]}.json`,
     jsonFile,
     "utf8",
     err => {

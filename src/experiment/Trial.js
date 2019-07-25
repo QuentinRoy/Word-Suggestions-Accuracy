@@ -6,6 +6,9 @@ import "./Trial.css";
 import WordHelper from "./WordHelper";
 import TextToType from "./TextToType";
 import WorkflowButton from "./WorkflowButton";
+import calculateSuggestions from "./calculateSuggestions";
+import Logging from "./Logging";
+import useComputeSuggestions from "./useComputeSuggestions";
 
 const totalSuggestions = 3;
 
@@ -37,6 +40,25 @@ const Trial = ({
   const isCorrect =
     correctCharsCount === text.length && text.length === input.length;
 
+  const [suggestions, setSuggestions] = useState([]);
+  const computeSuggestions = useComputeSuggestions();
+  const eventList = useRef([
+    {
+      event: "start_up_event",
+      button: null,
+      is_error: false,
+      suggestion_1: null,
+      suggestion_2: null,
+      suggestion_3: null,
+      suggestion_used: null,
+      input_when_suggestion_used: input,
+      total_correct_characters: correctCharsCount,
+      total_incorrect_characters: input.length - correctCharsCount,
+      total_sentence_characters: text.length,
+      time: new Date().toISOString()
+    }
+  ]);
+
   const inputHasFocus = focusIndex === 0;
   useEffect(() => {
     if (inputHasFocus) {
@@ -44,7 +66,21 @@ const Trial = ({
     }
   }, [inputHasFocus, inputRef]);
 
-  const eventList = useRef([]);
+  useEffect(() => {
+    const {
+      inputLastWord,
+      wordIndexInText,
+      wordFromText
+    } = calculateSuggestions(input, text, thresholdPositions, totalSuggestions);
+    setSuggestions(
+      computeSuggestions(
+        inputLastWord,
+        thresholdPositions[wordIndexInText].sks,
+        wordFromText,
+        totalSuggestions
+      )
+    );
+  }, [input, text, thresholdPositions, computeSuggestions]);
 
   function handleShift() {
     setLayoutName(layoutName === "default" ? "shift" : "default");
@@ -90,18 +126,18 @@ const Trial = ({
       }
       eventName = "add_character";
     }
-    eventList.current.push({
-      event: eventName,
-      is_error:
-        button !== text[input.length] &&
-        (eventName === "add_character" || eventName === "add_space"),
-      input: inputRemoved === null ? button : inputRemoved,
-      total_correct_characters: correctCharsCount,
-      total_incorrect_characters: input.length - correctCharsCount,
-      total_sentence_characters: text.length,
-      time: new Date().toISOString()
-    });
-    onLog("events", eventList);
+    Logging(
+      eventName,
+      inputRemoved,
+      button,
+      text,
+      input,
+      suggestions,
+      null,
+      correctCharsCount,
+      onLog,
+      eventList
+    );
   }
 
   function physicalKeyboardHandler(event) {
@@ -117,16 +153,18 @@ const Trial = ({
     } else if (event.keyCode === 9 && keyboardLayout.id === "physical") {
       event.preventDefault();
       setFocusIndex((focusIndex + 1) % (totalSuggestions + 1));
-      eventList.current.push({
-        event: "focus_suggestion",
-        is_error: false,
-        input: `focus_zone${(focusIndex + 1) % (totalSuggestions + 1)}`,
-        total_correct_characters: correctCharsCount,
-        total_incorrect_characters: input.length - correctCharsCount,
-        total_sentence_characters: text.length,
-        time: new Date().toISOString()
-      });
-      onLog("events", eventList);
+      Logging(
+        "focus_suggestion",
+        null,
+        "{tab}",
+        text,
+        input,
+        suggestions,
+        null,
+        correctCharsCount,
+        onLog,
+        eventList
+      );
     } else if (event.keyCode === 13) {
       onKeyPress("{enter}");
     }
@@ -168,8 +206,6 @@ const Trial = ({
         input={input}
         text={text}
         setInput={setInput}
-        countSimilarChars={countSimilarChars}
-        onLog={onLog}
         mainSuggestionPosition={
           keyboardLayout.id === "physical"
             ? 0
@@ -177,7 +213,10 @@ const Trial = ({
         }
         totalSuggestions={totalSuggestions}
         focusedSuggestion={focusIndex > 0 ? focusIndex - 1 : null}
-        thresholdPositions={thresholdPositions}
+        suggestions={suggestions}
+        onLog={onLog}
+        correctCharsCount={correctCharsCount}
+        eventList={eventList}
       />
       {keyboardLayout.id === "mobile" ? (
         <Keyboard

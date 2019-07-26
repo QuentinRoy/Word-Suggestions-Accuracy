@@ -1,1 +1,1133 @@
-[{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0.04536092116265147,"words":[{"word":"breathing","sks":4},{"word":"is","sks":1},{"word":"difficult","sks":5}],"diffAccuracy":0,"diffSd":0.04536092116265147,"usable":true},{"meanAccuracy":0.5031746031746032,"weightedAccuracy":0.5,"sdAccuracy":0.040343698498853435,"words":[{"word":"my","sks":1},{"word":"bank","sks":2},{"word":"account","sks":4},{"word":"is","sks":1},{"word":"overdrawn","sks":4}],"diffAccuracy":0,"diffSd":0.040343698498853435,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"time","sks":2},{"word":"to","sks":1},{"word":"go","sks":1},{"word":"shopping","sks":4}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.54,"weightedAccuracy":0.5454545454545454,"sdAccuracy":0.04898979485566354,"words":[{"word":"my","sks":1},{"word":"favorite","sks":4},{"word":"place","sks":3},{"word":"to","sks":1},{"word":"visit","sks":3}],"diffAccuracy":0.045454545454545414,"diffSd":0.04898979485566354,"usable":true},{"meanAccuracy":0.48571428571428577,"weightedAccuracy":0.4827586206896552,"sdAccuracy":0.02857142857142858,"words":[{"word":"my","sks":1},{"word":"favorite","sks":4},{"word":"subject","sks":3},{"word":"is","sks":1},{"word":"psychology","sks":5}],"diffAccuracy":0.017241379310344807,"diffSd":0.02857142857142858,"usable":true},{"meanAccuracy":0.4952380952380952,"weightedAccuracy":0.5,"sdAccuracy":0.04994327848429292,"words":[{"word":"please","sks":3},{"word":"provide","sks":4},{"word":"your","sks":2},{"word":"date","sks":2},{"word":"of","sks":1},{"word":"birth","sks":2}],"diffAccuracy":0,"diffSd":0.04994327848429292,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0.04517539514526255,"words":[{"word":"prayer","sks":3},{"word":"in","sks":1},{"word":"schools","sks":3},{"word":"offends","sks":4},{"word":"some","sks":2}],"diffAccuracy":0,"diffSd":0.04517539514526255,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"he","sks":1},{"word":"is","sks":1},{"word":"just","sks":2},{"word":"like","sks":2},{"word":"everyone","sks":4},{"word":"else","sks":2}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.525,"weightedAccuracy":0.5263157894736842,"sdAccuracy":0.043301270189221926,"words":[{"word":"love","sks":2},{"word":"means","sks":3},{"word":"many","sks":2},{"word":"things","sks":3}],"diffAccuracy":0.02631578947368418,"diffSd":0.043301270189221926,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"question","sks":4},{"word":"that","sks":2},{"word":"must","sks":2},{"word":"be","sks":1},{"word":"answered","sks":4}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.4666666666666666,"weightedAccuracy":0.4642857142857143,"sdAccuracy":0.04714045207910316,"words":[{"word":"coming","sks":3},{"word":"up","sks":1},{"word":"with","sks":2},{"word":"killer","sks":3},{"word":"sound","sks":2},{"word":"bites","sks":2}],"diffAccuracy":0.0357142857142857,"diffSd":0.04714045207910316,"usable":true},{"meanAccuracy":0.5178571428571428,"weightedAccuracy":0.5238095238095238,"sdAccuracy":0.03092947870658708,"words":[{"word":"we","sks":1},{"word":"went","sks":2},{"word":"grocery","sks":4},{"word":"shopping","sks":4}],"diffAccuracy":0.023809523809523836,"diffSd":0.03092947870658708,"usable":true},{"meanAccuracy":0.5518518518518519,"weightedAccuracy":0.5416666666666666,"sdAccuracy":0.040908744508100954,"words":[{"word":"frequently","sks":5},{"word":"asked","sks":3},{"word":"questions","sks":5}],"diffAccuracy":0.04166666666666663,"diffSd":0.040908744508100954,"usable":true},{"meanAccuracy":0.43333333333333335,"weightedAccuracy":0.45,"sdAccuracy":0.04714045207910316,"words":[{"word":"round","sks":2},{"word":"robin","sks":2},{"word":"scheduling","sks":5}],"diffAccuracy":0.04999999999999999,"diffSd":0.04714045207910316,"usable":true},{"meanAccuracy":0.5113636363636364,"weightedAccuracy":0.5238095238095238,"sdAccuracy":0.019682395540555404,"words":[{"word":"that","sks":2},{"word":"is","sks":1},{"word":"very","sks":2},{"word":"unfortunate","sks":6}],"diffAccuracy":0.023809523809523836,"diffSd":0.019682395540555404,"usable":true},{"meanAccuracy":0.4952380952380952,"weightedAccuracy":0.5,"sdAccuracy":0.04994327848429292,"words":[{"word":"reading","sks":4},{"word":"week","sks":2},{"word":"is","sks":1},{"word":"just","sks":2},{"word":"about","sks":2},{"word":"here","sks":2}],"diffAccuracy":0,"diffSd":0.04994327848429292,"usable":true},{"meanAccuracy":0.49134199134199136,"weightedAccuracy":0.5,"sdAccuracy":0.04810846487206248,"words":[{"word":"protect","sks":3},{"word":"your","sks":2},{"word":"environment","sks":6}],"diffAccuracy":0,"diffSd":0.04810846487206248,"usable":true},{"meanAccuracy":0.5428571428571429,"weightedAccuracy":0.5416666666666666,"sdAccuracy":0.04403152859263553,"words":[{"word":"world","sks":3},{"word":"population","sks":5},{"word":"is","sks":1},{"word":"growing","sks":4}],"diffAccuracy":0.04166666666666663,"diffSd":0.04403152859263553,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"teaching","sks":4},{"word":"services","sks":4},{"word":"will","sks":2},{"word":"help","sks":2}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"we","sks":1},{"word":"accept","sks":3},{"word":"personal","sks":4},{"word":"checks","sks":3}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.48148148148148145,"weightedAccuracy":0.47619047619047616,"sdAccuracy":0.026189140043946214,"words":[{"word":"user","sks":2},{"word":"friendly","sks":4},{"word":"interface","sks":4}],"diffAccuracy":0.023809523809523836,"diffSd":0.026189140043946214,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"sent","sks":2},{"word":"this","sks":2},{"word":"by","sks":1},{"word":"registered","sks":5},{"word":"mail","sks":2}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"fall","sks":2},{"word":"is","sks":1},{"word":"my","sks":1},{"word":"favorite","sks":4},{"word":"season","sks":3}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.4861111111111111,"weightedAccuracy":0.47619047619047616,"sdAccuracy":0.024056261216234418,"words":[{"word":"stay","sks":2},{"word":"away","sks":2},{"word":"from","sks":2},{"word":"strangers","sks":4}],"diffAccuracy":0.023809523809523836,"diffSd":0.024056261216234418,"usable":true},{"meanAccuracy":0.4636363636363636,"weightedAccuracy":0.45,"sdAccuracy":0.04116084153698825,"words":[{"word":"accompanied","sks":5},{"word":"by","sks":1},{"word":"an","sks":1},{"word":"adult","sks":2}],"diffAccuracy":0.04999999999999999,"diffSd":0.04116084153698825,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"be","sks":1},{"word":"home","sks":2},{"word":"before","sks":3},{"word":"midnight","sks":4}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"he","sks":1},{"word":"is","sks":1},{"word":"shouting","sks":4},{"word":"loudly","sks":3}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.47564935064935066,"weightedAccuracy":0.4827586206896552,"sdAccuracy":0.04974530339624857,"words":[{"word":"correct","sks":3},{"word":"your","sks":2},{"word":"diction","sks":3},{"word":"immediately","sks":6}],"diffAccuracy":0.017241379310344807,"diffSd":0.04974530339624857,"usable":true},{"meanAccuracy":0.5342857142857144,"weightedAccuracy":0.5416666666666666,"sdAccuracy":0.04295227536677973,"words":[{"word":"my","sks":1},{"word":"mother","sks":3},{"word":"makes","sks":3},{"word":"good","sks":2},{"word":"cookies","sks":4}],"diffAccuracy":0.04166666666666663,"diffSd":0.04295227536677973,"usable":true},{"meanAccuracy":0.5142857142857142,"weightedAccuracy":0.52,"sdAccuracy":0.02857142857142856,"words":[{"word":"public","sks":3},{"word":"transit","sks":4},{"word":"is","sks":1},{"word":"much","sks":2},{"word":"faster","sks":3}],"diffAccuracy":0.020000000000000018,"diffSd":0.02857142857142856,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"rain","sks":2},{"word":"rain","sks":2},{"word":"go","sks":1},{"word":"away","sks":2}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.475,"weightedAccuracy":0.47058823529411764,"sdAccuracy":0.043301270189221926,"words":[{"word":"we","sks":1},{"word":"drive","sks":2},{"word":"on","sks":1},{"word":"parkways","sks":4}],"diffAccuracy":0.02941176470588236,"diffSd":0.043301270189221926,"usable":true},{"meanAccuracy":0.4861111111111111,"weightedAccuracy":0.47058823529411764,"sdAccuracy":0.024056261216234418,"words":[{"word":"we","sks":1},{"word":"park","sks":2},{"word":"in","sks":1},{"word":"driveways","sks":4}],"diffAccuracy":0.02941176470588236,"diffSd":0.024056261216234418,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"effort","sks":3},{"word":"is","sks":1},{"word":"what","sks":2},{"word":"it","sks":1},{"word":"will","sks":2},{"word":"take","sks":2}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.4890909090909091,"weightedAccuracy":0.5,"sdAccuracy":0.04789796317207086,"words":[{"word":"universally","sks":6},{"word":"understood","sks":5},{"word":"to","sks":1},{"word":"be","sks":1},{"word":"wrong","sks":2}],"diffAccuracy":0,"diffSd":0.04789796317207086,"usable":true},{"meanAccuracy":0.5333333333333333,"weightedAccuracy":0.5416666666666666,"sdAccuracy":0.04714045207910316,"words":[{"word":"listen","sks":3},{"word":"to","sks":1},{"word":"five","sks":2},{"word":"hours","sks":3},{"word":"of","sks":1},{"word":"opera","sks":3}],"diffAccuracy":0.04166666666666663,"diffSd":0.04714045207910316,"usable":true},{"meanAccuracy":0.4688888888888888,"weightedAccuracy":0.4642857142857143,"sdAccuracy":0.0406125930722157,"words":[{"word":"an","sks":1},{"word":"occasional","sks":5},{"word":"taste","sks":2},{"word":"of","sks":1},{"word":"chocolate","sks":4}],"diffAccuracy":0.0357142857142857,"diffSd":0.0406125930722157,"usable":true},{"meanAccuracy":0.4666666666666666,"weightedAccuracy":0.46153846153846156,"sdAccuracy":0.04714045207910316,"words":[{"word":"in","sks":1},{"word":"sharp","sks":2},{"word":"contrast","sks":4},{"word":"to","sks":1},{"word":"your","sks":2},{"word":"words","sks":2}],"diffAccuracy":0.038461538461538436,"diffSd":0.04714045207910316,"usable":true},{"meanAccuracy":0.4825396825396825,"weightedAccuracy":0.4827586206896552,"sdAccuracy":0.04851018028551153,"words":[{"word":"this","sks":2},{"word":"mission","sks":3},{"word":"statement","sks":5},{"word":"is","sks":1},{"word":"baloney","sks":3}],"diffAccuracy":0.017241379310344807,"diffSd":0.04851018028551153,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"this","sks":2},{"word":"system","sks":3},{"word":"of","sks":1},{"word":"taxation","sks":4}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"we","sks":1},{"word":"missed","sks":3},{"word":"your","sks":2},{"word":"birthday","sks":4}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.45999999999999996,"weightedAccuracy":0.4642857142857143,"sdAccuracy":0.04898979485566354,"words":[{"word":"this","sks":2},{"word":"phenomenon","sks":5},{"word":"will","sks":2},{"word":"never","sks":2},{"word":"occur","sks":2}],"diffAccuracy":0.0357142857142857,"diffSd":0.04898979485566354,"usable":true},{"meanAccuracy":0.4890909090909091,"weightedAccuracy":0.5,"sdAccuracy":0.04789796317207086,"words":[{"word":"this","sks":2},{"word":"camera","sks":3},{"word":"takes","sks":2},{"word":"nice","sks":2},{"word":"photographs","sks":6}],"diffAccuracy":0,"diffSd":0.04789796317207086,"usable":true},{"meanAccuracy":0.5142857142857142,"weightedAccuracy":0.52,"sdAccuracy":0.02857142857142856,"words":[{"word":"express","sks":4},{"word":"delivery","sks":4},{"word":"is","sks":1},{"word":"very","sks":2},{"word":"fast","sks":2}],"diffAccuracy":0.020000000000000018,"diffSd":0.02857142857142856,"usable":true},{"meanAccuracy":0.4861111111111111,"weightedAccuracy":0.4782608695652174,"sdAccuracy":0.024056261216234418,"words":[{"word":"well","sks":2},{"word":"connected","sks":4},{"word":"with","sks":2},{"word":"people","sks":3}],"diffAccuracy":0.021739130434782594,"diffSd":0.024056261216234418,"usable":true},{"meanAccuracy":0.5428571428571429,"weightedAccuracy":0.5416666666666666,"sdAccuracy":0.04403152859263553,"words":[{"word":"chemical","sks":4},{"word":"spill","sks":3},{"word":"took","sks":2},{"word":"forever","sks":4}],"diffAccuracy":0.04166666666666663,"diffSd":0.04403152859263553,"usable":true},{"meanAccuracy":0.4688888888888889,"weightedAccuracy":0.46153846153846156,"sdAccuracy":0.0406125930722157,"words":[{"word":"your","sks":2},{"word":"etiquette","sks":4},{"word":"needs","sks":2},{"word":"some","sks":2},{"word":"work","sks":2}],"diffAccuracy":0.038461538461538436,"diffSd":0.0406125930722157,"usable":true},{"meanAccuracy":0.5113636363636364,"weightedAccuracy":0.5217391304347826,"sdAccuracy":0.019682395540555408,"words":[{"word":"we","sks":1},{"word":"better","sks":3},{"word":"investigate","sks":6},{"word":"this","sks":2}],"diffAccuracy":0.021739130434782594,"diffSd":0.019682395540555408,"usable":true},{"meanAccuracy":0.46111111111111114,"weightedAccuracy":0.45,"sdAccuracy":0.04194352464039305,"words":[{"word":"very","sks":2},{"word":"reluctant","sks":4},{"word":"to","sks":1},{"word":"enter","sks":2}],"diffAccuracy":0.04999999999999999,"diffSd":0.04194352464039305,"usable":true},{"meanAccuracy":0.48,"weightedAccuracy":0.48,"sdAccuracy":0.039999999999999994,"words":[{"word":"medieval","sks":4},{"word":"times","sks":2},{"word":"were","sks":2},{"word":"very","sks":2},{"word":"hard","sks":2}],"diffAccuracy":0.020000000000000018,"diffSd":0.039999999999999994,"usable":true},{"meanAccuracy":0.48,"weightedAccuracy":0.4782608695652174,"sdAccuracy":0.039999999999999994,"words":[{"word":"it","sks":1},{"word":"should","sks":3},{"word":"be","sks":1},{"word":"sunny","sks":2},{"word":"tomorrow","sks":4}],"diffAccuracy":0.021739130434782594,"diffSd":0.039999999999999994,"usable":true},{"meanAccuracy":0.5527777777777778,"weightedAccuracy":0.5428571428571428,"sdAccuracy":0.03546429259667695,"words":[{"word":"construction","sks":6},{"word":"makes","sks":3},{"word":"traveling","sks":5},{"word":"difficult","sks":5}],"diffAccuracy":0.042857142857142816,"diffSd":0.03546429259667695,"usable":true},{"meanAccuracy":0.5092592592592592,"weightedAccuracy":0.5161290322580645,"sdAccuracy":0.02070433312499806,"words":[{"word":"that","sks":2},{"word":"agreement","sks":5},{"word":"is","sks":1},{"word":"rife","sks":2},{"word":"with","sks":2},{"word":"problems","sks":4}],"diffAccuracy":0.016129032258064502,"diffSd":0.02070433312499806,"usable":true},{"meanAccuracy":0.48888888888888893,"weightedAccuracy":0.4827586206896552,"sdAccuracy":0.022222222222222233,"words":[{"word":"vote","sks":2},{"word":"according","sks":4},{"word":"to","sks":1},{"word":"your","sks":2},{"word":"conscience","sks":5}],"diffAccuracy":0.017241379310344807,"diffSd":0.022222222222222233,"usable":true},{"meanAccuracy":0.4688888888888889,"weightedAccuracy":0.4642857142857143,"sdAccuracy":0.0406125930722157,"words":[{"word":"my","sks":1},{"word":"favourite","sks":4},{"word":"sport","sks":2},{"word":"is","sks":1},{"word":"racketball","sks":5}],"diffAccuracy":0.0357142857142857,"diffSd":0.0406125930722157,"usable":true},{"meanAccuracy":0.55,"weightedAccuracy":0.5428571428571428,"sdAccuracy":0.04999999999999999,"words":[{"word":"burglars","sks":4},{"word":"never","sks":3},{"word":"leave","sks":3},{"word":"their","sks":3},{"word":"business","sks":4},{"word":"card","sks":2}],"diffAccuracy":0.042857142857142816,"diffSd":0.04999999999999999,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"please","sks":3},{"word":"keep","sks":2},{"word":"this","sks":2},{"word":"confidential","sks":6}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.5196053946053946,"weightedAccuracy":0.5142857142857142,"sdAccuracy":0.04216029076364785,"words":[{"word":"handicapped","sks":6},{"word":"persons","sks":4},{"word":"need","sks":2},{"word":"consideration","sks":6}],"diffAccuracy":0.014285714285714235,"diffSd":0.04216029076364785,"usable":true},{"meanAccuracy":0.5031746031746032,"weightedAccuracy":0.5,"sdAccuracy":0.040343698498853435,"words":[{"word":"he","sks":1},{"word":"underwent","sks":4},{"word":"triple","sks":3},{"word":"bypass","sks":3},{"word":"surgery","sks":4}],"diffAccuracy":0,"diffSd":0.040343698498853435,"usable":true},{"meanAccuracy":0.4979797979797979,"weightedAccuracy":0.5,"sdAccuracy":0.032037881873037785,"words":[{"word":"it","sks":1},{"word":"is","sks":1},{"word":"difficult","sks":4},{"word":"to","sks":1},{"word":"concentrate","sks":6}],"diffAccuracy":0,"diffSd":0.032037881873037785,"usable":true},{"meanAccuracy":0.45714285714285713,"weightedAccuracy":0.45,"sdAccuracy":0.04403152859263554,"words":[{"word":"drugs","sks":2},{"word":"should","sks":3},{"word":"be","sks":1},{"word":"avoided","sks":3}],"diffAccuracy":0.04999999999999999,"diffSd":0.04403152859263554,"usable":true},{"meanAccuracy":0.5178571428571428,"weightedAccuracy":0.5217391304347826,"sdAccuracy":0.03092947870658708,"words":[{"word":"he","sks":1},{"word":"watched","sks":4},{"word":"in","sks":1},{"word":"astonishment","sks":6}],"diffAccuracy":0.021739130434782594,"diffSd":0.03092947870658708,"usable":true},{"meanAccuracy":0.5452380952380953,"weightedAccuracy":0.5454545454545454,"sdAccuracy":0.04622973294987522,"words":[{"word":"salesmen","sks":4},{"word":"must","sks":2},{"word":"make","sks":2},{"word":"their","sks":3},{"word":"monthly","sks":4},{"word":"quota","sks":3}],"diffAccuracy":0.045454545454545414,"diffSd":0.04622973294987522,"usable":true},{"meanAccuracy":0.4861111111111111,"weightedAccuracy":0.47619047619047616,"sdAccuracy":0.024056261216234418,"words":[{"word":"we","sks":1},{"word":"have","sks":2},{"word":"enough","sks":3},{"word":"witnesses","sks":4}],"diffAccuracy":0.023809523809523836,"diffSd":0.024056261216234418,"usable":true},{"meanAccuracy":0.46571428571428564,"weightedAccuracy":0.46153846153846156,"sdAccuracy":0.04295227536677974,"words":[{"word":"be","sks":1},{"word":"discreet","sks":4},{"word":"about","sks":2},{"word":"your","sks":2},{"word":"meeting","sks":3}],"diffAccuracy":0.038461538461538436,"diffSd":0.04295227536677974,"usable":true},{"meanAccuracy":0.5433766233766234,"weightedAccuracy":0.5483870967741935,"sdAccuracy":0.03939669844293736,"words":[{"word":"rectangular","sks":6},{"word":"objects","sks":4},{"word":"have","sks":2},{"word":"four","sks":2},{"word":"sides","sks":3}],"diffAccuracy":0.048387096774193505,"diffSd":0.03939669844293736,"usable":true},{"meanAccuracy":0.5026455026455027,"weightedAccuracy":0.5,"sdAccuracy":0.03684758803487862,"words":[{"word":"raindrops","sks":4},{"word":"keep","sks":2},{"word":"falling","sks":4},{"word":"on","sks":1},{"word":"my","sks":1},{"word":"head","sks":2}],"diffAccuracy":0,"diffSd":0.03684758803487862,"usable":true},{"meanAccuracy":0.5178571428571428,"weightedAccuracy":0.5263157894736842,"sdAccuracy":0.03092947870658708,"words":[{"word":"with","sks":2},{"word":"each","sks":2},{"word":"step","sks":2},{"word":"forward","sks":4}],"diffAccuracy":0.02631578947368418,"diffSd":0.03092947870658708,"usable":true},{"meanAccuracy":0.5178571428571428,"weightedAccuracy":0.5238095238095238,"sdAccuracy":0.03092947870658708,"words":[{"word":"wishful","sks":4},{"word":"thinking","sks":4},{"word":"is","sks":1},{"word":"fine","sks":2}],"diffAccuracy":0.023809523809523836,"diffSd":0.03092947870658708,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"what","sks":2},{"word":"goes","sks":2},{"word":"up","sks":1},{"word":"must","sks":2},{"word":"come","sks":2},{"word":"down","sks":2}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.46111111111111114,"weightedAccuracy":0.4642857142857143,"sdAccuracy":0.04194352464039305,"words":[{"word":"presidents","sks":5},{"word":"drive","sks":2},{"word":"expensive","sks":4},{"word":"cars","sks":2}],"diffAccuracy":0.0357142857142857,"diffSd":0.04194352464039305,"usable":true},{"meanAccuracy":0.45999999999999996,"weightedAccuracy":0.47058823529411764,"sdAccuracy":0.04898979485566355,"words":[{"word":"gamblers","sks":4},{"word":"eventually","sks":5},{"word":"loose","sks":2},{"word":"their","sks":2},{"word":"shirts","sks":3}],"diffAccuracy":0.02941176470588236,"diffSd":0.04898979485566355,"usable":true},{"meanAccuracy":0.5378306878306879,"weightedAccuracy":0.5454545454545454,"sdAccuracy":0.04000311429325479,"words":[{"word":"they","sks":2},{"word":"might","sks":3},{"word":"find","sks":2},{"word":"your","sks":2},{"word":"comment","sks":4},{"word":"offensive","sks":5}],"diffAccuracy":0.045454545454545414,"diffSd":0.04000311429325479,"usable":true},{"meanAccuracy":0.5063492063492063,"weightedAccuracy":0.5,"sdAccuracy":0.04276886852478564,"words":[{"word":"important","sks":4},{"word":"news","sks":2},{"word":"always","sks":3},{"word":"seems","sks":3},{"word":"to","sks":1},{"word":"be","sks":1},{"word":"late","sks":2}],"diffAccuracy":0,"diffSd":0.04276886852478564,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"motivational","sks":6},{"word":"seminars","sks":4},{"word":"make","sks":2},{"word":"me","sks":1},{"word":"sick","sks":2}],"diffAccuracy":0,"diffSd":0,"usable":true},{"meanAccuracy":0.5174603174603174,"weightedAccuracy":0.5161290322580645,"sdAccuracy":0.0485101802855115,"words":[{"word":"everybody","sks":4},{"word":"looses","sks":3},{"word":"in","sks":1},{"word":"custody","sks":4},{"word":"battles","sks":4}],"diffAccuracy":0.016129032258064502,"diffSd":0.0485101802855115,"usable":true},{"meanAccuracy":0.5,"weightedAccuracy":0.5,"sdAccuracy":0,"words":[{"word":"experience","sks":5},{"word":"is","sks":1},{"word":"hard","sks":2},{"word":"to","sks":1},{"word":"come","sks":2},{"word":"by","sks":1}],"diffAccuracy":0,"diffSd":0,"usable":true}]
+[
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.04536092116265147,
+    "words": [
+      { "word": "breathing", "sks": 4 },
+      { "word": "is", "sks": 1 },
+      { "word": "difficult", "sks": 5 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.04536092116265147,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5031746031746032,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.040343698498853435,
+    "words": [
+      { "word": "my", "sks": 1 },
+      { "word": "bank", "sks": 2 },
+      { "word": "account", "sks": 4 },
+      { "word": "is", "sks": 1 },
+      { "word": "overdrawn", "sks": 4 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.040343698498853435,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "time", "sks": 2 },
+      { "word": "to", "sks": 1 },
+      { "word": "go", "sks": 1 },
+      { "word": "shopping", "sks": 4 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.54,
+    "weightedAccuracy": 0.5454545454545454,
+    "sdAccuracy": 0.04898979485566354,
+    "words": [
+      { "word": "my", "sks": 1 },
+      { "word": "favorite", "sks": 4 },
+      { "word": "place", "sks": 3 },
+      { "word": "to", "sks": 1 },
+      { "word": "visit", "sks": 3 }
+    ],
+    "diffAccuracy": 0.045454545454545414,
+    "diffSd": 0.04898979485566354,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.48571428571428577,
+    "weightedAccuracy": 0.4827586206896552,
+    "sdAccuracy": 0.02857142857142858,
+    "words": [
+      { "word": "my", "sks": 1 },
+      { "word": "favorite", "sks": 4 },
+      { "word": "subject", "sks": 3 },
+      { "word": "is", "sks": 1 },
+      { "word": "psychology", "sks": 5 }
+    ],
+    "diffAccuracy": 0.017241379310344807,
+    "diffSd": 0.02857142857142858,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4952380952380952,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.04994327848429292,
+    "words": [
+      { "word": "please", "sks": 3 },
+      { "word": "provide", "sks": 4 },
+      { "word": "your", "sks": 2 },
+      { "word": "date", "sks": 2 },
+      { "word": "of", "sks": 1 },
+      { "word": "birth", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.04994327848429292,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.04517539514526255,
+    "words": [
+      { "word": "prayer", "sks": 3 },
+      { "word": "in", "sks": 1 },
+      { "word": "schools", "sks": 3 },
+      { "word": "offends", "sks": 4 },
+      { "word": "some", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.04517539514526255,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "he", "sks": 1 },
+      { "word": "is", "sks": 1 },
+      { "word": "just", "sks": 2 },
+      { "word": "like", "sks": 2 },
+      { "word": "everyone", "sks": 4 },
+      { "word": "else", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.525,
+    "weightedAccuracy": 0.5263157894736842,
+    "sdAccuracy": 0.043301270189221926,
+    "words": [
+      { "word": "love", "sks": 2 },
+      { "word": "means", "sks": 3 },
+      { "word": "many", "sks": 2 },
+      { "word": "things", "sks": 3 }
+    ],
+    "diffAccuracy": 0.02631578947368418,
+    "diffSd": 0.043301270189221926,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "question", "sks": 4 },
+      { "word": "that", "sks": 2 },
+      { "word": "must", "sks": 2 },
+      { "word": "be", "sks": 1 },
+      { "word": "answered", "sks": 4 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4666666666666666,
+    "weightedAccuracy": 0.4642857142857143,
+    "sdAccuracy": 0.04714045207910316,
+    "words": [
+      { "word": "coming", "sks": 3 },
+      { "word": "up", "sks": 1 },
+      { "word": "with", "sks": 2 },
+      { "word": "killer", "sks": 3 },
+      { "word": "sound", "sks": 2 },
+      { "word": "bites", "sks": 2 }
+    ],
+    "diffAccuracy": 0.0357142857142857,
+    "diffSd": 0.04714045207910316,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5178571428571428,
+    "weightedAccuracy": 0.5238095238095238,
+    "sdAccuracy": 0.03092947870658708,
+    "words": [
+      { "word": "we", "sks": 1 },
+      { "word": "went", "sks": 2 },
+      { "word": "grocery", "sks": 4 },
+      { "word": "shopping", "sks": 4 }
+    ],
+    "diffAccuracy": 0.023809523809523836,
+    "diffSd": 0.03092947870658708,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5518518518518519,
+    "weightedAccuracy": 0.5416666666666666,
+    "sdAccuracy": 0.040908744508100954,
+    "words": [
+      { "word": "frequently", "sks": 5 },
+      { "word": "asked", "sks": 3 },
+      { "word": "questions", "sks": 5 }
+    ],
+    "diffAccuracy": 0.04166666666666663,
+    "diffSd": 0.040908744508100954,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.43333333333333335,
+    "weightedAccuracy": 0.45,
+    "sdAccuracy": 0.04714045207910316,
+    "words": [
+      { "word": "round", "sks": 2 },
+      { "word": "robin", "sks": 2 },
+      { "word": "scheduling", "sks": 5 }
+    ],
+    "diffAccuracy": 0.04999999999999999,
+    "diffSd": 0.04714045207910316,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5113636363636364,
+    "weightedAccuracy": 0.5238095238095238,
+    "sdAccuracy": 0.019682395540555404,
+    "words": [
+      { "word": "that", "sks": 2 },
+      { "word": "is", "sks": 1 },
+      { "word": "very", "sks": 2 },
+      { "word": "unfortunate", "sks": 6 }
+    ],
+    "diffAccuracy": 0.023809523809523836,
+    "diffSd": 0.019682395540555404,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4952380952380952,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.04994327848429292,
+    "words": [
+      { "word": "reading", "sks": 4 },
+      { "word": "week", "sks": 2 },
+      { "word": "is", "sks": 1 },
+      { "word": "just", "sks": 2 },
+      { "word": "about", "sks": 2 },
+      { "word": "here", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.04994327848429292,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.49134199134199136,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.04810846487206248,
+    "words": [
+      { "word": "protect", "sks": 3 },
+      { "word": "your", "sks": 2 },
+      { "word": "environment", "sks": 6 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.04810846487206248,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5428571428571429,
+    "weightedAccuracy": 0.5416666666666666,
+    "sdAccuracy": 0.04403152859263553,
+    "words": [
+      { "word": "world", "sks": 3 },
+      { "word": "population", "sks": 5 },
+      { "word": "is", "sks": 1 },
+      { "word": "growing", "sks": 4 }
+    ],
+    "diffAccuracy": 0.04166666666666663,
+    "diffSd": 0.04403152859263553,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "teaching", "sks": 4 },
+      { "word": "services", "sks": 4 },
+      { "word": "will", "sks": 2 },
+      { "word": "help", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "we", "sks": 1 },
+      { "word": "accept", "sks": 3 },
+      { "word": "personal", "sks": 4 },
+      { "word": "checks", "sks": 3 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.48148148148148145,
+    "weightedAccuracy": 0.47619047619047616,
+    "sdAccuracy": 0.026189140043946214,
+    "words": [
+      { "word": "user", "sks": 2 },
+      { "word": "friendly", "sks": 4 },
+      { "word": "interface", "sks": 4 }
+    ],
+    "diffAccuracy": 0.023809523809523836,
+    "diffSd": 0.026189140043946214,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "sent", "sks": 2 },
+      { "word": "this", "sks": 2 },
+      { "word": "by", "sks": 1 },
+      { "word": "registered", "sks": 5 },
+      { "word": "mail", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "fall", "sks": 2 },
+      { "word": "is", "sks": 1 },
+      { "word": "my", "sks": 1 },
+      { "word": "favorite", "sks": 4 },
+      { "word": "season", "sks": 3 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4861111111111111,
+    "weightedAccuracy": 0.47619047619047616,
+    "sdAccuracy": 0.024056261216234418,
+    "words": [
+      { "word": "stay", "sks": 2 },
+      { "word": "away", "sks": 2 },
+      { "word": "from", "sks": 2 },
+      { "word": "strangers", "sks": 4 }
+    ],
+    "diffAccuracy": 0.023809523809523836,
+    "diffSd": 0.024056261216234418,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4636363636363636,
+    "weightedAccuracy": 0.45,
+    "sdAccuracy": 0.04116084153698825,
+    "words": [
+      { "word": "accompanied", "sks": 5 },
+      { "word": "by", "sks": 1 },
+      { "word": "an", "sks": 1 },
+      { "word": "adult", "sks": 2 }
+    ],
+    "diffAccuracy": 0.04999999999999999,
+    "diffSd": 0.04116084153698825,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "be", "sks": 1 },
+      { "word": "home", "sks": 2 },
+      { "word": "before", "sks": 3 },
+      { "word": "midnight", "sks": 4 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "he", "sks": 1 },
+      { "word": "is", "sks": 1 },
+      { "word": "shouting", "sks": 4 },
+      { "word": "loudly", "sks": 3 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.47564935064935066,
+    "weightedAccuracy": 0.4827586206896552,
+    "sdAccuracy": 0.04974530339624857,
+    "words": [
+      { "word": "correct", "sks": 3 },
+      { "word": "your", "sks": 2 },
+      { "word": "diction", "sks": 3 },
+      { "word": "immediately", "sks": 6 }
+    ],
+    "diffAccuracy": 0.017241379310344807,
+    "diffSd": 0.04974530339624857,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5342857142857144,
+    "weightedAccuracy": 0.5416666666666666,
+    "sdAccuracy": 0.04295227536677973,
+    "words": [
+      { "word": "my", "sks": 1 },
+      { "word": "mother", "sks": 3 },
+      { "word": "makes", "sks": 3 },
+      { "word": "good", "sks": 2 },
+      { "word": "cookies", "sks": 4 }
+    ],
+    "diffAccuracy": 0.04166666666666663,
+    "diffSd": 0.04295227536677973,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5142857142857142,
+    "weightedAccuracy": 0.52,
+    "sdAccuracy": 0.02857142857142856,
+    "words": [
+      { "word": "public", "sks": 3 },
+      { "word": "transit", "sks": 4 },
+      { "word": "is", "sks": 1 },
+      { "word": "much", "sks": 2 },
+      { "word": "faster", "sks": 3 }
+    ],
+    "diffAccuracy": 0.020000000000000018,
+    "diffSd": 0.02857142857142856,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "rain", "sks": 2 },
+      { "word": "rain", "sks": 2 },
+      { "word": "go", "sks": 1 },
+      { "word": "away", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.475,
+    "weightedAccuracy": 0.47058823529411764,
+    "sdAccuracy": 0.043301270189221926,
+    "words": [
+      { "word": "we", "sks": 1 },
+      { "word": "drive", "sks": 2 },
+      { "word": "on", "sks": 1 },
+      { "word": "parkways", "sks": 4 }
+    ],
+    "diffAccuracy": 0.02941176470588236,
+    "diffSd": 0.043301270189221926,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4861111111111111,
+    "weightedAccuracy": 0.47058823529411764,
+    "sdAccuracy": 0.024056261216234418,
+    "words": [
+      { "word": "we", "sks": 1 },
+      { "word": "park", "sks": 2 },
+      { "word": "in", "sks": 1 },
+      { "word": "driveways", "sks": 4 }
+    ],
+    "diffAccuracy": 0.02941176470588236,
+    "diffSd": 0.024056261216234418,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "effort", "sks": 3 },
+      { "word": "is", "sks": 1 },
+      { "word": "what", "sks": 2 },
+      { "word": "it", "sks": 1 },
+      { "word": "will", "sks": 2 },
+      { "word": "take", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4890909090909091,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.04789796317207086,
+    "words": [
+      { "word": "universally", "sks": 6 },
+      { "word": "understood", "sks": 5 },
+      { "word": "to", "sks": 1 },
+      { "word": "be", "sks": 1 },
+      { "word": "wrong", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.04789796317207086,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5333333333333333,
+    "weightedAccuracy": 0.5416666666666666,
+    "sdAccuracy": 0.04714045207910316,
+    "words": [
+      { "word": "listen", "sks": 3 },
+      { "word": "to", "sks": 1 },
+      { "word": "five", "sks": 2 },
+      { "word": "hours", "sks": 3 },
+      { "word": "of", "sks": 1 },
+      { "word": "opera", "sks": 3 }
+    ],
+    "diffAccuracy": 0.04166666666666663,
+    "diffSd": 0.04714045207910316,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4688888888888888,
+    "weightedAccuracy": 0.4642857142857143,
+    "sdAccuracy": 0.0406125930722157,
+    "words": [
+      { "word": "an", "sks": 1 },
+      { "word": "occasional", "sks": 5 },
+      { "word": "taste", "sks": 2 },
+      { "word": "of", "sks": 1 },
+      { "word": "chocolate", "sks": 4 }
+    ],
+    "diffAccuracy": 0.0357142857142857,
+    "diffSd": 0.0406125930722157,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4666666666666666,
+    "weightedAccuracy": 0.46153846153846156,
+    "sdAccuracy": 0.04714045207910316,
+    "words": [
+      { "word": "in", "sks": 1 },
+      { "word": "sharp", "sks": 2 },
+      { "word": "contrast", "sks": 4 },
+      { "word": "to", "sks": 1 },
+      { "word": "your", "sks": 2 },
+      { "word": "words", "sks": 2 }
+    ],
+    "diffAccuracy": 0.038461538461538436,
+    "diffSd": 0.04714045207910316,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4825396825396825,
+    "weightedAccuracy": 0.4827586206896552,
+    "sdAccuracy": 0.04851018028551153,
+    "words": [
+      { "word": "this", "sks": 2 },
+      { "word": "mission", "sks": 3 },
+      { "word": "statement", "sks": 5 },
+      { "word": "is", "sks": 1 },
+      { "word": "baloney", "sks": 3 }
+    ],
+    "diffAccuracy": 0.017241379310344807,
+    "diffSd": 0.04851018028551153,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "this", "sks": 2 },
+      { "word": "system", "sks": 3 },
+      { "word": "of", "sks": 1 },
+      { "word": "taxation", "sks": 4 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "we", "sks": 1 },
+      { "word": "missed", "sks": 3 },
+      { "word": "your", "sks": 2 },
+      { "word": "birthday", "sks": 4 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.45999999999999996,
+    "weightedAccuracy": 0.4642857142857143,
+    "sdAccuracy": 0.04898979485566354,
+    "words": [
+      { "word": "this", "sks": 2 },
+      { "word": "phenomenon", "sks": 5 },
+      { "word": "will", "sks": 2 },
+      { "word": "never", "sks": 2 },
+      { "word": "occur", "sks": 2 }
+    ],
+    "diffAccuracy": 0.0357142857142857,
+    "diffSd": 0.04898979485566354,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4890909090909091,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.04789796317207086,
+    "words": [
+      { "word": "this", "sks": 2 },
+      { "word": "camera", "sks": 3 },
+      { "word": "takes", "sks": 2 },
+      { "word": "nice", "sks": 2 },
+      { "word": "photographs", "sks": 6 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.04789796317207086,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5142857142857142,
+    "weightedAccuracy": 0.52,
+    "sdAccuracy": 0.02857142857142856,
+    "words": [
+      { "word": "express", "sks": 4 },
+      { "word": "delivery", "sks": 4 },
+      { "word": "is", "sks": 1 },
+      { "word": "very", "sks": 2 },
+      { "word": "fast", "sks": 2 }
+    ],
+    "diffAccuracy": 0.020000000000000018,
+    "diffSd": 0.02857142857142856,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4861111111111111,
+    "weightedAccuracy": 0.4782608695652174,
+    "sdAccuracy": 0.024056261216234418,
+    "words": [
+      { "word": "well", "sks": 2 },
+      { "word": "connected", "sks": 4 },
+      { "word": "with", "sks": 2 },
+      { "word": "people", "sks": 3 }
+    ],
+    "diffAccuracy": 0.021739130434782594,
+    "diffSd": 0.024056261216234418,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5428571428571429,
+    "weightedAccuracy": 0.5416666666666666,
+    "sdAccuracy": 0.04403152859263553,
+    "words": [
+      { "word": "chemical", "sks": 4 },
+      { "word": "spill", "sks": 3 },
+      { "word": "took", "sks": 2 },
+      { "word": "forever", "sks": 4 }
+    ],
+    "diffAccuracy": 0.04166666666666663,
+    "diffSd": 0.04403152859263553,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4688888888888889,
+    "weightedAccuracy": 0.46153846153846156,
+    "sdAccuracy": 0.0406125930722157,
+    "words": [
+      { "word": "your", "sks": 2 },
+      { "word": "etiquette", "sks": 4 },
+      { "word": "needs", "sks": 2 },
+      { "word": "some", "sks": 2 },
+      { "word": "work", "sks": 2 }
+    ],
+    "diffAccuracy": 0.038461538461538436,
+    "diffSd": 0.0406125930722157,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5113636363636364,
+    "weightedAccuracy": 0.5217391304347826,
+    "sdAccuracy": 0.019682395540555408,
+    "words": [
+      { "word": "we", "sks": 1 },
+      { "word": "better", "sks": 3 },
+      { "word": "investigate", "sks": 6 },
+      { "word": "this", "sks": 2 }
+    ],
+    "diffAccuracy": 0.021739130434782594,
+    "diffSd": 0.019682395540555408,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.46111111111111114,
+    "weightedAccuracy": 0.45,
+    "sdAccuracy": 0.04194352464039305,
+    "words": [
+      { "word": "very", "sks": 2 },
+      { "word": "reluctant", "sks": 4 },
+      { "word": "to", "sks": 1 },
+      { "word": "enter", "sks": 2 }
+    ],
+    "diffAccuracy": 0.04999999999999999,
+    "diffSd": 0.04194352464039305,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.48,
+    "weightedAccuracy": 0.48,
+    "sdAccuracy": 0.039999999999999994,
+    "words": [
+      { "word": "medieval", "sks": 4 },
+      { "word": "times", "sks": 2 },
+      { "word": "were", "sks": 2 },
+      { "word": "very", "sks": 2 },
+      { "word": "hard", "sks": 2 }
+    ],
+    "diffAccuracy": 0.020000000000000018,
+    "diffSd": 0.039999999999999994,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.48,
+    "weightedAccuracy": 0.4782608695652174,
+    "sdAccuracy": 0.039999999999999994,
+    "words": [
+      { "word": "it", "sks": 1 },
+      { "word": "should", "sks": 3 },
+      { "word": "be", "sks": 1 },
+      { "word": "sunny", "sks": 2 },
+      { "word": "tomorrow", "sks": 4 }
+    ],
+    "diffAccuracy": 0.021739130434782594,
+    "diffSd": 0.039999999999999994,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5527777777777778,
+    "weightedAccuracy": 0.5428571428571428,
+    "sdAccuracy": 0.03546429259667695,
+    "words": [
+      { "word": "construction", "sks": 6 },
+      { "word": "makes", "sks": 3 },
+      { "word": "traveling", "sks": 5 },
+      { "word": "difficult", "sks": 5 }
+    ],
+    "diffAccuracy": 0.042857142857142816,
+    "diffSd": 0.03546429259667695,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5092592592592592,
+    "weightedAccuracy": 0.5161290322580645,
+    "sdAccuracy": 0.02070433312499806,
+    "words": [
+      { "word": "that", "sks": 2 },
+      { "word": "agreement", "sks": 5 },
+      { "word": "is", "sks": 1 },
+      { "word": "rife", "sks": 2 },
+      { "word": "with", "sks": 2 },
+      { "word": "problems", "sks": 4 }
+    ],
+    "diffAccuracy": 0.016129032258064502,
+    "diffSd": 0.02070433312499806,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.48888888888888893,
+    "weightedAccuracy": 0.4827586206896552,
+    "sdAccuracy": 0.022222222222222233,
+    "words": [
+      { "word": "vote", "sks": 2 },
+      { "word": "according", "sks": 4 },
+      { "word": "to", "sks": 1 },
+      { "word": "your", "sks": 2 },
+      { "word": "conscience", "sks": 5 }
+    ],
+    "diffAccuracy": 0.017241379310344807,
+    "diffSd": 0.022222222222222233,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4688888888888889,
+    "weightedAccuracy": 0.4642857142857143,
+    "sdAccuracy": 0.0406125930722157,
+    "words": [
+      { "word": "my", "sks": 1 },
+      { "word": "favourite", "sks": 4 },
+      { "word": "sport", "sks": 2 },
+      { "word": "is", "sks": 1 },
+      { "word": "racketball", "sks": 5 }
+    ],
+    "diffAccuracy": 0.0357142857142857,
+    "diffSd": 0.0406125930722157,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.55,
+    "weightedAccuracy": 0.5428571428571428,
+    "sdAccuracy": 0.04999999999999999,
+    "words": [
+      { "word": "burglars", "sks": 4 },
+      { "word": "never", "sks": 3 },
+      { "word": "leave", "sks": 3 },
+      { "word": "their", "sks": 3 },
+      { "word": "business", "sks": 4 },
+      { "word": "card", "sks": 2 }
+    ],
+    "diffAccuracy": 0.042857142857142816,
+    "diffSd": 0.04999999999999999,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "please", "sks": 3 },
+      { "word": "keep", "sks": 2 },
+      { "word": "this", "sks": 2 },
+      { "word": "confidential", "sks": 6 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5196053946053946,
+    "weightedAccuracy": 0.5142857142857142,
+    "sdAccuracy": 0.04216029076364785,
+    "words": [
+      { "word": "handicapped", "sks": 6 },
+      { "word": "persons", "sks": 4 },
+      { "word": "need", "sks": 2 },
+      { "word": "consideration", "sks": 6 }
+    ],
+    "diffAccuracy": 0.014285714285714235,
+    "diffSd": 0.04216029076364785,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5031746031746032,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.040343698498853435,
+    "words": [
+      { "word": "he", "sks": 1 },
+      { "word": "underwent", "sks": 4 },
+      { "word": "triple", "sks": 3 },
+      { "word": "bypass", "sks": 3 },
+      { "word": "surgery", "sks": 4 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.040343698498853435,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4979797979797979,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.032037881873037785,
+    "words": [
+      { "word": "it", "sks": 1 },
+      { "word": "is", "sks": 1 },
+      { "word": "difficult", "sks": 4 },
+      { "word": "to", "sks": 1 },
+      { "word": "concentrate", "sks": 6 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.032037881873037785,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.45714285714285713,
+    "weightedAccuracy": 0.45,
+    "sdAccuracy": 0.04403152859263554,
+    "words": [
+      { "word": "drugs", "sks": 2 },
+      { "word": "should", "sks": 3 },
+      { "word": "be", "sks": 1 },
+      { "word": "avoided", "sks": 3 }
+    ],
+    "diffAccuracy": 0.04999999999999999,
+    "diffSd": 0.04403152859263554,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5178571428571428,
+    "weightedAccuracy": 0.5217391304347826,
+    "sdAccuracy": 0.03092947870658708,
+    "words": [
+      { "word": "he", "sks": 1 },
+      { "word": "watched", "sks": 4 },
+      { "word": "in", "sks": 1 },
+      { "word": "astonishment", "sks": 6 }
+    ],
+    "diffAccuracy": 0.021739130434782594,
+    "diffSd": 0.03092947870658708,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5452380952380953,
+    "weightedAccuracy": 0.5454545454545454,
+    "sdAccuracy": 0.04622973294987522,
+    "words": [
+      { "word": "salesmen", "sks": 4 },
+      { "word": "must", "sks": 2 },
+      { "word": "make", "sks": 2 },
+      { "word": "their", "sks": 3 },
+      { "word": "monthly", "sks": 4 },
+      { "word": "quota", "sks": 3 }
+    ],
+    "diffAccuracy": 0.045454545454545414,
+    "diffSd": 0.04622973294987522,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.4861111111111111,
+    "weightedAccuracy": 0.47619047619047616,
+    "sdAccuracy": 0.024056261216234418,
+    "words": [
+      { "word": "we", "sks": 1 },
+      { "word": "have", "sks": 2 },
+      { "word": "enough", "sks": 3 },
+      { "word": "witnesses", "sks": 4 }
+    ],
+    "diffAccuracy": 0.023809523809523836,
+    "diffSd": 0.024056261216234418,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.46571428571428564,
+    "weightedAccuracy": 0.46153846153846156,
+    "sdAccuracy": 0.04295227536677974,
+    "words": [
+      { "word": "be", "sks": 1 },
+      { "word": "discreet", "sks": 4 },
+      { "word": "about", "sks": 2 },
+      { "word": "your", "sks": 2 },
+      { "word": "meeting", "sks": 3 }
+    ],
+    "diffAccuracy": 0.038461538461538436,
+    "diffSd": 0.04295227536677974,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5433766233766234,
+    "weightedAccuracy": 0.5483870967741935,
+    "sdAccuracy": 0.03939669844293736,
+    "words": [
+      { "word": "rectangular", "sks": 6 },
+      { "word": "objects", "sks": 4 },
+      { "word": "have", "sks": 2 },
+      { "word": "four", "sks": 2 },
+      { "word": "sides", "sks": 3 }
+    ],
+    "diffAccuracy": 0.048387096774193505,
+    "diffSd": 0.03939669844293736,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5026455026455027,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.03684758803487862,
+    "words": [
+      { "word": "raindrops", "sks": 4 },
+      { "word": "keep", "sks": 2 },
+      { "word": "falling", "sks": 4 },
+      { "word": "on", "sks": 1 },
+      { "word": "my", "sks": 1 },
+      { "word": "head", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.03684758803487862,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5178571428571428,
+    "weightedAccuracy": 0.5263157894736842,
+    "sdAccuracy": 0.03092947870658708,
+    "words": [
+      { "word": "with", "sks": 2 },
+      { "word": "each", "sks": 2 },
+      { "word": "step", "sks": 2 },
+      { "word": "forward", "sks": 4 }
+    ],
+    "diffAccuracy": 0.02631578947368418,
+    "diffSd": 0.03092947870658708,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5178571428571428,
+    "weightedAccuracy": 0.5238095238095238,
+    "sdAccuracy": 0.03092947870658708,
+    "words": [
+      { "word": "wishful", "sks": 4 },
+      { "word": "thinking", "sks": 4 },
+      { "word": "is", "sks": 1 },
+      { "word": "fine", "sks": 2 }
+    ],
+    "diffAccuracy": 0.023809523809523836,
+    "diffSd": 0.03092947870658708,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "what", "sks": 2 },
+      { "word": "goes", "sks": 2 },
+      { "word": "up", "sks": 1 },
+      { "word": "must", "sks": 2 },
+      { "word": "come", "sks": 2 },
+      { "word": "down", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.46111111111111114,
+    "weightedAccuracy": 0.4642857142857143,
+    "sdAccuracy": 0.04194352464039305,
+    "words": [
+      { "word": "presidents", "sks": 5 },
+      { "word": "drive", "sks": 2 },
+      { "word": "expensive", "sks": 4 },
+      { "word": "cars", "sks": 2 }
+    ],
+    "diffAccuracy": 0.0357142857142857,
+    "diffSd": 0.04194352464039305,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.45999999999999996,
+    "weightedAccuracy": 0.47058823529411764,
+    "sdAccuracy": 0.04898979485566355,
+    "words": [
+      { "word": "gamblers", "sks": 4 },
+      { "word": "eventually", "sks": 5 },
+      { "word": "loose", "sks": 2 },
+      { "word": "their", "sks": 2 },
+      { "word": "shirts", "sks": 3 }
+    ],
+    "diffAccuracy": 0.02941176470588236,
+    "diffSd": 0.04898979485566355,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5378306878306879,
+    "weightedAccuracy": 0.5454545454545454,
+    "sdAccuracy": 0.04000311429325479,
+    "words": [
+      { "word": "they", "sks": 2 },
+      { "word": "might", "sks": 3 },
+      { "word": "find", "sks": 2 },
+      { "word": "your", "sks": 2 },
+      { "word": "comment", "sks": 4 },
+      { "word": "offensive", "sks": 5 }
+    ],
+    "diffAccuracy": 0.045454545454545414,
+    "diffSd": 0.04000311429325479,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5063492063492063,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0.04276886852478564,
+    "words": [
+      { "word": "important", "sks": 4 },
+      { "word": "news", "sks": 2 },
+      { "word": "always", "sks": 3 },
+      { "word": "seems", "sks": 3 },
+      { "word": "to", "sks": 1 },
+      { "word": "be", "sks": 1 },
+      { "word": "late", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0.04276886852478564,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "motivational", "sks": 6 },
+      { "word": "seminars", "sks": 4 },
+      { "word": "make", "sks": 2 },
+      { "word": "me", "sks": 1 },
+      { "word": "sick", "sks": 2 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5174603174603174,
+    "weightedAccuracy": 0.5161290322580645,
+    "sdAccuracy": 0.0485101802855115,
+    "words": [
+      { "word": "everybody", "sks": 4 },
+      { "word": "looses", "sks": 3 },
+      { "word": "in", "sks": 1 },
+      { "word": "custody", "sks": 4 },
+      { "word": "battles", "sks": 4 }
+    ],
+    "diffAccuracy": 0.016129032258064502,
+    "diffSd": 0.0485101802855115,
+    "usable": true
+  },
+  {
+    "meanAccuracy": 0.5,
+    "weightedAccuracy": 0.5,
+    "sdAccuracy": 0,
+    "words": [
+      { "word": "experience", "sks": 5 },
+      { "word": "is", "sks": 1 },
+      { "word": "hard", "sks": 2 },
+      { "word": "to", "sks": 1 },
+      { "word": "come", "sks": 2 },
+      { "word": "by", "sks": 1 }
+    ],
+    "diffAccuracy": 0,
+    "diffSd": 0,
+    "usable": true
+  }
+]

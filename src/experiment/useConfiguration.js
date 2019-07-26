@@ -1,12 +1,12 @@
-import useSentenceCorpus, {
+import useCorpusFromJson, {
   LOADED,
   LOADING,
-  CRASHED
-} from "../utils/useSentenceCorpus";
+  CRASHED,
+  accuracies
+} from "../utils/useCorpusFromJson";
 
 const useConfiguration = (numberOfTypingTask = 1) => {
-  const [corpusLoadingState, corpus] = useSentenceCorpus();
-  const accuracies = [0, 25, 50, 75, 100];
+  const [corpusLoadingState, corpus] = useCorpusFromJson();
 
   const config = {
     participant: "",
@@ -55,17 +55,24 @@ You are about to complete a human-computer interaction experiment. This experime
     case LOADED:
       for (let i = 0; i < numberOfTypingTask; i += 1) {
         const id = i <= 5 ? 5 + i : 6 + i;
-        const typingTaskText =
-          corpus[Math.floor(Math.random() * corpus.length)];
+        const taskAcc =
+          accuracies[Math.floor(Math.random() * accuracies.length)];
+        console.log(taskAcc);
+        const taskText = corpus[accuracies.indexOf(taskAcc)][
+          Math.floor(Math.random() * corpus.length)
+        ].words
+          .map(e => e.word)
+          .join(" ");
+
         config.children.push({
           task: "TypingTask",
-          text: typingTaskText,
-          accuracy:
-            accuracies[Math.floor(Math.random() * accuracies.length)] / 100,
+          text: taskText,
+          accuracy: taskAcc / 100,
           key: id,
           id
         });
-        corpus.splice(corpus.indexOf(typingTaskText), 1);
+
+        corpus[accuracies.indexOf(taskAcc)].splice(corpus.indexOf(taskText), 1);
 
         if (i === 5) {
           config.children.push({
@@ -75,6 +82,7 @@ You are about to complete a human-computer interaction experiment. This experime
           });
         }
       }
+      console.log(config);
       return [LOADED, config];
     case LOADING:
       return [LOADING, null];

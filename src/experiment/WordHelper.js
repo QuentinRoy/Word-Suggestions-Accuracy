@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./WordHelper.module.css";
 import useMultiRef from "../utils/useMultiRef";
-import Logging from "./Logging";
 
 /**
  * Create a distribution of suggestions indicating where the most relevant

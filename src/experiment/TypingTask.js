@@ -12,9 +12,10 @@ function TypingTask(props) {
     accuracy,
     id
   } = props;
+  console.log(accuracy);
 
   const thresholdPositions = useMemo(
-    () => getWordAccuracies(text, accuracy, 0),
+    () => getWordAccuracies(text, 1 - accuracy, 0),
     [text, accuracy]
   );
 

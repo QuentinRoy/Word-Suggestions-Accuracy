@@ -36,40 +36,12 @@ const createSuggestionDistribution = (totalSuggestions, mainPosition) => {
 };
 
 function WordHelper({
-  input,
-  text,
-  setInput,
-  onLog,
   mainSuggestionPosition,
   totalSuggestions,
   focusedSuggestion,
   suggestions,
-  correctCharsCount,
-  eventList
+  suggestionHandler
 }) {
-  const suggestionHandler = word => {
-    if (word !== undefined && word !== "") {
-      const i = input.lastIndexOf(" ");
-      let newInput = `${input.slice(0, i + 1) + word} `;
-      if (i === text.lastIndexOf(" ")) {
-        newInput = newInput.slice(0, -1);
-      }
-      setInput(newInput);
-      Logging(
-        "used_suggestion",
-        false,
-        "{enter}",
-        text,
-        input,
-        suggestions,
-        word,
-        correctCharsCount,
-        onLog,
-        eventList
-      );
-    }
-  };
-
   const buttonRefs = useMultiRef(totalSuggestions);
 
   const buttons = createSuggestionDistribution(
@@ -105,26 +77,11 @@ function WordHelper({
 }
 
 WordHelper.propTypes = {
-  input: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  setInput: PropTypes.func.isRequired,
-  onLog: PropTypes.func.isRequired,
   mainSuggestionPosition: PropTypes.number.isRequired,
   totalSuggestions: PropTypes.number.isRequired,
   focusedSuggestion: PropTypes.number,
   suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  correctCharsCount: PropTypes.number.isRequired,
-  eventList: PropTypes.objectOf(
-    PropTypes.arrayOf(
-      PropTypes.objectOf(
-        PropTypes.oneOfType([
-          PropTypes.bool,
-          PropTypes.string,
-          PropTypes.number
-        ])
-      )
-    )
-  ).isRequired
+  suggestionHandler: PropTypes.func.isRequired
 };
 
 WordHelper.defaultProps = {

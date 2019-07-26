@@ -90,6 +90,29 @@ const Trial = ({
     setLayoutName(layoutName === "default" ? "numbers" : "default");
   }
 
+  const suggestionHandler = word => {
+    if (word !== undefined && word !== "") {
+      const i = input.lastIndexOf(" ");
+      let newInput = `${input.slice(0, i + 1) + word} `;
+      if (i === text.lastIndexOf(" ")) {
+        newInput = newInput.slice(0, -1);
+      }
+      setInput(newInput);
+      Logging(
+        "used_suggestion",
+        false,
+        "{enter}",
+        text,
+        input,
+        suggestions,
+        word,
+        correctCharsCount,
+        onLog,
+        eventList
+      );
+    }
+  };
+
   function onKeyPress(button) {
     let eventName;
     let inputRemoved = null;
@@ -203,9 +226,6 @@ const Trial = ({
         readOnly={keyboardLayout.id === "mobile"}
       />
       <WordHelper
-        input={input}
-        text={text}
-        setInput={setInput}
         mainSuggestionPosition={
           keyboardLayout.id === "physical"
             ? 0
@@ -214,9 +234,7 @@ const Trial = ({
         totalSuggestions={totalSuggestions}
         focusedSuggestion={focusIndex > 0 ? focusIndex - 1 : null}
         suggestions={suggestions}
-        onLog={onLog}
-        correctCharsCount={correctCharsCount}
-        eventList={eventList}
+        suggestionHandler={suggestionHandler}
       />
       {keyboardLayout.id === "mobile" ? (
         <Keyboard

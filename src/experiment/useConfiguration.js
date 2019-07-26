@@ -5,7 +5,7 @@ import useCorpusFromJson, {
   accuracies
 } from "../utils/useCorpusFromJson";
 
-const useConfiguration = (numberOfTypingTask = 1) => {
+const useConfiguration = (numberOfTypingTask = 15) => {
   const [corpusLoadingState, corpus] = useCorpusFromJson();
 
   const config = {
@@ -15,7 +15,7 @@ const useConfiguration = (numberOfTypingTask = 1) => {
         task: "LoginScreen",
         key: 0
       },
-      /*{
+      {
         task: "InformationScreen",
         centerX: true,
         centerY: true,
@@ -37,7 +37,7 @@ You are about to complete a human-computer interaction experiment. This experime
           }
         ],
         key: 2
-      },*/
+      },
       {
         task: "KeyboardSelector",
         key: 3
@@ -54,12 +54,11 @@ You are about to complete a human-computer interaction experiment. This experime
   switch (corpusLoadingState) {
     case LOADED:
       for (let i = 0; i < numberOfTypingTask; i += 1) {
-        const id = i <= 5 ? 5 + i : 6 + i;
+        const id = i <= 4 ? 5 + i : 6 + i;
         const taskAcc =
           accuracies[Math.floor(Math.random() * accuracies.length)];
-        console.log(taskAcc);
         const taskText = corpus[accuracies.indexOf(taskAcc)][
-          Math.floor(Math.random() * corpus.length)
+          Math.floor(Math.random() * corpus[accuracies.indexOf(taskAcc)].length)
         ].words
           .map(e => e.word)
           .join(" ");
@@ -72,9 +71,11 @@ You are about to complete a human-computer interaction experiment. This experime
           id
         });
 
-        corpus[accuracies.indexOf(taskAcc)].splice(corpus.indexOf(taskText), 1);
+        for (let corpusID = 0; corpusID < corpus.length; corpusID += 1) {
+          corpus[corpusID].splice(corpus.indexOf(taskText), 1);
+        }
 
-        if (i === 5) {
+        if (i === 4) {
           config.children.push({
             task: "InformationScreen",
             content: "Practice is over, the real experiment begins here",
@@ -82,7 +83,6 @@ You are about to complete a human-computer interaction experiment. This experime
           });
         }
       }
-      console.log(config);
       return [LOADED, config];
     case LOADING:
       return [LOADING, null];

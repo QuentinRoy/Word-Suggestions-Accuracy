@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./WordHelper.module.css";
-import useComputeSuggestions from "./useComputeSuggestions";
 import useMultiRef from "../utils/useMultiRef";
+import Logging from "./Logging";
 
 /**
  * Create a distribution of suggestions indicating where the most relevant
@@ -36,71 +36,12 @@ const createSuggestionDistribution = (totalSuggestions, mainPosition) => {
 };
 
 function WordHelper({
-  input,
-  text,
-  setInput,
-  countSimilarChars,
-  onLog,
   mainSuggestionPosition,
   totalSuggestions,
   focusedSuggestion,
-  accuracy,
-  thresholdPositions
+  suggestions,
+  suggestionHandler
 }) {
-  const [help, setHelp] = useState([]);
-  const [suggestionUsedOnLog, setSuggestionUsedOnLog] = useState([]);
-  const [wordReplacedOnLog, setWordReplacedOnLog] = useState([]);
-  const computeSuggestions = useComputeSuggestions();
-
-  useEffect(() => {
-    if (countSimilarChars(text, input) !== text.length) {
-      const inputLastWord = input.slice(
-        input.lastIndexOf(" ") > 0 ? input.lastIndexOf(" ") + 1 : 0
-      );
-      const arrayText = text.split(" ");
-      const wordIndex = [...input].filter(c => c === " ").length;
-      const wordFromText =
-        wordIndex < arrayText.length
-          ? arrayText[wordIndex]
-          : arrayText[arrayText.length - 1];
-      const wordIndexInText = arrayText.indexOf(wordFromText);
-      setHelp(
-        computeSuggestions(
-          inputLastWord,
-          thresholdPositions[wordIndexInText].sks,
-          wordFromText,
-          totalSuggestions
-        )
-      );
-    }
-  }, [
-    input,
-    accuracy,
-    text,
-    totalSuggestions,
-    thresholdPositions,
-    countSimilarChars,
-    computeSuggestions
-  ]);
-
-  useEffect(() => {
-    onLog("suggested words used", suggestionUsedOnLog);
-    onLog("input when suggestion used", wordReplacedOnLog);
-  }, [onLog, suggestionUsedOnLog, wordReplacedOnLog]);
-
-  function helpHandler(word) {
-    if (word !== undefined && word !== "") {
-      const i = input.lastIndexOf(" ");
-      let newInput = `${input.slice(0, i + 1) + word} `;
-      if (i === text.lastIndexOf(" ")) {
-        newInput = newInput.slice(0, -1);
-      }
-      setWordReplacedOnLog(wordReplacedOnLog.concat(input.slice(i + 1, -1)));
-      setInput(newInput);
-      setSuggestionUsedOnLog(suggestionUsedOnLog.concat(word));
-    }
-  }
-
   const buttonRefs = useMultiRef(totalSuggestions);
 
   const buttons = createSuggestionDistribution(
@@ -112,9 +53,9 @@ function WordHelper({
         className={styles.btn}
         ref={buttonRefs[i]}
         type="button"
-        onClick={() => helpHandler(help[suggestionNum])}
+        onClick={() => suggestionHandler(suggestions[suggestionNum])}
       >
-        {help[suggestionNum]}
+        {suggestions[suggestionNum]}
       </button>
     </td>
   ));
@@ -136,16 +77,11 @@ function WordHelper({
 }
 
 WordHelper.propTypes = {
-  countSimilarChars: PropTypes.func.isRequired,
-  input: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  setInput: PropTypes.func.isRequired,
-  onLog: PropTypes.func.isRequired,
   mainSuggestionPosition: PropTypes.number.isRequired,
   totalSuggestions: PropTypes.number.isRequired,
   focusedSuggestion: PropTypes.number,
-  accuracy: PropTypes.number.isRequired,
-  thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired
+  suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  suggestionHandler: PropTypes.func.isRequired
 };
 
 WordHelper.defaultProps = {

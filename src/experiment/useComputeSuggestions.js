@@ -48,7 +48,7 @@ function computeSuggestions(
 
   const getTotalFrequencyScores = () => {
     let scoresSum = 0;
-    for (let i = 0; i < dictionary.length; i += 1) {
+    for (let i = 0; i < dictionary.length - 1; i += 1) {
       scoresSum += frequencyScore(
         dictionary[i].f,
         dictionary[i].word,
@@ -60,7 +60,7 @@ function computeSuggestions(
 
   const totalFrequencyScores = getTotalFrequencyScores();
 
-  for (let i = 0; i < dictionary.length; i += 1) {
+  for (let i = 0; i < dictionary.length - 1; i += 1) {
     const inputWordScore = frequencyScore(
       dictionary[i].f,
       dictionary[i].word,

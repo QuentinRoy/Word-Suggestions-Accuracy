@@ -1,0 +1,31 @@
+.loginDiv {
+  text-align: center;
+  display: inline-grid;
+  grid-template-columns: 1 auto auto;
+  margin: 100px;
+}
+
+.inputZone {
+  height: 30px;
+  width: 200px;
+  padding-left: 10px;
+  font-size: 14px;
+}
+
+.submitButton {
+  margin: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #0074cd;
+  width: 200px;
+  padding: 10px;
+  border: none;
+}
+
+.submitButton:hover {
+  background-color: #008af0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+}

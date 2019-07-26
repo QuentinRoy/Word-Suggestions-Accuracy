@@ -7,10 +7,12 @@ import useConfiguration from "./useConfiguration";
 import DictionaryProvider, { LOADING, CRASHED } from "./useDictionary";
 import Loading from "../utils/Loading";
 import Crashed from "../utils/Crashed";
+import Login from "./Login";
 
 registerAll(registerTask);
 registerTask("TypingTask", TypingTask);
 registerTask("KeyboardSelector", KeyboardSelector);
+registerTask("LoginScreen", Login);
 
 export default function ExperimentsWrapper() {
   const [loadingState, configuration] = useConfiguration();

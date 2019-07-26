@@ -4,20 +4,24 @@ import useSentenceCorpus, {
   CRASHED
 } from "../utils/useSentenceCorpus";
 
-const useConfiguration = (numberOfTypingTask = 15) => {
+const useConfiguration = (numberOfTypingTask = 1) => {
   const [corpusLoadingState, corpus] = useSentenceCorpus();
   const accuracies = [0, 25, 50, 75, 100];
 
   const config = {
-    participant: "yo",
+    participant: "",
     children: [
+      {
+        task: "LoginScreen",
+        key: 0
+      },
       /*{
         task: "InformationScreen",
         centerX: true,
         centerY: true,
         content: "Word completion accuracy experiment",
         shortcutEnabled: true,
-        key: 0
+        key: 1
       },
       {
         task: "ConsentForm",
@@ -32,17 +36,17 @@ You are about to complete a human-computer interaction experiment. This experime
             required: true
           }
         ],
-        key: 1
+        key: 2
       },*/
       {
         task: "KeyboardSelector",
-        key: 2
+        key: 3
       },
       {
         task: "InformationScreen",
         content: "The 5 following tasks are practice tasks",
         shortcutEnabled: true,
-        key: 3
+        key: 4
       }
     ]
   };
@@ -50,6 +54,7 @@ You are about to complete a human-computer interaction experiment. This experime
   switch (corpusLoadingState) {
     case LOADED:
       for (let i = 0; i < numberOfTypingTask; i += 1) {
+        const id = i <= 5 ? 5 + i : 6 + i;
         const typingTaskText =
           corpus[Math.floor(Math.random() * corpus.length)];
         config.children.push({
@@ -57,15 +62,16 @@ You are about to complete a human-computer interaction experiment. This experime
           text: typingTaskText,
           accuracy:
             accuracies[Math.floor(Math.random() * accuracies.length)] / 100,
-          key: i <= 4 ? 4 + i : 5 + i
+          key: id,
+          id
         });
         corpus.splice(corpus.indexOf(typingTaskText), 1);
 
-        if (i === 4) {
+        if (i === 5) {
           config.children.push({
             task: "InformationScreen",
             content: "Practice is over, the real experiment begins here",
-            key: 9
+            key: 10
           });
         }
       }

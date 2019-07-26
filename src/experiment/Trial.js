@@ -28,7 +28,8 @@ const Trial = ({
   keyboardLayout,
   onAdvanceWorkflow,
   onLog,
-  thresholdPositions
+  thresholdPositions,
+  isDelayOn
 }) => {
   const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
@@ -39,6 +40,8 @@ const Trial = ({
   const correctCharsCount = countSimilarChars(text, input);
   const isCorrect =
     correctCharsCount === text.length && text.length === input.length;
+
+  const [delayKeyDownTime, setDelayKeyDownTime] = useState(null);
 
   const [suggestions, setSuggestions] = useState([]);
   const computeSuggestions = useComputeSuggestions();
@@ -91,7 +94,7 @@ const Trial = ({
   }
 
   const suggestionHandler = word => {
-    if (word !== undefined && word !== "") {
+    if (word !== undefined && word !== "" && word !== null) {
       const i = input.lastIndexOf(" ");
       let newInput = `${input.slice(0, i + 1) + word} `;
       if (i === text.lastIndexOf(" ")) {
@@ -199,14 +202,33 @@ const Trial = ({
     }
   }
 
-  const divStyle = { outline: "none" };
+  const delayHandler = e => {
+    if (isDelayOn) {
+      const delayKeyDownTimeLength = new Date();
+      console.log(delayKeyDownTimeLength - delayKeyDownTime);
+      if (delayKeyDownTimeLength - delayKeyDownTime >= 3000) {
+        console.log("hey");
+        physicalKeyboardHandler(e);
+      }
+      setDelayKeyDownTime(null);
+    }
+  };
 
   return (
     <div
-      onKeyDown={physicalKeyboardHandler}
+      onKeyDown={e => {
+        if (isDelayOn) {
+          if (delayKeyDownTime === null) {
+            setDelayKeyDownTime(new Date());
+          }
+        } else {
+          physicalKeyboardHandler(e);
+        }
+      }}
+      onKeyUp={e => (isDelayOn ? delayHandler(e) : null)}
       role="button"
       tabIndex="-1"
-      style={divStyle}
+      style={{ outline: "none" }}
     >
       <TextToType
         text={text}
@@ -262,7 +284,12 @@ Trial.propTypes = {
   ).isRequired,
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
-  thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired
+  thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isDelayOn: PropTypes.bool
+};
+
+Trial.defaultProps = {
+  isDelayOn: false
 };
 
 export default Trial;

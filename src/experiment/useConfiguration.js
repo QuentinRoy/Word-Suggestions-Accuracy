@@ -10,12 +10,13 @@ const useConfiguration = (numberOfTypingTask = 15) => {
 
   const config = {
     participant: "",
+    isDelayOn: false,
     children: [
       {
         task: "LoginScreen",
         key: 0
       },
-      {
+      /*{
         task: "InformationScreen",
         centerX: true,
         centerY: true,
@@ -37,7 +38,7 @@ You are about to complete a human-computer interaction experiment. This experime
           }
         ],
         key: 2
-      },
+      },*/
       {
         task: "KeyboardSelector",
         key: 3

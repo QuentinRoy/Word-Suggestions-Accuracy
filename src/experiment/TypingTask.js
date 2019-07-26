@@ -10,7 +10,8 @@ function TypingTask(props) {
     onLog,
     keyboardLayout,
     accuracy,
-    id
+    id,
+    isDelayOn
   } = props;
 
   const thresholdPositions = useMemo(
@@ -26,6 +27,7 @@ function TypingTask(props) {
       onAdvanceWorkflow={onAdvanceWorkflow}
       onLog={onLog}
       thresholdPositions={thresholdPositions.words}
+      isDelayOn={isDelayOn}
     />
   );
 }
@@ -38,7 +40,12 @@ TypingTask.propTypes = {
     PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
   ).isRequired,
   accuracy: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
+  isDelayOn: PropTypes.bool
+};
+
+TypingTask.defaultProps = {
+  isDelayOn: false
 };
 
 export default TypingTask;

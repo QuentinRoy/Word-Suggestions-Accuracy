@@ -7,7 +7,7 @@ import WordHelper from "./WordHelper";
 import TextToType from "./TextToType";
 import WorkflowButton from "./WorkflowButton";
 import calculateSuggestions from "./calculateSuggestions";
-import Logging from "./Logging";
+import logging from "./logging";
 import useComputeSuggestions from "./useComputeSuggestions";
 
 const totalSuggestions = 3;
@@ -69,22 +69,6 @@ const Trial = ({
     }
   }, [inputHasFocus, inputRef]);
 
-  useEffect(() => {
-    const {
-      inputLastWord,
-      wordIndexInText,
-      wordFromText
-    } = calculateSuggestions(input, text, thresholdPositions, totalSuggestions);
-    setSuggestions(
-      computeSuggestions(
-        inputLastWord,
-        thresholdPositions[wordIndexInText].sks,
-        wordFromText,
-        totalSuggestions
-      )
-    );
-  }, [input, text, thresholdPositions, computeSuggestions]);
-
   function handleShift() {
     setLayoutName(layoutName === "default" ? "shift" : "default");
   }
@@ -93,31 +77,9 @@ const Trial = ({
     setLayoutName(layoutName === "default" ? "numbers" : "default");
   }
 
-  const suggestionHandler = word => {
-    if (word !== undefined && word !== "" && word !== null) {
-      const i = input.lastIndexOf(" ");
-      let newInput = `${input.slice(0, i + 1) + word} `;
-      if (i === text.lastIndexOf(" ")) {
-        newInput = newInput.slice(0, -1);
-      }
-      setInput(newInput);
-      Logging(
-        "used_suggestion",
-        false,
-        "{enter}",
-        text,
-        input,
-        suggestions,
-        word,
-        correctCharsCount,
-        onLog,
-        eventList
-      );
-    }
-  };
-
-  function onKeyPress(button) {
+  function onKeyPress(button, word = null, suggestedInput = null) {
     let eventName;
+    let newInput = suggestedInput === null ? input : suggestedInput;
     let inputRemoved = null;
 
     if (button === "{shift}" || button === "{lock}") {
@@ -129,42 +91,75 @@ const Trial = ({
     } else if (button === "{bksp}") {
       eventName = "remove_character";
       inputRemoved = input[input.length - 1];
-      setInput(input.slice(0, -1));
+      newInput = input.slice(0, -1);
     } else if (button === "{space}" && !isCorrect) {
       if (
         keyboardLayout.id === "mobile" &&
         input.charAt(input.length - 1) === " " &&
         button === "{space}"
       ) {
-        setInput(`${input.slice(0, -1)}. `);
+        newInput = `${input.slice(0, -1)}. `;
       } else {
-        setInput(`${input} `);
+        newInput = `${input} `;
       }
       eventName = "add_space";
     } else if (button === "{enter}") {
+      eventName = focusIndex === 0 ? "add_enter" : "used_suggestion";
       setFocusIndex(0);
-      eventName = "add_enter";
+    } else if (button === "{tab}") {
+      eventName = "focus_suggestion";
     } else if (!isCorrect) {
       if (input.charAt(input.length - 1) === " " && button === ".") {
-        setInput(`${input.slice(0, -1) + button} `);
+        newInput = `${input.slice(0, -1) + button} `;
       } else {
-        setInput(input + button);
+        newInput = input + button;
       }
       eventName = "add_character";
     }
-    Logging(
+
+    const {
+      inputLastWord,
+      wordIndexInText,
+      wordFromText
+    } = calculateSuggestions(
+      newInput,
+      text,
+      thresholdPositions,
+      totalSuggestions
+    );
+    const newSuggestions = computeSuggestions(
+      inputLastWord,
+      thresholdPositions[wordIndexInText].sks,
+      wordFromText,
+      totalSuggestions
+    );
+    setSuggestions(newSuggestions);
+    setInput(newInput);
+    logging(
       eventName,
       inputRemoved,
       button,
       text,
-      input,
-      suggestions,
-      null,
-      correctCharsCount,
+      newInput,
+      newSuggestions,
+      word,
+      countSimilarChars(text, newInput),
       onLog,
       eventList
     );
   }
+
+  const suggestionHandler = word => {
+    if (word !== undefined && word !== "" && word !== null) {
+      const i = input.lastIndexOf(" ");
+      let suggestedInput = `${input.slice(0, i + 1) + word} `;
+      if (i === text.lastIndexOf(" ")) {
+        suggestedInput = suggestedInput.slice(0, -1);
+      }
+      setInput(suggestedInput);
+      onKeyPress("{enter}", word, suggestedInput);
+    }
+  };
 
   function physicalKeyboardHandler(event) {
     if (event.keyCode === 8) onKeyPress("{bksp}");
@@ -179,20 +174,7 @@ const Trial = ({
     } else if (event.keyCode === 9 && keyboardLayout.id === "physical") {
       event.preventDefault();
       setFocusIndex((focusIndex + 1) % (totalSuggestions + 1));
-      Logging(
-        "focus_suggestion",
-        null,
-        "{tab}",
-        text,
-        input,
-        suggestions,
-        null,
-        correctCharsCount,
-        onLog,
-        eventList
-      );
-    } else if (event.keyCode === 13) {
-      onKeyPress("{enter}");
+      onKeyPress("{tab}");
     }
   }
 
@@ -205,9 +187,7 @@ const Trial = ({
   const delayHandler = e => {
     if (isDelayOn) {
       const delayKeyDownTimeLength = new Date();
-      console.log(delayKeyDownTimeLength - delayKeyDownTime);
       if (delayKeyDownTimeLength - delayKeyDownTime >= 3000) {
-        console.log("hey");
         physicalKeyboardHandler(e);
       }
       setDelayKeyDownTime(null);

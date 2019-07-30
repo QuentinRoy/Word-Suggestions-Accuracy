@@ -5,7 +5,7 @@ import useCorpusFromJson, {
   accuracies
 } from "../utils/useCorpusFromJson";
 
-const useConfiguration = (numberOfTypingTask = 15) => {
+const useConfiguration = (numberOfTypingTask = 1) => {
   const [corpusLoadingState, corpus] = useCorpusFromJson();
 
   const config = {

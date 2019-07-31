@@ -165,19 +165,15 @@ const Trial = ({
   };
 
   function physicalKeyboardHandler(event) {
-    if (event.keyCode === 8) onKeyPress("{bksp}");
+    if (event.key === "Backspace") onKeyPress("{bksp}");
     else if (event.keyCode === 16 || event.keyCode === 20) {
       onKeyPress("{shift}");
-    } else if (
-      (event.keyCode >= 48 && event.keyCode <= 90) ||
-      event.keyCode === 32 ||
-      (event.keyCode >= 186 && event.keyCode <= 192)
-    ) {
-      onKeyPress(event.key);
     } else if (event.keyCode === 9 && keyboardLayout.id === "physical") {
       event.preventDefault();
       setFocusIndex((focusIndex + 1) % (totalSuggestions + 1));
       onKeyPress("{tab}");
+    } else {
+      onKeyPress(event.key);
     }
   }
 
@@ -189,7 +185,13 @@ const Trial = ({
 
   const delayHandler = (e, keydown = true) => {
     if (keydown) {
-      if (e.keyCode === 9) {
+      if (taskDelay === 0) {
+        if (keyboardLayout.id === "physical") {
+          physicalKeyboardHandler(e);
+        } else {
+          onKeyPress(e);
+        }
+      } else if (e.keyCode === 9) {
         physicalKeyboardHandler(e);
       } else {
         if (delayKeyDownTime === null) {
@@ -200,7 +202,7 @@ const Trial = ({
           delayEndTime - delayKeyDownTime >= taskDelay &&
           delayKeyDownTime !== null
         ) {
-          if (keyboardLayout === "physical") {
+          if (keyboardLayout.id === "physical") {
             physicalKeyboardHandler(e);
           } else {
             onKeyPress(e);
@@ -214,7 +216,7 @@ const Trial = ({
 
   return (
     <div
-      onKeyDown={delayHandler}
+      onKeyDown={e => delayHandler(e)}
       onKeyUp={e => delayHandler(e, false)}
       role="button"
       tabIndex="-1"

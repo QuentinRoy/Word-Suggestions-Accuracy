@@ -57,8 +57,8 @@ You are about to complete a human-computer interaction experiment. This experime
     case LOADED:
       for (let i = 0; i < numberOfTypingTask; i += 1) {
         const id = i <= 4 ? 5 + i : 6 + i;
-        const taskAcc =
-          accuracies[Math.floor(Math.random() * accuracies.length)];
+        const taskAcc = 100;
+        //   accuracies[Math.floor(Math.random() * accuracies.length)];
         const taskText = corpus[accuracies.indexOf(taskAcc)][
           Math.floor(Math.random() * corpus[accuracies.indexOf(taskAcc)].length)
         ].words

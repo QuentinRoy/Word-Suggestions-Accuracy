@@ -16,11 +16,12 @@ const logging = (
     removed_input: inputRemoved === null ? null : inputRemoved,
     input: newInput,
     is_error:
-      (eventName === "add_character" || eventName === "add_space") &&
-      button !== text[newInput.length - 1],
-    suggestion_1: newSuggestions[0],
-    suggestion_2: newSuggestions[1],
-    suggestion_3: newSuggestions[2],
+      ((eventName === "add_character" || eventName === "add_space") &&
+        button !== text[newInput.length - 1]) ||
+      eventName === "failed_keystroke_for_delay",
+    suggestion_1: newSuggestions[0] || null,
+    suggestion_2: newSuggestions[1] || null,
+    suggestion_3: newSuggestions[2] || null,
     suggestion_used: suggestionUsed,
     total_correct_characters: correctCharsCount,
     total_incorrect_characters: newInput.length - correctCharsCount,

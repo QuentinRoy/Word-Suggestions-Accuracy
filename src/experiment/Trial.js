@@ -42,6 +42,8 @@ const Trial = ({
     correctCharsCount === text.length && text.length === input.length;
 
   const [delayKeyDownTime, setDelayKeyDownTime] = useState(null);
+  const [delayEndTime, setDelayEndTime] = useState(null);
+  const [delayedInputChanged, setDedlayedInputChanged] = useState(false);
 
   const [suggestions, setSuggestions] = useState([]);
   const computeSuggestions = useComputeSuggestions();
@@ -197,7 +199,7 @@ const Trial = ({
         if (delayKeyDownTime === null) {
           setDelayKeyDownTime(new Date());
         }
-        const delayEndTime = new Date();
+        setDelayEndTime(new Date());
         if (
           delayEndTime - delayKeyDownTime >= taskDelay &&
           delayKeyDownTime !== null
@@ -207,9 +209,30 @@ const Trial = ({
           } else {
             onKeyPress(e);
           }
+          setDelayEndTime(null);
+          setDedlayedInputChanged(true);
         }
       }
     } else {
+      if (
+        delayEndTime !== null &&
+        (e.key !== "Tab" && e.key !== "Enter" && e.key !== "Shift") &&
+        !delayedInputChanged
+      ) {
+        logging(
+          "failed_keystroke_for_delay",
+          null,
+          e.key,
+          text,
+          input,
+          suggestions,
+          null,
+          countSimilarChars(text, input),
+          onLog,
+          eventList
+        );
+      }
+      setDedlayedInputChanged(false);
       setDelayKeyDownTime(null);
     }
   };

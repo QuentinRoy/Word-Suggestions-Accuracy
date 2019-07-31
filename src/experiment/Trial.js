@@ -29,7 +29,7 @@ const Trial = ({
   onAdvanceWorkflow,
   onLog,
   thresholdPositions,
-  isDelayOn
+  taskDelay
 }) => {
   const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
@@ -48,13 +48,14 @@ const Trial = ({
   const eventList = useRef([
     {
       event: "start_up_event",
-      button: null,
+      added_input: null,
+      removed_input: null,
+      input: null,
       is_error: false,
       suggestion_1: null,
       suggestion_2: null,
       suggestion_3: null,
       suggestion_used: null,
-      input_when_suggestion_used: input,
       total_correct_characters: correctCharsCount,
       total_incorrect_characters: input.length - correctCharsCount,
       total_sentence_characters: text.length,
@@ -147,6 +148,8 @@ const Trial = ({
       onLog,
       eventList
     );
+
+    setDelayKeyDownTime(null);
   }
 
   const suggestionHandler = word => {
@@ -184,28 +187,35 @@ const Trial = ({
     }
   }
 
-  const delayHandler = e => {
-    if (isDelayOn) {
-      const delayKeyDownTimeLength = new Date();
-      if (delayKeyDownTimeLength - delayKeyDownTime >= 3000) {
+  const delayHandler = (e, keydown = true) => {
+    if (keydown) {
+      if (e.keyCode === 9) {
         physicalKeyboardHandler(e);
+      } else {
+        if (delayKeyDownTime === null) {
+          setDelayKeyDownTime(new Date());
+        }
+        const delayEndTime = new Date();
+        if (
+          delayEndTime - delayKeyDownTime >= taskDelay &&
+          delayKeyDownTime !== null
+        ) {
+          if (keyboardLayout === "physical") {
+            physicalKeyboardHandler(e);
+          } else {
+            onKeyPress(e);
+          }
+        }
       }
+    } else {
       setDelayKeyDownTime(null);
     }
   };
 
   return (
     <div
-      onKeyDown={e => {
-        if (isDelayOn) {
-          if (delayKeyDownTime === null) {
-            setDelayKeyDownTime(new Date());
-          }
-        } else {
-          physicalKeyboardHandler(e);
-        }
-      }}
-      onKeyUp={e => (isDelayOn ? delayHandler(e) : null)}
+      onKeyDown={delayHandler}
+      onKeyUp={e => delayHandler(e, false)}
       role="button"
       tabIndex="-1"
       style={{ outline: "none" }}
@@ -246,7 +256,7 @@ const Trial = ({
           display={keyboardLayout.display}
           layout={keyboardLayout.layout}
           layoutName={layoutName}
-          onKeyPress={onKeyPress}
+          onKeyPress={delayHandler}
         />
       ) : null}
       <WorkflowButton
@@ -265,11 +275,7 @@ Trial.propTypes = {
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
   thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isDelayOn: PropTypes.bool
-};
-
-Trial.defaultProps = {
-  isDelayOn: false
+  taskDelay: PropTypes.number.isRequired
 };
 
 export default Trial;

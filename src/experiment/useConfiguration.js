@@ -5,12 +5,13 @@ import useCorpusFromJson, {
   accuracies
 } from "../utils/useCorpusFromJson";
 
+const delays = [0, 500, 1000, 1500, 2000, 2500, 3000];
+
 const useConfiguration = (numberOfTypingTask = 1) => {
   const [corpusLoadingState, corpus] = useCorpusFromJson();
 
   const config = {
     participant: "",
-    isDelayOn: false,
     children: [
       {
         task: "LoginScreen",
@@ -63,11 +64,13 @@ You are about to complete a human-computer interaction experiment. This experime
         ].words
           .map(e => e.word)
           .join(" ");
+        const taskDelay = delays[Math.floor(Math.random() * delays.length)];
 
         config.children.push({
           task: "TypingTask",
           text: taskText,
           accuracy: taskAcc / 100,
+          taskDelay,
           key: id,
           id
         });

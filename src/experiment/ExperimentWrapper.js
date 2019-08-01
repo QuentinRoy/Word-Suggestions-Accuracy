@@ -14,7 +14,7 @@ registerTask("TypingTask", TypingTask);
 registerTask("KeyboardSelector", KeyboardSelector);
 registerTask("LoginScreen", Login);
 
-export default function ExperimentsWrapper() {
+export default function ExperimentWrapper() {
   const [loadingState, configuration] = useConfiguration();
 
   if (loadingState === LOADING) {

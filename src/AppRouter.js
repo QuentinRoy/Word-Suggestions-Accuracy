@@ -6,7 +6,7 @@ const DistributionViewer = lazy(() =>
   import("./distribution-viewer/DistributionViewer")
 );
 
-const ExperimentWrapper = lazy(() => import("./experiment/ExperimentsWrapper"));
+const ExperimentWrapper = lazy(() => import("./experiment/ExperimentWrapper"));
 
 const AppRouter = () => (
   <Suspense fallback={<Loading>Loading the application...</Loading>}>

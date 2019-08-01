@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "exii-accuracy-control",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -30,7 +30,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generate-sks-distribution": "node sks-distribution-generator/index.js"
+    "generate-sks-distribution": "node sks-distribution-generator/index.js",
+    "deploy": "aws s3 sync build/ s3://exii-accuracy-control",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,6 +52,7 @@
   "devDependencies": {
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
+    "aws-sdk": "^2.503.0",
     "babel-eslint": "^10.0.1",
     "css-loader": "^3.0.0",
     "eslint": "^5.16.0",

@@ -122,6 +122,12 @@ WorkflowButton.propTypes = {
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
   configData: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array])
+    PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+      PropTypes.array,
+      PropTypes.instanceOf(Date),
+      PropTypes.object
+    ])
   ).isRequired
 };

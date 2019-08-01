@@ -1,7 +1,6 @@
-import React, { useMemo } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Trial from "./Trial";
-import getWordAccuracies from "../utils/getWordAccuracies";
 
 function TypingTask(props) {
   const {

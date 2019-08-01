@@ -307,7 +307,12 @@ Trial.propTypes = {
   onLog: PropTypes.func.isRequired,
   thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired,
   configData: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array])
+    PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+      PropTypes.array,
+      PropTypes.instanceOf(Date)
+    ])
   ).isRequired
 };
 

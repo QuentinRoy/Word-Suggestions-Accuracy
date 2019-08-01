@@ -39,7 +39,7 @@ function WordHelper({
   totalSuggestions,
   focusedSuggestion,
   suggestions,
-  suggestionHandler
+  delayHandler
 }) {
   const buttonRefs = useMultiRef(totalSuggestions);
 
@@ -52,7 +52,7 @@ function WordHelper({
         className={styles.btn}
         ref={buttonRefs[i]}
         type="button"
-        onClick={() => suggestionHandler(suggestions[suggestionNum])}
+        onKeyDown={e => delayHandler(e, true, suggestions[suggestionNum])}
       >
         {suggestions[suggestionNum]}
       </button>
@@ -80,7 +80,7 @@ WordHelper.propTypes = {
   totalSuggestions: PropTypes.number.isRequired,
   focusedSuggestion: PropTypes.number,
   suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  suggestionHandler: PropTypes.func.isRequired
+  delayHandler: PropTypes.func.isRequired
 };
 
 WordHelper.defaultProps = {

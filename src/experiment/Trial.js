@@ -188,7 +188,7 @@ const Trial = ({
     }
   }
 
-  const delayHandler = (e, keydown = true) => {
+  const delayHandler = (e, keydown = true, suggestion = null) => {
     if (keydown) {
       if (taskDelay === 0) {
         if (keyboardLayout.id === "physical") {
@@ -207,7 +207,9 @@ const Trial = ({
           delayEndTime - delayKeyDownTime >= taskDelay &&
           delayKeyDownTime !== null
         ) {
-          if (keyboardLayout.id === "physical") {
+          if (suggestion !== null) {
+            suggestionHandler(suggestion);
+          } else if (keyboardLayout.id === "physical") {
             physicalKeyboardHandler(e);
           } else {
             onKeyPress(e);
@@ -274,7 +276,7 @@ const Trial = ({
         totalSuggestions={totalSuggestions}
         focusedSuggestion={focusIndex > 0 ? focusIndex - 1 : null}
         suggestions={suggestions}
-        suggestionHandler={suggestionHandler}
+        delayHandler={delayHandler}
       />
       {keyboardLayout.id === "mobile" ? (
         <Keyboard

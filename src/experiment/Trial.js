@@ -175,6 +175,8 @@ const Trial = ({
       event.preventDefault();
       setFocusIndex((focusIndex + 1) % (totalSuggestions + 1));
       onKeyPress("{tab}");
+    } else if (event.key === "Enter") {
+      if (focusIndex === 0) onKeyPress("{enter}");
     } else {
       onKeyPress(event.key);
     }
@@ -305,7 +307,7 @@ Trial.propTypes = {
   onLog: PropTypes.func.isRequired,
   thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired,
   configData: PropTypes.arrayOf(
-    PropTypes.oneOfType(PropTypes.number, PropTypes.string)
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array])
   ).isRequired
 };
 

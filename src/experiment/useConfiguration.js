@@ -5,7 +5,7 @@ import useCorpusFromJson, {
   accuracies
 } from "../utils/useCorpusFromJson";
 
-const delays = [0, 500, 1000, 1500, 2000, 2500, 3000];
+const delays = [0];
 
 const useConfiguration = (numberOfTypingTask = 1) => {
   const [corpusLoadingState, corpus] = useCorpusFromJson();
@@ -56,20 +56,29 @@ You are about to complete a human-computer interaction experiment. This experime
   switch (corpusLoadingState) {
     case LOADED:
       for (let i = 0; i < numberOfTypingTask; i += 1) {
+        const taskAcc =
+          accuracies[Math.floor(Math.random() * accuracies.length)];
+        const trialDataFromFile =
+          corpus[accuracies.indexOf(taskAcc)][
+            Math.floor(
+              Math.random() * corpus[accuracies.indexOf(taskAcc)].length
+            )
+          ];
+
         const id = i <= 4 ? 5 + i : 6 + i;
-        const taskAcc = 100;
-        //   accuracies[Math.floor(Math.random() * accuracies.length)];
-        const taskText = corpus[accuracies.indexOf(taskAcc)][
-          Math.floor(Math.random() * corpus[accuracies.indexOf(taskAcc)].length)
-        ].words
-          .map(e => e.word)
-          .join(" ");
+        const taskText = trialDataFromFile.words.map(e => e.word).join(" ");
+        const trialData = {
+          weightedAccuracy: trialDataFromFile.weightedAccuracy,
+          sdAccuracy: trialDataFromFile.sdAccuracy,
+          words: trialDataFromFile.words
+        };
         const taskDelay = delays[Math.floor(Math.random() * delays.length)];
 
         config.children.push({
           task: "TypingTask",
           text: taskText,
           accuracy: taskAcc / 100,
+          trialData,
           taskDelay,
           key: id,
           id

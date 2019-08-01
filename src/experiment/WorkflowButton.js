@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import styles from "./WorkflowButton.module.css";
 
@@ -12,16 +12,13 @@ const loggingTrial = (
   sentenceSksSd,
   sentence,
   sentenceAndSks,
-  theoreticalSks,
   startDate,
   endDate
 ) => {
   const totalKeyStrokes = eventList.current.length - 1;
-  const totalSuggestionUsed =
-    eventList.current[eventList.current.length - 1].suggestion_used.length;
-
-  const totalCorrectSuggestionUsed = 0;
-  const totalIncorrectsuggestionUsed = 0;
+  let totalSuggestionUsed = 0;
+  let totalCorrectSuggestionUsed = 0;
+  let totalIncorrectsuggestionUsed = 0;
 
   let actualSks = 0;
   let totalKeyStrokeErrors = 0;
@@ -29,30 +26,51 @@ const loggingTrial = (
     if (eventList.current[i].is_error === true) {
       totalKeyStrokeErrors += 1;
     }
-    if (eventList.current[i].eventName === "used_suggestion") {
-      if (i > 0) {
-        actualSks +=
-          eventList.current[i - 1].input.length -
-          eventList.current[i].suggestion_used.length;
+    if (eventList.current[i].event === "used_suggestion") {
+      totalSuggestionUsed += 1;
+      if (
+        eventList.current[i].input ===
+        sentence.slice(0, eventList.current[i].input.length)
+      ) {
+        totalCorrectSuggestionUsed += 1;
+        if (i > 0) {
+          actualSks +=
+            eventList.current[i].input.length -
+            eventList.current[i - 1].input.length;
+        } else {
+          actualSks += eventList.current[i].suggestion_used.length;
+        }
       } else {
-        actualSks += eventList.current[i].suggestion_used.length;
+        totalIncorrectsuggestionUsed += 1;
       }
     }
   }
 
+  const sentenceWordsAndSks = sentenceAndSks
+    .map(item => {
+      return `${item.word}{${item.sks}}`;
+    })
+    .join(" ");
+
+  const theoreticalSks = sentenceAndSks
+    .map(item => item.sks)
+    .reduce((a, b) => {
+      return a + b;
+    }, 0);
+
   return {
     participant,
     id,
+    sentence,
     targetAccuracy,
     sentenceAccuracy,
     sentenceSksSd,
-    sentenceAndSks,
+    sentenceWordsAndSks,
     theoreticalSks,
     delay,
-    sentence,
     startDate,
     endDate,
-    duration: startDate - endDate,
+    duration: endDate - startDate,
     totalKeyStrokes,
     totalKeyStrokeErrors,
     actualSks,
@@ -68,13 +86,13 @@ export default function WorkflowButton({
   configData
 }) {
   const trialEndTime = new Date();
+  const trialLog = useRef([]);
   return (
     <div className={styles.advanceWorkflowDiv}>
       <button
         type="button"
         onClick={() => {
-          onLog(
-            "Trial",
+          trialLog.current.push(
             loggingTrial(
               configData[10], // eventList
               configData[0], // participant
@@ -85,11 +103,11 @@ export default function WorkflowButton({
               configData[6], // sdAccuracy
               configData[1], // sentence
               configData[7], // words
-              configData[8], // words.sks
               configData[4], // trialStartTime
               trialEndTime
             )
           );
+          onLog("Trial", trialLog);
           onAdvanceWorkflow();
         }}
         className={styles.advanceWorkflowButton}
@@ -104,6 +122,6 @@ WorkflowButton.propTypes = {
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
   configData: PropTypes.arrayOf(
-    PropTypes.oneOfType(PropTypes.number, PropTypes.string)
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array])
   ).isRequired
 };

@@ -12,13 +12,9 @@ function TypingTask(props) {
     accuracy,
     id,
     taskDelay,
-    participant
+    participant,
+    trialData
   } = props;
-
-  const thresholdPositions = useMemo(
-    () => getWordAccuracies(text, 1 - accuracy, 0),
-    [text, accuracy]
-  );
 
   const trialStartTime = new Date();
   const configData = [
@@ -27,6 +23,10 @@ function TypingTask(props) {
     taskDelay,
     accuracy,
     trialStartTime,
+    trialData.weightedAccuracy,
+    trialData.sdAccuracy,
+    trialData.words,
+    trialData.words.sks,
     id
   ];
 
@@ -36,7 +36,7 @@ function TypingTask(props) {
       keyboardLayout={keyboardLayout}
       onAdvanceWorkflow={onAdvanceWorkflow}
       onLog={onLog}
-      thresholdPositions={thresholdPositions.words}
+      thresholdPositions={trialData.words}
       configData={configData}
     />
   );
@@ -52,7 +52,10 @@ TypingTask.propTypes = {
   accuracy: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
   taskDelay: PropTypes.number.isRequired,
-  participant: PropTypes.string.isRequired
+  participant: PropTypes.string.isRequired,
+  trialData: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array])
+  ).isRequired
 };
 
 export default TypingTask;

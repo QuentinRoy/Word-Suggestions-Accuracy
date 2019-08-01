@@ -11,7 +11,7 @@
     "d3-array": "^2.2.0",
     "d3-scale": "^3.0.0",
     "jaro-winkler": "^0.2.8",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "papaparse": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",

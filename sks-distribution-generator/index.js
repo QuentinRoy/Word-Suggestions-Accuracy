@@ -12,7 +12,8 @@ const sentencesPath = path.join(__dirname, "./sentences.txt");
 const outputDirPath = path.join(__dirname, "../public/sks-distributions");
 const targetFilePrefix = "acc-";
 
-const getTargetFileName = accuracy => `${targetFilePrefix}${accuracy}.json`;
+const getTargetFileName = accuracy =>
+  `${targetFilePrefix}${accuracy.toFixed(3)}.json`;
 
 const file = fs.readFileSync(sentencesPath, "utf-8", (err, data) => {
   if (err) throw err;

@@ -8,7 +8,7 @@ const DistributionViewer = lazy(() =>
 
 const ExperimentWrapper = lazy(() => import("./experiment/ExperimentsWrapper"));
 
-const App = () => (
+const AppRouter = () => (
   <Suspense fallback={<Loading>Loading the application...</Loading>}>
     <Router>
       <Route exact path="/" component={ExperimentWrapper} />
@@ -17,4 +17,4 @@ const App = () => (
   </Suspense>
 );
 
-export default App;
+export default AppRouter;

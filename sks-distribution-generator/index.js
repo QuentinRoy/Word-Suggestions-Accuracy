@@ -5,7 +5,7 @@ const { getWordAccuracies } = require("./wordAccuracies");
 const targetAccuracies = [0, 0.25, 0.5, 0.75, 1];
 const targetSd = 0;
 const maxSd = 0.1;
-const maxDiffAccuracy = 0.05;
+const maxDiffAccuracy = 0.025;
 const addUnusableSentences = false;
 
 const sentencesPath = path.join(__dirname, "./sentences.txt");

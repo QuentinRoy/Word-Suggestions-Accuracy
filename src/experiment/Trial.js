@@ -245,8 +245,9 @@ const Trial = ({
       onKeyDown={e => delayHandler(e)}
       onKeyUp={e => delayHandler(e, false)}
       role="button"
-      tabIndex="-1"
+      tabIndex={0}
       style={{ outline: "none" }}
+      ref={inputRef}
     >
       <TextToType
         text={text}
@@ -255,7 +256,6 @@ const Trial = ({
       />
       <input
         className="trial-input"
-        ref={inputRef}
         value={input}
         placeholder={
           keyboardLayout.id === "mobile"

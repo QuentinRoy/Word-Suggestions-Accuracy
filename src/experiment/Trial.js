@@ -24,13 +24,14 @@ const countSimilarChars = (str1, str2) => {
 };
 
 const Trial = ({
-  text,
   keyboardLayout,
   onAdvanceWorkflow,
   onLog,
   thresholdPositions,
-  taskDelay
+  configData
 }) => {
+  const text = configData[1];
+  const taskDelay = configData[2];
   const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
 
@@ -284,23 +285,28 @@ const Trial = ({
           onKeyPress={delayHandler}
         />
       ) : null}
-      <WorkflowButton
-        isCorrect={isCorrect}
-        onAdvanceWorkflow={onAdvanceWorkflow}
-      />
+      {isCorrect ? (
+        <WorkflowButton
+          isCorrect={isCorrect}
+          onAdvanceWorkflow={onAdvanceWorkflow}
+          onLog={onLog}
+          configData={[...configData, eventList]}
+        />
+      ) : null}
     </div>
   );
 };
 
 Trial.propTypes = {
-  text: PropTypes.string.isRequired,
   keyboardLayout: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
   ).isRequired,
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
   thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  taskDelay: PropTypes.number.isRequired
+  configData: PropTypes.arrayOf(
+    PropTypes.oneOfType(PropTypes.number, PropTypes.string)
+  ).isRequired
 };
 
 export default Trial;

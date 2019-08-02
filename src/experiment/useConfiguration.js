@@ -1,107 +1,74 @@
-import useCorpusFromJson, {
-  LOADED,
-  LOADING,
-  CRASHED,
-  accuracies
-} from "../utils/useCorpusFromJson";
+import { useMemo } from "react";
+import useCorpusFromJson, { States } from "./useCorpusFromJson";
 
-const delays = [0];
+const keyStrokeDelay = 0;
+const targetAccuracy = 0.5;
 
-const useConfiguration = (numberOfTypingTask = 1) => {
-  const [corpusLoadingState, corpus] = useCorpusFromJson();
+const generateTasks = (numberOfPracticeTasks, numberOfTypingTasks, corpus) => {
+  const createTaskHOF = (startId, isPractice) => (sentenceData, i) => {
+    const id = (i + startId).toString();
+    return {
+      task: "TypingTask",
+      ...sentenceData,
+      key: id,
+      id,
+      isPractice
+    };
+  };
 
-  const config = {
-    participant: "",
-    children: [
-      {
-        task: "LoginScreen",
-        key: 0
-      },
-      /*{
-        task: "InformationScreen",
-        centerX: true,
-        centerY: true,
-        content: "Word completion accuracy experiment",
-        shortcutEnabled: true,
-        key: 1
-      },
-      {
-        task: "ConsentForm",
-        letter: `
-# Consent Letter
+  const tasks = [
+    { task: "LoginScreen", key: "0" },
+    { task: "KeyboardSelector", key: "1" }
+  ];
 
-You are about to complete a human-computer interaction experiment. This experiment follows the corresponding ORE procedure...
-`,
-        questions: [
-          {
-            label: "I consent to my data being collected in this experiment",
-            required: true
-          }
-        ],
-        key: 2
-      },*/
-      {
-        task: "KeyboardSelector",
-        key: 3
-      },
+  // Insert practice-related tasks.
+  if (numberOfPracticeTasks > 0) {
+    tasks.push(
       {
         task: "InformationScreen",
         content: "The 5 following tasks are practice tasks",
         shortcutEnabled: true,
-        key: 4
+        key: "2"
+      },
+      ...corpus
+        .slice(0, numberOfPracticeTasks)
+        .map(createTaskHOF(tasks.length + 1, true)),
+      {
+        task: "InformationScreen",
+        content: "Practice is over, the real experiment begins here",
+        key: (numberOfPracticeTasks + 3).toString()
       }
-    ]
-  };
-
-  switch (corpusLoadingState) {
-    case LOADED:
-      for (let i = 0; i < numberOfTypingTask; i += 1) {
-        const taskAcc =
-          accuracies[Math.floor(Math.random() * accuracies.length)];
-        const trialDataFromFile =
-          corpus[accuracies.indexOf(taskAcc)][
-            Math.floor(
-              Math.random() * corpus[accuracies.indexOf(taskAcc)].length
-            )
-          ];
-
-        const id = i <= 4 ? 5 + i : 6 + i;
-        const taskText = trialDataFromFile.words.map(e => e.word).join(" ");
-        const trialData = {
-          weightedAccuracy: trialDataFromFile.weightedAccuracy,
-          sdAccuracy: trialDataFromFile.sdAccuracy,
-          words: trialDataFromFile.words
-        };
-        const taskDelay = delays[Math.floor(Math.random() * delays.length)];
-
-        config.children.push({
-          task: "TypingTask",
-          text: taskText,
-          accuracy: taskAcc / 100,
-          trialData,
-          taskDelay,
-          key: id,
-          id
-        });
-
-        for (let corpusID = 0; corpusID < corpus.length; corpusID += 1) {
-          corpus[corpusID].splice(corpus.indexOf(taskText), 1);
-        }
-
-        if (i === 4) {
-          config.children.push({
-            task: "InformationScreen",
-            content: "Practice is over, the real experiment begins here",
-            key: 10
-          });
-        }
-      }
-      return [LOADED, config];
-    case LOADING:
-      return [LOADING, null];
-    default:
-      return [CRASHED, null];
+    );
   }
+
+  // Insert measured tasks.
+  tasks.push(
+    ...corpus
+      .slice(numberOfPracticeTasks, numberOfPracticeTasks + numberOfTypingTasks)
+      .map(createTaskHOF(tasks.length, false))
+  );
+
+  return tasks;
+};
+
+const useConfiguration = (numberOfPracticeTasks, numberOfTypingTasks) => {
+  const [loadingState, corpus] = useCorpusFromJson(targetAccuracy);
+  const config = useMemo(() => {
+    if (loadingState === States.loaded) {
+      return {
+        keyStrokeDelay,
+        targetAccuracy,
+        participant: null, // participant id is filled in later
+        children: generateTasks(
+          numberOfPracticeTasks,
+          numberOfTypingTasks,
+          corpus
+        )
+      };
+    }
+    return null;
+  }, [numberOfPracticeTasks, numberOfTypingTasks, loadingState, corpus]);
+  return [loadingState, config];
 };
 
 export default useConfiguration;

@@ -21,7 +21,6 @@ const Login = ({ onEditConfig, onAdvanceWorkflow }) => {
           placeholder="Enter your ID"
           value={value}
           onChange={e => setValue(e.target.value)}
-          autoFocus
         />
         <input
           className={submitButton}

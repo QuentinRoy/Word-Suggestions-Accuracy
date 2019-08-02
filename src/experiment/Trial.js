@@ -7,8 +7,9 @@ import WordHelper from "./WordHelper";
 import TextToType from "./TextToType";
 import WorkflowButton from "./WorkflowButton";
 import calculateSuggestions from "./calculateSuggestions";
-import logging from "./logging";
+import getEventLog from "./getEventLog";
 import useComputeSuggestions from "./useComputeSuggestions";
+import getTrialLog from "./getTrialLog";
 
 const totalSuggestions = 3;
 
@@ -27,10 +28,14 @@ const Trial = ({
   keyboardLayout,
   onAdvanceWorkflow,
   onLog,
-  thresholdPositions,
-  configData
+  keyStrokeDelay,
+  words,
+  id,
+  targetAccuracy,
+  weightedAccuracy,
+  sdAccuracy
 }) => {
-  const { text, taskDelay } = configData;
+  const text = words.map(w => w.word).join(" ");
   const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
 
@@ -43,27 +48,28 @@ const Trial = ({
 
   const [delayKeyDownTime, setDelayKeyDownTime] = useState(null);
   const [delayEndTime, setDelayEndTime] = useState(null);
-  const [delayedInputChanged, setDedlayedInputChanged] = useState(false);
+  const [delayedInputChanged, setDelayedInputChanged] = useState(false);
 
   const [suggestions, setSuggestions] = useState([]);
   const computeSuggestions = useComputeSuggestions();
   const eventList = useRef([
     {
       event: "start_up_event",
-      added_input: null,
-      removed_input: null,
+      addedInput: null,
+      removedInput: null,
       input: null,
-      is_error: false,
-      suggestion_1: null,
-      suggestion_2: null,
-      suggestion_3: null,
-      suggestion_used: null,
-      total_correct_characters: correctCharsCount,
-      total_incorrect_characters: input.length - correctCharsCount,
-      total_sentence_characters: text.length,
+      isError: null,
+      suggestion1: null,
+      suggestion2: null,
+      suggestion3: null,
+      suggestionUsed: null,
+      totalCorrectCharacters: correctCharsCount,
+      totalIncorrectCharacters: input.length - correctCharsCount,
+      totalSentenceCharacters: text.length,
       time: new Date().toISOString()
     }
   ]);
+  const trialStartTime = useRef(new Date());
 
   const inputHasFocus = focusIndex === 0;
   useEffect(() => {
@@ -124,31 +130,26 @@ const Trial = ({
       inputLastWord,
       wordIndexInText,
       wordFromText
-    } = calculateSuggestions(
-      newInput,
-      text,
-      thresholdPositions,
-      totalSuggestions
-    );
+    } = calculateSuggestions(newInput, text, words, totalSuggestions);
     const newSuggestions = computeSuggestions(
       inputLastWord,
-      thresholdPositions[wordIndexInText].sks,
+      words[wordIndexInText].sks,
       wordFromText,
       totalSuggestions
     );
     setSuggestions(newSuggestions);
     setInput(newInput);
-    logging(
-      eventName,
-      inputRemoved,
-      button,
-      text,
-      newInput,
-      newSuggestions,
-      word,
-      countSimilarChars(text, newInput),
-      onLog,
-      eventList
+    eventList.current.push(
+      getEventLog(
+        eventName,
+        inputRemoved,
+        button,
+        text,
+        newInput,
+        newSuggestions,
+        word,
+        countSimilarChars(text, newInput)
+      )
     );
 
     setDelayKeyDownTime(null);
@@ -189,7 +190,7 @@ const Trial = ({
 
   const delayHandler = (e, keydown = true, suggestion = null) => {
     if (keydown) {
-      if (taskDelay === 0) {
+      if (keyStrokeDelay === 0) {
         if (keyboardLayout.id === "physical") {
           physicalKeyboardHandler(e);
         } else {
@@ -203,7 +204,7 @@ const Trial = ({
         }
         setDelayEndTime(new Date());
         if (
-          delayEndTime - delayKeyDownTime >= taskDelay &&
+          delayEndTime - delayKeyDownTime >= keyStrokeDelay &&
           delayKeyDownTime !== null
         ) {
           if (suggestion !== null) {
@@ -214,7 +215,7 @@ const Trial = ({
             onKeyPress(e);
           }
           setDelayEndTime(null);
-          setDedlayedInputChanged(true);
+          setDelayedInputChanged(true);
         }
       }
     } else {
@@ -223,20 +224,20 @@ const Trial = ({
         (e.key !== "Tab" && e.key !== "Enter" && e.key !== "Shift") &&
         !delayedInputChanged
       ) {
-        logging(
-          "failed_keystroke_for_delay",
-          null,
-          e.key,
-          text,
-          input,
-          suggestions,
-          null,
-          countSimilarChars(text, input),
-          onLog,
-          eventList
+        eventList.current.push(
+          getEventLog(
+            "failed_keystroke_for_delay",
+            null,
+            e.key,
+            text,
+            input,
+            suggestions,
+            null,
+            countSimilarChars(text, input)
+          )
         );
       }
-      setDedlayedInputChanged(false);
+      setDelayedInputChanged(false);
       setDelayKeyDownTime(null);
     }
   };
@@ -276,10 +277,6 @@ const Trial = ({
         focusedSuggestion={focusIndex > 0 ? focusIndex - 1 : null}
         suggestions={suggestions}
         delayHandler={delayHandler}
-        delayOnSuggestion={configData.delayOnSuggestion}
-        suggestionHandler={suggestionHandler}
-        taskDelay={configData.taskDelay}
-        keyboardLayout={keyboardLayout.id}
       />
       {keyboardLayout.id === "mobile" ? (
         <Keyboard
@@ -294,10 +291,24 @@ const Trial = ({
       ) : null}
       {isCorrect ? (
         <WorkflowButton
-          isCorrect={isCorrect}
-          onAdvanceWorkflow={onAdvanceWorkflow}
-          onLog={onLog}
-          configData={{ eventList, ...configData }}
+          onClick={() => {
+            onLog("events", eventList.current);
+            onLog(
+              "log",
+              getTrialLog(
+                eventList.current, // eventList
+                id, // id
+                targetAccuracy, // targetAccuracy
+                keyStrokeDelay, // delay
+                weightedAccuracy, // weightedAccuracy
+                sdAccuracy, // sdAccuracy
+                words, // words
+                trialStartTime.current, // trialStartTime
+                new Date()
+              )
+            );
+            onAdvanceWorkflow();
+          }}
         />
       ) : null}
     </div>
@@ -310,16 +321,17 @@ Trial.propTypes = {
   ).isRequired,
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
-  thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  configData: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-      PropTypes.array,
-      PropTypes.instanceOf(Date),
-      PropTypes.bool
-    ])
-  ).isRequired
+  keyStrokeDelay: PropTypes.number.isRequired,
+  words: PropTypes.arrayOf(
+    PropTypes.shape({
+      word: PropTypes.string.isRequired,
+      sks: PropTypes.number.isRequired
+    })
+  ).isRequired,
+  id: PropTypes.string.isRequired,
+  targetAccuracy: PropTypes.number.isRequired,
+  weightedAccuracy: PropTypes.number.isRequired,
+  sdAccuracy: PropTypes.number.isRequired
 };
 
 export default Trial;

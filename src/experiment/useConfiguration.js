@@ -1,76 +1,108 @@
 import { useMemo } from "react";
-import useCorpusFromJson, { States } from "./useCorpusFromJson";
+import useCorpusFromJson from "./useCorpusFromJson";
+import { KeyboardLayouts, LoadingStates } from "../utils/constants";
 
-const keyStrokeDelay = 500;
-const targetAccuracy = 0.5;
-const delayOnSuggestion = true;
+const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
+const defaultKeyStrokeDelays = [0, 250, 500, 750, 1000];
+const numberOfPracticeTasks = 1;
+const numberOfTypingTasks = 2;
+const keyboardLayout = KeyboardLayouts.desktop;
 
-const generateTasks = (numberOfPracticeTasks, numberOfTypingTasks, corpus) => {
-  const createTaskHOF = (startId, isPractice) => (sentenceData, i) => {
-    const id = (i + startId).toString();
-    return {
-      task: "TypingTask",
-      ...sentenceData,
-      key: id,
-      id,
-      isPractice
-    };
+const PageArguments = {
+  targetAccuracies: "targetAccuracies",
+  workerId: "workerId",
+  keyStrokeDelays: "keyStrokeDelays"
+};
+
+const getPageArguments = () => {
+  const urlParams = new URL(document.location).searchParams;
+  const workerId = urlParams.get(PageArguments.workerId);
+  const keyStrokeDelays = urlParams.has(PageArguments.keyStrokeDelays)
+    ? urlParams
+        .get(PageArguments.keyStrokeDelays)
+        .split(",")
+        .map(x => +x)
+    : defaultKeyStrokeDelays;
+  const targetAccuracies = urlParams.has(PageArguments.targetAccuracies)
+    ? urlParams
+        .get(PageArguments.targetAccuracies)
+        .split(",")
+        .map(x => +x)
+    : defaultAccuracies;
+  const args = {
+    participant: workerId,
+    keyStrokeDelay:
+      keyStrokeDelays[Math.floor(Math.random() * keyStrokeDelays.length)],
+    targetAccuracy:
+      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)]
   };
+  return args;
+};
 
-  const tasks = [
-    { task: "LoginScreen", key: "0" },
-    { task: "KeyboardSelector", key: "1" }
-  ];
+const { participant, targetAccuracy, keyStrokeDelay } = getPageArguments();
+
+const TypingTask = (id, isPractice, sentenceData) => ({
+  task: "TypingTask",
+  ...sentenceData,
+  key: id,
+  id,
+  isPractice
+});
+
+const generateTasks = corpus => {
+  const tasks = [];
 
   // Insert practice-related tasks.
   if (numberOfPracticeTasks > 0) {
+    tasks.push({
+      task: "InformationScreen",
+      content: "The 5 following tasks are practice tasks",
+      shortcutEnabled: true,
+      key: `${tasks.length}`
+    });
     tasks.push(
-      {
-        task: "InformationScreen",
-        content: "The 5 following tasks are practice tasks",
-        shortcutEnabled: true,
-        key: "2"
-      },
       ...corpus
         .slice(0, numberOfPracticeTasks)
-        .map(createTaskHOF(tasks.length + 1, true)),
-      {
-        task: "InformationScreen",
-        content: "Practice is over, the real experiment begins here",
-        key: (numberOfPracticeTasks + 3).toString()
-      }
+        .map((sentenceData, i) =>
+          TypingTask(`${tasks.length + i}`, true, sentenceData)
+        )
     );
+    tasks.push({
+      task: "InformationScreen",
+      content: "Practice is over, the real experiment begins here",
+      key: `${tasks.length}`
+    });
   }
 
   // Insert measured tasks.
   tasks.push(
     ...corpus
       .slice(numberOfPracticeTasks, numberOfPracticeTasks + numberOfTypingTasks)
-      .map(createTaskHOF(tasks.length, false))
+      .map((sentenceData, i) =>
+        TypingTask(`${tasks.length + i}`, true, sentenceData)
+      )
   );
 
   return tasks;
 };
 
-const useConfiguration = (numberOfPracticeTasks, numberOfTypingTasks) => {
+const useConfiguration = () => {
   const [loadingState, corpus] = useCorpusFromJson(targetAccuracy);
   const config = useMemo(() => {
-    if (loadingState === States.loaded) {
+    if (loadingState === LoadingStates.loaded) {
       return {
         keyStrokeDelay,
         targetAccuracy,
-        delayOnSuggestion,
-        participant: null, // participant id is filled in later
-        children: generateTasks(
-          numberOfPracticeTasks,
-          numberOfTypingTasks,
-          corpus
-        )
+        participant,
+        keyboardLayout,
+        children: generateTasks(corpus)
       };
     }
     return null;
-  }, [numberOfPracticeTasks, numberOfTypingTasks, loadingState, corpus]);
-  return [loadingState, config];
+  }, [loadingState, corpus]);
+  return participant == null
+    ? [LoadingStates.invalidArguments, null]
+    : [loadingState, config];
 };
 
 export default useConfiguration;

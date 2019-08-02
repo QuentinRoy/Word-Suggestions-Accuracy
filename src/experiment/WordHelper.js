@@ -40,7 +40,6 @@ function WordHelper({
   focusedSuggestion,
   suggestions,
   delayHandler,
-  delayOnSuggestion,
   suggestionHandler,
   keyStrokeDelay,
   keyboardLayout
@@ -80,11 +79,7 @@ function WordHelper({
           type="button"
           onKeyDown={e => {
             e.preventDefault();
-            if (delayOnSuggestion) {
-              delayHandler(e, true, suggestions[suggestionNum]);
-            } else {
-              suggestionHandler(suggestions[suggestionNum]);
-            }
+            delayHandler(e, true, suggestions[suggestionNum]);
           }}
           onKeyUp={e => delayHandler(e, false)}
         >
@@ -116,7 +111,6 @@ WordHelper.propTypes = {
   focusedSuggestion: PropTypes.number,
   suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
   delayHandler: PropTypes.func.isRequired,
-  delayOnSuggestion: PropTypes.bool.isRequired,
   suggestionHandler: PropTypes.func.isRequired,
   keyStrokeDelay: PropTypes.number.isRequired,
   keyboardLayout: PropTypes.string.isRequired

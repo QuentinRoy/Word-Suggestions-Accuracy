@@ -279,7 +279,6 @@ const Trial = ({ id, configData }) => {
         delayHandler={delayHandler}
         keyStrokeDelay={configData.keyStrokeDelay}
         suggestionHandler={suggestionHandler}
-        delayOnSuggestion={configData.delayOnSuggestion}
         keyboardLayout={configData.keyboardLayout.id}
       />
       {configData.keyboardLayout.id === "mobile" ? (

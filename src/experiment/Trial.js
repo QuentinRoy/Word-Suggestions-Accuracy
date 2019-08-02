@@ -256,7 +256,7 @@ const Trial = ({
       />
       <input
         className="trial-input"
-        value={input}
+        value={`${input}|`}
         placeholder={
           keyboardLayout.id === "mobile"
             ? "Tap on the virtual keyboard to start"

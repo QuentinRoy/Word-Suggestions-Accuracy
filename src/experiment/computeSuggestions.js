@@ -1,6 +1,3 @@
-import { useCallback } from "react";
-import { useDictionary } from "./useDictionary";
-
 const getLettersCompleted = (dictionaryWord, inputWord) => {
   let countLettersCompleted = 0;
   for (let i = 0; i < dictionaryWord.length; i += 1) {
@@ -23,9 +20,9 @@ const frequencyScore = (freq, dictionaryWord, inputWord) => {
 };
 
 function computeSuggestions(
-  inputWord,
-  thresholdPosition,
-  wordFromText,
+  currentInputWord,
+  targetWordSKS,
+  targetWord,
   totalSuggestions,
   dictionary
 ) {
@@ -52,7 +49,7 @@ function computeSuggestions(
       scoresSum += frequencyScore(
         dictionary[i].f,
         dictionary[i].word,
-        inputWord
+        currentInputWord
       );
     }
     return scoresSum;
@@ -64,28 +61,28 @@ function computeSuggestions(
     const inputWordScore = frequencyScore(
       dictionary[i].f,
       dictionary[i].word,
-      inputWord
+      currentInputWord
     );
     const normalizedInputWordScore = inputWordScore / totalFrequencyScores;
-    if (dictionary[i].word.toLowerCase() === wordFromText.toLowerCase()) {
-      if (inputWord.length >= thresholdPosition || thresholdPosition === 0) {
+    if (dictionary[i].word.toLowerCase() === targetWord.toLowerCase()) {
+      if (currentInputWord.length >= targetWord.length - targetWordSKS) {
         insertTopWord(dictionary[i].word, Number.POSITIVE_INFINITY);
-        if (wordFromText.charAt(0) === wordFromText.charAt(0).toUpperCase()) {
+        if (targetWord.charAt(0) === targetWord.charAt(0).toUpperCase()) {
           charUpper = true;
         }
       }
     } else if (
-      dictionary[i].word.length > inputWord.length ||
-      inputWord === ""
+      dictionary[i].word.length > currentInputWord.length ||
+      currentInputWord === ""
     ) {
       insertTopWord(dictionary[i].word, normalizedInputWordScore);
     }
   }
 
   if (
-    inputWord !== undefined &&
-    inputWord !== "" &&
-    inputWord.charAt(0) === inputWord.charAt(0).toUpperCase()
+    currentInputWord !== undefined &&
+    currentInputWord !== "" &&
+    currentInputWord.charAt(0) === currentInputWord.charAt(0).toUpperCase()
   )
     charUpper = true;
 
@@ -110,18 +107,4 @@ function computeSuggestions(
   return topWords;
 }
 
-function useComputeSuggestions(
-  inputWord,
-  thresholdPosition,
-  wordFromText,
-  totalSuggestions
-) {
-  const dictionary = useDictionary();
-  const boundComputeSuggestions = useCallback(
-    (...args) => computeSuggestions(...args, dictionary),
-    [dictionary]
-  );
-  return boundComputeSuggestions;
-}
-
-export default useComputeSuggestions;
+export default computeSuggestions;

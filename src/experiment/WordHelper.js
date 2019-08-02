@@ -39,55 +39,44 @@ function WordHelper({
   totalSuggestions,
   focusedSuggestion,
   suggestions,
-  delayHandler,
-  suggestionHandler,
-  keyStrokeDelay,
-  keyboardLayout
+  selectionStart,
+  selectionEnd
 }) {
   const buttonRefs = useMultiRef(totalSuggestions);
-  let presstimer;
 
   const buttons = createSuggestionDistribution(
     totalSuggestions,
     mainSuggestionPosition
-  ).map((suggestionNum, i) => (
-    <td key={suggestionNum} className={styles.cell}>
-      {keyboardLayout === "mobile" ? (
+  ).map((suggestionNum, i) => {
+    const selStart = e => {
+      e.preventDefault();
+      selectionStart(suggestions[suggestionNum]);
+    };
+    const selEnd = e => {
+      e.preventDefault();
+      selectionEnd(suggestions[suggestionNum]);
+    };
+    return (
+      <td key={suggestionNum} className={styles.cell}>
         <button
           className={styles.btn}
           ref={buttonRefs[i]}
           type="button"
-          onTouchStart={() => {
-            presstimer = setTimeout(() => {
-              suggestionHandler(suggestions[suggestionNum]);
-            }, keyStrokeDelay);
-          }}
-          onTouchEnd={e => {
-            e.preventDefault();
-            if (presstimer !== null) {
-              clearTimeout(presstimer);
-              presstimer = null;
-            }
-          }}
-        >
-          {suggestions[suggestionNum]}
-        </button>
-      ) : (
-        <button
-          className={styles.btn}
-          ref={buttonRefs[i]}
-          type="button"
+          onTouchStart={selStart}
+          onTouchEnd={selEnd}
+          onTouchCancel={selEnd}
           onKeyDown={e => {
-            e.preventDefault();
-            delayHandler(e, true, suggestions[suggestionNum]);
+            if (e.key === "Enter") selStart(e);
           }}
-          onKeyUp={e => delayHandler(e, false)}
+          onKeyUp={e => {
+            if (e.key === "Enter") selEnd(e);
+          }}
         >
           {suggestions[suggestionNum]}
         </button>
-      )}
-    </td>
-  ));
+      </td>
+    );
+  });
 
   useEffect(() => {
     if (focusedSuggestion != null) {
@@ -110,10 +99,8 @@ WordHelper.propTypes = {
   totalSuggestions: PropTypes.number.isRequired,
   focusedSuggestion: PropTypes.number,
   suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  delayHandler: PropTypes.func.isRequired,
-  suggestionHandler: PropTypes.func.isRequired,
-  keyStrokeDelay: PropTypes.number.isRequired,
-  keyboardLayout: PropTypes.string.isRequired
+  selectionStart: PropTypes.func.isRequired,
+  selectionEnd: PropTypes.func.isRequired
 };
 
 WordHelper.defaultProps = {

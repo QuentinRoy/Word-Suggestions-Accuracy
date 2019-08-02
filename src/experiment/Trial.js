@@ -25,7 +25,6 @@ const countSimilarChars = (str1, str2) => {
 };
 
 const Trial = ({ id, configData }) => {
-  console.log(configData.targetAccuracy);
   const text = configData.words.map(w => w.word).join(" ");
   const [layoutName, setLayoutName] = useState(
     configData.keyboardLayout.layoutName

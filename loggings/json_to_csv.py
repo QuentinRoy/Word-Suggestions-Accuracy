@@ -47,7 +47,7 @@ def get_typing_tasks(data):
 if __name__ == "__main__":
     json_files_dir = "./participants-logs/"
     csv_file_path = "./csvlog.csv"
-    with open(csv_file_path, 'w+') as f:
+    with open(csv_file_path, 'w') as f:
         header = [
             "text",
             "accuracy",
@@ -81,6 +81,6 @@ if __name__ == "__main__":
                 for row in csv_obj:
                     writer.writerow(row)
 
-            fp.flush()
+            f.flush()
             fp.close()
         print ("Just completed writing csv file with %d columns" % len(header))

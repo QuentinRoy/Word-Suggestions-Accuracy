@@ -1,4 +1,4 @@
-import { sd, mean, sum } from "./arrays";
+import { sd, mean, sum } from "../utils/arrays";
 
 export const getScore = (result, targetAccuracy, targetSd, maxSd) => {
   const diffAccuracy = Math.abs(targetAccuracy - result.weightedAccuracy);

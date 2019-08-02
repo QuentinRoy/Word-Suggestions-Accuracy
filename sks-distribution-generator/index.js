@@ -8,7 +8,7 @@ const maxSd = 0.1;
 const maxDiffAccuracy = 0.025;
 const addUnusableSentences = false;
 
-const sentencesPath = path.join(__dirname, "./sentences.txt");
+const sentencesPath = path.join(__dirname, "../public/sentences.txt");
 const outputDirPath = path.join(__dirname, "../public/sks-distributions");
 const targetFilePrefix = "acc-";
 

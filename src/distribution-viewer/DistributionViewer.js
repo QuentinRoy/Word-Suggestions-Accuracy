@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Slider from "@material-ui/core/Slider";
-import useSentenceCorpus, {
-  LOADING,
-  CRASHED
-} from "../utils/useSentenceCorpus";
+import useSentenceCorpus from "./useSentenceCorpus";
 import SentenceSelect from "./SentenceSelect";
 import ViewerContent from "./ViewerContent";
 import {
@@ -14,9 +11,10 @@ import {
   standardDeviationSelect
 } from "./DistributionViewer.module.css";
 import useWindowSize from "../utils/useWindowSize";
-import getWordAccuracies from "../utils/getWordAccuracies";
+import getWordAccuracies from "./getWordAccuracies";
 import Loading from "../utils/Loading";
 import Crashed from "../utils/Crashed";
+import { LoadingStates } from "../utils/constants";
 
 const KeyCodes = {
   left: 37,
@@ -67,10 +65,10 @@ const DistributionViewer = () => {
     };
   });
 
-  if (loadingState === LOADING) {
+  if (loadingState === LoadingStates.loading) {
     return <Loading>Loading corpus...</Loading>;
   }
-  if (loadingState === CRASHED) {
+  if (loadingState !== LoadingStates.loaded) {
     return <Crashed>Could not load the corpus...</Crashed>;
   }
 

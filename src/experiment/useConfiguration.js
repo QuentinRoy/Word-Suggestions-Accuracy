@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import useCorpusFromJson, { States } from "./useCorpusFromJson";
 
-const keyStrokeDelay = 0;
+const keyStrokeDelay = 500;
 const targetAccuracy = 0.5;
+const delayOnSuggestion = true;
 
 const generateTasks = (numberOfPracticeTasks, numberOfTypingTasks, corpus) => {
   const createTaskHOF = (startId, isPractice) => (sentenceData, i) => {
@@ -58,6 +59,7 @@ const useConfiguration = (numberOfPracticeTasks, numberOfTypingTasks) => {
       return {
         keyStrokeDelay,
         targetAccuracy,
+        delayOnSuggestion,
         participant: null, // participant id is filled in later
         children: generateTasks(
           numberOfPracticeTasks,

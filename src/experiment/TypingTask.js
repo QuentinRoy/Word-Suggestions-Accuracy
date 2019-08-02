@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Trial from "./Trial";
 
 function TypingTask({ id, ...otherProps }) {
-  return <Trial key={id} id={id} {...otherProps} />;
+  return <Trial key={id} id={id} configData={{ ...otherProps }} />;
 }
 
 TypingTask.propTypes = {

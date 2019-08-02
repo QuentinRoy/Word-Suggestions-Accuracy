@@ -42,7 +42,7 @@ function WordHelper({
   delayHandler,
   delayOnSuggestion,
   suggestionHandler,
-  taskDelay,
+  keyStrokeDelay,
   keyboardLayout
 }) {
   const buttonRefs = useMultiRef(totalSuggestions);
@@ -61,7 +61,7 @@ function WordHelper({
           onTouchStart={e => {
             presstimer = setTimeout(() => {
               suggestionHandler(suggestions[suggestionNum]);
-            }, taskDelay);
+            }, keyStrokeDelay);
           }}
           onTouchEnd={e => {
             e.preventDefault();
@@ -118,7 +118,7 @@ WordHelper.propTypes = {
   delayHandler: PropTypes.func.isRequired,
   delayOnSuggestion: PropTypes.bool.isRequired,
   suggestionHandler: PropTypes.func.isRequired,
-  taskDelay: PropTypes.number.isRequired,
+  keyStrokeDelay: PropTypes.number.isRequired,
   keyboardLayout: PropTypes.string.isRequired
 };
 

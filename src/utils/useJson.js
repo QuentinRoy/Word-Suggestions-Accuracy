@@ -1,10 +1,5 @@
 import { useEffect, useReducer } from "react";
-
-export const States = Object.freeze({
-  loading: "loading",
-  loaded: "loaded",
-  crashed: "crashed"
-});
+import { LoadingStates } from "./constants";
 
 const ActionTypes = {
   loaded: "loaded",
@@ -15,18 +10,18 @@ const ActionTypes = {
 const reducer = (state, action) => {
   switch (action.type) {
     case ActionTypes.loaded:
-      return [States.loaded, action.data];
+      return [LoadingStates.loaded, action.data];
     case ActionTypes.crashed:
-      return [States.crashed, null];
+      return [LoadingStates.crashed, null];
     case ActionTypes.start:
-      return [States.loading, null];
+      return [LoadingStates.loading, null];
     default:
       return state;
   }
 };
 
 const useJson = url => {
-  const [state, dispatch] = useReducer(reducer, [States.loading, null]);
+  const [state, dispatch] = useReducer(reducer, [LoadingStates.loading, null]);
 
   useEffect(() => {
     dispatch({ type: ActionTypes.start });

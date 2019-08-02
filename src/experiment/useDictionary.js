@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import { parse } from "papaparse";
 import Loading from "../utils/Loading";
 import Crashed from "../utils/Crashed";
-
-export const LOADING = "loading";
-export const LOADED = "loaded";
-export const CRASHED = "crashed";
+import { LoadingStates } from "../utils/constants";
 
 const path = "./dictionaries_en_US_wordlist.csv";
 
@@ -19,7 +16,7 @@ export const useDictionary = () => {
 
 const DictionaryProvider = ({ children }) => {
   const [dictionary, setDictionary] = useState(null);
-  const [loadingState, setLoadingState] = useState(LOADING);
+  const [loadingState, setLoadingState] = useState(LoadingStates.loading);
 
   useEffect(() => {
     parse(path, {
@@ -35,22 +32,22 @@ const DictionaryProvider = ({ children }) => {
       },
       complete(results) {
         setDictionary(results.data);
-        setLoadingState(LOADED);
+        setLoadingState(LoadingStates.loaded);
       },
       error() {
-        setLoadingState(CRASHED);
+        setLoadingState(LoadingStates.crashed);
       }
     });
   }, []);
 
   switch (loadingState) {
-    case LOADED:
+    case LoadingStates.loaded:
       return (
         <DictionaryContext.Provider value={dictionary}>
           {children}
         </DictionaryContext.Provider>
       );
-    case LOADING:
+    case LoadingStates.loading:
       return <Loading>Loading dictionary...</Loading>;
     default:
       return <Crashed>Failed to load the dictionary...</Crashed>;

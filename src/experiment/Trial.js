@@ -25,6 +25,7 @@ const countSimilarChars = (str1, str2) => {
 };
 
 const Trial = ({ id, configData }) => {
+  console.log(configData.targetAccuracy);
   const text = configData.words.map(w => w.word).join(" ");
   const [layoutName, setLayoutName] = useState(
     configData.keyboardLayout.layoutName
@@ -42,8 +43,15 @@ const Trial = ({ id, configData }) => {
   const [delayEndTime, setDelayEndTime] = useState(null);
   const [delayedInputChanged, setDelayedInputChanged] = useState(false);
 
-  const [suggestions, setSuggestions] = useState([]);
   const computeSuggestions = useComputeSuggestions();
+  const [suggestions, setSuggestions] = useState(
+    computeSuggestions(
+      "",
+      configData.words[0].sks,
+      text.split(" ")[0],
+      totalSuggestions
+    )
+  );
   const eventList = useRef([
     {
       event: "start_up_event",

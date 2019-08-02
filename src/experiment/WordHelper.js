@@ -57,7 +57,7 @@ function WordHelper({
           className={styles.btn}
           ref={buttonRefs[i]}
           type="button"
-          onTouchStart={e => {
+          onTouchStart={() => {
             presstimer = setTimeout(() => {
               suggestionHandler(suggestions[suggestionNum]);
             }, keyStrokeDelay);

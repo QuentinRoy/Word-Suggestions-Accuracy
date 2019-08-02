@@ -98,6 +98,13 @@ function computeSuggestions(
         topWords[j] =
           topWords[j].charAt(0).toLowerCase() + topWords[j].slice(1);
       }
+    } else {
+      for (let i = 0; i < dictionary.length; i += 1) {
+        if (topWords.indexOf(dictionary[i].word) === -1) {
+          topWords[j] = dictionary[i].word;
+          break;
+        }
+      }
     }
   }
   return topWords;

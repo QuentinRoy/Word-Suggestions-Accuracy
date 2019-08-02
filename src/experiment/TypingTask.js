@@ -12,22 +12,23 @@ function TypingTask(props) {
     id,
     taskDelay,
     participant,
-    trialData
+    trialData,
+    delayOnSuggestion
   } = props;
 
   const trialStartTime = new Date();
-  const configData = [
+  const configData = {
     participant,
     text,
     taskDelay,
     accuracy,
     trialStartTime,
-    trialData.weightedAccuracy,
-    trialData.sdAccuracy,
-    trialData.words,
-    trialData.words.sks,
-    id
-  ];
+    weightedAccuracy: trialData.weightedAccuracy,
+    sdAccuracy: trialData.sdAccuracy,
+    wordsAndSks: trialData.words,
+    id,
+    delayOnSuggestion
+  };
 
   return (
     <Trial
@@ -54,7 +55,8 @@ TypingTask.propTypes = {
   participant: PropTypes.string.isRequired,
   trialData: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.array])
-  ).isRequired
+  ).isRequired,
+  delayOnSuggestion: PropTypes.bool.isRequired
 };
 
 export default TypingTask;

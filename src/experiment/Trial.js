@@ -30,8 +30,7 @@ const Trial = ({
   thresholdPositions,
   configData
 }) => {
-  const text = configData[1];
-  const taskDelay = configData[2];
+  const { text, taskDelay } = configData;
   const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
 
@@ -277,6 +276,10 @@ const Trial = ({
         focusedSuggestion={focusIndex > 0 ? focusIndex - 1 : null}
         suggestions={suggestions}
         delayHandler={delayHandler}
+        delayOnSuggestion={configData.delayOnSuggestion}
+        suggestionHandler={suggestionHandler}
+        taskDelay={configData.taskDelay}
+        keyboardLayout={keyboardLayout.id}
       />
       {keyboardLayout.id === "mobile" ? (
         <Keyboard
@@ -294,7 +297,7 @@ const Trial = ({
           isCorrect={isCorrect}
           onAdvanceWorkflow={onAdvanceWorkflow}
           onLog={onLog}
-          configData={[...configData, eventList]}
+          configData={{ eventList, ...configData }}
         />
       ) : null}
     </div>
@@ -308,12 +311,13 @@ Trial.propTypes = {
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
   thresholdPositions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  configData: PropTypes.arrayOf(
+  configData: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
       PropTypes.array,
-      PropTypes.instanceOf(Date)
+      PropTypes.instanceOf(Date),
+      PropTypes.bool
     ])
   ).isRequired
 };

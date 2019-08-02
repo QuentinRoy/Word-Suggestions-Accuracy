@@ -1,44 +1,32 @@
-import React, { useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styles from "./WorkflowButton.module.css";
 
-const loggingTrial = (
-  eventList,
-  participant,
-  id,
-  targetAccuracy,
-  delay,
-  sentenceAccuracy,
-  sentenceSksSd,
-  sentence,
-  sentenceAndSks,
-  startDate,
-  endDate
-) => {
-  const totalKeyStrokes = eventList.current.length - 1;
+const loggingTrial = (configData, endDate) => {
+  const totalKeyStrokes = configData.eventList.current.length - 1;
   let totalSuggestionUsed = 0;
   let totalCorrectSuggestionUsed = 0;
   let totalIncorrectsuggestionUsed = 0;
 
   let actualSks = 0;
   let totalKeyStrokeErrors = 0;
-  for (let i = 0; i < eventList.current.length; i += 1) {
-    if (eventList.current[i].is_error === true) {
+  for (let i = 0; i < configData.eventList.current.length; i += 1) {
+    if (configData.eventList.current[i].is_error === true) {
       totalKeyStrokeErrors += 1;
     }
-    if (eventList.current[i].event === "used_suggestion") {
+    if (configData.eventList.current[i].event === "used_suggestion") {
       totalSuggestionUsed += 1;
       if (
-        eventList.current[i].input ===
-        sentence.slice(0, eventList.current[i].input.length)
+        configData.eventList.current[i].input ===
+        configData.text.slice(0, configData.eventList.current[i].input.length)
       ) {
         totalCorrectSuggestionUsed += 1;
         if (i > 0) {
           actualSks +=
-            eventList.current[i].input.length -
-            eventList.current[i - 1].input.length;
+            configData.eventList.current[i].input.length -
+            configData.eventList.current[i - 1].input.length;
         } else {
-          actualSks += eventList.current[i].suggestion_used.length;
+          actualSks += configData.eventList.current[i].suggestion_used.length;
         }
       } else {
         totalIncorrectsuggestionUsed += 1;
@@ -46,31 +34,32 @@ const loggingTrial = (
     }
   }
 
-  const sentenceWordsAndSks = sentenceAndSks
+  const sentenceWordsAndSks = configData.wordsAndSks
     .map(item => {
       return `${item.word}{${item.sks}}`;
     })
     .join(" ");
 
-  const theoreticalSks = sentenceAndSks
+  const theoreticalSks = configData.wordsAndSks
     .map(item => item.sks)
     .reduce((a, b) => {
       return a + b;
     }, 0);
 
   return {
-    participant,
-    id,
-    sentence,
-    targetAccuracy,
-    sentenceAccuracy,
-    sentenceSksSd,
+    participant: configData.participant,
+    id: configData.id,
+    sentence: configData.text,
+    targetAccuracy: configData.accuracy,
+    sentenceAccuracy: configData.weightedAccuracy,
+    sentenceSksSd: configData.sdAccuracy,
     sentenceWordsAndSks,
     theoreticalSks,
-    delay,
-    startDate,
+    delay: configData.taskDelay,
+    delayOnSuggestion: configData.delayOnSuggestion,
+    startDate: configData.trialStartTime,
     endDate,
-    duration: endDate - startDate,
+    duration: endDate - configData.trialStartTime,
     totalKeyStrokes,
     totalKeyStrokeErrors,
     actualSks,
@@ -86,28 +75,12 @@ export default function WorkflowButton({
   configData
 }) {
   const trialEndTime = new Date();
-  const trialLog = useRef([]);
   return (
     <div className={styles.advanceWorkflowDiv}>
       <button
         type="button"
         onClick={() => {
-          trialLog.current.push(
-            loggingTrial(
-              configData[10], // eventList
-              configData[0], // participant
-              configData[9], // id
-              configData[3], // targetAccuracy
-              configData[2], // delay
-              configData[5], // weightedAccuracy
-              configData[6], // sdAccuracy
-              configData[1], // sentence
-              configData[7], // words
-              configData[4], // trialStartTime
-              trialEndTime
-            )
-          );
-          onLog("Trial", trialLog);
+          onLog("Trial", loggingTrial(configData, trialEndTime));
           onAdvanceWorkflow();
         }}
         className={styles.advanceWorkflowButton}
@@ -121,7 +94,7 @@ export default function WorkflowButton({
 WorkflowButton.propTypes = {
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
-  configData: PropTypes.arrayOf(
+  configData: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,

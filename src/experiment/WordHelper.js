@@ -39,23 +39,58 @@ function WordHelper({
   totalSuggestions,
   focusedSuggestion,
   suggestions,
-  delayHandler
+  delayHandler,
+  delayOnSuggestion,
+  suggestionHandler,
+  taskDelay,
+  keyboardLayout
 }) {
   const buttonRefs = useMultiRef(totalSuggestions);
+  let presstimer;
 
   const buttons = createSuggestionDistribution(
     totalSuggestions,
     mainSuggestionPosition
   ).map((suggestionNum, i) => (
     <td key={suggestionNum} className={styles.cell}>
-      <button
-        className={styles.btn}
-        ref={buttonRefs[i]}
-        type="button"
-        onKeyDown={e => delayHandler(e, true, suggestions[suggestionNum])}
-      >
-        {suggestions[suggestionNum]}
-      </button>
+      {keyboardLayout === "mobile" ? (
+        <button
+          className={styles.btn}
+          ref={buttonRefs[i]}
+          type="button"
+          onTouchStart={e => {
+            presstimer = setTimeout(() => {
+              suggestionHandler(suggestions[suggestionNum]);
+            }, taskDelay);
+          }}
+          onTouchEnd={e => {
+            e.preventDefault();
+            if (presstimer !== null) {
+              clearTimeout(presstimer);
+              presstimer = null;
+            }
+          }}
+        >
+          {suggestions[suggestionNum]}
+        </button>
+      ) : (
+        <button
+          className={styles.btn}
+          ref={buttonRefs[i]}
+          type="button"
+          onKeyDown={e => {
+            e.preventDefault();
+            if (delayOnSuggestion) {
+              delayHandler(e, true, suggestions[suggestionNum]);
+            } else {
+              suggestionHandler(suggestions[suggestionNum]);
+            }
+          }}
+          onKeyUp={e => delayHandler(e, false)}
+        >
+          {suggestions[suggestionNum]}
+        </button>
+      )}
     </td>
   ));
 
@@ -80,7 +115,11 @@ WordHelper.propTypes = {
   totalSuggestions: PropTypes.number.isRequired,
   focusedSuggestion: PropTypes.number,
   suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  delayHandler: PropTypes.func.isRequired
+  delayHandler: PropTypes.func.isRequired,
+  delayOnSuggestion: PropTypes.bool.isRequired,
+  suggestionHandler: PropTypes.func.isRequired,
+  taskDelay: PropTypes.number.isRequired,
+  keyboardLayout: PropTypes.string.isRequired
 };
 
 WordHelper.defaultProps = {

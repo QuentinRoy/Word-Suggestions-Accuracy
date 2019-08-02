@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useReducer } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
 import "react-simple-keyboard/build/css/index.css";
@@ -10,6 +10,19 @@ import calculateSuggestions from "./calculateSuggestions";
 import getEventLog from "./getEventLog";
 import useComputeSuggestions from "./useComputeSuggestions";
 import getTrialLog from "./getTrialLog";
+import { KeyboardLayoutNames } from "../utils/constants";
+
+const ActionTypes = Object.freeze({
+  inputCharStart: "INPUT_CHAR_START",
+  inputCharCancel: "INPUT_CHAR_CANCEL",
+  inputCharConfirmed: "INPUT_CHAR_CONFIRM",
+  inputRecoStart: "INPUT_RECO_START",
+  inputRecoCancel: "INPUT_RECO_CANCEL",
+  inputRecoConfirmed: "INPUT_RECO_CONFIRM",
+  focusNext: "FOCUS_NEXT",
+  toggleShiftLayout: "TOGGLE_SHIFT_LAYOUT",
+  toggleNumberLayout: "TOGGLE_NUMBER_LAYOUT"
+});
 
 const totalSuggestions = 3;
 
@@ -35,8 +48,39 @@ const Trial = ({
   weightedAccuracy,
   sdAccuracy
 }) => {
+  const initState = () => ({
+    layoutName: keyboardLayout.layoutName
+  });
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      // -------------------------
+      //  KEYBOARD LAYOUT ACTIONS
+      // -------------------------
+      case ActionTypes.toggleShiftLayout:
+        return {
+          ...state,
+          layoutName:
+            state.layoutName === KeyboardLayoutNames.shift
+              ? KeyboardLayoutNames.default
+              : KeyboardLayoutNames.shift
+        };
+      case ActionTypes.toggleNumberLayout:
+        return {
+          ...state,
+          layoutName:
+            state.layoutName === KeyboardLayoutNames.numbers
+              ? KeyboardLayoutNames.default
+              : KeyboardLayoutNames.numbers
+        };
+      default:
+        return state;
+    }
+  };
+
+  const [{ layoutName }, dispatch] = useReducer(reducer, null, initState);
+
   const text = words.map(w => w.word).join(" ");
-  const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
 
   const [focusIndex, setFocusIndex] = useState(0);
@@ -80,24 +124,16 @@ const Trial = ({
     }
   }, [inputHasFocus, inputRef]);
 
-  function handleShift() {
-    setLayoutName(layoutName === "default" ? "shift" : "default");
-  }
-
-  function handleNumbersOnMobile() {
-    setLayoutName(layoutName === "default" ? "numbers" : "default");
-  }
-
   function onKeyPress(button, word = null, suggestedInput = null) {
     let eventName;
     let newInput = suggestedInput === null ? input : suggestedInput;
     let inputRemoved = null;
 
     if (button === "{shift}" || button === "{lock}") {
-      handleShift();
+      dispatch({ type: ActionTypes.toggleShiftLayout });
       eventName = "shift_keyboard";
     } else if (button === "{numbers}" || button === "{abc}") {
-      handleNumbersOnMobile();
+      dispatch({ type: ActionTypes.toggleNumberLayout });
       eventName = "numToLet_keyboard";
     } else if (button === "{bksp}") {
       eventName = "remove_character";
@@ -184,12 +220,6 @@ const Trial = ({
     }
   }
 
-  function onChange() {
-    if (keyboardLayout.id === "mobile") {
-      Keyboard.keyboard.ref.setInput(input);
-    }
-  }
-
   const delayHandler = (e, keydown = true, suggestion = null) => {
     if (keydown) {
       if (keyStrokeDelay === 0) {
@@ -266,7 +296,6 @@ const Trial = ({
             ? "Tap on the virtual keyboard to start"
             : "Tap on your keyboard to start"
         }
-        onChange={onChange}
         readOnly={keyboardLayout.id === "mobile"}
       />
       <WordHelper
@@ -285,9 +314,6 @@ const Trial = ({
       />
       {keyboardLayout.id === "mobile" ? (
         <Keyboard
-          ref={r => {
-            Keyboard.keyboardRef = r;
-          }}
           display={keyboardLayout.display}
           layout={keyboardLayout.layout}
           layoutName={layoutName}

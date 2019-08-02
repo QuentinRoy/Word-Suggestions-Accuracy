@@ -24,11 +24,19 @@ const countSimilarChars = (str1, str2) => {
   return correctCharsCount;
 };
 
-const Trial = ({ id, configData }) => {
-  const text = configData.words.map(w => w.word).join(" ");
-  const [layoutName, setLayoutName] = useState(
-    configData.keyboardLayout.layoutName
-  );
+const Trial = ({
+  keyboardLayout,
+  onAdvanceWorkflow,
+  onLog,
+  keyStrokeDelay,
+  words,
+  id,
+  targetAccuracy,
+  weightedAccuracy,
+  sdAccuracy
+}) => {
+  const text = words.map(w => w.word).join(" ");
+  const [layoutName, setLayoutName] = useState(keyboardLayout.layoutName);
   const [input, setInput] = useState("");
 
   const [focusIndex, setFocusIndex] = useState(0);
@@ -44,12 +52,7 @@ const Trial = ({ id, configData }) => {
 
   const computeSuggestions = useComputeSuggestions();
   const [suggestions, setSuggestions] = useState(
-    computeSuggestions(
-      "",
-      configData.words[0].sks,
-      text.split(" ")[0],
-      totalSuggestions
-    )
+    computeSuggestions("", words[0].sks, text.split(" ")[0], totalSuggestions)
   );
   const eventList = useRef([
     {
@@ -102,7 +105,7 @@ const Trial = ({ id, configData }) => {
       newInput = input.slice(0, -1);
     } else if (button === "{space}" && !isCorrect) {
       if (
-        configData.keyboardLayout.id === "mobile" &&
+        keyboardLayout.id === "mobile" &&
         input.charAt(input.length - 1) === " " &&
         button === "{space}"
       ) {
@@ -129,15 +132,10 @@ const Trial = ({ id, configData }) => {
       inputLastWord,
       wordIndexInText,
       wordFromText
-    } = calculateSuggestions(
-      newInput,
-      text,
-      configData.words,
-      totalSuggestions
-    );
+    } = calculateSuggestions(newInput, text, words, totalSuggestions);
     const newSuggestions = computeSuggestions(
       inputLastWord,
-      configData.words[wordIndexInText].sks,
+      words[wordIndexInText].sks,
       wordFromText,
       totalSuggestions
     );
@@ -175,10 +173,7 @@ const Trial = ({ id, configData }) => {
     if (event.key === "Backspace") onKeyPress("{bksp}");
     else if (event.keyCode === 16 || event.keyCode === 20) {
       onKeyPress("{shift}");
-    } else if (
-      event.keyCode === 9 &&
-      configData.keyboardLayout.id === "physical"
-    ) {
+    } else if (event.keyCode === 9 && keyboardLayout.id === "physical") {
       event.preventDefault();
       setFocusIndex((focusIndex + 1) % (totalSuggestions + 1));
       onKeyPress("{tab}");
@@ -190,15 +185,15 @@ const Trial = ({ id, configData }) => {
   }
 
   function onChange() {
-    if (configData.keyboardLayout.id === "mobile") {
+    if (keyboardLayout.id === "mobile") {
       Keyboard.keyboard.ref.setInput(input);
     }
   }
 
   const delayHandler = (e, keydown = true, suggestion = null) => {
     if (keydown) {
-      if (configData.keyStrokeDelay === 0) {
-        if (configData.keyboardLayout.id === "physical") {
+      if (keyStrokeDelay === 0) {
+        if (keyboardLayout.id === "physical") {
           physicalKeyboardHandler(e);
         } else {
           onKeyPress(e);
@@ -211,12 +206,12 @@ const Trial = ({ id, configData }) => {
         }
         setDelayEndTime(new Date());
         if (
-          delayEndTime - delayKeyDownTime >= configData.keyStrokeDelay &&
+          delayEndTime - delayKeyDownTime >= keyStrokeDelay &&
           delayKeyDownTime !== null
         ) {
           if (suggestion !== null) {
             suggestionHandler(suggestion);
-          } else if (configData.keyboardLayout.id === "physical") {
+          } else if (keyboardLayout.id === "physical") {
             physicalKeyboardHandler(e);
           } else {
             onKeyPress(e);
@@ -267,16 +262,16 @@ const Trial = ({ id, configData }) => {
         className="trial-input"
         value={`${input}|`}
         placeholder={
-          configData.keyboardLayout.id === "mobile"
+          keyboardLayout.id === "mobile"
             ? "Tap on the virtual keyboard to start"
             : "Tap on your keyboard to start"
         }
         onChange={onChange}
-        readOnly={configData.keyboardLayout.id === "mobile"}
+        readOnly={keyboardLayout.id === "mobile"}
       />
       <WordHelper
         mainSuggestionPosition={
-          configData.keyboardLayout.id === "physical"
+          keyboardLayout.id === "physical"
             ? 0
             : Math.floor(totalSuggestions / 2)
         }
@@ -284,17 +279,17 @@ const Trial = ({ id, configData }) => {
         focusedSuggestion={focusIndex > 0 ? focusIndex - 1 : null}
         suggestions={suggestions}
         delayHandler={delayHandler}
-        keyStrokeDelay={configData.keyStrokeDelay}
+        keyStrokeDelay={keyStrokeDelay}
         suggestionHandler={suggestionHandler}
-        keyboardLayout={configData.keyboardLayout.id}
+        keyboardLayout={keyboardLayout.id}
       />
-      {configData.keyboardLayout.id === "mobile" ? (
+      {keyboardLayout.id === "mobile" ? (
         <Keyboard
           ref={r => {
             Keyboard.keyboardRef = r;
           }}
-          display={configData.keyboardLayout.display}
-          layout={configData.keyboardLayout.layout}
+          display={keyboardLayout.display}
+          layout={keyboardLayout.layout}
           layoutName={layoutName}
           onKeyPress={delayHandler}
         />
@@ -302,22 +297,22 @@ const Trial = ({ id, configData }) => {
       {isCorrect ? (
         <WorkflowButton
           onClick={() => {
-            configData.onLog("events", eventList.current);
-            configData.onLog(
+            onLog("events", eventList.current);
+            onLog(
               "log",
               getTrialLog(
                 eventList.current, // eventList
                 id, // id
-                configData.targetAccuracy, // targetAccuracy
-                configData.keyStrokeDelay, // delay
-                configData.weightedAccuracy, // weightedAccuracy
-                configData.sdAccuracy, // sdAccuracy
-                configData.words, // words
+                targetAccuracy, // targetAccuracy
+                keyStrokeDelay, // delay
+                weightedAccuracy, // weightedAccuracy
+                sdAccuracy, // sdAccuracy
+                words, // words
                 trialStartTime.current, // trialStartTime
                 new Date()
               )
             );
-            configData.onAdvanceWorkflow();
+            onAdvanceWorkflow();
           }}
         />
       ) : null}
@@ -326,16 +321,21 @@ const Trial = ({ id, configData }) => {
 };
 
 Trial.propTypes = {
-  configData: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-      PropTypes.bool,
-      PropTypes.func,
-      PropTypes.object,
-      PropTypes.array
-    ])
+  keyboardLayout: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
   ).isRequired,
+  onAdvanceWorkflow: PropTypes.func.isRequired,
+  onLog: PropTypes.func.isRequired,
+  keyStrokeDelay: PropTypes.number.isRequired,
+  words: PropTypes.arrayOf(
+    PropTypes.shape({
+      word: PropTypes.string.isRequired,
+      sks: PropTypes.number.isRequired
+    })
+  ).isRequired,
+  targetAccuracy: PropTypes.number.isRequired,
+  weightedAccuracy: PropTypes.number.isRequired,
+  sdAccuracy: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired
 };
 

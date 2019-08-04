@@ -1,3 +1,5 @@
+import { count } from "../utils/arrays";
+
 const getLettersCompleted = (dictionaryWord, inputWord) => {
   let countLettersCompleted = 0;
   for (let i = 0; i < dictionaryWord.length; i += 1) {
@@ -107,4 +109,33 @@ function computeSuggestions(
   return topWords;
 }
 
-export default computeSuggestions;
+// Returns a new state with the suggestions filled in based on the input.
+const getSuggestions = (
+  totalSuggestions,
+  dictionary,
+  sksDistribution,
+  input
+) => {
+  // This may produce empty words (""). This is OK.
+  const inputWords = input.split(" ");
+  // Note: if input ends with a space, then the input word is "". This is
+  // on purpose.
+  const currentInputWord =
+    inputWords.length > 0 ? inputWords[inputWords.length - 1] : "";
+
+  // Since inputWords may contain empty words, we only count the non empty
+  // one.
+  const totalInputWords = count(inputWords, w => w !== "");
+  const currentWord =
+    sksDistribution[totalInputWords > 0 ? totalInputWords - 1 : 0];
+
+  return computeSuggestions(
+    currentInputWord,
+    currentWord.sks,
+    currentWord.word,
+    totalSuggestions,
+    dictionary
+  );
+};
+
+export default getSuggestions;

@@ -15,4 +15,10 @@ rules:
   react/jsx-one-expression-per-line: 0
   react-hooks/rules-of-hooks: error
   react-hooks/exhaustive-deps: warn
+
+overrides:
+  - files:
+      - src/**/*.test.js
+    env:
+      jest: true
 root: true

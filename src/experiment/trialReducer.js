@@ -64,8 +64,27 @@ export const inputSuggestionReducer = (state, action) => {
   }
 };
 
+export const keyboardTrackerReducer = (state, action) => {
+  switch (action.type) {
+    case Actions.keyDown:
+      return { ...state, pressedKeys: [...state.pressedKeys, action.key] };
+    case Actions.keyUp:
+      return {
+        ...state,
+        pressedKeys: state.pressedKeys.filter(key => key !== action.key)
+      };
+    default:
+      return state;
+  }
+};
+
 // Creates the main reducer, by applying each reducer one after the other.
-const reducers = [charReducer, keyboardLayoutReducer, inputSuggestionReducer];
+const reducers = [
+  charReducer,
+  keyboardLayoutReducer,
+  inputSuggestionReducer,
+  keyboardTrackerReducer
+];
 const trialReducer = (state, action) =>
   reducers.reduce((newState, reducer) => reducer(newState, action), state);
 

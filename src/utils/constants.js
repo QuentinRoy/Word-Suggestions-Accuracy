@@ -73,11 +73,13 @@ export const Actions = Object.freeze({
   deleteChar: "DELETE_CHAR",
   inputSuggestion: "INPUT_SUGGESTION",
   focusNext: "FOCUS_NEXT",
-  toggleKeyboardLayout: "TOGGLE_KEYBOARD_LAYOUT"
-});
+  toggleKeyboardLayout: "TOGGLE_KEYBOARD_LAYOUT",
+  keyDown: "KEY_DOWN",
+  keyUp: "KEY_UP",
 
-export const ActionStatuses = Object.freeze({
-  start: "START",
-  cancel: "CANCEL",
-  confirm: "CONFIRM"
+  // Scheduled action
+  scheduleAction: "SCHEDULE_ACTION",
+  cancelAction: "CANCEL_ACTION",
+  endAction: "END_ACTION",
+  confirmAction: "CONFIRM_ACTION"
 });

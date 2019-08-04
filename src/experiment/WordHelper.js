@@ -100,11 +100,12 @@ WordHelper.propTypes = {
   focusedSuggestion: PropTypes.number,
   suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectionStart: PropTypes.func.isRequired,
-  selectionEnd: PropTypes.func.isRequired
+  selectionEnd: PropTypes.func
 };
 
 WordHelper.defaultProps = {
-  focusedSuggestion: null
+  focusedSuggestion: null,
+  selectionEnd: () => {}
 };
 
 export default WordHelper;

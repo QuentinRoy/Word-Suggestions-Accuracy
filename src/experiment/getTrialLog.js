@@ -36,6 +36,13 @@ const getTrialLog = (
     }
   }
 
+  const timeZone = (() => {
+    if (Intl != null && Intl.DateTimeFormat != null) {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    }
+    return null;
+  })();
+
   const sentenceWordsAndSks = words
     .map(item => {
       return `${item.word}{${item.sks}}`;
@@ -65,7 +72,8 @@ const getTrialLog = (
     actualSks,
     totalSuggestionUsed,
     totalCorrectSuggestionUsed,
-    totalIncorrectSuggestionsUsed
+    totalIncorrectSuggestionsUsed,
+    timeZone
   };
 };
 

@@ -12,6 +12,7 @@ import "react-simple-keyboard/build/css/index.css";
 import "./Trial.css";
 import useActionScheduler from "./useActionScheduler";
 import trialReducer from "./trialReducer";
+import getEventLog from "./getEventLog";
 
 const totalSuggestions = 3;
 
@@ -43,6 +44,14 @@ const mapVirtualKey = key => {
   }
 };
 
+// This actions won't be logged.
+const noEventActions = [
+  Actions.keyDown,
+  Actions.keyUp,
+  Actions.endAction,
+  Actions.confirmAction
+];
+
 const Trial = ({
   keyboardLayout,
   onAdvanceWorkflow,
@@ -69,23 +78,33 @@ const Trial = ({
 
   // Returns a new state based on an action.
   const reducer = (state, action) => {
-    console.log(state, action);
     switch (action.type) {
       case Actions.confirmAction:
         return reducer(state, action.action);
       default: {
-        const newState = trialReducer(state, action);
-        if (state === newState) return state;
-        return {
-          ...newState,
-          suggestions: getSuggestionsFromInput(newState.input)
-        };
+        let newState = trialReducer(state, action);
+        const suggestions =
+          state.input === newState.input
+            ? state.suggestions
+            : getSuggestionsFromInput(newState.input);
+        // Creating a new state here (do not mutate the one returned by
+        // trial reducer, it may actually be the same as state).
+        newState = { ...newState, suggestions };
+        // Some actions do not need to be logged.
+        if (!noEventActions.includes(action.type)) {
+          // OK to mutate newState now, this is "ours".
+          newState.events = [
+            ...newState.events,
+            getEventLog(state, action, newState, { sksDistribution })
+          ];
+        }
+        return newState;
       }
     }
   };
 
   const [
-    { layoutName, input, suggestions, pressedKeys },
+    { layoutName, input, suggestions, pressedKeys, events },
     dispatch
   ] = useReducer(reducer, null, initState);
   const actionScheduler = useActionScheduler(dispatch, keyStrokeDelay);
@@ -118,13 +137,13 @@ const Trial = ({
         break;
       case "{numbers}":
         actionScheduler.start({
-          type: Actions.toggleNumberLayout,
+          type: Actions.toggleLayout,
           layoutName: KeyboardLayoutNames.numbers
         });
         break;
       case "{abc}":
         actionScheduler.start({
-          type: Actions.toggleNumberLayout,
+          type: Actions.toggleLayout,
           layoutName: KeyboardLayoutNames.default
         });
         break;
@@ -143,6 +162,7 @@ const Trial = ({
   }
 
   function onKeyUp(key) {
+    actionScheduler.end();
     dispatch({ type: Actions.keyUp, key: mapVirtualKey(key) });
   }
 
@@ -216,21 +236,21 @@ const Trial = ({
       {isCorrect ? (
         <WorkflowButton
           onClick={() => {
-            // onLog("events", eventList.current);
-            // onLog(
-            //   "log",
-            //   getTrialLog(
-            //     eventList.current, // eventList
-            //     id, // id
-            //     targetAccuracy, // targetAccuracy
-            //     keyStrokeDelay, // delay
-            //     weightedAccuracy, // weightedAccuracy
-            //     sdAccuracy, // sdAccuracy
-            //     words, // words
-            //     trialStartTime.current, // trialStartTime
-            //     new Date()
-            //   )
-            // );
+            onLog("events", events);
+            onLog(
+              "trial",
+              getTrialLog(
+                events,
+                id,
+                targetAccuracy,
+                keyStrokeDelay,
+                weightedAccuracy,
+                sdAccuracy,
+                sksDistribution,
+                trialStartTime,
+                new Date()
+              )
+            );
             onAdvanceWorkflow();
           }}
         />

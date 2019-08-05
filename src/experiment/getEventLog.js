@@ -1,31 +1,33 @@
-const getEventLog = (
-  eventName,
-  inputRemoved,
-  button,
-  text,
-  newInput,
-  newSuggestions,
-  suggestionUsed,
-  correctCharsCount
-) => {
-  return {
-    event: eventName,
-    addedInput: inputRemoved === null ? button : null,
-    removedInput: inputRemoved === null ? null : inputRemoved,
-    input: newInput,
-    isError:
-      ((eventName === "add_character" || eventName === "add_space") &&
-        button !== text[newInput.length - 1]) ||
-      eventName === "failed_keystroke_for_delay",
-    suggestion1: newSuggestions[0] || null,
-    suggestion2: newSuggestions[1] || null,
-    suggestion3: newSuggestions[2] || null,
-    suggestionUsed,
-    totalCorrectCharacters: correctCharsCount,
-    totalIncorrectCharacters: newInput.length - correctCharsCount,
-    totalSentenceCharacters: text.length,
-    time: new Date().toISOString()
+import { totalCommonCharFromStart } from "../utils/strings";
+import { Actions } from "../utils/constants";
+
+const getEventLog = (oldState, action, newState, { sksDistribution }) => {
+  const sentence = sksDistribution.map(w => w.word).join(" ");
+  const inputCommon = totalCommonCharFromStart(oldState.input, newState.input);
+  const oldTotalIncorrectCharacters =
+    oldState.input.length - totalCommonCharFromStart(sentence, oldState.input);
+  const newTotalIncorrectCharacters =
+    newState.input.length - totalCommonCharFromStart(sentence, newState.input);
+  const addedInput = newState.input.slice(inputCommon, newState.input.length);
+  const removedInput = oldState.input.slice(inputCommon, oldState.input.length);
+  const log = {
+    event: action.type,
+    scheduledAction: action.action == null ? null : action.action.type,
+    addedInput,
+    removedInput,
+    input: newState.input,
+    isError: oldTotalIncorrectCharacters < newTotalIncorrectCharacters,
+    suggestionUsed:
+      action.type === Actions.inputSuggestion ? action.word : null,
+    totalCorrectCharacters: newState.input.length - newTotalIncorrectCharacters,
+    totalIncorrectCharacters: newTotalIncorrectCharacters,
+    totalSentenceCharacters: sentence.length,
+    time: new Date()
   };
+  newState.suggestions.forEach((s, i) => {
+    log[`suggestion${i}`] = s;
+  });
+  return log;
 };
 
 export default getEventLog;

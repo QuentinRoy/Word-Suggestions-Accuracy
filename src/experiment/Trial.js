@@ -220,7 +220,7 @@ const Trial = ({
             ? "Tap on the virtual keyboard to start"
             : "Tap on your keyboard to start"
         }
-        readOnly={keyboardLayout.id === "mobile"}
+        readOnly
       />
       <WordHelper
         mainSuggestionPosition={

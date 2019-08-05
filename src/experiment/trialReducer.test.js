@@ -141,3 +141,29 @@ describe("keyboardLayoutReducer", () => {
     expect(keyboardLayoutReducer(inputState, action)).toBe(inputState);
   });
 });
+
+describe("focusReducer", () => {
+  test("switch to the specified layout if the current one is default", () => {
+    const inputState = {
+      layoutName: KeyboardLayoutNames.default,
+      prop: "to keep"
+    };
+    const action = {
+      type: Actions.toggleKeyboardLayout,
+      layoutName: "mockLayout"
+    };
+    const outputState = {
+      layoutName: "mockLayout",
+      prop: "to keep"
+    };
+    expect(keyboardLayoutReducer(inputState, action)).toMatchObject(
+      outputState
+    );
+  });
+
+  test("returns the state on unknown actions", () => {
+    const inputState = {};
+    const action = { type: "UNKNOWN_ACTION" };
+    expect(keyboardLayoutReducer(inputState, action)).toBe(inputState);
+  });
+});

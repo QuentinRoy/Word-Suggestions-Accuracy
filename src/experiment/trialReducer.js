@@ -1,6 +1,11 @@
-import { KeyboardLayoutNames, Actions } from "../utils/constants";
+import {
+  KeyboardLayoutNames,
+  Actions,
+  totalSuggestions
+} from "../utils/constants";
 
 export const charReducer = (state, action) => {
+  if (state.focusTarget !== "input") return state;
   switch (action.type) {
     // Insert character.
     case Actions.inputChar:
@@ -45,6 +50,24 @@ export const keyboardLayoutReducer = (state, action) => {
   }
 };
 
+const focusTargets = [
+  "input",
+  ...Array.from({ length: totalSuggestions }, (_, i) => `suggestion-${i}`)
+];
+export const focusReducer = (state, action) => {
+  switch (action.type) {
+    case Actions.switchFocus: {
+      const focusIndex =
+        (focusTargets.indexOf(state.focusTarget) + 1) % focusTargets.length;
+      return { ...state, focusTarget: focusTargets[focusIndex] };
+    }
+    case Actions.inputSuggestion:
+      return { ...state, focusTarget: "input" };
+    default:
+      return state;
+  }
+};
+
 export const inputSuggestionReducer = (state, action) => {
   switch (action.type) {
     case Actions.inputSuggestion: {
@@ -83,7 +106,8 @@ const reducers = [
   charReducer,
   keyboardLayoutReducer,
   inputSuggestionReducer,
-  keyboardTrackerReducer
+  keyboardTrackerReducer,
+  focusReducer
 ];
 const trialReducer = (state, action) =>
   reducers.reduce((newState, reducer) => reducer(newState, action), state);

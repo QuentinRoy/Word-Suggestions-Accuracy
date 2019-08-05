@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useRef, useReducer } from "react";
+import React, { useEffect, useRef, useReducer } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
 import WordHelper from "./WordHelper";
 import TextToType from "./TextToType";
 import WorkflowButton from "./WorkflowButton";
 import getTrialLog from "./getTrialLog";
-import { KeyboardLayoutNames, Actions } from "../utils/constants";
+import {
+  KeyboardLayoutNames,
+  Actions,
+  totalSuggestions
+} from "../utils/constants";
 import { useDictionary } from "./useDictionary";
 import getSuggestions from "./getSuggestions";
 import "react-simple-keyboard/build/css/index.css";
@@ -13,8 +17,6 @@ import "./Trial.css";
 import useActionScheduler from "./useActionScheduler";
 import trialReducer from "./trialReducer";
 import getEventLog from "./getEventLog";
-
-const totalSuggestions = 3;
 
 const countSimilarChars = (str1, str2) => {
   let correctCharsCount = 0;
@@ -73,6 +75,7 @@ const Trial = ({
     pressedKeys: [],
     layoutName: keyboardLayout.layoutName,
     input: "",
+    focusTarget: "input",
     suggestions: getSuggestionsFromInput("")
   });
 
@@ -104,12 +107,11 @@ const Trial = ({
   };
 
   const [
-    { layoutName, input, suggestions, pressedKeys, events },
+    { layoutName, input, suggestions, pressedKeys, focusTarget, events },
     dispatch
   ] = useReducer(reducer, null, initState);
   const actionScheduler = useActionScheduler(dispatch, keyStrokeDelay);
 
-  const [focusIndex, setFocusIndex] = useState(0);
   const inputRef = React.createRef();
   const { current: trialStartTime } = useRef(new Date());
 
@@ -118,15 +120,13 @@ const Trial = ({
   const isCorrect = text === input.trim();
 
   useEffect(() => {
-    if (focusIndex === 0) {
-      inputRef.current.focus();
-    }
-  }, [focusIndex, inputRef]);
+    if (focusTarget === "input") inputRef.current.focus();
+  }, [focusTarget, inputRef]);
 
   function onKeyDown(key) {
     if (pressedKeys.includes(key)) return;
     dispatch({ type: Actions.keyDown, key });
-    if (pressedKeys.length > 0) return;
+    if (pressedKeys.length > 0 || focusTarget !== "input") return;
     switch (mapVirtualKey(key)) {
       case "Shift":
       case "CapsLock":
@@ -152,7 +152,7 @@ const Trial = ({
         break;
       case "Tab":
         actionScheduler.end();
-        setFocusIndex((focusIndex + 1) % (totalSuggestions + 1));
+        dispatch({ type: Actions.switchFocus, totalSuggestions });
         break;
       default:
         if (key.length === 1) {
@@ -167,11 +167,8 @@ const Trial = ({
   }
 
   function onPhysicalKeyDown(event) {
-    if (keyboardLayout.id !== "physical") {
-      event.preventDefault();
-      return;
-    }
-    onKeyDown(event.key);
+    event.preventDefault();
+    if (keyboardLayout.id === "physical") onKeyDown(event.key);
   }
 
   function onPhysicalKeyUp(event) {
@@ -232,7 +229,11 @@ const Trial = ({
             : Math.floor(totalSuggestions / 2)
         }
         totalSuggestions={totalSuggestions}
-        focusedSuggestion={focusIndex > 0 ? focusIndex - 1 : null}
+        focusedSuggestion={
+          focusTarget.startsWith("suggestion-")
+            ? +focusTarget.slice("suggestion-".length)
+            : null
+        }
         suggestions={suggestions}
         selectionStart={selection => {
           if (pressedKeys.length === 0) {

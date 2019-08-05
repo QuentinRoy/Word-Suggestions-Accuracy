@@ -13,6 +13,7 @@ const getEventLog = (oldState, action, newState, { sksDistribution }) => {
   const log = {
     event: action.type,
     scheduledAction: action.action == null ? null : action.action.type,
+    focusTarget: newState.focusTarget,
     addedInput,
     removedInput,
     input: newState.input,

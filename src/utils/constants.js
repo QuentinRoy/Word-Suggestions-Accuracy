@@ -76,6 +76,7 @@ export const Actions = Object.freeze({
   toggleKeyboardLayout: "TOGGLE_KEYBOARD_LAYOUT",
   keyDown: "KEY_DOWN",
   keyUp: "KEY_UP",
+  switchFocus: "SWITCH_FOCUS",
 
   // Scheduled action
   scheduleAction: "SCHEDULE_ACTION",
@@ -83,3 +84,5 @@ export const Actions = Object.freeze({
   endAction: "END_ACTION",
   confirmAction: "CONFIRM_ACTION"
 });
+
+export const totalSuggestions = 3;

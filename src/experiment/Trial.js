@@ -1,17 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useReducer } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
-import "react-simple-keyboard/build/css/index.css";
-import "./Trial.css";
 import WordHelper from "./WordHelper";
 import TextToType from "./TextToType";
 import WorkflowButton from "./WorkflowButton";
-import calculateSuggestions from "./calculateSuggestions";
-import getEventLog from "./getEventLog";
-import useComputeSuggestions from "./useComputeSuggestions";
 import getTrialLog from "./getTrialLog";
-
-const totalSuggestions = 3;
+import {
+  KeyboardLayoutNames,
+  Actions,
+  totalSuggestions
+} from "../utils/constants";
+import { useDictionary } from "./useDictionary";
+import getSuggestions from "./getSuggestions";
+import "react-simple-keyboard/build/css/index.css";
+import "./Trial.css";
+import useActionScheduler from "./useActionScheduler";
+import trialReducer from "./trialReducer";
+import getEventLog from "./getEventLog";
 
 const countSimilarChars = (str1, str2) => {
   let correctCharsCount = 0;
@@ -24,235 +29,179 @@ const countSimilarChars = (str1, str2) => {
   return correctCharsCount;
 };
 
-const Trial = ({ id, configData }) => {
-  const text = configData.words.map(w => w.word).join(" ");
-  const [layoutName, setLayoutName] = useState(
-    configData.keyboardLayout.layoutName
-  );
-  const [input, setInput] = useState("");
+const mapVirtualKey = key => {
+  switch (key) {
+    case "{bksp}":
+      return "Backspace";
+    case "{tab}":
+      return "Tab";
+    case "{shift}":
+      return "Shift";
+    case "{lock}":
+      return "CapsLock";
+    case "{space}":
+      return " ";
+    default:
+      return key;
+  }
+};
 
-  const [focusIndex, setFocusIndex] = useState(0);
+// This actions won't be logged.
+const noEventActions = [
+  Actions.keyDown,
+  Actions.keyUp,
+  Actions.endAction,
+  Actions.confirmAction
+];
+
+const Trial = ({
+  keyboardLayout,
+  onAdvanceWorkflow,
+  onLog,
+  keyStrokeDelay,
+  sksDistribution,
+  id,
+  targetAccuracy,
+  weightedAccuracy,
+  sdAccuracy
+}) => {
+  const dictionary = useDictionary();
+  const getSuggestionsFromInput = input =>
+    getSuggestions(totalSuggestions, dictionary, sksDistribution, input);
+
+  // Compute the initial state.
+  const initState = () => ({
+    events: [],
+    pressedKeys: [],
+    layoutName: keyboardLayout.layoutName,
+    input: "",
+    focusTarget: "input",
+    suggestions: getSuggestionsFromInput("")
+  });
+
+  // Returns a new state based on an action.
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case Actions.confirmAction:
+        return reducer(state, action.action);
+      default: {
+        let newState = trialReducer(state, action);
+        const suggestions =
+          state.input === newState.input
+            ? state.suggestions
+            : getSuggestionsFromInput(newState.input);
+        // Creating a new state here (do not mutate the one returned by
+        // trial reducer, it may actually be the same as state).
+        newState = { ...newState, suggestions };
+        // Some actions do not need to be logged.
+        if (!noEventActions.includes(action.type)) {
+          // OK to mutate newState now, this is "ours".
+          newState.events = [
+            ...newState.events,
+            getEventLog(state, action, newState, { sksDistribution })
+          ];
+        }
+        return newState;
+      }
+    }
+  };
+
+  const [
+    { layoutName, input, suggestions, pressedKeys, focusTarget, events },
+    dispatch
+  ] = useReducer(reducer, null, initState);
+  const actionScheduler = useActionScheduler(dispatch, keyStrokeDelay);
+
   const inputRef = React.createRef();
+  const { current: trialStartTime } = useRef(new Date());
 
+  const text = sksDistribution.map(w => w.word).join(" ");
   const correctCharsCount = countSimilarChars(text, input);
-  const isCorrect =
-    correctCharsCount === text.length && text.length === input.length;
+  const isCorrect = text === input.trim();
 
-  const [delayKeyDownTime, setDelayKeyDownTime] = useState(null);
-  const [delayEndTime, setDelayEndTime] = useState(null);
-  const [delayedInputChanged, setDelayedInputChanged] = useState(false);
-
-  const computeSuggestions = useComputeSuggestions();
-  const [suggestions, setSuggestions] = useState(
-    computeSuggestions(
-      "",
-      configData.words[0].sks,
-      text.split(" ")[0],
-      totalSuggestions
-    )
-  );
-  const eventList = useRef([
-    {
-      event: "start_up_event",
-      addedInput: null,
-      removedInput: null,
-      input: null,
-      isError: null,
-      suggestion1: null,
-      suggestion2: null,
-      suggestion3: null,
-      suggestionUsed: null,
-      totalCorrectCharacters: correctCharsCount,
-      totalIncorrectCharacters: input.length - correctCharsCount,
-      totalSentenceCharacters: text.length,
-      time: new Date().toISOString()
-    }
-  ]);
-  const trialStartTime = useRef(new Date());
-
-  const inputHasFocus = focusIndex === 0;
   useEffect(() => {
-    if (inputHasFocus) {
-      inputRef.current.focus();
-    }
-  }, [inputHasFocus, inputRef]);
+    if (focusTarget === "input") inputRef.current.focus();
+  }, [focusTarget, inputRef]);
 
-  function handleShift() {
-    setLayoutName(layoutName === "default" ? "shift" : "default");
+  function onKeyDown(key) {
+    if (pressedKeys.includes(key)) return;
+    dispatch({ type: Actions.keyDown, key });
+    if (pressedKeys.length > 0 || focusTarget !== "input") return;
+    switch (mapVirtualKey(key)) {
+      case "Shift":
+      case "CapsLock":
+        actionScheduler.start({
+          type: Actions.toggleLayout,
+          layoutName: KeyboardLayoutNames.shift
+        });
+        break;
+      case "{numbers}":
+        actionScheduler.start({
+          type: Actions.toggleLayout,
+          layoutName: KeyboardLayoutNames.numbers
+        });
+        break;
+      case "{abc}":
+        actionScheduler.start({
+          type: Actions.toggleLayout,
+          layoutName: KeyboardLayoutNames.default
+        });
+        break;
+      case "Backspace":
+        actionScheduler.start({ type: Actions.deleteChar });
+        break;
+      case "Tab":
+        actionScheduler.end();
+        dispatch({ type: Actions.switchFocus, totalSuggestions });
+        break;
+      default:
+        if (key.length === 1) {
+          actionScheduler.start({ type: Actions.inputChar, char: key });
+        }
+    }
   }
 
-  function handleNumbersOnMobile() {
-    setLayoutName(layoutName === "default" ? "numbers" : "default");
+  function onKeyUp(key) {
+    actionScheduler.end();
+    dispatch({ type: Actions.keyUp, key: mapVirtualKey(key) });
   }
 
-  function onKeyPress(button, word = null, suggestedInput = null) {
-    let eventName;
-    let newInput = suggestedInput === null ? input : suggestedInput;
-    let inputRemoved = null;
+  function onPhysicalKeyDown(event) {
+    event.preventDefault();
+    if (keyboardLayout.id === "physical") onKeyDown(event.key);
+  }
 
-    if (button === "{shift}" || button === "{lock}") {
-      handleShift();
-      eventName = "shift_keyboard";
-    } else if (button === "{numbers}" || button === "{abc}") {
-      handleNumbersOnMobile();
-      eventName = "numToLet_keyboard";
-    } else if (button === "{bksp}") {
-      eventName = "remove_character";
-      inputRemoved = input[input.length - 1];
-      newInput = input.slice(0, -1);
-    } else if (button === "{space}" && !isCorrect) {
-      if (
-        configData.keyboardLayout.id === "mobile" &&
-        input.charAt(input.length - 1) === " " &&
-        button === "{space}"
-      ) {
-        newInput = `${input.slice(0, -1)}. `;
-      } else {
-        newInput = `${input} `;
-      }
-      eventName = "add_space";
-    } else if (button === "{enter}") {
-      eventName = focusIndex === 0 ? "add_enter" : "used_suggestion";
-      setFocusIndex(0);
-    } else if (button === "{tab}") {
-      eventName = "focus_suggestion";
-    } else if (!isCorrect) {
-      if (input.charAt(input.length - 1) === " " && button === ".") {
-        newInput = `${input.slice(0, -1) + button} `;
-      } else {
-        newInput = input + button;
-      }
-      eventName = "add_character";
+  function onPhysicalKeyUp(event) {
+    if (keyboardLayout.id !== "physical") {
+      event.preventDefault();
+      return;
     }
+    onKeyUp(event.key);
+  }
 
-    const {
-      inputLastWord,
-      wordIndexInText,
-      wordFromText
-    } = calculateSuggestions(
-      newInput,
-      text,
-      configData.words,
-      totalSuggestions
-    );
-    const newSuggestions = computeSuggestions(
-      inputLastWord,
-      configData.words[wordIndexInText].sks,
-      wordFromText,
-      totalSuggestions
-    );
-    setSuggestions(newSuggestions);
-    setInput(newInput);
-    eventList.current.push(
-      getEventLog(
-        eventName,
-        inputRemoved,
-        button,
-        text,
-        newInput,
-        newSuggestions,
-        word,
-        countSimilarChars(text, newInput)
+  function onFinishTrial() {
+    onLog("events", events);
+    onLog(
+      "trial",
+      getTrialLog(
+        events,
+        id,
+        targetAccuracy,
+        keyStrokeDelay,
+        weightedAccuracy,
+        sdAccuracy,
+        sksDistribution,
+        trialStartTime,
+        new Date()
       )
     );
-
-    setDelayKeyDownTime(null);
+    onAdvanceWorkflow();
   }
-
-  const suggestionHandler = word => {
-    if (word !== undefined && word !== "" && word !== null) {
-      const i = input.lastIndexOf(" ");
-      let suggestedInput = `${input.slice(0, i + 1) + word} `;
-      if (i === text.lastIndexOf(" ")) {
-        suggestedInput = suggestedInput.slice(0, -1);
-      }
-      setInput(suggestedInput);
-      onKeyPress("{enter}", word, suggestedInput);
-    }
-  };
-
-  function physicalKeyboardHandler(event) {
-    if (event.key === "Backspace") onKeyPress("{bksp}");
-    else if (event.keyCode === 16 || event.keyCode === 20) {
-      onKeyPress("{shift}");
-    } else if (
-      event.keyCode === 9 &&
-      configData.keyboardLayout.id === "physical"
-    ) {
-      event.preventDefault();
-      setFocusIndex((focusIndex + 1) % (totalSuggestions + 1));
-      onKeyPress("{tab}");
-    } else if (event.key === "Enter") {
-      if (focusIndex === 0) onKeyPress("{enter}");
-    } else {
-      onKeyPress(event.key);
-    }
-  }
-
-  function onChange() {
-    if (configData.keyboardLayout.id === "mobile") {
-      Keyboard.keyboard.ref.setInput(input);
-    }
-  }
-
-  const delayHandler = (e, keydown = true, suggestion = null) => {
-    if (keydown) {
-      if (configData.keyStrokeDelay === 0) {
-        if (configData.keyboardLayout.id === "physical") {
-          physicalKeyboardHandler(e);
-        } else {
-          onKeyPress(e);
-        }
-      } else if (e.keyCode === 9) {
-        physicalKeyboardHandler(e);
-      } else {
-        if (delayKeyDownTime === null) {
-          setDelayKeyDownTime(new Date());
-        }
-        setDelayEndTime(new Date());
-        if (
-          delayEndTime - delayKeyDownTime >= configData.keyStrokeDelay &&
-          delayKeyDownTime !== null
-        ) {
-          if (suggestion !== null) {
-            suggestionHandler(suggestion);
-          } else if (configData.keyboardLayout.id === "physical") {
-            physicalKeyboardHandler(e);
-          } else {
-            onKeyPress(e);
-          }
-          setDelayEndTime(null);
-          setDelayedInputChanged(true);
-        }
-      }
-    } else {
-      if (
-        delayEndTime !== null &&
-        (e.key !== "Tab" && e.key !== "Enter" && e.key !== "Shift") &&
-        !delayedInputChanged
-      ) {
-        eventList.current.push(
-          getEventLog(
-            "failed_keystroke_for_delay",
-            null,
-            e.key,
-            text,
-            input,
-            suggestions,
-            null,
-            countSimilarChars(text, input)
-          )
-        );
-      }
-      setDelayedInputChanged(false);
-      setDelayKeyDownTime(null);
-    }
-  };
 
   return (
     <div
-      onKeyDown={e => delayHandler(e)}
-      onKeyUp={e => delayHandler(e, false)}
+      onKeyDown={onPhysicalKeyDown}
+      onKeyUp={onPhysicalKeyUp}
       role="button"
       tabIndex={0}
       style={{ outline: "none" }}
@@ -267,75 +216,64 @@ const Trial = ({ id, configData }) => {
         className="trial-input"
         value={`${input}|`}
         placeholder={
-          configData.keyboardLayout.id === "mobile"
+          keyboardLayout.id === "mobile"
             ? "Tap on the virtual keyboard to start"
             : "Tap on your keyboard to start"
         }
-        onChange={onChange}
-        readOnly={configData.keyboardLayout.id === "mobile"}
+        readOnly
       />
       <WordHelper
         mainSuggestionPosition={
-          configData.keyboardLayout.id === "physical"
+          keyboardLayout.id === "physical"
             ? 0
             : Math.floor(totalSuggestions / 2)
         }
         totalSuggestions={totalSuggestions}
-        focusedSuggestion={focusIndex > 0 ? focusIndex - 1 : null}
+        focusedSuggestion={
+          focusTarget.startsWith("suggestion-")
+            ? +focusTarget.slice("suggestion-".length)
+            : null
+        }
         suggestions={suggestions}
-        delayHandler={delayHandler}
-        keyStrokeDelay={configData.keyStrokeDelay}
-        suggestionHandler={suggestionHandler}
-        keyboardLayout={configData.keyboardLayout.id}
+        selectionStart={selection => {
+          if (pressedKeys.length === 0) {
+            actionScheduler.start({
+              type: Actions.inputSuggestion,
+              word: selection
+            });
+          }
+        }}
       />
-      {configData.keyboardLayout.id === "mobile" ? (
+      {keyboardLayout.id === "mobile" ? (
         <Keyboard
-          ref={r => {
-            Keyboard.keyboardRef = r;
-          }}
-          display={configData.keyboardLayout.display}
-          layout={configData.keyboardLayout.layout}
+          display={keyboardLayout.display}
+          layout={keyboardLayout.layout}
           layoutName={layoutName}
-          onKeyPress={delayHandler}
+          onKeyDown={key => onKeyDown(key)}
+          onKeyUp={key => onKeyUp(key)}
         />
       ) : null}
-      {isCorrect ? (
-        <WorkflowButton
-          onClick={() => {
-            configData.onLog("events", eventList.current);
-            configData.onLog(
-              "log",
-              getTrialLog(
-                eventList.current, // eventList
-                id, // id
-                configData.targetAccuracy, // targetAccuracy
-                configData.keyStrokeDelay, // delay
-                configData.weightedAccuracy, // weightedAccuracy
-                configData.sdAccuracy, // sdAccuracy
-                configData.words, // words
-                trialStartTime.current, // trialStartTime
-                new Date()
-              )
-            );
-            configData.onAdvanceWorkflow();
-          }}
-        />
-      ) : null}
+      {isCorrect ? <WorkflowButton onClick={onFinishTrial} /> : null}
     </div>
   );
 };
 
 Trial.propTypes = {
-  configData: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-      PropTypes.bool,
-      PropTypes.func,
-      PropTypes.object,
-      PropTypes.array
-    ])
+  keyboardLayout: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.bool, PropTypes.string])
   ).isRequired,
+  onAdvanceWorkflow: PropTypes.func.isRequired,
+  onLog: PropTypes.func.isRequired,
+  keyStrokeDelay: PropTypes.number.isRequired,
+  sksDistribution: PropTypes.arrayOf(
+    PropTypes.shape({
+      word: PropTypes.string.isRequired,
+      sks: PropTypes.number.isRequired
+    })
+  ).isRequired,
+  targetAccuracy: PropTypes.number.isRequired,
+  weightedAccuracy: PropTypes.number.isRequired,
+  sdAccuracy: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired
 };
 

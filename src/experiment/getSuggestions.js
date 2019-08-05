@@ -1,5 +1,4 @@
-import { useCallback } from "react";
-import { useDictionary } from "./useDictionary";
+import { count } from "../utils/arrays";
 
 const getLettersCompleted = (dictionaryWord, inputWord) => {
   let countLettersCompleted = 0;
@@ -23,9 +22,9 @@ const frequencyScore = (freq, dictionaryWord, inputWord) => {
 };
 
 function computeSuggestions(
-  inputWord,
-  thresholdPosition,
-  wordFromText,
+  currentInputWord,
+  targetWordSKS,
+  targetWord,
   totalSuggestions,
   dictionary
 ) {
@@ -52,7 +51,7 @@ function computeSuggestions(
       scoresSum += frequencyScore(
         dictionary[i].f,
         dictionary[i].word,
-        inputWord
+        currentInputWord
       );
     }
     return scoresSum;
@@ -64,28 +63,28 @@ function computeSuggestions(
     const inputWordScore = frequencyScore(
       dictionary[i].f,
       dictionary[i].word,
-      inputWord
+      currentInputWord
     );
     const normalizedInputWordScore = inputWordScore / totalFrequencyScores;
-    if (dictionary[i].word.toLowerCase() === wordFromText.toLowerCase()) {
-      if (inputWord.length >= thresholdPosition || thresholdPosition === 0) {
+    if (dictionary[i].word.toLowerCase() === targetWord.toLowerCase()) {
+      if (currentInputWord.length >= targetWord.length - targetWordSKS) {
         insertTopWord(dictionary[i].word, Number.POSITIVE_INFINITY);
-        if (wordFromText.charAt(0) === wordFromText.charAt(0).toUpperCase()) {
+        if (targetWord.charAt(0) === targetWord.charAt(0).toUpperCase()) {
           charUpper = true;
         }
       }
     } else if (
-      dictionary[i].word.length > inputWord.length ||
-      inputWord === ""
+      dictionary[i].word.length > currentInputWord.length ||
+      currentInputWord === ""
     ) {
       insertTopWord(dictionary[i].word, normalizedInputWordScore);
     }
   }
 
   if (
-    inputWord !== undefined &&
-    inputWord !== "" &&
-    inputWord.charAt(0) === inputWord.charAt(0).toUpperCase()
+    currentInputWord !== undefined &&
+    currentInputWord !== "" &&
+    currentInputWord.charAt(0) === currentInputWord.charAt(0).toUpperCase()
   )
     charUpper = true;
 
@@ -110,18 +109,33 @@ function computeSuggestions(
   return topWords;
 }
 
-function useComputeSuggestions(
-  inputWord,
-  thresholdPosition,
-  wordFromText,
-  totalSuggestions
-) {
-  const dictionary = useDictionary();
-  const boundComputeSuggestions = useCallback(
-    (...args) => computeSuggestions(...args, dictionary),
-    [dictionary]
-  );
-  return boundComputeSuggestions;
-}
+// Returns a new state with the suggestions filled in based on the input.
+const getSuggestions = (
+  totalSuggestions,
+  dictionary,
+  sksDistribution,
+  input
+) => {
+  // This may produce empty words (""). This is OK.
+  const inputWords = input.split(" ");
+  // Note: if input ends with a space, then the input word is "". This is
+  // on purpose.
+  const currentInputWord =
+    inputWords.length > 0 ? inputWords[inputWords.length - 1] : "";
 
-export default useComputeSuggestions;
+  // Since inputWords may contain empty words, we only count the non empty
+  // one.
+  const totalInputWords = count(inputWords, w => w !== "");
+  const currentWord =
+    sksDistribution[totalInputWords > 0 ? totalInputWords - 1 : 0];
+
+  return computeSuggestions(
+    currentInputWord,
+    currentWord.sks,
+    currentWord.word,
+    totalSuggestions,
+    dictionary
+  );
+};
+
+export default getSuggestions;

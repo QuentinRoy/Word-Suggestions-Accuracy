@@ -41,9 +41,10 @@ const getPageArguments = () => {
 
 const { participant, targetAccuracy, keyStrokeDelay } = getPageArguments();
 
-const TypingTask = (id, isPractice, sentenceData) => ({
+const TypingTask = (id, isPractice, { words, ...distributionInfo }) => ({
+  ...distributionInfo,
   task: "TypingTask",
-  ...sentenceData,
+  sksDistribution: words,
   key: id,
   id,
   isPractice

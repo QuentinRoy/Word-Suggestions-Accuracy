@@ -57,24 +57,28 @@ function WordHelper({
       selectionEnd(suggestions[suggestionNum]);
     };
     return (
-      <td key={suggestionNum} className={styles.cell}>
-        <button
-          className={styles.btn}
-          ref={buttonRefs[i]}
-          type="button"
-          onTouchStart={selStart}
-          onTouchEnd={selEnd}
-          onTouchCancel={selEnd}
-          onKeyDown={e => {
-            if (e.key === "Enter") selStart(e);
-          }}
-          onKeyUp={e => {
-            if (e.key === "Enter") selEnd(e);
-          }}
-        >
-          {suggestions[suggestionNum]}
-        </button>
-      </td>
+      <button
+        // eslint-disable-next-line react/no-array-index-key
+        key={i}
+        className={
+          focusedSuggestion === i
+            ? `${styles.button} ${styles.focused}`
+            : styles.button
+        }
+        ref={buttonRefs[i]}
+        type="button"
+        onTouchStart={selStart}
+        onTouchEnd={selEnd}
+        onTouchCancel={selEnd}
+        onKeyDown={e => {
+          if (e.key === "Enter") selStart(e);
+        }}
+        onKeyUp={e => {
+          if (e.key === "Enter") selEnd(e);
+        }}
+      >
+        {suggestions[suggestionNum]}
+      </button>
     );
   });
 
@@ -85,13 +89,7 @@ function WordHelper({
     }
   }, [focusedSuggestion, buttonRefs]);
 
-  return (
-    <table className={styles.table}>
-      <tbody>
-        <tr>{buttons}</tr>
-      </tbody>
-    </table>
-  );
+  return <div className={styles.main}>{buttons}</div>;
 }
 
 WordHelper.propTypes = {

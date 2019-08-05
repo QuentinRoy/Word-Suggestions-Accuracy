@@ -13,10 +13,10 @@ import {
 import { useDictionary } from "./useDictionary";
 import getSuggestions from "./getSuggestions";
 import "react-simple-keyboard/build/css/index.css";
-import "./Trial.css";
 import useActionScheduler from "./useActionScheduler";
 import trialReducer from "./trialReducer";
 import getEventLog from "./getEventLog";
+import styles from "./Trial.module.css";
 
 const countSimilarChars = (str1, str2) => {
   let correctCharsCount = 0;
@@ -126,7 +126,7 @@ const Trial = ({
   function onKeyDown(key) {
     if (pressedKeys.includes(key)) return;
     dispatch({ type: Actions.keyDown, key });
-    if (pressedKeys.length > 0 || focusTarget !== "input") return;
+    if (pressedKeys.length > 0) return;
     switch (mapVirtualKey(key)) {
       case "Shift":
       case "CapsLock":
@@ -147,15 +147,18 @@ const Trial = ({
           layoutName: KeyboardLayoutNames.default
         });
         break;
-      case "Backspace":
-        actionScheduler.start({ type: Actions.deleteChar });
-        break;
       case "Tab":
         actionScheduler.end();
         dispatch({ type: Actions.switchFocus, totalSuggestions });
         break;
+      case "Backspace":
+        if (focusTarget === "input") {
+          actionScheduler.start({ type: Actions.deleteChar });
+        }
+        break;
       default:
-        if (key.length === 1) {
+        // Case the key is a character.
+        if (key.length === 1 && focusTarget === "input") {
           actionScheduler.start({ type: Actions.inputChar, char: key });
         }
     }
@@ -202,9 +205,9 @@ const Trial = ({
     <div
       onKeyDown={onPhysicalKeyDown}
       onKeyUp={onPhysicalKeyUp}
-      role="button"
+      role="textbox"
       tabIndex={0}
-      style={{ outline: "none" }}
+      className={styles.main}
       ref={inputRef}
     >
       <TextToType
@@ -213,7 +216,11 @@ const Trial = ({
         input={input}
       />
       <input
-        className="trial-input"
+        className={
+          focusTarget === "input"
+            ? `${styles.trialInput} ${styles.focused}`
+            : styles.trialInput
+        }
         value={`${input}|`}
         placeholder={
           keyboardLayout.id === "mobile"

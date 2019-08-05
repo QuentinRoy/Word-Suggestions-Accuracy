@@ -182,6 +182,25 @@ const Trial = ({
     onKeyUp(event.key);
   }
 
+  function onFinishTrial() {
+    onLog("events", events);
+    onLog(
+      "trial",
+      getTrialLog(
+        events,
+        id,
+        targetAccuracy,
+        keyStrokeDelay,
+        weightedAccuracy,
+        sdAccuracy,
+        sksDistribution,
+        trialStartTime,
+        new Date()
+      )
+    );
+    onAdvanceWorkflow();
+  }
+
   return (
     <div
       onKeyDown={onPhysicalKeyDown}
@@ -233,28 +252,7 @@ const Trial = ({
           onKeyUp={key => onKeyUp(key)}
         />
       ) : null}
-      {isCorrect ? (
-        <WorkflowButton
-          onClick={() => {
-            onLog("events", events);
-            onLog(
-              "trial",
-              getTrialLog(
-                events,
-                id,
-                targetAccuracy,
-                keyStrokeDelay,
-                weightedAccuracy,
-                sdAccuracy,
-                sksDistribution,
-                trialStartTime,
-                new Date()
-              )
-            );
-            onAdvanceWorkflow();
-          }}
-        />
-      ) : null}
+      {isCorrect ? <WorkflowButton onClick={onFinishTrial} /> : null}
     </div>
   );
 };

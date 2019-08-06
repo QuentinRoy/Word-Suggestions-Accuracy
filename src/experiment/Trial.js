@@ -123,6 +123,25 @@ const Trial = ({
     if (focusTarget === "input") inputRef.current.focus();
   }, [focusTarget, inputRef]);
 
+  function onFinishTrial() {
+    onLog("events", events);
+    onLog(
+      "trial",
+      getTrialLog(
+        events,
+        id,
+        targetAccuracy,
+        keyStrokeDelay,
+        weightedAccuracy,
+        sdAccuracy,
+        sksDistribution,
+        trialStartTime,
+        new Date()
+      )
+    );
+    onAdvanceWorkflow();
+  }
+
   function onKeyDown(key) {
     if (pressedKeys.includes(key)) return;
     dispatch({ type: Actions.keyDown, key });
@@ -155,6 +174,11 @@ const Trial = ({
           actionScheduler.start({ type: Actions.deleteChar });
         }
         break;
+      case "Enter":
+        if (focusTarget === "input" && isCorrect) {
+          onFinishTrial();
+        }
+        break;
       default:
         // Case the key is a character.
         if (key.length === 1 && focusTarget === "input") {
@@ -176,30 +200,9 @@ const Trial = ({
     onKeyUp(event.key);
   }
 
-  function onFinishTrial() {
-    onLog("events", events);
-    onLog(
-      "trial",
-      getTrialLog(
-        events,
-        id,
-        targetAccuracy,
-        keyStrokeDelay,
-        weightedAccuracy,
-        sdAccuracy,
-        sksDistribution,
-        trialStartTime,
-        new Date()
-      )
-    );
-    onAdvanceWorkflow();
-  }
-
   function onPhysicalKeyDown(event) {
     event.preventDefault();
-    if (isCorrect && event.key === "Enter" && focusTarget === "input") {
-      onFinishTrial();
-    } else if (keyboardLayout.id === "physical") onKeyDown(event.key);
+    if (keyboardLayout.id === "physical") onKeyDown(event.key);
   }
 
   return (

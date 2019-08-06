@@ -41,12 +41,20 @@ const getPageArguments = () => {
 
 const { participant, targetAccuracy, keyStrokeDelay } = getPageArguments();
 
-const TypingTask = (id, isPractice, sentenceData) => ({
+const TypingTask = (id, isPractice, { words, ...distributionInfo }) => ({
+  ...distributionInfo,
   task: "TypingTask",
-  ...sentenceData,
+  sksDistribution: words,
   key: id,
   id,
   isPractice
+});
+
+const UploadLogS3 = (id, fireAndForget, participantId) => ({
+  task: "S3Upload",
+  filename: `${participantId}-${new Date().toISOString()}-log.json`,
+  key: id,
+  fireAndForget
 });
 
 const generateTasks = corpus => {
@@ -56,17 +64,20 @@ const generateTasks = corpus => {
   if (numberOfPracticeTasks > 0) {
     tasks.push({
       task: "InformationScreen",
-      content: "The 5 following tasks are practice tasks",
+      content: `The ${numberOfPracticeTasks} following tasks are practice tasks`,
       shortcutEnabled: true,
       key: `${tasks.length}`
     });
-    tasks.push(
-      ...corpus
-        .slice(0, numberOfPracticeTasks)
-        .map((sentenceData, i) =>
-          TypingTask(`${tasks.length + i}`, true, sentenceData)
+    for (let i = 0; i < numberOfPracticeTasks; i += 1) {
+      tasks.push(
+        TypingTask(
+          `${tasks.length}`,
+          true,
+          corpus.slice(0, numberOfPracticeTasks)[i]
         )
-    );
+      );
+      tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
+    }
     tasks.push({
       task: "InformationScreen",
       content: "Practice is over, the real experiment begins here",
@@ -75,20 +86,21 @@ const generateTasks = corpus => {
   }
 
   // Insert measured tasks.
-  tasks.push(
-    ...corpus
-      .slice(numberOfPracticeTasks, numberOfPracticeTasks + numberOfTypingTasks)
-      .map((sentenceData, i) =>
-        TypingTask(`${tasks.length + i}`, true, sentenceData)
+  for (let j = 0; j < numberOfTypingTasks; j += 1) {
+    tasks.push(
+      TypingTask(
+        `${tasks.length}`,
+        true,
+        corpus.slice(
+          numberOfPracticeTasks,
+          numberOfPracticeTasks + numberOfTypingTasks
+        )[j]
       )
-  );
+    );
+    tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
+  }
 
-  tasks.push({
-    task: "S3Upload",
-    filename: `${participant}-${new Date().toISOString()}-log.json`,
-    experimenter: "hello@world.com",
-    key: `${tasks.length}`
-  });
+  tasks.push(UploadLogS3(`${tasks.length}`, false, participant));
 
   return tasks;
 };

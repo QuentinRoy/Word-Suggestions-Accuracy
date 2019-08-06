@@ -39,55 +39,48 @@ function WordHelper({
   totalSuggestions,
   focusedSuggestion,
   suggestions,
-  delayHandler,
-  suggestionHandler,
-  keyStrokeDelay,
-  keyboardLayout
+  selectionStart,
+  selectionEnd
 }) {
   const buttonRefs = useMultiRef(totalSuggestions);
-  let presstimer;
 
   const buttons = createSuggestionDistribution(
     totalSuggestions,
     mainSuggestionPosition
-  ).map((suggestionNum, i) => (
-    <td key={suggestionNum} className={styles.cell}>
-      {keyboardLayout === "mobile" ? (
-        <button
-          className={styles.btn}
-          ref={buttonRefs[i]}
-          type="button"
-          onTouchStart={() => {
-            presstimer = setTimeout(() => {
-              suggestionHandler(suggestions[suggestionNum]);
-            }, keyStrokeDelay);
-          }}
-          onTouchEnd={e => {
-            e.preventDefault();
-            if (presstimer !== null) {
-              clearTimeout(presstimer);
-              presstimer = null;
-            }
-          }}
-        >
-          {suggestions[suggestionNum]}
-        </button>
-      ) : (
-        <button
-          className={styles.btn}
-          ref={buttonRefs[i]}
-          type="button"
-          onKeyDown={e => {
-            e.preventDefault();
-            delayHandler(e, true, suggestions[suggestionNum]);
-          }}
-          onKeyUp={e => delayHandler(e, false)}
-        >
-          {suggestions[suggestionNum]}
-        </button>
-      )}
-    </td>
-  ));
+  ).map((suggestionNum, i) => {
+    const selStart = e => {
+      e.preventDefault();
+      selectionStart(suggestions[suggestionNum]);
+    };
+    const selEnd = e => {
+      e.preventDefault();
+      selectionEnd(suggestions[suggestionNum]);
+    };
+    return (
+      <button
+        // eslint-disable-next-line react/no-array-index-key
+        key={i}
+        className={
+          focusedSuggestion === i
+            ? `${styles.button} ${styles.focused}`
+            : styles.button
+        }
+        ref={buttonRefs[i]}
+        type="button"
+        onTouchStart={selStart}
+        onTouchEnd={selEnd}
+        onTouchCancel={selEnd}
+        onKeyDown={e => {
+          if (e.key === "Enter") selStart(e);
+        }}
+        onKeyUp={e => {
+          if (e.key === "Enter") selEnd(e);
+        }}
+      >
+        {suggestions[suggestionNum]}
+      </button>
+    );
+  });
 
   useEffect(() => {
     if (focusedSuggestion != null) {
@@ -96,13 +89,7 @@ function WordHelper({
     }
   }, [focusedSuggestion, buttonRefs]);
 
-  return (
-    <table className={styles.table}>
-      <tbody>
-        <tr>{buttons}</tr>
-      </tbody>
-    </table>
-  );
+  return <div className={styles.main}>{buttons}</div>;
 }
 
 WordHelper.propTypes = {
@@ -110,14 +97,13 @@ WordHelper.propTypes = {
   totalSuggestions: PropTypes.number.isRequired,
   focusedSuggestion: PropTypes.number,
   suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  delayHandler: PropTypes.func.isRequired,
-  suggestionHandler: PropTypes.func.isRequired,
-  keyStrokeDelay: PropTypes.number.isRequired,
-  keyboardLayout: PropTypes.string.isRequired
+  selectionStart: PropTypes.func.isRequired,
+  selectionEnd: PropTypes.func
 };
 
 WordHelper.defaultProps = {
-  focusedSuggestion: null
+  focusedSuggestion: null,
+  selectionEnd: () => {}
 };
 
 export default WordHelper;

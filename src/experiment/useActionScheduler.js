@@ -31,17 +31,21 @@ const Delayer = () => {
   // job starts.
   const start = (delay, onConfirm, onCancel, onEnd) => {
     end();
-    const timeoutId = setTimeout(() => {
-      currentJob.onConfirm();
-      currentJob.isConfirmed = true;
-    }, delay);
     currentJob = {
-      timeoutId,
       onCancel: safeToCall(onCancel),
       onEnd: safeToCall(onEnd),
       onConfirm: safeToCall(onConfirm),
       isConfirmed: false
     };
+    const callback = () => {
+      currentJob.onConfirm();
+      currentJob.isConfirmed = true;
+    };
+    if (delay === 0) {
+      callback();
+    } else {
+      currentJob.timeoutId = setTimeout(callback, delay);
+    }
   };
 
   return { start, end };

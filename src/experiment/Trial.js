@@ -126,7 +126,6 @@ const Trial = ({
   function onKeyDown(key) {
     if (pressedKeys.includes(key)) return;
     dispatch({ type: Actions.keyDown, key });
-    if (pressedKeys.length > 0) return;
     switch (mapVirtualKey(key)) {
       case "Shift":
       case "CapsLock":

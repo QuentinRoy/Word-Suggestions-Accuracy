@@ -22,7 +22,8 @@
     "react-simple-keyboard": "^1.24.1",
     "serve": "^11.1.0",
     "styled-components": "^4.3.2",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.4.19",
+    "aws-sdk": "^2.503.0"
   },
   "homepage": ".",
   "scripts": {

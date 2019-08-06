@@ -83,6 +83,13 @@ const generateTasks = corpus => {
       )
   );
 
+  tasks.push({
+    task: "S3Upload",
+    filename: `${participant}-${new Date().toISOString()}-log.json`,
+    experimenter: "hello@world.com",
+    key: `${tasks.length}`
+  });
+
   return tasks;
 };
 

@@ -198,7 +198,9 @@ const Trial = ({ id, configData }) => {
   const delayHandler = (e, keydown = true, suggestion = null) => {
     if (keydown) {
       if (configData.keyStrokeDelay === 0) {
-        if (configData.keyboardLayout.id === "physical") {
+        if (suggestion !== null) {
+          suggestionHandler(suggestion);
+        } else if (configData.keyboardLayout.id === "physical") {
           physicalKeyboardHandler(e);
         } else {
           onKeyPress(e);

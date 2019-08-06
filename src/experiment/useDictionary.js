@@ -22,6 +22,7 @@ const DictionaryProvider = ({ children }) => {
     parse(path, {
       download: true,
       header: true,
+      skipEmptyLines: "greedy",
       transform(value, columnName) {
         switch (columnName) {
           case "f":

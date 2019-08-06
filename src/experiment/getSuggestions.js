@@ -1,4 +1,5 @@
 import { count } from "../utils/arrays";
+import { isUpperCase } from "../utils/strings";
 
 const getLettersCompleted = (dictionaryWord, inputWord) => {
   let countLettersCompleted = 0;
@@ -28,22 +29,33 @@ function computeSuggestions(
   totalSuggestions,
   dictionary
 ) {
-  let charUpper = false;
+  const isFirstCharUpper =
+    currentInputWord !== undefined &&
+    currentInputWord !== "" &&
+    isUpperCase(targetWord.charAt(0));
 
-  const topWords = Array(totalSuggestions).fill(null);
+  // Pre-fill the top words with the most frequent in the dictionary.
+  const topWords = dictionary.slice(0, totalSuggestions).map(e => e.word);
   const topWordsScore = Array(totalSuggestions).fill(0);
 
   const insertTopWord = (wordToInsert, score) => {
+    const capitalizedWordToInsert = isFirstCharUpper
+      ? wordToInsert.charAt(0).toUpperCase() + wordToInsert.slice(1)
+      : wordToInsert;
     const firstSmallestIndex = topWordsScore.findIndex(s => s < score);
     if (firstSmallestIndex >= 0) {
       // Insert the word at the corresponding location.
       topWordsScore.splice(firstSmallestIndex, 0, score);
-      topWords.splice(firstSmallestIndex, 0, wordToInsert);
+      topWords.splice(firstSmallestIndex, 0, capitalizedWordToInsert);
       // Remove the extraneous words.
       topWordsScore.pop();
       topWords.pop();
     }
   };
+
+  if (currentInputWord.length >= targetWord.length - targetWordSKS) {
+    insertTopWord(targetWord, Number.POSITIVE_INFINITY);
+  }
 
   const getTotalFrequencyScores = () => {
     let scoresSum = 0;
@@ -59,53 +71,17 @@ function computeSuggestions(
 
   const totalFrequencyScores = getTotalFrequencyScores();
 
-  for (let i = 0; i < dictionary.length - 1; i += 1) {
-    const inputWordScore = frequencyScore(
-      dictionary[i].f,
-      dictionary[i].word,
-      currentInputWord
-    );
-    const normalizedInputWordScore = inputWordScore / totalFrequencyScores;
-    if (dictionary[i].word.toLowerCase() === targetWord.toLowerCase()) {
-      if (currentInputWord.length >= targetWord.length - targetWordSKS) {
-        insertTopWord(dictionary[i].word, Number.POSITIVE_INFINITY);
-        if (targetWord.charAt(0) === targetWord.charAt(0).toUpperCase()) {
-          charUpper = true;
-        }
-      }
-    } else if (
-      dictionary[i].word.length > currentInputWord.length ||
-      currentInputWord === ""
+  dictionary.forEach(({ word, f: frequency }) => {
+    if (
+      word.toLowerCase() !== targetWord.toLowerCase() &&
+      (word.length > currentInputWord.length || currentInputWord === "")
     ) {
-      insertTopWord(dictionary[i].word, normalizedInputWordScore);
+      const inputWordScore = frequencyScore(frequency, word, currentInputWord);
+      const normalizedInputWordScore = inputWordScore / totalFrequencyScores;
+      insertTopWord(word, normalizedInputWordScore);
     }
-  }
+  });
 
-  if (
-    currentInputWord !== undefined &&
-    currentInputWord !== "" &&
-    currentInputWord.charAt(0) === currentInputWord.charAt(0).toUpperCase()
-  )
-    charUpper = true;
-
-  for (let j = 0; j < topWords.length; j += 1) {
-    if (topWords[j] !== null) {
-      if (charUpper) {
-        topWords[j] =
-          topWords[j].charAt(0).toUpperCase() + topWords[j].slice(1);
-      } else {
-        topWords[j] =
-          topWords[j].charAt(0).toLowerCase() + topWords[j].slice(1);
-      }
-    } else {
-      for (let i = 0; i < dictionary.length; i += 1) {
-        if (topWords.indexOf(dictionary[i].word) === -1) {
-          topWords[j] = dictionary[i].word;
-          break;
-        }
-      }
-    }
-  }
   return topWords;
 }
 

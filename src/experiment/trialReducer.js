@@ -5,7 +5,6 @@ import {
 } from "../utils/constants";
 
 export const charReducer = (state, action) => {
-  if (state.focusTarget !== "input") return state;
   switch (action.type) {
     // Insert character.
     case Actions.inputChar:

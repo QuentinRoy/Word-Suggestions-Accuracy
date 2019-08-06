@@ -10,18 +10,14 @@ describe("inputSuggestionReducer", () => {
     const inputState = { input: "this ongoing wor", some: "prop to keep" };
     const action = { type: Actions.inputSuggestion, word: "word" };
     const outputState = { input: "this ongoing word ", some: "prop to keep" };
-    expect(inputSuggestionReducer(inputState, action)).toMatchObject(
-      outputState
-    );
+    expect(inputSuggestionReducer(inputState, action)).toEqual(outputState);
   });
 
   test("adds the word if input is empty", () => {
     const inputState = { input: "", some: "prop to keep" };
     const action = { type: Actions.inputSuggestion, word: "word" };
     const outputState = { input: "word ", some: "prop to keep" };
-    expect(inputSuggestionReducer(inputState, action)).toMatchObject(
-      outputState
-    );
+    expect(inputSuggestionReducer(inputState, action)).toEqual(outputState);
   });
 
   test("continues if the last char is a white space", () => {
@@ -31,9 +27,7 @@ describe("inputSuggestionReducer", () => {
       input: "this sentence is finished ",
       some: "prop to keep"
     };
-    expect(inputSuggestionReducer(inputState, action)).toMatchObject(
-      outputState
-    );
+    expect(inputSuggestionReducer(inputState, action)).toEqual(outputState);
   });
 
   test("returns the state on unknown actions", () => {
@@ -48,14 +42,14 @@ describe("charReducer", () => {
     const inputState = { input: "inpu", some: "prop to keep" };
     const action = { type: Actions.inputChar, char: "t" };
     const outputState = { input: "input", some: "prop to keep" };
-    expect(charReducer(inputState, action)).toMatchObject(outputState);
+    expect(charReducer(inputState, action)).toEqual(outputState);
   });
 
   test("removes the last character of the input on delete char actions", () => {
     const inputState = { input: "input", some: "prop to keep" };
     const action = { type: Actions.deleteChar };
     const outputState = { input: "inpu", some: "prop to keep" };
-    expect(charReducer(inputState, action)).toMatchObject(outputState);
+    expect(charReducer(inputState, action)).toEqual(outputState);
   });
 
   test("returns the state on delete char actions if the input is empty", () => {

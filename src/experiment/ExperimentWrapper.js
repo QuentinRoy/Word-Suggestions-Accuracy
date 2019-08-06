@@ -1,6 +1,7 @@
 import React from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll, createUpload } from "@hcikit/tasks";
+import { isMobileOnly } from "react-device-detect";
 import TypingTask from "./TypingTask";
 import KeyboardSelector from "./KeyboardSelector";
 import useConfiguration from "./useConfiguration";
@@ -27,6 +28,9 @@ registerTask("S3Upload", UploadComponent);
 
 export default function ExperimentWrapper() {
   const [loadingState, configuration] = useConfiguration();
+  if (isMobileOnly) {
+    return <Crashed>This experiment is not available on mobile device</Crashed>;
+  }
 
   if (loadingState === LoadingStates.loading) {
     return <Loading>Loading experiment...</Loading>;

@@ -126,13 +126,14 @@ const getSuggestions = (
   // Since inputWords may contain empty words, we only count the non empty
   // one.
   const totalInputWords = count(inputWords, w => w !== "");
-  const currentWord =
-    sksDistribution[totalInputWords > 0 ? totalInputWords - 1 : 0];
+  const currentWordIndex =
+    currentInputWord === "" ? totalInputWords : totalInputWords - 1;
+  const currentWord = sksDistribution[currentWordIndex];
 
   return computeSuggestions(
     currentInputWord,
-    currentWord.sks,
-    currentWord.word,
+    currentWord == null ? 0 : currentWord.sks,
+    currentWord == null ? "" : currentWord.word,
     totalSuggestions,
     dictionary
   );

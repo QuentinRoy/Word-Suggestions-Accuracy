@@ -9,3 +9,11 @@ export const sd = (lst, lstMean = mean(lst)) => {
 
 export const count = (lst, predicate) =>
   lst.reduce((c, x, i) => (predicate(x, i) ? c + 1 : c), 0);
+
+export const sliceIf = (lst, start, n, predicate) => {
+  const result = [];
+  for (let i = start; i < lst.length && result.length < n; i += 1) {
+    if (predicate(lst[i], i)) result.push(lst[i]);
+  }
+  return result;
+};

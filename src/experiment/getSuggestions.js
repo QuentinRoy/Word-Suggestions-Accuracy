@@ -1,41 +1,47 @@
-import { count } from "../utils/arrays";
-import { isUpperCase } from "../utils/strings";
+import { count, sliceIf } from "../utils/arrays";
+import {
+  isUpperCase,
+  totalMatchedChars,
+  totalMatchedCharsFromStart
+} from "../utils/strings";
 
-const getLettersCompleted = (dictionaryWord, inputWord) => {
-  let countLettersCompleted = 0;
-  for (let i = 0; i < dictionaryWord.length; i += 1) {
-    if (i === inputWord.length) {
-      countLettersCompleted += dictionaryWord.length - i;
-      break;
-    }
-    if (dictionaryWord[i] !== inputWord[i]) {
-      countLettersCompleted += 1;
-    }
+// The computation of this normalized score comes from
+// https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/jb-release/native/jni/src/correction.cpp#1098
+const frequencyScore = (wordFScore, suggestion, inputWord) => {
+  const minLength = Math.min(suggestion.length, inputWord.length);
+  // This is (almost) the max possible score for this word/suggestion couple.
+  // We use it for normalization.
+  const maxScore = 2 ** minLength * 255 * 2;
+  let multiplier = 1;
+  if (totalMatchedCharsFromStart(suggestion, inputWord) === minLength) {
+    multiplier *= 1.2;
   }
-  return countLettersCompleted;
+  if (suggestion.length === inputWord.length) {
+    multiplier *= 2;
+  }
+  const wordScore =
+    suggestion.toLowerCase() === inputWord.toLowerCase() ? 255 : wordFScore;
+  const score =
+    2 ** (totalMatchedChars(suggestion, inputWord) * wordScore) * multiplier;
+  // Normalize the score.
+  return score / maxScore;
 };
-
-const frequencyScore = (freq, dictionaryWord, inputWord) => {
-  return (
-    (freq / 255) *
-    (1 - getLettersCompleted(dictionaryWord, inputWord) / dictionaryWord.length)
-  );
-};
+// The score is 0 if the suggestion don't start by the input word.
 
 function computeSuggestions(
-  currentInputWord,
+  inputWord,
   targetWordSKS,
   targetWord,
   totalSuggestions,
   dictionary
 ) {
   const isFirstCharUpper =
-    currentInputWord !== undefined &&
-    currentInputWord !== "" &&
+    inputWord !== undefined &&
+    inputWord !== "" &&
     isUpperCase(targetWord.charAt(0));
 
   // Pre-fill the top words with the most frequent in the dictionary.
-  const topWords = dictionary.slice(0, totalSuggestions).map(e => e.word);
+  const topWords = sliceIf(dictionary, 0, totalSuggestions, e => e.word);
   const topWordsScore = Array(totalSuggestions).fill(0);
 
   const insertTopWord = (wordToInsert, score) => {
@@ -53,32 +59,18 @@ function computeSuggestions(
     }
   };
 
-  if (currentInputWord.length >= targetWord.length - targetWordSKS) {
+  if (
+    targetWord != null &&
+    targetWordSKS >=
+      targetWord.length - totalMatchedChars(targetWord, inputWord)
+  ) {
     insertTopWord(targetWord, Number.POSITIVE_INFINITY);
   }
 
-  const getTotalFrequencyScores = () => {
-    let scoresSum = 0;
-    for (let i = 0; i < dictionary.length - 1; i += 1) {
-      scoresSum += frequencyScore(
-        dictionary[i].f,
-        dictionary[i].word,
-        currentInputWord
-      );
-    }
-    return scoresSum;
-  };
-
-  const totalFrequencyScores = getTotalFrequencyScores();
-
   dictionary.forEach(({ word, f: frequency }) => {
-    if (
-      word.toLowerCase() !== targetWord.toLowerCase() &&
-      (word.length > currentInputWord.length || currentInputWord === "")
-    ) {
-      const inputWordScore = frequencyScore(frequency, word, currentInputWord);
-      const normalizedInputWordScore = inputWordScore / totalFrequencyScores;
-      insertTopWord(word, normalizedInputWordScore);
+    if (targetWord == null || word.toLowerCase() !== targetWord.toLowerCase()) {
+      const inputWordScore = frequencyScore(frequency, word, inputWord);
+      insertTopWord(word, inputWordScore);
     }
   });
 
@@ -108,8 +100,8 @@ const getSuggestions = (
 
   return computeSuggestions(
     currentInputWord,
-    currentWord == null ? 0 : currentWord.sks,
-    currentWord == null ? "" : currentWord.word,
+    currentWord == null ? null : currentWord.sks,
+    currentWord == null ? null : currentWord.word,
     totalSuggestions,
     dictionary
   );

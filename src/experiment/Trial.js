@@ -168,11 +168,6 @@ const Trial = ({
     dispatch({ type: Actions.keyUp, key: mapVirtualKey(key) });
   }
 
-  function onPhysicalKeyDown(event) {
-    event.preventDefault();
-    if (keyboardLayout.id === "physical") onKeyDown(event.key);
-  }
-
   function onPhysicalKeyUp(event) {
     if (keyboardLayout.id !== "physical") {
       event.preventDefault();
@@ -198,6 +193,13 @@ const Trial = ({
       )
     );
     onAdvanceWorkflow();
+  }
+
+  function onPhysicalKeyDown(event) {
+    event.preventDefault();
+    if (isCorrect && event.key === "Enter" && focusTarget === "input") {
+      onFinishTrial();
+    } else if (keyboardLayout.id === "physical") onKeyDown(event.key);
   }
 
   return (

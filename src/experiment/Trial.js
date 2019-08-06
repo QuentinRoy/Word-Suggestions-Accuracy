@@ -81,29 +81,24 @@ const Trial = ({
 
   // Returns a new state based on an action.
   const reducer = (state, action) => {
-    switch (action.type) {
-      case Actions.confirmAction:
-        return reducer(state, action.action);
-      default: {
-        let newState = trialReducer(state, action);
-        const suggestions =
-          state.input === newState.input
-            ? state.suggestions
-            : getSuggestionsFromInput(newState.input);
-        // Creating a new state here (do not mutate the one returned by
-        // trial reducer, it may actually be the same as state).
-        newState = { ...newState, suggestions };
-        // Some actions do not need to be logged.
-        if (!noEventActions.includes(action.type)) {
-          // OK to mutate newState now, this is "ours".
-          newState.events = [
-            ...newState.events,
-            getEventLog(state, action, newState, { sksDistribution })
-          ];
-        }
-        return newState;
-      }
-    }
+    console.log(state, action);
+    const isActionLogged = noEventActions.includes(action.type);
+    const reducedState = trialReducer(state, action);
+    if (reducedState === state && !isActionLogged) return state;
+    const suggestions =
+      state.input === reducedState.input
+        ? state.suggestions
+        : getSuggestionsFromInput(reducedState.input);
+    const events = isActionLogged
+      ? [
+          ...reducedState.events,
+          getEventLog(state, action, reducedState, { sksDistribution })
+        ]
+      : reducedState.events;
+    const finalState = { ...reducedState, suggestions, events };
+    return action.type === Actions.confirmAction
+      ? reducer(finalState, action.action)
+      : finalState;
   };
 
   const [
@@ -124,6 +119,7 @@ const Trial = ({
   }, [focusTarget, inputRef]);
 
   function onFinishTrial() {
+    actionScheduler.endAll();
     onLog("events", events);
     onLog(
       "trial",
@@ -148,30 +144,33 @@ const Trial = ({
     switch (mapVirtualKey(key)) {
       case "Shift":
       case "CapsLock":
-        actionScheduler.start({
+        actionScheduler.endAll();
+        actionScheduler.start(`key-${key}`, {
           type: Actions.toggleLayout,
           layoutName: KeyboardLayoutNames.shift
         });
         break;
       case "{numbers}":
-        actionScheduler.start({
+        actionScheduler.endAll();
+        actionScheduler.start(`key-${key}`, {
           type: Actions.toggleLayout,
           layoutName: KeyboardLayoutNames.numbers
         });
         break;
       case "{abc}":
-        actionScheduler.start({
+        actionScheduler.endAll();
+        actionScheduler.start(`key-${key}`, {
           type: Actions.toggleLayout,
           layoutName: KeyboardLayoutNames.default
         });
         break;
       case "Tab":
-        actionScheduler.end();
+        actionScheduler.endAll();
         dispatch({ type: Actions.switchFocus, totalSuggestions });
         break;
       case "Backspace":
         if (focusTarget === "input") {
-          actionScheduler.start({ type: Actions.deleteChar });
+          actionScheduler.start(`key-${key}`, { type: Actions.deleteChar });
         }
         break;
       case "Enter":
@@ -180,15 +179,30 @@ const Trial = ({
         }
         break;
       default:
+        actionScheduler.endAll();
         // Case the key is a character.
         if (key.length === 1 && focusTarget === "input") {
-          actionScheduler.start({ type: Actions.inputChar, char: key });
+          actionScheduler.start(`char-${key}`, {
+            type: Actions.inputChar,
+            char: key
+          });
         }
     }
   }
 
   function onKeyUp(key) {
-    actionScheduler.end();
+    switch (key) {
+      case "Shift":
+      case "CapsLock":
+      case "{numbers}":
+      case "{abc}":
+        actionScheduler.end(`key-${key}`);
+        break;
+      default:
+        if (key.length === 1) {
+          actionScheduler.end(`char-${key}`);
+        }
+    }
     dispatch({ type: Actions.keyUp, key: mapVirtualKey(key) });
   }
 
@@ -248,11 +262,14 @@ const Trial = ({
         suggestions={suggestions}
         selectionStart={selection => {
           if (pressedKeys.length === 0) {
-            actionScheduler.start({
+            actionScheduler.start(`suggestion-${selection}`, {
               type: Actions.inputSuggestion,
               word: selection
             });
           }
+        }}
+        selectionEnd={selection => {
+          actionScheduler.end(`suggestion-${selection}`);
         }}
       />
       {keyboardLayout.id === "mobile" ? (

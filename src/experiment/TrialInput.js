@@ -12,7 +12,9 @@ const TrialInput = ({ input, isFocused }) => (
     {isFocused ? (
       // Having a key on the caret div make sure the animation is reset each
       // time the input changes.
-      <div className={styles.caret} key={input} />
+      <div className={styles.caretWrapper}>
+        <div className={styles.caret} key={input} />
+      </div>
     ) : null}
   </div>
 );

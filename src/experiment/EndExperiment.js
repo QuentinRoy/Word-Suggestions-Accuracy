@@ -7,7 +7,7 @@ const EndExperiment = ({ uuid }) => {
     <div className={styles.main}>
       <div className={styles.content}>
         <h2>Thank you for your participation!</h2>
-        To validate your HIT, please copy the following code and paste in the
+        Here is your confirmation code. Make sure you properly copy it in the
         corresponding text box on Amazon Mechanical Turk:
         <p className={styles.code}>{uuid}</p>
       </div>

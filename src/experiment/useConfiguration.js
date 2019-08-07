@@ -67,7 +67,7 @@ const generateTasks = corpus => {
   if (numberOfPracticeTasks > 0) {
     tasks.push({
       task: "InformationScreen",
-      content: `The ${numberOfPracticeTasks} following tasks are practice tasks`,
+      content: `The ${numberOfPracticeTasks} following task(s) are practice tasks`,
       shortcutEnabled: true,
       key: `${tasks.length}`
     });

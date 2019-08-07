@@ -69,6 +69,7 @@ const generateTasks = corpus => {
       key: `${tasks.length}`
     });
     for (let i = 0; i < numberOfPracticeTasks; i += 1) {
+      tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
       tasks.push(
         TypingTask(
           `${tasks.length}`,
@@ -76,7 +77,6 @@ const generateTasks = corpus => {
           corpus.slice(0, numberOfPracticeTasks)[i]
         )
       );
-      tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
     }
     tasks.push({
       task: "InformationScreen",
@@ -87,6 +87,7 @@ const generateTasks = corpus => {
 
   // Insert measured tasks.
   for (let j = 0; j < numberOfTypingTasks; j += 1) {
+    tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
     tasks.push(
       TypingTask(
         `${tasks.length}`,
@@ -97,7 +98,6 @@ const generateTasks = corpus => {
         )[j]
       )
     );
-    tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
   }
 
   tasks.push(UploadLogS3(`${tasks.length}`, false, participant));

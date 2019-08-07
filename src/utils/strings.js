@@ -1,8 +1,18 @@
-/* eslint-disable import/prefer-default-export */
-
-export const totalCommonCharFromStart = (str1, str2) => {
-  for (let i = 0; i < str1.length; i += 1) {
-    if (i >= str2.length || str1[i] !== str2[i]) return i;
+export const totalMatchedCharsFromStart = (str1, str2) => {
+  const n = Math.min(str1.length, str2.length);
+  for (let i = 0; i < n; i += 1) {
+    if (str1[i] !== str2[i]) return i;
   }
-  return str1.length;
+  return n;
 };
+
+export const totalMatchedChars = (str1, str2) => {
+  const n = Math.min(str1.length, str2.length);
+  let count = 0;
+  for (let i = 0; i < n; i += 1) {
+    if (str1[i] === str2[i]) count += 1;
+  }
+  return count;
+};
+
+export const isUpperCase = str => str === str.toUpperCase();

@@ -1,13 +1,18 @@
-import { totalCommonCharFromStart } from "../utils/strings";
+import { totalMatchedCharsFromStart } from "../utils/strings";
 import { Actions } from "../utils/constants";
 
 const getEventLog = (oldState, action, newState, { sksDistribution }) => {
   const sentence = sksDistribution.map(w => w.word).join(" ");
-  const inputCommon = totalCommonCharFromStart(oldState.input, newState.input);
+  const inputCommon = totalMatchedCharsFromStart(
+    oldState.input,
+    newState.input
+  );
   const oldTotalIncorrectCharacters =
-    oldState.input.length - totalCommonCharFromStart(sentence, oldState.input);
+    oldState.input.length -
+    totalMatchedCharsFromStart(sentence, oldState.input);
   const newTotalIncorrectCharacters =
-    newState.input.length - totalCommonCharFromStart(sentence, newState.input);
+    newState.input.length -
+    totalMatchedCharsFromStart(sentence, newState.input);
   const addedInput = newState.input.slice(inputCommon, newState.input.length);
   const removedInput = oldState.input.slice(inputCommon, oldState.input.length);
   const log = {

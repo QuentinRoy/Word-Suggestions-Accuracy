@@ -3,12 +3,10 @@ import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll, createUpload } from "@hcikit/tasks";
 import { isMobileOnly } from "react-device-detect";
 import TypingTask from "./TypingTask";
-import KeyboardSelector from "./KeyboardSelector";
 import useConfiguration from "./useConfiguration";
 import DictionaryProvider from "./useDictionary";
 import Loading from "../utils/Loading";
 import Crashed from "../utils/Crashed";
-import Login from "./Login";
 import { LoadingStates } from "../utils/constants";
 import createS3Uploader from "./s3Uploader";
 
@@ -22,8 +20,6 @@ const UploadComponent = createUpload(
 
 registerAll(registerTask);
 registerTask("TypingTask", TypingTask);
-registerTask("KeyboardSelector", KeyboardSelector);
-registerTask("LoginScreen", Login);
 registerTask("S3Upload", UploadComponent);
 
 export default function ExperimentWrapper() {

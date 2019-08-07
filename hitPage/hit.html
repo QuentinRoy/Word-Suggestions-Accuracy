@@ -1,0 +1,148 @@
+<!-- For help on using this template, see the blog post: https://blog.mturk.com/editing-the-survey-link-project-template-in-the-ui-7c75285105fb#.py7towsdx --><!-- HIT template: SurveyLink-v3.0 --><!-- The following snippet enables the 'responsive' behavior on smaller screens -->
+<meta content="width=device-width,initial-scale=1" name="viewport" /><script
+  type="text/javascript"
+  src="https://s3.amazonaws.com/mturk-public/externalHIT_v1.js"
+></script>
+<section class="container" id="SurveyLink">
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <div class="panel panel-primary">
+        <a class="panel-heading" href="javascript:void(0);" id="collapseTrigger"
+          ><strong>Instructions</strong>
+        </a>
+        <div class="panel-body" id="instructionBody">
+          <p>
+            This task is a part of an academic study by the HCI Lab at the
+            University of Waterloo.
+          </p>
+
+          <p>
+            You will type sentences using your keyboard. The task will take
+            approximately 15 to 25 minutes. You will be paid $3.50&nbsp;.
+          </p>
+
+          <p>
+            You <strong>MUST</strong> use either Chrome, Firefox or Safari to
+            complete the task. Additionally, you <strong>MUST</strong> have a
+            keyboard to complete the task.
+          </p>
+
+          <p>You can only complete this HIT <strong>once</strong>.</p>
+
+          <p>To complete this task:</p>
+
+          <ol>
+            <li>
+              Click on the link&nbsp;below. This will open our task website in a
+              new window.
+            </li>
+            <li>Do not close this page while you do the task.</li>
+            <li>Follow the instructions on the website.</li>
+            <li>
+              On the final screen of the task, a confirmation code will appear.
+              Copy this code into the box below and submit it.
+            </li>
+          </ol>
+
+          <p class="text-center">
+            <input
+              class="btn btn-primary"
+              disabled="disabled"
+              id="taskButton"
+              type="button"
+              value="You must ACCEPT the HIT before you can begin the task (Refresh this page after you ACCEPT the HIT)."
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Instructions --><!-- Survey Link Layout -->
+
+  <div class="row" id="workContent">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+      <!-- Content for Worker --><!-- End Content for Worker --><!-- Input from Worker -->
+      <div class="form-group">
+        <label for="surveycode">Provide the confirmation code here:</label>
+        <input
+          class="form-control"
+          id="surveycode"
+          name="surveycode"
+          placeholder="e.g. 123456"
+          required=""
+          type="text"
+        />
+      </div>
+      <!-- End input from Worker -->
+    </div>
+  </div>
+  <!-- End Survey Link Layout -->
+</section>
+<!-- Please note that Bootstrap CSS/JS and JQuery are 3rd party libraries that may update their url/code at any time. Amazon Mechanical Turk (MTurk) is including these libraries as a default option for you, but is not responsible for any changes to the external libraries --><!-- External CSS references -->
+<link
+  crossorigin="anonymous"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+  integrity="sha384-IS73LIqjtYesmURkDE9MXKbXqYA8rvKEp/ghicjem7Vc3mGRdQRptJSz60tvrB6+"
+  rel="stylesheet"
+/><!-- Open internal style sheet -->
+<style type="text/css">
+  #collapseTrigger {
+    color: #fff;
+    display: block;
+    text-decoration: none;
+  }
+  #submitButton {
+    white-space: normal;
+  }
+  .image {
+    margin-bottom: 15px;
+  }
+  /* CSS for breaking long words/urls */
+  .dont-break-out {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+</style>
+<!-- Close internal style sheet -->
+<!-- External JS references -->
+<script
+  src="https://code.jquery.com/jquery-3.1.0.min.js"
+  integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"
+  integrity="sha384-s1ITto93iSMDxlp/79qhWHi+LsIi9Gx6yL+cOKDuymvihkfol83TYbLbOw+W/wv4"
+  crossorigin="anonymous"
+></script>
+<!-- Open internal javascript --><script>
+  var workerID = turkGetParam("workerId", false);
+  var assignmentID = turkGetParam("assignmentId", false);
+  var hitId = turkGetParam("hitId", false);
+  if (assignmentID && assignmentID !== "ASSIGNMENT_ID_NOT_AVAILABLE") {
+    document.getElementById("assignmentId").value = assignmentID;
+    btn = document.getElementById("taskButton");
+    if (btn) {
+      btn.disabled = false;
+      btn.value = "Click to begin task";
+      var url =
+        "https://exii-accuracy-control.s3.us-east-2.amazonaws.com/index.html" +
+        "?workerId=" +
+        workerID +
+        "&assignmentId=" +
+        assignmentID +
+        "&hitId=" +
+        hitId;
+      btn.onclick = function() {
+        window.open(url);
+      };
+    }
+  }</script
+><!-- Close internal javascript -->

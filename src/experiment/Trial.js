@@ -243,15 +243,15 @@ const Trial = ({
   }
 
   useEffect(() => {
-    document.addEventListener("keydown", onSystemKeyDown);
-    document.addEventListener("keyup", onSystemKeyUp);
-    document.addEventListener("blur", onDocBlurred);
-    document.addEventListener("focus", onDocFocused);
+    window.addEventListener("keydown", onSystemKeyDown);
+    window.addEventListener("keyup", onSystemKeyUp);
+    window.addEventListener("blur", onDocBlurred);
+    window.addEventListener("focus", onDocFocused);
     return () => {
-      document.removeEventListener("keydown", onSystemKeyDown);
-      document.removeEventListener("keyup", onSystemKeyUp);
-      document.removeEventListener("blur", onDocBlurred);
-      document.removeEventListener("focus", onDocFocused);
+      window.removeEventListener("keydown", onSystemKeyDown);
+      window.removeEventListener("keyup", onSystemKeyUp);
+      window.removeEventListener("blur", onDocBlurred);
+      window.removeEventListener("focus", onDocFocused);
     };
   });
 

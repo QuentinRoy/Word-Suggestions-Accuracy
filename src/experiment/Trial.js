@@ -168,15 +168,15 @@ const Trial = ({
         actionScheduler.endAll();
         dispatch({ type: Actions.switchFocus, totalSuggestions });
         break;
+      case "Enter":
+        if (focusTarget === "input" && isCorrect) {
+          onFinishTrial();
+        }
+        break;
       case "Backspace":
         if (focusTarget === "input") {
           actionScheduler.endAll();
           actionScheduler.start(`key-${key}`, { type: Actions.deleteChar });
-        }
-        break;
-      case "Enter":
-        if (focusTarget === "input" && isCorrect) {
-          onFinishTrial();
         }
         break;
       default:
@@ -197,6 +197,7 @@ const Trial = ({
       case "CapsLock":
       case "{numbers}":
       case "{abc}":
+      case "Backspace":
         actionScheduler.end(`key-${key}`);
         break;
       default:

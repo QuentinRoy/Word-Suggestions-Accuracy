@@ -114,7 +114,9 @@ const useConfiguration = () => {
         targetAccuracy,
         participant,
         keyboardLayout,
-        children: generateTasks(corpus)
+        children: generateTasks(corpus),
+        gitSha: process.env.REACT_APP_GIT_SHA,
+        version: process.env.REACT_APP_VERSION
       };
     }
     return null;

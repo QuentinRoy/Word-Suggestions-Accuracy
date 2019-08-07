@@ -73,7 +73,9 @@ const getTrialLog = (
     totalSuggestionUsed,
     totalCorrectSuggestionUsed,
     totalIncorrectSuggestionsUsed,
-    timeZone
+    timeZone,
+    gitSha: process.env.REACT_APP_GIT_SHA,
+    version: process.env.REACT_APP_VERSION
   };
 };
 

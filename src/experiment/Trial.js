@@ -170,6 +170,7 @@ const Trial = ({
         break;
       case "Backspace":
         if (focusTarget === "input") {
+          actionScheduler.endAll();
           actionScheduler.start(`key-${key}`, { type: Actions.deleteChar });
         }
         break;

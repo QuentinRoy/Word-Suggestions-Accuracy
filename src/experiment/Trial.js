@@ -262,6 +262,7 @@ const Trial = ({
         <TrialInput
           input={input}
           isFocused={hasDocFocus && focusTarget === "input"}
+          shouldCaretBlink={pressedKeys.length === 0}
         />
         <SuggestionsBar
           mainSuggestionPosition={

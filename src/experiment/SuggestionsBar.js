@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import styles from "./SuggestionsBar.module.css";
 import useMultiRef from "../utils/useMultiRef";
 
@@ -61,11 +62,10 @@ function SuggestionsBar({
         type="button"
         // eslint-disable-next-line react/no-array-index-key
         key={i}
-        className={
-          focusedSuggestion === i
-            ? `${styles.button} ${styles.focused}`
-            : styles.button
-        }
+        className={classNames({
+          [styles.button]: true,
+          [styles.focused]: focusedSuggestion === i
+        })}
         ref={buttonRefs[i]}
         tabIndex={-1}
         onTouchStart={selStart}

@@ -14,12 +14,21 @@ const uuid = short.uuid();
 const PageArguments = {
   targetAccuracies: "targetAccuracies",
   workerId: "workerId",
-  keyStrokeDelays: "keyStrokeDelays"
+  keyStrokeDelays: "keyStrokeDelays",
+  assignmentId: "assignmentId",
+  hitId: "hitId"
 };
 
-const getPageArguments = () => {
+const {
+  participant,
+  targetAccuracy,
+  keyStrokeDelay,
+  ...otherPageArgs
+} = (() => {
   const urlParams = new URL(document.location).searchParams;
   const workerId = urlParams.get(PageArguments.workerId);
+  const assignmentId = urlParams.get(PageArguments.assignmentId);
+  const hitId = urlParams.get(PageArguments.hitId);
   const keyStrokeDelays = urlParams.has(PageArguments.keyStrokeDelays)
     ? urlParams
         .get(PageArguments.keyStrokeDelays)
@@ -32,17 +41,16 @@ const getPageArguments = () => {
         .split(",")
         .map(x => +x)
     : defaultAccuracies;
-  const args = {
+  return {
+    assignmentId,
+    hitId,
     participant: workerId,
     keyStrokeDelay:
       keyStrokeDelays[Math.floor(Math.random() * keyStrokeDelays.length)],
     targetAccuracy:
       targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)]
   };
-  return args;
-};
-
-const { participant, targetAccuracy, keyStrokeDelay } = getPageArguments();
+})();
 
 const TypingTask = (id, isPractice, { words, ...distributionInfo }) => ({
   ...distributionInfo,
@@ -118,6 +126,7 @@ const useConfiguration = () => {
   const config = useMemo(() => {
     if (loadingState === LoadingStates.loaded) {
       return {
+        ...otherPageArgs,
         keyStrokeDelay,
         targetAccuracy,
         participant,

@@ -15,6 +15,11 @@
   background-color: white;
 }
 
+.button:active {
+  color: inherit;
+  background: inherit;
+}
+
 .button:last-child,
 .button.focused {
   border-right-width: 4px;

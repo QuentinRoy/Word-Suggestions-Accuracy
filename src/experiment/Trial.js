@@ -17,6 +17,7 @@ import useActionScheduler from "./useActionScheduler";
 import trialReducer from "./trialReducer";
 import getEventLog from "./getEventLog";
 import styles from "./Trial.module.css";
+import TrialInput from "./TrialInput";
 
 const countSimilarChars = (str1, str2) => {
   let correctCharsCount = 0;
@@ -226,7 +227,7 @@ const Trial = ({
       onKeyUp={onPhysicalKeyUp}
       role="textbox"
       tabIndex={0}
-      className={styles.main}
+      className={styles.trial}
       ref={inputRef}
     >
       <TextToType
@@ -234,18 +235,7 @@ const Trial = ({
         correctCharsCount={correctCharsCount}
         input={input}
       />
-      <div
-        className={
-          focusTarget === "input"
-            ? `${styles.trialInput} ${styles.focused}`
-            : styles.trialInput
-        }
-      >
-        {input}
-        {focusTarget === "input" ? (
-          <div className={styles.caret} key={input} />
-        ) : null}
-      </div>
+      <TrialInput input={input} isFocused={focusTarget === "input"} />
       <WordHelper
         mainSuggestionPosition={
           keyboardLayout.id === "physical"

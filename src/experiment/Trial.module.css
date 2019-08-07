@@ -1,4 +1,5 @@
 .trialInput {
+  display: inline-block;
   width: 100%;
   height: 100px;
   padding: 20px;
@@ -18,4 +19,23 @@
   outline: none;
   width: 800px;
   margin: auto;
+}
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 20px;
+  background-color: #004166;
+  animation-name: blink;
+  animation-delay: 1s;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  from {
+    background-color: black;
+  }
+  to {
+    background-color: #f2faff;
+  }
 }

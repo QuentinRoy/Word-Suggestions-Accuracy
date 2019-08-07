@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useReducer } from "react";
+import React, { useRef, useReducer, useEffect } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
 import SuggestionsBar from "./SuggestionsBar";
@@ -65,9 +65,9 @@ const Trial = ({
     layoutName: keyboardLayout.layoutName,
     input: "",
     focusTarget: "input",
+    hasDocFocus: document.hasFocus(),
     suggestions: getSuggestionsFromInput("")
   });
-
   // Returns a new state based on an action.
   const reducer = (state, action) => {
     const isActionLogged = noEventActions.includes(action.type);
@@ -88,24 +88,39 @@ const Trial = ({
       ? reducer(finalState, action.action)
       : finalState;
   };
-
+  // Matches the state, reducer, and actions.
   const [
-    { layoutName, input, suggestions, pressedKeys, focusTarget, events },
+    {
+      layoutName,
+      input,
+      suggestions,
+      pressedKeys,
+      focusTarget,
+      events,
+      hasDocFocus
+    },
     dispatch
   ] = useReducer(reducer, null, initState);
+
+  // Used to schedule action to be performed after a delay.
   const actionScheduler = useActionScheduler(dispatch, keyStrokeDelay);
 
-  const inputRef = React.createRef();
+  // A reference on the main dom element.
+  const domRef = React.createRef();
+
+  // Record the start date of the trial.
   const { current: trialStartTime } = useRef(new Date());
 
+  // Some useful variables.
   const text = sksDistribution.map(w => w.word).join(" ");
-  const isCorrect = text === input.trim();
+  const isInputCorrect = text === input.trim();
+  const focusedSuggestion =
+    hasDocFocus && focusTarget.startsWith("suggestion-")
+      ? +focusTarget.slice("suggestion-".length)
+      : null;
 
-  useEffect(() => {
-    if (focusTarget === "input") inputRef.current.focus();
-  }, [focusTarget, inputRef]);
-
-  function onFinishTrial() {
+  // Called when the trial has been completed.
+  function onTrialCompletion() {
     actionScheduler.endAll();
     onLog("events", events);
     onLog(
@@ -125,6 +140,8 @@ const Trial = ({
     onAdvanceWorkflow();
   }
 
+  // Called when a key is being pressed down.Called multiple times
+  // (for the same key) when the key is held down.
   function onKeyDown(key) {
     if (pressedKeys.includes(key)) return;
     dispatch({ type: Actions.keyDown, key });
@@ -153,11 +170,17 @@ const Trial = ({
         break;
       case "Tab":
         actionScheduler.endAll();
-        dispatch({ type: Actions.switchFocus, totalSuggestions });
+        dispatch({ type: Actions.switchFocusTarget, totalSuggestions });
         break;
       case "Enter":
-        if (focusTarget === "input" && isCorrect) {
-          onFinishTrial();
+        if (focusTarget === "input" && isInputCorrect) {
+          onTrialCompletion();
+        } else if (focusedSuggestion != null) {
+          actionScheduler.endAll();
+          actionScheduler.start("suggestion", {
+            type: Actions.inputSuggestion,
+            word: suggestions[focusedSuggestion]
+          });
         }
         break;
       case "Backspace":
@@ -178,6 +201,7 @@ const Trial = ({
     }
   }
 
+  // Called when a key is being released.
   function onKeyUp(key) {
     switch (key) {
       case "Shift":
@@ -187,6 +211,9 @@ const Trial = ({
       case "Backspace":
         actionScheduler.end(`key-${key}`);
         break;
+      case "Enter":
+        actionScheduler.end("suggestion");
+        break;
       default:
         if (key.length === 1) {
           actionScheduler.end(`char-${key}`);
@@ -195,31 +222,47 @@ const Trial = ({
     dispatch({ type: Actions.keyUp, key: mapVirtualKey(key) });
   }
 
-  function onPhysicalKeyUp(event) {
-    if (keyboardLayout.id !== "physical") {
-      event.preventDefault();
-      return;
-    }
-    onKeyUp(event.key);
+  // Wraps the system keyboard events to be ignored if the target keyboard
+  // is not "physical"
+  function onSystemKeyUp(event) {
+    event.preventDefault();
+    if (keyboardLayout.id === "physical") onKeyUp(event.key);
   }
 
-  function onPhysicalKeyDown(event) {
+  function onSystemKeyDown(event) {
     event.preventDefault();
     if (keyboardLayout.id === "physical") onKeyDown(event.key);
   }
 
+  function onDocBlurred() {
+    dispatch({ type: Actions.docBlurred });
+  }
+
+  function onDocFocused() {
+    dispatch({ type: Actions.docFocused });
+  }
+
+  useEffect(() => {
+    document.addEventListener("keydown", onSystemKeyDown);
+    document.addEventListener("keyup", onSystemKeyUp);
+    document.addEventListener("blur", onDocBlurred);
+    document.addEventListener("focus", onDocFocused);
+    return () => {
+      document.removeEventListener("keydown", onSystemKeyDown);
+      document.removeEventListener("keyup", onSystemKeyUp);
+      document.removeEventListener("blur", onDocBlurred);
+      document.removeEventListener("focus", onDocFocused);
+    };
+  });
+
   return (
-    <div
-      onKeyDown={onPhysicalKeyDown}
-      onKeyUp={onPhysicalKeyUp}
-      role="textbox"
-      tabIndex={0}
-      className={styles.trial}
-      ref={inputRef}
-    >
-      <Banner text={text} input={input} isCorrect={isCorrect} />
+    <div role="textbox" className={styles.trial} ref={domRef}>
+      <Banner text={text} input={input} isCorrect={isInputCorrect} />
       <div className={styles.content}>
-        <TrialInput input={input} isFocused={focusTarget === "input"} />
+        <TrialInput
+          input={input}
+          isFocused={hasDocFocus && focusTarget === "input"}
+        />
         <SuggestionsBar
           mainSuggestionPosition={
             keyboardLayout.id === "physical"
@@ -227,11 +270,7 @@ const Trial = ({
               : Math.floor(totalSuggestions / 2)
           }
           totalSuggestions={totalSuggestions}
-          focusedSuggestion={
-            focusTarget.startsWith("suggestion-")
-              ? +focusTarget.slice("suggestion-".length)
-              : null
-          }
+          focusedSuggestion={focusedSuggestion}
           suggestions={suggestions}
           onSelectionStart={selection => {
             if (pressedKeys.length === 0) {

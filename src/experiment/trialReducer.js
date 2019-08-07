@@ -49,13 +49,24 @@ export const keyboardLayoutReducer = (state, action) => {
   }
 };
 
+export const docFocusReducer = (state, action) => {
+  switch (action.type) {
+    case Actions.docBlurred:
+      return { ...state, hasDocFocus: false };
+    case Actions.docFocused:
+      return { ...state, hasDocFocus: true };
+    default:
+      return state;
+  }
+};
+
 const focusTargets = [
   "input",
   ...Array.from({ length: totalSuggestions }, (_, i) => `suggestion-${i}`)
 ];
-export const focusReducer = (state, action) => {
+export const subFocusReducer = (state, action) => {
   switch (action.type) {
-    case Actions.switchFocus: {
+    case Actions.switchFocusTarget: {
       const focusIndex =
         (focusTargets.indexOf(state.focusTarget) + 1) % focusTargets.length;
       return { ...state, focusTarget: focusTargets[focusIndex] };
@@ -106,7 +117,8 @@ const reducers = [
   keyboardLayoutReducer,
   inputSuggestionReducer,
   keyboardTrackerReducer,
-  focusReducer
+  subFocusReducer,
+  docFocusReducer
 ];
 const trialReducer = (state, action) =>
   reducers.reduce((newState, reducer) => reducer(newState, action), state);

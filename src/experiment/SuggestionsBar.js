@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styles from "./SuggestionsBar.module.css";
 import useMultiRef from "../utils/useMultiRef";
@@ -58,6 +58,7 @@ function SuggestionsBar({
     };
     return (
       <button
+        type="button"
         // eslint-disable-next-line react/no-array-index-key
         key={i}
         className={
@@ -66,28 +67,15 @@ function SuggestionsBar({
             : styles.button
         }
         ref={buttonRefs[i]}
-        type="button"
+        tabIndex={-1}
         onTouchStart={selStart}
         onTouchEnd={selEnd}
         onTouchCancel={selEnd}
-        onKeyDown={e => {
-          if (e.key === "Enter") selStart(e);
-        }}
-        onKeyUp={e => {
-          if (e.key === "Enter") selEnd(e);
-        }}
       >
         {suggestions[suggestionNum]}
       </button>
     );
   });
-
-  useEffect(() => {
-    if (focusedSuggestion != null) {
-      const buttonRef = buttonRefs[focusedSuggestion];
-      buttonRef.current.focus();
-    }
-  }, [focusedSuggestion, buttonRefs]);
 
   return <div className={styles.main}>{buttons}</div>;
 }

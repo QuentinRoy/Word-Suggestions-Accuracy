@@ -5,8 +5,8 @@ import { KeyboardLayouts, LoadingStates } from "../utils/constants";
 
 const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
 const defaultKeyStrokeDelays = [0, 250, 500, 750, 1000];
-const numberOfPracticeTasks = 1;
-const numberOfTypingTasks = 2;
+const numberOfPracticeTasks = 0;
+const numberOfTypingTasks = 0;
 const keyboardLayout = KeyboardLayouts.desktop;
 
 const uuid = short.uuid();

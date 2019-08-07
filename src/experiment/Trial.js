@@ -81,7 +81,6 @@ const Trial = ({
 
   // Returns a new state based on an action.
   const reducer = (state, action) => {
-    console.log(state, action);
     const isActionLogged = noEventActions.includes(action.type);
     const reducedState = trialReducer(state, action);
     if (reducedState === state && !isActionLogged) return state;

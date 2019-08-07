@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import short from "short-uuid";
 import useCorpusFromJson from "./useCorpusFromJson";
 import { KeyboardLayouts, LoadingStates } from "../utils/constants";
 
@@ -7,6 +8,8 @@ const defaultKeyStrokeDelays = [0, 250, 500, 750, 1000];
 const numberOfPracticeTasks = 1;
 const numberOfTypingTasks = 2;
 const keyboardLayout = KeyboardLayouts.desktop;
+
+const uuid = short.uuid();
 
 const PageArguments = {
   targetAccuracies: "targetAccuracies",
@@ -101,6 +104,12 @@ const generateTasks = corpus => {
   }
 
   tasks.push(UploadLogS3(`${tasks.length}`, false, participant));
+  tasks.push({
+    task: "InformationScreen",
+    content: `Here is your code ${uuid}`,
+    withContinue: false,
+    key: `${tasks.length}`
+  });
 
   return tasks;
 };
@@ -116,7 +125,8 @@ const useConfiguration = () => {
         keyboardLayout,
         children: generateTasks(corpus),
         gitSha: process.env.REACT_APP_GIT_SHA,
-        version: process.env.REACT_APP_VERSION
+        version: process.env.REACT_APP_VERSION,
+        participantUuid: uuid
       };
     }
     return null;

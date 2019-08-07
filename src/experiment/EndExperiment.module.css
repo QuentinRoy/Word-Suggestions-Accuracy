@@ -1,0 +1,17 @@
+.header {
+  background-color: rgb(43, 43, 43);
+  color: white;
+  font-size: larger;
+  box-sizing: border-box;
+  padding: 10px;
+  height: 100%;
+  display: flex;
+  align-content: center;
+}
+
+.content {
+  box-sizing: border-box;
+  width: 800px;
+  margin: auto;
+  padding: 10px 20px;
+}

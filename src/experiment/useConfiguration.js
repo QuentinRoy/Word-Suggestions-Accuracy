@@ -105,9 +105,8 @@ const generateTasks = corpus => {
 
   tasks.push(UploadLogS3(`${tasks.length}`, false, participant));
   tasks.push({
-    task: "InformationScreen",
-    content: `Here is your code ${uuid}`,
-    withContinue: false,
+    task: "EndExperiment",
+    uuid,
     key: `${tasks.length}`
   });
 

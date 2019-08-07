@@ -242,7 +242,9 @@ const Trial = ({
         }
       >
         {input}
-        <div className={styles.caret} key={input} />
+        {focusTarget === "input" ? (
+          <div className={styles.caret} key={input} />
+        ) : null}
       </div>
       <WordHelper
         mainSuggestionPosition={

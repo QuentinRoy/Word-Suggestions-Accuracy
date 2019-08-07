@@ -218,47 +218,49 @@ const Trial = ({
       ref={inputRef}
     >
       <Stimulus text={text} input={input} />
-      <TrialInput input={input} isFocused={focusTarget === "input"} />
-      <SuggestionsBar
-        mainSuggestionPosition={
-          keyboardLayout.id === "physical"
-            ? 0
-            : Math.floor(totalSuggestions / 2)
-        }
-        totalSuggestions={totalSuggestions}
-        focusedSuggestion={
-          focusTarget.startsWith("suggestion-")
-            ? +focusTarget.slice("suggestion-".length)
-            : null
-        }
-        suggestions={suggestions}
-        onSelectionStart={selection => {
-          if (pressedKeys.length === 0) {
-            actionScheduler.start(`suggestion-${selection}`, {
-              type: Actions.inputSuggestion,
-              word: selection
-            });
+      <div className={styles.content}>
+        <TrialInput input={input} isFocused={focusTarget === "input"} />
+        <SuggestionsBar
+          mainSuggestionPosition={
+            keyboardLayout.id === "physical"
+              ? 0
+              : Math.floor(totalSuggestions / 2)
           }
-        }}
-        onSelectionEnd={selection => {
-          actionScheduler.end(`suggestion-${selection}`);
-        }}
-      />
-      {keyboardLayout.id === "mobile" ? (
-        <Keyboard
-          display={keyboardLayout.display}
-          layout={keyboardLayout.layout}
-          layoutName={layoutName}
-          onKeyDown={key => onKeyDown(key)}
-          onKeyUp={key => onKeyUp(key)}
+          totalSuggestions={totalSuggestions}
+          focusedSuggestion={
+            focusTarget.startsWith("suggestion-")
+              ? +focusTarget.slice("suggestion-".length)
+              : null
+          }
+          suggestions={suggestions}
+          onSelectionStart={selection => {
+            if (pressedKeys.length === 0) {
+              actionScheduler.start(`suggestion-${selection}`, {
+                type: Actions.inputSuggestion,
+                word: selection
+              });
+            }
+          }}
+          onSelectionEnd={selection => {
+            actionScheduler.end(`suggestion-${selection}`);
+          }}
         />
-      ) : null}
-      <p
-        className={styles.success}
-        style={{ visibility: isCorrect ? "visible" : "hidden" }}
-      >
-        Success! Press enter to continue.
-      </p>
+        {keyboardLayout.id === "mobile" ? (
+          <Keyboard
+            display={keyboardLayout.display}
+            layout={keyboardLayout.layout}
+            layoutName={layoutName}
+            onKeyDown={key => onKeyDown(key)}
+            onKeyUp={key => onKeyUp(key)}
+          />
+        ) : null}
+        <p
+          className={styles.success}
+          style={{ visibility: isCorrect ? "visible" : "hidden" }}
+        >
+          Success! Press enter to continue.
+        </p>
+      </div>
     </div>
   );
 };

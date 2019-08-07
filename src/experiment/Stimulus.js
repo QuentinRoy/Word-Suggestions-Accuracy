@@ -7,16 +7,18 @@ const Stimulus = ({ text, input }) => {
   const correctCharsCount = totalMatchedCharsFromStart(text, input);
 
   return (
-    <div>
-      <h4>Text to type:</h4>
-      <div className={styles.stimulus}>
-        <span className={styles.correct}>
-          {text.slice(0, correctCharsCount)}
-        </span>
-        <span className={styles.incorrect}>
-          {text.slice(correctCharsCount, input.length)}
-        </span>
-        <span className={styles.text}>{text.slice(input.length)}</span>
+    <div className={styles.stimulus}>
+      <div className={styles.content}>
+        <h3 className={styles.instructions}>Please type the text below:</h3>
+        <p className={styles.sentence}>
+          <span className={styles.correct}>
+            {text.slice(0, correctCharsCount)}
+          </span>
+          <span className={styles.incorrect}>
+            {text.slice(correctCharsCount, input.length)}
+          </span>
+          <span className={styles.text}>{text.slice(input.length)}</span>
+        </p>
       </div>
     </div>
   );

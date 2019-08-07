@@ -1,26 +1,22 @@
-.winnerLabel {
-  color: green;
-  top: 10px;
-  right: 10px;
+.stimulus {
+  background-color: rgb(43, 43, 43);
+  color: white;
+  font-size: larger;
+  box-sizing: border-box;
   padding: 10px;
-  position: absolute;
 }
 
-.stimulus {
-  max-width: 810px;
-  padding: 20px;
-  padding-top: 0px;
-  border-bottom: 1px solid #c5c5c5;
+.content {
+  box-sizing: border-box;
+  width: 800px;
+  margin: auto;
+  padding: 10px t20px;
 }
 
 .correct {
-  color: green;
+  color: rgb(147, 248, 147);
 }
 
 .incorrect {
-  color: red;
-}
-
-.text {
-  color: black;
+  color: rgb(252, 140, 140);
 }

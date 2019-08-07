@@ -19,6 +19,8 @@ const frequencyScore = (wordFScore, suggestion, inputWord) => {
   if (suggestion.length === inputWord.length) {
     multiplier *= 2;
   }
+  // We should also compare the words without accents here, but it does not
+  // matter since all sentences are in English.
   const wordScore =
     suggestion.toLowerCase() === inputWord.toLowerCase() ? 255 : wordFScore;
   const score =
@@ -36,8 +38,9 @@ function computeSuggestions(
   dictionary
 ) {
   const isFirstCharUpper =
-    inputWord !== undefined &&
+    inputWord != null &&
     inputWord !== "" &&
+    targetWord != null &&
     isUpperCase(targetWord.charAt(0));
 
   // Pre-fill the top words with the most frequent in the dictionary.

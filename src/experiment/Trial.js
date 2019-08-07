@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useReducer } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
 import SuggestionsBar from "./SuggestionsBar";
-import Stimulus from "./Stimulus";
 import getTrialLog from "./getTrialLog";
 import {
   KeyboardLayoutNames,
@@ -17,6 +16,7 @@ import trialReducer from "./trialReducer";
 import getEventLog from "./getEventLog";
 import styles from "./Trial.module.css";
 import TrialInput from "./TrialInput";
+import Banner from "./Banner";
 
 const mapVirtualKey = key => {
   switch (key) {
@@ -217,7 +217,7 @@ const Trial = ({
       className={styles.trial}
       ref={inputRef}
     >
-      <Stimulus text={text} input={input} />
+      <Banner text={text} input={input} isCorrect={isCorrect} />
       <div className={styles.content}>
         <TrialInput input={input} isFocused={focusTarget === "input"} />
         <SuggestionsBar
@@ -254,12 +254,6 @@ const Trial = ({
             onKeyUp={key => onKeyUp(key)}
           />
         ) : null}
-        <p
-          className={styles.success}
-          style={{ visibility: isCorrect ? "visible" : "hidden" }}
-        >
-          Success! Press enter to continue.
-        </p>
       </div>
     </div>
   );

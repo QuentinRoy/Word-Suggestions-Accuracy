@@ -1,0 +1,15 @@
+.successBanner {
+  background-color: rgb(44, 110, 58);
+  color: rgb(255, 255, 255);
+  font-size: larger;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  box-sizing: border-box;
+  width: 800px;
+  margin: auto;
+  padding: 20px;
+}

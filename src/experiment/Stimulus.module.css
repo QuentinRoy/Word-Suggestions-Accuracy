@@ -4,13 +4,16 @@
   font-size: larger;
   box-sizing: border-box;
   padding: 10px;
+  height: 100%;
+  display: flex;
+  align-content: center;
 }
 
 .content {
   box-sizing: border-box;
   width: 800px;
   margin: auto;
-  padding: 10px t20px;
+  padding: 10px 20px;
 }
 
 .correct {
@@ -18,5 +21,5 @@
 }
 
 .incorrect {
-  color: rgb(252, 140, 140);
+  color: rgb(255, 116, 116);
 }

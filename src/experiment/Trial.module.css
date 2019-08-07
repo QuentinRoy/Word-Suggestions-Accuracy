@@ -3,3 +3,9 @@
   width: 800px;
   margin: auto;
 }
+
+.success {
+  font-weight: bolder;
+  text-align: center;
+  color: green;
+}

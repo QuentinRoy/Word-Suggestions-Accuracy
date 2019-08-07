@@ -1,4 +1,4 @@
-.winnerlabel {
+.winnerLabel {
   color: green;
   top: 10px;
   right: 10px;
@@ -6,7 +6,7 @@
   position: absolute;
 }
 
-.texttotype {
+.stimulus {
   max-width: 810px;
   padding: 20px;
   padding-top: 0px;

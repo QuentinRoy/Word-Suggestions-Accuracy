@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import styles from "./WordHelper.module.css";
+import styles from "./SuggestionsBar.module.css";
 import useMultiRef from "../utils/useMultiRef";
 
 /**
@@ -34,13 +34,13 @@ const createSuggestionDistribution = (totalSuggestions, mainPosition) => {
   return dist;
 };
 
-function WordHelper({
+function SuggestionsBar({
   mainSuggestionPosition,
   totalSuggestions,
   focusedSuggestion,
   suggestions,
-  selectionStart,
-  selectionEnd
+  onSelectionStart,
+  onSelectionEnd
 }) {
   const buttonRefs = useMultiRef(totalSuggestions);
 
@@ -50,11 +50,11 @@ function WordHelper({
   ).map((suggestionNum, i) => {
     const selStart = e => {
       e.preventDefault();
-      selectionStart(suggestions[suggestionNum]);
+      onSelectionStart(suggestions[suggestionNum]);
     };
     const selEnd = e => {
       e.preventDefault();
-      selectionEnd(suggestions[suggestionNum]);
+      onSelectionEnd(suggestions[suggestionNum]);
     };
     return (
       <button
@@ -92,18 +92,18 @@ function WordHelper({
   return <div className={styles.main}>{buttons}</div>;
 }
 
-WordHelper.propTypes = {
+SuggestionsBar.propTypes = {
   mainSuggestionPosition: PropTypes.number.isRequired,
   totalSuggestions: PropTypes.number.isRequired,
   focusedSuggestion: PropTypes.number,
   suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectionStart: PropTypes.func.isRequired,
-  selectionEnd: PropTypes.func
+  onSelectionStart: PropTypes.func.isRequired,
+  onSelectionEnd: PropTypes.func
 };
 
-WordHelper.defaultProps = {
+SuggestionsBar.defaultProps = {
   focusedSuggestion: null,
-  selectionEnd: () => {}
+  onSelectionEnd: () => {}
 };
 
-export default WordHelper;
+export default SuggestionsBar;

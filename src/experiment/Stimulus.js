@@ -1,17 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./TextToType.module.css";
+import { totalMatchedCharsFromStart } from "../utils/strings";
+import styles from "./Stimulus.module.css";
 
-const TextToType = ({ text, correctCharsCount, input }) => {
-  const isCorrect = input.trim() === text;
+const Stimulus = ({ text, input }) => {
+  const correctCharsCount = totalMatchedCharsFromStart(text, input);
 
   return (
     <div>
       <h4>Text to type:</h4>
-      <p className={styles.winnerlabel}>
-        {isCorrect ? "You typed the text correctly!" : " "}
-      </p>
-      <div className={styles.texttotype}>
+      <div className={styles.stimulus}>
         <span className={styles.correct}>
           {text.slice(0, correctCharsCount)}
         </span>
@@ -24,10 +22,9 @@ const TextToType = ({ text, correctCharsCount, input }) => {
   );
 };
 
-TextToType.propTypes = {
+Stimulus.propTypes = {
   text: PropTypes.string.isRequired,
-  correctCharsCount: PropTypes.number.isRequired,
   input: PropTypes.string.isRequired
 };
 
-export default TextToType;
+export default Stimulus;

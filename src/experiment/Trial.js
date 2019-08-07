@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useReducer } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
-import WordHelper from "./WordHelper";
-import TextToType from "./TextToType";
-import WorkflowButton from "./WorkflowButton";
+import SuggestionsBar from "./SuggestionsBar";
+import Stimulus from "./Stimulus";
 import getTrialLog from "./getTrialLog";
 import {
   KeyboardLayoutNames,
@@ -18,17 +17,6 @@ import trialReducer from "./trialReducer";
 import getEventLog from "./getEventLog";
 import styles from "./Trial.module.css";
 import TrialInput from "./TrialInput";
-
-const countSimilarChars = (str1, str2) => {
-  let correctCharsCount = 0;
-  for (let i = 0; i < str1.length; i += 1) {
-    if (str1[i] !== str2[i]) {
-      break;
-    }
-    correctCharsCount += 1;
-  }
-  return correctCharsCount;
-};
 
 const mapVirtualKey = key => {
   switch (key) {
@@ -111,7 +99,6 @@ const Trial = ({
   const { current: trialStartTime } = useRef(new Date());
 
   const text = sksDistribution.map(w => w.word).join(" ");
-  const correctCharsCount = countSimilarChars(text, input);
   const isCorrect = text === input.trim();
 
   useEffect(() => {
@@ -230,13 +217,9 @@ const Trial = ({
       className={styles.trial}
       ref={inputRef}
     >
-      <TextToType
-        text={text}
-        correctCharsCount={correctCharsCount}
-        input={input}
-      />
+      <Stimulus text={text} input={input} />
       <TrialInput input={input} isFocused={focusTarget === "input"} />
-      <WordHelper
+      <SuggestionsBar
         mainSuggestionPosition={
           keyboardLayout.id === "physical"
             ? 0
@@ -249,7 +232,7 @@ const Trial = ({
             : null
         }
         suggestions={suggestions}
-        selectionStart={selection => {
+        onSelectionStart={selection => {
           if (pressedKeys.length === 0) {
             actionScheduler.start(`suggestion-${selection}`, {
               type: Actions.inputSuggestion,
@@ -257,7 +240,7 @@ const Trial = ({
             });
           }
         }}
-        selectionEnd={selection => {
+        onSelectionEnd={selection => {
           actionScheduler.end(`suggestion-${selection}`);
         }}
       />
@@ -270,7 +253,12 @@ const Trial = ({
           onKeyUp={key => onKeyUp(key)}
         />
       ) : null}
-      {isCorrect ? <WorkflowButton onClick={onFinishTrial} /> : null}
+      <p
+        className={styles.success}
+        style={{ visibility: isCorrect ? "visible" : "hidden" }}
+      >
+        Success! Press enter to continue.
+      </p>
     </div>
   );
 };

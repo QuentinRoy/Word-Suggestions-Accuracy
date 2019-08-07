@@ -14,6 +14,7 @@ rules:
   react/jsx-one-expression-per-line: 0
   react-hooks/rules-of-hooks: error
   react-hooks/exhaustive-deps: warn
+  react/jsx-indent: 0
 
 overrides:
   - files:

@@ -4,9 +4,9 @@ import useCorpusFromJson from "./useCorpusFromJson";
 import { KeyboardLayouts, LoadingStates } from "../utils/constants";
 
 const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
-const defaultKeyStrokeDelays = [0, 250, 500, 750, 1000];
-const numberOfPracticeTasks = 1;
-const numberOfTypingTasks = 2;
+const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
+const numberOfPracticeTasks = 5;
+const numberOfTypingTasks = 20;
 const keyboardLayout = KeyboardLayouts.desktop;
 
 const uuid = short.uuid();

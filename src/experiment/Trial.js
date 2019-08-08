@@ -145,7 +145,7 @@ const Trial = ({
   function onKeyDown(key) {
     if (pressedKeys.includes(key)) return;
     dispatch({ type: Actions.keyDown, key });
-    switch (mapVirtualKey(key)) {
+    switch (key) {
       case "Shift":
       case "CapsLock":
         actionScheduler.endAll();
@@ -219,7 +219,7 @@ const Trial = ({
           actionScheduler.end(`char-${key}`);
         }
     }
-    dispatch({ type: Actions.keyUp, key: mapVirtualKey(key) });
+    dispatch({ type: Actions.keyUp, key });
   }
 
   // Wraps the system keyboard events to be ignored if the target keyboard
@@ -290,8 +290,8 @@ const Trial = ({
             display={keyboardLayout.display}
             layout={keyboardLayout.layout}
             layoutName={layoutName}
-            onKeyDown={key => onKeyDown(key)}
-            onKeyUp={key => onKeyUp(key)}
+            onKeyDown={key => onKeyDown(mapVirtualKey(key))}
+            onKeyUp={key => onKeyUp(mapVirtualKey(key))}
           />
         ) : null}
       </div>

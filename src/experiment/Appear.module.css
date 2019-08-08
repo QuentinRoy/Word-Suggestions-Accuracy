@@ -1,0 +1,8 @@
+.visible {
+  visibility: visible;
+  padding-top: 5px;
+}
+
+.hidden {
+  visibility: hidden;
+}

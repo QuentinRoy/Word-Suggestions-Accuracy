@@ -172,7 +172,11 @@ const Trial = ({
         break;
       case "Tab":
         actionScheduler.endAll();
-        dispatch({ type: Actions.switchFocusTarget, totalSuggestions });
+        if (pressedKeys.includes("Shift")) {
+          dispatch({ type: Actions.previousFocusTarget });
+        } else {
+          dispatch({ type: Actions.nextFocusTarget });
+        }
         break;
       case "Enter":
         if (focusTarget === "input" && isInputCorrect) {

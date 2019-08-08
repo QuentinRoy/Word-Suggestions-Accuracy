@@ -73,7 +73,8 @@ function computeSuggestions(
 
   const lowerCaseTargetWord = targetWord.toLowerCase();
   const lowerCaseInputWord = inputWord.toLowerCase();
-  dictionary.forEach(({ word, f: frequency }) => {
+  for (let i = 0; i < dictionary.length; i += 1) {
+    const { word, f: frequency } = dictionary[i];
     const lowercaseWord = word.toLowerCase();
     if (targetWord == null || lowercaseWord !== lowerCaseTargetWord) {
       const score = suggestionScore(
@@ -83,7 +84,7 @@ function computeSuggestions(
       );
       insertTopWord(word, score);
     }
-  });
+  }
 
   return isFirstCharUpper
     ? topWords.map(w => w.word.charAt(0).toUpperCase() + w.word.slice(1))

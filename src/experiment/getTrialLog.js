@@ -1,3 +1,5 @@
+import { Actions } from "../utils/constants";
+
 const getTrialLog = (
   events,
   id,
@@ -10,31 +12,27 @@ const getTrialLog = (
   endDate
 ) => {
   const sentence = words.map(w => w.word).join(" ");
-  const totalKeyStrokes = events.length - 1;
-  let totalSuggestionUsed = 0;
-  let totalCorrectSuggestionUsed = 0;
-  let totalIncorrectSuggestionsUsed = 0;
 
-  let actualSks = 0;
+  let totalKeyStrokes = 0;
   let totalKeyStrokeErrors = 0;
-  for (let i = 0; i < events.length; i += 1) {
-    if (events[i].is_error === true) {
-      totalKeyStrokeErrors += 1;
+  let totalSuggestionErrors = 0;
+  let totalSuggestionUsed = 0;
+  let actualSks = 0;
+  events.forEach((evt, i) => {
+    if (evt.type === Actions.inputChar || evt.type === Actions.deleteChar) {
+      if (evt.isError) totalKeyStrokeErrors += 1;
+      totalKeyStrokes += 1;
     }
-    if (events[i].event === "used_suggestion") {
+    if (evt.type === Actions.inputSuggestion) {
+      if (evt.isError) totalSuggestionErrors += 1;
       totalSuggestionUsed += 1;
-      if (events[i].input === sentence.slice(0, events[i].input.length)) {
-        totalCorrectSuggestionUsed += 1;
-        if (i > 0) {
-          actualSks += events[i].input.length - events[i - 1].input.length;
-        } else {
-          actualSks += events[i].suggestion_used.length;
-        }
-      } else {
-        totalIncorrectSuggestionsUsed += 1;
-      }
+      const prevIncorrect = i > 0 ? events[i - 1].totalIncorrectCharacters : 0;
+      const prevCorrect = i > 0 ? events[i - 1].totalCorrectCharacters : 0;
+      const diffCorrectChars = evt.totalCorrectCharacters - prevCorrect;
+      const diffIncorrectChars = evt.totalIncorrectCharacters - prevIncorrect;
+      actualSks += diffCorrectChars - diffIncorrectChars;
     }
-  }
+  });
 
   const timeZone = (() => {
     if (Intl != null && Intl.DateTimeFormat != null) {
@@ -44,9 +42,7 @@ const getTrialLog = (
   })();
 
   const sentenceWordsAndSks = words
-    .map(item => {
-      return `${item.word}{${item.sks}}`;
-    })
+    .map(item => `${item.word}{${item.sks}}`)
     .join(" ");
 
   const theoreticalSks = words
@@ -71,8 +67,7 @@ const getTrialLog = (
     totalKeyStrokeErrors,
     actualSks,
     totalSuggestionUsed,
-    totalCorrectSuggestionUsed,
-    totalIncorrectSuggestionsUsed,
+    totalSuggestionErrors,
     timeZone,
     gitSha: process.env.REACT_APP_GIT_SHA,
     version: process.env.REACT_APP_VERSION

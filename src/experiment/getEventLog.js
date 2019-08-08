@@ -1,33 +1,53 @@
-import { totalMatchedCharsFromStart } from "../utils/strings";
+import { totalMatchedCharsFromStart, trimEnd } from "../utils/strings";
 import { Actions } from "../utils/constants";
 
+const isInputCorrect = (input, text) => trimEnd(input) === text;
+
+const getTotalIncorrectCharacters = (input, text) => {
+  if (isInputCorrect(input, text)) return 0;
+  return input.length - totalMatchedCharsFromStart(text, input);
+};
+
 const getEventLog = (oldState, action, newState, { sksDistribution }) => {
-  const sentence = sksDistribution.map(w => w.word).join(" ");
-  const inputCommon = totalMatchedCharsFromStart(
+  const text = sksDistribution.map(w => w.word).join(" ");
+  const totalCommonCharsFromStart = totalMatchedCharsFromStart(
     oldState.input,
     newState.input
   );
-  const oldTotalIncorrectCharacters =
-    oldState.input.length -
-    totalMatchedCharsFromStart(sentence, oldState.input);
-  const newTotalIncorrectCharacters =
-    newState.input.length -
-    totalMatchedCharsFromStart(sentence, newState.input);
-  const addedInput = newState.input.slice(inputCommon, newState.input.length);
-  const removedInput = oldState.input.slice(inputCommon, oldState.input.length);
+  const oldTotalIncorrectChars = getTotalIncorrectCharacters(
+    oldState.input,
+    text
+  );
+  const newTotalIncorrectChars = getTotalIncorrectCharacters(
+    newState.input,
+    text
+  );
+  const addedInput = newState.input.slice(
+    totalCommonCharsFromStart,
+    newState.input.length
+  );
+  const removedInput = oldState.input.slice(
+    totalCommonCharsFromStart,
+    oldState.input.length
+  );
   const log = {
-    event: action.type,
+    type: action.type,
     scheduledAction: action.action == null ? null : action.action.type,
     focusTarget: newState.focusTarget,
     addedInput,
     removedInput,
     input: newState.input,
-    isError: oldTotalIncorrectCharacters < newTotalIncorrectCharacters,
-    suggestionUsed:
+    isError: oldTotalIncorrectChars < newTotalIncorrectChars,
+    usedSuggestion:
       action.type === Actions.inputSuggestion ? action.word : null,
-    totalCorrectCharacters: newState.input.length - newTotalIncorrectCharacters,
-    totalIncorrectCharacters: newTotalIncorrectCharacters,
-    totalSentenceCharacters: sentence.length,
+    // Because terminal spaces are ignored, the input length
+    // may be longer than text and have no errors.
+    totalCorrectCharacters: Math.min(
+      newState.input.length - newTotalIncorrectChars,
+      text.length
+    ),
+    totalIncorrectCharacters: newTotalIncorrectChars,
+    isInputCorrect: isInputCorrect(newState.input, text),
     time: new Date()
   };
   newState.suggestions.forEach((s, i) => {

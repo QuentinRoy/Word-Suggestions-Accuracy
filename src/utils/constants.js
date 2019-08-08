@@ -76,7 +76,7 @@ export const Actions = Object.freeze({
   toggleKeyboardLayout: "TOGGLE_KEYBOARD_LAYOUT",
   keyDown: "KEY_DOWN",
   keyUp: "KEY_UP",
-  switchFocusTarget: "SWITCH_FOCUS",
+  nextFocusTarget: "SWITCH_FOCUS",
   docBlurred: "DOCUMENT_BLURRED",
   docFocused: "DOCUMENT_FOCUSED",
 

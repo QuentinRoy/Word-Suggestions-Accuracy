@@ -72,7 +72,7 @@ const Trial = ({
   // Returns a new state based on an action.
   const reducer = (state, action) => {
     let nextState = trialReducer(state, action);
-    if (nextState.input !== state) {
+    if (nextState.input !== state.input) {
       nextState = {
         ...nextState,
         suggestions: getSuggestionsFromInput(nextState.input)

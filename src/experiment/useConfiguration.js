@@ -70,6 +70,7 @@ const UploadLogS3 = (id, fireAndForget, participantId) => ({
 
 const generateTasks = corpus => {
   const tasks = [];
+  tasks.push({ task: "EndQuestionnaire", key: `${tasks.length}` });
 
   // Instructions
   tasks.push({
@@ -116,8 +117,6 @@ const generateTasks = corpus => {
       )
     );
   }
-
-  tasks.push({ task: "EndQuestionnaire", key: `${tasks.length}` });
 
   tasks.push(UploadLogS3(`${tasks.length}`, false, participant));
   tasks.push({

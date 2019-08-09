@@ -2,40 +2,39 @@ import React, { useState } from "react";
 import Proptypes from "prop-types";
 import styles from "./EndQuestionnaire.module.css";
 import FormInput from "../utils/FormInput";
+import { InputTypes } from "../utils/constants";
 
 const EndQuestionnaire = ({ onAdvanceWorkflow, onLog }) => {
   const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
 
   const questions = [];
   questions.push({
     label: "Age",
-    sublabel: "(can be left empty)",
-    inputType: "standardInput",
+    inputType: InputTypes.standardInput,
     typeOfAnswer: "number",
     value: age,
     method: setAge,
+    answerRequired: false,
     key: questions.length
   });
   questions.push({
     label: "Gender",
-    inputType: "selectInput",
-    value: gender,
-    method: setGender,
+    inputType: InputTypes.selectInput,
     answers: ["Male", "Female", "Other", "Prefer not to say"],
+    answerRequired: true,
     key: questions.length
   });
   questions.push({
     label: "Open question",
-    inputType: "textarea",
-    rows: 10,
-    cols: 100,
+    inputType: InputTypes.textarea,
+    answerRequired: true,
     key: questions.length
   });
   questions.push({
     label: "Closed question",
-    inputType: "radioButton",
+    inputType: InputTypes.radioButton,
     answers: ["a", "b", "c", "d"],
+    answerRequired: true,
     key: questions.length
   });
 
@@ -56,7 +55,10 @@ const EndQuestionnaire = ({ onAdvanceWorkflow, onLog }) => {
       ) {
         finishExperiment = false;
       } else {
-        submittedAnswers.push(data.get(`${i}`));
+        submittedAnswers.push({
+          label: questions[i].label,
+          answer: data.get(`${i}`)
+        });
       }
     }
 
@@ -76,16 +78,16 @@ const EndQuestionnaire = ({ onAdvanceWorkflow, onLog }) => {
               key={questions.key}
               className={`grid-container ${styles.formInput}`}
             >
-              <p>{question.label}</p>
-              {"sublabel" in question ? (
-                <span className={styles.sublabel}>{question.sublabel}</span>
-              ) : null}
+              <p>
+                {question.label}
+                <span style={{ color: "red" }}>
+                  {question.answerRequired ? "*" : null}
+                </span>
+              </p>
               <FormInput
                 inputType={question.inputType}
                 value={"value" in question ? question.value : ""}
                 name={`${question.key}`}
-                rows={"rows" in question ? `${question.rows}` : null}
-                cols={"cols" in question ? `${question.cols}` : null}
                 label={"buttonLabel" in question ? question.buttonLabel : null}
                 answers={"answers" in question ? question.answers : null}
                 method={"method" in question ? question.method : null}
@@ -96,6 +98,7 @@ const EndQuestionnaire = ({ onAdvanceWorkflow, onLog }) => {
             </div>
           );
         })}
+        <p style={{ color: "red" }}>*: an answer is required</p>
         <input type="submit" value="Finish" className={styles.submitButton} />
       </form>
     </div>

@@ -1,28 +1,22 @@
 import React from "react";
 import Proptypes from "prop-types";
+import { InputTypes } from "./constants";
 
 const FormInput = ({
   inputType,
   value,
   name,
-  rows,
-  cols,
   label,
   answers,
   method,
   typeOfAnswer
 }) => {
   switch (inputType) {
-    case "textarea":
+    case InputTypes.textarea:
       return (
-        <textarea
-          name={name}
-          rows={`${rows}`}
-          cols={`${cols}`}
-          className="grid-item"
-        />
+        <textarea name={name} rows="10" cols="100" className="grid-item" />
       );
-    case "radioButton":
+    case InputTypes.radioButton:
       if (answers.length > 1) {
         return answers.map(answer => {
           return (
@@ -49,7 +43,7 @@ const FormInput = ({
           <span>{answers}</span>
         </div>
       );
-    case "standardInput":
+    case InputTypes.standardInput:
       return (
         <input
           type={typeOfAnswer}
@@ -59,7 +53,7 @@ const FormInput = ({
           className="grid-item"
         />
       );
-    case "button":
+    case InputTypes.standardButton:
       return (
         <button
           type="button"
@@ -71,9 +65,9 @@ const FormInput = ({
           {label}
         </button>
       );
-    case "submitButton":
+    case InputTypes.submitButton:
       return <input type="submit" value={value} className="grid-item" />;
-    case "selectInput":
+    case InputTypes.selectInput:
       return (
         <select name={name} size={1} className="grid-item">
           {answers.map(option => {
@@ -91,8 +85,6 @@ FormInput.propTypes = {
   value: Proptypes.string,
   name: Proptypes.string.isRequired,
   label: Proptypes.string,
-  rows: Proptypes.string,
-  cols: Proptypes.string,
   answers: Proptypes.arrayOf(Proptypes.string),
   method: Proptypes.func,
   typeOfAnswer: Proptypes.string
@@ -101,8 +93,6 @@ FormInput.propTypes = {
 FormInput.defaultProps = {
   value: null,
   label: null,
-  rows: null,
-  cols: null,
   answers: null,
   method: null,
   typeOfAnswer: null

@@ -88,4 +88,13 @@ export const Actions = Object.freeze({
   confirmAction: "CONFIRM_ACTION"
 });
 
+export const InputTypes = Object.freeze({
+  standardInput: "standardInput",
+  selectInput: "selectInput",
+  textarea: "textarea",
+  radioButton: "radioButton",
+  standardButton: "button",
+  submitButton: "submitButton"
+});
+
 export const totalSuggestions = 3;

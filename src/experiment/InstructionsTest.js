@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styles from "./InstructionsTest.module.css";
 import FormItem from "./FormItem";
@@ -52,10 +52,7 @@ const shuffleArray = array => {
   return tmpArray;
 };
 
-const InstructionsTest = ({ onAdvanceWorkflow }) => {
-  const [testSucceeded, setTestSucceeded] = useState(false);
-  const [testSubmitted, setTestSubmitted] = useState(false);
-
+const InstructionsTest = ({ onAdvanceWorkflow, setInstructionPassed }) => {
   const correctAnswers = [
     "keyboard only",
     "behind the word I am typing",
@@ -70,24 +67,23 @@ const InstructionsTest = ({ onAdvanceWorkflow }) => {
 
   function verifyAnswers(event) {
     event.preventDefault();
+    let success = true;
     const data = new FormData(event.target);
     for (let i = 0; i < questionList.length; i += 1) {
       if (data.get(`${i}`) !== correctAnswers[i]) {
-        console.log("error! retour aux instructions");
-        setTestSucceeded(false);
-        break;
+        setInstructionPassed(false);
+        success = false;
       }
-      setTestSucceeded(true);
     }
-    setTestSubmitted(true);
+    if (success) onAdvanceWorkflow();
   }
-
-  console.log("testSubmitted", testSubmitted);
-  console.log("testSucceeded", testSucceeded);
 
   return (
     <div className={styles.main}>
-      <h4>Did you read the instructions carefully</h4>
+      <h4>Instruction Quizz</h4>
+      <p>
+        If you make a mistake, you will be sent back to the instruction page
+      </p>
       <form onSubmit={verifyAnswers} className={styles.form}>
         {questionList.map(question => {
           return <FormItem question={question} />;
@@ -100,31 +96,13 @@ const InstructionsTest = ({ onAdvanceWorkflow }) => {
           />
         </div>
       </form>
-
-      {testSubmitted ? (
-        <div>
-          {testSucceeded
-            ? "You answered correctly! Here is the tutorial"
-            : "You have made some mistakes, check the instructions again"}
-          <button
-            type="button"
-            className={styles.continueButton}
-            onClick={
-              testSucceeded
-                ? onAdvanceWorkflow()
-                : console.log("retour aux instructions")
-            }
-          >
-            {testSucceeded ? "Continue" : "Back to the instructions"}
-          </button>
-        </div>
-      ) : null}
     </div>
   );
 };
 
 InstructionsTest.propTypes = {
-  onAdvanceWorkflow: PropTypes.func.isRequired
+  onAdvanceWorkflow: PropTypes.func.isRequired,
+  setInstructionPassed: PropTypes.func.isRequired
 };
 
 export default InstructionsTest;

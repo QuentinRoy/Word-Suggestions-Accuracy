@@ -18,7 +18,7 @@ const instructionsList = [
   "Then the real experiment will begin and you will have to complete X tasks to complete the whole experiment."
 ];
 
-const Instructions = ({ onAdvanceWorkflow }) => {
+const Instructions = ({ setInstructionPassed }) => {
   const [sentencesToDisplay, setSentencesToDisplay] = useState([]);
   function displayNextSentence() {
     setSentencesToDisplay(
@@ -63,7 +63,9 @@ const Instructions = ({ onAdvanceWorkflow }) => {
               : styles.unusable
           ].join(" ")}
           disabled={sentencesToDisplay.length !== instructionsList.length}
-          onClick={onAdvanceWorkflow}
+          onClick={() => {
+            setInstructionPassed(true);
+          }}
         >
           Start
         </button>
@@ -73,7 +75,7 @@ const Instructions = ({ onAdvanceWorkflow }) => {
 };
 
 Instructions.propTypes = {
-  onAdvanceWorkflow: PropTypes.func.isRequired
+  setInstructionPassed: PropTypes.func.isRequired
 };
 
 export default Instructions;

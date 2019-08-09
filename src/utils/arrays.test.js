@@ -39,6 +39,18 @@ describe("insertEject", () => {
     expect(topWords).toEqual(expected);
   });
 
+  it("does not insert the word if its score is equal to the smallest score in the list", () => {
+    const topWords = [
+      { word: "a", score: 15 },
+      { word: "b", score: 10 },
+      { word: "c", score: 5 }
+    ];
+    const wordToInsert = { word: "x", score: 5 };
+    const expected = [...topWords];
+    insertEject(topWords, wordToInsert, x => x.score);
+    expect(topWords).toEqual(expected);
+  });
+
   it("replaces the last word if its score is only bigger than the last one", () => {
     const topWords = [
       { word: "a", score: 15 },

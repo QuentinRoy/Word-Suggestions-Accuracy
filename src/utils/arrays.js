@@ -57,7 +57,7 @@ export const sliceIf = (lst, startIndex, maxItems, predicate) => {
 export const insertEject = (entries, newEntry, getScore) => {
   const newEntryScore = getScore(newEntry);
   let i = entries.length - 1;
-  if (newEntryScore < getScore(entries[i])) return;
+  if (getScore(entries[i]) >= newEntryScore) return;
   while (i > 0 && newEntryScore > getScore(entries[i - 1])) {
     // eslint-disable-next-line no-param-reassign
     entries[i] = entries[i - 1];

@@ -50,7 +50,9 @@ function computeSuggestions(
     targetWord != null &&
     isUpperCase(targetWord.charAt(0));
 
-  // Pre-fill the top words with the most frequent in the dictionary.
+  // Pre-fill the top words with the most frequent in the dictionary, provided
+  // that none are the same as the target word, but give them a score of
+  // 0 so that they are immediately replaced by anything else.
   const topWords = sliceIf(
     dictionary,
     0,
@@ -74,11 +76,11 @@ function computeSuggestions(
   const lowerCaseTargetWord = targetWord.toLowerCase();
   const lowerCaseInputWord = inputWord.toLowerCase();
   for (let i = 0; i < dictionary.length; i += 1) {
-    const { word, f: frequency } = dictionary[i];
+    const { word, f: frequencyScore } = dictionary[i];
     const lowercaseWord = word.toLowerCase();
     if (targetWord == null || lowercaseWord !== lowerCaseTargetWord) {
       const score = suggestionScore(
-        frequency,
+        frequencyScore,
         lowercaseWord,
         lowerCaseInputWord
       );

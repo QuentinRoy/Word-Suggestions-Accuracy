@@ -66,9 +66,14 @@ const focusTargets = [
 ];
 export const subFocusReducer = (state, action) => {
   switch (action.type) {
-    case Actions.switchFocusTarget: {
+    case Actions.nextFocusTarget: {
       const focusIndex =
         (focusTargets.indexOf(state.focusTarget) + 1) % focusTargets.length;
+      return { ...state, focusTarget: focusTargets[focusIndex] };
+    }
+    case Actions.previousFocusTarget: {
+      let focusIndex = focusTargets.indexOf(state.focusTarget) - 1;
+      if (focusIndex < 0) focusIndex = focusTargets.length - 1;
       return { ...state, focusTarget: focusTargets[focusIndex] };
     }
     case Actions.inputSuggestion:

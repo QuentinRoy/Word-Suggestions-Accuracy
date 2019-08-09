@@ -17,6 +17,7 @@ import getEventLog from "./getEventLog";
 import styles from "./Trial.module.css";
 import TrialInput from "./TrialInput";
 import Banner from "./Banner";
+import { trimEnd } from "../utils/strings";
 
 const mapVirtualKey = key => {
   switch (key) {
@@ -70,23 +71,26 @@ const Trial = ({
   });
   // Returns a new state based on an action.
   const reducer = (state, action) => {
-    const isActionLogged = noEventActions.includes(action.type);
-    const reducedState = trialReducer(state, action);
-    if (reducedState === state && !isActionLogged) return state;
-    const suggestions =
-      state.input === reducedState.input
-        ? state.suggestions
-        : getSuggestionsFromInput(reducedState.input);
-    const events = isActionLogged
-      ? [
-          ...reducedState.events,
-          getEventLog(state, action, reducedState, { sksDistribution })
+    let nextState = trialReducer(state, action);
+    if (nextState.input !== state.input) {
+      nextState = {
+        ...nextState,
+        suggestions: getSuggestionsFromInput(nextState.input)
+      };
+    }
+    if (!noEventActions.includes(action.type)) {
+      nextState = {
+        ...nextState,
+        events: [
+          ...nextState.events,
+          getEventLog(state, action, nextState, { sksDistribution })
         ]
-      : reducedState.events;
-    const finalState = { ...reducedState, suggestions, events };
-    return action.type === Actions.confirmAction
-      ? reducer(finalState, action.action)
-      : finalState;
+      };
+    }
+    if (action.type === Actions.confirmAction) {
+      nextState = reducer(nextState, action.action);
+    }
+    return nextState;
   };
   // Matches the state, reducer, and actions.
   const [
@@ -113,7 +117,7 @@ const Trial = ({
 
   // Some useful variables.
   const text = sksDistribution.map(w => w.word).join(" ");
-  const isInputCorrect = text === input.trim();
+  const isInputCorrect = text === trimEnd(input);
   const focusedSuggestion =
     hasDocFocus && focusTarget.startsWith("suggestion-")
       ? +focusTarget.slice("suggestion-".length)
@@ -123,20 +127,18 @@ const Trial = ({
   function onTrialCompletion() {
     actionScheduler.endAll();
     onLog("events", events);
-    onLog(
-      "trial",
-      getTrialLog(
-        events,
-        id,
-        targetAccuracy,
-        keyStrokeDelay,
-        weightedAccuracy,
-        sdAccuracy,
-        sksDistribution,
-        trialStartTime,
-        new Date()
-      )
+    const trialLog = getTrialLog(
+      events,
+      id,
+      targetAccuracy,
+      keyStrokeDelay,
+      weightedAccuracy,
+      sdAccuracy,
+      sksDistribution,
+      trialStartTime,
+      new Date()
     );
+    onLog("trial", trialLog);
     onAdvanceWorkflow();
   }
 
@@ -170,7 +172,11 @@ const Trial = ({
         break;
       case "Tab":
         actionScheduler.endAll();
-        dispatch({ type: Actions.switchFocusTarget, totalSuggestions });
+        if (pressedKeys.includes("Shift")) {
+          dispatch({ type: Actions.previousFocusTarget });
+        } else {
+          dispatch({ type: Actions.nextFocusTarget });
+        }
         break;
       case "Enter":
         if (focusTarget === "input" && isInputCorrect) {

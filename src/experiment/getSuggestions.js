@@ -1,13 +1,22 @@
-import { count, sliceIf } from "../utils/arrays";
+import { count, sliceIf, insertEject } from "../utils/arrays";
 import {
   isUpperCase,
   totalMatchedChars,
   totalMatchedCharsFromStart
 } from "../utils/strings";
 
-// The computation of this normalized score comes from
-// https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/jb-release/native/jni/src/correction.cpp#1098
-const frequencyScore = (wordFScore, suggestion, inputWord) => {
+/** Compute a suggestion score based on an input word as specified in
+ * https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/jb-release/native/jni/src/correction.cpp#1098
+ *
+ * @param {number} suggestionFScore the suggestion frequency score, as provided
+ * by the frequency dictionary. It ranges from 0 to 255.
+ * @param {string} suggestion the suggestion to test. WARNING, it is expected to
+ * be lowercase with all accents removed.
+ * @param {string} inputWord the (often partial) input word. WARNING, it is
+ * expected to be lowercase with all accents removed.
+ * @returns {number} the normalized score
+ */
+const suggestionScore = (suggestionFScore, suggestion, inputWord) => {
   const minLength = Math.min(suggestion.length, inputWord.length);
   // This is (almost) the max possible score for this word/suggestion couple.
   // We use it for normalization.
@@ -21,14 +30,12 @@ const frequencyScore = (wordFScore, suggestion, inputWord) => {
   }
   // We should also compare the words without accents here, but it does not
   // matter since all sentences are in English.
-  const wordScore =
-    suggestion.toLowerCase() === inputWord.toLowerCase() ? 255 : wordFScore;
+  const wordScore = suggestion === inputWord ? 255 : suggestionFScore;
   const score =
     2 ** (totalMatchedChars(suggestion, inputWord) * wordScore) * multiplier;
   // Normalize the score.
   return score / maxScore;
 };
-// The score is 0 if the suggestion don't start by the input word.
 
 function computeSuggestions(
   inputWord,
@@ -43,23 +50,19 @@ function computeSuggestions(
     targetWord != null &&
     isUpperCase(targetWord.charAt(0));
 
-  // Pre-fill the top words with the most frequent in the dictionary.
-  const topWords = sliceIf(dictionary, 0, totalSuggestions, e => e.word);
-  const topWordsScore = Array(totalSuggestions).fill(0);
+  // Pre-fill the top words with the most frequent in the dictionary, provided
+  // that none are the same as the target word, but give them a score of
+  // 0 so that they are immediately replaced by anything else.
+  const topWords = sliceIf(
+    dictionary,
+    0,
+    totalSuggestions,
+    e => e.word !== targetWord
+  ).map(e => ({ word: e.word, score: 0 }));
 
-  const insertTopWord = (wordToInsert, score) => {
-    const capitalizedWordToInsert = isFirstCharUpper
-      ? wordToInsert.charAt(0).toUpperCase() + wordToInsert.slice(1)
-      : wordToInsert;
-    const firstSmallestIndex = topWordsScore.findIndex(s => s < score);
-    if (firstSmallestIndex >= 0) {
-      // Insert the word at the corresponding location.
-      topWordsScore.splice(firstSmallestIndex, 0, score);
-      topWords.splice(firstSmallestIndex, 0, capitalizedWordToInsert);
-      // Remove the extraneous words.
-      topWordsScore.pop();
-      topWords.pop();
-    }
+  const wordEntryScoreGetter = e => e.score;
+  const insertTopWord = (word, score) => {
+    insertEject(topWords, { word, score }, wordEntryScoreGetter);
   };
 
   if (
@@ -70,14 +73,24 @@ function computeSuggestions(
     insertTopWord(targetWord, Number.POSITIVE_INFINITY);
   }
 
-  dictionary.forEach(({ word, f: frequency }) => {
-    if (targetWord == null || word.toLowerCase() !== targetWord.toLowerCase()) {
-      const inputWordScore = frequencyScore(frequency, word, inputWord);
-      insertTopWord(word, inputWordScore);
+  const lowerCaseTargetWord = targetWord.toLowerCase();
+  const lowerCaseInputWord = inputWord.toLowerCase();
+  for (let i = 0; i < dictionary.length; i += 1) {
+    const { word, f: frequencyScore } = dictionary[i];
+    const lowercaseWord = word.toLowerCase();
+    if (targetWord == null || lowercaseWord !== lowerCaseTargetWord) {
+      const score = suggestionScore(
+        frequencyScore,
+        lowercaseWord,
+        lowerCaseInputWord
+      );
+      insertTopWord(word, score);
     }
-  });
+  }
 
-  return topWords;
+  return isFirstCharUpper
+    ? topWords.map(w => w.word.charAt(0).toUpperCase() + w.word.slice(1))
+    : topWords.map(w => w.word);
 }
 
 // Returns a new state with the suggestions filled in based on the input.

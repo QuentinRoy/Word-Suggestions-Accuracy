@@ -7,10 +7,8 @@ const InstructionWrapper = ({ onAdvanceWorkflow }) => {
   const [instructionPassed, setInstructionPassed] = useState(false);
 
   if (!instructionPassed) {
-    console.log("a");
     return <Instructions setInstructionPassed={setInstructionPassed} />;
   }
-  console.log("b");
   return (
     <InstructionsTest
       onAdvanceWorkflow={onAdvanceWorkflow}

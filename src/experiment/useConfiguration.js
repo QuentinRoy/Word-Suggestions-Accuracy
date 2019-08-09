@@ -71,6 +71,8 @@ const UploadLogS3 = (id, fireAndForget, participantId) => ({
 const generateTasks = corpus => {
   const tasks = [];
 
+  tasks.push({ task: "EndQuestionnaire", key: `${tasks.length}` });
+
   // Instructions
   tasks.push({
     task: "Instructions",

@@ -26,6 +26,7 @@ const FormInput = ({
                 value={answer}
                 name={name}
                 className="grid-item"
+                key={answers.indexOf(answer)}
               />{" "}
               <span>{answer}</span>
             </div>
@@ -71,7 +72,11 @@ const FormInput = ({
       return (
         <select name={name} size={1} className="grid-item">
           {answers.map(option => {
-            return <option value={option}>{option}</option>;
+            return (
+              <option value={option} key={answers.indexOf(option)}>
+                {option}
+              </option>
+            );
           })}
         </select>
       );

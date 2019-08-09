@@ -47,11 +47,8 @@ const EndQuestionnaire = ({ onAdvanceWorkflow, onLog }) => {
 
     for (let i = 0; i < questions.length; i += 1) {
       if (
-        data.get(`${i}`) === "" &&
-        !(
-          "typeOfAnswerRequired" in questions[i] &&
-          typeof data.get(`${i}`) !== typeof questions[i].typeOfAnswerRequired
-        )
+        (data.get(`${i}`) === null || data.get(`${i}`) === "") &&
+        questions[i].answerRequired
       ) {
         finishExperiment = false;
       } else {
@@ -78,13 +75,14 @@ const EndQuestionnaire = ({ onAdvanceWorkflow, onLog }) => {
               key={questions.key}
               className={`grid-container ${styles.formInput}`}
             >
-              <p>
+              <p key={questions.key}>
                 {question.label}
                 <span style={{ color: "red" }}>
                   {question.answerRequired ? "*" : null}
                 </span>
               </p>
               <FormInput
+                key={questions.key}
                 inputType={question.inputType}
                 value={"value" in question ? question.value : ""}
                 name={`${question.key}`}

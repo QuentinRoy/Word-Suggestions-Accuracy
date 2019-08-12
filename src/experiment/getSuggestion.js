@@ -37,13 +37,7 @@ const suggestionScore = (suggestionFScore, suggestion, inputWord) => {
   return score / maxScore;
 };
 
-function computeSuggestions(
-  inputWord,
-  targetWordSKS,
-  targetWord,
-  totalSuggestions,
-  dictionary
-) {
+function computeSuggestion(inputWord, targetWordSKS, targetWord, dictionary) {
   const isFirstCharUpper =
     inputWord != null &&
     inputWord !== "" &&
@@ -53,16 +47,13 @@ function computeSuggestions(
   // Pre-fill the top words with the most frequent in the dictionary, provided
   // that none are the same as the target word, but give them a score of
   // 0 so that they are immediately replaced by anything else.
-  const topWords = sliceIf(
-    dictionary,
-    0,
-    totalSuggestions,
-    e => e.word !== targetWord
-  ).map(e => ({ word: e.word, score: 0 }));
+  const topWord = sliceIf(dictionary, 0, 1, e => e.word !== targetWord).map(
+    e => ({ word: e.word, score: 0 })
+  );
 
   const wordEntryScoreGetter = e => e.score;
   const insertTopWord = (word, score) => {
-    insertEject(topWords, { word, score }, wordEntryScoreGetter);
+    insertEject(topWord, { word, score }, wordEntryScoreGetter);
   };
 
   if (
@@ -89,17 +80,12 @@ function computeSuggestions(
   }
 
   return isFirstCharUpper
-    ? topWords.map(w => w.word.charAt(0).toUpperCase() + w.word.slice(1))
-    : topWords.map(w => w.word);
+    ? topWord[0].word.charAt(0).toUpperCase() + topWord[0].word.slice(1)
+    : topWord[0].word;
 }
 
 // Returns a new state with the suggestions filled in based on the input.
-const getSuggestions = (
-  totalSuggestions,
-  dictionary,
-  sksDistribution,
-  input
-) => {
+const getSuggestion = (dictionary, sksDistribution, input) => {
   // This may produce empty words (""). This is OK.
   const inputWords = input.split(" ");
   // Note: if input ends with a space, then the input word is "". This is
@@ -114,13 +100,12 @@ const getSuggestions = (
     currentInputWord === "" ? totalInputWords : totalInputWords - 1;
   const currentWord = sksDistribution[currentWordIndex];
 
-  return computeSuggestions(
+  return computeSuggestion(
     currentInputWord,
     currentWord == null ? null : currentWord.sks,
     currentWord == null ? null : currentWord.word,
-    totalSuggestions,
     dictionary
   );
 };
 
-export default getSuggestions;
+export default getSuggestion;

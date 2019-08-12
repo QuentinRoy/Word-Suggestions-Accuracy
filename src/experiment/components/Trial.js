@@ -3,22 +3,20 @@ import PropTypes from "prop-types";
 import getTrialLog from "../getTrialLog";
 import {
   Actions,
-  totalSuggestions,
   FocusTargets,
   ActionStatuses,
   KeyboardLayoutNames
 } from "../../utils/constants";
 import { useDictionary } from "../hooks/useDictionary";
-import getSuggestions from "../getSuggestions";
+import getSuggestion from "../getSuggestion";
 import "react-simple-keyboard/build/css/index.css";
 import useActionScheduler from "../hooks/useActionScheduler";
 import trialReducer from "../hooks/trialReducer";
 import getEventLog from "../getEventLog";
 import { trimEnd } from "../../utils/strings";
 import TrialPresenter from "./TrialPresenter";
-import useHasWindowFocus from "../hooks/useHasWindowFocus";
 
-// This actions won't be logged.
+// These actions won't be logged.
 const noEventActions = [Actions.endAction, Actions.confirmAction];
 const instantActions = [
   Actions.moveFocusTarget,
@@ -39,8 +37,8 @@ const Trial = ({
   sdAccuracy
 }) => {
   const dictionary = useDictionary();
-  const getSuggestionsFromInput = input =>
-    getSuggestions(totalSuggestions, dictionary, sksDistribution, input);
+  const getSuggestionFromInput = input =>
+    getSuggestion(dictionary, sksDistribution, input);
 
   // Compute the initial state.
   const initState = () => ({
@@ -48,7 +46,7 @@ const Trial = ({
     layoutName: KeyboardLayoutNames.default,
     input: "",
     focusTarget: FocusTargets.input,
-    suggestions: getSuggestionsFromInput("")
+    suggestion: getSuggestionFromInput("")
   });
   // Returns a new state based on an action.
   const reducer = (state, action) => {
@@ -56,7 +54,7 @@ const Trial = ({
     if (nextState.input !== state.input) {
       nextState = {
         ...nextState,
-        suggestions: getSuggestionsFromInput(nextState.input)
+        suggestion: getSuggestionFromInput(nextState.input)
       };
     }
     if (!noEventActions.includes(action.type)) {
@@ -74,18 +72,17 @@ const Trial = ({
     return nextState;
   };
   // Matches the state, reducer, and actions.
-  const [
-    { layoutName, input, suggestions, focusTarget, events },
-    dispatch
-  ] = useReducer(reducer, null, initState);
+  const [{ layoutName, input, suggestion, events }, dispatch] = useReducer(
+    reducer,
+    null,
+    initState
+  );
 
   // Used to schedule action to be performed after a delay.
   const actionScheduler = useActionScheduler(dispatch, keyStrokeDelay);
 
   // Record the start date of the trial.
   const { current: trialStartTime } = useRef(new Date());
-
-  const hasWindowFocus = useHasWindowFocus();
 
   // Some useful constants
   const text = sksDistribution.map(w => w.word).join(" ");
@@ -134,13 +131,11 @@ const Trial = ({
   return (
     <TrialPresenter
       dispatch={dispatchWrapper}
-      focusTarget={hasWindowFocus ? focusTarget : null}
-      suggestions={suggestions}
+      suggestion={suggestion}
       text={text}
       input={input}
       keyboardLayoutName={layoutName}
       isCompleted={isCompleted}
-      totalSuggestions={totalSuggestions}
     />
   );
 };

@@ -33,7 +33,6 @@ const getEventLog = (oldState, action, newState, { sksDistribution }) => {
   const log = {
     type: action.type,
     scheduledAction: action.action == null ? null : action.action.type,
-    focusTarget: newState.focusTarget,
     addedInput,
     removedInput,
     input: newState.input,
@@ -48,11 +47,9 @@ const getEventLog = (oldState, action, newState, { sksDistribution }) => {
     ),
     totalIncorrectCharacters: newTotalIncorrectChars,
     isInputCorrect: isInputCorrect(newState.input, text),
-    time: new Date()
+    time: new Date(),
+    suggestion: newState.suggestion
   };
-  newState.suggestions.forEach((s, i) => {
-    log[`suggestion${i}`] = s;
-  });
   return log;
 };
 

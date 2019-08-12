@@ -89,6 +89,9 @@ const TrialPresenter = ({
           status
         });
         break;
+      case "Enter":
+        dispatch({ type: Actions.submit, status });
+        break;
       case "Backspace":
         dispatch({ type: Actions.deleteChar, status });
         break;

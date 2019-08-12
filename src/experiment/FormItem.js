@@ -2,14 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./FormItem.module.css";
 
-const FormItem = ({ question }) => {
+const FormItem = ({ answers, text, id }) => {
   return (
     <div className={styles.questionWrapper}>
-      <p>{question.questionText}</p>
-      {question.answers.map(answer => {
+      <p>{text}</p>
+      {answers.map((answer, i) => {
         return (
-          <div className={styles.answerWrapper}>
-            <input type="radio" name={question.key} value={answer} />
+          // eslint-disable-next-line react/no-array-index-key
+          <div key={i} className={styles.answerWrapper}>
+            <input type="radio" name={id} value={answer} />
             <span className={styles.formAnswer}>{answer}</span>
           </div>
         );
@@ -19,9 +20,9 @@ const FormItem = ({ question }) => {
 };
 
 FormItem.propTypes = {
-  question: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.number])
-  ).isRequired
+  answers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  text: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired
 };
 
 export default FormItem;

@@ -1,13 +1,12 @@
 import { useMemo } from "react";
 import short from "short-uuid";
 import useCorpusFromJson from "./useCorpusFromJson";
-import { KeyboardLayouts, LoadingStates } from "../utils/constants";
+import { LoadingStates } from "../utils/constants";
 
 const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
 const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
 const numberOfPracticeTasks = 5;
 const numberOfTypingTasks = 20;
-const keyboardLayout = KeyboardLayouts.desktop;
 
 const uuid = short.uuid();
 
@@ -137,7 +136,6 @@ const useConfiguration = () => {
         keyStrokeDelay,
         targetAccuracy,
         participant,
-        keyboardLayout,
         children: generateTasks(corpus),
         gitSha: process.env.REACT_APP_GIT_SHA,
         version: process.env.REACT_APP_VERSION,

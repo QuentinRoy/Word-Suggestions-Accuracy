@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { totalMatchedCharsFromStart } from "../utils/strings";
-import styles from "./Stimulus.module.css";
+import { totalMatchedCharsFromStart } from "../../utils/strings";
+import styles from "./styles/Stimulus.module.css";
 
 const Stimulus = ({ text, input }) => {
   const correctCharsCount = totalMatchedCharsFromStart(text, input);

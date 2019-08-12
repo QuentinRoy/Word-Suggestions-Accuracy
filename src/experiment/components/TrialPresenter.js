@@ -6,10 +6,10 @@ import {
   ActionStatuses,
   FocusTargetTypes,
   FocusTargets
-} from "../utils/constants";
-import VirtualKeyboard from "./VirtualKeyboard";
+} from "../../utils/constants";
+import VirtualKeyboard from "../VirtualKeyboard";
 import TrialInput from "./TrialInput";
-import styles from "./TrialPresenter.module.css";
+import styles from "./styles/TrialPresenter.module.css";
 import Banner from "./Banner";
 import SuggestionsBar from "./SuggestionsBar";
 

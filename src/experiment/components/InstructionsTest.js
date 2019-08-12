@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import shuffle from "lodash/shuffle";
 import PropTypes from "prop-types";
-import styles from "./InstructionsTest.module.css";
+import styles from "./styles/InstructionsTest.module.css";
 import FormItem from "./FormItem";
 
 const questionList = [

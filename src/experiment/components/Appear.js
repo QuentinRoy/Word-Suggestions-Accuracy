@@ -1,6 +1,6 @@
 import React, { Fragment, Children } from "react";
 import PropTypes from "prop-types";
-import styles from "./Appear.module.css";
+import styles from "./styles/Appear.module.css";
 
 const Appear = ({ children, currentStep }) => (
   <Fragment>

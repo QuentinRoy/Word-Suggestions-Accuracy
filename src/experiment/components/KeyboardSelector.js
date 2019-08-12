@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./KeyboardSelector.module.css";
+import styles from "./styles/KeyboardSelector.module.css";
 import { KeyboardLayouts } from "../utils/constants";
 
 const KeyboardSelector = ({ onEditConfig, onAdvanceWorkflow }) => {

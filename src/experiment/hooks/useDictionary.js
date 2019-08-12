@@ -1,9 +1,9 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import PropTypes from "prop-types";
 import { parse } from "papaparse";
-import Loading from "../utils/Loading";
-import Crashed from "../utils/Crashed";
-import { LoadingStates } from "../utils/constants";
+import Loading from "../../utils/Loading";
+import Crashed from "../../utils/Crashed";
+import { LoadingStates } from "../../utils/constants";
 
 const path = "./dictionaries_en_US_wordlist.csv";
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { loginDiv, inputZone, submitButton } from "./Login.module.css";
+import { loginDiv, inputZone, submitButton } from "./styles/Login.module.css";
 
 const Login = ({ onEditConfig, onAdvanceWorkflow }) => {
   const [value, setValue] = useState("");

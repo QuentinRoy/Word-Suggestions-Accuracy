@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import shortid from "shortid";
-import styles from "./FormItem.module.css";
+import styles from "./styles/FormItem.module.css";
 
 const FormItem = ({ answers, text, id }) => {
   return (

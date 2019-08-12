@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import SuccessBanner from "./SuccessBanner";
 import Stimulus from "./Stimulus";
-import styles from "./Banner.module.css";
+import styles from "./styles/Banner.module.css";
 
 const Banner = ({ isCorrect, ...props }) => {
   const content = isCorrect ? (

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./SuccessBanner.module.css";
+import styles from "./styles/SuccessBanner.module.css";
 
 const SuccessBanner = () => (
   <div className={styles.successBanner}>

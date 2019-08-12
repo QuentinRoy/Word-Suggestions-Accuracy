@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./EndExperiment.module.css";
+import styles from "./styles/EndExperiment.module.css";
 
 const EndExperiment = ({ uuid }) => {
   return (

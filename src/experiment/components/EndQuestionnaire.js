@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Proptypes from "prop-types";
-import styles from "./EndQuestionnaire.module.css";
-import FormInput from "../utils/FormInput";
-import { InputTypes } from "../utils/constants";
+import styles from "./styles/EndQuestionnaire.module.css";
+import FormInput from "../../utils/FormInput";
+import { InputTypes } from "../../utils/constants";
 
 const EndQuestionnaire = ({ onAdvanceWorkflow, onLog }) => {
   const [age, setAge] = useState("");
@@ -109,61 +109,3 @@ EndQuestionnaire.propTypes = {
 };
 
 export default EndQuestionnaire;
-
-// return (
-//   <div className={styles.main}>
-//     <h3>Questionnaire</h3>
-//     <form onSubmit={handleButtonClick} className={styles.endForm}>
-//       <div>
-//         <p>Your age:</p>
-//         <div>
-//           <input
-//             type="input"
-//             name="age"
-//             value={age}
-//             onChange={x => {
-//               if (typeof x === "number" && x < 120 && x > 0) {
-//                 setAge(x);
-//               }
-//             }}
-//           />
-//           <input type="radio" name="ageButton" />
-//           <span>Prefer not to say</span>
-//         </div>
-//       </div>
-//       <div>
-//         <p>Your gender:</p>
-//         <div>
-//           <input
-//             type="input"
-//             name="gender"
-//             value={gender}
-//             onChange={g => {
-//               if (typeof g === "string") {
-//                 setGender(g);
-//               }
-//             }}
-//           />
-//           <input type="radio" name="genderRadio" />
-//           <span>Prefer not to say</span>
-//         </div>
-//       </div>
-//       <div>
-//         <p>Open question</p>
-//         <textarea name="openQuestion" rows="10" cols="80" />
-//       </div>
-//       <div>
-//         <p>Closed question</p>
-//         <input type="radio" name="closedQuestion" value="Answer 1" />
-//         <span>Answer 1</span>
-//         <input type="radio" name="closedQuestion" value="Answer 2" />
-//         <span>Answer 2</span>
-//         <input type="radio" name="closedQuestion" value="Answer 3" />
-//         <span>Answer 3</span>
-//         <input type="radio" name="closedQuestion" value="Answer 4" />
-//         <span>Answer 4</span>
-//       </div>
-//       <input type="submit" value="Finish" />
-//     </form>
-//   </div>
-// );

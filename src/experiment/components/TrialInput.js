@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import styles from "./TrialInput.module.css";
+import styles from "./styles/TrialInput.module.css";
 
 const TrialInput = ({ input, isFocused, shouldCaretBlink }) => (
   <div

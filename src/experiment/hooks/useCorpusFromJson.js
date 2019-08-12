@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import shuffle from "lodash/shuffle";
-import useJson from "../utils/useJson";
-import { LoadingStates } from "../utils/constants";
+import useJson from "../../utils/useJson";
+import { LoadingStates } from "../../utils/constants";
 
 const getURL = accuracy =>
   `./sks-distributions/acc-${accuracy.toFixed(3)}.json`;

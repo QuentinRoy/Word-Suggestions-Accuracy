@@ -1,22 +1,22 @@
 import React, { useRef, useReducer } from "react";
 import PropTypes from "prop-types";
-import getTrialLog from "./getTrialLog";
+import getTrialLog from "../getTrialLog";
 import {
   Actions,
   totalSuggestions,
   FocusTargets,
   ActionStatuses,
   KeyboardLayoutNames
-} from "../utils/constants";
-import { useDictionary } from "./useDictionary";
-import getSuggestions from "./getSuggestions";
+} from "../../utils/constants";
+import { useDictionary } from "../hooks/useDictionary";
+import getSuggestions from "../getSuggestions";
 import "react-simple-keyboard/build/css/index.css";
-import useActionScheduler from "./useActionScheduler";
-import trialReducer from "./trialReducer";
-import getEventLog from "./getEventLog";
-import { trimEnd } from "../utils/strings";
+import useActionScheduler from "../hooks/useActionScheduler";
+import trialReducer from "../hooks/trialReducer";
+import getEventLog from "../getEventLog";
+import { trimEnd } from "../../utils/strings";
 import TrialPresenter from "./TrialPresenter";
-import useHasWindowFocus from "./useHasWindowFocus";
+import useHasWindowFocus from "../hooks/useHasWindowFocus";
 
 // This actions won't be logged.
 const noEventActions = [Actions.endAction, Actions.confirmAction];

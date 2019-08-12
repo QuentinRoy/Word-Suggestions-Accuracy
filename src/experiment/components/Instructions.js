@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Appear from "./Appear";
-import styles from "./Instructions.module.css";
+import styles from "./styles/Instructions.module.css";
 
 const instructionsList = [
   "In this experiment we are simulating a typing task where you have to enter a given text with suggestions to help you out.\n Note that during the trials you can only use your keyboard.",
@@ -14,8 +14,7 @@ const instructionsList = [
   'When deleting several characters, you will have to release the "Backspace" key and press it again for each character you want to delete.',
   "In order to finish the task, you need to enter the whole sentence correctly.",
   'Once you have entered the sentence correctly, you will be asked to press "Enter" to continue the experiment and move on to the next task.',
-  "You will first have a tutorial to get comfortable with this mechanism.",
-  "Then the real experiment will begin and you will have to complete X tasks to complete the whole experiment."
+  "You will first have a tutorial to get comfortable with this mechanism.\n Then the real experiment will begin and you will have to complete X tasks to complete the whole experiment."
 ];
 
 const Instructions = ({ setInstructionPassed }) => {

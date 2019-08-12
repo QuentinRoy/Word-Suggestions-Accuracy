@@ -4,17 +4,18 @@ import Appear from "./Appear";
 import styles from "./styles/Instructions.module.css";
 
 const instructionsList = [
-  "In this experiment we are simulating a typing task where you have to enter a given text with suggestions to help you out.\n Note that during the trials you can only use your keyboard.",
-  'A suggested word will appear behind your input every time you enter a key.\n You can use this suggestion by tapping the "Tab" key on your keyboard and it will complete your current word.\n You will then be able to type again.',
-  "You may or may not experience some delay when typing before characters show up on your screen.\n If you have some, make sure to press the key on your keyboard until the character appears on screen.\n Once it has appeared, you can release the key and move on to the next one.",
-  'Only the "Tab" key does not have any delay and allow you to use the suggested word quickly.',
+  "In this experiment we are simulating a typing task where you have to enter a given text with suggestions to help you out. Note that during the trials you can only use your keyboard.",
+  'A suggested word will appear behind your input every time you enter a key. You can use this suggestion by tapping the "Tab" key on your keyboard and it will complete your current word.\n You will then be able to type again.',
+  "You may or may not experience some delay when typing before characters show up on your screen. If you have some, make sure to press the key on your keyboard until the character appears on screen.\n Once it has appeared, you can release the key and move on to the next one.",
+  'Only the "Tab" key is guaranteed to not have any delay and allow you to use the suggested word quickly.',
   "As you type, the given text to type and the border of the input zone will change color according to whether or not you enter the text without mistake.",
   'If you make any error, all the following characters you enter, as well as the border of the typing zone, will appear in red. You can delete characters with the "Backspace" key.',
   'If you have some delay and want to delete one character, make sure to press the "Backspace" key until you see the letter disappear on your screen.',
   'When deleting several characters, you will have to release the "Backspace" key and press it again for each character you want to delete.',
   "In order to finish the task, you need to enter the whole sentence correctly.",
   'Once you have entered the sentence correctly, you will be asked to press "Enter" to continue the experiment and move on to the next task.',
-  "You will first have a tutorial to get comfortable with this mechanism.\n Then the real experiment will begin and you will have to complete X tasks to complete the whole experiment."
+  "You will first have a tutorial to get to understand the mechanism.",
+  " You will then have 5 practice tasks to get confortable with it and then the real experiment will begin and you will have to complete 20 tasks to complete the whole experiment."
 ];
 
 const Instructions = ({ setInstructionPassed }) => {

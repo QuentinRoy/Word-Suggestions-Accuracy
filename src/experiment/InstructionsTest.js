@@ -1,81 +1,68 @@
-import React from "react";
+import React, { useRef } from "react";
+import shuffle from "lodash/shuffle";
 import PropTypes from "prop-types";
 import styles from "./InstructionsTest.module.css";
 import FormItem from "./FormItem";
 
-let questionList = [
+const questionList = [
   {
-    questionText: "What device(s) can I use in this experiment ?",
+    text: "What device(s) can I use in this experiment ?",
     answers: ["mouse and keyboard", "mouse only", "keyboard only"],
-    key: 0
+    correctAnswer: "keyboard only"
   },
   {
-    questionText: "Where will the suggestion appear ?",
+    text: "Where will the suggestion appear ?",
     answers: [
       "behind the word I am typing",
       "below the word I am typing",
       "below the input zone as buttons",
       "above the word I am typing, as buttons"
     ],
-    key: 1
+    correctAnswer: "behind the word I am typing"
   },
   {
-    questionText: "How do I use the suggestion ?",
+    text: "How do I use the suggestion ?",
     answers: [
       "I press Tab once",
       "I press Tab several times",
       "I press Enter until the suggestion appears in the input zone",
       "I press Enter once"
     ],
-    key: 2
+    correctAnswer: "I press Tab once"
   },
   {
-    questionText: "How do I delete a character ?",
+    text: "How do I delete a character ?",
     answers: [
       "I press Backspace once",
       "I press Backspace until the character disappears from the input zone",
       "I press the left arrow key once and continue typing",
       "I click with the mouse to move the caret and then"
     ],
-    key: 3
+    correctAnswer:
+      "I press Backspace until the character disappears from the input zone"
   }
 ];
 
-const shuffleArray = array => {
-  const tmpArray = array;
-  for (let i = 0; i < tmpArray.length; i += 1) {
-    const j = Math.floor(Math.random() * tmpArray.length);
-    const temp = tmpArray[i];
-    tmpArray[i] = tmpArray[j];
-    tmpArray[j] = temp;
-  }
-  return tmpArray;
-};
-
 const InstructionsTest = ({ onAdvanceWorkflow, setInstructionPassed }) => {
-  const correctAnswers = [
-    "keyboard only",
-    "behind the word I am typing",
-    "I press Tab once",
-    "I press Backspace until the character disappears from the input zone"
-  ];
+  const { current: questions } = useRef(
+    shuffle(questionList).map((q, i) => ({
+      ...q,
+      answers: shuffle(q.answers),
+      id: `q${i}`
+    }))
+  );
 
-  questionList = shuffleArray(questionList);
-  for (let i = 0; i < questionList.length; i += 1) {
-    questionList[i].answers = shuffleArray(questionList[i].answers);
-  }
-
-  function verifyAnswers(event) {
+  function onSubmit(event) {
     event.preventDefault();
-    let success = true;
     const data = new FormData(event.target);
-    for (let i = 0; i < questionList.length; i += 1) {
-      if (data.get(`${i}`) !== correctAnswers[i]) {
+    for (let i = 0; i < questions.length; i += 1) {
+      const question = questions[i];
+      if (data.get(question.id) !== question.correctAnswer) {
         setInstructionPassed(false);
-        success = false;
+        return;
       }
     }
-    if (success) onAdvanceWorkflow();
+    onAdvanceWorkflow();
   }
 
   return (
@@ -84,9 +71,9 @@ const InstructionsTest = ({ onAdvanceWorkflow, setInstructionPassed }) => {
       <p>
         If you make a mistake, you will be sent back to the instruction page
       </p>
-      <form onSubmit={verifyAnswers} className={styles.form}>
-        {questionList.map(question => {
-          return <FormItem question={question} />;
+      <form onSubmit={onSubmit} className={styles.form}>
+        {questions.map(question => {
+          return <FormItem key={question.id} {...question} />;
         })}
         <div className={styles.submitButtonWrapper}>
           <input

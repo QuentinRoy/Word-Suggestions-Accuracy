@@ -24,6 +24,7 @@
     "react-scripts": "3.0.1",
     "react-simple-keyboard": "^1.25.1",
     "short-uuid": "^3.1.1",
+    "shortid": "^2.2.14",
     "styled-components": "^4.3.2",
     "xml2js": "^0.4.19"
   },

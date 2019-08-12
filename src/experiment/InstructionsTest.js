@@ -36,7 +36,7 @@ const questionList = [
       "I press Backspace once",
       "I press Backspace until the character disappears from the input zone",
       "I press the left arrow key once and continue typing",
-      "I click with the mouse to move the caret and then"
+      "I click with the mouse to move the caret and then replace the character"
     ],
     correctAnswer:
       "I press Backspace until the character disappears from the input zone"

@@ -40,8 +40,14 @@ const Trial = ({
   onInlineSuggestion
 }) => {
   const dictionary = useDictionary();
+  const suggestionCountToProvide = onInlineSuggestion ? 1 : totalSuggestions;
   const getSuggestionsFromInput = input =>
-    getSuggestions(totalSuggestions, dictionary, sksDistribution, input);
+    getSuggestions(
+      suggestionCountToProvide,
+      dictionary,
+      sksDistribution,
+      input
+    );
 
   // Compute the initial state.
   const initState = () => ({

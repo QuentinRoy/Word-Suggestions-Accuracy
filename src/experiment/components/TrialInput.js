@@ -22,16 +22,22 @@ const TrialInput = ({ input, shouldCaretBlink, suggestion }) => (
         key={input}
       />
     </div>
-    <span style={{ color: "grey" }}>
-      {input === "" ? suggestion : suggestion.slice(extractWord(input))}
-    </span>
+    {suggestion !== null ? (
+      <span style={{ color: "grey" }}>
+        {input === "" ? suggestion : suggestion.slice(extractWord(input))}
+      </span>
+    ) : null}
   </div>
 );
 
 TrialInput.propTypes = {
   input: PropTypes.string.isRequired,
   shouldCaretBlink: PropTypes.bool.isRequired,
-  suggestion: PropTypes.string.isRequired
+  suggestion: PropTypes.string
+};
+
+TrialInput.defaultProps = {
+  suggestion: null
 };
 
 export default TrialInput;

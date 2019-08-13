@@ -1,4 +1,8 @@
-import { KeyboardLayoutNames, Actions } from "../../utils/constants";
+import {
+  KeyboardLayoutNames,
+  Actions,
+  FocusTargets
+} from "../../utils/constants";
 
 export const charReducer = (state, action) => {
   switch (action.type) {
@@ -45,6 +49,23 @@ export const keyboardLayoutReducer = (state, action) => {
   }
 };
 
+const focusTargets = Object.values(FocusTargets);
+export const subFocusReducer = (state, action) => {
+  switch (action.type) {
+    case Actions.moveFocusTarget: {
+      let focusIndex =
+        (focusTargets.indexOf(state.focusTarget) + action.direction) %
+        focusTargets.length;
+      if (focusIndex < 0) focusIndex = focusTargets.length + focusIndex;
+      return { ...state, focusTarget: focusTargets[focusIndex] };
+    }
+    case Actions.inputSuggestion:
+      return { ...state, focusTarget: FocusTargets.input };
+    default:
+      return state;
+  }
+};
+
 export const inputSuggestionReducer = (state, action) => {
   if (action.type !== Actions.inputSuggestion) return state;
   const inputWithoutLastWord = state.input.slice(
@@ -58,7 +79,12 @@ export const inputSuggestionReducer = (state, action) => {
 };
 
 // Creates the main reducer, by applying each reducer one after the other.
-const reducers = [charReducer, keyboardLayoutReducer, inputSuggestionReducer];
+const reducers = [
+  charReducer,
+  keyboardLayoutReducer,
+  inputSuggestionReducer,
+  subFocusReducer
+];
 const trialReducer = (state, action) =>
   reducers.reduce((newState, reducer) => reducer(newState, action), state);
 

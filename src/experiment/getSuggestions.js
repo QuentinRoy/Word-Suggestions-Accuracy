@@ -37,7 +37,13 @@ const suggestionScore = (suggestionFScore, suggestion, inputWord) => {
   return score / maxScore;
 };
 
-function computeSuggestion(inputWord, targetWordSKS, targetWord, dictionary) {
+function computeSuggestions(
+  inputWord,
+  targetWordSKS,
+  targetWord,
+  totalSuggestions,
+  dictionary
+) {
   const isFirstCharUpper =
     inputWord != null &&
     inputWord !== "" &&
@@ -47,13 +53,16 @@ function computeSuggestion(inputWord, targetWordSKS, targetWord, dictionary) {
   // Pre-fill the top words with the most frequent in the dictionary, provided
   // that none are the same as the target word, but give them a score of
   // 0 so that they are immediately replaced by anything else.
-  const topWord = sliceIf(dictionary, 0, 1, e => e.word !== targetWord).map(
-    e => ({ word: e.word, score: 0 })
-  );
+  const topWords = sliceIf(
+    dictionary,
+    0,
+    totalSuggestions,
+    e => e.word !== targetWord
+  ).map(e => ({ word: e.word, score: 0 }));
 
   const wordEntryScoreGetter = e => e.score;
   const insertTopWord = (word, score) => {
-    insertEject(topWord, { word, score }, wordEntryScoreGetter);
+    insertEject(topWords, { word, score }, wordEntryScoreGetter);
   };
 
   if (
@@ -80,12 +89,17 @@ function computeSuggestion(inputWord, targetWordSKS, targetWord, dictionary) {
   }
 
   return isFirstCharUpper
-    ? topWord[0].word.charAt(0).toUpperCase() + topWord[0].word.slice(1)
-    : topWord[0].word;
+    ? topWords.map(w => w.word.charAt(0).toUpperCase() + w.word.slice(1))
+    : topWords.map(w => w.word);
 }
 
 // Returns a new state with the suggestions filled in based on the input.
-const getSuggestion = (dictionary, sksDistribution, input) => {
+const getSuggestions = (
+  totalSuggestions,
+  dictionary,
+  sksDistribution,
+  input
+) => {
   // This may produce empty words (""). This is OK.
   const inputWords = input.split(" ");
   // Note: if input ends with a space, then the input word is "". This is
@@ -100,12 +114,13 @@ const getSuggestion = (dictionary, sksDistribution, input) => {
     currentInputWord === "" ? totalInputWords : totalInputWords - 1;
   const currentWord = sksDistribution[currentWordIndex];
 
-  return computeSuggestion(
+  return computeSuggestions(
     currentInputWord,
     currentWord == null ? null : currentWord.sks,
     currentWord == null ? null : currentWord.word,
+    totalSuggestions,
     dictionary
   );
 };
 
-export default getSuggestion;
+export default getSuggestions;

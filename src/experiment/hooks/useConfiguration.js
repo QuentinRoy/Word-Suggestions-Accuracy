@@ -10,6 +10,8 @@ const numberOfTypingTasks = 20;
 
 const uuid = short.uuid();
 
+const onInlineSuggestion = true;
+
 const PageArguments = {
   targetAccuracies: "targetAccuracies",
   workerId: "workerId",
@@ -47,7 +49,8 @@ const {
     keyStrokeDelay:
       keyStrokeDelays[Math.floor(Math.random() * keyStrokeDelays.length)],
     targetAccuracy:
-      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)]
+      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)],
+    onInlineSuggestion
   };
 })();
 

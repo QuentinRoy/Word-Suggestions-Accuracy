@@ -65,3 +65,6 @@ export const TaskTypes = Object.freeze({
   // These tasks are built in @hcikit
   informationScreen: "InformationScreen"
 });
+
+export const numberOfPracticeTasks = 3;
+export const numberOfTypingTasks = 20;

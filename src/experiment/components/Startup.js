@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import last from "lodash/last";
-import Instructions from "./Instructions";
+import StartupInstructions from "./StartupInstructions";
 import StartupTest from "./StartupTest";
 
 const Startup = ({ onAdvanceWorkflow, onLog }) => {
@@ -11,7 +11,7 @@ const Startup = ({ onAdvanceWorkflow, onLog }) => {
 
   if (!areInstructionPassed) {
     return (
-      <Instructions
+      <StartupInstructions
         onStart={() => {
           lastLog.instructionEndDate = new Date();
           setAreInstructionPassed(true);

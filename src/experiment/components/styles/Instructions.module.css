@@ -1,36 +1,14 @@
-.navigationButtons {
-  width: 70px;
-  height: 50px;
-  background-color: #2196f3;
-  margin: 10px;
-  font-size: 14px;
-  border-radius: 10px;
-  color: white;
-  font-weight: bold;
-}
-
-.usable {
-  opacity: 1;
-}
-
-.unusable {
-  opacity: 0.65;
-}
-
 .main {
   margin-left: auto;
   margin-right: auto;
-  width: 1000px;
-  height: 650px;
+  width: 800px;
 }
 
-.buttonWrapper {
-  position: relative;
-  left: 75%;
+.main .buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.sentencesWrapper {
+.main .button {
   margin: 10px;
-  font-size: 15px;
-  height: 90%;
 }

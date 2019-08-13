@@ -1,38 +1,26 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Instructions from "./Instructions";
 import InstructionsTest from "./InstructionsTest";
 
-const InstructionWrapper = ({ onAdvanceWorkflow, onLog }) => {
-  const [instructionPassed, setInstructionPassed] = useState(false);
-  const [readingCount, setReadingCount] = useState(0);
-  const answersEntered = useRef([]);
-  const instructionsReadingStartTime = new Date();
+const InstructionWrapper = ({ onAdvanceWorkflow }) => {
+  const [areInstructionPassed, setAreInstructionPassed] = useState(false);
 
-  if (!instructionPassed) {
-    return (
-      <Instructions
-        setInstructionPassed={setInstructionPassed}
-        setReadingCount={setReadingCount}
-        readingCount={readingCount}
-      />
-    );
+  if (!areInstructionPassed) {
+    return <Instructions onStart={() => setAreInstructionPassed(true)} />;
   }
   return (
     <InstructionsTest
-      onAdvanceWorkflow={onAdvanceWorkflow}
-      onLog={onLog}
-      setInstructionPassed={setInstructionPassed}
-      readingCount={readingCount}
-      answersEntered={answersEntered}
-      instructionsReadingStartTime={instructionsReadingStartTime}
+      onSubmit={isCorrect => {
+        if (isCorrect) onAdvanceWorkflow();
+        else setAreInstructionPassed(false);
+      }}
     />
   );
 };
 
 InstructionWrapper.propTypes = {
-  onAdvanceWorkflow: PropTypes.func.isRequired,
-  onLog: PropTypes.func.isRequired
+  onAdvanceWorkflow: PropTypes.func.isRequired
 };
 
 export default InstructionWrapper;

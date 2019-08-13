@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import shuffle from "lodash/shuffle";
 import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
 import styles from "./styles/InstructionsTest.module.css";
-import FormItem from "./FormItem";
+import Question from "./Question";
 
 const questionList = [
   {
@@ -43,41 +44,24 @@ const questionList = [
   }
 ];
 
-const InstructionsTest = ({
-  onAdvanceWorkflow,
-  setInstructionPassed,
-  onLog,
-  readingCount,
-  answersEntered,
-  instructionsReadingStartTime
-}) => {
+const InstructionsTest = ({ onSubmit }) => {
   const { current: questions } = useRef(
-    shuffle(questionList).map((q, i) => ({
-      ...q,
-      answers: shuffle(q.answers),
-      id: `q${i}`
-    }))
+    shuffle(
+      questionList.map((q, i) => ({
+        ...q,
+        answers: shuffle(q.answers),
+        id: `q${i}`
+      }))
+    )
   );
+  const [answers, setAnswers] = useState({});
 
-  function onSubmit(event) {
+  function onSubmitForm(event) {
     event.preventDefault();
-    const data = new FormData(event.target);
-    const answers = [];
-    questions.map(question => answers.push(data.get(question.id)));
-    answersEntered.current.push(answers);
-    for (let i = 0; i < questions.length; i += 1) {
-      const question = questions[i];
-      if (data.get(question.id) !== question.correctAnswer) {
-        setInstructionPassed(false);
-        return;
-      }
-    }
-    onLog("Instructions", {
-      readingCount,
-      duration: new Date() - instructionsReadingStartTime,
-      answersEntered
-    });
-    onAdvanceWorkflow();
+    const isCorrect = questions.every(
+      question => answers[question.id] === question.correctAnswer
+    );
+    onSubmit(isCorrect);
   }
 
   return (
@@ -86,16 +70,29 @@ const InstructionsTest = ({
       <p>
         If you make a mistake, you will be sent back to the instruction page
       </p>
-      <form onSubmit={onSubmit} className={styles.form}>
+      <form onSubmit={onSubmitForm} className={styles.form}>
         {questions.map(question => {
-          return <FormItem key={question.id} {...question} />;
+          return (
+            <Question
+              key={question.id}
+              {...question}
+              answer={answers[question.id]}
+              onAnswerChange={newAnswer => {
+                setAnswers({ ...answers, [question.id]: newAnswer });
+              }}
+            />
+          );
         })}
         <div className={styles.submitButtonWrapper}>
-          <input
-            className={styles.submitButton}
+          <Button
+            className={styles.button}
+            disabled={questions.some(q => answers[q.id] == null)}
+            variant="contained"
+            color="primary"
             type="submit"
-            value="Submit answers"
-          />
+          >
+            Start
+          </Button>
         </div>
       </form>
     </div>
@@ -103,12 +100,7 @@ const InstructionsTest = ({
 };
 
 InstructionsTest.propTypes = {
-  onAdvanceWorkflow: PropTypes.func.isRequired,
-  setInstructionPassed: PropTypes.func.isRequired,
-  onLog: PropTypes.func.isRequired,
-  readingCount: PropTypes.number.isRequired,
-  answersEntered: PropTypes.objectOf(PropTypes.array).isRequired,
-  instructionsReadingStartTime: PropTypes.instanceOf(Date).isRequired
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default InstructionsTest;

@@ -1,6 +1,6 @@
 .main {
   margin: auto;
-  width: 850px;
+  width: 800px;
   height: 800px;
 }
 
@@ -8,18 +8,7 @@
   padding-left: 20px;
 }
 
-.submitButton {
-  width: 150px;
-  height: 50px;
-  background-color: #2196f3;
-  margin: 10px;
-  font-size: 14px;
-  border-radius: 10px;
-  color: white;
-  font-weight: bold;
-}
-
 .submitButtonWrapper {
-  position: relative;
-  left: 75%;
+  display: flex;
+  justify-content: flex-end;
 }

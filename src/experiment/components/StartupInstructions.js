@@ -32,7 +32,7 @@ const instructionsList = [
   </p>,
   <p>
     At the end of the experiment, we will ask you to answer a few questions,
-    then measure your &ldquo;natural&rdquo; typing speed
+    then measure your &ldquo;natural&rdquo; typing speed.
   </p>
 ].map(
   // These will be an array of element provided as children. As a result they
@@ -66,7 +66,7 @@ const StartupInstructions = ({ onStart }) => {
           disabled={step < instructionsList.length}
           onClick={onStart}
         >
-          Start
+          Continue
         </Button>
       </div>
     </div>

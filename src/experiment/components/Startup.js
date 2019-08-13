@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import last from "lodash/last";
 import StartupInstructions from "./StartupInstructions";
-import StartupTest from "./StartupTest";
+import StartupQuestionnaire from "./StartupQuestionnaire";
 
 const Startup = ({ onAdvanceWorkflow, onLog }) => {
   const [areInstructionPassed, setAreInstructionPassed] = useState(false);
@@ -20,7 +20,7 @@ const Startup = ({ onAdvanceWorkflow, onLog }) => {
     );
   }
   return (
-    <StartupTest
+    <StartupQuestionnaire
       onSubmit={(isCorrect, answers) => {
         lastLog.testEndDate = new Date();
         lastLog.testIsCorrect = isCorrect;

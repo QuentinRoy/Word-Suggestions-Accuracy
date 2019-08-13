@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import shortid from "shortid";
 import PropTypes from "prop-types";
-import styles from "./styles/Answer.module.css";
+import styles from "./styles/MultipleChoiceAnswer.module.css";
 
-const Answer = ({ name, label, onChange, checked }) => {
+const MultipleChoiceAnswer = ({ name, label, onChange, checked }) => {
   const { current: answerId } = useRef(shortid.generate());
   return (
     <div className={styles.answerWrapper}>
@@ -25,11 +25,11 @@ const Answer = ({ name, label, onChange, checked }) => {
   );
 };
 
-Answer.propTypes = {
+MultipleChoiceAnswer.propTypes = {
   checked: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 };
 
-export default Answer;
+export default MultipleChoiceAnswer;

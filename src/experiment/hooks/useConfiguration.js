@@ -73,9 +73,8 @@ const UploadLogS3 = (id, fireAndForget, participantId) => ({
 const generateTasks = corpus => {
   const tasks = [];
 
-  // Instructions
   tasks.push({
-    task: TaskTypes.startup, // "Instructions",
+    task: TaskTypes.startup,
     key: `${tasks.length}`
   });
 

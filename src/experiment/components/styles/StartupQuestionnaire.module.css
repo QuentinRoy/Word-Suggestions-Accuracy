@@ -1,19 +1,15 @@
 .main {
   margin: auto;
-  width: 800px;
-  height: 800px;
+  width: 600px;
 }
 
 .submitButtonWrapper {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 2rem;
 }
 
 .instructions {
   font-style: italic;
-  color: gray;
-}
-
-.form {
-  margin: 2rem 0;
+  margin-bottom: 2rem;
 }

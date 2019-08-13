@@ -18,8 +18,13 @@ const instructionsList = [
   " You will then have 5 practice tasks to get confortable with it and then the real experiment will begin and you will have to complete 20 tasks to complete the whole experiment."
 ];
 
-const Instructions = ({ setInstructionPassed }) => {
+const Instructions = ({
+  setInstructionPassed,
+  setReadingCount,
+  readingCount
+}) => {
   const [sentencesToDisplay, setSentencesToDisplay] = useState([]);
+
   function displayNextSentence() {
     setSentencesToDisplay(
       instructionsList.slice(0, sentencesToDisplay.length + 1)
@@ -29,7 +34,7 @@ const Instructions = ({ setInstructionPassed }) => {
   return (
     <div className={styles.main}>
       <h2>Experiment instructions</h2>
-      <p>
+      <p style={readingCount > 0 ? { color: "red" } : { color: "black" }}>
         <strong>
           Please read carefully the following instructions, you will have to
           answer a test after
@@ -65,6 +70,7 @@ const Instructions = ({ setInstructionPassed }) => {
           disabled={sentencesToDisplay.length !== instructionsList.length}
           onClick={() => {
             setInstructionPassed(true);
+            setReadingCount(readingCount + 1);
           }}
         >
           Start
@@ -75,7 +81,9 @@ const Instructions = ({ setInstructionPassed }) => {
 };
 
 Instructions.propTypes = {
-  setInstructionPassed: PropTypes.func.isRequired
+  setInstructionPassed: PropTypes.func.isRequired,
+  setReadingCount: PropTypes.func.isRequired,
+  readingCount: PropTypes.number.isRequired
 };
 
 export default Instructions;

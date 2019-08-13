@@ -43,7 +43,14 @@ const questionList = [
   }
 ];
 
-const InstructionsTest = ({ onAdvanceWorkflow, setInstructionPassed }) => {
+const InstructionsTest = ({
+  onAdvanceWorkflow,
+  setInstructionPassed,
+  onLog,
+  readingCount,
+  answersEntered,
+  instructionsReadingStartTime
+}) => {
   const { current: questions } = useRef(
     shuffle(questionList).map((q, i) => ({
       ...q,
@@ -55,6 +62,9 @@ const InstructionsTest = ({ onAdvanceWorkflow, setInstructionPassed }) => {
   function onSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
+    const answers = [];
+    questions.map(question => answers.push(data.get(question.id)));
+    answersEntered.current.push(answers);
     for (let i = 0; i < questions.length; i += 1) {
       const question = questions[i];
       if (data.get(question.id) !== question.correctAnswer) {
@@ -62,6 +72,11 @@ const InstructionsTest = ({ onAdvanceWorkflow, setInstructionPassed }) => {
         return;
       }
     }
+    onLog("Instructions", {
+      readingCount,
+      duration: new Date() - instructionsReadingStartTime,
+      answersEntered
+    });
     onAdvanceWorkflow();
   }
 
@@ -89,7 +104,11 @@ const InstructionsTest = ({ onAdvanceWorkflow, setInstructionPassed }) => {
 
 InstructionsTest.propTypes = {
   onAdvanceWorkflow: PropTypes.func.isRequired,
-  setInstructionPassed: PropTypes.func.isRequired
+  setInstructionPassed: PropTypes.func.isRequired,
+  onLog: PropTypes.func.isRequired,
+  readingCount: PropTypes.number.isRequired,
+  answersEntered: PropTypes.objectOf(PropTypes.array).isRequired,
+  instructionsReadingStartTime: PropTypes.instanceOf(Date).isRequired
 };
 
 export default InstructionsTest;

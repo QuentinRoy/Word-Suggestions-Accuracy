@@ -1,14 +1,19 @@
 .main {
-  margin: auto;
+  margin: 50px auto;
   width: 800px;
   height: 800px;
-}
-
-.form {
-  padding-left: 20px;
 }
 
 .submitButtonWrapper {
   display: flex;
   justify-content: flex-end;
+}
+
+.instructions {
+  font-style: italic;
+  color: gray;
+}
+
+.form {
+  margin: 2rem 0;
 }

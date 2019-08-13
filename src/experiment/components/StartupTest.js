@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import shuffle from "lodash/shuffle";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
-import styles from "./styles/InstructionsTest.module.css";
+import styles from "./styles/StartupTest.module.css";
 import Question from "./Question";
 
 const questionList = [
@@ -44,7 +44,7 @@ const questionList = [
   }
 ];
 
-const InstructionsTest = ({ onSubmit }) => {
+const StartupTest = ({ onSubmit }) => {
   const { current: questions } = useRef(
     shuffle(
       questionList.map((q, i) => ({
@@ -58,24 +58,31 @@ const InstructionsTest = ({ onSubmit }) => {
 
   function onSubmitForm(event) {
     event.preventDefault();
-    const isCorrect = questions.every(
-      question => answers[question.id] === question.correctAnswer
+    const isCorrect = questions.every(q => answers[q.id] === q.correctAnswer);
+    onSubmit(
+      isCorrect,
+      questions.map(q => ({
+        id: q.id,
+        answer: answers[q.id],
+        question: q.text,
+        isCorrect: answers[q.id] === q.correctAnswer
+      }))
     );
-    onSubmit(isCorrect);
   }
 
   return (
     <div className={styles.main}>
-      <h4>Instruction Quizz</h4>
-      <p>
-        If you make a mistake, you will be sent back to the instruction page
-      </p>
+      <h2>Startup Questionnaire</h2>
+      <p className={styles.instructions}>Please answer the questions below</p>
       <form onSubmit={onSubmitForm} className={styles.form}>
         {questions.map(question => {
           return (
             <Question
               key={question.id}
-              {...question}
+              answers={question.answers}
+              id={question.id}
+              text={question.text}
+              correctAnswer={question.correctAnswer}
               answer={answers[question.id]}
               onAnswerChange={newAnswer => {
                 setAnswers({ ...answers, [question.id]: newAnswer });
@@ -99,8 +106,8 @@ const InstructionsTest = ({ onSubmit }) => {
   );
 };
 
-InstructionsTest.propTypes = {
+StartupTest.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
-export default InstructionsTest;
+export default StartupTest;

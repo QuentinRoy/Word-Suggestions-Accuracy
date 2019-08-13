@@ -54,3 +54,14 @@ export const InputTypes = Object.freeze({
   standardButton: "button",
   submitButton: "submitButton"
 });
+
+export const TaskTypes = Object.freeze({
+  typingTask: "TypingTask",
+  s3Upload: "S3Upload",
+  endExperiment: "EndExperiment",
+  startup: "Startup",
+  endQuestionnaire: "EndQuestionnaire",
+
+  // These tasks are built in @hcikit
+  informationScreen: "InformationScreen"
+});

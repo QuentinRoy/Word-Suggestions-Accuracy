@@ -12,7 +12,7 @@ import { useDictionary } from "../hooks/useDictionary";
 import getSuggestions from "../getSuggestions";
 import "react-simple-keyboard/build/css/index.css";
 import useActionScheduler from "../hooks/useActionScheduler";
-import trialReducer from "../hooks/trialReducer";
+import trialReducer from "../trialReducer";
 import getEventLog from "../getEventLog";
 import { trimEnd } from "../../utils/strings";
 import TrialPresenter from "./TrialPresenter";

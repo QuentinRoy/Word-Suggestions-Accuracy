@@ -1,8 +1,4 @@
-import {
-  KeyboardLayoutNames,
-  Actions,
-  FocusTargets
-} from "../../utils/constants";
+import { KeyboardLayoutNames, Actions, FocusTargets } from "../utils/constants";
 
 export const charReducer = (state, action) => {
   switch (action.type) {

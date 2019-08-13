@@ -73,10 +73,10 @@ const UploadLogS3 = (id, fireAndForget, participantId) => ({
 const generateTasks = corpus => {
   const tasks = [];
 
-  tasks.push({
-    task: TaskTypes.startup,
-    key: `${tasks.length}`
-  });
+  // tasks.push({
+  //   task: TaskTypes.startup,
+  //   key: `${tasks.length}`
+  // });
 
   // Insert practice-related tasks.
   if (numberOfPracticeTasks > 0) {

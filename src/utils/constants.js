@@ -18,6 +18,8 @@ export const Actions = Object.freeze({
   focusNext: "FOCUS_NEXT",
   toggleKeyboardLayout: "TOGGLE_KEYBOARD_LAYOUT",
   moveFocusTarget: "MOVE_FOCUS_TARGET",
+  windowBlurred: "WINDOW_BLURRED",
+  windowFocused: "WINDOW_FOCUSED",
   submit: "SUBMIT",
 
   // Scheduled action

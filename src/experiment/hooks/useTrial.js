@@ -136,7 +136,8 @@ const useTrial = ({
   sdAccuracy,
   onLog,
   getEventLog = defaultGetEventLog,
-  getTrialLog = defaultGetTrialLog
+  getTrialLog = defaultGetTrialLog,
+  reducer: controlInversionReducer = (state, action, changes) => changes
 }) => {
   const dictionary = useDictionary();
   const getSuggestionsFromInput =
@@ -169,6 +170,7 @@ const useTrial = ({
         suggestions: getSuggestionsFromInput(nextState.input)
       };
     }
+    nextState = controlInversionReducer(state, action, nextState);
     if (!noEventActions.includes(action.type)) {
       nextState = {
         ...nextState,
@@ -181,6 +183,7 @@ const useTrial = ({
     if (action.type === Actions.confirmAction) {
       nextState = reducer(nextState, action.action);
     }
+
     return nextState;
   };
 

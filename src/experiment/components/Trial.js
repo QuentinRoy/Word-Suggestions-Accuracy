@@ -124,7 +124,10 @@ const Trial = ({
     } else if (
       action.status == null ||
       (action.status === ActionStatuses.start &&
-        instantActions.includes(action.type))
+        instantActions.includes(action.type)) ||
+      (onInlineSuggestion &&
+        action.type === Actions.inputSuggestion &&
+        action.status === ActionStatuses.start)
     ) {
       dispatch(action);
     } else if (action.status === ActionStatuses.start) {

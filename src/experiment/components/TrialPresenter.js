@@ -143,7 +143,7 @@ const TrialPresenter = ({
         }
         break;
       case "Enter":
-        if (focusTarget === FocusTargets.input || onInlineSuggestion) {
+        if (focusTarget === FocusTargets.input) {
           dispatch({ type: Actions.submit, status });
         } else if (
           focusTarget != null &&

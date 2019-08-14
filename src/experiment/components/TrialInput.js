@@ -40,7 +40,7 @@ const TrialInput = ({
           />
         </div>
       ) : null}
-      {suggestion !== null ? (
+      {suggestion != null ? (
         <span style={{ color: "grey" }}>
           {input === "" ? suggestion : suggestion.slice(extractWord(input))}
         </span>

@@ -3,7 +3,8 @@ import {
   Actions,
   FocusTargets,
   ActionStatuses,
-  KeyboardLayoutNames
+  KeyboardLayoutNames,
+  SuggestionTypes
 } from "../../utils/constants";
 import { useDictionary } from "./useDictionary";
 import getSuggestions from "../getSuggestions";
@@ -124,6 +125,7 @@ const instantActions = [
 // ******
 
 const useTrial = ({
+  suggestionsType,
   sksDistribution,
   keyStrokeDelay,
   onComplete,
@@ -137,9 +139,17 @@ const useTrial = ({
   getTrialLog = defaultGetTrialLog
 }) => {
   const dictionary = useDictionary();
-  const getSuggestionsFromInput = input => {
-    return getSuggestions(totalSuggestions, dictionary, sksDistribution, input);
-  };
+  const getSuggestionsFromInput =
+    suggestionsType === SuggestionTypes.none
+      ? () => []
+      : input =>
+          getSuggestions(
+            suggestionsType === SuggestionTypes.inline ? 1 : totalSuggestions,
+            dictionary,
+            sksDistribution,
+            input,
+            suggestionsType === SuggestionTypes.bar
+          );
 
   // Compute the initial state.
   const initState = () => ({

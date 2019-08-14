@@ -1,4 +1,4 @@
-import { count, sliceIf, insertEject } from "../utils/arrays";
+import { count, insertEject } from "../utils/arrays";
 import {
   isUpperCase,
   totalMatchedChars,
@@ -42,7 +42,8 @@ function computeSuggestions(
   targetWordSKS,
   targetWord,
   totalSuggestions,
-  dictionary
+  dictionary,
+  canReplaceLetters
 ) {
   const isFirstCharUpper =
     inputWord != null &&
@@ -53,12 +54,10 @@ function computeSuggestions(
   // Pre-fill the top words with the most frequent in the dictionary, provided
   // that none are the same as the target word, but give them a score of
   // 0 so that they are immediately replaced by anything else.
-  const topWords = sliceIf(
-    dictionary,
-    0,
-    totalSuggestions,
-    e => e.word !== targetWord
-  ).map(e => ({ word: e.word, score: 0 }));
+  const topWords = Array.from({ length: totalSuggestions }, () => ({
+    word: null,
+    score: -1
+  }));
 
   const wordEntryScoreGetter = e => e.score;
   const insertTopWord = (word, score) => {
@@ -79,7 +78,10 @@ function computeSuggestions(
   for (let i = 0; i < dictionary.length; i += 1) {
     const { word, f: frequencyScore } = dictionary[i];
     const lowercaseWord = word.toLowerCase();
-    if (lowerCaseTargetWord == null || lowercaseWord !== lowerCaseTargetWord) {
+    if (
+      (lowerCaseTargetWord == null || lowercaseWord !== lowerCaseTargetWord) &&
+      (canReplaceLetters || lowercaseWord.startsWith(lowerCaseInputWord))
+    ) {
       const score = suggestionScore(
         frequencyScore,
         lowercaseWord,
@@ -89,9 +91,13 @@ function computeSuggestions(
     }
   }
 
-  return isFirstCharUpper
-    ? topWords.map(w => w.word.charAt(0).toUpperCase() + w.word.slice(1))
-    : topWords.map(w => w.word);
+  return topWords
+    .filter(w => w.word != null)
+    .map(
+      isFirstCharUpper
+        ? w => w.word.charAt(0).toUpperCase() + w.word.slice(1)
+        : w => w.word
+    );
 }
 
 // Returns a new state with the suggestions filled in based on the input.
@@ -99,7 +105,8 @@ const getSuggestions = (
   totalSuggestions,
   dictionary,
   sksDistribution,
-  input
+  input,
+  canReplaceLetters
 ) => {
   // This may produce empty words (""). This is OK.
   const inputWords = input.split(" ");
@@ -120,7 +127,8 @@ const getSuggestions = (
     currentWord == null ? null : currentWord.sks,
     currentWord == null ? null : currentWord.word,
     totalSuggestions,
-    dictionary
+    dictionary,
+    canReplaceLetters
   );
 };
 

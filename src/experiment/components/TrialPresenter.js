@@ -5,7 +5,8 @@ import {
   KeyboardLayoutNames,
   ActionStatuses,
   FocusTargetTypes,
-  FocusTargets
+  FocusTargets,
+  SuggestionTypes
 } from "../../utils/constants";
 import VirtualKeyboard from "../VirtualKeyboard";
 import TrialInput from "./TrialInput";
@@ -74,7 +75,8 @@ const TrialPresenter = ({
   isSystemKeyboardEnabled,
   isCompleted,
   totalSuggestions,
-  mainSuggestionPosition
+  mainSuggestionPosition,
+  suggestionsType
 }) => {
   // Using a reference for the pressed keys since we don't care about
   // re-rendering when it changes.
@@ -126,11 +128,20 @@ const TrialPresenter = ({
         });
         break;
       case "Tab":
-        dispatch({
-          type: Actions.moveFocusTarget,
-          direction: pressedKeys.has("Shift") ? -1 : 1,
-          status
-        });
+        if (suggestionsType === SuggestionTypes.inline) {
+          dispatch({
+            type: Actions.inputSuggestion,
+            id: `suggestion-${mainSuggestionPosition}`,
+            word: arrangedSuggestions[mainSuggestionPosition],
+            status
+          });
+        } else if (suggestionsType === SuggestionTypes.bar) {
+          dispatch({
+            type: Actions.moveFocusTarget,
+            direction: pressedKeys.has("Shift") ? -1 : 1,
+            status
+          });
+        }
         break;
       case "Enter":
         if (focusTarget === FocusTargets.input) {
@@ -203,33 +214,40 @@ const TrialPresenter = ({
           }
           text={text}
           shouldCaretBlink={isNoKeyPressed}
-        />
-        <SuggestionsBar
-          totalSuggestions={totalSuggestions}
-          focusedSuggestion={
-            focusTarget != null &&
-            focusTarget.type === FocusTargetTypes.suggestion
-              ? focusTarget.suggestionNumber
+          suggestion={
+            suggestionsType === SuggestionTypes.inline
+              ? arrangedSuggestions[mainSuggestionPosition]
               : null
           }
-          suggestions={arrangedSuggestions}
-          onSelectionStart={selection => {
-            if (isNoKeyPressed) {
+        />
+        {suggestionsType === SuggestionTypes.bar ? (
+          <SuggestionsBar
+            totalSuggestions={totalSuggestions}
+            focusedSuggestion={
+              focusTarget != null &&
+              focusTarget.type === FocusTargetTypes.suggestion
+                ? focusTarget.suggestionNumber
+                : null
+            }
+            suggestions={arrangedSuggestions}
+            onSelectionStart={selection => {
+              if (isNoKeyPressed) {
+                dispatch({
+                  type: Actions.inputSuggestion,
+                  word: selection,
+                  status: ActionStatuses.start
+                });
+              }
+            }}
+            onSelectionEnd={selection => {
               dispatch({
                 type: Actions.inputSuggestion,
                 word: selection,
-                status: ActionStatuses.start
+                status: ActionStatuses.end
               });
-            }
-          }}
-          onSelectionEnd={selection => {
-            dispatch({
-              type: Actions.inputSuggestion,
-              word: selection,
-              status: ActionStatuses.end
-            });
-          }}
-        />
+            }}
+          />
+        ) : null}
         {isVirtualKeyboardEnabled ? (
           <VirtualKeyboard
             layoutName={keyboardLayoutName}
@@ -256,7 +274,8 @@ TrialPresenter.propTypes = {
   isVirtualKeyboardEnabled: PropTypes.bool,
   isSystemKeyboardEnabled: PropTypes.bool,
   isCompleted: PropTypes.bool.isRequired,
-  totalSuggestions: PropTypes.number.isRequired
+  totalSuggestions: PropTypes.number.isRequired,
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };
 
 TrialPresenter.defaultProps = {

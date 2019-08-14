@@ -45,7 +45,7 @@ export default function ExperimentWrapper() {
     );
   }
   if (loadingState === LoadingStates.invalidArguments) {
-    return <Crashed>HIT information missing...</Crashed>;
+    return <Crashed>HIT information missing or incorrect...</Crashed>;
   }
 
   return <Crashed>Failed to load the experiment...</Crashed>;

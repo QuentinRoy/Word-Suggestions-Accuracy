@@ -68,5 +68,11 @@ export const TaskTypes = Object.freeze({
   informationScreen: "InformationScreen"
 });
 
+export const SuggestionTypes = Object.freeze({
+  none: "NONE",
+  inline: "INLINE",
+  bar: "BAR"
+});
+
 export const numberOfPracticeTasks = 3;
 export const numberOfTypingTasks = 20;

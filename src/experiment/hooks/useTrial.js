@@ -147,7 +147,8 @@ const useTrial = ({
             suggestionsType === SuggestionTypes.inline ? 1 : totalSuggestions,
             dictionary,
             sksDistribution,
-            input
+            input,
+            suggestionsType === SuggestionTypes.bar
           );
 
   // Compute the initial state.

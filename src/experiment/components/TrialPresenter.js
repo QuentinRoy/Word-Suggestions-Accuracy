@@ -204,7 +204,7 @@ const TrialPresenter = ({
   });
 
   return (
-    <div role="textbox" className={styles.trial}>
+    <div className={styles.trial}>
       <Banner text={text} input={input} isCompleted={isCompleted} />
       <div className={styles.content}>
         <TrialInput

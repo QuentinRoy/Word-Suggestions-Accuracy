@@ -12,7 +12,6 @@ import createS3Uploader from "../s3Uploader";
 import EndExperiment from "./EndExperiment";
 import Startup from "./Startup";
 import EndQuestionnaire from "./EndQuestionnaire";
-import TypingSpeedTrial from "./TypingSpeedTrial";
 
 const UploadComponent = createUpload(
   createS3Uploader(

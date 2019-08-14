@@ -126,11 +126,13 @@ const TrialPresenter = ({
         });
         break;
       case "Tab":
-        dispatch({
-          type: Actions.moveFocusTarget,
-          direction: pressedKeys.has("Shift") ? -1 : 1,
-          status
-        });
+        if (totalSuggestions > 1) {
+          dispatch({
+            type: Actions.moveFocusTarget,
+            direction: pressedKeys.has("Shift") ? -1 : 1,
+            status
+          });
+        }
         break;
       case "Enter":
         if (focusTarget === FocusTargets.input) {
@@ -203,22 +205,24 @@ const TrialPresenter = ({
           }
           shouldCaretBlink={isNoKeyPressed}
         />
-        <SuggestionsBar
-          totalSuggestions={totalSuggestions}
-          focusedSuggestion={
-            focusTarget != null &&
-            focusTarget.type === FocusTargetTypes.suggestion
-              ? focusTarget.suggestionNumber
-              : null
-          }
-          suggestions={arrangedSuggestions}
-          onSelectionStart={selection => {
-            if (isNoKeyPressed) {
-              dispatch({
-                type: Actions.inputSuggestion,
-                word: selection,
-                status: ActionStatuses.end
-              });
+        {totalSuggestions > 1 ? (
+          <SuggestionsBar
+            totalSuggestions={totalSuggestions}
+            focusedSuggestion={
+              focusTarget != null &&
+              focusTarget.type === FocusTargetTypes.suggestion
+                ? focusTarget.suggestionNumber
+                : null
+            }
+            suggestions={arrangedSuggestions}
+            onSelectionStart={selection => {
+              if (isNoKeyPressed) {
+                dispatch({
+                  type: Actions.inputSuggestion,
+                  word: selection,
+                  status: ActionStatuses.end
+                });
+              }
             }}
           />
         ) : null}

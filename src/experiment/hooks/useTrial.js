@@ -147,7 +147,7 @@ const useTrial = ({
     layoutName: KeyboardLayoutNames.default,
     input: "",
     focusTarget: FocusTargets.input,
-    suggestions: getSuggestionsFromInput("")
+    suggestions: totalSuggestions !== 0 ? getSuggestionsFromInput("") : []
   });
 
   // Returns a new state based on an action.
@@ -156,7 +156,8 @@ const useTrial = ({
     if (nextState.input !== state.input) {
       nextState = {
         ...nextState,
-        suggestions: getSuggestionsFromInput(nextState.input)
+        suggestions:
+          totalSuggestions !== 0 ? getSuggestionsFromInput(nextState.input) : []
       };
     }
     if (!noEventActions.includes(action.type)) {
@@ -202,6 +203,8 @@ const useTrial = ({
   // Some useful variables.
   const text = sksDistribution.map(w => w.word).join(" ");
   const isCompleted = text === trimEnd(input);
+  const typingSpeedEndTime = isCompleted ? new Date() : null;
+  const typingSpeedStartTime = useRef();
 
   // Record the start date of the trial.
   const { current: startTime } = useRef(new Date());
@@ -217,9 +220,11 @@ const useTrial = ({
       sdAccuracy,
       sksDistribution,
       startTime,
-      new Date()
+      new Date(),
+      typingSpeedStartTime.current,
+      typingSpeedEndTime
     );
-    onLog("trial", trialLog);
+    onLog(totalSuggestions === 0 ? "TypingSpeedTrial" : "trial", trialLog);
     onComplete();
   };
 
@@ -235,6 +240,9 @@ const useTrial = ({
     ) {
       dispatch(action);
     } else if (action.status === ActionStatuses.start) {
+      if (input === "" && action.type === Actions.inputChar) {
+        typingSpeedStartTime.current = new Date();
+      }
       actionScheduler.endAll();
       actionScheduler.start(
         action.id != null ? action.id : action.type,

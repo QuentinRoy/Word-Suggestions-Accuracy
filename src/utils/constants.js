@@ -61,10 +61,12 @@ export const TaskTypes = Object.freeze({
   endExperiment: "EndExperiment",
   startup: "Startup",
   endQuestionnaire: "EndQuestionnaire",
+  typingSpeedTrial: "TypingSpeedTrial",
 
   // These tasks are built in @hcikit
   informationScreen: "InformationScreen"
 });
 
-export const numberOfPracticeTasks = 3;
-export const numberOfTypingTasks = 20;
+export const numberOfPracticeTasks = 1;
+export const numberOfTypingTasks = 2;
+export const numberOfTypingSpeedTasks = 1;

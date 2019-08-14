@@ -5,7 +5,8 @@ import {
   LoadingStates,
   TaskTypes,
   numberOfPracticeTasks,
-  numberOfTypingTasks
+  numberOfTypingTasks,
+  numberOfTypingSpeedTasks
 } from "../../utils/constants";
 
 const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
@@ -70,6 +71,16 @@ const UploadLogS3 = (id, fireAndForget, participantId) => ({
   fireAndForget
 });
 
+const TypingSpeedTrial = (id, { words, ...distributionInfo }) => ({
+  ...distributionInfo,
+  keyStrokeDelay: 0,
+  totalSuggestions: 0,
+  task: TaskTypes.typingTask,
+  sksDistribution: words,
+  key: id,
+  id
+});
+
 const generateTasks = corpus => {
   const tasks = [];
 
@@ -99,6 +110,7 @@ const generateTasks = corpus => {
     tasks.push({
       task: TaskTypes.informationScreen,
       content: "Practice is over, the real experiment begins here",
+      shortcutEnabled: true,
       key: `${tasks.length}`
     });
   }
@@ -119,6 +131,19 @@ const generateTasks = corpus => {
   }
 
   tasks.push({ task: TaskTypes.endQuestionnaire, key: `${tasks.length}` });
+  tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
+  for (let k = 0; k < numberOfTypingSpeedTasks; k += 1) {
+    tasks.push(
+      TypingSpeedTrial(
+        "TypingSpeedTrial",
+        corpus.slice(
+          numberOfPracticeTasks + numberOfTypingTasks,
+          numberOfPracticeTasks + numberOfTypingTasks + numberOfTypingSpeedTasks
+        )[k]
+      )
+    );
+  }
+
   tasks.push(UploadLogS3(`${tasks.length}`, false, participant));
   tasks.push({
     task: TaskTypes.endExperiment,

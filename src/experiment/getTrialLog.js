@@ -9,7 +9,9 @@ const getTrialLog = (
   sdAccuracy,
   words,
   startDate,
-  endDate
+  endDate,
+  typingSpeedStartTime,
+  typingSpeedEndTime
 ) => {
   const sentence = words.map(w => w.word).join(" ");
 
@@ -70,7 +72,17 @@ const getTrialLog = (
     totalSuggestionErrors,
     timeZone,
     gitSha: process.env.REACT_APP_GIT_SHA,
-    version: process.env.REACT_APP_VERSION
+    version: process.env.REACT_APP_VERSION,
+    typingSpeedStartTime,
+    typingSpeedEndTime,
+    durationInSec:
+      (typingSpeedEndTime.getTime() - typingSpeedStartTime.getTime()) / 1000,
+    wordsPerMin: +(
+      sentence.split(" ").length /
+      ((typingSpeedEndTime.getTime() - typingSpeedStartTime.getTime()) /
+        1000 /
+        60)
+    )
   };
 };
 

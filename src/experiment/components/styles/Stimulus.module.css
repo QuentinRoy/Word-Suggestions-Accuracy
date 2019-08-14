@@ -15,11 +15,3 @@
   margin: auto;
   padding: 10px 20px;
 }
-
-.correct {
-  color: rgb(147, 248, 147);
-}
-
-.incorrect {
-  color: rgb(255, 116, 116);
-}

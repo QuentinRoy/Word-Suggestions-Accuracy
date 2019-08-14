@@ -201,6 +201,7 @@ const TrialPresenter = ({
           isFocused={
             focusTarget != null && focusTarget.type === FocusTargetTypes.input
           }
+          text={text}
           shouldCaretBlink={isNoKeyPressed}
         />
         <SuggestionsBar

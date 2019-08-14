@@ -22,8 +22,8 @@ const TrialInput = ({
     <div
       className={classNames({
         [styles.trialInput]: true,
-        [styles.focused]: isFocused && !isError,
-        [styles.error]: isFocused && isError
+        [styles.focused]: isFocused,
+        [styles.error]: isError
       })}
     >
       {input}
@@ -41,7 +41,7 @@ const TrialInput = ({
         </div>
       ) : null}
       {suggestion != null ? (
-        <span style={{ color: "grey" }}>
+        <span className={styles.suggestion}>
           {input === "" ? suggestion : suggestion.slice(extractWord(input))}
         </span>
       ) : null}

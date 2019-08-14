@@ -1,12 +1,15 @@
 import { useMemo } from "react";
 import short from "short-uuid";
 import useCorpusFromJson from "./useCorpusFromJson";
-import { LoadingStates } from "../../utils/constants";
+import {
+  LoadingStates,
+  TaskTypes,
+  numberOfPracticeTasks,
+  numberOfTypingTasks
+} from "../../utils/constants";
 
 const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
 const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
-const numberOfPracticeTasks = 5;
-const numberOfTypingTasks = 20;
 
 const uuid = short.uuid();
 
@@ -56,7 +59,7 @@ const {
 
 const TypingTask = (id, isPractice, { words, ...distributionInfo }) => ({
   ...distributionInfo,
-  task: "TypingTask",
+  task: TaskTypes.typingTask,
   sksDistribution: words,
   key: id,
   id,
@@ -64,7 +67,7 @@ const TypingTask = (id, isPractice, { words, ...distributionInfo }) => ({
 });
 
 const UploadLogS3 = (id, fireAndForget, participantId) => ({
-  task: "S3Upload",
+  task: TaskTypes.s3Upload, // "S3Upload",
   filename: `${participantId}-${new Date().toISOString()}-log.json`,
   key: id,
   fireAndForget
@@ -73,16 +76,15 @@ const UploadLogS3 = (id, fireAndForget, participantId) => ({
 const generateTasks = corpus => {
   const tasks = [];
 
-  // Instructions
-  tasks.push({
-    task: "Instructions",
-    key: `${tasks.length}`
-  });
+  // tasks.push({
+  //   task: TaskTypes.startup,
+  //   key: `${tasks.length}`
+  // });
 
   // Insert practice-related tasks.
   if (numberOfPracticeTasks > 0) {
     tasks.push({
-      task: "InformationScreen",
+      task: TaskTypes.informationScreen,
       content: "Continue with the practice tasks",
       shortcutEnabled: true,
       key: `${tasks.length}`
@@ -98,7 +100,7 @@ const generateTasks = corpus => {
       );
     }
     tasks.push({
-      task: "InformationScreen",
+      task: TaskTypes.informationScreen,
       content: "Practice is over, the real experiment begins here",
       key: `${tasks.length}`
     });
@@ -119,10 +121,10 @@ const generateTasks = corpus => {
     );
   }
 
-  tasks.push({ task: "EndQuestionnaire", key: `${tasks.length}` });
+  tasks.push({ task: TaskTypes.endQuestionnaire, key: `${tasks.length}` });
   tasks.push(UploadLogS3(`${tasks.length}`, false, participant));
   tasks.push({
-    task: "EndExperiment",
+    task: TaskTypes.endExperiment,
     uuid,
     key: `${tasks.length}`
   });

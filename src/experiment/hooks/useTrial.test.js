@@ -2,7 +2,7 @@ import {
   inputSuggestionReducer,
   charReducer,
   keyboardLayoutReducer
-} from "./trialReducer";
+} from "./useTrial";
 import { Actions, KeyboardLayoutNames } from "../../utils/constants";
 
 describe("inputSuggestionReducer", () => {

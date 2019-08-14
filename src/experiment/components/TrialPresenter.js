@@ -80,7 +80,7 @@ const TrialPresenter = ({
   // Using a reference for the pressed keys since we don't care about
   // re-rendering when it changes.
   const { current: pressedKeys } = useRef(new Set());
-  const [isNoKeysPressed, setIsNoKeyPressed] = useState(true);
+  const [isNoKeyPressed, setIsNoKeyPressed] = useState(true);
 
   const arrangedSuggestions = arrangeSuggestions(
     suggestions,
@@ -211,9 +211,11 @@ const TrialPresenter = ({
           isFocused={
             focusTarget != null && focusTarget.type === FocusTargetTypes.input
           }
-          shouldCaretBlink={isNoKeysPressed}
+          shouldCaretBlink={isNoKeyPressed}
           suggestion={
-            onInlineSuggestion ? suggestions[mainSuggestionPosition] : null
+            onInlineSuggestion
+              ? arrangedSuggestions[mainSuggestionPosition]
+              : null
           }
         />
         {!onInlineSuggestion ? (
@@ -227,7 +229,7 @@ const TrialPresenter = ({
             }
             suggestions={arrangedSuggestions}
             onSelectionStart={selection => {
-              if (isNoKeysPressed) {
+              if (isNoKeyPressed) {
                 dispatch({
                   type: Actions.inputSuggestion,
                   word: selection,

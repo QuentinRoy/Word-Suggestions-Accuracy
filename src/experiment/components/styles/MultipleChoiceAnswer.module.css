@@ -1,7 +1,3 @@
-.formAnswer {
-  padding-left: 10px;
-}
-
 .answerWrapper {
   padding-bottom: 5px;
 }
@@ -10,13 +6,12 @@
   padding-bottom: 10px;
 }
 
-.container {
+.label {
   display: block;
   position: relative;
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 14px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -24,14 +19,14 @@
 }
 
 /* Hide the browser's default radio button */
-.container input {
+.label input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
 }
 
 /* Create a custom radio button */
-.checkmark {
+.checkMark {
   position: absolute;
   top: 0;
   left: 0;
@@ -42,29 +37,29 @@
 }
 
 /* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
+.label:hover input ~ .checkMark {
   background-color: #ccc;
 }
 
 /* When the radio button is checked, add a blue background */
-.container input:checked ~ .checkmark {
+.label input:checked ~ .checkMark {
   background-color: #2196f3;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
+.checkMark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
 /* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
+.label input:checked ~ .checkMark:after {
   display: block;
 }
 
 /* Style the indicator (dot/circle) */
-.container .checkmark:after {
+.label .checkMark:after {
   top: 7px;
   left: 7px;
   width: 7px;

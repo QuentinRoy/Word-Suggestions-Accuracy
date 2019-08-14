@@ -73,12 +73,13 @@ function computeSuggestions(
     insertTopWord(targetWord, Number.POSITIVE_INFINITY);
   }
 
-  const lowerCaseTargetWord = targetWord.toLowerCase();
+  const lowerCaseTargetWord =
+    targetWord != null ? targetWord.toLowerCase() : null;
   const lowerCaseInputWord = inputWord.toLowerCase();
   for (let i = 0; i < dictionary.length; i += 1) {
     const { word, f: frequencyScore } = dictionary[i];
     const lowercaseWord = word.toLowerCase();
-    if (targetWord == null || lowercaseWord !== lowerCaseTargetWord) {
+    if (lowerCaseTargetWord == null || lowercaseWord !== lowerCaseTargetWord) {
       const score = suggestionScore(
         frequencyScore,
         lowercaseWord,

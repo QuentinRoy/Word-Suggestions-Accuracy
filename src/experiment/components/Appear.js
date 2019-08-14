@@ -1,20 +1,21 @@
-import React, { Fragment, Children } from "react";
+import React, { Children } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import styles from "./styles/Appear.module.css";
 
 const Appear = ({ children, currentStep }) => (
-  <Fragment>
+  <>
     {Children.map(children, (child, childNum) => (
-      <div>
-        <div
-          className={childNum < currentStep ? styles.visible : styles.hidden}
-        >
-          {child}
-        </div>
-        <br />
+      <div
+        className={classNames({
+          [styles.appearItem]: true,
+          [styles.visible]: childNum < currentStep
+        })}
+      >
+        {child}
       </div>
     ))}
-  </Fragment>
+  </>
 );
 
 Appear.propTypes = {

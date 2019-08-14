@@ -14,6 +14,10 @@
   border-color: #87a6fa;
   background-color: #f2faff;
 }
+.trialInput.error {
+  border-color: #f06f6f;
+  background-color: #ffdede;
+}
 
 .caretWrapper {
   display: inline-block;

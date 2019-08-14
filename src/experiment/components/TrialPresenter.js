@@ -212,6 +212,7 @@ const TrialPresenter = ({
           isFocused={
             focusTarget != null && focusTarget.type === FocusTargetTypes.input
           }
+          text={text}
           shouldCaretBlink={isNoKeyPressed}
           suggestion={
             suggestionsType === SuggestionTypes.inline

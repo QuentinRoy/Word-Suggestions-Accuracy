@@ -1,5 +1,6 @@
 import React from "react";
 import Proptypes from "prop-types";
+import shortid from "shortid";
 import { InputTypes } from "./constants";
 
 const FormInput = ({
@@ -11,6 +12,7 @@ const FormInput = ({
   method,
   typeOfAnswer
 }) => {
+  let radioButtonLabelId;
   switch (inputType) {
     case InputTypes.textarea:
       return (
@@ -19,29 +21,37 @@ const FormInput = ({
     case InputTypes.radioButton:
       if (answers.length > 1) {
         return answers.map(answer => {
+          radioButtonLabelId = shortid.generate();
           return (
             <div>
-              <input
-                type="radio"
-                value={answer}
-                name={name}
-                className="grid-item"
-                key={answers.indexOf(answer)}
-              />{" "}
-              <span>{answer}</span>
+              <label htmlFor={radioButtonLabelId}>
+                <input
+                  id={radioButtonLabelId}
+                  type="radio"
+                  value={answer}
+                  name={name}
+                  className="grid-item"
+                  key={answers.indexOf(answer)}
+                />{" "}
+                {answer}
+              </label>
             </div>
           );
         });
       }
+      radioButtonLabelId = shortid.generate();
       return (
         <div>
-          <input
-            type="radio"
-            value={answers}
-            name={name}
-            className="grid-item"
-          />{" "}
-          <span>{answers}</span>
+          <label htmlFor={radioButtonLabelId}>
+            <input
+              type="radio"
+              id={radioButtonLabelId}
+              value={answers}
+              name={name}
+              className="grid-item"
+            />{" "}
+            {answers}
+          </label>
         </div>
       );
     case InputTypes.standardInput:

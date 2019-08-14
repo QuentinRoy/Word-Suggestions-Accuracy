@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import getTrialLog from "../getTrialLog";
 import {
   Actions,
-  totalSuggestions,
   FocusTargets,
   ActionStatuses,
   KeyboardLayoutNames
@@ -36,11 +35,12 @@ const Trial = ({
   id,
   targetAccuracy,
   weightedAccuracy,
-  sdAccuracy
+  sdAccuracy,
+  suggestionCount
 }) => {
   const dictionary = useDictionary();
   const getSuggestionsFromInput = input =>
-    getSuggestions(totalSuggestions, dictionary, sksDistribution, input);
+    getSuggestions(suggestionCount, dictionary, sksDistribution, input);
 
   // Compute the initial state.
   const initState = () => ({
@@ -140,7 +140,7 @@ const Trial = ({
       input={input}
       keyboardLayoutName={layoutName}
       isCompleted={isCompleted}
-      totalSuggestions={totalSuggestions}
+      suggestionCount={suggestionCount}
     />
   );
 };
@@ -158,7 +158,12 @@ Trial.propTypes = {
   targetAccuracy: PropTypes.number.isRequired,
   weightedAccuracy: PropTypes.number.isRequired,
   sdAccuracy: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  suggestionCount: PropTypes.number
+};
+
+Trial.defaultProps = {
+  suggestionCount: 3
 };
 
 export default Trial;

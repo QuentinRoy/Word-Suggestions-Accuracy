@@ -70,6 +70,11 @@ const UploadLogS3 = (id, fireAndForget, participantId) => ({
 const generateTasks = corpus => {
   const tasks = [];
 
+  tasks.push({
+    task: "TypingSpeedTrial",
+    key: `${tasks.length}`
+  });
+
   // Instructions
   tasks.push({
     task: "Instructions",

@@ -32,8 +32,6 @@ export const ActionStatuses = Object.freeze({
   end: "END"
 });
 
-export const totalSuggestions = 3;
-
 export const FocusTargetTypes = Object.freeze({
   input: "INPUT",
   suggestion: "SUGGESTION"

@@ -203,32 +203,34 @@ const TrialPresenter = ({
           }
           shouldCaretBlink={isNoKeysPressed}
         />
-        <SuggestionsBar
-          totalSuggestions={totalSuggestions}
-          focusedSuggestion={
-            focusTarget != null &&
-            focusTarget.type === FocusTargetTypes.suggestion
-              ? focusTarget.suggestionNumber
-              : null
-          }
-          suggestions={arrangedSuggestions}
-          onSelectionStart={selection => {
-            if (isNoKeysPressed) {
+        {totalSuggestions > 1 ? (
+          <SuggestionsBar
+            totalSuggestions={totalSuggestions}
+            focusedSuggestion={
+              focusTarget != null &&
+              focusTarget.type === FocusTargetTypes.suggestion
+                ? focusTarget.suggestionNumber
+                : null
+            }
+            suggestions={arrangedSuggestions}
+            onSelectionStart={selection => {
+              if (isNoKeysPressed) {
+                dispatch({
+                  type: Actions.inputSuggestion,
+                  word: selection,
+                  status: ActionStatuses.start
+                });
+              }
+            }}
+            onSelectionEnd={selection => {
               dispatch({
                 type: Actions.inputSuggestion,
                 word: selection,
-                status: ActionStatuses.start
+                status: ActionStatuses.end
               });
-            }
-          }}
-          onSelectionEnd={selection => {
-            dispatch({
-              type: Actions.inputSuggestion,
-              word: selection,
-              status: ActionStatuses.end
-            });
-          }}
-        />
+            }}
+          />
+        ) : null}
         {isVirtualKeyboardEnabled ? (
           <VirtualKeyboard
             layoutName={keyboardLayoutName}

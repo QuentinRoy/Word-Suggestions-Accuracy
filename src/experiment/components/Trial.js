@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { totalSuggestions } from "../../utils/constants";
+import { totalSuggestions, SuggestionTypes } from "../../utils/constants";
 import "react-simple-keyboard/build/css/index.css";
 import TrialPresenter from "./TrialPresenter";
 import useTrial from "../hooks/useTrial";
@@ -14,7 +14,7 @@ const Trial = ({
   targetAccuracy,
   weightedAccuracy,
   sdAccuracy,
-  onInlineSuggestion
+  suggestionsType
 }) => {
   const {
     dispatch,
@@ -25,7 +25,8 @@ const Trial = ({
     keyboardLayoutName,
     isCompleted
   } = useTrial({
-    totalSuggestions: onInlineSuggestion ? 1 : totalSuggestions,
+    totalSuggestions,
+    suggestionsType,
     onComplete: onAdvanceWorkflow,
     onLog,
     keyStrokeDelay,
@@ -46,7 +47,7 @@ const Trial = ({
       keyboardLayoutName={keyboardLayoutName}
       isCompleted={isCompleted}
       totalSuggestions={totalSuggestions}
-      onInlineSuggestion={onInlineSuggestion}
+      suggestionsType={suggestionsType}
     />
   );
 };
@@ -65,7 +66,7 @@ Trial.propTypes = {
   weightedAccuracy: PropTypes.number.isRequired,
   sdAccuracy: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
-  onInlineSuggestion: PropTypes.bool.isRequired
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };
 
 export default Trial;

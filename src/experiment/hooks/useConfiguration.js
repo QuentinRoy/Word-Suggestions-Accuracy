@@ -5,7 +5,8 @@ import {
   LoadingStates,
   TaskTypes,
   numberOfPracticeTasks,
-  numberOfTypingTasks
+  numberOfTypingTasks,
+  SuggestionTypes
 } from "../../utils/constants";
 
 const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
@@ -20,19 +21,22 @@ const PageArguments = {
   workerId: "workerId",
   keyStrokeDelays: "keyStrokeDelays",
   assignmentId: "assignmentId",
-  hitId: "hitId"
+  hitId: "hitId",
+  suggestionsType: "suggestionsType"
 };
 
 const {
   participant,
   targetAccuracy,
   keyStrokeDelay,
+  suggestionsType,
   ...otherPageArgs
 } = (() => {
   const urlParams = new URL(document.location).searchParams;
   const workerId = urlParams.get(PageArguments.workerId);
   const assignmentId = urlParams.get(PageArguments.assignmentId);
   const hitId = urlParams.get(PageArguments.hitId);
+  const suggestionsParam = urlParams.get(PageArguments.suggestionsType);
   const keyStrokeDelays = urlParams.has(PageArguments.keyStrokeDelays)
     ? urlParams
         .get(PageArguments.keyStrokeDelays)
@@ -49,6 +53,7 @@ const {
     assignmentId,
     hitId,
     participant: workerId,
+    suggestionsType: suggestionsParam,
     keyStrokeDelay:
       keyStrokeDelays[Math.floor(Math.random() * keyStrokeDelays.length)],
     targetAccuracy:
@@ -144,12 +149,14 @@ const useConfiguration = () => {
         children: generateTasks(corpus),
         gitSha: process.env.REACT_APP_GIT_SHA,
         version: process.env.REACT_APP_VERSION,
-        participantUuid: uuid
+        participantUuid: uuid,
+        suggestionsType
       };
     }
     return null;
   }, [loadingState, corpus]);
-  return participant == null
+  return participant == null ||
+    !Object.values(SuggestionTypes).includes(suggestionsType)
     ? [LoadingStates.invalidArguments, null]
     : [loadingState, config];
 };

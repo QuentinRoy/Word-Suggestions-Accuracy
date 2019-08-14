@@ -5,7 +5,8 @@ import {
   KeyboardLayoutNames,
   ActionStatuses,
   FocusTargetTypes,
-  FocusTargets
+  FocusTargets,
+  SuggestionTypes
 } from "../../utils/constants";
 import VirtualKeyboard from "../VirtualKeyboard";
 import TrialInput from "./TrialInput";
@@ -75,7 +76,7 @@ const TrialPresenter = ({
   isCompleted,
   totalSuggestions,
   mainSuggestionPosition,
-  onInlineSuggestion
+  suggestionsType
 }) => {
   // Using a reference for the pressed keys since we don't care about
   // re-rendering when it changes.
@@ -127,14 +128,14 @@ const TrialPresenter = ({
         });
         break;
       case "Tab":
-        if (onInlineSuggestion) {
+        if (suggestionsType === SuggestionTypes.inline) {
           dispatch({
             type: Actions.inputSuggestion,
             id: `suggestion-${mainSuggestionPosition}`,
             word: arrangedSuggestions[mainSuggestionPosition],
             status
           });
-        } else {
+        } else if (suggestionsType === SuggestionTypes.bar) {
           dispatch({
             type: Actions.moveFocusTarget,
             direction: pressedKeys.has("Shift") ? -1 : 1,
@@ -213,12 +214,12 @@ const TrialPresenter = ({
           }
           shouldCaretBlink={isNoKeyPressed}
           suggestion={
-            onInlineSuggestion
+            suggestionsType === SuggestionTypes.inline
               ? arrangedSuggestions[mainSuggestionPosition]
               : null
           }
         />
-        {!onInlineSuggestion ? (
+        {suggestionsType === SuggestionTypes.bar ? (
           <SuggestionsBar
             totalSuggestions={totalSuggestions}
             focusedSuggestion={
@@ -273,7 +274,7 @@ TrialPresenter.propTypes = {
   isSystemKeyboardEnabled: PropTypes.bool,
   isCompleted: PropTypes.bool.isRequired,
   totalSuggestions: PropTypes.number.isRequired,
-  onInlineSuggestion: PropTypes.bool.isRequired
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };
 
 TrialPresenter.defaultProps = {

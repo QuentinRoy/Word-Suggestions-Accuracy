@@ -18,6 +18,8 @@ export const Actions = Object.freeze({
   focusNext: "FOCUS_NEXT",
   toggleKeyboardLayout: "TOGGLE_KEYBOARD_LAYOUT",
   moveFocusTarget: "MOVE_FOCUS_TARGET",
+  windowBlurred: "WINDOW_BLURRED",
+  windowFocused: "WINDOW_FOCUSED",
   submit: "SUBMIT",
 
   // Scheduled action
@@ -52,3 +54,17 @@ export const InputTypes = Object.freeze({
   standardButton: "button",
   submitButton: "submitButton"
 });
+
+export const TaskTypes = Object.freeze({
+  typingTask: "TypingTask",
+  s3Upload: "S3Upload",
+  endExperiment: "EndExperiment",
+  startup: "Startup",
+  endQuestionnaire: "EndQuestionnaire",
+
+  // These tasks are built in @hcikit
+  informationScreen: "InformationScreen"
+});
+
+export const numberOfPracticeTasks = 3;
+export const numberOfTypingTasks = 20;

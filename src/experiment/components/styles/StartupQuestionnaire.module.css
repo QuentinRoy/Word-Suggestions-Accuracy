@@ -1,0 +1,15 @@
+.main {
+  margin: auto;
+  width: 600px;
+}
+
+.submitButtonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.instructions {
+  font-style: italic;
+  margin-bottom: 2rem;
+}

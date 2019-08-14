@@ -2,8 +2,8 @@ import {
   inputSuggestionReducer,
   charReducer,
   keyboardLayoutReducer
-} from "./trialReducer";
-import { Actions, KeyboardLayoutNames } from "../utils/constants";
+} from "./useTrial";
+import { Actions, KeyboardLayoutNames } from "../../utils/constants";
 
 describe("inputSuggestionReducer", () => {
   test("replaces on going word", () => {

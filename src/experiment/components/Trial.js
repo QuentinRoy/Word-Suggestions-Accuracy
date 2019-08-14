@@ -1,31 +1,9 @@
-import React, { useRef, useReducer } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import getTrialLog from "../getTrialLog";
-import {
-  Actions,
-  FocusTargets,
-  ActionStatuses,
-  KeyboardLayoutNames
-} from "../../utils/constants";
-import { useDictionary } from "../hooks/useDictionary";
-import getSuggestions from "../getSuggestions";
+import { totalSuggestions } from "../../utils/constants";
 import "react-simple-keyboard/build/css/index.css";
-import useActionScheduler from "../hooks/useActionScheduler";
-import trialReducer from "../trialReducer";
-import getEventLog from "../getEventLog";
-import { trimEnd } from "../../utils/strings";
 import TrialPresenter from "./TrialPresenter";
-import useHasWindowFocus from "../hooks/useHasWindowFocus";
-
-// This actions won't be logged.
-const noEventActions = [Actions.endAction, Actions.confirmAction];
-const instantActions = [
-  Actions.moveFocusTarget,
-  Actions.cancelAction,
-  Actions.confirmAction,
-  Actions.scheduleAction,
-  Actions.submit
-];
+import useTrial from "../hooks/useTrial";
 
 const Trial = ({
   onAdvanceWorkflow,
@@ -38,107 +16,34 @@ const Trial = ({
   sdAccuracy,
   suggestionCount
 }) => {
-  const dictionary = useDictionary();
-  const getSuggestionsFromInput = input =>
-    getSuggestions(suggestionCount, dictionary, sksDistribution, input);
-
-  // Compute the initial state.
-  const initState = () => ({
-    events: [],
-    layoutName: KeyboardLayoutNames.default,
-    input: "",
-    focusTarget: FocusTargets.input,
-    suggestions: getSuggestionsFromInput("")
+  const {
+    dispatch,
+    focusTarget,
+    suggestions,
+    text,
+    input,
+    keyboardLayoutName,
+    isCompleted
+  } = useTrial({
+    totalSuggestions,
+    onComplete: onAdvanceWorkflow,
+    onLog,
+    keyStrokeDelay,
+    sksDistribution,
+    id,
+    targetAccuracy,
+    weightedAccuracy,
+    sdAccuracy
   });
-  // Returns a new state based on an action.
-  const reducer = (state, action) => {
-    let nextState = trialReducer(state, action);
-    if (nextState.input !== state.input) {
-      nextState = {
-        ...nextState,
-        suggestions: getSuggestionsFromInput(nextState.input)
-      };
-    }
-    if (!noEventActions.includes(action.type)) {
-      nextState = {
-        ...nextState,
-        events: [
-          ...nextState.events,
-          getEventLog(state, action, nextState, { sksDistribution })
-        ]
-      };
-    }
-    if (action.type === Actions.confirmAction) {
-      nextState = reducer(nextState, action.action);
-    }
-    return nextState;
-  };
-  // Matches the state, reducer, and actions.
-  const [
-    { layoutName, input, suggestions, focusTarget, events },
-    dispatch
-  ] = useReducer(reducer, null, initState);
-
-  // Used to schedule action to be performed after a delay.
-  const actionScheduler = useActionScheduler(dispatch, keyStrokeDelay);
-
-  // Record the start date of the trial.
-  const { current: trialStartTime } = useRef(new Date());
-
-  const hasWindowFocus = useHasWindowFocus();
-
-  // Some useful constants
-  const text = sksDistribution.map(w => w.word).join(" ");
-  const isCompleted = text === trimEnd(input);
-
-  // Called when the trial has been completed.
-  function onSubmit() {
-    if (!isCompleted) return;
-    actionScheduler.endAll();
-    onLog("events", events);
-    const trialLog = getTrialLog(
-      events,
-      id,
-      targetAccuracy,
-      keyStrokeDelay,
-      weightedAccuracy,
-      sdAccuracy,
-      sksDistribution,
-      trialStartTime,
-      new Date()
-    );
-    onLog("trial", trialLog);
-    onAdvanceWorkflow();
-  }
-
-  const dispatchWrapper = action => {
-    if (action.type === Actions.submit) {
-      onSubmit();
-    } else if (
-      action.status == null ||
-      (action.status === ActionStatuses.start &&
-        instantActions.includes(action.type))
-    ) {
-      dispatch(action);
-    } else if (action.status === ActionStatuses.start) {
-      actionScheduler.endAll();
-      actionScheduler.start(
-        action.id != null ? action.id : action.type,
-        action
-      );
-    } else {
-      actionScheduler.end(action.id != null ? action.id : action.type, action);
-    }
-  };
 
   return (
     <TrialPresenter
-      dispatch={dispatchWrapper}
-      focusTarget={hasWindowFocus ? focusTarget : null}
+      dispatch={dispatch}
+      focusTarget={focusTarget}
       suggestions={suggestions}
       text={text}
       input={input}
-      keyboardLayoutName={layoutName}
+      keyboardLayoutName={keyboardLayoutName}
       isCompleted={isCompleted}
       suggestionCount={suggestionCount}
     />

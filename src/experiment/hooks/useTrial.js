@@ -137,7 +137,7 @@ const useTrial = ({
   onLog,
   getEventLog = defaultGetEventLog,
   getTrialLog = defaultGetTrialLog,
-  reducer: controlInversionReducer = (state, action, changes) => changes
+  reducer: controlInversionReducer = (state, action) => action.change
 }) => {
   const dictionary = useDictionary();
   const getSuggestionsFromInput =
@@ -170,7 +170,10 @@ const useTrial = ({
         suggestions: getSuggestionsFromInput(nextState.input)
       };
     }
-    nextState = controlInversionReducer(state, action, nextState);
+    nextState = controlInversionReducer(state, {
+      ...action,
+      changes: nextState
+    });
     if (!noEventActions.includes(action.type)) {
       nextState = {
         ...nextState,

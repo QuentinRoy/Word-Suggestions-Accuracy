@@ -104,11 +104,7 @@ const Tutorial = ({
               suggestions: Array(state.suggestions.length).fill("")
             };
           }
-          return {
-            ...action.changes,
-            suggestions: Array(state.suggestions.length).fill("camping"),
-            input: state.input
-          };
+          return state;
         case TutorialSteps.error:
           // no delay
           if (action.type === Actions.deleteChar) {
@@ -155,7 +151,7 @@ const Tutorial = ({
     <TrialPresenter
       dispatch={dispatch}
       focusTarget={focusTarget}
-      suggestions={suggestions}
+      suggestions={input === "" ? [] : suggestions}
       text={tutorialSentence}
       input={input}
       keyboardLayoutName={keyboardLayoutName}
@@ -163,6 +159,7 @@ const Tutorial = ({
       suggestionsType={suggestionsType}
       hasErrors={hasErrors}
       tutorialStep={getTutorialStep({ input })}
+      totalSuggestions={suggestions.length}
     />
   );
 };

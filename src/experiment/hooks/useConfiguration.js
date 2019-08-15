@@ -12,6 +12,7 @@ const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
 const totalSuggestions = 3;
 const numberOfPracticeTasks = 3;
 const numberOfTypingTasks = 20;
+const numberOfTypingSpeedTasks = 3;
 const confirmationCode = short.uuid();
 
 const PageArguments = {
@@ -59,8 +60,8 @@ const {
   };
 })();
 
-const TypingTask = (id, isPractice, { words, ...distributionInfo }) => ({
-  ...distributionInfo,
+const TypingTask = (id, isPractice, { words, ...props }) => ({
+  ...props,
   task: TaskTypes.typingTask,
   sksDistribution: words,
   key: id,
@@ -78,12 +79,22 @@ const UploadLogS3 = (id, fireAndForget, participantId) => ({
 const generateTasks = corpus => {
   const tasks = [];
 
+  let totalPickedCorpusEntry = 0;
+  const pickCorpusEntries = n => {
+    const slice = corpus.slice(
+      totalPickedCorpusEntry,
+      totalPickedCorpusEntry + n
+    );
+    totalPickedCorpusEntry += n;
+    return slice;
+  };
+
   tasks.push({
     task: TaskTypes.startup,
     key: `${tasks.length}`
   });
 
-  // Insert practice-related tasks.
+  // Insert practice tasks.
   if (numberOfPracticeTasks > 0) {
     tasks.push({
       task: TaskTypes.informationScreen,
@@ -91,16 +102,10 @@ const generateTasks = corpus => {
       shortcutEnabled: true,
       key: `${tasks.length}`
     });
-    for (let i = 0; i < numberOfPracticeTasks; i += 1) {
+    pickCorpusEntries(numberOfPracticeTasks).forEach(props => {
       tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
-      tasks.push(
-        TypingTask(
-          `${tasks.length}`,
-          true,
-          corpus.slice(0, numberOfPracticeTasks)[i]
-        )
-      );
-    }
+      tasks.push(TypingTask(`practice-${tasks.length}`, true, props));
+    });
     tasks.push({
       task: TaskTypes.informationScreen,
       content: "Practice is over, the real experiment begins here",
@@ -109,21 +114,24 @@ const generateTasks = corpus => {
   }
 
   // Insert measured tasks.
-  for (let j = 0; j < numberOfTypingTasks; j += 1) {
+  pickCorpusEntries(numberOfTypingTasks).forEach(props => {
     tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
-    tasks.push(
-      TypingTask(
-        `${tasks.length}`,
-        true,
-        corpus.slice(
-          numberOfPracticeTasks,
-          numberOfPracticeTasks + numberOfTypingTasks
-        )[j]
-      )
-    );
-  }
+    tasks.push(TypingTask(`trial-${tasks.length}`, true, props));
+  });
 
   tasks.push({ task: TaskTypes.endQuestionnaire, key: `${tasks.length}` });
+
+  pickCorpusEntries(numberOfTypingSpeedTasks).forEach(props => {
+    tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
+    tasks.push(
+      TypingTask(`trial-${tasks.length}`, true, {
+        ...props,
+        suggestionsType: SuggestionTypes.none,
+        keyStrokeDelay: 0
+      })
+    );
+  });
+
   tasks.push(UploadLogS3(`${tasks.length}`, false, participant));
   tasks.push({
     task: TaskTypes.endExperiment,

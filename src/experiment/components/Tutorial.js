@@ -129,10 +129,7 @@ const Tutorial = ({
           if (action.type === Actions.deleteChar) {
             return state;
           }
-          return {
-            ...action.changes,
-            suggestions: Array(state.suggestions.length).fill("")
-          };
+          return state;
         case TutorialSteps.delaySuggestion:
           // delay on
           if (action.type === Actions.inputSuggestion) {

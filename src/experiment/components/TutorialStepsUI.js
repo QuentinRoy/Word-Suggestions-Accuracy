@@ -26,7 +26,7 @@ const TutorialStepsUI = ({ tutorialStep }) => {
   if (tutorialStep === TutorialSteps.suggestion) {
     return (
       <div className={styles.step}>
-        <p>We can see a suggestion appearing behind your input.</p>
+        <p>You can see a suggestion appearing behind your input.</p>
         <p>Use it by pressing the `Tab` key.</p>
       </div>
     );
@@ -34,17 +34,15 @@ const TutorialStepsUI = ({ tutorialStep }) => {
   if (tutorialStep === TutorialSteps.wrongSuggestion) {
     return (
       <div className={styles.step}>
-        <p>We can see another suggestion appearing behind your input.</p>
-        <p>Use it again by pressing the `Tab` key.</p>
+        <p>You can see another suggestion appearing behind your input.</p>
+        <p>Use it by pressing the `Tab` key.</p>
       </div>
     );
   }
   if (tutorialStep === TutorialSteps.error) {
     return (
       <div className={styles.step}>
-        <p>
-          That suggestion was not a good suggestion and now we made an error.
-        </p>
+        <p>The input does not correpond to the text.</p>
         <p>
           You can see that you have made a mistake when the input zone turns
           red.

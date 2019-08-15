@@ -12,6 +12,7 @@ import createS3Uploader from "../s3Uploader";
 import EndExperiment from "./EndExperiment";
 import Startup from "./Startup";
 import EndQuestionnaire from "./EndQuestionnaire";
+import Tutorial from "./Tutorial";
 
 const UploadComponent = createUpload(
   createS3Uploader(
@@ -27,6 +28,7 @@ registerTask(TaskTypes.s3Upload, UploadComponent);
 registerTask(TaskTypes.endExperiment, EndExperiment);
 registerTask(TaskTypes.startup, Startup);
 registerTask(TaskTypes.endQuestionnaire, EndQuestionnaire);
+registerTask(TaskTypes.tutorial, Tutorial);
 
 export default function ExperimentWrapper() {
   const [loadingState, configuration] = useConfiguration();

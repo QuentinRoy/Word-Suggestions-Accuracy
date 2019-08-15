@@ -83,6 +83,12 @@ const generateTasks = corpus => {
     key: `${tasks.length}`
   });
 
+  tasks.push({
+    task: TaskTypes.tutorial,
+    key: `${tasks.length}`,
+    id: `${tasks.length}`
+  });
+
   // Insert practice-related tasks.
   if (numberOfPracticeTasks > 0) {
     tasks.push({

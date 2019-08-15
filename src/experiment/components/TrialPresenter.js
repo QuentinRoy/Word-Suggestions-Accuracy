@@ -5,13 +5,15 @@ import {
   KeyboardLayoutNames,
   ActionStatuses,
   FocusTargetTypes,
-  SuggestionTypes
+  SuggestionTypes,
+  TutorialSteps
 } from "../../utils/constants";
 import VirtualKeyboard from "../VirtualKeyboard";
 import TrialInput from "./TrialInput";
 import styles from "./styles/TrialPresenter.module.css";
 import Banner from "./Banner";
 import SuggestionsBar from "./SuggestionsBar";
+import TutorialStepsUI from "./TutorialStepsUI";
 
 const mapVirtualKey = key => {
   switch (key) {
@@ -76,7 +78,8 @@ const TrialPresenter = ({
   totalSuggestions,
   mainSuggestionPosition,
   suggestionsType,
-  hasErrors
+  hasErrors,
+  tutorialStep
 }) => {
   // Using a reference for the pressed keys since we don't care about
   // re-rendering when it changes.
@@ -257,6 +260,7 @@ const TrialPresenter = ({
           />
         ) : null}
       </div>
+      <TutorialStepsUI tutorialStep={tutorialStep} />
     </div>
   );
 };
@@ -277,7 +281,8 @@ TrialPresenter.propTypes = {
   isCompleted: PropTypes.bool.isRequired,
   totalSuggestions: PropTypes.number.isRequired,
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
-  hasErrors: PropTypes.bool.isRequired
+  hasErrors: PropTypes.bool.isRequired,
+  tutorialStep: PropTypes.oneOf(Object.values(TutorialSteps))
 };
 
 TrialPresenter.defaultProps = {
@@ -285,7 +290,8 @@ TrialPresenter.defaultProps = {
   focusTarget: null,
   keyboardLayoutName: null,
   isVirtualKeyboardEnabled: false,
-  isSystemKeyboardEnabled: true
+  isSystemKeyboardEnabled: true,
+  tutorialStep: null
 };
 
 export default TrialPresenter;

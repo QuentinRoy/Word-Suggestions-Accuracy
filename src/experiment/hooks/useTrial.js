@@ -14,6 +14,7 @@ import defaultGetEventLog from "../getEventLog";
 import { trimEnd } from "../../utils/strings";
 import defaultGetTrialLog from "../getTrialLog";
 import { mod } from "../../utils/math";
+import getTextFromSksDistribution from "../../utils/getTextFromSksDistribution";
 
 // **********
 //  REDUCERS
@@ -240,7 +241,7 @@ const useTrial = ({
   }, []);
 
   // Some useful variables.
-  const text = sksDistribution.map(w => w.word).join(" ");
+  const text = getTextFromSksDistribution(sksDistribution);
   const isCompleted = text === trimEnd(input);
   const hasErrors = !isCompleted && !text.startsWith(input);
 

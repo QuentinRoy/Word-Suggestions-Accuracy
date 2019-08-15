@@ -1,0 +1,13 @@
+.arrow {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.step {
+  width: 800px;
+  margin: 40px auto 20px auto;
+  border-radius: 5px;
+  border: 1px solid grey;
+  padding-left: 10px;
+}

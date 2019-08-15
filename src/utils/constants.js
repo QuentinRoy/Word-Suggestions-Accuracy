@@ -64,6 +64,3 @@ export const SuggestionTypes = Object.freeze({
   inline: "INLINE",
   bar: "BAR"
 });
-
-export const numberOfPracticeTasks = 3;
-export const numberOfTypingTasks = 20;

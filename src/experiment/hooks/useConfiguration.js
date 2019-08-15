@@ -4,14 +4,14 @@ import useCorpusFromJson from "./useCorpusFromJson";
 import {
   LoadingStates,
   TaskTypes,
-  numberOfPracticeTasks,
-  numberOfTypingTasks,
   SuggestionTypes
 } from "../../utils/constants";
 
 const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
 const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
 const totalSuggestions = 3;
+const numberOfPracticeTasks = 3;
+const numberOfTypingTasks = 20;
 const confirmationCode = short.uuid();
 
 const onInlineSuggestion = true;
@@ -151,7 +151,9 @@ const useConfiguration = () => {
         version: process.env.REACT_APP_VERSION,
         confirmationCode,
         totalSuggestions,
-        suggestionsType
+        suggestionsType,
+        numberOfPracticeTasks,
+        numberOfTypingTasks
       };
     }
     return null;

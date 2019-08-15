@@ -14,15 +14,15 @@ const questions = [
   {
     text: "You must...",
     answers: [
-      "go as fast possible",
-      "take your time, but be accurate",
+      "go as fast possible, while still being accurate",
+      "take all the time you need, but not make errors",
       "not use word suggestions",
       "use word suggestions"
     ],
     correctAnswer: "go as fast possible"
   },
   {
-    text: "In order to interact...",
+    text: "To interact...",
     answers: [
       "you will need to keep keys down longer than usual",
       "you will need to click on small buttons",

@@ -54,7 +54,11 @@ TrialInput.propTypes = {
   isFocused: PropTypes.bool.isRequired,
   shouldCaretBlink: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
-  suggestion: PropTypes.string.isRequired
+  suggestion: PropTypes.string
+};
+
+TrialInput.defaultProps = {
+  suggestion: null
 };
 
 export default TrialInput;

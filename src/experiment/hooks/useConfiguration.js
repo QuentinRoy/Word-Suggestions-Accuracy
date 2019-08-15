@@ -144,7 +144,9 @@ const generateTasks = corpus => {
 };
 
 const useConfiguration = () => {
-  const [loadingState, corpus] = useCorpusFromJson(targetAccuracy);
+  const [loadingState, corpus] = useCorpusFromJson(targetAccuracy, {
+    shuffleRows: true
+  });
   const config = useMemo(() => {
     if (loadingState === LoadingStates.loaded) {
       return {

@@ -4,7 +4,7 @@ import last from "lodash/last";
 import StartupInstructions from "./StartupInstructions";
 import StartupQuestionnaire from "./StartupQuestionnaire";
 
-const Startup = ({ onAdvanceWorkflow, onLog }) => {
+const Startup = ({ onAdvanceWorkflow, onLog, numberOfPracticeTasks }) => {
   const [areInstructionPassed, setAreInstructionPassed] = useState(false);
   const { current: logs } = useRef([{ startDate: new Date() }]);
   const lastLog = last(logs);
@@ -12,6 +12,7 @@ const Startup = ({ onAdvanceWorkflow, onLog }) => {
   if (!areInstructionPassed) {
     return (
       <StartupInstructions
+        numberOfPracticeTasks={numberOfPracticeTasks}
         onStart={() => {
           lastLog.instructionEndDate = new Date();
           setAreInstructionPassed(true);
@@ -43,7 +44,8 @@ const Startup = ({ onAdvanceWorkflow, onLog }) => {
 
 Startup.propTypes = {
   onLog: PropTypes.func.isRequired,
-  onAdvanceWorkflow: PropTypes.func.isRequired
+  onAdvanceWorkflow: PropTypes.func.isRequired,
+  numberOfPracticeTasks: PropTypes.number.isRequired
 };
 
 export default Startup;

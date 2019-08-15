@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import styles from "./styles/TrialInput.module.css";
-import { totalMatchedCharsFromStart } from "../../utils/strings";
 
 const extractWord = str => {
   const newStr = str.split(" ");
@@ -11,19 +10,17 @@ const extractWord = str => {
 
 const TrialInput = ({
   input,
-  text,
+  hasErrors,
   isFocused,
   shouldCaretBlink,
   suggestion
 }) => {
-  const isError = totalMatchedCharsFromStart(text, input) !== input.length;
-
   return (
     <div
       className={classNames({
         [styles.trialInput]: true,
-        [styles.focused]: isFocused && !isError,
-        [styles.error]: isFocused && isError
+        [styles.focused]: isFocused,
+        [styles.error]: hasErrors
       })}
     >
       {input}
@@ -41,7 +38,7 @@ const TrialInput = ({
         </div>
       ) : null}
       {suggestion != null ? (
-        <span style={{ color: "grey" }}>
+        <span className={styles.suggestion}>
           {input === "" ? suggestion : suggestion.slice(extractWord(input))}
         </span>
       ) : null}
@@ -53,8 +50,12 @@ TrialInput.propTypes = {
   input: PropTypes.string.isRequired,
   isFocused: PropTypes.bool.isRequired,
   shouldCaretBlink: PropTypes.bool.isRequired,
-  text: PropTypes.string.isRequired,
-  suggestion: PropTypes.string.isRequired
+  hasErrors: PropTypes.bool.isRequired,
+  suggestion: PropTypes.string
+};
+
+TrialInput.defaultProps = {
+  suggestion: null
 };
 
 export default TrialInput;

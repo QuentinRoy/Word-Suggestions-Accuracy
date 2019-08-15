@@ -8,7 +8,7 @@
   box-sizing: border-box;
   margin: 10px 0px;
   background-color: #dbf2ff;
-  color: #004166;
+  color: #002438;
 }
 .trialInput.focused {
   border-color: #87a6fa;
@@ -17,6 +17,7 @@
 .trialInput.error {
   border-color: #f06f6f;
   background-color: #ffdede;
+  color: #240000;
 }
 
 .caretWrapper {
@@ -30,8 +31,13 @@
   position: absolute;
   top: -1.1em;
   height: 1.4em;
-  width: 1px;
-  background-color: black;
+  margin-left: -1px;
+  width: 2px;
+  background-color: #002438;
+}
+
+.trialInput.error .caret {
+  background-color: #240000;
 }
 
 .caret.blinking {
@@ -43,4 +49,17 @@
   to {
     visibility: hidden;
   }
+}
+
+.suggestion {
+  visibility: hidden;
+  color: #6d86cc;
+}
+
+.trialInput.focused .suggestion {
+  visibility: visible;
+}
+
+.trialInput.error .suggestion {
+  color: #f06f6f;
 }

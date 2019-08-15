@@ -1,10 +1,10 @@
 import { useReducer, useEffect, useRef } from "react";
 import {
   Actions,
-  FocusTargets,
   ActionStatuses,
   KeyboardLayoutNames,
-  SuggestionTypes
+  SuggestionTypes,
+  FocusTargetTypes
 } from "../../utils/constants";
 import { useDictionary } from "./useDictionary";
 import getSuggestions from "../getSuggestions";
@@ -13,6 +13,7 @@ import useActionScheduler from "./useActionScheduler";
 import defaultGetEventLog from "../getEventLog";
 import { trimEnd } from "../../utils/strings";
 import defaultGetTrialLog from "../getTrialLog";
+import { mod } from "../../utils/math";
 
 // **********
 //  REDUCERS
@@ -63,22 +64,43 @@ export const keyboardLayoutReducer = (state, action) => {
   }
 };
 
-const focusTargets = Object.values(FocusTargets);
+const inputFocusTarget = Object.freeze({ type: FocusTargetTypes.input });
 export const subFocusReducer = (state, action) => {
   switch (action.type) {
-    case Actions.moveFocusTarget: {
-      let focusIndex =
-        (focusTargets.indexOf(state.focusTarget) + action.direction) %
-        focusTargets.length;
-      if (focusIndex < 0) focusIndex = focusTargets.length + focusIndex;
-      return { ...state, focusTarget: focusTargets[focusIndex] };
-    }
+    case Actions.moveFocusTarget:
+      if (
+        state.focusTarget != null &&
+        (state.focusTarget.type === FocusTargetTypes.input ||
+          state.focusTarget.type === FocusTargetTypes.suggestion)
+      ) {
+        const currentFocusTargetIndex =
+          state.focusTarget.type === FocusTargetTypes.input
+            ? state.totalSuggestionTargets
+            : state.focusTarget.suggestionNumber;
+        const newFocusTargetIndex = mod(
+          currentFocusTargetIndex + action.direction,
+          state.totalSuggestionTargets + 1
+        );
+        const newFocusTarget =
+          newFocusTargetIndex < state.totalSuggestionTargets
+            ? {
+                type: FocusTargetTypes.suggestion,
+                suggestionNumber: newFocusTargetIndex
+              }
+            : inputFocusTarget;
+        return { ...state, focusTarget: newFocusTarget };
+      }
+      return state;
+
     case Actions.inputSuggestion:
-      return { ...state, focusTarget: FocusTargets.input };
+      return { ...state, focusTarget: inputFocusTarget };
+
     case Actions.windowBlurred:
       return { ...state, focusTarget: null };
+
     case Actions.windowFocused:
-      return { ...state, focusTarget: FocusTargets.input };
+      return { ...state, focusTarget: inputFocusTarget };
+
     default:
       return state;
   }
@@ -157,7 +179,9 @@ const useTrial = ({
     events: [],
     layoutName: KeyboardLayoutNames.default,
     input: "",
-    focusTarget: FocusTargets.input,
+    focusTarget: inputFocusTarget,
+    totalSuggestionTargets:
+      suggestionsType === SuggestionTypes.bar ? totalSuggestions : 0,
     suggestions: getSuggestionsFromInput("")
   });
 
@@ -215,6 +239,7 @@ const useTrial = ({
   // Some useful variables.
   const text = sksDistribution.map(w => w.word).join(" ");
   const isCompleted = text === trimEnd(input);
+  const hasErrors = !isCompleted && !text.startsWith(input);
 
   // Record the start date of the trial.
   const { current: startTime } = useRef(new Date());
@@ -265,7 +290,8 @@ const useTrial = ({
     focusTarget,
     suggestions,
     isCompleted,
-    input
+    input,
+    hasErrors
   };
 };
 

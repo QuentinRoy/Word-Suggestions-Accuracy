@@ -75,7 +75,8 @@ const TrialPresenter = ({
   isCompleted,
   totalSuggestions,
   mainSuggestionPosition,
-  suggestionsType
+  suggestionsType,
+  hasErrors
 }) => {
   // Using a reference for the pressed keys since we don't care about
   // re-rendering when it changes.
@@ -204,9 +205,10 @@ const TrialPresenter = ({
 
   return (
     <div role="textbox" className={styles.trial}>
-      <Banner text={text} input={input} isCorrect={isCompleted} />
+      <Banner text={text} input={input} isCompleted={isCompleted} />
       <div className={styles.content}>
         <TrialInput
+          hasErrors={hasErrors}
           input={input}
           isFocused={
             focusTarget != null && focusTarget.type === FocusTargetTypes.input
@@ -274,7 +276,8 @@ TrialPresenter.propTypes = {
   isSystemKeyboardEnabled: PropTypes.bool,
   isCompleted: PropTypes.bool.isRequired,
   totalSuggestions: PropTypes.number.isRequired,
-  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
+  hasErrors: PropTypes.bool.isRequired
 };
 
 TrialPresenter.defaultProps = {

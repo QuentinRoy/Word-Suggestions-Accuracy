@@ -236,6 +236,7 @@ const useTrial = ({
   // Some useful variables.
   const text = sksDistribution.map(w => w.word).join(" ");
   const isCompleted = text === trimEnd(input);
+  const hasErrors = !isCompleted && !text.startsWith(input);
 
   // Record the start date of the trial.
   const { current: startTime } = useRef(new Date());
@@ -286,7 +287,8 @@ const useTrial = ({
     focusTarget,
     suggestions,
     isCompleted,
-    input
+    input,
+    hasErrors
   };
 };
 

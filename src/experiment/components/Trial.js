@@ -24,7 +24,8 @@ const Trial = ({
     text,
     input,
     keyboardLayoutName,
-    isCompleted
+    isCompleted,
+    hasErrors
   } = useTrial({
     totalSuggestions,
     suggestionsType,
@@ -49,6 +50,7 @@ const Trial = ({
       isCompleted={isCompleted}
       totalSuggestions={totalSuggestions}
       suggestionsType={suggestionsType}
+      hasErrors={hasErrors}
     />
   );
 };

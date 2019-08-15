@@ -1,24 +1,36 @@
 import React, { memo } from "react";
+import RadioGroup from "@material-ui/core/RadioGroup";
 import PropTypes from "prop-types";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
 import styles from "./styles/MultipleChoiceQuestion.module.css";
-import MultipleChoiceAnswer from "./MultipleChoiceAnswer";
 
 const MultipleChoiceQuestion = memo(
   ({ answers, text, id, onAnswerChange, answer }) => {
     return (
-      <div className={styles.questionWrapper}>
-        <h3>{text}</h3>
-        {answers.map(answerText => (
-          <MultipleChoiceAnswer
-            label={answerText}
+      <div className={styles.main}>
+        <FormControl component="fieldset">
+          <FormLabel component="h3" className={styles.title}>
+            {text}
+          </FormLabel>
+          <RadioGroup
+            aria-label={text}
             name={id}
-            key={answerText}
-            checked={answerText === answer}
-            onChange={isChecked => {
-              if (isChecked) onAnswerChange(answerText);
-            }}
-          />
-        ))}
+            value={answer}
+            onChange={evt => onAnswerChange(evt.target.value)}
+          >
+            {answers.map(answerText => (
+              <FormControlLabel
+                key={answerText}
+                value={answerText}
+                control={<Radio color="primary" />}
+                label={answerText}
+              />
+            ))}
+          </RadioGroup>
+        </FormControl>
       </div>
     );
   }

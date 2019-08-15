@@ -144,7 +144,7 @@ const TrialPresenter = ({
         }
         break;
       case "Enter":
-        if (focusTarget.type === FocusTargetTypes.input) {
+        if (focusTarget.type === FocusTargetTypes.input && isDown) {
           dispatch({ type: Actions.submit, status });
         } else if (
           focusTarget != null &&

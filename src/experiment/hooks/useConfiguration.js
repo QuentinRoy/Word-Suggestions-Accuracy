@@ -13,6 +13,7 @@ const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
 const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
 
 const uuid = short.uuid();
+const totalSuggestions = 3;
 
 const onInlineSuggestion = true;
 
@@ -150,6 +151,7 @@ const useConfiguration = () => {
         gitSha: process.env.REACT_APP_GIT_SHA,
         version: process.env.REACT_APP_VERSION,
         participantUuid: uuid,
+        totalSuggestions,
         suggestionsType
       };
     }

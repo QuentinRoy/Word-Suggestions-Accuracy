@@ -5,7 +5,6 @@ import {
   KeyboardLayoutNames,
   ActionStatuses,
   FocusTargetTypes,
-  FocusTargets,
   SuggestionTypes
 } from "../../utils/constants";
 import VirtualKeyboard from "../VirtualKeyboard";
@@ -144,7 +143,7 @@ const TrialPresenter = ({
         }
         break;
       case "Enter":
-        if (focusTarget === FocusTargets.input) {
+        if (focusTarget.type === FocusTargetTypes.input) {
           dispatch({ type: Actions.submit, status });
         } else if (
           focusTarget != null &&
@@ -159,13 +158,13 @@ const TrialPresenter = ({
         }
         break;
       case "Backspace":
-        if (focusTarget === FocusTargets.input) {
+        if (focusTarget.type === FocusTargetTypes.input) {
           dispatch({ type: Actions.deleteChar, status });
         }
         break;
       default:
         // Case the key is a character.
-        if (key.length === 1 && focusTarget === FocusTargets.input) {
+        if (key.length === 1 && focusTarget.type === FocusTargetTypes.input) {
           dispatch({
             id: `input-${key}`,
             type: Actions.inputChar,

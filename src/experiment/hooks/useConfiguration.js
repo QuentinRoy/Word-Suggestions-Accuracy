@@ -163,7 +163,8 @@ const useConfiguration = () => {
         totalSuggestions,
         suggestionsType,
         numberOfPracticeTasks,
-        numberOfTypingTasks
+        numberOfTypingTasks,
+        href: window.location.href
       };
     }
     return null;

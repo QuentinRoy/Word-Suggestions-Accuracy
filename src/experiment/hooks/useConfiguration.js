@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import short from "short-uuid";
+import omit from "lodash/omit";
 import useCorpusFromJson from "./useCorpusFromJson";
 import {
   LoadingStates,
@@ -148,10 +149,12 @@ const useConfiguration = () => {
     if (loadingState === LoadingStates.loaded) {
       return {
         ...otherPageArgs,
+        corpusConfig: omit(corpus, "rows"),
+        corpusSize: corpus.rows.length,
         keyStrokeDelay,
         targetAccuracy,
         participant,
-        children: generateTasks(corpus),
+        children: generateTasks(corpus.rows),
         gitSha: process.env.REACT_APP_GIT_SHA,
         version: process.env.REACT_APP_VERSION,
         confirmationCode,

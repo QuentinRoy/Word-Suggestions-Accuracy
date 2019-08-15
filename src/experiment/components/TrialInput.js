@@ -1,12 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import last from "lodash/last";
 import styles from "./styles/TrialInput.module.css";
 
-const extractWord = str => {
-  const newStr = str.split(" ");
-  return newStr[newStr.length - 1].length;
-};
+const lastWordLength = str => last(str.split(" ")).length;
 
 const TrialInput = ({
   input,
@@ -23,7 +21,7 @@ const TrialInput = ({
         [styles.error]: hasErrors
       })}
     >
-      {input}
+      <span className={styles.inputText}>{input}</span>
       {isFocused ? (
         // Having a key on the caret div make sure the animation is reset each
         // time the input changes.
@@ -39,7 +37,7 @@ const TrialInput = ({
       ) : null}
       {suggestion != null ? (
         <span className={styles.suggestion}>
-          {input === "" ? suggestion : suggestion.slice(extractWord(input))}
+          {input === "" ? suggestion : suggestion.slice(lastWordLength(input))}
         </span>
       ) : null}
     </div>

@@ -14,8 +14,6 @@ const numberOfPracticeTasks = 3;
 const numberOfTypingTasks = 20;
 const confirmationCode = short.uuid();
 
-const onInlineSuggestion = true;
-
 const PageArguments = {
   targetAccuracies: "targetAccuracies",
   workerId: "workerId",
@@ -57,8 +55,7 @@ const {
     keyStrokeDelay:
       keyStrokeDelays[Math.floor(Math.random() * keyStrokeDelays.length)],
     targetAccuracy:
-      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)],
-    onInlineSuggestion
+      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)]
   };
 })();
 

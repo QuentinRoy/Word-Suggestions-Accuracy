@@ -4,17 +4,15 @@ import useCorpusFromJson from "./useCorpusFromJson";
 import {
   LoadingStates,
   TaskTypes,
-  numberOfPracticeTasks,
-  numberOfTypingTasks,
   SuggestionTypes
 } from "../../utils/constants";
 
 const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
 const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
-
-const uuid = short.uuid();
-
-const onInlineSuggestion = true;
+const totalSuggestions = 3;
+const numberOfPracticeTasks = 3;
+const numberOfTypingTasks = 20;
+const confirmationCode = short.uuid();
 
 const PageArguments = {
   targetAccuracies: "targetAccuracies",
@@ -57,8 +55,7 @@ const {
     keyStrokeDelay:
       keyStrokeDelays[Math.floor(Math.random() * keyStrokeDelays.length)],
     targetAccuracy:
-      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)],
-    onInlineSuggestion
+      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)]
   };
 })();
 
@@ -130,7 +127,7 @@ const generateTasks = corpus => {
   tasks.push(UploadLogS3(`${tasks.length}`, false, participant));
   tasks.push({
     task: TaskTypes.endExperiment,
-    uuid,
+    confirmationCode,
     key: `${tasks.length}`
   });
 
@@ -149,8 +146,11 @@ const useConfiguration = () => {
         children: generateTasks(corpus),
         gitSha: process.env.REACT_APP_GIT_SHA,
         version: process.env.REACT_APP_VERSION,
-        participantUuid: uuid,
-        suggestionsType
+        confirmationCode,
+        totalSuggestions,
+        suggestionsType,
+        numberOfPracticeTasks,
+        numberOfTypingTasks
       };
     }
     return null;

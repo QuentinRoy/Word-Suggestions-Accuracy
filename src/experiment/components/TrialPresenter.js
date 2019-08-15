@@ -5,7 +5,6 @@ import {
   KeyboardLayoutNames,
   ActionStatuses,
   FocusTargetTypes,
-  FocusTargets,
   SuggestionTypes
 } from "../../utils/constants";
 import VirtualKeyboard from "../VirtualKeyboard";
@@ -76,7 +75,8 @@ const TrialPresenter = ({
   isCompleted,
   totalSuggestions,
   mainSuggestionPosition,
-  suggestionsType
+  suggestionsType,
+  hasErrors
 }) => {
   // Using a reference for the pressed keys since we don't care about
   // re-rendering when it changes.
@@ -144,7 +144,7 @@ const TrialPresenter = ({
         }
         break;
       case "Enter":
-        if (focusTarget === FocusTargets.input) {
+        if (focusTarget.type === FocusTargetTypes.input) {
           dispatch({ type: Actions.submit, status });
         } else if (
           focusTarget != null &&
@@ -159,13 +159,13 @@ const TrialPresenter = ({
         }
         break;
       case "Backspace":
-        if (focusTarget === FocusTargets.input) {
+        if (focusTarget.type === FocusTargetTypes.input) {
           dispatch({ type: Actions.deleteChar, status });
         }
         break;
       default:
         // Case the key is a character.
-        if (key.length === 1 && focusTarget === FocusTargets.input) {
+        if (key.length === 1 && focusTarget.type === FocusTargetTypes.input) {
           dispatch({
             id: `input-${key}`,
             type: Actions.inputChar,
@@ -205,9 +205,10 @@ const TrialPresenter = ({
 
   return (
     <div className={styles.trial}>
-      <Banner text={text} input={input} isCorrect={isCompleted} />
+      <Banner text={text} input={input} isCompleted={isCompleted} />
       <div className={styles.content}>
         <TrialInput
+          hasErrors={hasErrors}
           input={input}
           isFocused={
             focusTarget != null && focusTarget.type === FocusTargetTypes.input
@@ -275,7 +276,8 @@ TrialPresenter.propTypes = {
   isSystemKeyboardEnabled: PropTypes.bool,
   isCompleted: PropTypes.bool.isRequired,
   totalSuggestions: PropTypes.number.isRequired,
-  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
+  hasErrors: PropTypes.bool.isRequired
 };
 
 TrialPresenter.defaultProps = {

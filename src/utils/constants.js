@@ -34,18 +34,9 @@ export const ActionStatuses = Object.freeze({
   end: "END"
 });
 
-export const totalSuggestions = 3;
-
 export const FocusTargetTypes = Object.freeze({
   input: "INPUT",
   suggestion: "SUGGESTION"
-});
-
-export const FocusTargets = Object.freeze({
-  input: { isSuggestion: false, type: FocusTargetTypes.input },
-  suggestion1: { type: FocusTargetTypes.suggestion, suggestionNumber: 0 },
-  suggestion2: { type: FocusTargetTypes.suggestion, suggestionNumber: 1 },
-  suggestion3: { type: FocusTargetTypes.suggestion, suggestionNumber: 2 }
 });
 
 export const InputTypes = Object.freeze({
@@ -73,6 +64,3 @@ export const SuggestionTypes = Object.freeze({
   inline: "INLINE",
   bar: "BAR"
 });
-
-export const numberOfPracticeTasks = 3;
-export const numberOfTypingTasks = 20;

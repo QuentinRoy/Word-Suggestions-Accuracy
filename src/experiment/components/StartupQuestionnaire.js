@@ -19,7 +19,7 @@ const questions = [
       "not use word suggestions",
       "use word suggestions"
     ],
-    correctAnswer: "go as fast possible"
+    correctAnswer: "go as fast possible, while still being accurate"
   },
   {
     text: "To interact...",

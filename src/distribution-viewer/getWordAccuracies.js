@@ -1,5 +1,8 @@
 const maxSDPenalty = 10;
 const maxAccuracyPenalty = 10;
+const weightDiffWeightedAccuracy = 3;
+const weightDiffAccuracy = 1;
+const weightDiffSd = 4;
 
 const sum = list => list.reduce((r, x) => r + x);
 
@@ -14,9 +17,14 @@ const getScore = (
   result,
   { targetAccuracy, targetSd, maxDiffAccuracy, maxDiffSd }
 ) => {
+  const diffWeightedAccuracy = Math.abs(targetAccuracy - result.sdAccuracy);
   const diffAccuracy = Math.abs(targetAccuracy - result.weightedAccuracy);
   const diffSd = Math.abs(result.sdAccuracy - targetSd);
-  let score = (diffAccuracy + diffSd) / 2;
+  let score =
+    (diffAccuracy * weightDiffAccuracy +
+      diffSd * weightDiffSd +
+      diffWeightedAccuracy * weightDiffWeightedAccuracy) /
+    (weightDiffAccuracy + weightDiffWeightedAccuracy + weightDiffSd);
   if (diffAccuracy >= maxDiffAccuracy) score *= maxAccuracyPenalty;
   else if (maxDiffSd >= maxSDPenalty) score *= maxSDPenalty;
   return { score, diffAccuracy, diffSd };

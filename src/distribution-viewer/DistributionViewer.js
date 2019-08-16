@@ -23,7 +23,6 @@ const KeyCodes = {
   bottom: 40
 };
 
-const targetSd = 0.25;
 const maxDiffAccuracy = 0.025;
 const maxDiffSd = 0.1;
 const setterMinStep = 0.01;
@@ -32,7 +31,7 @@ const DistributionViewer = () => {
   const [loadingState, corpus] = useSentenceCorpus();
   const [sentenceIndex, setSentenceIndex] = useState(0);
   const [accuracy, setAccuracy] = useState(0.5);
-  const [sd, setSd] = useState(targetSd);
+  const [sd, setSd] = useState(0.2);
   const { height: pageHeight } = useWindowSize();
 
   // Look for the left and right arrow key strokes to go to the next or the
@@ -83,7 +82,7 @@ const DistributionViewer = () => {
     weightedAccuracy
   } = getWordAccuracies(corpus[sentenceIndex], {
     targetAccuracy: accuracy,
-    targetSd,
+    targetSd: sd,
     maxDiffAccuracy,
     maxDiffSd
   });
@@ -127,6 +126,10 @@ const DistributionViewer = () => {
           meanAccuracy={meanAccuracy}
           sdAccuracy={sdAccuracy}
           weightedAccuracy={weightedAccuracy}
+          maxDiffAccuracy={maxDiffAccuracy}
+          maxDiffSd={maxDiffSd}
+          targetAccuracy={accuracy}
+          targetSd={sd}
         />
       </div>
     </div>

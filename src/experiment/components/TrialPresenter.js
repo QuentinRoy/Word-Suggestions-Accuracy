@@ -260,7 +260,7 @@ const TrialPresenter = ({
           />
         ) : null}
       </div>
-      <TutorialStepsUI tutorialStep={tutorialStep} />
+      {tutorialStep != null && <TutorialStepsUI tutorialStep={tutorialStep} />}
     </div>
   );
 };

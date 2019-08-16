@@ -1,13 +1,20 @@
 .arrow {
-  width: 100%;
-  height: 100%;
   position: absolute;
 }
 
+.start {
+  height: 100%;
+}
+
+.input {
+  height: 100%;
+}
+
 .step {
-  width: 800px;
+  width: 790px;
   margin: 40px auto 20px auto;
-  border-radius: 5px;
-  border: 1px solid grey;
+  border: 1px solid #d4d4d4;
   padding-left: 10px;
+  background-color: #d4d4d4;
+  font-weight: bold;
 }

@@ -9,11 +9,11 @@ import { totalMatchedCharsFromStart } from "../../utils/strings";
 const tutorialSentence = "video camera with a zoom lens";
 
 const getTutorialStep = ({ input }) => {
-  if (input === undefined) return TutorialSteps.input;
+  if (input === undefined) return TutorialSteps.start;
   const isCorrect =
     totalMatchedCharsFromStart(tutorialSentence, input) === input.length;
 
-  if (input.length <= 2) {
+  if (input.length >= 1 && input.length <= 2) {
     return TutorialSteps.input;
   }
   if (input.length > 2 && input.length < 6 && isCorrect) {
@@ -34,7 +34,7 @@ const getTutorialStep = ({ input }) => {
   if (input.length >= 25) {
     return TutorialSteps.end;
   }
-  return TutorialSteps.input;
+  return TutorialSteps.start;
 };
 
 const Tutorial = ({
@@ -71,8 +71,18 @@ const Tutorial = ({
     sdAccuracy: 0,
     reducer: (state, action) => {
       switch (getTutorialStep(state)) {
+        case TutorialSteps.start:
+          if (
+            action.type === Actions.inputChar &&
+            action.char === tutorialSentence[state.input.length]
+          ) {
+            return {
+              ...action.changes,
+              suggestions: Array(state.suggestions.length).fill("")
+            };
+          }
+          return state;
         case TutorialSteps.input:
-          // no delay
           if (
             action.type === Actions.inputChar &&
             action.char === tutorialSentence[state.input.length]
@@ -84,7 +94,6 @@ const Tutorial = ({
           }
           return state;
         case TutorialSteps.suggestion:
-          // no delay
           if (action.type === Actions.inputSuggestion) {
             return {
               ...action.changes,
@@ -92,12 +101,10 @@ const Tutorial = ({
             };
           }
           return {
-            ...action.changes,
-            suggestions: Array(state.suggestions.length).fill("video"),
-            input: state.input
+            ...state,
+            suggestions: Array(state.suggestions.length).fill("video")
           };
         case TutorialSteps.wrongSuggestion:
-          // no delay
           if (action.type === Actions.inputSuggestion) {
             return {
               ...action.changes,
@@ -106,7 +113,6 @@ const Tutorial = ({
           }
           return state;
         case TutorialSteps.error:
-          // no delay
           if (action.type === Actions.deleteChar) {
             return {
               ...action.changes,
@@ -115,7 +121,6 @@ const Tutorial = ({
           }
           return state;
         case TutorialSteps.delay:
-          // delay on
           if (action.type === Actions.inputChar) {
             return {
               ...action.changes,
@@ -124,17 +129,14 @@ const Tutorial = ({
           }
           return { ...state, keyStrokeDelay: trialKeyStrokeDelay };
         case TutorialSteps.delaySuggestion:
-          // delay on
           if (action.type === Actions.inputSuggestion) {
             return action.changes;
           }
           return {
-            ...action.changes,
-            suggestions: Array(state.suggestions.length).fill("zoom"),
-            input: state.input
+            ...state,
+            suggestions: Array(state.suggestions.length).fill("zoom")
           };
         case TutorialSteps.end:
-          // delay on
           return action.changes;
         default:
           return state;

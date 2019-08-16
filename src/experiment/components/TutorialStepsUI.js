@@ -4,10 +4,13 @@ import { TutorialSteps } from "../../utils/constants";
 import styles from "./styles/TutorialStepsUI.module.css";
 
 const TutorialStepsUI = ({ tutorialStep }) => {
-  if (tutorialStep === TutorialSteps.input) {
+  if (tutorialStep === TutorialSteps.start) {
     return (
       <div>
-        <svg viewBox="0 0 100 100" className={styles.arrow}>
+        <svg
+          viewBox="0 0 100 100"
+          className={`${styles.arrow} ${styles.start}`}
+        >
           <image
             xlinkHref="./tutorialArrow.svg"
             x="0"
@@ -17,8 +20,30 @@ const TutorialStepsUI = ({ tutorialStep }) => {
           />
         </svg>
         <div className={styles.step}>
-          <p>This is where the text will be entered.</p>
-          <p>Type the 3 first letters.</p>
+          <p>This is the text you have to enter.</p>
+          <p>Type the first letter.</p>
+        </div>
+      </div>
+    );
+  }
+  if (tutorialStep === TutorialSteps.input) {
+    return (
+      <div>
+        <svg
+          viewBox="0 0 100 100"
+          className={`${styles.arrow} ${styles.input}`}
+        >
+          <image
+            xlinkHref="./tutorialArrow.svg"
+            x="0"
+            y="0"
+            width="100%"
+            height="100%"
+          />
+        </svg>
+        <div className={styles.step}>
+          <p>This is where your input will be entered.</p>
+          <p>Type the 2 next letters.</p>
         </div>
       </div>
     );
@@ -67,7 +92,7 @@ const TutorialStepsUI = ({ tutorialStep }) => {
           the input zone.
         </p>
         <p>
-          Enter the next word by pressing each letter until they are entered in
+          Enter the next words by pressing each letter until they are entered in
           the input zone.
         </p>
       </div>

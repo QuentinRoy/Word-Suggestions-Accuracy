@@ -61,6 +61,7 @@ export const TaskTypes = Object.freeze({
 });
 
 export const TutorialSteps = Object.freeze({
+  start: "Start",
   input: "Input",
   suggestion: " Suggestion",
   wrongSuggestion: "WrongSuggestion",

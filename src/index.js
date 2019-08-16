@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ExperimentWrapper from "./experiment/components/ExperimentWrapper";
+import DistributionViewer from "./distribution-viewer/DistributionViewer";
 import "./index.css";
 
-ReactDOM.render(<ExperimentWrapper />, document.getElementById("root"));
+ReactDOM.render(<DistributionViewer />, document.getElementById("root"));

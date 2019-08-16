@@ -21,7 +21,7 @@ const configs = (() => {
   ];
 })();
 
-const addUnusableSentences = false;
+const addUnusableSentences = true;
 
 const sentencesPath = path.join(__dirname, "../../public/sentences.txt");
 const outputDirPath = path.join(__dirname, "../../public/sks-distributions");

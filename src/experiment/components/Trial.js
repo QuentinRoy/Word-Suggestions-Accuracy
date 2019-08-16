@@ -31,7 +31,7 @@ const Trial = ({
     suggestionsType,
     onComplete: onAdvanceWorkflow,
     onLog,
-    keyStrokeDelay,
+    initKeyStrokeDelay: keyStrokeDelay,
     sksDistribution,
     id,
     targetAccuracy,

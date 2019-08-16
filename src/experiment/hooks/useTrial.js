@@ -160,7 +160,7 @@ const useTrial = ({
   onLog,
   getEventLog = defaultGetEventLog,
   getTrialLog = defaultGetTrialLog,
-  reducer: controlInversionReducer = (state, action) => action.change
+  reducer: controlInversionReducer = (state, action) => action.changes
 }) => {
   const dictionary = useDictionary();
   const getSuggestionsFromInput =

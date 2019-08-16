@@ -37,6 +37,8 @@ const suggestionScore = (suggestionFScore, suggestion, inputWord) => {
   return score / maxScore;
 };
 
+function isCloseFromTargetWord(word, targetWord) {}
+
 function computeSuggestions(
   inputWord,
   targetWordSKS,

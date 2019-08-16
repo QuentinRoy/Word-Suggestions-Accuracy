@@ -12,10 +12,12 @@ import {
 import VirtualKeyboard from "../VirtualKeyboard";
 import TrialInput from "./TrialInput";
 import styles from "./styles/TrialPresenter.module.css";
-import Banner from "./Banner";
+import SuccessBanner from "./SuccessBanner";
+import Stimulus from "./Stimulus";
 import SuggestionsBar from "./SuggestionsBar";
-import TutorialStepsUI from "./TutorialStepsUI";
+import TutorialOverlay from "./TutorialOverlay";
 import FocusAlert from "./FocusAlert";
+import useClientRect from "../hooks/useClientRect";
 
 const mapVirtualKey = key => {
   switch (key) {
@@ -209,11 +211,29 @@ const TrialPresenter = ({
     };
   });
 
+  const [stimulusTextRect, stimulusTextRef] = useClientRect();
+  const [inputRect, inputRef] = useClientRect();
+  const [inlineSuggestionRect, inlineSuggestionRef] = useClientRect();
+
   return (
     <div className={styles.trial}>
-      <Banner text={text} input={input} isCompleted={isCompleted} />
+      <div className={styles.banner}>
+        {isCompleted ? (
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          <SuccessBanner />
+        ) : (
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          <Stimulus
+            text={text}
+            input={input}
+            stimulusTextRef={tutorialStep == null ? null : stimulusTextRef}
+          />
+        )}
+      </div>
       <div className={styles.content}>
         <TrialInput
+          suggestionRef={tutorialStep == null ? null : inlineSuggestionRef}
+          ref={tutorialStep == null ? null : inputRef}
           hasErrors={hasErrors}
           input={input}
           isFocused={
@@ -266,13 +286,20 @@ const TrialPresenter = ({
           />
         ) : null}
       </div>
-      {tutorialStep != null && <TutorialStepsUI tutorialStep={tutorialStep} />}
       <FocusAlert
         isShown={isFocusAlertShown}
         onClose={() => {
           dispatch({ type: Actions.closeFocusAlert });
         }}
       />
+      {tutorialStep && (
+        <TutorialOverlay
+          tutorialStep={tutorialStep}
+          stimulusTextRect={stimulusTextRect}
+          inputRect={inputRect}
+          inlineSuggestionRect={inlineSuggestionRect}
+        />
+      )}
     </div>
   );
 };

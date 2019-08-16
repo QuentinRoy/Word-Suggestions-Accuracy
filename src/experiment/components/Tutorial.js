@@ -4,37 +4,68 @@ import { SuggestionTypes, TutorialSteps, Actions } from "../../utils/constants";
 import "react-simple-keyboard/build/css/index.css";
 import TrialPresenter from "./TrialPresenter";
 import useTrial from "../hooks/useTrial";
-import { totalMatchedCharsFromStart } from "../../utils/strings";
+import { trimEnd } from "../../utils/strings";
 
 const tutorialSentence = "video camera with a zoom lens";
 
-const getTutorialStep = ({ input }) => {
-  if (input === undefined) return TutorialSteps.start;
-  const isCorrect =
-    totalMatchedCharsFromStart(tutorialSentence, input) === input.length;
+const getTutorialStep = input => {
+  // FIXME: this comes from useTrial
+  const isCompleted = tutorialSentence === trimEnd(input);
+  const hasErrors = !isCompleted && !tutorialSentence.startsWith(input);
 
-  if (input.length >= 1 && input.length <= 2) {
+  if (input === "" || input == null) {
+    return TutorialSteps.start;
+  }
+  if ("vi".startsWith(input)) {
     return TutorialSteps.input;
   }
-  if (input.length > 2 && input.length < 6 && isCorrect) {
+  if (input === "vid") {
     return TutorialSteps.suggestion;
   }
-  if (input.length === 6) {
+  if (input === "video ") {
     return TutorialSteps.wrongSuggestion;
   }
-  if (input.length > 9 && input.length < 20 && !isCorrect) {
+  if (hasErrors && !input.startsWith("video camera with")) {
     return TutorialSteps.error;
   }
-  if (input.length >= 9 && input.length < 20) {
+  if ("video camera w".startsWith(input)) {
     return TutorialSteps.delay;
   }
-  if (input.length >= 20 && input.length < 25 && isCorrect) {
+  if (input === "video camera wi") {
     return TutorialSteps.delaySuggestion;
   }
-  if (input.length >= 25) {
-    return TutorialSteps.end;
+  if (!isCompleted) {
+    return TutorialSteps.finish;
   }
-  return TutorialSteps.start;
+  return TutorialSteps.end;
+};
+
+const isActionAllowed = (state, action) => {
+  switch (getTutorialStep(state.input)) {
+    case TutorialSteps.start:
+    case TutorialSteps.input:
+      return (
+        action.type === Actions.inputChar &&
+        action.char === tutorialSentence[state.input.length]
+      );
+    case TutorialSteps.suggestion:
+    case TutorialSteps.wrongSuggestion:
+      return action.type === Actions.inputSuggestion;
+    case TutorialSteps.error:
+      return action.type === Actions.deleteChar;
+    case TutorialSteps.delay:
+      return action.type === Actions.inputChar;
+    case TutorialSteps.delaySuggestion:
+      return action.type === Actions.inputSuggestion;
+    case TutorialSteps.finish:
+    case TutorialSteps.end:
+      return (
+        action.type !== Actions.deleteChar ||
+        action.changes.input.startsWith("video camera with")
+      );
+    default:
+      return false;
+  }
 };
 
 const Tutorial = ({
@@ -62,84 +93,39 @@ const Tutorial = ({
       { word: "camera", sks: 0 },
       { word: "with", sks: 0 },
       { word: "a", sks: 0 },
-      { word: "zoom", sks: 0 },
-      { word: "lens", sks: 0 }
+      { word: "zoom", sks: 3 },
+      { word: "lens", sks: 1 }
     ],
     id,
     targetAccuracy: 0,
     weightedAccuracy: 0,
     sdAccuracy: 0,
     reducer: (state, action) => {
-      switch (getTutorialStep(state)) {
+      const nextState = isActionAllowed(state, action) ? action.changes : state;
+
+      switch (getTutorialStep(nextState.input)) {
         case TutorialSteps.start:
-          if (
-            action.type === Actions.inputChar &&
-            action.char === tutorialSentence[state.input.length]
-          ) {
-            return {
-              ...action.changes,
-              suggestions: Array(state.suggestions.length).fill("")
-            };
-          }
-          return state;
         case TutorialSteps.input:
-          if (
-            action.type === Actions.inputChar &&
-            action.char === tutorialSentence[state.input.length]
-          ) {
-            return {
-              ...action.changes,
-              suggestions: Array(state.suggestions.length).fill("")
-            };
-          }
-          return state;
+          return { ...nextState, suggestions: [] };
         case TutorialSteps.suggestion:
-          if (action.type === Actions.inputSuggestion) {
-            return {
-              ...action.changes,
-              suggestions: Array(state.suggestions.length).fill("camping")
-            };
-          }
-          return {
-            ...state,
-            suggestions: Array(state.suggestions.length).fill("video")
-          };
+          return { ...nextState, suggestions: ["video"] };
         case TutorialSteps.wrongSuggestion:
-          if (action.type === Actions.inputSuggestion) {
-            return {
-              ...action.changes,
-              suggestions: Array(state.suggestions.length).fill("")
-            };
-          }
-          return state;
+          return { ...nextState, suggestions: ["camping"] };
         case TutorialSteps.error:
-          if (action.type === Actions.deleteChar) {
-            return {
-              ...action.changes,
-              suggestions: Array(state.suggestions.length).fill("")
-            };
-          }
-          return state;
-        case TutorialSteps.delay:
-          if (action.type === Actions.inputChar) {
-            return {
-              ...action.changes,
-              suggestions: Array(state.suggestions.length).fill("")
-            };
-          }
-          return { ...state, keyStrokeDelay: trialKeyStrokeDelay };
-        case TutorialSteps.delaySuggestion:
-          if (action.type === Actions.inputSuggestion) {
-            return action.changes;
-          }
           return {
-            ...state,
-            suggestions: Array(state.suggestions.length).fill("zoom")
+            ...nextState,
+            suggestions: nextState.input.length <= 10 ? ["campus"] : ["camping"]
           };
-        case TutorialSteps.end:
-          return action.changes;
+        case TutorialSteps.delay:
+          return {
+            ...nextState,
+            suggestions: [],
+            keyStrokeDelay: trialKeyStrokeDelay
+          };
+        case TutorialSteps.delaySuggestion:
+          return { ...nextState, suggestions: ["with"] };
         default:
-          return state;
+          return nextState;
       }
     }
   });
@@ -155,7 +141,7 @@ const Tutorial = ({
       isCompleted={isCompleted}
       suggestionsType={suggestionsType}
       hasErrors={hasErrors}
-      tutorialStep={getTutorialStep({ input })}
+      tutorialStep={getTutorialStep(input)}
       totalSuggestions={suggestions.length}
     />
   );

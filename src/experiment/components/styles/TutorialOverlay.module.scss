@@ -1,0 +1,141 @@
+.main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  --bg-color: #fac96d;
+  --bg-color-alpha: #fac96d21;
+  --margin-input: 20px;
+}
+
+.arrow {
+  position: absolute;
+}
+
+.box {
+  font-size: larger;
+  padding: 10px 20px;
+  background-color: var(--bg-color);
+  line-height: 1.5em;
+  border-radius: 20px;
+}
+
+.instruction {
+  position: absolute;
+  margin-top: var(--margin-input);
+  text-align: center;
+  font-style: italic;
+  width: 100%;
+  font-weight: bolder;
+  animation: appear 200ms linear forwards;
+  animation-delay: 600ms;
+  opacity: 0;
+
+  > .box {
+    display: inline-block;
+  }
+}
+
+.key {
+  display: inline-block;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bolder;
+  border: solid 1px black;
+  border-radius: 2px;
+  padding: 0px 4px;
+  background: #ffffff27;
+}
+
+.info {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  fill: none;
+  stroke: var(--bg-color);
+}
+
+.stepStart {
+  .circle {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 400ms linear forwards;
+    animation-delay: 1s;
+  }
+
+  .info {
+    margin: 0;
+    animation: appear 200ms linear forwards;
+    animation-delay: 1.8s;
+    opacity: 0;
+  }
+
+  .instruction {
+    opacity: 0;
+    animation: appear 200ms linear forwards;
+    animation-delay: 2.4s;
+  }
+}
+
+.stepInput {
+  .overlay {
+    position: absolute;
+    background: var(--bg-color-alpha);
+  }
+}
+
+.stepSuggestion {
+  .circle {
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: dash 800ms linear forwards;
+    animation-delay: 400ms;
+  }
+
+  .info {
+    animation: appear 200ms linear forwards;
+    animation-delay: 1000ms;
+    opacity: 0;
+  }
+
+  .instruction {
+    animation: appear 200ms linear forwards;
+    animation-delay: 1800ms;
+    opacity: 0;
+  }
+}
+
+.stepWrongSuggestion {
+  .instruction {
+    animation-delay: 400ms;
+  }
+}
+
+.stepError,
+.stepDelay,
+.stepDelaySuggestion,
+.stepFinish {
+  position: absolute;
+  width: 100%;
+  margin-top: var(--margin-input);
+
+  .instruction,
+  .info {
+    position: relative;
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+  }
+}

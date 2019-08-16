@@ -67,6 +67,7 @@ export const TutorialSteps = Object.freeze({
   error: "Error",
   delay: "Delay",
   delaySuggestion: "DelaySuggestion",
+  finish: "Finish",
   end: "End"
 });
 

@@ -78,8 +78,6 @@ const UploadLogS3 = (id, fireAndForget, participantId) => ({
 });
 
 const generateTasks = corpus => {
-  const tasks = [];
-
   let totalPickedCorpusEntry = 0;
   const pickCorpusEntries = n => {
     const slice = corpus.slice(
@@ -90,9 +88,18 @@ const generateTasks = corpus => {
     return slice;
   };
 
+  const tasks = [];
+
   tasks.push({
     task: TaskTypes.startup,
-    key: `${tasks.length}`
+    key: `startup-${tasks.length}`
+  });
+
+  tasks.push({
+    task: TaskTypes.tutorial,
+    key: `tuto-${tasks.length}`,
+    id: `tuto-${tasks.length}`,
+    isPractice: true
   });
 
   // Insert practice tasks.
@@ -101,29 +108,29 @@ const generateTasks = corpus => {
       task: TaskTypes.informationScreen,
       content: "Continue with the practice tasks",
       shortcutEnabled: true,
-      key: `${tasks.length}`
+      key: `info-${tasks.length}`
     });
     pickCorpusEntries(numberOfPracticeTasks).forEach(props => {
-      tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
+      tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
       tasks.push(TypingTask(`practice-${tasks.length}`, true, props));
     });
     tasks.push({
       task: TaskTypes.informationScreen,
       content: "Practice is over, the real experiment begins here",
-      key: `${tasks.length}`
+      key: `info-${tasks.length}`
     });
   }
 
   // Insert measured tasks.
   pickCorpusEntries(numberOfTypingTasks).forEach(props => {
-    tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
+    tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
     tasks.push(TypingTask(`trial-${tasks.length}`, true, props));
   });
 
   tasks.push({ task: TaskTypes.endQuestionnaire, key: `${tasks.length}` });
 
   pickCorpusEntries(numberOfTypingSpeedTasks).forEach(props => {
-    tasks.push(UploadLogS3(`${tasks.length}`, true, participant));
+    tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
     tasks.push(
       TypingTask(`trial-${tasks.length}`, true, {
         ...props,
@@ -133,11 +140,11 @@ const generateTasks = corpus => {
     );
   });
 
-  tasks.push(UploadLogS3(`${tasks.length}`, false, participant));
+  tasks.push(UploadLogS3(`upload-${tasks.length}`, false, participant));
   tasks.push({
     task: TaskTypes.endExperiment,
     confirmationCode,
-    key: `${tasks.length}`
+    key: `end-${tasks.length}`
   });
 
   return tasks;

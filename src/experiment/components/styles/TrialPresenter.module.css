@@ -1,7 +1,6 @@
 .trial {
   outline: none;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
 }
 
 .content {
@@ -13,4 +12,10 @@
   font-weight: bolder;
   text-align: center;
   color: green;
+}
+
+.banner {
+  height: 150px;
+  width: 100%;
+  overflow: hidden;
 }

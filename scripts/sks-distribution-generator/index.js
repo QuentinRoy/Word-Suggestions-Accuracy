@@ -1,23 +1,23 @@
 const fs = require("fs");
 const path = require("path");
 const log = require("loglevel");
-const { getWordAccuracies } = require("./wordAccuracies");
+const getWordAccuracies = require("./getWordAccuracies");
 
 log.setDefaultLevel(log.levels.INFO);
 
 const configs = (() => {
-  const targetSd = 0.25;
+  const targetSd = 0.2;
   const maxDiffAccuracy = 0.025;
   const maxDiffSd = 0.1;
   return [
-    { targetAccuracy: 0, targetSd: 0, maxDiffAccuracy, maxDiffSd },
+    { targetAccuracy: 0, targetSd, maxDiffAccuracy, maxDiffSd: targetSd },
     ...[0.25, 0.5, 0.75].map(targetAccuracy => ({
       targetAccuracy,
       targetSd,
       maxDiffAccuracy,
       maxDiffSd
     })),
-    { targetAccuracy: 1, targetSd: 0, maxDiffAccuracy, maxDiffSd }
+    { targetAccuracy: 1, targetSd, maxDiffAccuracy, maxDiffSd: targetSd }
   ];
 })();
 

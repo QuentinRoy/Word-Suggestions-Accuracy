@@ -25,13 +25,14 @@ const Trial = ({
     input,
     keyboardLayoutName,
     isCompleted,
-    hasErrors
+    hasErrors,
+    isFocusAlertShown
   } = useTrial({
     totalSuggestions,
     suggestionsType,
     onComplete: onAdvanceWorkflow,
     onLog,
-    keyStrokeDelay,
+    initKeyStrokeDelay: keyStrokeDelay,
     sksDistribution,
     id,
     targetAccuracy,
@@ -41,6 +42,7 @@ const Trial = ({
 
   return (
     <TrialPresenter
+      isFocusAlertShown={isFocusAlertShown}
       dispatch={dispatch}
       focusTarget={focusTarget}
       suggestions={suggestions}

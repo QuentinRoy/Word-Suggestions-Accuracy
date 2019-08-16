@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import SentencePlot from "./SentencePlot";
 import SentenceTable from "./SentenceTable";
 import {
   content,
   sentenceTable,
   valueTable,
-  plot
+  plot,
+  big
 } from "./ViewerContent.module.css";
 import { table } from "./ScientificTable.module.css";
 
@@ -14,7 +16,11 @@ export default function ViewerContent({
   words,
   meanAccuracy,
   sdAccuracy,
-  weightedAccuracy
+  weightedAccuracy,
+  targetAccuracy,
+  targetSd,
+  maxDiffAccuracy,
+  maxDiffSd
 }) {
   return (
     <div className={content}>
@@ -30,9 +36,30 @@ export default function ViewerContent({
               <th>Standard Deviation</th>
             </tr>
             <tr>
-              <td>{meanAccuracy.toFixed(2)}</td>
-              <td>{weightedAccuracy.toFixed(2)}</td>
-              <td>{sdAccuracy.toFixed(2)}</td>
+              <td
+                className={classNames({
+                  [big]:
+                    Math.abs(meanAccuracy - targetAccuracy) > maxDiffAccuracy
+                })}
+              >
+                {meanAccuracy.toFixed(2)}
+              </td>
+              <td
+                className={classNames({
+                  [big]:
+                    Math.abs(weightedAccuracy - targetAccuracy) >
+                    maxDiffAccuracy
+                })}
+              >
+                {weightedAccuracy.toFixed(2)}
+              </td>
+              <td
+                className={classNames({
+                  [big]: Math.abs(sdAccuracy - targetSd) > maxDiffSd
+                })}
+              >
+                {sdAccuracy.toFixed(2)}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -48,5 +75,9 @@ ViewerContent.propTypes = {
   words: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   meanAccuracy: PropTypes.number.isRequired,
   weightedAccuracy: PropTypes.number.isRequired,
-  sdAccuracy: PropTypes.number.isRequired
+  sdAccuracy: PropTypes.number.isRequired,
+  maxDiffAccuracy: PropTypes.number.isRequired,
+  maxDiffSd: PropTypes.number.isRequired,
+  targetAccuracy: PropTypes.number.isRequired,
+  targetSd: PropTypes.number.isRequired
 };

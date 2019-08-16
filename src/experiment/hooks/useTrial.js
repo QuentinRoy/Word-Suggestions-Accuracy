@@ -119,12 +119,24 @@ export const inputSuggestionReducer = (state, action) => {
   };
 };
 
+export const focusAlertReducer = (state, action) => {
+  switch (action.type) {
+    case Actions.windowBlurred:
+      return { ...state, isFocusAlertShown: true };
+    case Actions.closeFocusAlert:
+      return { ...state, isFocusAlertShown: false };
+    default:
+      return state;
+  }
+};
+
 // Creates the main reducer, by applying each reducer one after the other.
 const reducers = [
   charReducer,
   keyboardLayoutReducer,
   inputSuggestionReducer,
-  subFocusReducer
+  subFocusReducer,
+  focusAlertReducer
 ];
 const trialReducer = (state, action) =>
   reducers.reduce((newState, reducer) => reducer(newState, action), state);
@@ -160,7 +172,7 @@ const useTrial = ({
   onLog,
   getEventLog = defaultGetEventLog,
   getTrialLog = defaultGetTrialLog,
-  reducer: controlInversionReducer = (state, action) => action.change
+  reducer: controlInversionReducer = (state, action) => action.changes
 }) => {
   const dictionary = useDictionary();
   const getSuggestionsFromInput =
@@ -184,7 +196,8 @@ const useTrial = ({
     focusTarget: inputFocusTarget,
     totalSuggestionTargets:
       suggestionsType === SuggestionTypes.bar ? totalSuggestions : 0,
-    suggestions: getSuggestionsFromInput("")
+    suggestions: getSuggestionsFromInput(""),
+    isFocusAlertShown: false
   });
 
   // Returns a new state based on an action.
@@ -218,7 +231,15 @@ const useTrial = ({
 
   // Maps the state, reducer, and actions.
   const [
-    { layoutName, input, suggestions, focusTarget, events, keyStrokeDelay },
+    {
+      layoutName,
+      input,
+      suggestions,
+      focusTarget,
+      events,
+      keyStrokeDelay,
+      isFocusAlertShown
+    },
     dispatch
   ] = useReducer(reducer, null, initState);
 
@@ -295,7 +316,8 @@ const useTrial = ({
     suggestions,
     isCompleted,
     input,
-    hasErrors
+    hasErrors,
+    isFocusAlertShown
   };
 };
 

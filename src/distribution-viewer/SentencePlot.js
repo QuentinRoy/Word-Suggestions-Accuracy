@@ -46,7 +46,7 @@ const WordBar = ({ scaleY, words, x0, x1 }) => {
         className={barLabel}
         x={barWidth / 2}
         y={10}
-        alignmentBaseline="hanging"
+        dominantBaseline="hanging"
         textAnchor="middle"
         fontSize={fontSize}
       >
@@ -78,7 +78,7 @@ const Scale = () => {
           className={tickLabel}
           x={0}
           y={tickLength + 5}
-          alignmentBaseline="hanging"
+          dominantBaseline="hanging"
           textAnchor="middle"
           fontSize={fontSize}
         >

@@ -9,7 +9,6 @@ const Stimulus = ({ text, input }) => {
   return (
     <div className={styles.stimulus}>
       <div className={styles.content}>
-        <h3 className={styles.instructions}>Please type the text below:</h3>
         <p className={styles.sentence}>
           <span className={styles.correct}>
             {text.slice(0, correctCharsCount)}

@@ -42,10 +42,8 @@ export const FocusTargetTypes = Object.freeze({
 export const InputTypes = Object.freeze({
   standardInput: "standardInput",
   selectInput: "selectInput",
-  textarea: "textarea",
   radioButton: "radioButton",
-  standardButton: "button",
-  submitButton: "submitButton"
+  slider: "slider"
 });
 
 export const TaskTypes = Object.freeze({

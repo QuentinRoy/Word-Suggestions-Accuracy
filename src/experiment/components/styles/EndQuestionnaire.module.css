@@ -1,36 +1,19 @@
 .main {
-  margin: auto;
-  width: 850px;
-  height: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
 }
 
-.endForm {
-  padding-left: 20px;
+.main .button {
+  margin: 10px;
 }
 
-.warning {
-  color: red;
-  font-size: 12px;
-}
-
-.submitButton {
-  width: 100px;
-  height: 50px;
-  background-color: #6599ff;
-  margin-top: 20px;
-  font-size: 14px;
-  border-radius: 10px;
-  color: white;
-  font-weight: bold;
-  position: relative;
-  left: 75%;
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
 }
 
 .formInput {
-  display: grid;
-  padding: 10px;
-}
-
-.sublabel {
-  font-size: 12px;
+  margin-bottom: auto;
 }

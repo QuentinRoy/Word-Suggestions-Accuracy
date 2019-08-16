@@ -40,7 +40,7 @@ const getTutorialStep = ({ input }) => {
 const Tutorial = ({
   onAdvanceWorkflow,
   onLog,
-  keyStrokeDelay,
+  keyStrokeDelay: trialKeyStrokeDelay,
   id,
   suggestionsType
 }) => {
@@ -56,7 +56,7 @@ const Tutorial = ({
     suggestionsType,
     onComplete: onAdvanceWorkflow,
     onLog,
-    keyStrokeDelay,
+    initKeyStrokeDelay: 0,
     sksDistribution: [
       { word: "video", sks: 0 },
       { word: "camera", sks: 0 },
@@ -122,14 +122,11 @@ const Tutorial = ({
               suggestions: Array(state.suggestions.length).fill("")
             };
           }
-          if (action.type === Actions.deleteChar) {
-            return state;
-          }
-          return state;
+          return { ...state, keyStrokeDelay: trialKeyStrokeDelay };
         case TutorialSteps.delaySuggestion:
           // delay on
           if (action.type === Actions.inputSuggestion) {
-            return { ...action.changes };
+            return action.changes;
           }
           return {
             ...action.changes,
@@ -138,9 +135,7 @@ const Tutorial = ({
           };
         case TutorialSteps.end:
           // delay on
-          return {
-            ...action.changes
-          };
+          return action.changes;
         default:
           return state;
       }

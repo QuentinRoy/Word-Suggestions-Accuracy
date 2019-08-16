@@ -150,7 +150,7 @@ const instantActions = [
 const useTrial = ({
   suggestionsType,
   sksDistribution,
-  keyStrokeDelay,
+  initKeyStrokeDelay,
   onComplete,
   totalSuggestions,
   id,
@@ -180,6 +180,7 @@ const useTrial = ({
     events: [],
     layoutName: KeyboardLayoutNames.default,
     input: "",
+    keyStrokeDelay: initKeyStrokeDelay,
     focusTarget: inputFocusTarget,
     totalSuggestionTargets:
       suggestionsType === SuggestionTypes.bar ? totalSuggestions : 0,
@@ -217,7 +218,7 @@ const useTrial = ({
 
   // Maps the state, reducer, and actions.
   const [
-    { layoutName, input, suggestions, focusTarget, events },
+    { layoutName, input, suggestions, focusTarget, events, keyStrokeDelay },
     dispatch
   ] = useReducer(reducer, null, initState);
 
@@ -268,7 +269,6 @@ const useTrial = ({
   const dispatchWrapper = action => {
     if (action.type === Actions.submit) {
       if (!isCompleted) return;
-      actionScheduler.endAll();
       completeTrial();
     } else if (
       action.status == null ||

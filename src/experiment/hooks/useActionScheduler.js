@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Actions } from "../../utils/constants";
 
 const Job = (jobId, delay, onConfirm, onCancel, onEnd) => {
@@ -72,21 +72,33 @@ const Scheduler = () => {
 };
 
 export default function useActionScheduler(dispatch, delay) {
-  const { current: delayer } = useRef(Scheduler());
+  const delayRef = useRef(delay);
+  const ref = useRef(null);
 
-  // Start an action. Immediately dispatch the action with
-  // status = Statuses.start. After delay ms, dispatches the action again
-  // with status = Statuses.confirm.
-  const start = (jobId, action) => {
-    delayer.start(
-      jobId,
-      delay,
-      () => dispatch({ type: Actions.confirmAction, action }),
-      () => dispatch({ type: Actions.cancelAction, action }),
-      () => dispatch({ type: Actions.endAction, action })
-    );
-    dispatch({ type: Actions.scheduleAction, action });
-  };
+  if (ref.current == null) {
+    const scheduler = Scheduler();
+    // Start an action. Immediately dispatch the action with
+    // status = Statuses.start. After delay ms, dispatches the action again
+    // with status = Statuses.confirm.
+    const start = (jobId, action) => {
+      scheduler.start(
+        jobId,
+        delayRef.current,
+        () => dispatch({ type: Actions.confirmAction, action }),
+        () => dispatch({ type: Actions.cancelAction, action }),
+        () => dispatch({ type: Actions.endAction, action })
+      );
+      dispatch({ type: Actions.scheduleAction, action });
+    };
+    ref.current = { start, end: scheduler.end, endAll: scheduler.endAll };
+  }
 
-  return { start, end: delayer.end, endAll: delayer.endAll };
+  if (delayRef.current !== delay) {
+    delayRef.current = delay;
+    ref.current.endAll();
+  }
+
+  useEffect(() => () => ref.current.endAll(), []);
+
+  return ref.current;
 }

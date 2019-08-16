@@ -25,7 +25,8 @@ const Trial = ({
     input,
     keyboardLayoutName,
     isCompleted,
-    hasErrors
+    hasErrors,
+    isFocusAlertShown
   } = useTrial({
     totalSuggestions,
     suggestionsType,
@@ -41,6 +42,7 @@ const Trial = ({
 
   return (
     <TrialPresenter
+      isFocusAlertShown={isFocusAlertShown}
       dispatch={dispatch}
       focusTarget={focusTarget}
       suggestions={suggestions}

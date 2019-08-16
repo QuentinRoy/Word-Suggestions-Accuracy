@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+
 import {
   Actions,
   KeyboardLayoutNames,
@@ -14,6 +15,7 @@ import styles from "./styles/TrialPresenter.module.css";
 import Banner from "./Banner";
 import SuggestionsBar from "./SuggestionsBar";
 import TutorialStepsUI from "./TutorialStepsUI";
+import FocusAlert from "./FocusAlert";
 
 const mapVirtualKey = key => {
   switch (key) {
@@ -66,6 +68,7 @@ export const arrangeSuggestions = (suggestions, mainPosition) => {
 };
 
 const TrialPresenter = ({
+  isFocusAlertShown,
   dispatch,
   focusTarget,
   suggestions,
@@ -214,7 +217,9 @@ const TrialPresenter = ({
           hasErrors={hasErrors}
           input={input}
           isFocused={
-            focusTarget != null && focusTarget.type === FocusTargetTypes.input
+            focusTarget != null &&
+            !isFocusAlertShown &&
+            focusTarget.type === FocusTargetTypes.input
           }
           text={text}
           shouldCaretBlink={isNoKeyPressed}
@@ -229,6 +234,7 @@ const TrialPresenter = ({
             totalSuggestions={totalSuggestions}
             focusedSuggestion={
               focusTarget != null &&
+              !isFocusAlertShown &&
               focusTarget.type === FocusTargetTypes.suggestion
                 ? focusTarget.suggestionNumber
                 : null
@@ -261,6 +267,12 @@ const TrialPresenter = ({
         ) : null}
       </div>
       {tutorialStep != null && <TutorialStepsUI tutorialStep={tutorialStep} />}
+      <FocusAlert
+        isShown={isFocusAlertShown}
+        onClose={() => {
+          dispatch({ type: Actions.closeFocusAlert });
+        }}
+      />
     </div>
   );
 };
@@ -282,7 +294,8 @@ TrialPresenter.propTypes = {
   totalSuggestions: PropTypes.number.isRequired,
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
   hasErrors: PropTypes.bool.isRequired,
-  tutorialStep: PropTypes.oneOf(Object.values(TutorialSteps))
+  tutorialStep: PropTypes.oneOf(Object.values(TutorialSteps)),
+  isFocusAlertShown: PropTypes.bool
 };
 
 TrialPresenter.defaultProps = {
@@ -291,7 +304,8 @@ TrialPresenter.defaultProps = {
   keyboardLayoutName: null,
   isVirtualKeyboardEnabled: false,
   isSystemKeyboardEnabled: true,
-  tutorialStep: null
+  tutorialStep: null,
+  isFocusAlertShown: false
 };
 
 export default TrialPresenter;

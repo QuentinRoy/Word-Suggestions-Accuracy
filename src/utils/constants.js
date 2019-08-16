@@ -20,6 +20,7 @@ export const Actions = Object.freeze({
   moveFocusTarget: "MOVE_FOCUS_TARGET",
   windowBlurred: "WINDOW_BLURRED",
   windowFocused: "WINDOW_FOCUSED",
+  closeFocusAlert: "CLOSE_FOCUS_ALERT",
   submit: "SUBMIT",
 
   // Scheduled action

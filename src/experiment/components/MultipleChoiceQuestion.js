@@ -18,7 +18,7 @@ const MultipleChoiceQuestion = memo(
           <RadioGroup
             aria-label={text}
             name={id}
-            value={answer}
+            value={answer == null ? "" : answer}
             onChange={evt => onAnswerChange(evt.target.value)}
           >
             {answers.map(answerText => (

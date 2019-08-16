@@ -41,7 +41,10 @@ export default function ExperimentWrapper() {
   }
   if (loadingState === LoadingStates.loaded) {
     return (
-      <DictionaryProvider>
+      <DictionaryProvider
+        loadingMessage="Loading experiment's data..."
+        crashedMessage="Failed to load the experiment's data..."
+      >
         <Experiment configuration={configuration} />
       </DictionaryProvider>
     );

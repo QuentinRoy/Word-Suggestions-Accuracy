@@ -14,7 +14,7 @@ export const useDictionary = () => {
   return dictionary;
 };
 
-const DictionaryProvider = ({ children }) => {
+const DictionaryProvider = ({ children, loadingMessage, crashedMessage }) => {
   const [dictionary, setDictionary] = useState(null);
   const [loadingState, setLoadingState] = useState(LoadingStates.loading);
 
@@ -49,14 +49,21 @@ const DictionaryProvider = ({ children }) => {
         </DictionaryContext.Provider>
       );
     case LoadingStates.loading:
-      return <Loading>Loading dictionary...</Loading>;
+      return <Loading>{loadingMessage}</Loading>;
     default:
-      return <Crashed>Failed to load the dictionary...</Crashed>;
+      return <Crashed>{crashedMessage}</Crashed>;
   }
 };
 
 DictionaryProvider.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  loadingMessage: PropTypes.node,
+  crashedMessage: PropTypes.node
+};
+
+DictionaryProvider.defaultProps = {
+  loadingMessage: "Loading dictionary...",
+  crashedMessage: "Failed to load the dictionary..."
 };
 
 export default DictionaryProvider;

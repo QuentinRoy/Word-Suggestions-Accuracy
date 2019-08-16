@@ -27,15 +27,30 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
     <p>
       If you release the key before this delay is passed, nothing will happen.
     </p>,
-    <p>
-      After a short tutorial, you will train on{" "}
-      <strong>{numberOfPracticeTasks} practice trials</strong>, before moving to
-      the actual experiment.
-    </p>,
+    <>
+      <br />
+      <p>
+        After a short tutorial, you will train on{" "}
+        <strong>{numberOfPracticeTasks} practice trials</strong>, before moving
+        to the actual experiment.
+      </p>
+    </>,
     <p>
       At the end of the experiment, we will ask you to answer a few questions,
-      then measure your &ldquo;natural&rdquo; typing speed.
-    </p>
+      then we will measure your &ldquo;natural&rdquo; typing speed.
+    </p>,
+    <>
+      <br />
+      <p>
+        During the experiment is started it is very important that you{" "}
+        <strong>remain focused</strong>.
+      </p>
+    </>,
+    <p>In particular, time is measured during typing tasks. </p>,
+    <p>
+      <strong>Please do not stop typing during typing tasks.</strong>
+    </p>,
+    <p>You may rest on information screens.</p>
   ].map(
     // These will be an array of element provided as children. As a result they
     // need a key.

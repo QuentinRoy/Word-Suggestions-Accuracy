@@ -1,15 +1,30 @@
 const fs = require("fs");
 const path = require("path");
+const log = require("loglevel");
 const { getWordAccuracies } = require("./wordAccuracies");
 
-const targetAccuracies = [0, 0.25, 0.5, 0.75, 1];
-const targetSd = 0;
-const maxSd = 0.1;
-const maxDiffAccuracy = 0.025;
+log.setDefaultLevel(log.levels.INFO);
+
+const configs = (() => {
+  const targetSd = 0.25;
+  const maxDiffAccuracy = 0.025;
+  const maxDiffSd = 0.1;
+  return [
+    { targetAccuracy: 0, targetSd: 0, maxDiffAccuracy, maxDiffSd },
+    ...[0.25, 0.5, 0.75].map(targetAccuracy => ({
+      targetAccuracy,
+      targetSd,
+      maxDiffAccuracy,
+      maxDiffSd
+    })),
+    { targetAccuracy: 1, targetSd: 0, maxDiffAccuracy, maxDiffSd }
+  ];
+})();
+
 const addUnusableSentences = false;
 
-const sentencesPath = path.join(__dirname, "../public/sentences.txt");
-const outputDirPath = path.join(__dirname, "../public/sks-distributions");
+const sentencesPath = path.join(__dirname, "../../public/sentences.txt");
+const outputDirPath = path.join(__dirname, "../../public/sks-distributions");
 const targetFilePrefix = "acc-";
 
 const getTargetFileName = accuracy =>
@@ -25,28 +40,25 @@ const sentences = file
   .map(s => s.trim())
   .filter(s => s !== "");
 
-console.log(`${sentences.length} sentences found in ${sentencesPath}.`);
+log.info(`${sentences.length} sentences found in ${sentencesPath}.`);
 
 if (!fs.existsSync(outputDirPath)) {
   fs.mkdirSync(outputDirPath);
 }
 
-for (let aIdx = 0; aIdx < targetAccuracies.length; aIdx += 1) {
-  console.log(
-    `Creating saved key strokes distributions for accuracy ${targetAccuracies[aIdx]}...`
+configs.forEach(config => {
+  log.info(
+    `Creating saved key strokes distributions for accuracy ${config.targetAccuracy} (targetSd: ${config.targetSd}, maxDiffAccuracy: ${config.maxDiffAccuracy}, maxDiffSd: ${config.maxDiffSd})`
   );
   const rows = [];
 
   let totalUsableSentences = 0;
 
   for (let sIdx = 0; sIdx < sentences.length; sIdx += 1) {
-    const accuracyDistribution = getWordAccuracies(
-      sentences[sIdx],
-      targetAccuracies[aIdx],
-      targetSd,
-      maxSd
-    );
-    const usable = accuracyDistribution.diffAccuracy <= maxDiffAccuracy;
+    const accuracyDistribution = getWordAccuracies(sentences[sIdx], config);
+    const usable =
+      accuracyDistribution.diffAccuracy <= config.maxDiffAccuracy &&
+      accuracyDistribution.diffSd <= config.maxDiffSd;
     if (usable || addUnusableSentences) {
       totalUsableSentences += 1;
       rows.push({
@@ -61,13 +73,13 @@ for (let aIdx = 0; aIdx < targetAccuracies.length; aIdx += 1) {
     }
   }
 
-  const jsonFile = JSON.stringify(rows);
+  const jsonFile = JSON.stringify({ ...config, rows });
   const targetFile = path.join(
     outputDirPath,
-    getTargetFileName(targetAccuracies[aIdx])
+    getTargetFileName(config.targetAccuracy)
   );
   fs.writeFileSync(targetFile, jsonFile, "utf8");
-  console.log(
+  log.info(
     `${totalUsableSentences} usable sentences written in ${targetFile}!`
   );
-}
+});

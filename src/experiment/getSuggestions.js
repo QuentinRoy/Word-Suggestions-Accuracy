@@ -37,7 +37,12 @@ const suggestionScore = (suggestionFScore, suggestion, inputWord) => {
   return score / maxScore;
 };
 
-function isCloseFromTargetWord(word, targetWord) {}
+function isCloseFromTargetWord(word, targetWord) {
+  return (
+    targetWord.startsWith(word.slice(0, -2)) ||
+    word.startsWith(targetWord.slice(0, -2))
+  );
+}
 
 function computeSuggestions(
   inputWord,
@@ -81,7 +86,8 @@ function computeSuggestions(
     const { word, f: frequencyScore } = dictionary[i];
     const lowercaseWord = word.toLowerCase();
     if (
-      (lowerCaseTargetWord == null || lowercaseWord !== lowerCaseTargetWord) &&
+      (lowerCaseTargetWord == null ||
+        !isCloseFromTargetWord(lowercaseWord, lowerCaseTargetWord)) &&
       (canReplaceLetters || lowercaseWord.startsWith(lowerCaseInputWord))
     ) {
       const score = suggestionScore(

@@ -116,7 +116,8 @@ const generateTasks = corpus => {
     });
     tasks.push({
       task: TaskTypes.informationScreen,
-      content: "Practice is over, the real experiment begins here",
+      content:
+        "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
       key: `info-${tasks.length}`
     });
   }

@@ -90,17 +90,11 @@ const generateTasks = corpus => {
 
   const tasks = [];
 
-  tasks.push({
-    task: TaskTypes.consentForm,
-    key: `consent-${tasks.length}`
-  });
+  tasks.push({ task: TaskTypes.consentForm, key: `consent-${tasks.length}` });
 
   tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
 
-  tasks.push({
-    task: TaskTypes.startup,
-    key: `startup-${tasks.length}`
-  });
+  tasks.push({ task: TaskTypes.startup, key: `startup-${tasks.length}` });
 
   tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
 

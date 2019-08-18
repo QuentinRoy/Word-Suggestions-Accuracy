@@ -111,11 +111,15 @@ const Tutorial = ({
           return { ...nextState, suggestions: ["video"] };
         case TutorialSteps.wrongSuggestion:
           return { ...nextState, suggestions: ["camping"] };
-        case TutorialSteps.error:
-          return {
-            ...nextState,
-            suggestions: nextState.input.length <= 10 ? ["campus"] : ["camping"]
-          };
+        case TutorialSteps.error: {
+          let stateSuggestions = ["are"];
+          if (nextState.input.length <= 10) {
+            stateSuggestions = ["campus"];
+          } else if (!nextState.input.endsWith(" ")) {
+            stateSuggestions = ["camping"];
+          }
+          return { ...nextState, suggestions: stateSuggestions };
+        }
         case TutorialSteps.delay:
           return {
             ...nextState,

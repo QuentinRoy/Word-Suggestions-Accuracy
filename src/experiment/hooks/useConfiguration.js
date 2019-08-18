@@ -90,10 +90,14 @@ const generateTasks = corpus => {
 
   const tasks = [];
 
+  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+
   tasks.push({
     task: TaskTypes.startup,
     key: `startup-${tasks.length}`
   });
+
+  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
 
   tasks.push({
     task: TaskTypes.tutorial,
@@ -101,6 +105,8 @@ const generateTasks = corpus => {
     id: `tuto-${tasks.length}`,
     isPractice: true
   });
+
+  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
 
   // Insert practice tasks.
   if (numberOfPracticeTasks > 0) {

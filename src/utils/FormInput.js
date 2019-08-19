@@ -1,5 +1,5 @@
-import React from "react";
-import Proptypes from "prop-types";
+import React, { memo } from "react";
+import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -9,144 +9,175 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import Checkbox from "@material-ui/core/Checkbox";
-import Slider from "@material-ui/core/Slider";
-import { InputTypes } from "./constants";
+import { makeStyles } from "@material-ui/core";
+import { InputTypes, Directions } from "./constants";
 import styles from "./FormInput.module.css";
+import NasaTlxInput from "./NasaTlxInput";
 
-const FormInput = ({
-  inputType,
-  name,
-  answers,
-  handleChange,
-  handleChangeCheck,
-  handleChangeSlider,
-  values,
-  isAnswerRequired,
-  questionRef,
-  text,
-  marks
-}) => {
-  switch (inputType) {
-    case InputTypes.slider:
-      return (
-        <div>
-          <FormLabel component="h3" className={styles.title}>
-            {text}
-          </FormLabel>
-          <Slider
-            defaultValue={50}
-            aria-labelledby="discrete-slider"
-            valueLabelDisplay="auto"
-            step={5}
-            marks={marks}
-            min={5}
-            max={100}
-            onChange={handleChangeSlider(questionRef)}
+const useStyles = makeStyles(theme => ({
+  choiceLabel: { ...theme.typography.body2, textAlign: "center" }
+}));
+
+const FormInput = memo(
+  ({
+    inputType,
+    id,
+    answers,
+    onChange,
+    value,
+    isAnswerRequired,
+    text,
+    description,
+    direction,
+    lowLabel,
+    highLabel
+  }) => {
+    const { choiceLabel } = useStyles();
+    switch (inputType) {
+      case InputTypes.nasaTlx:
+        return (
+          <NasaTlxInput
+            name={id}
+            title={isAnswerRequired ? `${text}*` : text}
+            description={description}
+            value={value}
+            onChange={(event, newValue) => {
+              onChange(id, newValue);
+            }}
+            lowLabel={lowLabel}
+            highLabel={highLabel}
           />
-        </div>
-      );
-    case InputTypes.radioButton:
-      return (
-        <FormControl component="fieldset">
-          <FormLabel component="h3" className={styles.title}>
-            {text}
-          </FormLabel>
-          <RadioGroup
-            aria-label={text}
-            name={name}
-            onChange={handleChange(questionRef)}
-          >
-            {answers.map(answerText => (
-              <FormControlLabel
-                key={answerText}
-                value={answerText}
-                control={<Radio color="primary" />}
-                label={answerText}
-              />
-            ))}
-          </RadioGroup>
-        </FormControl>
-      );
+        );
 
-    case InputTypes.standardInput:
-      return (
-        <div>
-          <FormControl>
+      case InputTypes.choice:
+        return (
+          <FormControl
+            component="fieldset"
+            className={styles.choice}
+            required={isAnswerRequired}
+            fullWidth={direction === Directions.horizontal}
+          >
+            <FormLabel component="h3" className={styles.title}>
+              {text}
+            </FormLabel>
+            <RadioGroup
+              aria-label={text}
+              name={id}
+              onChange={(event, newValue) => {
+                onChange(id, newValue);
+              }}
+              className={styles.radioGroup}
+              row={direction === Directions.horizontal}
+            >
+              {answers.map(answerText => (
+                <FormControlLabel
+                  classes={{ label: choiceLabel }}
+                  key={answerText}
+                  value={answerText}
+                  control={<Radio color="primary" />}
+                  label={answerText}
+                  labelPlacement={
+                    direction === Directions.horizontal ? "top" : "end"
+                  }
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        );
+
+      case InputTypes.number:
+        return (
+          <FormControl
+            component="fieldset"
+            margin="normal"
+            required={isAnswerRequired}
+          >
             <FormLabel component="h3" className={styles.title}>
               {text}
             </FormLabel>
             <TextField
               id="standard-number"
-              name={name}
-              value={values[`${questionRef}`]}
+              name={id}
+              value={value}
               type="number"
-              InputLabelProps={{
-                shrink: true
+              onChange={event => {
+                onChange(id, event.target.value);
               }}
-              onChange={handleChange(questionRef)}
+              disabled={value === "Prefer not to say"}
             />
-            {!isAnswerRequired ? (
-              <label htmlFor={questionRef}>
+            {isAnswerRequired ? null : (
+              // eslint-disable-next-line jsx-a11y/label-has-associated-control
+              <label htmlFor={`${id}-prefer-not-to-say`}>
                 <Checkbox
-                  id={questionRef}
-                  onChange={handleChangeCheck(questionRef)}
-                  value="Prefer not to answer"
-                  checked={values[`${questionRef}`] === "Prefer not to answer"}
+                  id={`${id}-prefer-not-to-say`}
+                  onChange={(event, checked) => {
+                    onChange(id, checked ? "Prefer not to say" : undefined);
+                  }}
+                  color="primary"
+                  value="Prefer not to say"
+                  checked={value === "Prefer not to say"}
                   inputProps={{ "aria-label": "primary checkbox" }}
                 />
-                Prefer not to answer
+                Prefer not to say
               </label>
-            ) : null}
+            )}
           </FormControl>
-        </div>
-      );
-    case InputTypes.selectInput:
-      return (
-        <div>
-          <FormLabel component="h3" className={styles.title}>
-            {text}
-          </FormLabel>
-          <Select
-            name={name}
-            value={values[`${questionRef}`]}
-            onChange={handleChange(questionRef)}
+        );
+
+      case InputTypes.selectInput:
+        return (
+          <FormControl
+            component="fieldset"
+            margin="normal"
+            required={isAnswerRequired}
           >
-            {answers.map(option => {
-              return (
-                <MenuItem value={option} key={answers.indexOf(option)}>
+            <FormLabel component="h3" className={styles.title}>
+              {text}
+            </FormLabel>
+            <Select
+              value={value}
+              onChange={event => {
+                onChange(id, event.target.value);
+              }}
+              name={id}
+            >
+              {answers.map((option, i) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <MenuItem value={option} key={i}>
                   {option}
                 </MenuItem>
-              );
-            })}
-          </Select>
-        </div>
-      );
-    default:
-      return null;
+              ))}
+            </Select>
+          </FormControl>
+        );
+
+      default:
+        throw new Error(`Unsupported input type: ${inputType}`);
+    }
   }
-};
+);
 
 FormInput.propTypes = {
-  inputType: Proptypes.string.isRequired,
-  name: Proptypes.string.isRequired,
-  answers: Proptypes.arrayOf(Proptypes.string),
-  handleChange: Proptypes.func.isRequired,
-  handleChangeCheck: Proptypes.func.isRequired,
-  handleChangeSlider: Proptypes.func.isRequired,
-  values: Proptypes.objectOf(
-    Proptypes.oneOfType([Proptypes.string, Proptypes.number])
-  ).isRequired,
-  isAnswerRequired: Proptypes.bool.isRequired,
-  text: Proptypes.string.isRequired,
-  questionRef: Proptypes.string.isRequired,
-  marks: Proptypes.arrayOf(
-    Proptypes.shape({ value: Proptypes.number, label: Proptypes.string })
-  )
+  inputType: PropTypes.oneOf(Object.values(InputTypes)).isRequired,
+  direction: PropTypes.oneOf(Object.values(Directions)),
+  answers: PropTypes.arrayOf(PropTypes.string),
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isAnswerRequired: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  lowLabel: PropTypes.string,
+  highLabel: PropTypes.string
 };
 
 FormInput.defaultProps = {
+  value: "",
   answers: null,
-  marks: null
+  description: null,
+  direction: null,
+  lowLabel: null,
+  highLabel: null
 };
 
 export default FormInput;

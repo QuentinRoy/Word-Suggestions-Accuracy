@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import Proptypes from "prop-types";
-import { Formik } from "formik";
+import React from "react";
+import PropTypes from "prop-types";
+import { withFormik } from "formik";
 import Button from "@material-ui/core/Button";
 import styles from "./styles/EndQuestionnaire.module.css";
 import FormInput from "../../utils/FormInput";
-import { InputTypes } from "../../utils/constants";
+import { InputTypes, Directions } from "../../utils/constants";
 
-const assertionsAnswers = [
+const agreementScaleAnswers = [
   "Strongly disagree",
   "Disagree",
   "Somewhat disagree",
@@ -15,231 +15,204 @@ const assertionsAnswers = [
   "Agree",
   "Strongly agree"
 ];
-const questions = [
-  {
+
+const questions = {
+  age: {
     text: "How old are you?",
-    inputType: InputTypes.standardInput,
-    questionRef: "age",
-    isAnswerRequired: false,
-    key: 0
+    inputType: InputTypes.number,
+    isAnswerRequired: false
   },
-  {
+  gender: {
     text: "What is your gender?",
     inputType: InputTypes.selectInput,
     answers: ["Male", "Female", "Other", "Prefer not to say"],
-    questionRef: "gender",
-    isAnswerRequired: true,
-    key: 1
+    isAnswerRequired: false
   },
-  {
+  controlsSatisfactory: {
     text:
       "The controls (keyboard and word suggestions) are satisfactory for the completion of the task",
-    inputType: InputTypes.radioButton,
-    answers: assertionsAnswers,
-    isAnswerRequired: true,
-    questionRef: "controlsSatisfactory",
-    key: 2
+    inputType: InputTypes.choice,
+    answers: agreementScaleAnswers,
+    direction: Directions.horizontal,
+    isAnswerRequired: true
   },
-  {
+  suggestionsAccuracy: {
     text: "The word suggestions are accurate",
-    inputType: InputTypes.radioButton,
-    answers: assertionsAnswers,
-    isAnswerRequired: true,
-    questionRef: "suggestionsAccuracy",
-    key: 3
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true
   },
-  {
+  middleAnswer: {
     text: "Select the answer in the very middle",
-    inputType: InputTypes.radioButton,
-    answers: assertionsAnswers,
-    isAnswerRequired: true,
-    questionRef: "middleAnswer",
-    key: 4
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true
   },
-  {
+  keyboardUseEfficiency: {
     text: "The use of the keyboard is efficient in this task",
-    inputType: InputTypes.radioButton,
-    answers: assertionsAnswers,
-    isAnswerRequired: true,
-    questionRef: "keyboardUseEfficiency",
-    key: 5
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true
   },
-  {
+  suggestionsUseFrequencyDesktop: {
     text:
       "I frequently use word suggestions when typing on a laptop or desktop computer",
-    inputType: InputTypes.radioButton,
-    answers: assertionsAnswers,
-    isAnswerRequired: true,
-    questionRef: "suggestionsUseFrequencyDesktop",
-    key: 6
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true
   },
-  {
+  suggestionsUseFrequencyMobile: {
     text: "I frequently use word suggestions when typing on a mobile phone",
-    inputType: InputTypes.radioButton,
-    answers: assertionsAnswers,
-    isAnswerRequired: true,
-    questionRef: "suggestionsUseFrequencyMobile",
-    key: 7
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true
   },
-  {
+  mentalDemand: {
     text: "Mental demand",
-    inputType: InputTypes.slider,
-    answers: assertionsAnswers,
+    description: "How mentally demanding was the task?",
+    inputType: InputTypes.nasaTlx,
+    answers: agreementScaleAnswers,
     isAnswerRequired: true,
-    questionRef: "mentalDemand",
-    marks: [
-      { value: 5, label: "Very low" },
-      { value: 100, label: "Very high" }
-    ],
-    key: 8
+    lowLabel: "Very low",
+    highLabel: "Very high"
   },
-  {
+  physicalDemand: {
     text: "Physical demand",
-    inputType: InputTypes.slider,
-    answers: assertionsAnswers,
+    description: "How physically demanding was the task?",
+    inputType: InputTypes.nasaTlx,
+    answers: agreementScaleAnswers,
     isAnswerRequired: true,
-    questionRef: "physicalDemand",
-    marks: [
-      { value: 5, label: "Very low" },
-      { value: 100, label: "Very high" }
-    ],
-    key: 9
+    lowLabel: "Very low",
+    highLabel: "Very high"
   },
-  {
+  temporalDemand: {
     text: "Temporal Demand",
-    inputType: InputTypes.slider,
-    answers: assertionsAnswers,
+    description: "How hurried or rushed was the pace of the task?",
+    inputType: InputTypes.nasaTlx,
+    answers: agreementScaleAnswers,
     isAnswerRequired: true,
-    questionRef: "temporalDemand",
-    marks: [
-      { value: 5, label: "Very low" },
-      { value: 100, label: "Very high" }
-    ],
-    key: 10
+    lowLabel: "Very low",
+    highLabel: "Very high"
   },
-  {
+  performance: {
     text: "Performance",
-    inputType: InputTypes.slider,
-    answers: assertionsAnswers,
+    description:
+      "How successful were you in accomplishing what you were asked to do?",
+    inputType: InputTypes.nasaTlx,
+    answers: agreementScaleAnswers,
     isAnswerRequired: true,
-    questionRef: "performance",
-    marks: [{ value: 5, label: "Perfect" }, { value: 100, label: "Failure" }],
-    key: 11
+    lowLabel: "Perfect",
+    highLabel: "Failure"
   },
-  {
+  effort: {
     text: "Effort",
-    inputType: InputTypes.slider,
-    answers: assertionsAnswers,
+    description:
+      "How hard did you have to work to accomplish your level of performance?",
+    inputType: InputTypes.nasaTlx,
+    answers: agreementScaleAnswers,
     isAnswerRequired: true,
-    questionRef: "effort",
-    marks: [
-      { value: 5, label: "Very low" },
-      { value: 100, label: "Very high" }
-    ],
-    key: 12
+    lowLabel: "Very low",
+    highLabel: "Very high"
   },
-  {
+  frustration: {
     text: "Frustration",
-    inputType: InputTypes.slider,
-    answers: assertionsAnswers,
+    description:
+      "How insecure, discouraged, irritated, stressed, and annoyed were you?",
+    inputType: InputTypes.nasaTlx,
+    answers: agreementScaleAnswers,
     isAnswerRequired: true,
-    questionRef: "frustration",
-    marks: [
-      { value: 5, label: "Very low" },
-      { value: 100, label: "Very high" }
-    ],
-    key: 13
+    lowLabel: "Very low",
+    highLabel: "Very high"
   }
-];
-
-const EndQuestionnaire = ({ onAdvanceWorkflow, onLog }) => {
-  const [values, setValues] = useState({
-    age: "",
-    gender: "",
-    controlsSatisfactory: "",
-    suggestionsAccuracy: "",
-    middleAnswer: "",
-    keyboardUseEfficiency: "",
-    suggestionsUseFrequencyDesktop: "",
-    suggestionsUseFrequencyMobile: "",
-    mentalDemand: 50,
-    physicalDemand: 50,
-    temporalDemand: 50,
-    performance: 50,
-    effort: 50,
-    frustration: 50
-  });
-
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
-  };
-
-  const handleChangeCheck = name => event => {
-    if (event.target.checked) {
-      setValues({ ...values, [name]: event.target.value });
-    } else {
-      setValues({ ...values, [name]: "" });
-    }
-  };
-
-  const handleChangeSlider = name => (event, newValue) => {
-    setValues({ ...values, [name]: newValue });
-  };
-
-  return (
-    <div className={styles.main}>
-      <h3>Questionnaire</h3>
-      <Formik
-        initialValues={{ values }}
-        onSubmit={() => {
-          if (!Object.values(values).includes("")) {
-            onLog("Questionnaire", values);
-            onAdvanceWorkflow();
-          }
-        }}
-      >
-        {({ handleSubmit }) => (
-          <form onSubmit={handleSubmit} className={styles.endForm}>
-            {questions.map(question => {
-              return (
-                <FormInput
-                  className={styles.formInput}
-                  key={question.questionRef}
-                  text={question.text}
-                  values={values}
-                  inputType={question.inputType}
-                  name={`${question.key}`}
-                  answers={"answers" in question ? question.answers : null}
-                  handleChange={handleChange}
-                  handleChangeCheck={handleChangeCheck}
-                  handleChangeSlider={handleChangeSlider}
-                  isAnswerRequired={question.isAnswerRequired}
-                  questionRef={question.questionRef}
-                  marks={"marks" in question ? question.marks : null}
-                />
-              );
-            })}
-            <div className={styles.buttonWrapper}>
-              <Button
-                className={styles.button}
-                variant="contained"
-                color="primary"
-                type="submit"
-              >
-                Submit
-              </Button>
-            </div>
-          </form>
-        )}
-      </Formik>
-    </div>
-    //
-  );
 };
+
+const EndQuestionnaire = ({
+  handleSubmit,
+  values,
+  setFieldValue,
+  handleBlur,
+  errors,
+  isValid
+}) => (
+  <div className={styles.main}>
+    <h1>Questionnaire</h1>
+    <p className={styles.instructions}>Please answer the questions below.</p>
+
+    <form onSubmit={handleSubmit} className={styles.endForm}>
+      {Object.entries(questions).map(([questionId, question]) => {
+        return (
+          <div className={styles.question}>
+            <FormInput
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...question}
+              id={questionId}
+              key={questionId}
+              value={values[questionId]}
+              error={errors[questionId]}
+              onChange={setFieldValue}
+              onBlur={handleBlur}
+            />
+          </div>
+        );
+      })}
+      <div className={styles.buttonWrapper}>
+        <Button
+          disabled={!isValid}
+          className={styles.button}
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
+          Submit
+        </Button>
+      </div>
+    </form>
+  </div>
+);
 
 EndQuestionnaire.propTypes = {
-  onAdvanceWorkflow: Proptypes.func.isRequired,
-  onLog: Proptypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
+  setFieldValue: PropTypes.func.isRequired,
+  handleBlur: PropTypes.func.isRequired,
+  errors: PropTypes.objectOf(PropTypes.string).isRequired,
+  isValid: PropTypes.bool.isRequired
 };
 
-export default EndQuestionnaire;
+const EnhancedEndQuestionnaire = withFormik({
+  mapPropsToValues: () =>
+    Object.entries(questions).reduce(
+      (acc, [qId, question]) => ({
+        ...acc,
+        [qId]: question.defaultAnswer
+      }),
+      {}
+    ),
+  handleSubmit: (values, { props: { onLog, onAdvanceWorkflow } }) => {
+    onLog("log", values);
+    onAdvanceWorkflow();
+  },
+  validate: values => {
+    const errors = {};
+    Object.entries(values).forEach(([qId, value]) => {
+      if (value == null && questions[qId].isAnswerRequired) {
+        errors[qId] = "Required";
+      }
+    });
+    return errors;
+  }
+})(EndQuestionnaire);
+
+EnhancedEndQuestionnaire.propTypes = {
+  onAdvanceWorkflow: PropTypes.func.isRequired,
+  onLog: PropTypes.func.isRequired
+};
+
+export default EnhancedEndQuestionnaire;

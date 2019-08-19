@@ -5,3 +5,16 @@
   margin-bottom: 0.5rem;
   margin-top: 1.5rem;
 }
+
+.choice .radioGroup {
+  flex-wrap: nowrap;
+}
+
+.choice .radioGroup .label {
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.nasaTlxInput {
+  margin: 0 2rem;
+}

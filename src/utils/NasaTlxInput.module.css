@@ -1,0 +1,83 @@
+.main {
+  --boxesHeight: 22px;
+  --middleSepHeight: 36px;
+  --lineWidth: 2px;
+  --checkMargin: 2px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.title,
+.description {
+  margin: 0;
+}
+
+.title {
+  margin-right: 2rem;
+}
+
+.input {
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.boxes {
+  display: flex;
+}
+
+.box {
+  position: relative;
+  display: inline-block;
+  height: var(--middleSepHeight);
+  flex-grow: 1;
+  border-bottom: solid var(--lineWidth) black;
+}
+
+.sep {
+  position: relative;
+  width: var(--lineWidth);
+  height: var(--boxesHeight);
+  background: black;
+  top: calc(var(--middleSepHeight) - var(--boxesHeight));
+  border-bottom: solid var(--lineWidth) black;
+  border-radius: var(--lineWidth) var(--lineWidth) 0 0;
+}
+
+.sep.middle {
+  top: 0;
+  height: var(--middleSepHeight);
+}
+
+.check {
+  position: absolute;
+  top: var(--checkMargin);
+  left: var(--checkMargin);
+  width: calc(100% - 2 * var(--checkMargin));
+  height: calc(100% - 2 * var(--checkMargin));
+  border-radius: var(--checkMargin);
+  transition: 200ms;
+}
+
+.box:hover > .check {
+  background: #3f51b518;
+}
+
+.box.selected > .check {
+  background-color: #3f51b5;
+}
+
+.labels {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}

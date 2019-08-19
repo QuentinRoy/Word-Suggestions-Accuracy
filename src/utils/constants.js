@@ -41,10 +41,10 @@ export const FocusTargetTypes = Object.freeze({
 });
 
 export const InputTypes = Object.freeze({
-  standardInput: "standardInput",
+  number: "number",
   selectInput: "selectInput",
-  radioButton: "radioButton",
-  slider: "slider"
+  choice: "choice",
+  nasaTlx: "nasaTlx"
 });
 
 export const TaskTypes = Object.freeze({
@@ -76,4 +76,9 @@ export const SuggestionTypes = Object.freeze({
   none: "NONE",
   inline: "INLINE",
   bar: "BAR"
+});
+
+export const Directions = Object.freeze({
+  horizontal: "HORIZONTAL",
+  vertical: "VERTICAL"
 });

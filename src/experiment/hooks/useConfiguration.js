@@ -90,48 +90,48 @@ const generateTasks = corpus => {
 
   const tasks = [];
 
-  tasks.push({ task: TaskTypes.consentForm, key: `consent-${tasks.length}` });
+  // tasks.push({ task: TaskTypes.consentForm, key: `consent-${tasks.length}` });
 
-  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+  // tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
 
-  tasks.push({ task: TaskTypes.startup, key: `startup-${tasks.length}` });
+  // tasks.push({ task: TaskTypes.startup, key: `startup-${tasks.length}` });
 
-  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+  // tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
 
-  tasks.push({
-    task: TaskTypes.tutorial,
-    key: `tuto-${tasks.length}`,
-    id: `tuto-${tasks.length}`,
-    isPractice: true
-  });
+  // tasks.push({
+  //   task: TaskTypes.tutorial,
+  //   key: `tuto-${tasks.length}`,
+  //   id: `tuto-${tasks.length}`,
+  //   isPractice: true
+  // });
 
-  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+  // tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
 
-  // Insert practice tasks.
-  if (numberOfPracticeTasks > 0) {
-    tasks.push({
-      task: TaskTypes.informationScreen,
-      content: "Continue with the practice tasks",
-      shortcutEnabled: true,
-      key: `info-${tasks.length}`
-    });
-    pickCorpusEntries(numberOfPracticeTasks).forEach(props => {
-      tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
-      tasks.push(TypingTask(`practice-${tasks.length}`, true, props));
-    });
-    tasks.push({
-      task: TaskTypes.informationScreen,
-      content:
-        "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
-      key: `info-${tasks.length}`
-    });
-  }
+  // // Insert practice tasks.
+  // if (numberOfPracticeTasks > 0) {
+  //   tasks.push({
+  //     task: TaskTypes.informationScreen,
+  //     content: "Continue with the practice tasks",
+  //     shortcutEnabled: true,
+  //     key: `info-${tasks.length}`
+  //   });
+  //   pickCorpusEntries(numberOfPracticeTasks).forEach(props => {
+  //     tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+  //     tasks.push(TypingTask(`practice-${tasks.length}`, true, props));
+  //   });
+  //   tasks.push({
+  //     task: TaskTypes.informationScreen,
+  //     content:
+  //       "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
+  //     key: `info-${tasks.length}`
+  //   });
+  // }
 
-  // Insert measured tasks.
-  pickCorpusEntries(numberOfTypingTasks).forEach(props => {
-    tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
-    tasks.push(TypingTask(`trial-${tasks.length}`, true, props));
-  });
+  // // Insert measured tasks.
+  // pickCorpusEntries(numberOfTypingTasks).forEach(props => {
+  //   tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+  //   tasks.push(TypingTask(`trial-${tasks.length}`, true, props));
+  // });
 
   tasks.push({ task: TaskTypes.endQuestionnaire, key: `${tasks.length}` });
 

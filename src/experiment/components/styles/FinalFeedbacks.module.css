@@ -1,0 +1,18 @@
+.instructions {
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.input {
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}

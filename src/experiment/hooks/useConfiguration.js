@@ -156,6 +156,11 @@ const generateTasks = corpus => {
     );
   });
 
+  tasks.push({
+    task: TaskTypes.finalFeedbacks,
+    key: `feedbacks-${tasks.length}`
+  });
+
   tasks.push(UploadLogS3(`upload-${tasks.length}`, false, participant));
 
   tasks.push({

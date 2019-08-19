@@ -1,6 +1,8 @@
 import React from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll, createUpload } from "@hcikit/tasks";
+import { ThemeProvider } from "@material-ui/styles";
+import { createMuiTheme } from "@material-ui/core";
 import { isMobileOnly } from "react-device-detect";
 import TypingTask from "./TypingTask";
 import useConfiguration from "../hooks/useConfiguration";
@@ -32,7 +34,7 @@ registerTask(TaskTypes.endQuestionnaire, EndQuestionnaire);
 registerTask(TaskTypes.tutorial, Tutorial);
 registerTask(TaskTypes.consentForm, ConsentForm);
 
-export default function ExperimentWrapper() {
+function ExperimentContent() {
   const [loadingState, configuration] = useConfiguration();
   if (isMobileOnly) {
     return <Crashed>This experiment is not available on mobile device</Crashed>;
@@ -56,4 +58,20 @@ export default function ExperimentWrapper() {
   }
 
   return <Crashed>Failed to load the experiment...</Crashed>;
+}
+
+// Change Material-ui default font for their widgets. It is using a font that
+// is not included by default.
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: ['"Helvetica Neue"', "sans-serif"].join(",")
+  }
+});
+
+export default function ExperimentWrapper() {
+  return (
+    <ThemeProvider theme={theme}>
+      <ExperimentContent />
+    </ThemeProvider>
+  );
 }

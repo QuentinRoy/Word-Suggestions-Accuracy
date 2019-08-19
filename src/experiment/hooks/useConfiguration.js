@@ -61,21 +61,29 @@ const {
   };
 })();
 
-const TypingTask = (id, isPractice, { words, ...props }) => ({
-  ...props,
-  task: TaskTypes.typingTask,
-  sksDistribution: words,
-  key: id,
-  id,
-  isPractice
+const Task = (type, props) => ({
+  task: type,
+  children: [{ tasks: [TaskTypes.experimentProgress], position: "bottom" }],
+  fullProgress: false,
+  currentProgress: true,
+  ...props
 });
 
-const UploadLogS3 = (id, fireAndForget, participantId) => ({
-  task: TaskTypes.s3Upload, // "S3Upload",
-  filename: `${participantId}-${new Date().toISOString()}-log.json`,
-  key: id,
-  fireAndForget
-});
+const TypingTask = (id, isPractice, { words, ...props }) =>
+  Task(TaskTypes.typingTask, {
+    ...props,
+    sksDistribution: words,
+    key: id,
+    id,
+    isPractice
+  });
+
+const UploadLogTask = (id, fireAndForget, participantId) =>
+  Task(TaskTypes.s3Upload, {
+    filename: `${participantId}-${new Date().toISOString()}-log.json`,
+    key: id,
+    fireAndForget
+  });
 
 const generateTasks = corpus => {
   let totalPickedCorpusEntry = 0;
@@ -90,61 +98,64 @@ const generateTasks = corpus => {
 
   const tasks = [];
 
-  tasks.push({ task: TaskTypes.consentForm, key: `consent-${tasks.length}` });
+  tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
 
-  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
 
-  tasks.push({ task: TaskTypes.startup, key: `startup-${tasks.length}` });
+  tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
 
-  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
 
-  tasks.push({
-    task: TaskTypes.tutorial,
-    key: `tuto-${tasks.length}`,
-    id: `tuto-${tasks.length}`,
-    isPractice: true
-  });
+  tasks.push(
+    Task(TaskTypes.tutorial, {
+      key: `tuto-${tasks.length}`,
+      isPractice: true
+    })
+  );
 
-  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
 
   // Insert practice tasks.
   if (numberOfPracticeTasks > 0) {
-    tasks.push({
-      task: TaskTypes.informationScreen,
-      content: "Continue with the practice tasks",
-      shortcutEnabled: true,
-      key: `info-${tasks.length}`
-    });
+    tasks.push(
+      Task(TaskTypes.informationScreen, {
+        content: "Continue with the practice tasks",
+        shortcutEnabled: true,
+        key: `info-${tasks.length}`
+      })
+    );
     pickCorpusEntries(numberOfPracticeTasks).forEach(props => {
       tasks.push(TypingTask(`practice-${tasks.length}`, true, props));
     });
-    tasks.push({
-      task: TaskTypes.informationScreen,
-      content:
-        "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
-      key: `info-${tasks.length}`
-    });
+    tasks.push(
+      Task(TaskTypes.informationScreen, {
+        content:
+          "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
+        key: `info-${tasks.length}`
+      })
+    );
   }
 
-  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
 
   // Insert measured tasks.
   pickCorpusEntries(numberOfTypingTasks).forEach(props => {
     tasks.push(TypingTask(`trial-${tasks.length}`, true, props));
   });
 
-  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
 
-  tasks.push({ task: TaskTypes.endQuestionnaire, key: `${tasks.length}` });
+  tasks.push(Task(TaskTypes.endQuestionnaire, { key: `${tasks.length}` }));
 
-  tasks.push(UploadLogS3(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
 
-  tasks.push({
-    task: TaskTypes.informationScreen,
-    content: `To finish, please complete a few additional typing tasks without impairment nor suggestions.`,
-    shortcutEnabled: true,
-    key: `info-${tasks.length}`
-  });
+  tasks.push(
+    Task(TaskTypes.informationScreen, {
+      content: `To finish, please complete a few additional typing tasks without impairment nor suggestions.`,
+      shortcutEnabled: true,
+      key: `info-${tasks.length}`
+    })
+  );
 
   pickCorpusEntries(numberOfTypingSpeedTasks).forEach(props => {
     tasks.push(
@@ -156,18 +167,18 @@ const generateTasks = corpus => {
     );
   });
 
-  tasks.push({
-    task: TaskTypes.finalFeedbacks,
-    key: `feedbacks-${tasks.length}`
-  });
+  tasks.push(
+    Task(TaskTypes.finalFeedbacks, { key: `feedbacks-${tasks.length}` })
+  );
 
-  tasks.push(UploadLogS3(`upload-${tasks.length}`, false, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, false, participant));
 
-  tasks.push({
-    task: TaskTypes.endExperiment,
-    confirmationCode,
-    key: `end-${tasks.length}`
-  });
+  tasks.push(
+    Task(TaskTypes.endExperiment, {
+      confirmationCode,
+      key: `end-${tasks.length}`
+    })
+  );
 
   return tasks;
 };
@@ -180,12 +191,13 @@ const useConfiguration = () => {
     if (loadingState === LoadingStates.loaded) {
       return {
         ...otherPageArgs,
+        progressLevel: true,
+        children: generateTasks(corpus.rows),
         corpusConfig: omit(corpus, "rows"),
         corpusSize: corpus.rows.length,
         keyStrokeDelay,
         targetAccuracy,
         participant,
-        children: generateTasks(corpus.rows),
         gitSha: process.env.REACT_APP_GIT_SHA,
         version: process.env.REACT_APP_VERSION,
         confirmationCode,

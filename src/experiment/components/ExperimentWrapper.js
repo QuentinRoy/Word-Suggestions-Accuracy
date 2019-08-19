@@ -1,6 +1,6 @@
 import React from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
-import { registerAll, createUpload } from "@hcikit/tasks";
+import { registerAll, createUpload, ExperimentProgress } from "@hcikit/tasks";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 import { isMobileOnly } from "react-device-detect";
@@ -35,6 +35,7 @@ registerTask(TaskTypes.endQuestionnaire, EndQuestionnaire);
 registerTask(TaskTypes.tutorial, Tutorial);
 registerTask(TaskTypes.consentForm, ConsentForm);
 registerTask(TaskTypes.finalFeedbacks, FinalFeedbacks);
+registerTask(TaskTypes.experimentProgress, ExperimentProgress);
 
 function ExperimentContent() {
   const [loadingState, configuration] = useConfiguration();

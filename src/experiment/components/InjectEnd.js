@@ -6,6 +6,7 @@ const InjectEnd = ({ onEditConfig, onAdvanceWorkflow }) => {
     const confirmationCode = short.uuid();
     onEditConfig("confirmationCode", confirmationCode);
     onEditConfig("isExperimentCompleted", true);
+    onEditConfig("endDate", new Date());
     onAdvanceWorkflow();
   }, [onEditConfig, onAdvanceWorkflow]);
   return null;

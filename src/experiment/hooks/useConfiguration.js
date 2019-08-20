@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import omit from "lodash/omit";
 import useCorpusFromJson from "./useCorpusFromJson";
 import {
@@ -76,16 +76,14 @@ const TypingTask = (id, isPractice, { words, ...props }) =>
     isPractice
   });
 
-const logFilename = `${participant}-${new Date().toISOString()}-log.json`;
-
-const UploadLogTask = (id, fireAndForget) =>
+const UploadLogTask = (id, fireAndForget, uploadFileName) =>
   Task(TaskTypes.s3Upload, {
-    filename: logFilename,
+    filename: uploadFileName,
     key: id,
     fireAndForget
   });
 
-const generateTasks = corpus => {
+const generateTasks = (corpus, uploadFileName) => {
   let totalPickedCorpusEntry = 0;
   const pickCorpusEntries = n => {
     const slice = corpus.slice(
@@ -100,11 +98,11 @@ const generateTasks = corpus => {
 
   tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
   tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
   tasks.push(
     Task(TaskTypes.tutorial, {
@@ -113,7 +111,7 @@ const generateTasks = corpus => {
     })
   );
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
   // Insert practice tasks.
   if (numberOfPracticeTasks > 0) {
@@ -136,19 +134,18 @@ const generateTasks = corpus => {
     );
   }
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
   // Insert measured tasks.
   pickCorpusEntries(numberOfTypingTasks).forEach(props => {
     tasks.push(TypingTask(`trial-${tasks.length}`, false, props));
   });
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
   tasks.push(Task(TaskTypes.endQuestionnaire, { key: `${tasks.length}` }));
-  tasks.push(Task(TaskTypes.injectEnd, { key: `${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
   tasks.push(
     Task(TaskTypes.informationScreen, {
@@ -174,7 +171,7 @@ const generateTasks = corpus => {
 
   tasks.push(Task(TaskTypes.injectEnd, { key: `feedbacks-${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, false));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, false, uploadFileName));
 
   tasks.push(
     Task(TaskTypes.endExperiment, {
@@ -189,12 +186,16 @@ const useConfiguration = () => {
   const [loadingState, corpus] = useCorpusFromJson(targetAccuracy, {
     shuffleRows: true
   });
+  const { current: startDate } = useRef(new Date());
   const config = useMemo(() => {
     if (loadingState === LoadingStates.loaded) {
       return {
         ...otherPageArgs,
         progressLevel: true,
-        children: generateTasks(corpus.rows),
+        children: generateTasks(
+          corpus.rows,
+          `${participant}_${startDate.toISOString()}.json`
+        ),
         corpusConfig: omit(corpus, "rows"),
         corpusSize: corpus.rows.length,
         keyStrokeDelay,
@@ -208,11 +209,12 @@ const useConfiguration = () => {
         numberOfPracticeTasks,
         numberOfTypingTasks,
         href: window.location.href,
-        isExperimentCompleted: false
+        isExperimentCompleted: false,
+        startDate
       };
     }
     return null;
-  }, [loadingState, corpus]);
+  }, [loadingState, corpus, startDate]);
   return participant == null ||
     !Object.values(SuggestionTypes).includes(suggestionsType)
     ? [LoadingStates.invalidArguments, null]

@@ -17,6 +17,7 @@ import EndQuestionnaire from "./EndQuestionnaire";
 import Tutorial from "./Tutorial";
 import ConsentForm from "./ConsentForm";
 import FinalFeedbacks from "./FinalFeedbacks";
+import InjectEnd from "./InjectEnd";
 
 const UploadComponent = createUpload(
   createS3Uploader(
@@ -36,6 +37,7 @@ registerTask(TaskTypes.tutorial, Tutorial);
 registerTask(TaskTypes.consentForm, ConsentForm);
 registerTask(TaskTypes.finalFeedbacks, FinalFeedbacks);
 registerTask(TaskTypes.experimentProgress, ExperimentProgress);
+registerTask(TaskTypes.injectEnd, InjectEnd);
 
 function ExperimentContent() {
   const [loadingState, configuration] = useConfiguration();

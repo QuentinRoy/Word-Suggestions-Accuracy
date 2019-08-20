@@ -56,6 +56,7 @@ export const TaskTypes = Object.freeze({
   tutorial: "Tutorial",
   consentForm: "ConsentForm",
   finalFeedbacks: "FinalFeedbacks",
+  injectEnd: "InjectEnd",
 
   // These tasks are built in @hcikit
   informationScreen: "InformationScreen",

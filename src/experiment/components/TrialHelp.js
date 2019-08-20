@@ -4,7 +4,7 @@ import classes from "./styles/TrialHelp.module.css";
 
 const TrialHelp = () => (
   <Typography component="div" variant="body2" className={classes.main}>
-    <p>Use your keyboard to type the text above.</p>
+    <p>Use your keyboard to type the text at the top.</p>
     <p>
       Hold each key pressed for a short period of time for it to take effect.
     </p>

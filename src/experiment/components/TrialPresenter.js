@@ -11,7 +11,7 @@ import {
 } from "../../utils/constants";
 import VirtualKeyboard from "../VirtualKeyboard";
 import TrialInput from "./TrialInput";
-import styles from "./styles/TrialPresenter.module.css";
+import styles from "./styles/TrialPresenter.module.scss";
 import SuccessBanner from "./SuccessBanner";
 import Stimulus from "./Stimulus";
 import SuggestionsBar from "./SuggestionsBar";
@@ -292,7 +292,11 @@ const TrialPresenter = ({
             onKeyUp={onVirtualKeyUp}
           />
         ) : null}
-        {showsHelp && <TrialHelp />}
+        {showsHelp && (
+          <div className={styles.trialHelp}>
+            <TrialHelp />
+          </div>
+        )}
       </div>
       <FocusAlert
         isShown={isFocusAlertShown}

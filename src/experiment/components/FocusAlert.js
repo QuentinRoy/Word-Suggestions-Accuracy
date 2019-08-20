@@ -21,9 +21,9 @@ const FocusAlert = ({ isShown, onClose }) => (
       <DialogContentText>
         <p>
           We understand remaining focused for a long period of time is
-          difficult. However, time is measured. Any interruption corrupts your
-          data. For the success of this experiment, it is very important that
-          you try not to interrupt a task in the middle.
+          difficult. However, the time is measured. Any interruption invalidates
+          your data. For the success of this experiment, it is very important
+          that you try not to interrupt the task in the middle.
         </p>
         <p>We are counting on you!</p>
       </DialogContentText>

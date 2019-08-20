@@ -87,3 +87,6 @@ $RECYCLE.BIN/
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
+events.csv
+*.pyc
+participants-logs

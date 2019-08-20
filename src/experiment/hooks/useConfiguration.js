@@ -140,7 +140,7 @@ const generateTasks = corpus => {
 
   // Insert measured tasks.
   pickCorpusEntries(numberOfTypingTasks).forEach(props => {
-    tasks.push(TypingTask(`trial-${tasks.length}`, true, props));
+    tasks.push(TypingTask(`trial-${tasks.length}`, false, props));
   });
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
@@ -160,7 +160,7 @@ const generateTasks = corpus => {
 
   pickCorpusEntries(numberOfTypingSpeedTasks).forEach(props => {
     tasks.push(
-      TypingTask(`typing-${tasks.length}`, true, {
+      TypingTask(`typing-${tasks.length}`, false, {
         ...props,
         suggestionsType: SuggestionTypes.none,
         keyStrokeDelay: 0

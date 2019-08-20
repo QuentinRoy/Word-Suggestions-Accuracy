@@ -194,7 +194,9 @@ const useConfiguration = () => {
         progressLevel: true,
         children: generateTasks(
           corpus.rows,
-          `${participant}_${startDate.toISOString()}.json`
+          process.env.NODE_ENV === "development"
+            ? `dev/${participant}_${startDate.toISOString()}.json`
+            : `prod/${participant}_${startDate.toISOString()}.json`
         ),
         corpusConfig: omit(corpus, "rows"),
         corpusSize: corpus.rows.length,

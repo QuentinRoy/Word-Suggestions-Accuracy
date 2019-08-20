@@ -111,8 +111,6 @@ const generateTasks = (corpus, uploadFileName) => {
     })
   );
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
-
   // Insert practice tasks.
   if (numberOfPracticeTasks > 0) {
     tasks.push(
@@ -133,8 +131,6 @@ const generateTasks = (corpus, uploadFileName) => {
       })
     );
   }
-
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
   // Insert measured tasks.
   pickCorpusEntries(numberOfTypingTasks).forEach(props => {

@@ -1,11 +1,22 @@
 import { totalMatchedCharsFromStart, trimEnd } from "../utils/strings";
-import { Actions } from "../utils/constants";
+import { Actions, FocusTargetTypes } from "../utils/constants";
 
 const isInputCorrect = (input, text) => trimEnd(input) === text;
 
 const getTotalIncorrectCharacters = (input, text) => {
   if (isInputCorrect(input, text)) return 0;
   return input.length - totalMatchedCharsFromStart(text, input);
+};
+
+const exportFocusTarget = focusTarget => {
+  switch (focusTarget.type) {
+    case FocusTargetTypes.input:
+      return FocusTargetTypes.input;
+    case FocusTargetTypes.suggestion:
+      return `${FocusTargetTypes.suggestion}-${focusTarget.suggestionNumber}`;
+    default:
+      throw new Error(`Unknown focus target type: ${focusTarget.type}`);
+  }
 };
 
 const getEventLog = (oldState, action, newState, { sksDistribution }) => {
@@ -33,7 +44,7 @@ const getEventLog = (oldState, action, newState, { sksDistribution }) => {
   const log = {
     type: action.type,
     scheduledAction: action.action == null ? null : action.action.type,
-    focusTarget: newState.focusTarget,
+    focusTarget: exportFocusTarget(newState.focusTarget),
     addedInput,
     removedInput,
     input: newState.input,

@@ -138,7 +138,11 @@ const TrialPresenter = ({
         });
         break;
       case "Tab":
-        if (suggestionsType === SuggestionTypes.inline) {
+        if (
+          suggestionsType === SuggestionTypes.inline &&
+          arrangedSuggestions[mainSuggestionPosition] !== undefined &&
+          !input.endsWith(arrangedSuggestions[mainSuggestionPosition])
+        ) {
           dispatch({
             type: Actions.inputSuggestion,
             id: `suggestion-${mainSuggestionPosition}`,
@@ -158,7 +162,8 @@ const TrialPresenter = ({
           dispatch({ type: Actions.submit, status });
         } else if (
           focusTarget != null &&
-          focusTarget.type === FocusTargetTypes.suggestion
+          focusTarget.type === FocusTargetTypes.suggestion &&
+          arrangedSuggestions[focusTarget.suggestionNumber] !== undefined
         ) {
           dispatch({
             id: `suggestion-${focusTarget.suggestionNumber}`,

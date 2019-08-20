@@ -153,7 +153,7 @@ const generateTasks = corpus => {
 
   tasks.push(
     Task(TaskTypes.informationScreen, {
-      content: `To finish, please complete a few additional typing tasks without impairment nor suggestions.`,
+      content: `To finish, please complete a few additional typing tasks without impairment or suggestions.`,
       shortcutEnabled: true,
       key: `info-${tasks.length}`
     })

@@ -9,6 +9,7 @@ const getTotalIncorrectCharacters = (input, text) => {
 };
 
 const exportFocusTarget = focusTarget => {
+  if (focusTarget == null) return null;
   switch (focusTarget.type) {
     case FocusTargetTypes.input:
       return FocusTargetTypes.input;

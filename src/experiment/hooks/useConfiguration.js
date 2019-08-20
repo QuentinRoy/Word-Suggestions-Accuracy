@@ -78,9 +78,11 @@ const TypingTask = (id, isPractice, { words, ...props }) =>
     isPractice
   });
 
-const UploadLogTask = (id, fireAndForget, participantId) =>
+const logFilename = `${participant}-${new Date().toISOString()}-log.json`;
+
+const UploadLogTask = (id, fireAndForget) =>
   Task(TaskTypes.s3Upload, {
-    filename: `${participantId}-${new Date().toISOString()}-log.json`,
+    filename: logFilename,
     key: id,
     fireAndForget
   });
@@ -100,11 +102,11 @@ const generateTasks = corpus => {
 
   tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
 
   tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
 
   tasks.push(
     Task(TaskTypes.tutorial, {
@@ -113,7 +115,7 @@ const generateTasks = corpus => {
     })
   );
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
 
   // Insert practice tasks.
   if (numberOfPracticeTasks > 0) {
@@ -136,18 +138,18 @@ const generateTasks = corpus => {
     );
   }
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
 
   // Insert measured tasks.
   pickCorpusEntries(numberOfTypingTasks).forEach(props => {
     tasks.push(TypingTask(`trial-${tasks.length}`, true, props));
   });
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
 
   tasks.push(Task(TaskTypes.endQuestionnaire, { key: `${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
 
   tasks.push(
     Task(TaskTypes.informationScreen, {
@@ -171,7 +173,7 @@ const generateTasks = corpus => {
     Task(TaskTypes.finalFeedbacks, { key: `feedbacks-${tasks.length}` })
   );
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, false, participant));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, false));
 
   tasks.push(
     Task(TaskTypes.endExperiment, {

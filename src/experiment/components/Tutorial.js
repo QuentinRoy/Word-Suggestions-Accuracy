@@ -147,6 +147,7 @@ const Tutorial = ({
       hasErrors={hasErrors}
       tutorialStep={getTutorialStep(input)}
       totalSuggestions={suggestions.length}
+      showsHelp={false}
     />
   );
 };

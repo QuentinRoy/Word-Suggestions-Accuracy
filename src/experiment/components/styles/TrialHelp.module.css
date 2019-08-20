@@ -1,0 +1,16 @@
+.main {
+  opacity: 0.7;
+  margin-top: 6rem;
+  font-style: italic;
+}
+
+.key {
+  font-style: initial;
+  display: inline-block;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bolder;
+  border: solid 1px black;
+  border-radius: 2px;
+  padding: 0px 4px;
+  background: #ffffff27;
+}

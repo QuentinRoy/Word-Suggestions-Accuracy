@@ -18,6 +18,7 @@ import SuggestionsBar from "./SuggestionsBar";
 import TutorialOverlay from "./TutorialOverlay";
 import FocusAlert from "./FocusAlert";
 import useClientRect from "../hooks/useClientRect";
+import TrialHelp from "./TrialHelp";
 
 const mapVirtualKey = key => {
   switch (key) {
@@ -84,7 +85,8 @@ const TrialPresenter = ({
   mainSuggestionPosition,
   suggestionsType,
   hasErrors,
-  tutorialStep
+  tutorialStep,
+  showsHelp
 }) => {
   // Using a reference for the pressed keys since we don't care about
   // re-rendering when it changes.
@@ -285,6 +287,7 @@ const TrialPresenter = ({
             onKeyUp={onVirtualKeyUp}
           />
         ) : null}
+        {showsHelp && <TrialHelp />}
       </div>
       <FocusAlert
         isShown={isFocusAlertShown}
@@ -322,7 +325,8 @@ TrialPresenter.propTypes = {
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
   hasErrors: PropTypes.bool.isRequired,
   tutorialStep: PropTypes.oneOf(Object.values(TutorialSteps)),
-  isFocusAlertShown: PropTypes.bool
+  isFocusAlertShown: PropTypes.bool,
+  showsHelp: PropTypes.bool
 };
 
 TrialPresenter.defaultProps = {
@@ -332,7 +336,8 @@ TrialPresenter.defaultProps = {
   isVirtualKeyboardEnabled: false,
   isSystemKeyboardEnabled: true,
   tutorialStep: null,
-  isFocusAlertShown: false
+  isFocusAlertShown: false,
+  showsHelp: true
 };
 
 export default TrialPresenter;

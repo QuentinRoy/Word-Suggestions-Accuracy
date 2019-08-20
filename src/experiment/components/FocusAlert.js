@@ -15,7 +15,7 @@ const FocusAlert = ({ isShown, onClose }) => (
     aria-describedby="alert-dialog-description"
   >
     <DialogTitle id="alert-dialog-title">
-      Oh no... You lost your focus.
+      Please try to stay focused
     </DialogTitle>
     <DialogContent>
       <DialogContentText>

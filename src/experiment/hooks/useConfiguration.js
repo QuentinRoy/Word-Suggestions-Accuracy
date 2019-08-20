@@ -98,45 +98,45 @@ const generateTasks = corpus => {
 
   const tasks = [];
 
-  tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
+  // tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
+  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
 
-  tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
+  // tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
+  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
 
-  tasks.push(
-    Task(TaskTypes.tutorial, {
-      key: `tuto-${tasks.length}`,
-      isPractice: true
-    })
-  );
+  // tasks.push(
+  //   Task(TaskTypes.tutorial, {
+  //     key: `tuto-${tasks.length}`,
+  //     isPractice: true
+  //   })
+  // );
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
+  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
 
   // Insert practice tasks.
-  if (numberOfPracticeTasks > 0) {
-    tasks.push(
-      Task(TaskTypes.informationScreen, {
-        content: "Continue with the practice tasks",
-        shortcutEnabled: true,
-        key: `info-${tasks.length}`
-      })
-    );
-    pickCorpusEntries(numberOfPracticeTasks).forEach(props => {
-      tasks.push(TypingTask(`practice-${tasks.length}`, true, props));
-    });
-    tasks.push(
-      Task(TaskTypes.informationScreen, {
-        content:
-          "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
-        key: `info-${tasks.length}`
-      })
-    );
-  }
+  // if (numberOfPracticeTasks > 0) {
+  //   tasks.push(
+  //     Task(TaskTypes.informationScreen, {
+  //       content: "Continue with the practice tasks",
+  //       shortcutEnabled: true,
+  //       key: `info-${tasks.length}`
+  //     })
+  //   );
+  //   pickCorpusEntries(numberOfPracticeTasks).forEach(props => {
+  //     tasks.push(TypingTask(`practice-${tasks.length}`, true, props));
+  //   });
+  //   tasks.push(
+  //     Task(TaskTypes.informationScreen, {
+  //       content:
+  //         "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
+  //       key: `info-${tasks.length}`
+  //     })
+  //   );
+  // }
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
+  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, participant));
 
   // Insert measured tasks.
   pickCorpusEntries(numberOfTypingTasks).forEach(props => {

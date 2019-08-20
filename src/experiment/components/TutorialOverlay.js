@@ -138,8 +138,10 @@ const TutorialStepSuggestion = ({ inputRect, inlineSuggestionRect }) => {
       >
         Word suggestions will appear as you type.
         <br />
-        You can ignore them, or accept them by pressing{" "}
-        <span className={styles.key}>tab</span>.
+        You can ignore them, or accept them by pressing the key{" "}
+        <span className={styles.key}>tab</span> /{" "}
+        <span className={styles.key}>&#8677;</span> at the left of your
+        keyboard.
       </Info>
       <Instruction inputRect={inputRect}>Accept the suggestion.</Instruction>
     </div>
@@ -170,6 +172,8 @@ const TutorialStepError = ({ inputRect }) => (
       <br />
       When there are errors in your input, it turns red.
       <br />
+      You can fix it with the <span className={styles.key}>delete</span> key.
+      Arrow keys are disabled.
     </Info>
     <Instruction>Fix the input</Instruction>
   </div>
@@ -184,8 +188,8 @@ const TutorialStepDelay = ({ inputRect }) => (
     <Info>
       Your impairment was just enabled.
       <br />
-      From now on, you must keep each key down for a short period of time before
-      it takes effect. If you release the key too soon, it has no effect.
+      Hold a key pressed for a short period for it to take effect. If you
+      release the key too soon, it has no effect.
     </Info>
     <Instruction>Keep typing.</Instruction>
   </div>

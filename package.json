@@ -1,6 +1,6 @@
 {
   "name": "exii-accuracy-control",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "private": true,
   "dependencies": {
     "@hcikit/tasks": "^0.3.0",
@@ -55,7 +55,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^6.2.0",
+    "eslint": "^6.2.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-import": "^2.17.3",

@@ -190,6 +190,8 @@ const TutorialStepDelay = ({ inputRect }) => (
       <br />
       Hold a key pressed for a short period for it to take effect. If you
       release the key too soon, it has no effect.
+      <br />
+      Your impairment will always be the same.
     </Info>
     <Instruction>Keep typing.</Instruction>
   </div>

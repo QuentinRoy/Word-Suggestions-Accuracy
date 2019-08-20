@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import short from "short-uuid";
 import omit from "lodash/omit";
 import useCorpusFromJson from "./useCorpusFromJson";
 import {
@@ -14,7 +13,6 @@ const totalSuggestions = 3;
 const numberOfPracticeTasks = 3;
 const numberOfTypingTasks = 20;
 const numberOfTypingSpeedTasks = 3;
-const confirmationCode = short.uuid();
 
 const PageArguments = {
   targetAccuracies: "targetAccuracies",
@@ -148,12 +146,13 @@ const generateTasks = corpus => {
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
 
   tasks.push(Task(TaskTypes.endQuestionnaire, { key: `${tasks.length}` }));
+  tasks.push(Task(TaskTypes.injectEnd, { key: `${tasks.length}` }));
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
 
   tasks.push(
     Task(TaskTypes.informationScreen, {
-      content: `To finish, please complete a few additional typing tasks without impairment nor suggestions.`,
+      content: `To finish, please complete a few additional typing tasks without impairment or suggestions.`,
       shortcutEnabled: true,
       key: `info-${tasks.length}`
     })
@@ -173,11 +172,12 @@ const generateTasks = corpus => {
     Task(TaskTypes.finalFeedbacks, { key: `feedbacks-${tasks.length}` })
   );
 
+  tasks.push(Task(TaskTypes.injectEnd, { key: `feedbacks-${tasks.length}` }));
+
   tasks.push(UploadLogTask(`upload-${tasks.length}`, false));
 
   tasks.push(
     Task(TaskTypes.endExperiment, {
-      confirmationCode,
       key: `end-${tasks.length}`
     })
   );
@@ -200,14 +200,15 @@ const useConfiguration = () => {
         keyStrokeDelay,
         targetAccuracy,
         participant,
+        mode: process.env.NODE_ENV,
         gitSha: process.env.REACT_APP_GIT_SHA,
         version: process.env.REACT_APP_VERSION,
-        confirmationCode,
         totalSuggestions,
         suggestionsType,
         numberOfPracticeTasks,
         numberOfTypingTasks,
-        href: window.location.href
+        href: window.location.href,
+        isExperimentCompleted: false
       };
     }
     return null;

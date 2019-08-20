@@ -1,22 +1,26 @@
-import React, { Children } from "react";
+import React, { createContext, useContext } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import styles from "./styles/Appear.module.css";
+import classes from "./styles/Appear.module.css";
 
-const Appear = ({ children, currentStep }) => (
-  <>
-    {Children.map(children, (child, childNum) => (
-      <div
-        className={classNames({
-          [styles.appearItem]: true,
-          [styles.visible]: childNum < currentStep
-        })}
-      >
-        {child}
-      </div>
-    ))}
-  </>
-);
+const AppearContext = createContext();
+
+const Appear = ({ children, currentStep }) => {
+  let previousFragmentNum = -1;
+  return (
+    <AppearContext.Provider
+      value={{
+        currentStep,
+        getFragmentNum: () => {
+          previousFragmentNum += 1;
+          return previousFragmentNum;
+        }
+      }}
+    >
+      {children}
+    </AppearContext.Provider>
+  );
+};
 
 Appear.propTypes = {
   children: PropTypes.node,
@@ -26,5 +30,33 @@ Appear.propTypes = {
 Appear.defaultProps = {
   children: undefined
 };
+
+const AppearFragment = ({ children, num: numProp, component: Component }) => {
+  const { currentStep, getFragmentNum } = useContext(AppearContext);
+  const num = numProp == null ? getFragmentNum() : numProp;
+  return (
+    <Component
+      className={classNames(classes.appearItem, {
+        [classes.visible]: num < currentStep
+      })}
+    >
+      {children}
+    </Component>
+  );
+};
+
+AppearFragment.propTypes = {
+  children: PropTypes.node,
+  num: PropTypes.node,
+  component: PropTypes.elementType
+};
+
+AppearFragment.defaultProps = {
+  children: null,
+  num: null,
+  component: "div"
+};
+
+Appear.Fragment = AppearFragment;
 
 export default Appear;

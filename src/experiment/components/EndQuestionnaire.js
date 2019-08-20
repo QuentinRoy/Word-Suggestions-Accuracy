@@ -25,7 +25,7 @@ const questions = {
   gender: {
     text: "What is your gender?",
     inputType: InputTypes.selectInput,
-    answers: ["Male", "Female", "Other", "Prefer not to say"],
+    answers: ["Male", "Female", "Non-binary", "Other", "Prefer not to say"],
     isAnswerRequired: false
   },
   controlsSatisfactory: {

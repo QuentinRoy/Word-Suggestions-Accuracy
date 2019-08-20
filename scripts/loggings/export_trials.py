@@ -1,75 +1,66 @@
 import json
 import csv
 import os
+from itertools import chain
+from csv_export import csv_export
+from config_tasks import iter_typing_tasks
 
-def create_object(value):
-    csv_obj = {
-        'id': value["id"],
-        'sentence': value["sentence"],
-        'targetAccuracy': value["targetAccuracy"],
-        'keyStrokeDelay': value["keyStrokeDelay"],
-        'weightedAccuracy': value["weightedAccuracy"],
-        'sentenceWordsAndSks': value["sentenceWordsAndSks"],
-        'sdAccuracy': value["sdAccuracy"],
-        'theoreticalSks': value["theoreticalSks"],
-        'startDate': value["startDate"],
-        'endDate': value["endDate"],
-        'duration': value["duration"],
-        'totalKeyStrokes': value["totalKeyStrokes"],
-        'totalKeyStrokeErrors': value["totalKeyStrokeErrors"],
-        'actualSks': value["actualSks"],
-        'totalSuggestionUsed': value["totalSuggestionUsed"],
-        'totalCorrectSuggestionUsed': value["totalCorrectSuggestionUsed"],
-        'totalIncorrectSuggestionsUsed': value["totalIncorrectSuggestionsUsed"],
-        'timeZone': value["timeZone"]
-    }
-    return csv_obj
+this_dir = os.path.dirname(os.path.abspath(__file__))
+json_logs_dir = os.path.join(this_dir, "../../participants-logs/")
+output_file_path = os.path.abspath(os.path.join(json_logs_dir, "trials.csv"))
 
-def get_trials(data):
-    trials = []
-    for child in data["children"]:
-        if "trial" in child:
-            trials.append(child["trial"])
-    return trials
+log_columns = {
+    "participant": "participant",
+    "hit_id": "hitId",
+    "assignment_id": "assignmentId",
+    "trial_id": "key",
+    "mean_accuracy": "meanAccuracy",
+    "weighted_accuracy": "weightedAccuracy",
+    "sd_accuracy": "sdAccuracy",
+    "diff_accuracy": "diffAccuracy",
+    "diff_sd": "diffSd",
+    "suggestions_type": "suggestionsType",
+}
+
+trial_columns = {
+    "id": "id",
+    "sentence": "sentence",
+    "target_accuracy": "targetAccuracy",
+    "key_stroke_delay": "keyStrokeDelay",
+    "weighted_accuracy": "weightedAccuracy",
+    "sentence_words_and_sks": "sentenceWordsAndSks",
+    "sd_accuracy": "sdAccuracy",
+    "theoretical_sks": "theoreticalSks",
+    "start_date": "startDate",
+    "end_date": "endDate",
+    "duration": "duration",
+    "total_key_strokes": "totalKeyStrokes",
+    "total_key_strokeErrors": "totalKeyStrokeErrors",
+    "actual_sks": "actualSks",
+    "total_suggestion_used": "totalSuggestionUsed",
+    "total_correct_suggestion_used": "totalCorrectSuggestionUsed",
+    "total_incorrect_suggestions_used": "totalIncorrectSuggestionsUsed",
+    "time_zone": "timeZone",
+    "git_sha": "gitSha",
+    "version": "version",
+}
+
+
+# This should just yield once, but we still use an iterators for consistency
+# with export_events.
+def iter_trials(task, file_name, **kwargs):
+    record = {"file_name": file_name}
+    for (column_name, json_name) in log_columns.items():
+        if json_name in task:
+            record[column_name] = task[json_name]
+    if "trial" in task:
+        for (column_name, json_name) in trial_columns.items():
+            if json_name in task["trial"]:
+                record[column_name] = task["trial"][json_name]
+    yield record
+
 
 if __name__ == "__main__":
-    json_files_dir = "./participants-logs/"
-    csv_file_path = "./trials.csv"
-    with open(csv_file_path, 'w') as f:
-        header = [
-            "id",
-            "sentence",
-            "targetAccuracy",
-            "keyStrokeDelay",
-            "weightedAccuracy",
-            "sentenceWordsAndSks",
-            "sdAccuracy",
-            "theoreticalSks",
-            "startDate",
-            "endDate",
-            "duration",
-            "totalKeyStrokes",
-            "totalKeyStrokeErrors",
-            "actualSks",
-            "totalSuggestionUsed",
-            "totalCorrectSuggestionUsed",
-            "totalIncorrectSuggestionsUsed",
-            "timeZone"
-        ]
-        writer = csv.DictWriter(f, header)
-        writer.writeheader()
-
-        for json_file in os.listdir(json_files_dir):
-            fp = open(json_files_dir + json_file, 'r')
-            json_value = fp.read()
-            raw_data = json.loads(json_value)
-
-            trials = get_trials(raw_data)
-
-            for task in trials:
-                csv_obj = create_object(task)
-                writer.writerow(csv_obj)
-
-            f.flush()
-            fp.close()
-        print ("Just completed writing csv file with %d columns" % len(header))
+    header = ["file_name"] + list(chain(log_columns.keys(), trial_columns.keys()))
+    csv_export(json_logs_dir, output_file_path, header, iter_trials, iter_typing_tasks)
+    print("{} written.".format(output_file_path))

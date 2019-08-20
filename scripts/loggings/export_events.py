@@ -1,88 +1,66 @@
 import json
 import csv
 import os
+from itertools import chain
+from csv_export import csv_export
+from config_tasks import iter_typing_tasks
 
-def getText(trial):
-    text = ''
-    for i in range(len(trial["sksDistribution"])):
-        if(i == 0):
-            text = trial["sksDistribution"][i]["word"]
-        else:
-            text = text + " " + trial["sksDistribution"][i]["word"]
-    return text
+this_dir = os.path.dirname(os.path.abspath(__file__))
+json_logs_dir = os.path.join(this_dir, "../../participants-logs/")
+output_file_path = os.path.abspath(os.path.join(json_logs_dir, "events.csv"))
 
-def create_object(value):
-    rows = []
-    sentence = getText(value)
-    for child in value["events"]:
-        csv_obj = {
-            'text': sentence,
-            'accuracy': value["weightedAccuracy"],
-            'key': value["key"],
-            'event' :  child["event"],
-            'scheduledAction': child["scheduledAction"],
-            'focusTarget': child["focusTarget"],
-            'added_input': child["addedInput"],
-            'removed_input' :  child["removedInput"],
-            'input': child["input"],
-            'is_error' :  child["isError"],
-            'suggestion_1': child["suggestion0"],
-            'suggestion_2' :  child["suggestion1"],
-            'suggestion_3': child["suggestion2"],
-            'suggestion_used' :  child["suggestionUsed"],
-            'total_correct_characters': child["totalCorrectCharacters"],
-            'total_incorrect_characters' :  child["totalIncorrectCharacters"],
-            'total_sentence_characters': child["totalSentenceCharacters"],
-            'time' : child["time"]
-        }
-        rows.append(csv_obj)
-    return rows
+log_columns = {
+    "participant": "participant",
+    "hit_id": "hitId",
+    "assignment_id": "assignmentId",
+    "trial_id": "key",
+    "accuracy": "weightedAccuracy",
+    "is_practice": "isPractice",
+}
+
+event_columns = {
+    "type": "type",
+    "scheduledAction": "scheduledAction",
+    "focusTarget": "focusTarget",
+    "added_input": "addedInput",
+    "removed_input": "removedInput",
+    "input": "input",
+    "is_error": "isError",
+    "suggestion_1": "suggestion0",
+    "suggestion_2": "suggestion1",
+    "suggestion_3": "suggestion2",
+    "used_suggestion": "usedSuggestion",
+    "total_correct_characters": "totalCorrectCharacters",
+    "total_incorrect_characters": "totalIncorrectCharacters",
+    "total_sentence_characters": "totalSentenceCharacters",
+    "is_input_correct": "isInputCorrect",
+    "time": "time",
+}
+
+trial_columns = {"sentence": "sentence"}
 
 
-def get_typing_tasks(data):
-    tasks = []
-    for child in data["children"]:
-        if "task" in child and child["task"] == "TypingTask":
-            tasks.append(child)
-    return tasks
+def iter_events(task, file_name, **kwargs):
+    if not "start" in task:
+        return
+    base = {"file_name": file_name}
+    for (column_name, json_name) in log_columns.items():
+        if json_name in task:
+            base[column_name] = task[json_name]
+    for (column_name, json_name) in trial_columns.items():
+        if json_name in task["trial"]:
+            base[column_name] = task["trial"][json_name]
+    for child in task["events"]:
+        record = base.copy()
+        for (column_name, json_name) in event_columns.items():
+            if json_name in child:
+                record[column_name] = child[json_name]
+        yield record
+
 
 if __name__ == "__main__":
-    json_files_dir = "./participants-logs/"
-    csv_file_path = "./events.csv"
-    with open(csv_file_path, 'w') as f:
-        header = [
-            "text",
-            "accuracy",
-            "key",
-            "event",
-            "added_input",
-            "removed_input",
-            "input",
-            "is_error",
-            "suggestion_1",
-            "suggestion_2",
-            "suggestion_3",
-            "suggestion_used",
-            "total_correct_characters",
-            "total_incorrect_characters",
-            "total_sentence_characters",
-            "time",
-        ]
-        writer = csv.DictWriter(f, header)
-        writer.writeheader()
-
-        for json_file in os.listdir(json_files_dir):
-            fp = open(json_files_dir + json_file, 'r')
-            json_value = fp.read()
-            raw_data = json.loads(json_value)
-
-            typing_tasks = get_typing_tasks(raw_data)
-
-            for task in typing_tasks:
-                csv_obj = create_object(task)
-                for row in csv_obj:
-                    writer.writerow(row)
-
-            f.flush()
-            fp.close()
-        print ("Just completed writing csv file with %d columns" % len(header))
+    header = ["file_name"] + list(
+        chain(log_columns.keys(), trial_columns.keys(), event_columns.keys())
+    )
+    csv_export(json_logs_dir, output_file_path, header, iter_events, iter_typing_tasks)
+    print("{} written.".format(output_file_path))

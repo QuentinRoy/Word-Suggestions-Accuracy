@@ -54,7 +54,10 @@ const isActionAllowed = (state, action) => {
     case TutorialSteps.error:
       return action.type === Actions.deleteChar;
     case TutorialSteps.delay:
-      return action.type === Actions.inputChar;
+      return (
+        action.type === Actions.inputChar &&
+        action.char === tutorialSentence[state.input.length]
+      );
     case TutorialSteps.delaySuggestion:
       return action.type === Actions.inputSuggestion;
     case TutorialSteps.finish:

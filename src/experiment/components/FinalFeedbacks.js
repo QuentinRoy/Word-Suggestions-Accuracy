@@ -14,7 +14,8 @@ const FinalFeedbacks = ({ onAdvanceWorkflow, onLog }) => {
         them below.
       </p>
       <form
-        onSubmit={() => {
+        onSubmit={evt => {
+          evt.preventDefault();
           onLog("feedbacks", value);
           onAdvanceWorkflow();
         }}

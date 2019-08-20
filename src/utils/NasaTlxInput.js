@@ -17,7 +17,7 @@ const NasaTlxInput = ({
   const boxes = range(5, 105, 5).map(x => (
     <Fragment key={x}>
       <div className={classNames(style.sep, { [style.middle]: x === 55 })} />
-      <span
+      <div
         className={classNames(style.box, {
           [style.selected]: x === value
         })}
@@ -31,7 +31,7 @@ const NasaTlxInput = ({
           checked={value === x}
           onChange={evt => onChange(evt, +evt.target.value)}
         />
-      </span>
+      </div>
       {x === 100 && <div className={style.sep} />}
     </Fragment>
   ));

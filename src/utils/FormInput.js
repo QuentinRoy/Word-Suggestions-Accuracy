@@ -10,6 +10,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import Checkbox from "@material-ui/core/Checkbox";
 import { makeStyles } from "@material-ui/core";
+import classNames from "classnames";
 import { InputTypes, Directions } from "./constants";
 import styles from "./FormInput.module.css";
 import NasaTlxInput from "./NasaTlxInput";
@@ -53,7 +54,7 @@ const FormInput = memo(
         return (
           <FormControl
             component="fieldset"
-            className={styles.choice}
+            className={classNames(styles.main, styles.choice)}
             required={isAnswerRequired}
             fullWidth={direction === Directions.horizontal}
           >
@@ -88,6 +89,7 @@ const FormInput = memo(
       case InputTypes.number:
         return (
           <FormControl
+            className={classNames(styles.main, styles.number)}
             component="fieldset"
             margin="normal"
             required={isAnswerRequired}
@@ -127,6 +129,7 @@ const FormInput = memo(
       case InputTypes.selectInput:
         return (
           <FormControl
+            className={classNames(styles.main, styles.selectInput)}
             component="fieldset"
             margin="normal"
             required={isAnswerRequired}

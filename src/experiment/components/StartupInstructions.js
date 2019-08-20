@@ -25,10 +25,9 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
           You will need to <strong>keep your keyboard key pressed down</strong>{" "}
           for a certain period of time before the system reacts.{" "}
         </Appear.Fragment>
-        <Appear.Fragment component="span">
-          If you release the key before this delay is passed, nothing will
-          happen.
-        </Appear.Fragment>
+      </Appear.Fragment>
+      <Appear.Fragment component="p">
+        If you release the key before this delay is passed, nothing will happen.
       </Appear.Fragment>
       <br />
       <Appear.Fragment component="p">
@@ -49,15 +48,19 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
         </Appear.Fragment>
       </Appear.Fragment>
       <Appear.Fragment component="p">
-        <strong>Please do not stop typing during typing tasks.</strong>
-      </Appear.Fragment>
+        <strong>Please do not stop typing during typing tasks.</strong>{" "}
+      </Appear.Fragment>{" "}
       <Appear.Fragment component="p">
         You may take a break on information screens.
+      </Appear.Fragment>
+      <br />
+      <Appear.Fragment component="p">
+        There is a progress bar at the bottom of the screen.
       </Appear.Fragment>
     </>
   );
 
-  const totalSteps = 12;
+  const totalSteps = 13;
 
   return (
     <div className={styles.main}>

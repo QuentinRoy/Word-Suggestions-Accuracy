@@ -90,8 +90,8 @@
 
 .stepSuggestion {
   .circle {
-    stroke-dasharray: 500;
-    stroke-dashoffset: 500;
+    stroke-dasharray: 5000;
+    stroke-dashoffset: 5000;
     animation: dash 800ms linear forwards;
     animation-delay: 400ms;
   }
@@ -128,6 +128,10 @@
   .info {
     position: relative;
   }
+}
+
+.suggestionBar {
+  margin-top: calc(var(--margin-input) + 30px);
 }
 
 @keyframes dash {

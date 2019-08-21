@@ -174,7 +174,7 @@ const TutorialStepSuggestion = ({
       <Circle rect={sugRef.current} circleXMargin={10} circleYMargin={10} />
       <Info
         left={sugRef.current.left - 15}
-        top={sugRef.current.bottom + 20}
+        top={sugRef.current.bottom + 30}
         height={inputRect.height}
       >
         Word suggestions will change as you type.

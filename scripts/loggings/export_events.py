@@ -4,6 +4,7 @@ import os
 from itertools import chain
 from csv_export import csv_export
 from config_tasks import iter_typing_tasks
+from utils import copy_rename
 
 this_dir = os.path.dirname(os.path.abspath(__file__))
 json_logs_dir = os.path.join(this_dir, "../../participants-logs/")
@@ -44,17 +45,11 @@ def iter_events(task, file_name, **kwargs):
     if not "start" in task:
         return
     base = {"file_name": file_name}
-    for (column_name, json_name) in log_columns.items():
-        if json_name in task:
-            base[column_name] = task[json_name]
-    for (column_name, json_name) in trial_columns.items():
-        if json_name in task["trial"]:
-            base[column_name] = task["trial"][json_name]
+    copy_rename(task, base, log_columns)
+    copy_rename(task["trial"], base, trial_columns)
     for child in task["events"]:
         record = base.copy()
-        for (column_name, json_name) in event_columns.items():
-            if json_name in child:
-                record[column_name] = child[json_name]
+        copy_rename(child, record, event_columns)
         yield record
 
 

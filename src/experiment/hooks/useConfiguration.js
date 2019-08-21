@@ -165,7 +165,7 @@ const generateTasks = (corpus, uploadFileName) => {
     Task(TaskTypes.finalFeedbacks, { key: `feedbacks-${tasks.length}` })
   );
 
-  tasks.push(Task(TaskTypes.injectEnd, { key: `feedbacks-${tasks.length}` }));
+  tasks.push(Task(TaskTypes.injectEnd, { key: `inject-end-${tasks.length}` }));
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, false, uploadFileName));
 

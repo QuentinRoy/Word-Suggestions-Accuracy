@@ -21,8 +21,8 @@ log_columns = {
 
 event_columns = {
     "type": "type",
-    "scheduledAction": "scheduledAction",
-    "focusTarget": "focusTarget",
+    "scheduled_action": "scheduledAction",
+    "focus_target": "focusTarget",
     "added_input": "addedInput",
     "removed_input": "removedInput",
     "input": "input",

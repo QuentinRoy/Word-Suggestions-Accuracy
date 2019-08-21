@@ -18,7 +18,7 @@
 
           <p>
             You will type sentences using your keyboard. The task will take
-            approximately 15 to 25 minutes. You will be paid $3.50&nbsp;.
+            approximately 5 to 10 minutes. You will be paid $2.
           </p>
 
           <p>
@@ -33,8 +33,8 @@
 
           <ol>
             <li>
-              Click on the link&nbsp;below. This will open our task website in a
-              new window.
+              Click on the link below. This will open our task website in a new
+              window.
             </li>
             <li>Do not close this page while you do the task.</li>
             <li>Follow the instructions on the website.</li>
@@ -123,6 +123,10 @@
   crossorigin="anonymous"
 ></script>
 <!-- Open internal javascript --><script>
+  var targetAccuracies = [0.5, 0.75];
+  var suggestionsType = "INLINE";
+  var keyStrokeDelays = [0];
+
   var workerID = turkGetParam("workerId", false);
   var assignmentID = turkGetParam("assignmentId", false);
   var hitId = turkGetParam("hitId", false);
@@ -139,7 +143,13 @@
         "&assignmentId=" +
         assignmentID +
         "&hitId=" +
-        hitId;
+        hitId +
+        "&suggestionsType=" +
+        suggestionsType +
+        "&keyStrokeDelays=" +
+        keyStrokeDelays.join(",") +
+        "&targetAccuracies=" +
+        targetAccuracies.join(",");
       btn.onclick = function() {
         window.open(url);
       };

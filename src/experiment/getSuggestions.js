@@ -38,10 +38,13 @@ const suggestionScore = (suggestionFScore, suggestion, inputWord) => {
 };
 
 function isCloseFromTargetWord(word, targetWord) {
-  return (
-    targetWord.startsWith(word.slice(0, -2)) ||
-    word.startsWith(targetWord.slice(0, -2))
-  );
+  if (targetWord.length > 2) {
+    return (
+      targetWord.startsWith(word.slice(0, -2)) ||
+      word.startsWith(targetWord.slice(0, -2))
+    );
+  }
+  return false;
 }
 
 function computeSuggestions(

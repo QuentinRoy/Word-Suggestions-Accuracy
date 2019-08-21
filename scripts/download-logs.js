@@ -29,7 +29,7 @@ async function fileExists(filePath) {
 
 async function downloadObject(key, targetFilePath, shouldOverwrite = false) {
   if (!shouldOverwrite && (await fileExists(targetFilePath))) {
-    log.info(`Skipping ${key}. File already exist.`);
+    log.info(`Skipping ${key}. File already exists.`);
     return;
   }
   const resp = await s3.getObject({ Bucket: bucket, Key: key }).promise();

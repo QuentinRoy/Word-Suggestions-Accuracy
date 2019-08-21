@@ -98,13 +98,13 @@ const generateTasks = corpus => {
 
   const tasks = [];
 
-  tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
+  // tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
+  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
 
-  tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
+  // tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
+  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true));
 
   tasks.push(
     Task(TaskTypes.tutorial, {

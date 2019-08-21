@@ -1,7 +1,7 @@
 import React, { memo, useRef } from "react";
 import PropTypes from "prop-types";
 import { useTransition, animated } from "react-spring";
-import { TutorialSteps } from "../../utils/constants";
+import { TutorialSteps, SuggestionTypes } from "../../utils/constants";
 import styles from "./styles/TutorialOverlay.module.scss";
 
 const RectPropType = PropTypes.shape({
@@ -13,9 +13,11 @@ const RectPropType = PropTypes.shape({
   height: PropTypes.number.isRequired
 });
 
-const Instruction = ({ children, inputRect, style }) => (
+const Instruction = ({ children, inputRect, style, suggestionsType }) => (
   <div
-    className={styles.instruction}
+    className={`${styles.instruction} ${
+      suggestionsType === SuggestionTypes.bar ? styles.suggestionBar : null
+    }`}
     style={inputRect != null ? { top: inputRect.bottom, ...style } : style}
   >
     <div className={styles.box}>{children}</div>
@@ -26,7 +28,8 @@ Instruction.propTypes = {
   children: PropTypes.node.isRequired,
   inputRect: RectPropType,
   // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.object
+  style: PropTypes.object,
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };
 Instruction.defaultProps = { inputRect: null, style: {} };
 
@@ -87,7 +90,11 @@ Circle.defaultProps = {
   strokeWidth: 6
 };
 
-const TutorialStepStart = ({ stimulusTextRect, inputRect }) => (
+const TutorialStepStart = ({
+  stimulusTextRect,
+  inputRect,
+  suggestionsType
+}) => (
   <div className={styles.stepStart}>
     <Circle rect={stimulusTextRect} circleXMargin={40} circleYMargin={30} />
     <Info
@@ -96,16 +103,19 @@ const TutorialStepStart = ({ stimulusTextRect, inputRect }) => (
     >
       This is what you must type.
     </Info>
-    <Instruction inputRect={inputRect}>Type the first letter.</Instruction>
+    <Instruction inputRect={inputRect} suggestionsType={suggestionsType}>
+      Type the first letter.
+    </Instruction>
   </div>
 );
 
 TutorialStepStart.propTypes = {
   stimulusTextRect: RectPropType.isRequired,
-  inputRect: RectPropType.isRequired
+  inputRect: RectPropType.isRequired,
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };
 
-const TutorialStepInput = ({ inputRect }) => (
+const TutorialStepInput = ({ inputRect, suggestionsType }) => (
   <div className={styles.stepInput}>
     <Info
       left={inputRect.left}
@@ -115,58 +125,105 @@ const TutorialStepInput = ({ inputRect }) => (
     >
       This is where your input will be entered
     </Info>
-    <Instruction inputRect={inputRect}>Type the 2 next letters.</Instruction>
+    <Instruction inputRect={inputRect} suggestionsType={suggestionsType}>
+      Type the 2 next letters.
+    </Instruction>
   </div>
 );
-TutorialStepInput.propTypes = { inputRect: RectPropType.isRequired };
+TutorialStepInput.propTypes = {
+  inputRect: RectPropType.isRequired,
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
+};
 
-const TutorialStepSuggestion = ({ inputRect, inlineSuggestionRect }) => {
+const TutorialStepSuggestion = ({
+  inputRect,
+  suggestionRect,
+  suggestionsType
+}) => {
   // Store this in a ref as we don't want it to change once set up the first
   // time.
-  const sugRef = useRef(inlineSuggestionRect);
-  if (inlineSuggestionRect == null) return null;
+  const sugRef = useRef(suggestionRect);
+  if (suggestionRect == null) return null;
   if (sugRef.current == null) {
-    sugRef.current = inlineSuggestionRect;
+    sugRef.current = suggestionRect;
+  }
+  if (suggestionsType === SuggestionTypes.inline) {
+    return (
+      <div className={styles.stepSuggestion}>
+        <Circle rect={sugRef.current} circleXMargin={10} circleYMargin={10} />
+        <Info
+          left={sugRef.current.right + 20}
+          top={inputRect.top}
+          height={inputRect.height}
+        >
+          Word suggestions will appear as you type.
+          <br />
+          You can ignore them, or accept them by pressing the key{" "}
+          <span className={styles.key}>tab</span> /{" "}
+          <span className={styles.key}>&#8677;</span> at the left of your
+          keyboard.
+        </Info>
+        <Instruction inputRect={inputRect} suggestionsType={suggestionsType}>
+          Accept the suggestion.
+        </Instruction>
+      </div>
+    );
   }
   return (
     <div className={styles.stepSuggestion}>
       <Circle rect={sugRef.current} circleXMargin={10} circleYMargin={10} />
       <Info
-        left={sugRef.current.right + 20}
-        top={inputRect.top}
+        left={sugRef.current.left - 15}
+        top={sugRef.current.bottom + 20}
         height={inputRect.height}
       >
-        Word suggestions will appear as you type.
+        Word suggestions will change as you type.
         <br />
-        You can ignore them, or accept them by pressing the key{" "}
+        You can ignore them, or navigate through them by pressing the key{" "}
         <span className={styles.key}>tab</span> /{" "}
-        <span className={styles.key}>&#8677;</span> at the left of your
-        keyboard.
+        <span className={styles.key}>&#8677;</span> at the left of your keyboard
+        and press the key <span className={styles.key}>Enter</span> to accept
+        the focused one.
       </Info>
-      <Instruction inputRect={inputRect}>Accept the suggestion.</Instruction>
+      <Instruction
+        style={{ top: inputRect.bottom + 150 }}
+        suggestionsType={suggestionsType}
+      >
+        Accept the first suggestion.
+      </Instruction>
     </div>
   );
 };
 TutorialStepSuggestion.propTypes = {
   inputRect: RectPropType.isRequired,
-  inlineSuggestionRect: RectPropType
+  suggestionRect: RectPropType,
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };
 TutorialStepSuggestion.defaultProps = {
-  inlineSuggestionRect: undefined
+  suggestionRect: undefined
 };
 
-const TutorialStepWrongSuggestion = ({ inputRect }) => (
+const TutorialStepWrongSuggestion = ({ inputRect, suggestionsType }) => (
   <div className={styles.stepWrongSuggestion}>
-    <Instruction inputRect={inputRect}>Accept the suggestion.</Instruction>
+    <Instruction inputRect={inputRect} suggestionsType={suggestionsType}>
+      Accept the{suggestionsType === SuggestionTypes.bar ? " first " : " "}
+      suggestion.
+    </Instruction>
   </div>
 );
 
 TutorialStepWrongSuggestion.propTypes = {
-  inputRect: RectPropType.isRequired
+  inputRect: RectPropType.isRequired,
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };
 
-const TutorialStepError = ({ inputRect }) => (
-  <div className={styles.stepError} style={{ top: inputRect.bottom }}>
+const TutorialStepError = ({ inputRect, suggestionsType }) => (
+  <div
+    className={`${styles.stepError} ${
+      suggestionsType === SuggestionTypes.bar ? styles.suggestionBar : null
+    }`}
+    style={{ top: inputRect.bottom }}
+  >
     <Info>
       Suggestions are not always accurate.
       <br />
@@ -175,16 +232,22 @@ const TutorialStepError = ({ inputRect }) => (
       You can fix it with the <span className={styles.key}>delete</span> key.
       Arrow keys are disabled.
     </Info>
-    <Instruction>Fix the input</Instruction>
+    <Instruction suggestionsType={suggestionsType}>Fix the input</Instruction>
   </div>
 );
 
 TutorialStepError.propTypes = {
-  inputRect: RectPropType.isRequired
+  inputRect: RectPropType.isRequired,
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };
 
-const TutorialStepDelay = ({ inputRect }) => (
-  <div className={styles.stepDelay} style={{ top: inputRect.bottom }}>
+const TutorialStepDelay = ({ inputRect, suggestionsType }) => (
+  <div
+    className={`${styles.stepDelay} ${
+      suggestionsType === SuggestionTypes.bar ? styles.suggestionBar : null
+    }`}
+    style={{ top: inputRect.bottom }}
+  >
     <Info>
       Your impairment was just enabled.
       <br />
@@ -193,29 +256,51 @@ const TutorialStepDelay = ({ inputRect }) => (
       <br />
       Your impairment will always be the same.
     </Info>
-    <Instruction>Keep typing.</Instruction>
+    <Instruction suggestionsType={suggestionsType}>Keep typing.</Instruction>
   </div>
 );
 
-TutorialStepDelay.propTypes = { inputRect: RectPropType.isRequired };
+TutorialStepDelay.propTypes = {
+  inputRect: RectPropType.isRequired,
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
+};
 
-const TutorialStepDelaySuggestion = ({ inputRect }) => (
-  <div className={styles.stepDelaySuggestion} style={{ top: inputRect.bottom }}>
+const TutorialStepDelaySuggestion = ({ inputRect, suggestionsType }) => (
+  <div
+    className={`${styles.stepDelaySuggestion} ${
+      suggestionsType === SuggestionTypes.bar ? styles.suggestionBar : null
+    }`}
+    style={{ top: inputRect.bottom }}
+  >
     <Info>Impairment also applies to suggestion.</Info>
-    <Instruction>Accept the suggestion.</Instruction>
+    <Instruction suggestionsType={suggestionsType}>
+      Accept the{suggestionsType === SuggestionTypes.bar ? " first " : " "}
+      suggestion.
+    </Instruction>
   </div>
 );
-TutorialStepDelaySuggestion.propTypes = { inputRect: RectPropType.isRequired };
+TutorialStepDelaySuggestion.propTypes = {
+  inputRect: RectPropType.isRequired,
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
+};
 
-const TutorialStepFinish = ({ inputRect }) => (
-  <div className={styles.stepFinish} style={{ top: inputRect.bottom }}>
+const TutorialStepFinish = ({ inputRect, suggestionsType }) => (
+  <div
+    className={`${styles.stepFinish} ${
+      suggestionsType === SuggestionTypes.bar ? styles.suggestionBar : null
+    }`}
+    style={{ top: inputRect.bottom }}
+  >
     <Info>That is all. All actions are now enabled.</Info>
-    <Instruction>
+    <Instruction suggestionsType={suggestionsType}>
       Finish the task, as fast as you can, while minimizing errors.
     </Instruction>
   </div>
 );
-TutorialStepFinish.propTypes = { inputRect: RectPropType.isRequired };
+TutorialStepFinish.propTypes = {
+  inputRect: RectPropType.isRequired,
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
+};
 
 const TutorialStepEnd = () => null;
 
@@ -232,7 +317,13 @@ const StepComponents = {
 };
 
 const TutorialOverlay = memo(
-  ({ tutorialStep, stimulusTextRect, inputRect, inlineSuggestionRect }) => {
+  ({
+    tutorialStep,
+    stimulusTextRect,
+    inputRect,
+    suggestionRect,
+    suggestionsType
+  }) => {
     const transitions = useTransition(tutorialStep, null, {
       from: { opacity: 0 },
       enter: { opacity: 1 },
@@ -248,7 +339,8 @@ const TutorialOverlay = memo(
           <Component
             stimulusTextRect={stimulusTextRect}
             inputRect={inputRect}
-            inlineSuggestionRect={inlineSuggestionRect}
+            suggestionRect={suggestionRect}
+            suggestionsType={suggestionsType}
           />
         </animated.div>
       );
@@ -260,14 +352,15 @@ TutorialOverlay.propTypes = {
   tutorialStep: PropTypes.oneOf(Object.values(TutorialSteps)),
   stimulusTextRect: RectPropType,
   inputRect: RectPropType,
-  inlineSuggestionRect: RectPropType
+  suggestionRect: RectPropType,
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };
 
 TutorialOverlay.defaultProps = {
   tutorialStep: null,
   stimulusTextRect: null,
   inputRect: null,
-  inlineSuggestionRect: null
+  suggestionRect: null
 };
 
 export default TutorialOverlay;

@@ -24,7 +24,6 @@ log_columns = {
 }
 
 trial_columns = {
-    "id": "id",
     "sentence": "sentence",
     "target_accuracy": "targetAccuracy",
     "key_stroke_delay": "keyStrokeDelay",

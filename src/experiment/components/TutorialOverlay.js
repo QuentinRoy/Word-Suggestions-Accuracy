@@ -115,7 +115,9 @@ const TutorialStepInput = ({ inputRect }) => (
     >
       This is where your input will be entered
     </Info>
-    <Instruction inputRect={inputRect}>Type the 2 next letters.</Instruction>
+    <Instruction inputRect={inputRect}>
+      Now type the 2 next letters.
+    </Instruction>
   </div>
 );
 TutorialStepInput.propTypes = { inputRect: RectPropType.isRequired };
@@ -157,7 +159,9 @@ TutorialStepSuggestion.defaultProps = {
 
 const TutorialStepWrongSuggestion = ({ inputRect }) => (
   <div className={styles.stepWrongSuggestion}>
-    <Instruction inputRect={inputRect}>Accept the suggestion.</Instruction>
+    <Instruction inputRect={inputRect}>
+      Now accept the suggestion again.
+    </Instruction>
   </div>
 );
 
@@ -202,7 +206,7 @@ TutorialStepDelay.propTypes = { inputRect: RectPropType.isRequired };
 const TutorialStepDelaySuggestion = ({ inputRect }) => (
   <div className={styles.stepDelaySuggestion} style={{ top: inputRect.bottom }}>
     <Info>Impairment also applies to suggestion.</Info>
-    <Instruction>Accept the suggestion.</Instruction>
+    <Instruction>Now accept the suggestion.</Instruction>
   </div>
 );
 TutorialStepDelaySuggestion.propTypes = { inputRect: RectPropType.isRequired };

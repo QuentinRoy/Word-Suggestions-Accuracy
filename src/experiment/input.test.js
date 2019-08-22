@@ -168,6 +168,7 @@ describe("getSuggestionSks", () => {
     expect(getRksImprovement("hel", "hello", "hello there")).toBe(2);
     expect(getRksImprovement("hel", "hello ", "hello there")).toBe(3);
     expect(getRksImprovement("hal", "hello", "hello there")).toBe(6);
+    expect(getRksImprovement("forcesss", "force", "force")).toBe("sss".length);
   });
 
   test("returns the number of saved key strokes when the suggestion is incorrect", () => {
@@ -183,6 +184,7 @@ describe("getSuggestionSks", () => {
 
     expect(getRksImprovement("hel", "hello", "hello")).toBe(2);
     expect(getRksImprovement("hal", "hello", "hello")).toBe(6);
+    expect(getRksImprovement("forcesss", "forces", "force")).toBe(2);
   });
 });
 

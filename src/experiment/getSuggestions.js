@@ -1,9 +1,10 @@
-import { count, insertEject } from "../utils/arrays";
+import { insertEject } from "../utils/arrays";
 import {
   isUpperCase,
   totalMatchedChars,
   totalMatchedCharsFromStart
 } from "../utils/strings";
+import { getCurrentInputWord } from "./input";
 
 /** Compute a suggestion score based on an input word as specified in
  * https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/jb-release/native/jni/src/correction.cpp#1098
@@ -116,24 +117,20 @@ const getSuggestions = (
   input,
   canReplaceLetters
 ) => {
-  // This may produce empty words (""). This is OK.
-  const inputWords = input.split(" ");
-  // Note: if input ends with a space, then the input word is "". This is
-  // on purpose.
-  const currentInputWord =
-    inputWords.length > 0 ? inputWords[inputWords.length - 1] : "";
+  const { word: inputWord, index: currentInputWordIndex } = getCurrentInputWord(
+    input
+  );
 
-  // Since inputWords may contain empty words, we only count the non empty
-  // one.
-  const totalInputWords = count(inputWords, w => w !== "");
-  const currentWordIndex =
-    currentInputWord === "" ? totalInputWords : totalInputWords - 1;
-  const currentWord = sksDistribution[currentWordIndex];
+  let sks = null;
+  let targetWord = null;
+  if (currentInputWordIndex < sksDistribution.length) {
+    ({ sks, word: targetWord } = sksDistribution[currentInputWordIndex]);
+  }
 
   return computeSuggestions(
-    currentInputWord,
-    currentWord == null ? null : currentWord.sks,
-    currentWord == null ? null : currentWord.word,
+    inputWord,
+    sks,
+    targetWord,
     totalSuggestions,
     dictionary,
     canReplaceLetters

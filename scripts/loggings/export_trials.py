@@ -19,6 +19,7 @@ log_columns = {
     "sd_accuracy": "sdAccuracy",
     "diff_accuracy": "diffAccuracy",
     "diff_sd": "diffSd",
+    "is_practice": "isPractice",
     "suggestions_type": "suggestionsType",
 }
 

@@ -17,17 +17,6 @@ describe("isTargetCompleted", () => {
     ).toBe(true);
     expect(isTargetCompleted("", "")).toBe(true);
   });
-  test("returns true if the input contains extra white spaces", () => {
-    expect(isTargetCompleted("test ", "test")).toBe(true);
-    expect(isTargetCompleted("test     ", "test")).toBe(true);
-    expect(
-      isTargetCompleted("this text is correct ", "this text is correct")
-    ).toBe(true);
-    expect(
-      isTargetCompleted("this text is correct     ", "this text is correct")
-    ).toBe(true);
-    expect(isTargetCompleted(" ", "")).toBe(true);
-  });
   test("returns false in other situations", () => {
     expect(isTargetCompleted("something", "something else")).toBe(false);
     expect(
@@ -37,6 +26,16 @@ describe("isTargetCompleted", () => {
       isTargetCompleted("this has    extra spaces", "this has extra spaces")
     ).toBe(false);
     expect(isTargetCompleted("    this tooo", "this too")).toBe(false);
+
+    expect(isTargetCompleted("test ", "test")).toBe(false);
+    expect(isTargetCompleted("test     ", "test")).toBe(false);
+    expect(
+      isTargetCompleted("this text is correct ", "this text is correct")
+    ).toBe(false);
+    expect(
+      isTargetCompleted("this text is correct     ", "this text is correct")
+    ).toBe(false);
+    expect(isTargetCompleted(" ", "")).toBe(false);
   });
 });
 
@@ -45,8 +44,8 @@ describe("isInputCorrect", () => {
     expect(isInputCorrect("hello ", "hello there")).toBe(true);
   });
 
-  test("returns true if there are extra white spaces at the end, and the input is completed", () => {
-    expect(isInputCorrect("hello there   ", "hello there")).toBe(true);
+  test("returns false if there are extra white spaces at the end, and the input is completed", () => {
+    expect(isInputCorrect("hello there   ", "hello there")).toBe(false);
   });
 
   test("returns false if there are extra white spaces at the end and the input is not completed", () => {
@@ -62,13 +61,9 @@ describe("isInputCorrect", () => {
 
 describe("getTotalCorrectCharacters", () => {
   test("returns the length of the input is completed", () => {
-    let input = "this text is correct     ";
-    let target = "this text is correct";
-    expect(getTotalCorrectCharacters(input, target)).toBe(input.length);
-
-    input = "these are the same";
-    target = input;
-    expect(getTotalCorrectCharacters(input, target)).toBe(input.length);
+    expect(
+      getTotalCorrectCharacters("this text is correct", "this text is correct")
+    ).toBe("this text is correct".length);
   });
 
   test("returns the length of the input if it is correct", () => {
@@ -91,6 +86,13 @@ describe("getTotalCorrectCharacters", () => {
         "this has not"
       )
     ).toBe(0);
+
+    expect(
+      getTotalCorrectCharacters(
+        "this has extra spaces at the end  ",
+        "this has extra spaces at the end"
+      )
+    ).toBe("this has extra spaces at the end".length);
   });
 });
 
@@ -132,17 +134,16 @@ describe("getCurrentInputWord", () => {
 
 describe("getRemainingKeyStrokes", () => {
   test("returns the number of remaining characters in target if there are no errors", () => {
-    expect(getRemainingKeyStrokes("hello", "hello there")).toBe(
-      " there".length
+    expect(getRemainingKeyStrokes("hello", "hello there ")).toBe(
+      " there ".length
     );
-    expect(getRemainingKeyStrokes("", "hello there")).toBe(
-      "hello there".length
+    expect(getRemainingKeyStrokes("", "hello there ")).toBe(
+      "hello there ".length
     );
   });
 
   test("returns 0 if the target is completed", () => {
     expect(getRemainingKeyStrokes("hello there", "hello there")).toBe(0);
-    expect(getRemainingKeyStrokes("hello there   ", "hello there")).toBe(0);
   });
 
   test("returns the number of remaining characters in target + the number of characters to remove if there are errors", () => {
@@ -155,10 +156,15 @@ describe("getRemainingKeyStrokes", () => {
   });
 
   test("returns the number of extraneous characters, if the target has been exceeded", () => {
-    expect(getRemainingKeyStrokes("hello there my friend", "hello there")).toBe(
-      "my friend".length
+    expect(getRemainingKeyStrokes("hello there   ", "hello there")).toBe(
+      "   ".length
     );
-    expect(getRemainingKeyStrokes("hello there    a", "hello there")).toBe(1);
+    expect(getRemainingKeyStrokes("hello there my friend", "hello there")).toBe(
+      " my friend".length
+    );
+    expect(getRemainingKeyStrokes("hello there    a", "hello there")).toBe(
+      "    a".length
+    );
   });
 });
 
@@ -192,9 +198,9 @@ describe("getTextFromSksDistribution", () => {
   test("returns the corresponding text", () => {
     expect(
       getTextFromSksDistribution([
-        { word: "hello", sks: 1 },
-        { word: "there", sks: 2 }
+        { word: "hello ", sks: 1 },
+        { word: "there ", sks: 2 }
       ])
-    ).toBe("hello there");
+    ).toBe("hello there ");
   });
 });

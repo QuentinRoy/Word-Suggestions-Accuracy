@@ -14,13 +14,14 @@ import { table } from "./ScientificTable.module.css";
 
 export default function ViewerContent({
   words,
-  meanAccuracy,
-  sdAccuracy,
-  weightedAccuracy,
+
   targetAccuracy,
   targetSd,
   maxDiffAccuracy,
-  maxDiffSd
+  maxDiffSd,
+  meanWordsKss,
+  sdWordKss,
+  totalKss
 }) {
   return (
     <div className={content}>
@@ -31,34 +32,32 @@ export default function ViewerContent({
         <table className={table}>
           <tbody>
             <tr>
-              <th>Mean Accuracy</th>
-              <th>Weighted Accuracy</th>
-              <th>Standard Deviation</th>
+              <th>Total KSS</th>
+              <th>Mean Word KSS</th>
+              <th>SD Word KSS</th>
             </tr>
             <tr>
               <td
                 className={classNames({
-                  [big]:
-                    Math.abs(meanAccuracy - targetAccuracy) > maxDiffAccuracy
+                  [big]: Math.abs(totalKss - targetAccuracy) > maxDiffAccuracy
                 })}
               >
-                {meanAccuracy.toFixed(2)}
+                {totalKss.toFixed(4)}
               </td>
               <td
                 className={classNames({
                   [big]:
-                    Math.abs(weightedAccuracy - targetAccuracy) >
-                    maxDiffAccuracy
+                    Math.abs(meanWordsKss - targetAccuracy) > maxDiffAccuracy
                 })}
               >
-                {weightedAccuracy.toFixed(2)}
+                {meanWordsKss.toFixed(4)}
               </td>
               <td
                 className={classNames({
-                  [big]: Math.abs(sdAccuracy - targetSd) > maxDiffSd
+                  [big]: Math.abs(sdWordKss - targetSd) > maxDiffSd
                 })}
               >
-                {sdAccuracy.toFixed(2)}
+                {sdWordKss.toFixed(4)}
               </td>
             </tr>
           </tbody>
@@ -73,9 +72,9 @@ export default function ViewerContent({
 
 ViewerContent.propTypes = {
   words: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  meanAccuracy: PropTypes.number.isRequired,
-  weightedAccuracy: PropTypes.number.isRequired,
-  sdAccuracy: PropTypes.number.isRequired,
+  totalKss: PropTypes.number.isRequired,
+  meanWordsKss: PropTypes.number.isRequired,
+  sdWordKss: PropTypes.number.isRequired,
   maxDiffAccuracy: PropTypes.number.isRequired,
   maxDiffSd: PropTypes.number.isRequired,
   targetAccuracy: PropTypes.number.isRequired,

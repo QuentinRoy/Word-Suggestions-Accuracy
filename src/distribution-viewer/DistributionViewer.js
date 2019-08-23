@@ -75,17 +75,15 @@ const DistributionViewer = () => {
   }
 
   // Compute the sentence words accuracy.
-  const {
-    words,
-    meanAccuracy,
-    sdAccuracy,
-    weightedAccuracy
-  } = getWordAccuracies(corpus[sentenceIndex], {
-    targetAccuracy: accuracy,
-    targetSd: sd,
-    maxDiffAccuracy,
-    maxDiffSd
-  });
+  const { words, meanWordsKss, sdWordKss, totalKss } = getWordAccuracies(
+    corpus[sentenceIndex],
+    {
+      targetKss: accuracy,
+      targetSdWordKss: sd,
+      maxDiffKss: maxDiffAccuracy,
+      maxDiffSdKss: maxDiffSd
+    }
+  );
 
   return (
     <div className={main} style={{ height: pageHeight }}>
@@ -123,9 +121,9 @@ const DistributionViewer = () => {
       <div className={content}>
         <ViewerContent
           words={words}
-          meanAccuracy={meanAccuracy}
-          sdAccuracy={sdAccuracy}
-          weightedAccuracy={weightedAccuracy}
+          meanWordsKss={meanWordsKss}
+          sdWordKss={sdWordKss}
+          totalKss={totalKss}
           maxDiffAccuracy={maxDiffAccuracy}
           maxDiffSd={maxDiffSd}
           targetAccuracy={accuracy}

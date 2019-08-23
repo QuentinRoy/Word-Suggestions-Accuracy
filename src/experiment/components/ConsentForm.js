@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import classes from "./styles/ConsentForm.module.scss";
 
-const duration = 20; // (minutes)
+const duration = 15; // (minutes)
 const remuneration = 2; // (dollars)
 
 const ConsentForm = ({ onAdvanceWorkflow }) => {

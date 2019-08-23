@@ -2,7 +2,7 @@ import json
 import csv
 import os
 from csv_export import csv_export
-from config_tasks import FINAL_FEEDBACKS, iter_task_of_type
+from config_tasks import FINAL_FEEDBACKS, iter_task_of_type, END_QUESTIONNAIRE, STARTUP
 from utils import to_snake_case, copy_rename
 
 this_dir = os.path.dirname(os.path.abspath(__file__))
@@ -42,6 +42,28 @@ corpus_columns = {
 
 other_columns = ["file_name", "feedbacks"]
 
+startup_questionnaire_tries_column = {
+    "start_up_questionnaire_tries": "startUpQuestionnaireTries"
+}
+
+end_questionnaire_columns = {
+    "age": "age",
+    "gender": "gender",
+    "controls_satisfactory": "controlsSatisfactory",
+    "suggestions_accuracy": "suggestionsAccuracy",
+    "middle_answer": "middleAnswer",
+    "keyboard_use_efficiency": "keyboardUseEfficiency",
+    "suggestions_use_frequency_desktop": "suggestionsUseFrequencyDesktop",
+    "suggestions_use_frequency_mobile": "suggestionsUseFrequencyMobile",
+    "mental_demand": "mentalDemand",
+    "physical_demand": "physicalDemand",
+    "temporal_demand": "temporalDemand",
+    "performance": "performance",
+    "effort": "effort",
+    "frustration": "frustration"
+}
+
+
 
 def get_feedbacks(run_record):
     feedback_tasks = list(iter_task_of_type(run_record, FINAL_FEEDBACKS))
@@ -50,6 +72,22 @@ def get_feedbacks(run_record):
         return feedback_tasks[0]["feedbacks"]
     return None
 
+def get_start_questionnaire_tries(run_record, result):
+    startup_questionnaire_task = list(iter_task_of_type(run_record, STARTUP))
+    assert len(startup_questionnaire_task) == 1
+    if "trials" in startup_questionnaire_task[0]:
+        if "testAnswers" in startup_questionnaire_task[0]['trials'][0]:
+            for idx, test in enumerate(startup_questionnaire_task[0]['trials'],0):
+                if test["testIsCorrect"]:
+                    copy_rename(startup_questionnaire_task[0]['trials'][idx], result, startup_questionnaire_tries_column)
+    return result
+
+def get_end_questionnaire(run_record, result):
+    end_questionnaire_task = list(iter_task_of_type(run_record, END_QUESTIONNAIRE))
+    assert len(end_questionnaire_task) == 1
+    if "log" in end_questionnaire_task[0]:
+        copy_rename(end_questionnaire_task[0]["log"], result, end_questionnaire_columns)
+    return result
 
 # This should just yield once, but we still use an iterators for consistency
 # with export_events.
@@ -57,10 +95,11 @@ def iter_run_record(run_record, file_name, **kwargs):
     result = {"file_name": file_name, "feedbacks": get_feedbacks(run_record)}
     copy_rename(run_record, result, record_columns)
     copy_rename(run_record["corpusConfig"], result, corpus_columns)
+    get_start_questionnaire_tries(run_record, result)
+    get_end_questionnaire(run_record, result)
     yield result
 
-
 if __name__ == "__main__":
-    header = list(record_columns.keys()) + list(corpus_columns.keys()) + other_columns
+    header = list(record_columns.keys()) + list(corpus_columns.keys()) + other_columns + list(startup_questionnaire_tries_column.keys()) + list(end_questionnaire_columns.keys())
     csv_export(json_logs_dir, output_file_path, header, iter_run_record)
     print("{} written.".format(output_file_path))

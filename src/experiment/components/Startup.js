@@ -15,6 +15,7 @@ import StartupQuestionnaire from "./StartupQuestionnaire";
 const Startup = ({ onAdvanceWorkflow, onLog, numberOfPracticeTasks }) => {
   const [areInstructionPassed, setAreInstructionPassed] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [startUpQuestionnaireTries, setStartUpQuestionnaireTries] = useState(1);
 
   const { current: logs } = useRef([{ startDate: new Date() }]);
   const lastLog = last(logs);
@@ -39,11 +40,13 @@ const Startup = ({ onAdvanceWorkflow, onLog, numberOfPracticeTasks }) => {
       lastLog.instructionEndDate - lastLog.startDate;
     lastLog.instructionDuration =
       lastLog.instructionEndDate - lastLog.testEndDate;
+    lastLog.startUpQuestionnaireTries = startUpQuestionnaireTries;
     if (isCorrect) {
       onLog("trials", logs);
       onAdvanceWorkflow();
     } else {
       setIsAlertOpen(true);
+      setStartUpQuestionnaireTries(startUpQuestionnaireTries + 1);
     }
   };
 

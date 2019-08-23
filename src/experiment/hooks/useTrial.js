@@ -118,7 +118,7 @@ export const inputSuggestionReducer = (state, action) => {
   );
   return {
     ...state,
-    input: `${inputWithoutLastWord}${action.word} `
+    input: `${inputWithoutLastWord}${action.word}`
   };
 };
 

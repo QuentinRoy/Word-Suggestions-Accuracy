@@ -1,27 +1,20 @@
-import {
-  trimEnd,
-  totalMatchedCharsFromStart,
-  trimStart
-} from "../utils/strings";
+import { totalMatchedCharsFromStart } from "../utils/strings";
 import { count } from "../utils/arrays";
 
 /**
  * @param {string} input The input, i.e. what has been typed by the user.
  * @param {string} target The target text, i.e. what the user must type.
  * @returns {bool} True if the input matches the target, ignoring extra
- * whitespaces at the end of the input, false otherwise.
+ * white spaces at the end of the input, false otherwise.
  */
-export const isTargetCompleted = (input, target) => trimEnd(input) === target;
+export const isTargetCompleted = (input, target) => input === target;
 
 /**
  * @param {string} input The input, i.e. what has been typed by the user.
  * @param {string} target The target text, i.e. what the user must type.
- * @returns {number} The number of correct characters in the input. Note that
- * this can be more than target.length since the very last character is
- * considered correct if it is a white space.
+ * @returns {number} The number of correct characters in the input.
  */
 export const getTotalCorrectCharacters = (input, target) => {
-  if (isTargetCompleted(input, target)) return input.length;
   return totalMatchedCharsFromStart(target, input);
 };
 
@@ -32,7 +25,7 @@ export const getTotalCorrectCharacters = (input, target) => {
  * knowing that they can only erase the last character of the input every time.
  */
 export const getTotalIncorrectCharacters = (input, target) =>
-  Math.max(0, input.length - getTotalCorrectCharacters(input, target));
+  input.length - getTotalCorrectCharacters(input, target);
 
 /**
  * @param {string} input The input, i.e. what has been typed by the user.
@@ -49,20 +42,12 @@ export const isInputCorrect = (input, target) =>
  * target.
  */
 export const getRemainingKeyStrokes = (input, target) => {
-  if (input.startsWith(target)) {
-    // In the case the target was exceeded, looks for the number of characters
-    // to remove at the end of the string, knowing that whitespaces are ignored
-    // at the end of a correct input.
-    return trimStart(input.slice(target.length)).length;
-  }
   return (
     target.length +
     // We need to add the number of incorrect characters, since these need to be
     // removed.
     getTotalIncorrectCharacters(input, target) -
-    // The number of correct characters can actually bigger than target.length
-    // because terminal whitespaces are considered correct.
-    Math.min(target.length, getTotalCorrectCharacters(input, target))
+    getTotalCorrectCharacters(input, target)
   );
 };
 
@@ -109,4 +94,4 @@ export const getCurrentInputWord = fullInput => {
  * @return {string} the corresponding text
  */
 export const getTextFromSksDistribution = sksDistribution =>
-  sksDistribution.map(w => w.word).join(" ");
+  sksDistribution.map(w => w.word).join("");

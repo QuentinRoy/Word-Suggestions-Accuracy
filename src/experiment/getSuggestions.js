@@ -61,7 +61,7 @@ function computeSuggestions(
   }));
 
   const wordEntryScoreGetter = e => e.score;
-  const insertTopWord = (word, score) => {
+  const insertSuggestion = (word, score) => {
     insertEject(topWords, { word, score }, wordEntryScoreGetter);
   };
 
@@ -80,29 +80,30 @@ function computeSuggestions(
       ) &&
     (canReplaceLetters || lowerCaseTargetWord.startsWith(lowerCaseInputWord))
   ) {
-    insertTopWord(targetWord, Number.POSITIVE_INFINITY);
+    insertSuggestion(targetWord, Number.POSITIVE_INFINITY);
   }
 
   for (let i = 0; i < dictionary.length; i += 1) {
     const { word, f: frequencyScore } = dictionary[i];
-    const lowercaseWord = word.toLowerCase();
+    const lowercaseSuggestion = word.toLowerCase();
 
     if (
-      lowercaseWord !== lowerCaseTargetWord &&
+      lowercaseSuggestion !== lowerCaseTargetWord &&
       (lowerCaseTargetWord == null ||
-        getRksImprovement(
-          lowerCaseInputWord,
-          lowercaseWord,
-          lowerCaseTargetWord
-        ) <= 0) &&
-      (canReplaceLetters || lowercaseWord.startsWith(lowerCaseInputWord))
+        targetWordSKS >=
+          getRksImprovement(
+            lowerCaseInputWord,
+            `${lowercaseSuggestion} `,
+            lowerCaseTargetWord
+          )) &&
+      (canReplaceLetters || lowercaseSuggestion.startsWith(lowerCaseInputWord))
     ) {
       const score = suggestionScore(
         frequencyScore,
-        lowercaseWord,
+        lowercaseSuggestion,
         lowerCaseInputWord
       );
-      insertTopWord(word, score);
+      insertSuggestion(`${word} `, score);
     }
   }
 

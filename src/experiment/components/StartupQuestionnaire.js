@@ -8,28 +8,29 @@ import MultipleChoiceQuestion from "./MultipleChoiceQuestion";
 const questions = [
   {
     text: "You will...",
-    answers: ["read long paragraphs", "find typos", "write text"],
-    correctAnswer: "write text"
+    answers: ["read long paragraphs", "find typos in a text", "type sentences"],
+    correctAnswer: "type sentences"
   },
   {
     text: "You must...",
     answers: [
-      "go as fast possible, while still being accurate",
+      "type as fast and accurately as possible",
       "take all the time you need, but not make errors",
-      "not use word suggestions",
-      "use word suggestions"
+      "never use word suggestions",
+      "always use word suggestions"
     ],
-    correctAnswer: "go as fast possible, while still being accurate"
+    correctAnswer: "type as fast and accurately as possible"
   },
   {
-    text: "To interact...",
+    text: "You will...",
     answers: [
-      "you will need to keep keys down longer than usual",
-      "you will need to click on small buttons",
-      "you will not use your keyboard",
-      "you will need to click on words"
+      "need to keep your keyboard's keys pressed down longer than usual",
+      "need to click on small buttons",
+      "not use your keyboard",
+      "need to click on words"
     ],
-    correctAnswer: "you will need to keep keys down longer than usual"
+    correctAnswer:
+      "need to keep your keyboard's keys pressed down longer than usual"
   }
 ];
 

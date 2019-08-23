@@ -17,18 +17,8 @@ export const totalMatchedChars = (str1, str2) => {
 
 export const isUpperCase = str => str === str.toUpperCase();
 
-// This is an implementation of trim end for browsers that do not implement it.
-// It is obviously slower than any native approach.
-export const nonNativeTrimEnd = str => {
-  const trimmed = str.trim();
-  const start = str.indexOf(trimmed);
-  return str.slice(start, str.length);
-};
+const regexTrimEnd = /\s+$/;
+export const trimEnd = str => str.replace(regexTrimEnd, "");
 
-export const trimEnd =
-  // eslint-disable-next-line no-nested-ternary
-  String.prototype.trimEnd != null
-    ? str => str.trimEnd()
-    : String.prototype.trimRight != null
-    ? str => str.trimRight()
-    : nonNativeTrimEnd;
+const regexTrimStart = /^\s+/;
+export const trimStart = str => str.replace(regexTrimStart, "");

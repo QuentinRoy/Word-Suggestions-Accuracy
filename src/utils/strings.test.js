@@ -1,7 +1,9 @@
 import {
   totalMatchedCharsFromStart,
   totalMatchedChars,
-  isUpperCase
+  isUpperCase,
+  trimEnd,
+  trimStart
 } from "./strings";
 
 describe("totalMatchedCharsFromStart", () => {
@@ -96,4 +98,18 @@ describe("isUpperCase", () => {
   test("returns true if there are only upper case letters and special characters", () => {
     expect(isUpperCase("(HELLO$%*)")).toBe(true);
   });
+});
+
+test("trimEnd", () => {
+  expect(trimEnd("hello there")).toBe("hello there");
+  expect(trimEnd("hello there   ")).toBe("hello there");
+  expect(trimEnd("   hello there")).toBe("   hello there");
+  expect(trimEnd("   hello there   ")).toBe("   hello there");
+});
+
+test("trimStart", () => {
+  expect(trimStart("hello there")).toBe("hello there");
+  expect(trimStart("hello there   ")).toBe("hello there   ");
+  expect(trimStart("   hello there")).toBe("hello there");
+  expect(trimStart("   hello there   ")).toBe("hello there   ");
 });

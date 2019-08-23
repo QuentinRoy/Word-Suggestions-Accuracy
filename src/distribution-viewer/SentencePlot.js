@@ -10,6 +10,7 @@ import {
   tickLabel,
   plot
 } from "./SentencePlot.module.css";
+import { getSaving } from "./getWordAccuracies";
 
 const margin = { top: 20, right: 30, bottom: 30, left: 40 };
 const width = 960 - margin.left - margin.right;
@@ -21,7 +22,7 @@ const histogram = Histogram()
   .domain([0, 1])
   // Last one is a bit bigger than 1 to make sure 1 is included.
   .thresholds([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0001])
-  .value(d => d.sks / d.word.length);
+  .value(d => getSaving(d.word, d.sks));
 
 const scaleX = ScaleLinear()
   .domain([0, 1])

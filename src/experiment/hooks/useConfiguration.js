@@ -20,7 +20,8 @@ const PageArguments = {
   keyStrokeDelays: "keyStrokeDelays",
   assignmentId: "assignmentId",
   hitId: "hitId",
-  suggestionsType: "suggestionsType"
+  suggestionsType: "suggestionsType",
+  isTest: "isTest"
 };
 
 const {
@@ -28,6 +29,7 @@ const {
   targetAccuracy,
   keyStrokeDelay,
   suggestionsType,
+  isTest,
   ...otherPageArgs
 } = (() => {
   const urlParams = new URL(document.location).searchParams;
@@ -47,6 +49,9 @@ const {
         .split(",")
         .map(x => +x)
     : defaultAccuracies;
+  const isTestState = urlParams.has(PageArguments.isTest)
+    ? urlParams.get(PageArguments.isTest)
+    : null;
   return {
     assignmentId,
     hitId,
@@ -55,7 +60,8 @@ const {
     keyStrokeDelay:
       keyStrokeDelays[Math.floor(Math.random() * keyStrokeDelays.length)],
     targetAccuracy:
-      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)]
+      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)],
+    isTest: isTestState
   };
 })();
 
@@ -216,12 +222,14 @@ const useConfiguration = () => {
         numberOfTypingTasks,
         href: window.location.href,
         isExperimentCompleted: false,
-        startDate
+        startDate,
+        isTest
       };
     }
     return null;
   }, [loadingState, corpus, startDate]);
   return participant == null ||
+    isTest == null ||
     !Object.values(SuggestionTypes).includes(suggestionsType)
     ? [LoadingStates.invalidArguments, null]
     : [loadingState, config];

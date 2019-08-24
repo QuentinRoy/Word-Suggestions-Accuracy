@@ -102,25 +102,25 @@ const generateTasks = (corpus, uploadFileName) => {
 
   const tasks = [];
 
-  tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
+  // tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
+  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
+  // tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
+  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  tasks.push(
-    Task(TaskTypes.informationScreen, {
-      content: "Now you will complete an interactive tutorial",
-      shortcutEnabled: true,
-      key: `info-${tasks.length}`
-    })
-  );
+  // tasks.push(
+  //   Task(TaskTypes.informationScreen, {
+  //     content: "Now you will complete an interactive tutorial",
+  //     shortcutEnabled: true,
+  //     key: `info-${tasks.length}`
+  //   })
+  // );
 
-  tasks.push(
-    Task(TaskTypes.tutorial, { key: `tuto-${tasks.length}`, isPractice: true })
-  );
+  // tasks.push(
+  //   Task(TaskTypes.tutorial, { key: `tuto-${tasks.length}`, isPractice: true })
+  // );
 
   // Insert practice tasks.
   if (numberOfPracticeTasks > 0) {

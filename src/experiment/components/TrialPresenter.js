@@ -123,7 +123,7 @@ const TrialPresenter = ({
       case "Shift":
         dispatch({
           id: "toggle-shift-layout",
-          type: Actions.toggleLayout,
+          type: Actions.toggleKeyboardLayout,
           layoutName: KeyboardLayoutNames.shift,
           status
         });
@@ -131,7 +131,7 @@ const TrialPresenter = ({
       case "{numbers}":
         dispatch({
           id: "toggle-number-layout",
-          type: Actions.toggleLayout,
+          type: Actions.toggleKeyboardLayout,
           layoutName: KeyboardLayoutNames.numbers,
           status
         });
@@ -139,7 +139,7 @@ const TrialPresenter = ({
       case "{abc}":
         dispatch({
           id: "toggle-default-layout",
-          type: Actions.toggleLayout,
+          type: Actions.toggleKeyboardLayout,
           layoutName: KeyboardLayoutNames.default,
           status
         });

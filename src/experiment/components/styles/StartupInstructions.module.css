@@ -12,3 +12,8 @@
 .main .button {
   margin: 10px;
 }
+
+.instructions {
+  font-style: italic;
+  margin-bottom: 2rem;
+}

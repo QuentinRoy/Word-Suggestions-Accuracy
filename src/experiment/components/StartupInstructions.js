@@ -5,7 +5,7 @@ import Appear from "./Appear";
 import styles from "./styles/StartupInstructions.module.css";
 
 const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
 
   const instructionElements = (
     <>
@@ -20,11 +20,9 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
         them or not.
       </Appear.Fragment>
       <Appear.Fragment component="p">
-        Moreover, you may be assigned an <strong>impairment</strong> factor.{" "}
-        <Appear.Fragment component="span">
-          You may need to <strong>keep your keyboard key pressed down</strong>{" "}
-          for a certain period of time before the system reacts.{" "}
-        </Appear.Fragment>
+        Moreover, you may be assigned an <strong>impairment</strong> factor. You
+        may need to <strong>keep your keyboard key pressed down</strong> for a
+        certain period of time before the system reacts.{" "}
       </Appear.Fragment>
       <Appear.Fragment component="p">
         If you release the key before this delay is passed, nothing will happen.
@@ -42,10 +40,8 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
       <br />
       <Appear.Fragment component="p">
         Once the experiment has started it is very important that you{" "}
-        <strong>remain focused</strong>.{" "}
-        <Appear.Fragment component="span">
-          In particular, time is measured during typing tasks.
-        </Appear.Fragment>
+        <strong>remain focused</strong>. In particular, time is measured during
+        typing tasks.
       </Appear.Fragment>
       <Appear.Fragment component="p">
         <strong>Please do not stop typing during typing tasks.</strong>{" "}
@@ -60,12 +56,17 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
     </>
   );
 
-  const totalSteps = 13;
+  const totalSteps = 11;
 
   return (
     <div className={styles.main}>
       <Appear currentStep={step}>
         <h1>Instructions</h1>
+        <p className={styles.instructions}>
+          Please carefully read the instructions below. Use the
+          &ldquo;next&rdquo; button at the bottom of the screen to step through
+          them.
+        </p>
         {instructionElements}
         <div className={styles.buttonWrapper}>
           <Button

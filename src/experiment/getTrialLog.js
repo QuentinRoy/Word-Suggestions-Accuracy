@@ -26,7 +26,7 @@ const getTrialLog = (
   let totalSuggestionErrors = 0;
   let totalSuggestionUsed = 0;
   let actualSks = 0;
-  events.forEach((evt, i) => {
+  events.forEach(evt => {
     if (evt.type === Actions.inputChar || evt.type === Actions.deleteChar) {
       if (evt.isError) totalKeyStrokeErrors += 1;
       totalKeyStrokes += 1;
@@ -34,11 +34,7 @@ const getTrialLog = (
     if (evt.type === Actions.inputSuggestion) {
       if (evt.isError) totalSuggestionErrors += 1;
       totalSuggestionUsed += 1;
-      const prevIncorrect = i > 0 ? events[i - 1].totalIncorrectCharacters : 0;
-      const prevCorrect = i > 0 ? events[i - 1].totalCorrectCharacters : 0;
-      const diffCorrectChars = evt.totalCorrectCharacters - prevCorrect;
-      const diffIncorrectChars = evt.totalIncorrectCharacters - prevIncorrect;
-      actualSks += diffCorrectChars - diffIncorrectChars;
+      actualSks += evt.diffRemainingKeyStrokes;
     }
   });
 

@@ -71,6 +71,7 @@ export const TutorialSteps = Object.freeze({
   error: "Error",
   delay: "Delay",
   delaySuggestion: "DelaySuggestion",
+  finalWhiteSpace: "FinalWhiteSpace",
   finish: "Finish",
   end: "End"
 });

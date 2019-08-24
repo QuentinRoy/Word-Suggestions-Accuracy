@@ -39,14 +39,20 @@ const Info = ({ children, top, left, width, height, style }) => (
 
 Info.propTypes = {
   children: PropTypes.node.isRequired,
-  top: PropTypes.number.isRequired,
-  left: PropTypes.number.isRequired,
+  top: PropTypes.number,
+  left: PropTypes.number,
   width: PropTypes.number,
   height: PropTypes.number,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.object
 };
-Info.defaultProps = { width: undefined, height: undefined, style: {} };
+Info.defaultProps = {
+  top: undefined,
+  left: undefined,
+  width: undefined,
+  height: undefined,
+  style: {}
+};
 
 const CircleTypes = {
   circle: "circle",
@@ -123,7 +129,7 @@ const TutorialStepStart = ({ stimulusTextRect, presenterBottom }) => (
       left={stimulusTextRect.left + stimulusTextRect.width + 40}
       top={stimulusTextRect.top + stimulusTextRect.height}
     >
-      This is what you must type.
+      This is what you must type. It ends with a white space.
     </Info>
     <Instruction presenterBottom={presenterBottom}>
       Type the first letter.
@@ -152,7 +158,7 @@ const TutorialStepInput = ({ inputRect, presenterBottom }) => (
   </div>
 );
 TutorialStepInput.propTypes = {
-  presenterBottom: PropTypes.isRequired,
+  presenterBottom: PropTypes.number.isRequired,
   inputRect: RectPropType.isRequired
 };
 
@@ -304,11 +310,20 @@ const TutorialStepFinish = ({ presenterBottom }) => (
   <div className={styles.stepFinish} style={{ top: presenterBottom }}>
     <Info>That is all. All actions are now enabled.</Info>
     <Instruction>
-      Finish the task, as fast as you can, while minimizing errors.
+      Finish the task as fast and accurately as possible.
     </Instruction>
   </div>
 );
 TutorialStepFinish.propTypes = { presenterBottom: PropTypes.number.isRequired };
+
+const TutorialStepFinalWhiteSpace = ({ presenterBottom }) => (
+  <div className={styles.stepFinish} style={{ top: presenterBottom }}>
+    <Info>The last character to type is a white space.</Info>
+  </div>
+);
+TutorialStepFinalWhiteSpace.propTypes = {
+  presenterBottom: PropTypes.number.isRequired
+};
 
 const TutorialStepEnd = () => null;
 
@@ -321,6 +336,7 @@ const StepComponents = {
   [TutorialSteps.delay]: TutorialStepDelay,
   [TutorialSteps.delaySuggestion]: TutorialStepDelaySuggestion,
   [TutorialSteps.finish]: TutorialStepFinish,
+  [TutorialSteps.finalWhiteSpace]: TutorialStepFinalWhiteSpace,
   [TutorialSteps.end]: TutorialStepEnd
 };
 

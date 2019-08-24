@@ -1,22 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { totalMatchedCharsFromStart } from "../../utils/strings";
+import { totalMatchedCharsFromStart, trimEnd } from "../../utils/strings";
 import styles from "./styles/Stimulus.module.css";
 
 const Stimulus = ({ text, input, stimulusTextRef }) => {
-  const correctCharsCount = totalMatchedCharsFromStart(text, input);
+  const stimulusText = trimEnd(text).padEnd(text.length, "␣");
+  const correctCharsCount = totalMatchedCharsFromStart(stimulusText, input);
 
   return (
     <div className={styles.stimulus}>
       <div className={styles.content}>
         <span className={styles.sentence} ref={stimulusTextRef}>
           <span className={styles.correct}>
-            {text.slice(0, correctCharsCount)}
+            {stimulusText.slice(0, correctCharsCount)}
           </span>
           <span className={styles.incorrect}>
-            {text.slice(correctCharsCount, input.length)}
+            {stimulusText.slice(correctCharsCount, input.length)}
           </span>
-          <span className={styles.text}>{text.slice(input.length)}</span>
+          <span className={styles.text}>
+            {stimulusText.slice(input.length)}
+          </span>
         </span>
       </div>
     </div>

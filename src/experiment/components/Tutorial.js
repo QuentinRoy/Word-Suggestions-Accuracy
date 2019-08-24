@@ -50,8 +50,12 @@ const getTutorialStep = input => {
   if (input === "video camera wi") {
     return TutorialSteps.delaySuggestion;
   }
-  if (!isTargetCompleted(input, tutorialSentence)) {
+  const isCompleted = isTargetCompleted(input, tutorialSentence);
+  if (!isCompleted && !input.startsWith("video camera with a zoom lens")) {
     return TutorialSteps.finish;
+  }
+  if (!isCompleted) {
+    return TutorialSteps.finalWhiteSpace;
   }
   return TutorialSteps.end;
 };
@@ -103,6 +107,7 @@ const isActionAllowed = (state, action, suggestionsType) => {
       );
     case TutorialSteps.finish:
     case TutorialSteps.end:
+    case TutorialSteps.finalWhiteSpace:
       return (
         action.type !== Actions.deleteChar ||
         action.changes.input.startsWith("video camera with")

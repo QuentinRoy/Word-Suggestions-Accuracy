@@ -102,11 +102,11 @@ const generateTasks = (corpus, uploadFileName) => {
 
   const tasks = [];
 
-  // tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
+  tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  // tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
+  tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 

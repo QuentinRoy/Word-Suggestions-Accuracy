@@ -96,57 +96,57 @@ const generateTasks = (corpus, uploadFileName) => {
 
   const tasks = [];
 
-  // tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
+  tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
 
-  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  // tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
+  tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
 
-  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  // tasks.push(
-  //   Task(TaskTypes.informationScreen, {
-  //     content: "Now you will complete an interactive tutorial",
-  //     shortcutEnabled: true,
-  //     key: `info-${tasks.length}`
-  //   })
-  // );
+  tasks.push(
+    Task(TaskTypes.informationScreen, {
+      content: "Now you will complete an interactive tutorial",
+      shortcutEnabled: true,
+      key: `info-${tasks.length}`
+    })
+  );
 
-  // tasks.push(
-  //   Task(TaskTypes.tutorial, {
-  //     key: `tuto-${tasks.length}`,
-  //     id: `tuto-${tasks.length}`,
-  //     isPractice: true
-  //   })
-  // );
+  tasks.push(
+    Task(TaskTypes.tutorial, {
+      key: `tuto-${tasks.length}`,
+      id: `tuto-${tasks.length}`,
+      isPractice: true
+    })
+  );
 
-  // // Insert practice tasks.
-  // if (numberOfPracticeTasks > 0) {
-  //   tasks.push(
-  //     Task(TaskTypes.informationScreen, {
-  //       content: "Continue with the practice tasks",
-  //       shortcutEnabled: true,
-  //       key: `info-${tasks.length}`
-  //     })
-  //   );
-  //   const practiceTaskBlock = pickCorpusEntries(numberOfPracticeTasks).map(
-  //     (props, i) => TypingTask(`practice-${tasks.length}-${i}`, true, props)
-  //   );
-  //   tasks.push({
-  //     children: practiceTaskBlock,
-  //     tasks: [TaskTypes.experimentProgress],
-  //     fullProgress: false,
-  //     currentProgress: true,
-  //     progressLevel: true
-  //   });
-  //   tasks.push(
-  //     Task(TaskTypes.informationScreen, {
-  //       content:
-  //         "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
-  //       key: `info-${tasks.length}`
-  //     })
-  //   );
-  // }
+  // Insert practice tasks.
+  if (numberOfPracticeTasks > 0) {
+    tasks.push(
+      Task(TaskTypes.informationScreen, {
+        content: "Continue with the practice tasks",
+        shortcutEnabled: true,
+        key: `info-${tasks.length}`
+      })
+    );
+    const practiceTaskBlock = pickCorpusEntries(numberOfPracticeTasks).map(
+      (props, i) => TypingTask(`practice-${tasks.length}-${i}`, true, props)
+    );
+    tasks.push({
+      children: practiceTaskBlock,
+      tasks: [TaskTypes.experimentProgress],
+      fullProgress: false,
+      currentProgress: true,
+      progressLevel: true
+    });
+    tasks.push(
+      Task(TaskTypes.informationScreen, {
+        content:
+          "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
+        key: `info-${tasks.length}`
+      })
+    );
+  }
 
   // Insert measured tasks.
   const measuredTasksBlock = pickCorpusEntries(numberOfTypingTasks).map(

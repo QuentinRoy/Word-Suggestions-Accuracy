@@ -49,14 +49,10 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
       <Appear.Fragment component="p">
         You may take a break on information screens.
       </Appear.Fragment>
-      <br />
-      <Appear.Fragment component="p">
-        There is a progress bar at the bottom of the screen.
-      </Appear.Fragment>
     </>
   );
 
-  const totalSteps = 11;
+  const totalSteps = 10;
 
   return (
     <div className={styles.main}>

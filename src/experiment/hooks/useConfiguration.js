@@ -65,13 +65,7 @@ const {
   };
 })();
 
-const Task = (type, props) => ({
-  task: type,
-  children: [{ tasks: [TaskTypes.experimentProgress], position: "bottom" }],
-  fullProgress: false,
-  currentProgress: true,
-  ...props
-});
+const Task = (type, props) => ({ task: type, ...props });
 
 const TypingTask = (id, isPractice, { words, ...props }) =>
   Task(TaskTypes.typingTask, {
@@ -102,25 +96,25 @@ const generateTasks = (corpus, uploadFileName) => {
 
   const tasks = [];
 
-  // tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
+  tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
 
-  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  // tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
+  tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
 
-  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  // tasks.push(
-  //   Task(TaskTypes.informationScreen, {
-  //     content: "Now you will complete an interactive tutorial",
-  //     shortcutEnabled: true,
-  //     key: `info-${tasks.length}`
-  //   })
-  // );
+  tasks.push(
+    Task(TaskTypes.informationScreen, {
+      content: "Now you will complete an interactive tutorial",
+      shortcutEnabled: true,
+      key: `info-${tasks.length}`
+    })
+  );
 
-  // tasks.push(
-  //   Task(TaskTypes.tutorial, { key: `tuto-${tasks.length}`, isPractice: true })
-  // );
+  tasks.push(
+    Task(TaskTypes.tutorial, { key: `tuto-${tasks.length}`, isPractice: true })
+  );
 
   // Insert practice tasks.
   if (numberOfPracticeTasks > 0) {
@@ -131,8 +125,15 @@ const generateTasks = (corpus, uploadFileName) => {
         key: `info-${tasks.length}`
       })
     );
-    pickCorpusEntries(numberOfPracticeTasks).forEach(props => {
-      tasks.push(TypingTask(`practice-${tasks.length}`, true, props));
+    const practiceTaskBlock = pickCorpusEntries(numberOfPracticeTasks).map(
+      (props, i) => TypingTask(`practice-${tasks.length}-${i}`, true, props)
+    );
+    tasks.push({
+      children: practiceTaskBlock,
+      tasks: [TaskTypes.experimentProgress],
+      fullProgress: false,
+      currentProgress: true,
+      progressLevel: true
     });
     tasks.push(
       Task(TaskTypes.informationScreen, {
@@ -144,8 +145,15 @@ const generateTasks = (corpus, uploadFileName) => {
   }
 
   // Insert measured tasks.
-  pickCorpusEntries(numberOfTypingTasks).forEach(props => {
-    tasks.push(TypingTask(`trial-${tasks.length}`, false, props));
+  const measuredTasksBlock = pickCorpusEntries(numberOfTypingTasks).map(
+    (props, i) => TypingTask(`trial-${tasks.length}-${i}`, false, props)
+  );
+  tasks.push({
+    children: measuredTasksBlock,
+    tasks: [TaskTypes.experimentProgress],
+    fullProgress: false,
+    currentProgress: true,
+    progressLevel: true
   });
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
@@ -162,14 +170,17 @@ const generateTasks = (corpus, uploadFileName) => {
     })
   );
 
-  pickCorpusEntries(numberOfTypingSpeedTasks).forEach(props => {
-    tasks.push(
-      TypingTask(`typing-${tasks.length}`, false, {
-        ...props,
-        suggestionsType: SuggestionTypes.none,
-        keyStrokeDelay: 0
-      })
-    );
+  const typingTasksBlock = pickCorpusEntries(numberOfTypingSpeedTasks).map(
+    (props, i) => TypingTask(`typing-${tasks.length}-${i}`, false, props)
+  );
+  tasks.push({
+    children: typingTasksBlock,
+    suggestionsType: SuggestionTypes.none,
+    keyStrokeDelay: 0,
+    tasks: [TaskTypes.experimentProgress],
+    fullProgress: false,
+    currentProgress: true,
+    progressLevel: true
   });
 
   tasks.push(
@@ -198,7 +209,6 @@ const useConfiguration = () => {
     if (loadingState === LoadingStates.loaded) {
       return {
         ...otherPageArgs,
-        progressLevel: true,
         children: generateTasks(
           corpus.rows,
           process.env.NODE_ENV === "development"

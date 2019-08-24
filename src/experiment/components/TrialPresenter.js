@@ -148,7 +148,7 @@ const TrialPresenter = ({
         if (
           suggestionsType === SuggestionTypes.inline &&
           arrangedSuggestions[mainSuggestionPosition] !== undefined &&
-          !input.endsWith(arrangedSuggestions[mainSuggestionPosition])
+          !input.endsWith(arrangedSuggestions[mainSuggestionPosition].trim())
         ) {
           dispatch({
             type: Actions.inputSuggestion,

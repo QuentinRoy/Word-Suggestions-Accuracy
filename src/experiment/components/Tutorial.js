@@ -9,9 +9,22 @@ import {
 import "react-simple-keyboard/build/css/index.css";
 import TrialPresenter from "./TrialPresenter";
 import useTrial from "../hooks/useTrial";
-import { isTargetCompleted, isInputCorrect } from "../input";
+import {
+  isTargetCompleted,
+  isInputCorrect,
+  getTextFromSksDistribution
+} from "../input";
 
-const tutorialSentence = "video camera with a zoom lens";
+const tutorialSksDistribution = [
+  { word: "video ", sks: 0 },
+  { word: "camera ", sks: 0 },
+  { word: "with ", sks: 0 },
+  { word: "a ", sks: 0 },
+  { word: "zoom ", sks: 3 },
+  { word: "lens ", sks: 1 }
+];
+
+const tutorialSentence = getTextFromSksDistribution(tutorialSksDistribution);
 
 const getTutorialStep = input => {
   const hasErrors = !isInputCorrect(input, tutorialSentence);
@@ -106,6 +119,8 @@ const Tutorial = ({
   id,
   suggestionsType
 }) => {
+  const totalSuggestions = suggestionsType === SuggestionTypes.inline ? 1 : 3;
+
   const {
     dispatch,
     focusTarget,
@@ -113,21 +128,15 @@ const Tutorial = ({
     input,
     keyboardLayoutName,
     isCompleted,
-    hasErrors
+    hasErrors,
+    text
   } = useTrial({
     suggestionsType,
     onComplete: onAdvanceWorkflow,
     onLog,
     initKeyStrokeDelay: 0,
-    sksDistribution: [
-      { word: "video", sks: 0 },
-      { word: "camera", sks: 0 },
-      { word: "with", sks: 0 },
-      { word: "a", sks: 0 },
-      { word: "zoom", sks: 3 },
-      { word: "lens", sks: 1 }
-    ],
-    totalSuggestions: suggestionsType === SuggestionTypes.inline ? 1 : 3,
+    sksDistribution: tutorialSksDistribution,
+    totalSuggestions,
     id,
     targetAccuracy: 0,
     weightedAccuracy: 0,
@@ -140,7 +149,7 @@ const Tutorial = ({
       switch (getTutorialStep(nextState.input)) {
         case TutorialSteps.start:
         case TutorialSteps.input:
-          return { ...nextState, suggestions: [" ", " ", " "] };
+          return { ...nextState, suggestions: [] };
         case TutorialSteps.suggestion:
           return {
             ...nextState,
@@ -161,11 +170,7 @@ const Tutorial = ({
           return { ...nextState, suggestions: stateSuggestions };
         }
         case TutorialSteps.delay:
-          return {
-            ...nextState,
-            suggestions: [" ", " ", " "],
-            keyStrokeDelay: trialKeyStrokeDelay
-          };
+          return { ...nextState, keyStrokeDelay: trialKeyStrokeDelay };
         case TutorialSteps.delaySuggestion:
           return { ...nextState, suggestions: ["with", "wing", "wish"] };
         default:
@@ -173,22 +178,20 @@ const Tutorial = ({
       }
     }
   });
-  const initSuggestions =
-    suggestionsType === SuggestionTypes.inline ? [] : ["", "", ""];
 
   return (
     <TrialPresenter
       dispatch={dispatch}
       focusTarget={focusTarget}
-      suggestions={input === "" ? initSuggestions : suggestions}
-      text={tutorialSentence}
+      suggestions={input === "" ? [] : suggestions}
+      text={text}
       input={input}
       keyboardLayoutName={keyboardLayoutName}
       isCompleted={isCompleted}
       suggestionsType={suggestionsType}
       hasErrors={hasErrors}
       tutorialStep={getTutorialStep(input)}
-      totalSuggestions={suggestions.length}
+      totalSuggestions={totalSuggestions}
       showsHelp={false}
     />
   );

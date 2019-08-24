@@ -49,7 +49,7 @@ const TrialInput = forwardRef(
             key={suggestionContent}
             ref={suggestionRef}
           >
-            {suggestionContent}
+            {suggestionContent.trim()}
           </span>
         ) : null}
       </div>

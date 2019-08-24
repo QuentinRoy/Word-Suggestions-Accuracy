@@ -42,7 +42,7 @@ function SuggestionsBar({
         onTouchEnd={selEnd}
         onTouchCancel={selEnd}
       >
-        {suggestion != null ? suggestion : null}
+        {suggestion != null ? suggestion.trim() : null}
       </button>
     );
   });

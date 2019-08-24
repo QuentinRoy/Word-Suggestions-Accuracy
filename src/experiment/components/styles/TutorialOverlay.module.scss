@@ -1,4 +1,4 @@
-.main {
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -89,24 +89,44 @@
 }
 
 .stepSuggestion {
+  --dash-length: 2000;
+  .inlineSuggestionOverlay & {
+    --dash-length: 500;
+  }
+
   .circle {
-    stroke-dasharray: 5000;
-    stroke-dashoffset: 5000;
     animation: dash 800ms linear forwards;
     animation-delay: 400ms;
+    stroke-dasharray: var(--dash-length);
+    stroke-dashoffset: var(--dash-length);
   }
 
   .info {
     animation: appear 200ms linear forwards;
     animation-delay: 1000ms;
     opacity: 0;
-    max-width: 850px;
+    max-width: 680px;
   }
 
   .instruction {
     animation: appear 200ms linear forwards;
     animation-delay: 1800ms;
     opacity: 0;
+  }
+
+  .barSuggestionOverlay & {
+    .info,
+    .instruction {
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .messagesWrapper {
+      margin-top: var(--margin-input);
+      position: absolute;
+      width: 100%;
+    }
   }
 }
 
@@ -130,8 +150,8 @@
   }
 }
 
-.suggestionBar {
-  margin-top: calc(var(--margin-input) + 30px);
+.noWrap {
+  white-space: nowrap;
 }
 
 @keyframes dash {

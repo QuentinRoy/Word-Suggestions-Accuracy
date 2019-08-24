@@ -221,7 +221,7 @@ const TrialPresenter = ({
   const [stimulusTextRect, stimulusTextRef] = useClientRect();
   const [inputRect, inputRef] = useClientRect();
   const [inlineSuggestionRect, inlineSuggestionRef] = useClientRect();
-  const [barSuggestionRect, barSuggestionRef] = useClientRect();
+  const [suggestionsBarRect, suggestionsBarRef] = useClientRect();
 
   return (
     <div className={styles.trial}>
@@ -258,7 +258,7 @@ const TrialPresenter = ({
           }
         />
         {suggestionsType === SuggestionTypes.bar ? (
-          <div ref={tutorialStep == null ? null : barSuggestionRef}>
+          <div ref={tutorialStep == null ? null : suggestionsBarRef}>
             <SuggestionsBar
               totalSuggestions={totalSuggestions}
               focusedSuggestion={
@@ -312,11 +312,8 @@ const TrialPresenter = ({
           tutorialStep={tutorialStep}
           stimulusTextRect={stimulusTextRect}
           inputRect={inputRect}
-          suggestionRect={
-            suggestionsType === SuggestionTypes.inline
-              ? inlineSuggestionRect
-              : barSuggestionRect
-          }
+          inlineSuggestionRect={inlineSuggestionRect}
+          suggestionsBarRect={suggestionsBarRect}
           suggestionsType={suggestionsType}
         />
       )}

@@ -153,26 +153,30 @@ const Tutorial = ({
         case TutorialSteps.suggestion:
           return {
             ...nextState,
-            suggestions: ["video", "vidicon", "videotapes"]
+            suggestions: ["video ", "vidicon ", "videotapes "]
           };
         case TutorialSteps.wrongSuggestion:
           return {
             ...nextState,
-            suggestions: ["camping", "campaign", "campuses"]
+            suggestions: ["camping ", "campaign ", "campuses "]
           };
         case TutorialSteps.error: {
-          let stateSuggestions = ["are", "the", "of"];
+          let stateSuggestions = ["are ", "the ", "of "];
           if (nextState.input.length <= 10) {
-            stateSuggestions = ["campus", "camper", "camped"];
+            stateSuggestions = ["campus ", "camper ", "camped "];
           } else if (!nextState.input.endsWith(" ")) {
-            stateSuggestions = ["camping", "campaign", "campuses"];
+            stateSuggestions = ["camping ", "campaign ", "campuses "];
           }
           return { ...nextState, suggestions: stateSuggestions };
         }
         case TutorialSteps.delay:
-          return { ...nextState, keyStrokeDelay: trialKeyStrokeDelay };
+          return {
+            ...nextState,
+            keyStrokeDelay: trialKeyStrokeDelay,
+            suggestions: []
+          };
         case TutorialSteps.delaySuggestion:
-          return { ...nextState, suggestions: ["with", "wing", "wish"] };
+          return { ...nextState, suggestions: ["with ", "wing ", "wish "] };
         default:
           return nextState;
       }

@@ -221,6 +221,7 @@ const TrialPresenter = ({
   const [stimulusTextRect, stimulusTextRef] = useClientRect();
   const [inputRect, inputRef] = useClientRect();
   const [inlineSuggestionRect, inlineSuggestionRef] = useClientRect();
+  const [suggestionsBarRect, suggestionsBarRef] = useClientRect();
 
   return (
     <div className={styles.trial}>
@@ -257,33 +258,35 @@ const TrialPresenter = ({
           }
         />
         {suggestionsType === SuggestionTypes.bar ? (
-          <SuggestionsBar
-            totalSuggestions={totalSuggestions}
-            focusedSuggestion={
-              focusTarget != null &&
-              !isFocusAlertShown &&
-              focusTarget.type === FocusTargetTypes.suggestion
-                ? focusTarget.suggestionNumber
-                : null
-            }
-            suggestions={arrangedSuggestions}
-            onSelectionStart={selection => {
-              if (isNoKeyPressed) {
+          <div ref={tutorialStep == null ? null : suggestionsBarRef}>
+            <SuggestionsBar
+              totalSuggestions={totalSuggestions}
+              focusedSuggestion={
+                focusTarget != null &&
+                !isFocusAlertShown &&
+                focusTarget.type === FocusTargetTypes.suggestion
+                  ? focusTarget.suggestionNumber
+                  : null
+              }
+              suggestions={arrangedSuggestions}
+              onSelectionStart={selection => {
+                if (isNoKeyPressed) {
+                  dispatch({
+                    type: Actions.inputSuggestion,
+                    word: selection,
+                    status: ActionStatuses.start
+                  });
+                }
+              }}
+              onSelectionEnd={selection => {
                 dispatch({
                   type: Actions.inputSuggestion,
                   word: selection,
-                  status: ActionStatuses.start
+                  status: ActionStatuses.end
                 });
-              }
-            }}
-            onSelectionEnd={selection => {
-              dispatch({
-                type: Actions.inputSuggestion,
-                word: selection,
-                status: ActionStatuses.end
-              });
-            }}
-          />
+              }}
+            />
+          </div>
         ) : null}
         {isVirtualKeyboardEnabled ? (
           <VirtualKeyboard
@@ -310,6 +313,8 @@ const TrialPresenter = ({
           stimulusTextRect={stimulusTextRect}
           inputRect={inputRect}
           inlineSuggestionRect={inlineSuggestionRect}
+          suggestionsBarRect={suggestionsBarRect}
+          suggestionsType={suggestionsType}
         />
       )}
     </div>

@@ -13,14 +13,19 @@ function SuggestionsBar({
 }) {
   const buttonRefs = useMultiRef(totalSuggestions);
 
-  const buttons = suggestions.map((suggestion, i) => {
+  const buttons = Array.from({ length: totalSuggestions }, (_, i) => {
+    const suggestion = suggestions[i];
     const selStart = e => {
       e.preventDefault();
-      onSelectionStart(suggestion);
+      if (suggestion != null) {
+        onSelectionStart(suggestion);
+      }
     };
     const selEnd = e => {
       e.preventDefault();
-      onSelectionEnd(suggestion);
+      if (suggestion != null) {
+        onSelectionEnd(suggestion);
+      }
     };
     return (
       <button
@@ -37,7 +42,7 @@ function SuggestionsBar({
         onTouchEnd={selEnd}
         onTouchCancel={selEnd}
       >
-        {suggestion}
+        {suggestion != null ? suggestion.trim() : null}
       </button>
     );
   });

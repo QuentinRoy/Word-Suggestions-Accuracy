@@ -1,6 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { SuggestionTypes, TutorialSteps, Actions } from "../../utils/constants";
+import {
+  SuggestionTypes,
+  TutorialSteps,
+  Actions,
+  FocusTargetTypes
+} from "../../utils/constants";
 import "react-simple-keyboard/build/css/index.css";
 import TrialPresenter from "./TrialPresenter";
 import useTrial from "../hooks/useTrial";
@@ -51,7 +56,7 @@ const getTutorialStep = input => {
   return TutorialSteps.end;
 };
 
-const isActionAllowed = (state, action) => {
+const isActionAllowed = (state, action, suggestionsType) => {
   switch (getTutorialStep(state.input)) {
     case TutorialSteps.start:
     case TutorialSteps.input:
@@ -60,8 +65,25 @@ const isActionAllowed = (state, action) => {
         action.char === tutorialSentence[state.input.length]
       );
     case TutorialSteps.suggestion:
+      if (suggestionsType === SuggestionTypes.inline) {
+        return action.type === Actions.inputSuggestion;
+      }
+      return (
+        action.type === Actions.moveFocusTarget ||
+        (action.type === Actions.inputSuggestion &&
+          state.focusTarget.type === FocusTargetTypes.suggestion &&
+          state.focusTarget.suggestionNumber === 0)
+      );
     case TutorialSteps.wrongSuggestion:
-      return action.type === Actions.inputSuggestion;
+      if (suggestionsType === SuggestionTypes.inline) {
+        return action.type === Actions.inputSuggestion;
+      }
+      return (
+        action.type === Actions.moveFocusTarget ||
+        (action.type === Actions.inputSuggestion &&
+          state.focusTarget.type === FocusTargetTypes.suggestion &&
+          state.focusTarget.suggestionNumber === 0)
+      );
     case TutorialSteps.error:
       return action.type === Actions.deleteChar;
     case TutorialSteps.delay:
@@ -70,7 +92,15 @@ const isActionAllowed = (state, action) => {
         action.char === tutorialSentence[state.input.length]
       );
     case TutorialSteps.delaySuggestion:
-      return action.type === Actions.inputSuggestion;
+      if (suggestionsType === SuggestionTypes.inline) {
+        return action.type === Actions.inputSuggestion;
+      }
+      return (
+        action.type === Actions.moveFocusTarget ||
+        (action.type === Actions.inputSuggestion &&
+          state.focusTarget.type === FocusTargetTypes.suggestion &&
+          state.focusTarget.suggestionNumber === 0)
+      );
     case TutorialSteps.finish:
     case TutorialSteps.end:
       return (
@@ -89,6 +119,8 @@ const Tutorial = ({
   id,
   suggestionsType
 }) => {
+  const totalSuggestions = suggestionsType === SuggestionTypes.inline ? 1 : 3;
+
   const {
     dispatch,
     focusTarget,
@@ -104,38 +136,47 @@ const Tutorial = ({
     onLog,
     initKeyStrokeDelay: 0,
     sksDistribution: tutorialSksDistribution,
+    totalSuggestions,
     id,
     targetAccuracy: 0,
     weightedAccuracy: 0,
     sdAccuracy: 0,
     reducer: (state, action) => {
-      const nextState = isActionAllowed(state, action) ? action.changes : state;
+      const nextState = isActionAllowed(state, action, suggestionsType)
+        ? action.changes
+        : state;
 
       switch (getTutorialStep(nextState.input)) {
         case TutorialSteps.start:
         case TutorialSteps.input:
           return { ...nextState, suggestions: [] };
         case TutorialSteps.suggestion:
-          return { ...nextState, suggestions: ["video"] };
+          return {
+            ...nextState,
+            suggestions: ["video ", "vidicon ", "videotapes "]
+          };
         case TutorialSteps.wrongSuggestion:
-          return { ...nextState, suggestions: ["camping"] };
+          return {
+            ...nextState,
+            suggestions: ["camping ", "campaign ", "campuses "]
+          };
         case TutorialSteps.error: {
-          let stateSuggestions = ["are"];
+          let stateSuggestions = ["are ", "the ", "of "];
           if (nextState.input.length <= 10) {
-            stateSuggestions = ["campus"];
+            stateSuggestions = ["campus ", "camper ", "camped "];
           } else if (!nextState.input.endsWith(" ")) {
-            stateSuggestions = ["camping"];
+            stateSuggestions = ["camping ", "campaign ", "campuses "];
           }
           return { ...nextState, suggestions: stateSuggestions };
         }
         case TutorialSteps.delay:
           return {
             ...nextState,
-            suggestions: [],
-            keyStrokeDelay: trialKeyStrokeDelay
+            keyStrokeDelay: trialKeyStrokeDelay,
+            suggestions: []
           };
         case TutorialSteps.delaySuggestion:
-          return { ...nextState, suggestions: ["with"] };
+          return { ...nextState, suggestions: ["with ", "wing ", "wish "] };
         default:
           return nextState;
       }
@@ -154,7 +195,7 @@ const Tutorial = ({
       suggestionsType={suggestionsType}
       hasErrors={hasErrors}
       tutorialStep={getTutorialStep(input)}
-      totalSuggestions={suggestions.length}
+      totalSuggestions={totalSuggestions}
       showsHelp={false}
     />
   );

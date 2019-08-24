@@ -230,7 +230,9 @@ const useConfiguration = () => {
         href: window.location.href,
         isExperimentCompleted: false,
         startDate,
-        isTest
+        isTest,
+        // Fixes an issue with components being rendered with the same key.
+        [TaskTypes.experimentProgress]: { key: "progress" }
       };
     }
     return null;

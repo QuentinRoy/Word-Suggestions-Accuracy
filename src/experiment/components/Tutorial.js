@@ -4,9 +4,22 @@ import { SuggestionTypes, TutorialSteps, Actions } from "../../utils/constants";
 import "react-simple-keyboard/build/css/index.css";
 import TrialPresenter from "./TrialPresenter";
 import useTrial from "../hooks/useTrial";
-import { isTargetCompleted, isInputCorrect } from "../input";
+import {
+  isTargetCompleted,
+  isInputCorrect,
+  getTextFromSksDistribution
+} from "../input";
 
-const tutorialSentence = "video camera with a zoom lens";
+const tutorialSksDistribution = [
+  { word: "video ", sks: 0 },
+  { word: "camera ", sks: 0 },
+  { word: "with ", sks: 0 },
+  { word: "a ", sks: 0 },
+  { word: "zoom ", sks: 3 },
+  { word: "lens ", sks: 1 }
+];
+
+const tutorialSentence = getTextFromSksDistribution(tutorialSksDistribution);
 
 const getTutorialStep = input => {
   const hasErrors = !isInputCorrect(input, tutorialSentence);
@@ -83,20 +96,14 @@ const Tutorial = ({
     input,
     keyboardLayoutName,
     isCompleted,
-    hasErrors
+    hasErrors,
+    text
   } = useTrial({
     suggestionsType,
     onComplete: onAdvanceWorkflow,
     onLog,
     initKeyStrokeDelay: 0,
-    sksDistribution: [
-      { word: "video", sks: 0 },
-      { word: "camera", sks: 0 },
-      { word: "with", sks: 0 },
-      { word: "a", sks: 0 },
-      { word: "zoom", sks: 3 },
-      { word: "lens", sks: 1 }
-    ],
+    sksDistribution: tutorialSksDistribution,
     id,
     targetAccuracy: 0,
     weightedAccuracy: 0,
@@ -140,7 +147,7 @@ const Tutorial = ({
       dispatch={dispatch}
       focusTarget={focusTarget}
       suggestions={input === "" ? [] : suggestions}
-      text={tutorialSentence}
+      text={text}
       input={input}
       keyboardLayoutName={keyboardLayoutName}
       isCompleted={isCompleted}

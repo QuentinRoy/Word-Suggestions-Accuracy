@@ -26,33 +26,33 @@ const getBranchTotalKeyStrokeSaving = wordEntries => {
 // Smaller is better.
 const getBranchResult = (
   wordEntries,
-  { targetKss, targetSdWordKss, maxDiffKss, maxDiffSdWordKss }
+  { targetKss, targetSdWordsKss, maxDiffKss, maxDiffSdWordsKss }
 ) => {
   const meanWordsKss = meanBy(wordEntries, e => getSaving(e.word, e.sks));
-  const sdWordKss = sd(
+  const sdWordsKss = sd(
     wordEntries.map(e => getSaving(e.word, e.sks)),
     meanWordsKss
   );
   const totalKss = getBranchTotalKeyStrokeSaving(wordEntries);
 
   const diffTotalKss = Math.abs(targetKss - totalKss);
-  const diffWordMeanKss = Math.abs(targetKss - meanWordsKss);
-  const diffSdWordKss = Math.abs(targetSdWordKss - sdWordKss);
+  const diffWordsMeanKss = Math.abs(targetKss - meanWordsKss);
+  const diffSdWordsKss = Math.abs(targetSdWordsKss - sdWordsKss);
   let score =
-    (diffWordMeanKss * weightDiffWordMeanKss +
-      diffSdWordKss * weightDiffSd +
+    (diffWordsMeanKss * weightDiffWordMeanKss +
+      diffSdWordsKss * weightDiffSd +
       diffTotalKss * weightTotalKss) /
     (weightTotalKss + weightDiffWordMeanKss + weightDiffSd);
   if (diffTotalKss > maxDiffKss) score *= maxAccuracyPenalty;
-  if (diffSdWordKss > maxDiffSdWordKss) score *= maxSDPenalty;
+  if (diffSdWordsKss > maxDiffSdWordsKss) score *= maxSDPenalty;
 
   return {
     totalKss,
     meanWordsKss,
-    sdWordKss,
+    sdWordsKss,
     diffTotalKss,
-    diffWordMeanKss,
-    diffSdWordKss,
+    diffWordsMeanKss,
+    diffSdWordsKss,
     score
   };
 };
@@ -96,7 +96,7 @@ const getWordAccuraciesFromWordList = (
 
 const getWordAccuracies = (
   sentence,
-  { targetKss, targetSdWordKss, maxDiffKss, maxDiffSdWordKss }
+  { targetKss, targetSdWordsKss, maxDiffKss, maxDiffSdWordsKss }
 ) =>
   getWordAccuraciesFromWordList(
     sentence
@@ -106,9 +106,9 @@ const getWordAccuracies = (
     [],
     {
       targetKss,
-      targetSdWordKss,
+      targetSdWordsKss,
       maxDiffKss,
-      maxDiffSdWordKss
+      maxDiffSdWordsKss
     }
   );
 

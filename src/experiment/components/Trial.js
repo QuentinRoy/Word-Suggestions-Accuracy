@@ -12,8 +12,8 @@ const Trial = ({
   sksDistribution,
   id,
   targetAccuracy,
-  weightedAccuracy,
-  sdAccuracy,
+  totalKss,
+  sdWordsKss,
   suggestionsType,
   totalSuggestions
 }) => {
@@ -36,8 +36,8 @@ const Trial = ({
     sksDistribution,
     id,
     targetAccuracy,
-    weightedAccuracy,
-    sdAccuracy
+    totalKss,
+    sdWordsKss
   });
 
   return (
@@ -69,8 +69,8 @@ Trial.propTypes = {
   ).isRequired,
   totalSuggestions: PropTypes.number.isRequired,
   targetAccuracy: PropTypes.number.isRequired,
-  weightedAccuracy: PropTypes.number.isRequired,
-  sdAccuracy: PropTypes.number.isRequired,
+  totalKss: PropTypes.number.isRequired,
+  sdWordsKss: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };

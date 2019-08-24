@@ -13,32 +13,32 @@ const sentencesPath = path.join(__dirname, "../../public/sentences.txt");
 const outputDirPath = path.join(__dirname, "../../public/sks-distributions");
 const targetFilePrefix = "acc-";
 
-// { targetKss, targetSdWordKss, maxDiffKss, maxDiffSdWordKss }
+// { targetKss, targetSdWordsKss, maxDiffKss, maxDiffSdWordsKss }
 
 const configs = (() => {
-  const targetSdWordKss = 0.2;
+  const targetSdWordsKss = 0.2;
   const maxDiffKss = 0.025;
-  const maxDiffSdWordKss = 0.1;
+  const maxDiffSdWordsKss = 0.1;
   return [
     {
       targetKss: 0,
-      targetSdWordKss,
+      targetSdWordsKss,
       maxDiffKss,
-      maxDiffSdWordKss: targetSdWordKss
+      maxDiffSdWordsKss: targetSdWordsKss
     },
     ...uniq([...range(0.1, 1, 0.2), ...range(0.25, 1, 0.25)]).map(
       targetKss => ({
         targetKss,
-        targetSdWordKss,
+        targetSdWordsKss,
         maxDiffKss,
-        maxDiffSdWordKss
+        maxDiffSdWordsKss
       })
     ),
     {
       targetKss: 1,
-      targetSdWordKss,
+      targetSdWordsKss,
       maxDiffKss,
-      maxDiffSdWordKss: targetSdWordKss
+      maxDiffSdWordsKss: targetSdWordsKss
     }
   ];
 })();
@@ -46,9 +46,9 @@ const configs = (() => {
 const getTargetFileName = kss => `${targetFilePrefix}${kss.toFixed(3)}.json`;
 
 const generateDistribution = async (sentences, config) => {
-  const { targetKss, targetSdWordKss, maxDiffKss, maxDiffSdWordKss } = config;
+  const { targetKss, targetSdWordsKss, maxDiffKss, maxDiffSdWordsKss } = config;
   log.info(
-    `Creating saved key strokes distributions for targetKss ${targetKss} (targetSdWordKss: ${targetSdWordKss}, maxDiffKss: ${maxDiffKss}, maxDiffSdWordKss: ${maxDiffSdWordKss})`
+    `Creating saved key strokes distributions for targetKss ${targetKss} (targetSdWordsKss: ${targetSdWordsKss}, maxDiffKss: ${maxDiffKss}, maxDiffSdWordsKss: ${maxDiffSdWordsKss})`
   );
   const rows = [];
 
@@ -58,7 +58,7 @@ const generateDistribution = async (sentences, config) => {
     const accuracyDistribution = getWordAccuracies(sentences[sIdx], config);
     const usable =
       accuracyDistribution.diffTotalKss <= maxDiffKss &&
-      accuracyDistribution.diffSdWordKss <= maxDiffSdWordKss;
+      accuracyDistribution.diffSdWordsKss <= maxDiffSdWordsKss;
     if (usable || addUnusableSentences) {
       totalUsableSentences += 1;
       rows.push({ ...accuracyDistribution, usable });

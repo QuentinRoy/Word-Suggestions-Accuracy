@@ -20,9 +20,9 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
         them or not.
       </Appear.Fragment>
       <Appear.Fragment component="p">
-        Moreover, you will be assigned an <strong>impairment</strong> factor.{" "}
+        Moreover, you may be assigned an <strong>impairment</strong> factor.{" "}
         <Appear.Fragment component="span">
-          You will need to <strong>keep your keyboard key pressed down</strong>{" "}
+          You may need to <strong>keep your keyboard key pressed down</strong>{" "}
           for a certain period of time before the system reacts.{" "}
         </Appear.Fragment>
       </Appear.Fragment>

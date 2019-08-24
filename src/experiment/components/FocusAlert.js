@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 
 import Dialog from "@material-ui/core/Dialog";
@@ -8,7 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-const FocusAlert = ({ isShown, onClose }) => (
+const FocusAlert = memo(({ isShown, onClose }) => (
   <Dialog
     open={isShown}
     aria-labelledby="alert-dialog-title"
@@ -34,7 +34,7 @@ const FocusAlert = ({ isShown, onClose }) => (
       </Button>
     </DialogActions>
   </Dialog>
-);
+));
 
 FocusAlert.propTypes = {
   isShown: PropTypes.bool.isRequired,

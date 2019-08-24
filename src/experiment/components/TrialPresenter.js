@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  useMemo
+} from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -93,9 +99,9 @@ const TrialPresenter = ({
   const { current: pressedKeys } = useRef(new Set());
   const [isNoKeyPressed, setIsNoKeyPressed] = useState(true);
 
-  const arrangedSuggestions = arrangeSuggestions(
-    suggestions,
-    mainSuggestionPosition
+  const arrangedSuggestions = useMemo(
+    () => arrangeSuggestions(suggestions, mainSuggestionPosition),
+    [suggestions, mainSuggestionPosition]
   );
 
   // Called when a key is being pressed down.Called multiple times
@@ -223,6 +229,10 @@ const TrialPresenter = ({
   const [inlineSuggestionRect, inlineSuggestionRef] = useClientRect();
   const [suggestionsBarRect, suggestionsBarRef] = useClientRect();
 
+  const onCloseFocusAlert = useCallback(() => {
+    dispatch({ type: Actions.closeFocusAlert });
+  }, [dispatch]);
+
   return (
     <div className={styles.trial}>
       <div className={styles.banner}>
@@ -301,12 +311,7 @@ const TrialPresenter = ({
           </div>
         )}
       </div>
-      <FocusAlert
-        isShown={isFocusAlertShown}
-        onClose={() => {
-          dispatch({ type: Actions.closeFocusAlert });
-        }}
-      />
+      <FocusAlert isShown={isFocusAlertShown} onClose={onCloseFocusAlert} />
       {tutorialStep && (
         <TutorialOverlay
           tutorialStep={tutorialStep}

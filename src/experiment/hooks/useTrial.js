@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useRef } from "react";
+import { useReducer, useEffect, useRef, useCallback } from "react";
 import {
   Actions,
   ActionStatuses,
@@ -274,6 +274,7 @@ const useTrial = ({
   const { current: startTime } = useRef(new Date());
 
   const completeTrial = () => {
+    if (!isCompleted) return;
     onLog("events", events);
     const trialLog = getTrialLog(
       events,
@@ -290,26 +291,36 @@ const useTrial = ({
     onComplete();
   };
 
-  const dispatchWrapper = action => {
-    if (action.type === Actions.submit) {
-      if (!isCompleted) return;
-      completeTrial();
-    } else if (
-      action.status == null ||
-      (action.status === ActionStatuses.start &&
-        instantActions.includes(action.type))
-    ) {
-      dispatch(action);
-    } else if (action.status === ActionStatuses.start) {
-      actionScheduler.endAll();
-      actionScheduler.start(
-        action.id != null ? action.id : action.type,
-        action
-      );
-    } else {
-      actionScheduler.end(action.id != null ? action.id : action.type, action);
-    }
-  };
+  // Put complete trial in a ref to avoid creating a new dispatchWrapper
+  // every time it changes.
+  const completeTrialRef = useRef(null);
+  completeTrialRef.current = completeTrial;
+
+  const dispatchWrapper = useCallback(
+    action => {
+      if (action.type === Actions.submit) {
+        completeTrialRef.current();
+      } else if (
+        action.status == null ||
+        (action.status === ActionStatuses.start &&
+          instantActions.includes(action.type))
+      ) {
+        dispatch(action);
+      } else if (action.status === ActionStatuses.start) {
+        actionScheduler.endAll();
+        actionScheduler.start(
+          action.id != null ? action.id : action.type,
+          action
+        );
+      } else {
+        actionScheduler.end(
+          action.id != null ? action.id : action.type,
+          action
+        );
+      }
+    },
+    [actionScheduler]
+  );
 
   return {
     text,

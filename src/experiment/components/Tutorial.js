@@ -9,14 +9,12 @@ import {
 import "react-simple-keyboard/build/css/index.css";
 import TrialPresenter from "./TrialPresenter";
 import useTrial from "../hooks/useTrial";
-import { trimEnd } from "../../utils/strings";
+import { isTargetCompleted, isInputCorrect } from "../input";
 
 const tutorialSentence = "video camera with a zoom lens";
 
 const getTutorialStep = input => {
-  // FIXME: this comes from useTrial
-  const isCompleted = tutorialSentence === trimEnd(input);
-  const hasErrors = !isCompleted && !tutorialSentence.startsWith(input);
+  const hasErrors = !isInputCorrect(input, tutorialSentence);
 
   if (input === "" || input == null) {
     return TutorialSteps.start;
@@ -39,7 +37,7 @@ const getTutorialStep = input => {
   if (input === "video camera wi") {
     return TutorialSteps.delaySuggestion;
   }
-  if (!isCompleted) {
+  if (!isTargetCompleted(input, tutorialSentence)) {
     return TutorialSteps.finish;
   }
   return TutorialSteps.end;

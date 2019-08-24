@@ -16,7 +16,7 @@ ReactDOM.render(
   <Suspense fallback={<Loading>Loading...</Loading>}>
     <Router>
       <Route exact path="/viewer" component={DistributionViewer} />
-      <Route component={ExperimentWrapper} />
+      <Route exact path="/" component={ExperimentWrapper} />
     </Router>
   </Suspense>,
   document.getElementById("root")

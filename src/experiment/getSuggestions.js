@@ -1,9 +1,10 @@
-import { count, insertEject } from "../utils/arrays";
+import { insertEject } from "../utils/arrays";
 import {
   isUpperCase,
   totalMatchedChars,
   totalMatchedCharsFromStart
 } from "../utils/strings";
+import { getCurrentInputWord, getRksImprovement } from "./input";
 
 /** Compute a suggestion score based on an input word as specified in
  * https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/jb-release/native/jni/src/correction.cpp#1098
@@ -37,13 +38,6 @@ const suggestionScore = (suggestionFScore, suggestion, inputWord) => {
   return score / maxScore;
 };
 
-function isCloseFromTargetWord(word, targetWord) {
-  return (
-    targetWord.startsWith(word.slice(0, -2)) ||
-    word.startsWith(targetWord.slice(0, -2))
-  );
-}
-
 function computeSuggestions(
   inputWord,
   targetWordSKS,
@@ -67,35 +61,49 @@ function computeSuggestions(
   }));
 
   const wordEntryScoreGetter = e => e.score;
-  const insertTopWord = (word, score) => {
+  const insertSuggestion = (word, score) => {
     insertEject(topWords, { word, score }, wordEntryScoreGetter);
   };
 
-  if (
-    targetWord != null &&
-    targetWordSKS >=
-      targetWord.length - totalMatchedChars(targetWord, inputWord)
-  ) {
-    insertTopWord(targetWord, Number.POSITIVE_INFINITY);
-  }
-
   const lowerCaseTargetWord =
     targetWord != null ? targetWord.toLowerCase() : null;
+
   const lowerCaseInputWord = inputWord.toLowerCase();
+
+  if (
+    lowerCaseTargetWord != null &&
+    targetWordSKS >=
+      getRksImprovement(
+        lowerCaseInputWord,
+        lowerCaseTargetWord,
+        lowerCaseTargetWord
+      ) &&
+    (canReplaceLetters || lowerCaseTargetWord.startsWith(lowerCaseInputWord))
+  ) {
+    insertSuggestion(targetWord, Number.POSITIVE_INFINITY);
+  }
+
   for (let i = 0; i < dictionary.length; i += 1) {
     const { word, f: frequencyScore } = dictionary[i];
-    const lowercaseWord = word.toLowerCase();
+    const lowercaseSuggestion = word.toLowerCase();
+
     if (
+      lowercaseSuggestion !== lowerCaseTargetWord &&
       (lowerCaseTargetWord == null ||
-        !isCloseFromTargetWord(lowercaseWord, lowerCaseTargetWord)) &&
-      (canReplaceLetters || lowercaseWord.startsWith(lowerCaseInputWord))
+        targetWordSKS >=
+          getRksImprovement(
+            lowerCaseInputWord,
+            `${lowercaseSuggestion} `,
+            lowerCaseTargetWord
+          )) &&
+      (canReplaceLetters || lowercaseSuggestion.startsWith(lowerCaseInputWord))
     ) {
       const score = suggestionScore(
         frequencyScore,
-        lowercaseWord,
+        lowercaseSuggestion,
         lowerCaseInputWord
       );
-      insertTopWord(word, score);
+      insertSuggestion(`${word} `, score);
     }
   }
 
@@ -116,24 +124,20 @@ const getSuggestions = (
   input,
   canReplaceLetters
 ) => {
-  // This may produce empty words (""). This is OK.
-  const inputWords = input.split(" ");
-  // Note: if input ends with a space, then the input word is "". This is
-  // on purpose.
-  const currentInputWord =
-    inputWords.length > 0 ? inputWords[inputWords.length - 1] : "";
+  const { word: inputWord, index: currentInputWordIndex } = getCurrentInputWord(
+    input
+  );
 
-  // Since inputWords may contain empty words, we only count the non empty
-  // one.
-  const totalInputWords = count(inputWords, w => w !== "");
-  const currentWordIndex =
-    currentInputWord === "" ? totalInputWords : totalInputWords - 1;
-  const currentWord = sksDistribution[currentWordIndex];
+  let sks = null;
+  let targetWord = null;
+  if (currentInputWordIndex < sksDistribution.length) {
+    ({ sks, word: targetWord } = sksDistribution[currentInputWordIndex]);
+  }
 
   return computeSuggestions(
-    currentInputWord,
-    currentWord == null ? null : currentWord.sks,
-    currentWord == null ? null : currentWord.word,
+    inputWord,
+    sks,
+    targetWord,
     totalSuggestions,
     dictionary,
     canReplaceLetters

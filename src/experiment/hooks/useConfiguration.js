@@ -20,7 +20,8 @@ const PageArguments = {
   keyStrokeDelays: "keyStrokeDelays",
   assignmentId: "assignmentId",
   hitId: "hitId",
-  suggestionsType: "suggestionsType"
+  suggestionsType: "suggestionsType",
+  isTest: "isTest"
 };
 
 const {
@@ -28,6 +29,7 @@ const {
   targetAccuracy,
   keyStrokeDelay,
   suggestionsType,
+  isTest,
   ...otherPageArgs
 } = (() => {
   const urlParams = new URL(document.location).searchParams;
@@ -47,6 +49,9 @@ const {
         .split(",")
         .map(x => +x)
     : defaultAccuracies;
+  const isTestState = urlParams.has(PageArguments.isTest)
+    ? urlParams.get(PageArguments.isTest)
+    : null;
   return {
     assignmentId,
     hitId,
@@ -55,7 +60,8 @@ const {
     keyStrokeDelay:
       keyStrokeDelays[Math.floor(Math.random() * keyStrokeDelays.length)],
     targetAccuracy:
-      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)]
+      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)],
+    isTest: isTestState
   };
 })();
 
@@ -105,10 +111,15 @@ const generateTasks = (corpus, uploadFileName) => {
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
   tasks.push(
-    Task(TaskTypes.tutorial, {
-      key: `tuto-${tasks.length}`,
-      isPractice: true
+    Task(TaskTypes.informationScreen, {
+      content: "Now you will complete an interactive tutorial",
+      shortcutEnabled: true,
+      key: `info-${tasks.length}`
     })
+  );
+
+  tasks.push(
+    Task(TaskTypes.tutorial, { key: `tuto-${tasks.length}`, isPractice: true })
   );
 
   // Insert practice tasks.
@@ -165,7 +176,7 @@ const generateTasks = (corpus, uploadFileName) => {
     Task(TaskTypes.finalFeedbacks, { key: `feedbacks-${tasks.length}` })
   );
 
-  tasks.push(Task(TaskTypes.injectEnd, { key: `feedbacks-${tasks.length}` }));
+  tasks.push(Task(TaskTypes.injectEnd, { key: `inject-end-${tasks.length}` }));
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, false, uploadFileName));
 
@@ -208,12 +219,14 @@ const useConfiguration = () => {
         numberOfTypingTasks,
         href: window.location.href,
         isExperimentCompleted: false,
-        startDate
+        startDate,
+        isTest
       };
     }
     return null;
   }, [loadingState, corpus, startDate]);
   return participant == null ||
+    isTest == null ||
     !Object.values(SuggestionTypes).includes(suggestionsType)
     ? [LoadingStates.invalidArguments, null]
     : [loadingState, config];

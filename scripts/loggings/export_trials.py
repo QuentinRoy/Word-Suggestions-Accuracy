@@ -19,17 +19,15 @@ log_columns = {
     "sd_accuracy": "sdAccuracy",
     "diff_accuracy": "diffAccuracy",
     "diff_sd": "diffSd",
+    "is_practice": "isPractice",
     "suggestions_type": "suggestionsType",
 }
 
 trial_columns = {
-    "id": "id",
     "sentence": "sentence",
     "target_accuracy": "targetAccuracy",
     "key_stroke_delay": "keyStrokeDelay",
-    "weighted_accuracy": "weightedAccuracy",
     "sentence_words_and_sks": "sentenceWordsAndSks",
-    "sd_accuracy": "sdAccuracy",
     "theoretical_sks": "theoreticalSks",
     "start_date": "startDate",
     "end_date": "endDate",
@@ -38,8 +36,7 @@ trial_columns = {
     "total_key_strokeErrors": "totalKeyStrokeErrors",
     "actual_sks": "actualSks",
     "total_suggestion_used": "totalSuggestionUsed",
-    "total_correct_suggestion_used": "totalCorrectSuggestionUsed",
-    "total_incorrect_suggestions_used": "totalIncorrectSuggestionsUsed",
+    "total_suggestion_errors": "totalSuggestionErrors",
     "time_zone": "timeZone",
     "git_sha": "gitSha",
     "version": "version",

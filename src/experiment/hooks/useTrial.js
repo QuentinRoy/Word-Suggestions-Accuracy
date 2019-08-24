@@ -11,10 +11,13 @@ import getSuggestions from "../getSuggestions";
 import "react-simple-keyboard/build/css/index.css";
 import useActionScheduler from "./useActionScheduler";
 import defaultGetEventLog from "../getEventLog";
-import { trimEnd } from "../../utils/strings";
 import defaultGetTrialLog from "../getTrialLog";
 import { mod } from "../../utils/math";
-import getTextFromSksDistribution from "../../utils/getTextFromSksDistribution";
+import {
+  isTargetCompleted,
+  getTextFromSksDistribution,
+  isInputCorrect
+} from "../input";
 
 // **********
 //  REDUCERS
@@ -115,7 +118,7 @@ export const inputSuggestionReducer = (state, action) => {
   );
   return {
     ...state,
-    input: `${inputWithoutLastWord}${action.word} `
+    input: `${inputWithoutLastWord}${action.word}`
   };
 };
 
@@ -264,8 +267,8 @@ const useTrial = ({
 
   // Some useful variables.
   const text = getTextFromSksDistribution(sksDistribution);
-  const isCompleted = text === trimEnd(input);
-  const hasErrors = !isCompleted && !text.startsWith(input);
+  const isCompleted = isTargetCompleted(input, text);
+  const hasErrors = !isInputCorrect(input, text);
 
   // Record the start date of the trial.
   const { current: startTime } = useRef(new Date());

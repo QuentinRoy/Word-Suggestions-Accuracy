@@ -1,25 +1,11 @@
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
 const log = require("loglevel");
+const range = require("lodash/range");
+const uniq = require("lodash/uniq");
 const getWordAccuracies = require("./getWordAccuracies");
 
 log.setDefaultLevel(log.levels.INFO);
-
-const configs = (() => {
-  const targetSd = 0.2;
-  const maxDiffAccuracy = 0.025;
-  const maxDiffSd = 0.1;
-  return [
-    { targetAccuracy: 0, targetSd, maxDiffAccuracy, maxDiffSd: targetSd },
-    ...[0.25, 0.5, 0.75].map(targetAccuracy => ({
-      targetAccuracy,
-      targetSd,
-      maxDiffAccuracy,
-      maxDiffSd
-    })),
-    { targetAccuracy: 1, targetSd, maxDiffAccuracy, maxDiffSd: targetSd }
-  ];
-})();
 
 const addUnusableSentences = false;
 
@@ -27,28 +13,42 @@ const sentencesPath = path.join(__dirname, "../../public/sentences.txt");
 const outputDirPath = path.join(__dirname, "../../public/sks-distributions");
 const targetFilePrefix = "acc-";
 
-const getTargetFileName = accuracy =>
-  `${targetFilePrefix}${accuracy.toFixed(3)}.json`;
+// { targetKss, targetSdWordKss, maxDiffKss, maxDiffSdWordKss }
 
-const file = fs.readFileSync(sentencesPath, "utf-8", (err, data) => {
-  if (err) throw err;
-  return data;
-});
+const configs = (() => {
+  const targetSdWordKss = 0.2;
+  const maxDiffKss = 0.025;
+  const maxDiffSdWordKss = 0.1;
+  return [
+    {
+      targetKss: 0,
+      targetSdWordKss,
+      maxDiffKss,
+      maxDiffSdWordKss: targetSdWordKss
+    },
+    ...uniq([...range(0.1, 1, 0.2), ...range(0.25, 1, 0.25)]).map(
+      targetKss => ({
+        targetKss,
+        targetSdWordKss,
+        maxDiffKss,
+        maxDiffSdWordKss
+      })
+    ),
+    {
+      targetKss: 1,
+      targetSdWordKss,
+      maxDiffKss,
+      maxDiffSdWordKss: targetSdWordKss
+    }
+  ];
+})();
 
-const sentences = file
-  .split("\n")
-  .map(s => s.trim())
-  .filter(s => s !== "");
+const getTargetFileName = kss => `${targetFilePrefix}${kss.toFixed(3)}.json`;
 
-log.info(`${sentences.length} sentences found in ${sentencesPath}.`);
-
-if (!fs.existsSync(outputDirPath)) {
-  fs.mkdirSync(outputDirPath);
-}
-
-configs.forEach(config => {
+const generateDistribution = async (sentences, config) => {
+  const { targetKss, targetSdWordKss, maxDiffKss, maxDiffSdWordKss } = config;
   log.info(
-    `Creating saved key strokes distributions for accuracy ${config.targetAccuracy} (targetSd: ${config.targetSd}, maxDiffAccuracy: ${config.maxDiffAccuracy}, maxDiffSd: ${config.maxDiffSd})`
+    `Creating saved key strokes distributions for targetKss ${targetKss} (targetSdWordKss: ${targetSdWordKss}, maxDiffKss: ${maxDiffKss}, maxDiffSdWordKss: ${maxDiffSdWordKss})`
   );
   const rows = [];
 
@@ -57,29 +57,47 @@ configs.forEach(config => {
   for (let sIdx = 0; sIdx < sentences.length; sIdx += 1) {
     const accuracyDistribution = getWordAccuracies(sentences[sIdx], config);
     const usable =
-      accuracyDistribution.diffAccuracy <= config.maxDiffAccuracy &&
-      accuracyDistribution.diffSd <= config.maxDiffSd;
+      accuracyDistribution.diffTotalKss <= maxDiffKss &&
+      accuracyDistribution.diffSdWordKss <= maxDiffSdWordKss;
     if (usable || addUnusableSentences) {
       totalUsableSentences += 1;
-      rows.push({
-        meanAccuracy: accuracyDistribution.meanAccuracy,
-        weightedAccuracy: accuracyDistribution.weightedAccuracy,
-        sdAccuracy: accuracyDistribution.sdAccuracy,
-        words: accuracyDistribution.words,
-        diffAccuracy: accuracyDistribution.diffAccuracy,
-        diffSd: accuracyDistribution.diffSd,
-        usable
-      });
+      rows.push({ ...accuracyDistribution, usable });
     }
   }
 
   const jsonFile = JSON.stringify({ ...config, rows });
-  const targetFile = path.join(
-    outputDirPath,
-    getTargetFileName(config.targetAccuracy)
-  );
-  fs.writeFileSync(targetFile, jsonFile, "utf8");
+  const targetFile = path.join(outputDirPath, getTargetFileName(targetKss));
+  await fs.writeFile(targetFile, jsonFile, "utf8");
   log.info(
     `${totalUsableSentences} usable sentences written in ${targetFile}!`
   );
-});
+};
+
+const main = async () => {
+  const file = await fs.readFile(sentencesPath, "utf-8");
+
+  const sentences = file
+    .split("\n")
+    .map(s => s.trim())
+    .filter(s => s !== "");
+
+  log.info(`${sentences.length} sentences found in ${sentencesPath}.`);
+
+  try {
+    await fs.mkdir(outputDirPath);
+  } catch (err) {
+    if (err.code !== "EEXIST") throw err;
+  }
+
+  for (let i = 0; i < configs.length; i += 1) {
+    // This is done one after the other because most of the async stuff is
+    // fast anyway, but since it deals with a lot of data, I would rather
+    // not have many instances of it in memory.
+    // eslint-disable-next-line no-await-in-loop
+    await generateDistribution(sentences, configs[i]);
+  }
+};
+
+if (require.main === module) {
+  main().catch(err => log.error(err));
+}

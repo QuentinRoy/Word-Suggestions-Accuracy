@@ -18,7 +18,7 @@ const FocusAlert = ({ isShown, onClose }) => (
       Please try to stay focused
     </DialogTitle>
     <DialogContent>
-      <DialogContentText>
+      <DialogContentText component="div">
         <p>
           We understand remaining focused for a long period of time is
           difficult. However, the time is measured. Any interruption invalidates

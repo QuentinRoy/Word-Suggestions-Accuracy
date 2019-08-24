@@ -111,6 +111,7 @@ const TrialPresenter = ({
     setIsNoKeyPressed(pressedKeys.size === 0);
 
     const status = isDown ? ActionStatuses.start : ActionStatuses.end;
+    const focusTargetType = focusTarget == null ? null : focusTarget.type;
 
     switch (key) {
       case "Shift":
@@ -158,11 +159,10 @@ const TrialPresenter = ({
         }
         break;
       case "Enter":
-        if (focusTarget.type === FocusTargetTypes.input && isDown) {
+        if (focusTargetType === FocusTargetTypes.input && isDown) {
           dispatch({ type: Actions.submit, status });
         } else if (
-          focusTarget != null &&
-          focusTarget.type === FocusTargetTypes.suggestion &&
+          focusTargetType === FocusTargetTypes.suggestion &&
           arrangedSuggestions[focusTarget.suggestionNumber] !== undefined
         ) {
           dispatch({
@@ -174,13 +174,13 @@ const TrialPresenter = ({
         }
         break;
       case "Backspace":
-        if (focusTarget.type === FocusTargetTypes.input) {
+        if (focusTargetType === FocusTargetTypes.input) {
           dispatch({ type: Actions.deleteChar, status });
         }
         break;
       default:
         // Case the key is a character.
-        if (key.length === 1 && focusTarget.type === FocusTargetTypes.input) {
+        if (key.length === 1 && focusTargetType === FocusTargetTypes.input) {
           dispatch({
             id: `input-${key}`,
             type: Actions.inputChar,

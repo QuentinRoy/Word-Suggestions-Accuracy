@@ -27,6 +27,7 @@
     "react-scripts": "^3.1.1",
     "react-simple-keyboard": "^1.26.5",
     "react-spring": "^8.0.27",
+    "sanitize-filename": "^1.6.2",
     "short-uuid": "^3.1.1",
     "shortid": "^2.2.14",
     "styled-components": "^4.3.2",
@@ -41,7 +42,10 @@
     "generate-sks-distribution": "node scripts/sks-distribution-generator/index.js",
     "deploy": "aws s3 sync build/ s3://exii-accuracy-control",
     "predeploy": "npm run build",
-    "export-logs": "python3 scripts/loggings/export_runs.py &&python3 scripts/loggings/export_trials.py && python3 scripts/loggings/export_events.py"
+    "export-logs": "python3 scripts/loggings/export_runs.py && python3 scripts/loggings/export_trials.py && python3 scripts/loggings/export_events.py",
+    "download-logs": "node scripts/download-logs.js",
+    "associate-qualification": "node scripts/associate-participant-qualification.js",
+    "log-workflow": "npm run download-logs && npm run associate-qualification && npm run export-logs"
   },
   "browserslist": {
     "production": [

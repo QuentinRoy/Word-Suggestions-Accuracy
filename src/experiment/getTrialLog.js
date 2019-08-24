@@ -1,4 +1,12 @@
 import { Actions } from "../utils/constants";
+import { getTextFromSksDistribution } from "./input";
+
+const timeZone = (() => {
+  if (Intl != null && Intl.DateTimeFormat != null) {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+  }
+  return null;
+})();
 
 const getTrialLog = (
   events,
@@ -7,11 +15,11 @@ const getTrialLog = (
   keyStrokeDelay,
   weightedAccuracy,
   sdAccuracy,
-  words,
+  sksDistribution,
   startDate,
   endDate
 ) => {
-  const sentence = words.map(w => w.word).join(" ");
+  const sentence = getTextFromSksDistribution(sksDistribution);
 
   let totalKeyStrokes = 0;
   let totalKeyStrokeErrors = 0;
@@ -34,18 +42,11 @@ const getTrialLog = (
     }
   });
 
-  const timeZone = (() => {
-    if (Intl != null && Intl.DateTimeFormat != null) {
-      return Intl.DateTimeFormat().resolvedOptions().timeZone;
-    }
-    return null;
-  })();
-
-  const sentenceWordsAndSks = words
+  const sentenceWordsAndSks = sksDistribution
     .map(item => `${item.word}{${item.sks}}`)
     .join(" ");
 
-  const theoreticalSks = words
+  const theoreticalSks = sksDistribution
     .map(item => item.sks)
     .reduce((a, b) => {
       return a + b;

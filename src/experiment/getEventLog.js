@@ -1,12 +1,8 @@
 import { totalMatchedCharsFromStart, trimEnd } from "../utils/strings";
 import { Actions, FocusTargetTypes } from "../utils/constants";
+import { getTotalIncorrectCharacters } from "./input";
 
 const isInputCorrect = (input, text) => trimEnd(input) === text;
-
-const getTotalIncorrectCharacters = (input, text) => {
-  if (isInputCorrect(input, text)) return 0;
-  return input.length - totalMatchedCharsFromStart(text, input);
-};
 
 const exportFocusTarget = focusTarget => {
   if (focusTarget == null) return null;

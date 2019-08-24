@@ -126,7 +126,7 @@ const TutorialStepInput = ({ inputRect, suggestionsType }) => (
       This is where your input will be entered
     </Info>
     <Instruction inputRect={inputRect} suggestionsType={suggestionsType}>
-      Type the 2 next letters.
+      Now type the two next letters.
     </Instruction>
   </div>
 );
@@ -206,7 +206,7 @@ TutorialStepSuggestion.defaultProps = {
 const TutorialStepWrongSuggestion = ({ inputRect, suggestionsType }) => (
   <div className={styles.stepWrongSuggestion}>
     <Instruction inputRect={inputRect} suggestionsType={suggestionsType}>
-      Accept the{suggestionsType === SuggestionTypes.bar ? " first " : " "}
+      Now accept the{suggestionsType === SuggestionTypes.bar ? " first " : " "}
       suggestion.
     </Instruction>
   </div>
@@ -251,8 +251,8 @@ const TutorialStepDelay = ({ inputRect, suggestionsType }) => (
     <Info>
       Your impairment was just enabled.
       <br />
-      Hold a key pressed for a short period for it to take effect. If you
-      release the key too soon, it has no effect.
+      You may have to hold the key pressed for a short period for it to take
+      effect. If you release the key too soon, it will have no effect.
       <br />
       Your impairment will always be the same.
     </Info>
@@ -274,7 +274,7 @@ const TutorialStepDelaySuggestion = ({ inputRect, suggestionsType }) => (
   >
     <Info>Impairment also applies to suggestion.</Info>
     <Instruction suggestionsType={suggestionsType}>
-      Accept the{suggestionsType === SuggestionTypes.bar ? " first " : " "}
+      Now accept the{suggestionsType === SuggestionTypes.bar ? " first " : " "}
       suggestion.
     </Instruction>
   </div>

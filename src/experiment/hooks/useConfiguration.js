@@ -113,7 +113,11 @@ const generateTasks = (corpus, uploadFileName) => {
   );
 
   tasks.push(
-    Task(TaskTypes.tutorial, { key: `tuto-${tasks.length}`, isPractice: true })
+    Task(TaskTypes.tutorial, {
+      key: `tuto-${tasks.length}`,
+      id: `tuto-${tasks.length}`,
+      isPractice: true
+    })
   );
 
   // Insert practice tasks.

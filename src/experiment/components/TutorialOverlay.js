@@ -171,7 +171,7 @@ const TutorialStepSuggestion = ({
   }
   return (
     <div className={styles.stepSuggestion}>
-      <Circle rect={sugRef.current} circleXMargin={10} circleYMargin={10} />
+      <Circle rect={sugRef.current} circleXMargin={40} circleYMargin={20} />
       <Info
         left={sugRef.current.left - 15}
         top={sugRef.current.bottom + 30}
@@ -181,9 +181,9 @@ const TutorialStepSuggestion = ({
         <br />
         You can ignore them, or navigate through them by pressing the key{" "}
         <span className={styles.key}>tab</span> /{" "}
-        <span className={styles.key}>&#8677;</span> at the left of your keyboard
-        and press the key <span className={styles.key}>Enter</span> to accept
-        the focused one.
+        <span className={styles.key}>&#8677;</span> at the left of your
+        keyboard, and by pressing <span className={styles.key}>Enter</span> to
+        accept one.
       </Info>
       <Instruction
         style={{ top: inputRect.bottom + 150 }}

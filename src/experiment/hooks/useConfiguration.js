@@ -83,7 +83,7 @@ const UploadLogTask = (id, fireAndForget, uploadFileName) =>
     fireAndForget
   });
 
-const generateTasks = (corpus, uploadFileName) => {
+export const generateTasks = (corpus, uploadFileName) => {
   let totalPickedCorpusEntry = 0;
   const pickCorpusEntries = n => {
     const slice = corpus.slice(

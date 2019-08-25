@@ -12,7 +12,7 @@ const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
 const totalSuggestions = 3;
 const numberOfPracticeTasks = 3;
 const numberOfTypingTasks = 20;
-const numberOfTypingSpeedTasks = 3;
+const numberOfTypingSpeedTasks = 5;
 
 const PageArguments = {
   targetAccuracies: "targetAccuracies",

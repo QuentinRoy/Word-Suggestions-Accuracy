@@ -1,12 +1,8 @@
 import { Actions } from "../utils/constants";
 import { getTextFromSksDistribution } from "./input";
+import getTimeZone from "../utils/getTimeZone";
 
-const timeZone = (() => {
-  if (Intl != null && Intl.DateTimeFormat != null) {
-    return Intl.DateTimeFormat().resolvedOptions().timeZone;
-  }
-  return null;
-})();
+const timeZone = getTimeZone();
 
 const getTrialLog = (
   events,
@@ -34,7 +30,7 @@ const getTrialLog = (
     if (evt.type === Actions.inputSuggestion) {
       if (evt.isError) totalSuggestionErrors += 1;
       totalSuggestionUsed += 1;
-      actualSks += evt.diffRemainingKeyStrokes;
+      actualSks -= evt.diffRemainingKeyStrokes;
     }
   });
 

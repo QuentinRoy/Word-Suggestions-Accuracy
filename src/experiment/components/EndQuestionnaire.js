@@ -43,6 +43,13 @@ const questions = {
     answers: agreementScaleAnswers,
     isAnswerRequired: true
   },
+  keyboardUseEfficiency: {
+    text: "The use of the keyboard is efficient in this task",
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true
+  },
   middleAnswer: {
     text: "Select the answer in the very middle",
     inputType: InputTypes.choice,
@@ -50,8 +57,8 @@ const questions = {
     answers: agreementScaleAnswers,
     isAnswerRequired: true
   },
-  keyboardUseEfficiency: {
-    text: "The use of the keyboard is efficient in this task",
+  suggestionDistraction: {
+    text: "The word suggestions are distracting",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
     answers: agreementScaleAnswers,

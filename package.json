@@ -36,7 +36,7 @@
   "homepage": ".",
   "scripts": {
     "start": "cross-env REACT_APP_VERSION=$npm_package_version REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts start",
-    "build": "cross-env REACT_APP_VERSION=$npm_package_version REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts build",
+    "build": "cross-env REACT_APP_VERSION=$npm_package_version REACT_APP_GIT_SHA=`git rev-parse --short HEAD` GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "generate-sks-distribution": "node scripts/sks-distribution-generator/index.js",

@@ -21,7 +21,7 @@ const PageArguments = {
   assignmentId: "assignmentId",
   hitId: "hitId",
   suggestionsType: "suggestionsType",
-  isTest: "isTest"
+  wave: "wave"
 };
 
 const {
@@ -29,7 +29,7 @@ const {
   targetAccuracy,
   keyStrokeDelay,
   suggestionsType,
-  isTest,
+  wave,
   ...otherPageArgs
 } = (() => {
   const urlParams = new URL(document.location).searchParams;
@@ -49,8 +49,8 @@ const {
         .split(",")
         .map(x => +x)
     : defaultAccuracies;
-  const isTestState = urlParams.has(PageArguments.isTest)
-    ? urlParams.get(PageArguments.isTest)
+  const waveState = urlParams.has(PageArguments.wave)
+    ? urlParams.get(PageArguments.wave)
     : null;
   return {
     assignmentId,
@@ -61,7 +61,7 @@ const {
       keyStrokeDelays[Math.floor(Math.random() * keyStrokeDelays.length)],
     targetAccuracy:
       targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)],
-    isTest: isTestState
+    wave: waveState
   };
 })();
 
@@ -234,7 +234,7 @@ const useConfiguration = () => {
         href: window.location.href,
         isExperimentCompleted: false,
         startDate,
-        isTest,
+        wave,
         // Fixes an issue with components being rendered with the same key.
         [TaskTypes.experimentProgress]: { key: "progress" }
       };
@@ -242,7 +242,7 @@ const useConfiguration = () => {
     return null;
   }, [loadingState, corpus, startDate]);
   return participant == null ||
-    isTest == null ||
+    wave == null ||
     !Object.values(SuggestionTypes).includes(suggestionsType)
     ? [LoadingStates.invalidArguments, null]
     : [loadingState, config];

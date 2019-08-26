@@ -56,9 +56,8 @@ end_questionnaire_columns = {
     "temporal_demand": "temporalDemand",
     "performance": "performance",
     "effort": "effort",
-    "frustration": "frustration"
+    "frustration": "frustration",
 }
-
 
 
 def get_feedbacks(run_record):
@@ -68,10 +67,14 @@ def get_feedbacks(run_record):
         return feedback_tasks[0]["feedbacks"]
     return None
 
+
 def get_start_questionnaire_trials(run_record):
     startup_questionnaire_task = list(iter_task_of_type(run_record, STARTUP))
     assert len(startup_questionnaire_task) == 1
-    return len(startup_questionnaire_task[0]['trials'])
+    if "trials" in startup_questionnaire_task[0]:
+        return len(startup_questionnaire_task[0]["trials"])
+    return 0
+
 
 def get_end_questionnaire(run_record, result):
     end_questionnaire_task = list(iter_task_of_type(run_record, END_QUESTIONNAIRE))
@@ -80,16 +83,27 @@ def get_end_questionnaire(run_record, result):
         copy_rename(end_questionnaire_task[0]["log"], result, end_questionnaire_columns)
     return result
 
+
 # This should just yield once, but we still use an iterators for consistency
 # with export_events.
 def iter_run_record(run_record, file_name, **kwargs):
-    result = {"file_name": file_name, "feedbacks": get_feedbacks(run_record), "start_up_questionnaire_trials": get_start_questionnaire_trials(run_record)}
+    result = {
+        "file_name": file_name,
+        "feedbacks": get_feedbacks(run_record),
+        "start_up_questionnaire_trials": get_start_questionnaire_trials(run_record),
+    }
     copy_rename(run_record, result, record_columns)
     copy_rename(run_record["corpusConfig"], result, corpus_columns)
     get_end_questionnaire(run_record, result)
     yield result
 
+
 if __name__ == "__main__":
-    header = list(record_columns.keys()) + list(corpus_columns.keys()) + other_columns + list(end_questionnaire_columns.keys())
+    header = (
+        list(record_columns.keys())
+        + list(corpus_columns.keys())
+        + other_columns
+        + list(end_questionnaire_columns.keys())
+    )
     csv_export(json_logs_dir, output_file_path, header, iter_run_record)
     print("{} written.".format(output_file_path))

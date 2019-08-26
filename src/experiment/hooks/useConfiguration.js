@@ -98,6 +98,7 @@ export const generateTasks = (corpus, uploadFileName) => {
   tasks.push({
     task: TaskTypes.consentForm,
     key: `consent-${tasks.length}`,
+    tasks: [TaskTypes.experimentProgress],
     label: "Consent Form"
   });
 
@@ -112,13 +113,10 @@ export const generateTasks = (corpus, uploadFileName) => {
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
   tasks.push({
-    tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
-    content: "Now you will complete an interactive tutorial",
-    shortcutEnabled: true,
+    task: TaskTypes.informationScreen,
+    content:
+      "<h1>Tutorial</h1><p>Now you will complete an interactive tutorial.</p>",
     key: `info-${tasks.length}`,
-    fullProgress: true,
-    currentProgress: false,
-    progressLevel: true,
     label: "Tutorial"
   });
 
@@ -127,19 +125,19 @@ export const generateTasks = (corpus, uploadFileName) => {
     key: `tuto-${tasks.length}`,
     id: `tuto-${tasks.length}`,
     isPractice: true,
+    fullProgress: false,
+    currentProgress: true,
+    progressLevel: true,
+    shortcutEnabled: false,
     noProgress: true
   });
 
   // Insert practice tasks.
   if (numberOfPracticeTasks > 0) {
     tasks.push({
-      tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
-      content: "Continue with the practice tasks",
-      shortcutEnabled: true,
+      task: TaskTypes.informationScreen,
+      content: "<h1>Practice</h1><p>Continue with the practice tasks.</p>",
       key: `info-${tasks.length}`,
-      fullProgress: true,
-      currentProgress: false,
-      progressLevel: true,
       label: "Practice"
     });
     const practiceTaskBlock = pickCorpusEntries(numberOfPracticeTasks).map(
@@ -147,24 +145,23 @@ export const generateTasks = (corpus, uploadFileName) => {
     );
     tasks.push({
       children: practiceTaskBlock,
-      tasks: [TaskTypes.experimentProgress],
       fullProgress: false,
       currentProgress: true,
       progressLevel: true,
+      shortcutEnabled: false,
       noProgress: true
     });
-    tasks.push({
-      tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
-      content:
-        "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
-      shortcutEnabled: true,
-      key: `info-${tasks.length}`,
-      fullProgress: true,
-      currentProgress: false,
-      progressLevel: true,
-      label: "Experiment"
-    });
   }
+
+  tasks.push({
+    task: TaskTypes.informationScreen,
+    content:
+      numberOfPracticeTasks > 0
+        ? "<h1>Experiment</h1><p>Practice is over. You may take a break. The real experiment begins immediately after this screen!</p><p>Remember to complete every task as fast and accurately as you can.</p>"
+        : "<h1>Experiment</h1><p>You may take a break. The real experiment begins immediately after this screen!</p><p>Remember to complete every task as fast and accurately as you can.</p>",
+    key: `info-${tasks.length}`,
+    label: "Experiment"
+  });
 
   // Insert measured tasks.
   const measuredTasksBlock = pickCorpusEntries(numberOfTypingTasks).map(
@@ -172,45 +169,29 @@ export const generateTasks = (corpus, uploadFileName) => {
   );
   tasks.push({
     children: measuredTasksBlock,
-    tasks: [TaskTypes.experimentProgress],
     fullProgress: false,
     currentProgress: true,
     progressLevel: true,
+    shortcutEnabled: false,
     noProgress: true
   });
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
-
-  tasks.push({
-    tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
-    content:
-      "You completed most of the experiment. Now please fill in the experiment questionnaire.",
-    shortcutEnabled: true,
-    key: `info-${tasks.length}`,
-    fullProgress: true,
-    currentProgress: false,
-    progressLevel: true,
-    label: "Questionnaire"
-  });
 
   tasks.push({
     task: TaskTypes.endQuestionnaire,
-    key: `${tasks.length}`,
-    noProgress: true
+    label: "Questionnaire",
+    key: `${tasks.length}`
   });
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
   tasks.push({
-    tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
+    task: TaskTypes.informationScreen,
     content:
-      "To finish, please complete a few additional typing tasks without impairment or suggestions.",
-    shortcutEnabled: true,
+      "<h1>Typing Speed</h1><p>To finish, please complete a few additional typing tasks, without impairment or suggestions.</p><p>Remember to be as fast and accurately as you can.</p>",
     key: `info-${tasks.length}`,
-    fullProgress: true,
-    currentProgress: false,
-    progressLevel: true,
-    label: "Typing speed"
+    label: "Typing Speed"
   });
 
   const typingTasksBlock = pickCorpusEntries(numberOfTypingSpeedTasks).map(
@@ -220,14 +201,17 @@ export const generateTasks = (corpus, uploadFileName) => {
     children: typingTasksBlock,
     suggestionsType: SuggestionTypes.none,
     keyStrokeDelay: 0,
-    tasks: [TaskTypes.experimentProgress],
+    fullProgress: false,
+    currentProgress: true,
+    progressLevel: true,
+    shortcutEnabled: false,
     noProgress: true
   });
 
   tasks.push({
     task: TaskTypes.finalFeedbacks,
     key: `feedbacks-${tasks.length}`,
-    label: "Final feedbacks"
+    label: "Final Feedbacks"
   });
 
   tasks.push({
@@ -279,8 +263,14 @@ const useConfiguration = () => {
         startDate,
         wave,
         nextLevel: "section",
+        tasks: [TaskTypes.experimentProgress],
+        fullProgress: true,
+        currentProgress: false,
+        progressLevel: true,
+
         // Fixes an issue with components being rendered with the same key.
-        [TaskTypes.experimentProgress]: { key: "progress" }
+        [TaskTypes.experimentProgress]: { key: "progress" },
+        [TaskTypes.informationScreen]: { shortcutEnabled: true }
       };
     }
     return null;

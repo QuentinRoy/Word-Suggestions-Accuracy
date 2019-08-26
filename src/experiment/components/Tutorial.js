@@ -21,7 +21,7 @@ const tutorialSksDistribution = [
   { word: "with ", sks: 0 },
   { word: "a ", sks: 0 },
   { word: "zoom ", sks: 3 },
-  { word: "lens ", sks: 1 }
+  { word: "lens ", sks: 0 }
 ];
 
 const tutorialSentence = getTextFromSksDistribution(tutorialSksDistribution);

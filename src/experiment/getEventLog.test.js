@@ -25,8 +25,15 @@ describe("getEventLog", () => {
     };
     const action = { type: Actions.inputSuggestion, word: "there " };
     const sksDistribution = [{ word: "hello " }, { word: "there " }];
+    const actionStartTime = new Date();
     expect(
-      getEventLog(oldState, action, newState, { sksDistribution })
+      getEventLog(
+        oldState,
+        action,
+        newState,
+        { sksDistribution },
+        actionStartTime
+      )
     ).toEqual({
       addedInput: "there ",
       diffRemainingKeyStrokes: -6,
@@ -44,6 +51,7 @@ describe("getEventLog", () => {
       totalIncorrectCharacters: 0,
       type: Actions.inputSuggestion,
       usedSuggestion: "there ",
+      actionStartTime,
       time: { type: mockDateType }
     });
   });
@@ -59,8 +67,15 @@ describe("getEventLog", () => {
     };
     const action = { type: "ACTION_TYPE" };
     const sksDistribution = [{ word: "hello " }, { word: "there " }];
+    const actionStartTime = new Date();
     expect(
-      getEventLog(oldState, action, newState, { sksDistribution })
+      getEventLog(
+        oldState,
+        action,
+        newState,
+        { sksDistribution },
+        actionStartTime
+      )
     ).toEqual({
       addedInput: "m",
       diffRemainingKeyStrokes: 1,
@@ -77,6 +92,7 @@ describe("getEventLog", () => {
       totalCorrectCharacters: 6,
       totalIncorrectCharacters: 1,
       type: "ACTION_TYPE",
+      actionStartTime,
       time: { type: mockDateType }
     });
   });
@@ -92,8 +108,15 @@ describe("getEventLog", () => {
     };
     const action = { type: "ACTION_TYPE" };
     const sksDistribution = [{ word: "hello " }, { word: "there " }];
+    const actionStartTime = new Date();
     expect(
-      getEventLog(oldState, action, newState, { sksDistribution })
+      getEventLog(
+        oldState,
+        action,
+        newState,
+        { sksDistribution },
+        actionStartTime
+      )
     ).toEqual({
       addedInput: "",
       diffRemainingKeyStrokes: -1,
@@ -108,6 +131,7 @@ describe("getEventLog", () => {
       totalCorrectCharacters: 4,
       totalIncorrectCharacters: 0,
       type: "ACTION_TYPE",
+      actionStartTime,
       time: { type: mockDateType }
     });
   });
@@ -126,8 +150,15 @@ describe("getEventLog", () => {
       action: { type: "MOCK_ACTION" }
     };
     const sksDistribution = [{ word: "hello " }, { word: "there " }];
+    const actionStartTime = new Date();
     expect(
-      getEventLog(oldState, action, newState, { sksDistribution })
+      getEventLog(
+        oldState,
+        action,
+        newState,
+        { sksDistribution },
+        actionStartTime
+      )
     ).toEqual({
       addedInput: "",
       diffRemainingKeyStrokes: -0,
@@ -142,6 +173,7 @@ describe("getEventLog", () => {
       totalCorrectCharacters: 4,
       totalIncorrectCharacters: 4,
       type: Actions.scheduleAction,
+      actionStartTime,
       time: { type: mockDateType }
     });
   });

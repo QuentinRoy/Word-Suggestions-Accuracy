@@ -35,6 +35,7 @@ event_columns = {
     "total_incorrect_characters": "totalIncorrectCharacters",
     "total_sentence_characters": "totalSentenceCharacters",
     "is_input_correct": "isInputCorrect",
+    "action_start_time": "actionStartTime"
     "time": "time",
 }
 

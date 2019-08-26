@@ -205,6 +205,7 @@ const useTrial = ({
 
   // Returns a new state based on an action.
   const reducer = (state, action) => {
+    const actionStartTime = new Date();
     let nextState = trialReducer(state, action);
     if (nextState.input !== state.input) {
       nextState = {
@@ -221,7 +222,13 @@ const useTrial = ({
         ...nextState,
         events: [
           ...nextState.events,
-          getEventLog(state, action, nextState, { sksDistribution })
+          getEventLog(
+            state,
+            action,
+            nextState,
+            { sksDistribution },
+            actionStartTime
+          )
         ]
       };
     }

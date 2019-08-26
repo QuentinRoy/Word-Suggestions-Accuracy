@@ -65,7 +65,7 @@ const {
   };
 })();
 
-const Task = (type, props, label) => ({ task: type, ...props, label });
+const Task = (type, props) => ({ task: type, ...props });
 
 const TypingTask = (id, isPractice, { words, ...props }) =>
   Task(TaskTypes.typingTask, {
@@ -98,17 +98,19 @@ export const generateTasks = (corpus, uploadFileName) => {
   const tasks = [];
 
   tasks.push(
-    Task(
-      TaskTypes.consentForm,
-      { key: `consent-${tasks.length}` },
-      "Consent Form"
-    )
+    Task(TaskTypes.consentForm, {
+      key: `consent-${tasks.length}`,
+      label: "Consent Form"
+    })
   );
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
   tasks.push(
-    Task(TaskTypes.startup, { key: `startup-${tasks.length}` }, "Instructions")
+    Task(TaskTypes.startup, {
+      key: `startup-${tasks.length}`,
+      label: "Instructions"
+    })
   );
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
@@ -121,19 +123,16 @@ export const generateTasks = (corpus, uploadFileName) => {
     fullProgress: true,
     currentProgress: false,
     progressLevel: true,
-    noProgress: true
+    label: "Tutorial"
   });
 
   tasks.push(
-    Task(
-      TaskTypes.tutorial,
-      {
-        key: `tuto-${tasks.length}`,
-        id: `tuto-${tasks.length}`,
-        isPractice: true
-      },
-      "Tutorial"
-    )
+    Task(TaskTypes.tutorial, {
+      key: `tuto-${tasks.length}`,
+      id: `tuto-${tasks.length}`,
+      isPractice: true,
+      noProgress: true
+    })
   );
 
   // Insert practice tasks.
@@ -146,7 +145,7 @@ export const generateTasks = (corpus, uploadFileName) => {
       fullProgress: true,
       currentProgress: false,
       progressLevel: true,
-      noProgress: true
+      label: "Practice"
     });
     const practiceTaskBlock = pickCorpusEntries(numberOfPracticeTasks).map(
       (props, i) => TypingTask(`practice-${tasks.length}-${i}`, true, props)
@@ -157,7 +156,7 @@ export const generateTasks = (corpus, uploadFileName) => {
       fullProgress: false,
       currentProgress: true,
       progressLevel: true,
-      label: "Practice"
+      noProgress: true
     });
     tasks.push({
       tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
@@ -168,7 +167,7 @@ export const generateTasks = (corpus, uploadFileName) => {
       fullProgress: true,
       currentProgress: false,
       progressLevel: true,
-      noProgress: true
+      label: "Experiment"
     });
   }
 
@@ -182,17 +181,27 @@ export const generateTasks = (corpus, uploadFileName) => {
     fullProgress: false,
     currentProgress: true,
     progressLevel: true,
-    label: "Experiment"
+    noProgress: true
   });
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
+  tasks.push({
+    tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
+    content: "Please fill in the experiment questionnaire",
+    shortcutEnabled: true,
+    key: `info-${tasks.length}`,
+    fullProgress: true,
+    currentProgress: false,
+    progressLevel: true,
+    label: "Questionnaire"
+  });
+
   tasks.push(
-    Task(
-      TaskTypes.endQuestionnaire,
-      { key: `${tasks.length}` },
-      "Questionnaire"
-    )
+    Task(TaskTypes.endQuestionnaire, {
+      key: `${tasks.length}`,
+      noProgress: true
+    })
   );
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
@@ -206,7 +215,7 @@ export const generateTasks = (corpus, uploadFileName) => {
     fullProgress: true,
     currentProgress: false,
     progressLevel: true,
-    noProgress: true
+    label: "Typing speed"
   });
 
   const typingTasksBlock = pickCorpusEntries(numberOfTypingSpeedTasks).map(
@@ -220,14 +229,14 @@ export const generateTasks = (corpus, uploadFileName) => {
     fullProgress: false,
     currentProgress: true,
     progressLevel: true,
-    label: "Typing speed"
+    noProgress: true
   });
 
   tasks.push(
     Task(
       TaskTypes.finalFeedbacks,
       { key: `feedbacks-${tasks.length}` },
-      "Feedbacks"
+      "Final feedbacks"
     )
   );
 

@@ -18,7 +18,7 @@
 
           <p>
             You will type sentences using your keyboard. The task will take
-            approximately 5 to 10 minutes. You will be paid $2.
+            approximately 10 minutes. You will be paid $2.
           </p>
 
           <p>
@@ -110,26 +110,26 @@
     hyphens: auto;
   }
 </style>
-<!-- Close internal style sheet -->
-<!-- External JS references -->
-<script
+<!-- Close internal style sheet --><!-- External JS references --><script
   src="https://code.jquery.com/jquery-3.1.0.min.js"
   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
   crossorigin="anonymous"
-></script>
-<script
+></script
+><script
   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"
   integrity="sha384-s1ITto93iSMDxlp/79qhWHi+LsIi9Gx6yL+cOKDuymvihkfol83TYbLbOw+W/wv4"
   crossorigin="anonymous"
-></script>
-<!-- Open internal javascript --><script>
-  var targetAccuracies = [0.5, 0.75];
+></script
+><!-- Open internal javascript --><script>
+  var targetAccuracies = [0.25, 0.5];
   var suggestionsType = "INLINE";
-  var keyStrokeDelays = [0];
+  var keyStrokeDelays = [200];
+  var wave = "";
 
   var workerID = turkGetParam("workerId", false);
   var assignmentID = turkGetParam("assignmentId", false);
   var hitId = turkGetParam("hitId", false);
+
   if (assignmentID && assignmentID !== "ASSIGNMENT_ID_NOT_AVAILABLE") {
     document.getElementById("assignmentId").value = assignmentID;
     btn = document.getElementById("taskButton");
@@ -144,6 +144,8 @@
         assignmentID +
         "&hitId=" +
         hitId +
+        "&wave=" +
+        wave +
         "&suggestionsType=" +
         suggestionsType +
         "&keyStrokeDelays=" +

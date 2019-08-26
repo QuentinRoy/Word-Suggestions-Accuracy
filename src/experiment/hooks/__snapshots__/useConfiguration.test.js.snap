@@ -954,7 +954,7 @@ Array [
     "task": "S3Upload",
   },
   Object {
-    "content": "Please fill in the experiment questionnaire",
+    "content": "You completed most of the experiment. Now please fill in the experiment questionnaire.",
     "currentProgress": false,
     "fullProgress": true,
     "key": "info-11",
@@ -1182,11 +1182,8 @@ Array [
         "usable": true,
       },
     ],
-    "currentProgress": true,
-    "fullProgress": false,
     "keyStrokeDelay": 0,
     "noProgress": true,
-    "progressLevel": true,
     "suggestionsType": "NONE",
     "tasks": Array [
       "ExperimentProgress",
@@ -1194,6 +1191,7 @@ Array [
   },
   Object {
     "key": "feedbacks-16",
+    "label": "Final feedbacks",
     "task": "FinalFeedbacks",
   },
   Object {
@@ -1210,6 +1208,7 @@ Array [
   },
   Object {
     "key": "end-19",
+    "label": "End",
     "task": "EndExperiment",
   },
 ]

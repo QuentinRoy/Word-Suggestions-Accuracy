@@ -65,24 +65,22 @@ const {
   };
 })();
 
-const Task = (type, props) => ({ task: type, ...props });
+const TypingTask = (id, isPractice, { words, ...props }) => ({
+  ...props,
+  task: TaskTypes.typingTask,
+  sksDistribution: words,
+  key: id,
+  id,
+  isPractice
+});
 
-const TypingTask = (id, isPractice, { words, ...props }) =>
-  Task(TaskTypes.typingTask, {
-    ...props,
-    sksDistribution: words,
-    key: id,
-    id,
-    isPractice
-  });
-
-const UploadLogTask = (id, fireAndForget, uploadFileName) =>
-  Task(TaskTypes.s3Upload, {
-    filename: uploadFileName,
-    key: id,
-    fireAndForget,
-    noProgress: true
-  });
+const UploadLogTask = (id, fireAndForget, uploadFileName) => ({
+  task: TaskTypes.s3Upload,
+  filename: uploadFileName,
+  key: id,
+  fireAndForget,
+  noProgress: true
+});
 
 export const generateTasks = (corpus, uploadFileName) => {
   let totalPickedCorpusEntry = 0;
@@ -97,21 +95,19 @@ export const generateTasks = (corpus, uploadFileName) => {
 
   const tasks = [];
 
-  tasks.push(
-    Task(TaskTypes.consentForm, {
-      key: `consent-${tasks.length}`,
-      label: "Consent Form"
-    })
-  );
+  tasks.push({
+    task: TaskTypes.consentForm,
+    key: `consent-${tasks.length}`,
+    label: "Consent Form"
+  });
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  tasks.push(
-    Task(TaskTypes.startup, {
-      key: `startup-${tasks.length}`,
-      label: "Instructions"
-    })
-  );
+  tasks.push({
+    task: TaskTypes.startup,
+    key: `startup-${tasks.length}`,
+    label: "Instructions"
+  });
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
@@ -126,14 +122,13 @@ export const generateTasks = (corpus, uploadFileName) => {
     label: "Tutorial"
   });
 
-  tasks.push(
-    Task(TaskTypes.tutorial, {
-      key: `tuto-${tasks.length}`,
-      id: `tuto-${tasks.length}`,
-      isPractice: true,
-      noProgress: true
-    })
-  );
+  tasks.push({
+    task: TaskTypes.tutorial,
+    key: `tuto-${tasks.length}`,
+    id: `tuto-${tasks.length}`,
+    isPractice: true,
+    noProgress: true
+  });
 
   // Insert practice tasks.
   if (numberOfPracticeTasks > 0) {
@@ -188,7 +183,8 @@ export const generateTasks = (corpus, uploadFileName) => {
 
   tasks.push({
     tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
-    content: "Please fill in the experiment questionnaire",
+    content:
+      "You completed most of the experiment. Now please fill in the experiment questionnaire.",
     shortcutEnabled: true,
     key: `info-${tasks.length}`,
     fullProgress: true,
@@ -197,12 +193,11 @@ export const generateTasks = (corpus, uploadFileName) => {
     label: "Questionnaire"
   });
 
-  tasks.push(
-    Task(TaskTypes.endQuestionnaire, {
-      key: `${tasks.length}`,
-      noProgress: true
-    })
-  );
+  tasks.push({
+    task: TaskTypes.endQuestionnaire,
+    key: `${tasks.length}`,
+    noProgress: true
+  });
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
@@ -226,38 +221,28 @@ export const generateTasks = (corpus, uploadFileName) => {
     suggestionsType: SuggestionTypes.none,
     keyStrokeDelay: 0,
     tasks: [TaskTypes.experimentProgress],
-    fullProgress: false,
-    currentProgress: true,
-    progressLevel: true,
     noProgress: true
   });
 
-  tasks.push(
-    Task(
-      TaskTypes.finalFeedbacks,
-      { key: `feedbacks-${tasks.length}` },
-      "Final feedbacks"
-    )
-  );
+  tasks.push({
+    task: TaskTypes.finalFeedbacks,
+    key: `feedbacks-${tasks.length}`,
+    label: "Final feedbacks"
+  });
 
-  tasks.push(
-    Task(TaskTypes.injectEnd, {
-      key: `inject-end-${tasks.length}`,
-      noProgress: true
-    })
-  );
+  tasks.push({
+    task: TaskTypes.injectEnd,
+    key: `inject-end-${tasks.length}`,
+    noProgress: true
+  });
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, false, uploadFileName));
 
-  tasks.push(
-    Task(
-      TaskTypes.endExperiment,
-      {
-        key: `end-${tasks.length}`
-      },
-      "End"
-    )
-  );
+  tasks.push({
+    task: TaskTypes.endExperiment,
+    key: `end-${tasks.length}`,
+    label: "End"
+  });
 
   return tasks;
 };

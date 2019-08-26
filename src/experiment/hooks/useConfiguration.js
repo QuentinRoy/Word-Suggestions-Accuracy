@@ -65,7 +65,7 @@ const {
   };
 })();
 
-const Task = (type, props) => ({ task: type, ...props });
+const Task = (type, props, label) => ({ task: type, ...props, label });
 
 const TypingTask = (id, isPractice, { words, ...props }) =>
   Task(TaskTypes.typingTask, {
@@ -80,7 +80,8 @@ const UploadLogTask = (id, fireAndForget, uploadFileName) =>
   Task(TaskTypes.s3Upload, {
     filename: uploadFileName,
     key: id,
-    fireAndForget
+    fireAndForget,
+    noProgress: true
   });
 
 export const generateTasks = (corpus, uploadFileName) => {
@@ -96,39 +97,57 @@ export const generateTasks = (corpus, uploadFileName) => {
 
   const tasks = [];
 
-  tasks.push(Task(TaskTypes.consentForm, { key: `consent-${tasks.length}` }));
-
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
-
-  tasks.push(Task(TaskTypes.startup, { key: `startup-${tasks.length}` }));
-
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
-
   tasks.push(
-    Task(TaskTypes.informationScreen, {
-      content: "Now you will complete an interactive tutorial",
-      shortcutEnabled: true,
-      key: `info-${tasks.length}`
-    })
+    Task(
+      TaskTypes.consentForm,
+      { key: `consent-${tasks.length}` },
+      "Consent Form"
+    )
   );
 
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
+
   tasks.push(
-    Task(TaskTypes.tutorial, {
-      key: `tuto-${tasks.length}`,
-      id: `tuto-${tasks.length}`,
-      isPractice: true
-    })
+    Task(TaskTypes.startup, { key: `startup-${tasks.length}` }, "Instructions")
+  );
+
+  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
+
+  tasks.push({
+    tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
+    content: "Now you will complete an interactive tutorial",
+    shortcutEnabled: true,
+    key: `info-${tasks.length}`,
+    fullProgress: true,
+    currentProgress: false,
+    progressLevel: true,
+    noProgress: true
+  });
+
+  tasks.push(
+    Task(
+      TaskTypes.tutorial,
+      {
+        key: `tuto-${tasks.length}`,
+        id: `tuto-${tasks.length}`,
+        isPractice: true
+      },
+      "Tutorial"
+    )
   );
 
   // Insert practice tasks.
   if (numberOfPracticeTasks > 0) {
-    tasks.push(
-      Task(TaskTypes.informationScreen, {
-        content: "Continue with the practice tasks",
-        shortcutEnabled: true,
-        key: `info-${tasks.length}`
-      })
-    );
+    tasks.push({
+      tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
+      content: "Continue with the practice tasks",
+      shortcutEnabled: true,
+      key: `info-${tasks.length}`,
+      fullProgress: true,
+      currentProgress: false,
+      progressLevel: true,
+      noProgress: true
+    });
     const practiceTaskBlock = pickCorpusEntries(numberOfPracticeTasks).map(
       (props, i) => TypingTask(`practice-${tasks.length}-${i}`, true, props)
     );
@@ -137,15 +156,20 @@ export const generateTasks = (corpus, uploadFileName) => {
       tasks: [TaskTypes.experimentProgress],
       fullProgress: false,
       currentProgress: true,
-      progressLevel: true
+      progressLevel: true,
+      label: "Practice"
     });
-    tasks.push(
-      Task(TaskTypes.informationScreen, {
-        content:
-          "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
-        key: `info-${tasks.length}`
-      })
-    );
+    tasks.push({
+      tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
+      content:
+        "Practice is over. You may take a break. The real experiment begins immediately after this screen!",
+      shortcutEnabled: true,
+      key: `info-${tasks.length}`,
+      fullProgress: true,
+      currentProgress: false,
+      progressLevel: true,
+      noProgress: true
+    });
   }
 
   // Insert measured tasks.
@@ -157,22 +181,33 @@ export const generateTasks = (corpus, uploadFileName) => {
     tasks: [TaskTypes.experimentProgress],
     fullProgress: false,
     currentProgress: true,
-    progressLevel: true
+    progressLevel: true,
+    label: "Experiment"
   });
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  tasks.push(Task(TaskTypes.endQuestionnaire, { key: `${tasks.length}` }));
+  tasks.push(
+    Task(
+      TaskTypes.endQuestionnaire,
+      { key: `${tasks.length}` },
+      "Questionnaire"
+    )
+  );
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  tasks.push(
-    Task(TaskTypes.informationScreen, {
-      content: `To finish, please complete a few additional typing tasks without impairment or suggestions.`,
-      shortcutEnabled: true,
-      key: `info-${tasks.length}`
-    })
-  );
+  tasks.push({
+    tasks: [TaskTypes.informationScreen, TaskTypes.experimentProgress],
+    content:
+      "To finish, please complete a few additional typing tasks without impairment or suggestions.",
+    shortcutEnabled: true,
+    key: `info-${tasks.length}`,
+    fullProgress: true,
+    currentProgress: false,
+    progressLevel: true,
+    noProgress: true
+  });
 
   const typingTasksBlock = pickCorpusEntries(numberOfTypingSpeedTasks).map(
     (props, i) => TypingTask(`typing-${tasks.length}-${i}`, false, props)
@@ -184,21 +219,35 @@ export const generateTasks = (corpus, uploadFileName) => {
     tasks: [TaskTypes.experimentProgress],
     fullProgress: false,
     currentProgress: true,
-    progressLevel: true
+    progressLevel: true,
+    label: "Typing speed"
   });
 
   tasks.push(
-    Task(TaskTypes.finalFeedbacks, { key: `feedbacks-${tasks.length}` })
+    Task(
+      TaskTypes.finalFeedbacks,
+      { key: `feedbacks-${tasks.length}` },
+      "Feedbacks"
+    )
   );
 
-  tasks.push(Task(TaskTypes.injectEnd, { key: `inject-end-${tasks.length}` }));
+  tasks.push(
+    Task(TaskTypes.injectEnd, {
+      key: `inject-end-${tasks.length}`,
+      noProgress: true
+    })
+  );
 
   tasks.push(UploadLogTask(`upload-${tasks.length}`, false, uploadFileName));
 
   tasks.push(
-    Task(TaskTypes.endExperiment, {
-      key: `end-${tasks.length}`
-    })
+    Task(
+      TaskTypes.endExperiment,
+      {
+        key: `end-${tasks.length}`
+      },
+      "End"
+    )
   );
 
   return tasks;
@@ -235,6 +284,7 @@ const useConfiguration = () => {
         isExperimentCompleted: false,
         startDate,
         wave,
+        nextLevel: "section",
         // Fixes an issue with components being rendered with the same key.
         [TaskTypes.experimentProgress]: { key: "progress" }
       };

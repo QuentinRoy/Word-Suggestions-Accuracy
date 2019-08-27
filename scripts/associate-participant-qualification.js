@@ -51,6 +51,12 @@ async function getAllQualificationWorkers({ nextToken, acc = new Set() } = {}) {
   return getAllQualificationWorkers({ nextToken: resp.NextToken, acc });
 }
 
+const Actions = {
+  notWorker: Symbol("not a worker"),
+  hasQualif: Symbol("already has the qualification"),
+  associated: Symbol("associated with the qualification")
+};
+
 async function main() {
   const workersWithQualif = await getAllQualificationWorkers();
   const logFiles = await fs.readdir(logDirPath);
@@ -61,18 +67,29 @@ async function main() {
         const workerId = await getWorkerIdFromLog(
           path.join(logDirPath, fileName)
         );
-        if (!workersWithQualif.has(workerId)) {
-          await associateQualification(workerId);
-          log.info("Qualification associated with", workerId);
-          return true;
+        if (!/^A[A-Z0-9]+$/.test(workerId)) {
+          return Actions.notWorker;
         }
-        return false;
+        if (workersWithQualif.has(workerId)) {
+          return Actions.hasQualif;
+        }
+        await associateQualification(workerId);
+        log.info("Qualification associated with", workerId);
+        return Actions.associated;
       })
   );
-  const totalSkipped = results.reduce((count, r) => (r ? count : count + 1), 0);
-  log.info(
-    `${totalSkipped} worker(s) were not associated again with the qualification since they already have it.`
+  const totalSkipped = results.reduce(
+    (count, r) => (r === Actions.hasQualif ? count + 1 : count),
+    0
   );
+  const totalNotWorker = results.reduce(
+    (count, r) => (r === Actions.notWorker ? count + 1 : count),
+    0
+  );
+  log.info(
+    `${totalSkipped} worker(s) were not associated again with the qualification since they already had it.`
+  );
+  log.info(`${totalNotWorker} log(s) did not correspond to a worker id.`);
 }
 
 if (require.main === module) {

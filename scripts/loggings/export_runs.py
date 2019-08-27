@@ -28,6 +28,7 @@ record_columns = dict(
         "href",
         "startDate",
         "endDate",
+        "timeZone",
     ]
 )
 

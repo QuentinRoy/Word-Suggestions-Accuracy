@@ -6,6 +6,7 @@ import {
   TaskTypes,
   SuggestionTypes
 } from "../../utils/constants";
+import getTimeZone from "../../utils/getTimeZone";
 
 const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
 const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
@@ -263,6 +264,7 @@ const useConfiguration = () => {
         startDate,
         wave,
         nextLevel: "section",
+        timeZone: getTimeZone(),
         tasks: [TaskTypes.experimentProgress],
         fullProgress: true,
         currentProgress: false,

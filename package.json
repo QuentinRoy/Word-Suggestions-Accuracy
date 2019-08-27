@@ -1,6 +1,6 @@
 {
   "name": "exii-accuracy-control",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "private": true,
   "dependencies": {
     "@hcikit/tasks": "^0.3.0",

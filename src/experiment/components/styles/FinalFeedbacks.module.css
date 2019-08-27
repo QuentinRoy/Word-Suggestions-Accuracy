@@ -4,15 +4,19 @@
 }
 
 .main {
-  max-width: 800px;
-  margin: 0 auto;
+  width: 800px;
+  padding: 1em 2em;
+  margin: 2em auto 2em auto;
+  place-self: center;
 }
 
 .input {
   width: 100%;
+  margin: 2em 0;
 }
 
 .footer {
+  margin: 1em 0;
   display: flex;
   justify-content: flex-end;
 }

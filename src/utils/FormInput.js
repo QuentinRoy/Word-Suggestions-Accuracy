@@ -100,7 +100,7 @@ const FormInput = memo(
             <TextField
               id="standard-number"
               name={id}
-              value={value}
+              value={value == null ? "" : value}
               type="number"
               onChange={event => {
                 onChange(id, event.target.value);
@@ -138,7 +138,7 @@ const FormInput = memo(
               {text}
             </FormLabel>
             <Select
-              value={value}
+              value={value == null ? "" : value}
               onChange={event => {
                 onChange(id, event.target.value);
               }}
@@ -175,7 +175,7 @@ FormInput.propTypes = {
 };
 
 FormInput.defaultProps = {
-  value: "",
+  value: null,
   answers: null,
   description: null,
   direction: null,

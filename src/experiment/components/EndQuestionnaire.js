@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withFormik } from "formik";
 import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 import styles from "./styles/EndQuestionnaire.module.css";
 import FormInput from "../../utils/FormInput";
 import { InputTypes, Directions } from "../../utils/constants";
@@ -146,7 +147,7 @@ const EndQuestionnaire = ({
   errors,
   isValid
 }) => (
-  <div className={styles.main}>
+  <Paper className={styles.main}>
     <h1>Questionnaire</h1>
     <p className={styles.instructions}>Please answer the questions below.</p>
 
@@ -179,7 +180,7 @@ const EndQuestionnaire = ({
         </Button>
       </div>
     </form>
-  </div>
+  </Paper>
 );
 
 EndQuestionnaire.propTypes = {

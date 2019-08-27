@@ -15,7 +15,7 @@ log_columns = {
     "hit_id": "hitId",
     "assignment_id": "assignmentId",
     "trial_id": "key",
-    "accuracy": "weightedAccuracy",
+    "accuracy": "targetAccuracy",
     "is_practice": "isPractice",
 }
 
@@ -27,15 +27,17 @@ event_columns = {
     "removed_input": "removedInput",
     "input": "input",
     "is_error": "isError",
+    "remaining_key_strokes": "remainingKeyStrokes",
+    "diff_remaining_key_strokes": "diffRemainingKeyStrokes",
     "suggestion_0": "suggestion0",
     "suggestion_1": "suggestion1",
     "suggestion_2": "suggestion2",
     "used_suggestion": "usedSuggestion",
     "total_correct_characters": "totalCorrectCharacters",
     "total_incorrect_characters": "totalIncorrectCharacters",
-    "total_sentence_characters": "totalSentenceCharacters",
     "is_input_correct": "isInputCorrect",
-    "action_start_time": "actionStartTime"
+    "is_target_completed": "isTargetCompleted",
+    "action_start_time": "actionStartTime",
     "time": "time",
 }
 

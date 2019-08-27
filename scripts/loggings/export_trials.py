@@ -14,11 +14,8 @@ log_columns = {
     "hit_id": "hitId",
     "assignment_id": "assignmentId",
     "trial_id": "key",
-    "mean_accuracy": "meanAccuracy",
-    "weighted_accuracy": "weightedAccuracy",
-    "sd_accuracy": "sdAccuracy",
-    "diff_accuracy": "diffAccuracy",
-    "diff_sd": "diffSd",
+    "total_kss": "totalKss",
+    "sd_word_kss": "sdWordsKss",
     "is_practice": "isPractice",
     "suggestions_type": "suggestionsType",
 }

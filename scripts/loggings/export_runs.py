@@ -33,10 +33,10 @@ record_columns = dict(
 
 
 corpus_columns = {
-    "corpus_target_accuracy": "targetAccuracy",
-    "corpus_target_sd": "targetSd",
-    "corpus_max_diff_accuracy": "maxDiffAccuracy",
-    "corpus_max_diff_sd": "maxDiffSd",
+    "corpus_target_kss": "targetKss",
+    "corpus_target_sd_words_kss": "targetSdWordsKss",
+    "corpus_max_diff_kss": "maxDiffKss",
+    "corpus_max_diff_sd_words_kss": "maxDiffSdWordsKss",
     "was_corpus_shuffled": "shuffled",
 }
 

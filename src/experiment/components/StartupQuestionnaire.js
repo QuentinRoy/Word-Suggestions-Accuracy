@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import shuffle from "lodash/shuffle";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 import styles from "./styles/StartupQuestionnaire.module.css";
 import MultipleChoiceQuestion from "./MultipleChoiceQuestion";
 
@@ -64,7 +65,7 @@ const StartupTest = ({ onSubmit }) => {
   }
 
   return (
-    <div className={styles.main}>
+    <Paper className={styles.main}>
       <h1>Startup Questionnaire</h1>
       <p className={styles.instructions}>Please answer the questions below.</p>
       <form onSubmit={onSubmitForm} className={styles.form}>
@@ -95,7 +96,7 @@ const StartupTest = ({ onSubmit }) => {
           </Button>
         </div>
       </form>
-    </div>
+    </Paper>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 import Appear from "./Appear";
 import styles from "./styles/StartupInstructions.module.css";
 
@@ -55,7 +56,7 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
   const totalSteps = 10;
 
   return (
-    <div className={styles.main}>
+    <Paper className={styles.main}>
       <Appear currentStep={step}>
         <h1>Instructions</h1>
         <p className={styles.instructions}>
@@ -87,7 +88,7 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
           </Button>
         </div>
       </Appear>
-    </div>
+    </Paper>
   );
 };
 

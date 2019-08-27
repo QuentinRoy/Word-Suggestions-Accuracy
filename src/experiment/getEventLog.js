@@ -21,7 +21,13 @@ const exportFocusTarget = focusTarget => {
   }
 };
 
-const getEventLog = (oldState, action, newState, { sksDistribution }) => {
+const getEventLog = (
+  oldState,
+  action,
+  newState,
+  { sksDistribution },
+  actionStartTime
+) => {
   const text = getTextFromSksDistribution(sksDistribution);
   const totalCommonCharsFromStart = totalMatchedCharsFromStart(
     oldState.input,
@@ -68,6 +74,7 @@ const getEventLog = (oldState, action, newState, { sksDistribution }) => {
     totalIncorrectCharacters: newTotalIncorrectChars,
     isInputCorrect: isInputCorrect(newState.input, text),
     isTargetCompleted: isTargetCompleted(newState.input, text),
+    actionStartTime,
     time: new Date()
   };
   newState.suggestions.forEach((s, i) => {

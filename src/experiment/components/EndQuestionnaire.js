@@ -154,12 +154,11 @@ const EndQuestionnaire = ({
     <form onSubmit={handleSubmit} className={styles.endForm}>
       {Object.entries(questions).map(([questionId, question]) => {
         return (
-          <div className={styles.question}>
+          <div className={styles.question} key={questionId}>
             <FormInput
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...question}
               id={questionId}
-              key={questionId}
               value={values[questionId]}
               error={errors[questionId]}
               onChange={setFieldValue}

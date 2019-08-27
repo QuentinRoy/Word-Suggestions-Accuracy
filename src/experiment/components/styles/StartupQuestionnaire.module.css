@@ -1,17 +1,10 @@
-.main {
-  width: 800px;
-  padding: 1em 2em;
-  margin: 2em auto 2em auto;
-  place-self: center;
-}
-
-.submitButtonWrapper {
+.main .submitButtonWrapper {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1rem;
 }
 
-.instructions {
+.main .instructions {
   font-style: italic;
   margin-bottom: 2rem;
 }

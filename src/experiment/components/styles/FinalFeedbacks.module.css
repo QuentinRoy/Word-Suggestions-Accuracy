@@ -1,21 +1,14 @@
-.instructions {
+.main .instructions {
   font-style: italic;
   margin-bottom: 2rem;
 }
 
-.main {
-  width: 800px;
-  padding: 1em 2em;
-  margin: 2em auto 2em auto;
-  place-self: center;
-}
-
-.input {
+.main .input {
   width: 100%;
   margin: 2em 0;
 }
 
-.footer {
+.main .footer {
   margin: 1em 0;
   display: flex;
   justify-content: flex-end;

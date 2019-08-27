@@ -1,0 +1,9 @@
+.paper {
+  padding: 1em 2em;
+  margin: 2em auto 2em auto;
+}
+
+.paperWrapper {
+  place-self: center;
+  width: 800px;
+}

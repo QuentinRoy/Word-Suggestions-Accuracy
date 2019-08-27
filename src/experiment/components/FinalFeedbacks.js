@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { TextField, Button, Paper } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import styles from "./styles/FinalFeedbacks.module.css";
+import TaskPaper from "./TaskPaper";
 
 const FinalFeedbacks = ({ onAdvanceWorkflow, onLog }) => {
   const [value, setValue] = useState("");
 
   return (
-    <Paper className={styles.main}>
+    <TaskPaper className={styles.main}>
       <h1>Feedbacks</h1>
       <p className={styles.instructions}>
         If you have any feedbacks you would want to share with us, you may write
@@ -35,7 +36,7 @@ const FinalFeedbacks = ({ onAdvanceWorkflow, onLog }) => {
           </Button>
         </div>
       </form>
-    </Paper>
+    </TaskPaper>
   );
 };
 

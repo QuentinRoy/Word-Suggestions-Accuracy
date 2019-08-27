@@ -1,10 +1,3 @@
-.main {
-  width: 800px;
-  padding: 1em 2em;
-  margin: 2em auto 2em auto;
-  place-self: center;
-}
-
 .code {
   font-weight: bolder;
   font-family: "Courier New", Courier, monospace;

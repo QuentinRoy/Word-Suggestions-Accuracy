@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import classes from "./styles/ConsentForm.module.scss";
+import TaskPaper from "./TaskPaper";
 
 const duration = 15; // (minutes)
 const remuneration = 2; // (dollars)
@@ -12,7 +12,7 @@ const remuneration = 2; // (dollars)
 const ConsentForm = ({ onAdvanceWorkflow }) => {
   const [isConsentApproved, setIsConsentApproved] = useState(false);
   return (
-    <Paper className={classes.main}>
+    <TaskPaper>
       <h1>Evaluation of Human-Computer Interaction Techniques</h1>
       <p>
         <em>Principal Investigator/Faculty Supervisor:</em>
@@ -203,7 +203,7 @@ const ConsentForm = ({ onAdvanceWorkflow }) => {
           Continue
         </Button>
       </p>
-    </Paper>
+    </TaskPaper>
   );
 };
 

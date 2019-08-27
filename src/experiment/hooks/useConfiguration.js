@@ -8,7 +8,7 @@ import {
 } from "../../utils/constants";
 import getTimeZone from "../../utils/getTimeZone";
 
-const defaultAccuracies = [0, 0.25, 0.5, 0.75, 1];
+const defaultAccuracies = [0, 0.1, 0.3, 0.5, 0.7, 0.9];
 const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
 const totalSuggestions = 3;
 const numberOfPracticeTasks = 3;

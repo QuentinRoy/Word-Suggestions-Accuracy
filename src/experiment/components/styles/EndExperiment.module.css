@@ -1,14 +1,8 @@
 .main {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-content: center;
-}
-
-.content {
   width: 800px;
-  margin: auto;
-  padding: 10px 20px;
+  padding: 1em 2em;
+  margin: 2em auto 2em auto;
+  place-self: center;
 }
 
 .code {

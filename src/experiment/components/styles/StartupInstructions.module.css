@@ -1,7 +1,8 @@
 .main {
-  margin-left: auto;
-  margin-right: auto;
-  width: 600px;
+  width: 800px;
+  padding: 1em 2em;
+  margin: 2em auto 2em auto;
+  place-self: center;
 }
 
 .main .buttonWrapper {
@@ -11,6 +12,10 @@
 
 .main .button {
   margin: 10px;
+}
+
+.main .button:last-child {
+  margin-right: 0;
 }
 
 .instructions {

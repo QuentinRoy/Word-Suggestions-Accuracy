@@ -260,6 +260,7 @@ const useConfiguration = () => {
         numberOfPracticeTasks,
         numberOfTypingTasks,
         href: window.location.href,
+        userAgent: navigator.userAgent,
         isExperimentCompleted: false,
         startDate,
         wave,

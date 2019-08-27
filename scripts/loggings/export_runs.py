@@ -29,6 +29,7 @@ record_columns = dict(
         "startDate",
         "endDate",
         "timeZone",
+        "userAgent",
     ]
 )
 

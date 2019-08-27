@@ -2,7 +2,13 @@ import json
 import csv
 import os
 from csv_export import csv_export
-from config_tasks import FINAL_FEEDBACKS, iter_task_of_type, END_QUESTIONNAIRE, STARTUP
+from config_tasks import (
+    iter_task_of_type,
+    FINAL_FEEDBACKS,
+    END_QUESTIONNAIRE,
+    STARTUP,
+    CONSENT_FORM,
+)
 from utils import to_snake_case, copy_rename
 
 this_dir = os.path.dirname(os.path.abspath(__file__))
@@ -43,7 +49,12 @@ corpus_columns = {
     "was_corpus_shuffled": "shuffled",
 }
 
-other_columns = ["file_name", "feedbacks", "start_up_questionnaire_trials"]
+other_columns = [
+    "file_name",
+    "feedbacks",
+    "start_up_questionnaire_trials",
+    "accepted_consent_form",
+]
 
 end_questionnaire_columns = {
     "age": "age",
@@ -79,12 +90,18 @@ def get_start_questionnaire_trials(run_record):
     return 0
 
 
-def get_end_questionnaire(run_record, result):
+def get_end_questionnaire(run_record):
     end_questionnaire_task = list(iter_task_of_type(run_record, END_QUESTIONNAIRE))
     assert len(end_questionnaire_task) == 1
     if "log" in end_questionnaire_task[0]:
-        copy_rename(end_questionnaire_task[0]["log"], result, end_questionnaire_columns)
-    return result
+        return end_questionnaire_task[0]["log"]
+    return {}
+
+
+def accepted_consent_form(run_record):
+    consent_form_task = list(iter_task_of_type(run_record, CONSENT_FORM))
+    assert len(consent_form_task) == 1
+    return "end" in consent_form_task[0]
 
 
 # This should just yield once, but we still use an iterators for consistency
@@ -94,10 +111,11 @@ def iter_run_record(run_record, file_name, **kwargs):
         "file_name": file_name,
         "feedbacks": get_feedbacks(run_record),
         "start_up_questionnaire_trials": get_start_questionnaire_trials(run_record),
+        "accepted_consent_form": accepted_consent_form(run_record),
     }
     copy_rename(run_record, result, record_columns)
     copy_rename(run_record["corpusConfig"], result, corpus_columns)
-    get_end_questionnaire(run_record, result)
+    copy_rename(get_end_questionnaire(run_record), result, end_questionnaire_columns)
     yield result
 
 

@@ -1,8 +1,10 @@
 <!-- For help on using this template, see the blog post: https://blog.mturk.com/editing-the-survey-link-project-template-in-the-ui-7c75285105fb#.py7towsdx --><!-- HIT template: SurveyLink-v3.0 --><!-- The following snippet enables the 'responsive' behavior on smaller screens -->
-<meta content="width=device-width,initial-scale=1" name="viewport" /><script
+<meta content="width=device-width,initial-scale=1" name="viewport" />
+<script
   type="text/javascript"
   src="https://s3.amazonaws.com/mturk-public/externalHIT_v1.js"
 ></script>
+
 <section class="container" id="SurveyLink">
   <div class="row">
     <div class="col-xs-12 col-md-12">
@@ -18,7 +20,7 @@
 
           <p>
             You will type sentences using your keyboard. The task will take
-            approximately 10 to 15 minutes. You will be paid $2.5.
+            approximately 10 minutes. You will be paid $2.5.
           </p>
 
           <p>
@@ -84,7 +86,9 @@
   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
   integrity="sha384-IS73LIqjtYesmURkDE9MXKbXqYA8rvKEp/ghicjem7Vc3mGRdQRptJSz60tvrB6+"
   rel="stylesheet"
-/><!-- Open internal style sheet -->
+/>
+
+<!-- Open internal style sheet -->
 <style type="text/css">
   #collapseTrigger {
     color: #fff;
@@ -110,21 +114,26 @@
     hyphens: auto;
   }
 </style>
-<!-- Close internal style sheet --><!-- External JS references --><script
-  src="https://code.jquery.com/jquery-3.1.0.min.js"
-  integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+<!-- Close internal style sheet -->
+
+<!-- External JS references -->
+<script
   crossorigin="anonymous"
+  integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+  src="https://code.jquery.com/jquery-3.1.0.min.js"
 ></script
 ><script
-  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"
-  integrity="sha384-s1ITto93iSMDxlp/79qhWHi+LsIi9Gx6yL+cOKDuymvihkfol83TYbLbOw+W/wv4"
   crossorigin="anonymous"
-></script
-><!-- Open internal javascript --><script>
-  var targetAccuracies = [0.25, 0.5];
+  integrity="sha384-s1ITto93iSMDxlp/79qhWHi+LsIi9Gx6yL+cOKDuymvihkfol83TYbLbOw+W/wv4"
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"
+></script>
+
+<!-- Open internal javascript -->
+<script>
+  var targetAccuracies = [0.1, 0.3, 0.5, 0.7, 0.9];
   var suggestionsType = "INLINE";
-  var keyStrokeDelays = [200];
-  var wave = "";
+  var keyStrokeDelays = [0, 100, 200];
+  var wave = "template";
 
   var workerID = turkGetParam("workerId", false);
   var assignmentID = turkGetParam("assignmentId", false);
@@ -156,5 +165,6 @@
         window.open(url);
       };
     }
-  }</script
-><!-- Close internal javascript -->
+  }
+</script>
+<!-- Close internal javascript -->

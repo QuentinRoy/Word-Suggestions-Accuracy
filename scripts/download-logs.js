@@ -3,7 +3,6 @@ const fs = require("fs-extra");
 const path = require("path");
 const sanitizeFileName = require("sanitize-filename");
 const last = require("lodash/last");
-const fromPairs = require("lodash/fromPairs");
 const log = require("loglevel");
 
 log.setDefaultLevel(log.levels.INFO);
@@ -27,21 +26,37 @@ async function fileExists(filePath) {
   }
 }
 
-async function downloadObject(key, targetFilePath, shouldOverwrite = false) {
-  if (!shouldOverwrite && (await fileExists(targetFilePath))) {
-    log.info(`Skipping ${key}. File already exists.`);
+async function fileLastModifiedDate(filePath) {
+  const stats = await fs.stat(filePath);
+  return new Date(stats.mtime);
+}
+
+async function downloadObject({
+  key,
+  targetFileName,
+  modificationDate,
+  shouldOverwrite = false
+}) {
+  // const exists = await fileExists(targetFileName);
+  // const mDate = exists && (await fileLastModifiedDate());
+  if (
+    !shouldOverwrite &&
+    (await fileExists(targetFileName)) &&
+    (await fileLastModifiedDate(targetFileName)) > modificationDate
+  ) {
+    log.info(`Skipping ${key}. File already exists and is more recent.`);
     return;
   }
   const resp = await s3.getObject({ Bucket: bucket, Key: key }).promise();
   const content = resp.Body.toString();
-  await fs.writeFile(targetFilePath, content);
-  log.info(`${key} downloaded in ${targetFilePath}.`);
+  await fs.writeFile(targetFileName, content);
+  log.info(`${key} downloaded in ${targetFileName}.`);
 }
 
-async function downloadObjects(keyFileMap, shouldOverwrite) {
+async function downloadObjects(objectEntries, shouldOverwrite) {
   return Promise.all(
-    Object.entries(keyFileMap).map(([key, fileName]) =>
-      downloadObject(key, fileName, shouldOverwrite)
+    objectEntries.map(({ key, targetFileName, modificationDate }) =>
+      downloadObject({ key, targetFileName, modificationDate, shouldOverwrite })
     )
   );
 }
@@ -63,12 +78,11 @@ async function main({ startAfter = undefined, shouldOverwrite = false } = {}) {
     .promise();
 
   // Create a map of object keys to the file they should be downloaded to.
-  const toDlKeyFileMap = fromPairs(
-    listObjRequest.Contents.map(o => [
-      o.Key,
-      path.join(outputDir, getObjectFileName(o))
-    ])
-  );
+  const toDlKeyFileMap = listObjRequest.Contents.map(o => ({
+    key: o.Key,
+    targetFileName: path.join(outputDir, getObjectFileName(o)),
+    modificationDate: o.LastModified
+  }));
 
   if (listObjRequest.IsTruncated) {
     await Promise.all([

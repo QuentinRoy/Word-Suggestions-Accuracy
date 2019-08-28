@@ -36,6 +36,7 @@ record_columns = dict(
         "endDate",
         "timeZone",
         "userAgent",
+        "confirmationCode",
         "wave",
     ]
 )

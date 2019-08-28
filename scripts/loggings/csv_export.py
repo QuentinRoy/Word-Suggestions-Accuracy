@@ -9,7 +9,7 @@ def null_iterator(log):
 
 def csv_export(json_logs_dir, output_file_path, header, reader, iterator=null_iterator):
     with open(output_file_path, "w") as log_file:
-        writer = csv.DictWriter(log_file, header)
+        writer = csv.DictWriter(log_file, header, quoting=csv.QUOTE_NONNUMERIC)
         writer.writeheader()
 
         for p_file_name in os.listdir(json_logs_dir):

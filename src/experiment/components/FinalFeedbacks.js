@@ -28,7 +28,9 @@ const FinalFeedbacks = ({ onAdvanceWorkflow, onLog }) => {
           value={value}
           multiline
           rows="8"
-          onChange={(evt, newValue) => setValue(newValue)}
+          onChange={evt => {
+            setValue(evt.target.value);
+          }}
         />
         <div className={styles.footer}>
           <Button color="primary" type="submit" variant="contained">

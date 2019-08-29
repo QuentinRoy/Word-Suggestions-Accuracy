@@ -66,6 +66,7 @@ end_questionnaire_columns = {
     "keyboard_use_efficiency": "keyboardUseEfficiency",
     "suggestions_use_frequency_desktop": "suggestionsUseFrequencyDesktop",
     "suggestions_use_frequency_mobile": "suggestionsUseFrequencyMobile",
+    "sugggestion_distraction": "suggestionDistraction",
     "mental_demand": "mentalDemand",
     "physical_demand": "physicalDemand",
     "temporal_demand": "temporalDemand",

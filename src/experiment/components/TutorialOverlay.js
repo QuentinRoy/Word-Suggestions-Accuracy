@@ -259,6 +259,8 @@ TutorialStepWrongSuggestion.propTypes = {
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };
 
+// Disabling prettier for the block below because it is doing something weird.
+// prettier-ignore
 const TutorialStepError = ({ presenterBottom }) => (
   <div style={{ top: presenterBottom }} className={styles.stepError}>
     <Info>
@@ -266,8 +268,10 @@ const TutorialStepError = ({ presenterBottom }) => (
       <br />
       When there are errors in your input, it turns red.
       <br />
-      You can fix it with the <span className={styles.key}>delete</span> key.
-      Arrow keys are disabled.
+      You can fix it with the{" "}
+      <span className={styles.key}>backspace</span> /{" "}
+      <span className={styles.key}>delete</span> /{" "}
+      <span className={styles.key}>&#9003;</span> key. Arrow keys are disabled.
     </Info>
     <Instruction>Fix the input</Instruction>
   </div>

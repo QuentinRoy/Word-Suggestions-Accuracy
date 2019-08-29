@@ -3,7 +3,6 @@ import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll, createUpload, ExperimentProgress } from "@hcikit/tasks";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
-import { isMobileOnly } from "react-device-detect";
 import TypingTask from "./TypingTask";
 import useConfiguration from "../hooks/useConfiguration";
 import DictionaryProvider from "../hooks/useDictionary";
@@ -41,9 +40,6 @@ registerTask(TaskTypes.injectEnd, InjectEnd);
 
 function ExperimentContent() {
   const [loadingState, configuration] = useConfiguration();
-  if (isMobileOnly) {
-    return <Crashed>This experiment is not available on mobile device</Crashed>;
-  }
 
   if (loadingState === LoadingStates.loading) {
     return <Loading>Loading experiment...</Loading>;

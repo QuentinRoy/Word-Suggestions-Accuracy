@@ -1,5 +1,6 @@
 import { useMemo, useRef } from "react";
 import omit from "lodash/omit";
+import { isMobile } from "react-device-detect";
 import useCorpusFromJson from "./useCorpusFromJson";
 import {
   LoadingStates,
@@ -269,6 +270,7 @@ const useConfiguration = () => {
         fullProgress: true,
         currentProgress: false,
         progressLevel: true,
+        isVirtualKeyboardEnabled: isMobile,
 
         // Fixes an issue with components being rendered with the same key.
         [TaskTypes.experimentProgress]: { key: "progress" },

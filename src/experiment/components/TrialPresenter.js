@@ -38,6 +38,8 @@ const mapVirtualKey = key => {
       return "CapsLock";
     case "{space}":
       return " ";
+    case "{enter}":
+      return "Enter";
     default:
       return key;
   }
@@ -228,6 +230,7 @@ const TrialPresenter = ({
   const [inputRect, inputRef] = useClientRect();
   const [inlineSuggestionRect, inlineSuggestionRef] = useClientRect();
   const [suggestionsBarRect, suggestionsBarRef] = useClientRect();
+  const [virtualKeyboardRect, virtualKeyboardRef] = useClientRect();
 
   const onCloseFocusAlert = useCallback(() => {
     dispatch({ type: Actions.closeFocusAlert });
@@ -299,15 +302,17 @@ const TrialPresenter = ({
           </div>
         ) : null}
         {isVirtualKeyboardEnabled ? (
-          <VirtualKeyboard
-            layoutName={keyboardLayoutName}
-            onKeyDown={onVirtualKeyDown}
-            onKeyUp={onVirtualKeyUp}
-          />
+          <div ref={tutorialStep == null ? null : virtualKeyboardRef}>
+            <VirtualKeyboard
+              layout={keyboardLayoutName}
+              onVirtualKeyDown={onVirtualKeyDown}
+              onVirtualKeyUp={onVirtualKeyUp}
+            />
+          </div>
         ) : null}
         {showsHelp && (
           <div className={styles.trialHelp}>
-            <TrialHelp />
+            <TrialHelp isVirtualKeyboardEnabled={isVirtualKeyboardEnabled} />
           </div>
         )}
       </div>
@@ -319,7 +324,11 @@ const TrialPresenter = ({
           inputRect={inputRect}
           inlineSuggestionRect={inlineSuggestionRect}
           suggestionsBarRect={suggestionsBarRect}
+          virtualKeyboardRect={
+            isVirtualKeyboardEnabled ? virtualKeyboardRect : null
+          }
           suggestionsType={suggestionsType}
+          isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
         />
       )}
     </div>

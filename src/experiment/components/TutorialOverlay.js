@@ -167,7 +167,8 @@ const TutorialStepSuggestion = ({
   inlineSuggestionRect,
   suggestionsBarRect,
   presenterBottom,
-  suggestionsType
+  suggestionsType,
+  isVirtualKeyboardEnabled
 }) => {
   // Store this in a ref as we don't want it to change once set up the first
   // time.
@@ -214,22 +215,28 @@ const TutorialStepSuggestion = ({
         rectRadius={30}
         type={CircleTypes.rectangle}
       />
-      <div
-        className={styles.messagesWrapper}
-        style={{ top: suggestionRef.current.bottom + 10 }}
-      >
+      <div className={styles.messagesWrapper} style={{ top: presenterBottom }}>
         <Info>
-          Word suggestions will be shown and updated as you type.
-          <br />
-          You can ignore them, or navigate through them, by pressing the key{" "}
-          <span className={styles.noWrap}>
-            <span className={styles.key}>tab</span> /{" "}
-            <span className={styles.key}>&#8677;</span>
-          </span>{" "}
-          at the left of your keyboard. When a suggestion is focused you can
-          accept it by pressing <span className={styles.key}>Enter</span>.
+          {isVirtualKeyboardEnabled ? (
+            <div>
+              Word suggestions will be shown and updated as you type.
+              <br />
+              You can ignore them, or select them by pressing on the word.
+            </div>
+          ) : (
+            <div>
+              Word suggestions will appear as you type.
+              <br />
+              You can ignore them, or accept them by pressing the key{" "}
+              <span className={styles.noWrap}>
+                <span className={styles.key}>tab</span> /{" "}
+                <span className={styles.key}>&#8677;</span>
+              </span>{" "}
+              at the left of your keyboard.
+            </div>
+          )}
         </Info>
-        <Instruction>Accept the first suggestion.</Instruction>
+        <Instruction>Select the first suggestion.</Instruction>
       </div>
     </div>
   );
@@ -239,17 +246,22 @@ TutorialStepSuggestion.propTypes = {
   presenterBottom: PropTypes.number.isRequired,
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
   inlineSuggestionRect: RectPropType,
-  suggestionsBarRect: RectPropType
+  suggestionsBarRect: RectPropType,
+  isVirtualKeyboardEnabled: PropTypes.bool
 };
 TutorialStepSuggestion.defaultProps = {
   inlineSuggestionRect: undefined,
-  suggestionsBarRect: undefined
+  suggestionsBarRect: undefined,
+  isVirtualKeyboardEnabled: false
 };
 
 const TutorialStepWrongSuggestion = ({ presenterBottom, suggestionsType }) => (
   <div className={styles.stepWrongSuggestion}>
     <Instruction presenterBottom={presenterBottom}>
-      Now accept the{suggestionsType === SuggestionTypes.bar ? " first " : " "}
+      Now{" "}
+      {suggestionsType === SuggestionTypes.bar
+        ? "select the first "
+        : "accept the "}
       suggestion again.
     </Instruction>
   </div>
@@ -347,7 +359,9 @@ const TutorialOverlay = memo(
     inputRect,
     inlineSuggestionRect,
     suggestionsBarRect,
-    suggestionsType
+    suggestionsType,
+    virtualKeyboardRect,
+    isVirtualKeyboardEnabled
   }) => {
     const transitions = useTransition(tutorialStep, null, {
       from: { opacity: 0 },
@@ -356,8 +370,15 @@ const TutorialOverlay = memo(
     });
 
     if (inputRect == null) return null;
-    const { bottom: presenterBottom } =
-      suggestionsBarRect == null ? inputRect : suggestionsBarRect;
+    let rect;
+    if (virtualKeyboardRect !== null) {
+      rect = virtualKeyboardRect;
+    } else if (suggestionsType === SuggestionTypes.inline) {
+      rect = inputRect;
+    } else {
+      rect = suggestionsBarRect;
+    }
+    const { bottom: presenterBottom } = rect;
 
     return transitions.map(({ item, key, props }) => {
       const Component = StepComponents[item];
@@ -379,6 +400,7 @@ const TutorialOverlay = memo(
             inlineSuggestionRect={inlineSuggestionRect}
             suggestionsType={suggestionsType}
             presenterBottom={presenterBottom}
+            isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
           />
         </animated.div>
       );
@@ -392,7 +414,9 @@ TutorialOverlay.propTypes = {
   inputRect: RectPropType,
   inlineSuggestionRect: RectPropType,
   suggestionsBarRect: RectPropType,
-  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
+  virtualKeyboardRect: RectPropType,
+  isVirtualKeyboardEnabled: PropTypes.bool
 };
 
 TutorialOverlay.defaultProps = {
@@ -400,7 +424,9 @@ TutorialOverlay.defaultProps = {
   stimulusTextRect: null,
   inputRect: null,
   inlineSuggestionRect: null,
-  suggestionsBarRect: null
+  suggestionsBarRect: null,
+  virtualKeyboardRect: null,
+  isVirtualKeyboardEnabled: false
 };
 
 export default TutorialOverlay;

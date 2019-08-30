@@ -271,21 +271,29 @@ TutorialStepWrongSuggestion.propTypes = {
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
 };
 
-const TutorialStepError = ({ presenterBottom }) => (
+const TutorialStepError = ({ presenterBottom, isVirtualKeyboardEnabled }) => (
   <div style={{ top: presenterBottom }} className={styles.stepError}>
     <Info>
       Suggestions are not always accurate.
       <br />
       When there are errors in your input, it turns red.
       <br />
-      You can fix it with the <span className={styles.key}>delete</span> key.
-      Arrow keys are disabled.
+      You can fix it with the{" "}
+      <span className={styles.key}>
+        {isVirtualKeyboardEnabled ? "⌫" : "delete"}
+      </span>{" "}
+      key. {isVirtualKeyboardEnabled ? null : "Arrow keys are disabled."}
     </Info>
     <Instruction>Fix the input</Instruction>
   </div>
 );
 TutorialStepError.propTypes = {
-  presenterBottom: PropTypes.number.isRequired
+  presenterBottom: PropTypes.number.isRequired,
+  isVirtualKeyboardEnabled: PropTypes.bool
+};
+
+TutorialStepError.defaultProps = {
+  isVirtualKeyboardEnabled: false
 };
 
 const TutorialStepDelay = ({ presenterBottom }) => (

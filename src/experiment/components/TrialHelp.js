@@ -15,7 +15,7 @@ const TrialHelp = ({ isVirtualKeyboardEnabled }) => (
     </p>
     <p>
       {isVirtualKeyboardEnabled ? (
-        <div>Click one of the suggestions to accept it</div>
+        "Click one of the suggestions to accept it"
       ) : (
         <div>
           Use <span className={classes.key}>tab</span> /{" "}

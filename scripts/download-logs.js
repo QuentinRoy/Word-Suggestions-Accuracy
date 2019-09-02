@@ -92,7 +92,7 @@ async function doMain({
       Bucket: bucket,
       StartAfter: startAfter,
       Prefix: objectsRemoteDirectory,
-      MaxKeys: 50
+      MaxKeys: 100
     })
     .promise();
 

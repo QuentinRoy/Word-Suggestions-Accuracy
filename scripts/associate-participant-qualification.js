@@ -87,7 +87,7 @@ async function main() {
     0
   );
   log.info(
-    `${totalSkipped} worker(s) were not associated again with the qualification since they already had it.`
+    `${totalSkipped} worker(s) were not associated with the qualification again.`
   );
   log.info(`${totalNotWorker} log(s) did not correspond to a worker id.`);
 }

@@ -31,6 +31,12 @@ async function fileLastModifiedDate(filePath) {
   return new Date(stats.mtime);
 }
 
+const Actions = Object.freeze({
+  downloaded: Symbol("downloaded"),
+  updated: Symbol("updated"),
+  skipped: Symbol("skipped")
+});
+
 async function downloadObject({
   key,
   targetFileName,
@@ -39,29 +45,42 @@ async function downloadObject({
 }) {
   // const exists = await fileExists(targetFileName);
   // const mDate = exists && (await fileLastModifiedDate());
+  const doesFileExists = await fileExists(targetFileName);
   if (
     !shouldOverwrite &&
-    (await fileExists(targetFileName)) &&
+    doesFileExists &&
     (await fileLastModifiedDate(targetFileName)) > modificationDate
   ) {
-    log.info(`Skipping ${key}. File already exists and is more recent.`);
-    return;
+    return Actions.skipped;
   }
   const resp = await s3.getObject({ Bucket: bucket, Key: key }).promise();
   const content = resp.Body.toString();
   await fs.writeFile(targetFileName, content);
+  if (doesFileExists) {
+    log.info(`${targetFileName} updated.`);
+    return Actions.updated;
+  }
   log.info(`${key} downloaded in ${targetFileName}.`);
+  return Actions.downloaded;
 }
 
 async function downloadObjects(objectEntries, shouldOverwrite) {
   return Promise.all(
     objectEntries.map(({ key, targetFileName, modificationDate }) =>
-      downloadObject({ key, targetFileName, modificationDate, shouldOverwrite })
+      downloadObject({
+        key,
+        targetFileName,
+        modificationDate,
+        shouldOverwrite
+      }).then(action => ({ key, targetFileName, modificationDate, action }))
     )
   );
 }
 
-async function main({ startAfter = undefined, shouldOverwrite = false } = {}) {
+async function doMain({
+  startAfter = undefined,
+  shouldOverwrite = false
+} = {}) {
   try {
     await fs.mkdir(outputDir);
   } catch (err) {
@@ -85,13 +104,32 @@ async function main({ startAfter = undefined, shouldOverwrite = false } = {}) {
   }));
 
   if (listObjRequest.IsTruncated) {
-    await Promise.all([
+    return Promise.all([
       downloadObjects(toDlKeyFileMap),
-      main({ startAfter: last(listObjRequest.Contents).Key, shouldOverwrite })
-    ]);
-  } else {
-    await downloadObjects(toDlKeyFileMap, shouldOverwrite);
+      doMain({ startAfter: last(listObjRequest.Contents).Key, shouldOverwrite })
+    ]).then(results => results.flat());
   }
+  return downloadObjects(toDlKeyFileMap, shouldOverwrite);
+}
+
+async function main() {
+  const fileActions = await doMain();
+  const counts = fileActions.reduce(
+    (acc, { action }) => ({
+      ...acc,
+      [action]: acc[action] + 1
+    }),
+    { [Actions.downloaded]: 0, [Actions.skipped]: 0, [Actions.updated]: 0 }
+  );
+  log.info(
+    `${
+      counts[Actions.downloaded]
+    } file(s) have been downloaded for the first time.`
+  );
+  log.info(`${counts[Actions.updated]} files(s) have been updated.`);
+  log.info(
+    `${counts[Actions.skipped]} files(s) have not been downloaded again.`
+  );
 }
 
 if (require.main === module) {

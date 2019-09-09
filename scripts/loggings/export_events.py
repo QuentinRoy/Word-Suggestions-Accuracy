@@ -50,14 +50,15 @@ def iter_events(task, file_name, **kwargs):
     base = {"file_name": file_name}
     copy_rename(task, base, log_columns)
     copy_rename(task["trial"], base, trial_columns)
-    for child in task["events"]:
+    for event_number, event in enumerate(task["events"]):
         record = base.copy()
-        copy_rename(child, record, event_columns)
+        record["event_number"] = event_number
+        copy_rename(event, record, event_columns)
         yield record
 
 
 if __name__ == "__main__":
-    header = ["file_name"] + list(
+    header = ["file_name", "event_number"] + list(
         chain(log_columns.keys(), trial_columns.keys(), event_columns.keys())
     )
     csv_export(json_logs_dir, output_file_path, header, iter_events, iter_typing_tasks)

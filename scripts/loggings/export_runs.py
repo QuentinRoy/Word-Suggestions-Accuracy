@@ -11,35 +11,47 @@ from config_tasks import (
 )
 from utils import to_snake_case, copy_rename
 
+IS_ANONYMOUS = True
+
 this_dir = os.path.dirname(os.path.abspath(__file__))
 json_logs_dir = os.path.join(this_dir, "../../participants-logs/")
 output_file_path = os.path.abspath(os.path.join(json_logs_dir, "runs.csv"))
+p_registry_path = os.path.abspath(os.path.join(json_logs_dir, "p_registry.csv"))
 
 record_columns = dict(
     (to_snake_case(col), col)
     for col in [
         "participant",
-        "assignmentId",
-        "hitId",
         "corpusSize",
         "keyStrokeDelay",
         "targetAccuracy",
-        "gitSha",
         "version",
-        "confirmationCode",
         "totalSuggestions",
         "suggestionsType",
         "numberOfPracticeTasks",
         "numberOfTypingTasks",
-        "href",
         "startDate",
         "endDate",
         "timeZone",
-        "userAgent",
-        "confirmationCode",
         "wave",
     ]
 )
+
+if not IS_ANONYMOUS:
+    record_columns.update(
+        dict(
+            (to_snake_case(col), col)
+            for col in [
+                "assignmentId",
+                "hitId",
+                "gitSha",
+                "confirmationCode",
+                "href",
+                "userAgent",
+                "confirmationCode",
+            ]
+        )
+    )
 
 
 corpus_columns = {
@@ -50,12 +62,10 @@ corpus_columns = {
     "was_corpus_shuffled": "shuffled",
 }
 
-other_columns = [
-    "file_name",
-    "feedbacks",
-    "start_up_questionnaire_trials",
-    "accepted_consent_form",
-]
+other_columns = ["feedbacks", "start_up_questionnaire_trials", "accepted_consent_form"]
+
+if not IS_ANONYMOUS:
+    other_columns.insert(0, "file_name")
 
 end_questionnaire_columns = {
     "age": "age",
@@ -110,11 +120,12 @@ def accepted_consent_form(run_record):
 # with export_events.
 def iter_run_record(run_record, file_name, **kwargs):
     result = {
-        "file_name": file_name,
         "feedbacks": get_feedbacks(run_record),
         "start_up_questionnaire_trials": get_start_questionnaire_trials(run_record),
         "accepted_consent_form": accepted_consent_form(run_record),
     }
+    if not IS_ANONYMOUS:
+        result.update({"file_name": file_name})
     copy_rename(run_record, result, record_columns)
     copy_rename(run_record["corpusConfig"], result, corpus_columns)
     copy_rename(get_end_questionnaire(run_record), result, end_questionnaire_columns)
@@ -128,5 +139,11 @@ if __name__ == "__main__":
         + other_columns
         + list(end_questionnaire_columns.keys())
     )
-    csv_export(json_logs_dir, output_file_path, header, iter_run_record)
+    csv_export(
+        json_logs_dir,
+        output_file_path,
+        header,
+        iter_run_record,
+        participant_registry_path=p_registry_path if IS_ANONYMOUS else None,
+    )
     print("{} written.".format(output_file_path))

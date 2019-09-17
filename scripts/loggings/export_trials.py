@@ -11,20 +11,24 @@ from config_tasks import (
 )
 from utils import copy_rename
 
+IS_ANONYMOUS = True
+
 this_dir = os.path.dirname(os.path.abspath(__file__))
 json_logs_dir = os.path.join(this_dir, "../../participants-logs/")
 output_file_path = os.path.abspath(os.path.join(json_logs_dir, "trials.csv"))
+p_registry_path = os.path.abspath(os.path.join(json_logs_dir, "p_registry.csv"))
 
 log_columns = {
     "participant": "participant",
-    "hit_id": "hitId",
-    "assignment_id": "assignmentId",
     "trial_id": "key",
     "total_kss": "totalKss",
     "sd_word_kss": "sdWordsKss",
     "is_practice": "isPractice",
     "suggestions_type": "suggestionsType",
 }
+if not IS_ANONYMOUS:
+    log_columns.update({"hit_id": "hitId", "assignment_id": "assignmentId"})
+
 
 trial_columns = {
     "sentence": "sentence",
@@ -41,9 +45,10 @@ trial_columns = {
     "total_suggestion_used": "totalSuggestionUsed",
     "total_suggestion_errors": "totalSuggestionErrors",
     "time_zone": "timeZone",
-    "git_sha": "gitSha",
     "version": "version",
 }
+if not IS_ANONYMOUS:
+    trial_columns.update({"git_sha": "gitSha"})
 
 other_columns = [
     "total_removed_manual_chars",
@@ -51,6 +56,8 @@ other_columns = [
     "total_final_suggestion_chars",
     "total_final_manual_chars",
 ]
+if not IS_ANONYMOUS:
+    other_columns.append("file_name")
 
 
 def get_ks_info(task):
@@ -85,7 +92,7 @@ def get_ks_info(task):
 # This should just yield once, but we still use an iterators for consistency
 # with export_events.
 def iter_trials(task, file_name, **kwargs):
-    record = {"file_name": file_name}
+    record = {} if IS_ANONYMOUS else {"file_name": file_name}
     copy_rename(task, record, log_columns)
     if "trial" in task:
         copy_rename(task["trial"], record, trial_columns)
@@ -94,10 +101,13 @@ def iter_trials(task, file_name, **kwargs):
 
 
 if __name__ == "__main__":
-    header = (
-        ["file_name"]
-        + list(chain(log_columns.keys(), trial_columns.keys()))
-        + other_columns
+    header = list(chain(log_columns.keys(), trial_columns.keys(), other_columns))
+    csv_export(
+        json_logs_dir,
+        output_file_path,
+        header,
+        iter_trials,
+        iter_typing_tasks,
+        participant_registry_path=p_registry_path if IS_ANONYMOUS else None,
     )
-    csv_export(json_logs_dir, output_file_path, header, iter_trials, iter_typing_tasks)
     print("{} written.".format(output_file_path))

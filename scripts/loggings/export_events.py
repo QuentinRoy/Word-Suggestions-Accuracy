@@ -6,18 +6,22 @@ from csv_export import csv_export
 from config_tasks import iter_typing_tasks
 from utils import copy_rename
 
+IS_ANONYMOUS = True
+
 this_dir = os.path.dirname(os.path.abspath(__file__))
 json_logs_dir = os.path.join(this_dir, "../../participants-logs/")
 output_file_path = os.path.abspath(os.path.join(json_logs_dir, "events.csv"))
+p_registry_path = os.path.abspath(os.path.join(json_logs_dir, "p_registry.csv"))
 
 log_columns = {
     "participant": "participant",
-    "hit_id": "hitId",
-    "assignment_id": "assignmentId",
     "trial_id": "key",
     "accuracy": "targetAccuracy",
     "is_practice": "isPractice",
 }
+
+if not IS_ANONYMOUS:
+    log_columns.update({"hit_id": "hitId", "assignment_id": "assignmentId"})
 
 event_columns = {
     "type": "type",
@@ -47,7 +51,7 @@ trial_columns = {"sentence": "sentence"}
 def iter_events(task, file_name, **kwargs):
     if not "start" in task:
         return
-    base = {"file_name": file_name}
+    base = {} if IS_ANONYMOUS else {"file_name": file_name}
     copy_rename(task, base, log_columns)
     copy_rename(task["trial"], base, trial_columns)
     for event_number, event in enumerate(task["events"]):
@@ -58,8 +62,20 @@ def iter_events(task, file_name, **kwargs):
 
 
 if __name__ == "__main__":
-    header = ["file_name", "event_number"] + list(
-        chain(log_columns.keys(), trial_columns.keys(), event_columns.keys())
+    header = list(
+        chain(
+            ["event_number"] if IS_ANONYMOUS else ["file_name", "event_number"],
+            log_columns.keys(),
+            trial_columns.keys(),
+            event_columns.keys(),
+        )
     )
-    csv_export(json_logs_dir, output_file_path, header, iter_events, iter_typing_tasks)
+    csv_export(
+        json_logs_dir,
+        output_file_path,
+        header,
+        iter_events,
+        iter_typing_tasks,
+        participant_registry_path=p_registry_path if IS_ANONYMOUS else None,
+    )
     print("{} written.".format(output_file_path))

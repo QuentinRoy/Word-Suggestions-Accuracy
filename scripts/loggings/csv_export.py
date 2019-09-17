@@ -1,13 +1,35 @@
 import json
 import csv
 import os
+from participants_registry import ParticipantsRegistry
 
 
 def null_iterator(log):
     yield log
 
 
-def csv_export(json_logs_dir, output_file_path, header, reader, iterator=null_iterator):
+def csv_export(
+    json_logs_dir,
+    output_file_path,
+    header,
+    reader,
+    iterator=null_iterator,
+    participant_registry_path=None,
+):
+
+    p_registry = (
+        ParticipantsRegistry(participant_registry_path)
+        if participant_registry_path
+        else None
+    )
+
+    def encrypt_participant(row):
+        if not p_registry or not "participant" in row:
+            return row
+        new_row = row.copy()
+        new_row["participant"] = p_registry.get(row["participant"])
+        return new_row
+
     with open(output_file_path, "w") as log_file:
         writer = csv.DictWriter(log_file, header, quoting=csv.QUOTE_NONNUMERIC)
         writer.writeheader()
@@ -20,6 +42,9 @@ def csv_export(json_logs_dir, output_file_path, header, reader, iterator=null_it
             ) as participant_file:
                 log = json.loads(participant_file.read())
                 for record in iterator(log):
-                    writer.writerows(reader(record, file_name=p_file_name))
-            # Make sure the buffer does not go crazy.
-            log_file.flush()
+                    writer.writerows(
+                        map(encrypt_participant, reader(record, file_name=p_file_name))
+                    )
+
+    if p_registry is not None:
+        p_registry.close()

@@ -10,7 +10,7 @@ import getTimeZone from "../../utils/getTimeZone";
 
 const defaultAccuracies = [0, 0.1, 0.3, 0.5, 0.7, 0.9];
 const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
-const totalSuggestions = 3;
+const totalSuggestions = 1;
 const numberOfPracticeTasks = 3;
 const numberOfTypingTasks = 20;
 const numberOfTypingSpeedTasks = 5;

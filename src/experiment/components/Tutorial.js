@@ -137,10 +137,9 @@ const Tutorial = ({
   keyStrokeDelay: trialKeyStrokeDelay,
   id,
   suggestionsType,
-  isVirtualKeyboardEnabled
+  isVirtualKeyboardEnabled,
+  totalSuggestions
 }) => {
-  const totalSuggestions = suggestionsType === SuggestionTypes.inline ? 1 : 3;
-
   const {
     dispatch,
     focusTarget,
@@ -156,7 +155,8 @@ const Tutorial = ({
     onLog,
     initKeyStrokeDelay: 0,
     sksDistribution: tutorialSksDistribution,
-    totalSuggestions,
+    totalSuggestions:
+      suggestionsType === SuggestionTypes.inline ? 1 : totalSuggestions,
     id,
     targetAccuracy: 0,
     weightedAccuracy: 0,
@@ -234,7 +234,8 @@ Tutorial.propTypes = {
   keyStrokeDelay: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
-  isVirtualKeyboardEnabled: PropTypes.bool.isRequired
+  isVirtualKeyboardEnabled: PropTypes.bool.isRequired,
+  totalSuggestions: PropTypes.number.isRequired
 };
 
 export default Tutorial;

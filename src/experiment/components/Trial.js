@@ -15,7 +15,8 @@ const Trial = ({
   totalKss,
   sdWordsKss,
   suggestionsType,
-  totalSuggestions
+  totalSuggestions,
+  isVirtualKeyboardEnabled
 }) => {
   const {
     dispatch,
@@ -53,6 +54,8 @@ const Trial = ({
       totalSuggestions={totalSuggestions}
       suggestionsType={suggestionsType}
       hasErrors={hasErrors}
+      isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
+      isSystemKeyboardEnabled={!isVirtualKeyboardEnabled}
     />
   );
 };
@@ -72,7 +75,8 @@ Trial.propTypes = {
   totalKss: PropTypes.number.isRequired,
   sdWordsKss: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
-  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
+  isVirtualKeyboardEnabled: PropTypes.bool.isRequired
 };
 
 export default Trial;

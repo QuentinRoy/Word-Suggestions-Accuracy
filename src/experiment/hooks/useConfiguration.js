@@ -270,6 +270,7 @@ const useConfiguration = () => {
         fullProgress: true,
         currentProgress: false,
         progressLevel: true,
+        isVirtualKeyboardEnabled: false,
 
         // Fixes an issue with components being rendered with the same key.
         [TaskTypes.experimentProgress]: { key: "progress" },

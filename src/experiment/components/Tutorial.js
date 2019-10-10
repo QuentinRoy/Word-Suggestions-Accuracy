@@ -60,7 +60,12 @@ const getTutorialStep = input => {
   return TutorialSteps.end;
 };
 
-const isActionAllowed = (state, action, suggestionsType) => {
+const isActionAllowed = (
+  state,
+  action,
+  suggestionsType,
+  isVirtualKeyboardEnabled
+) => {
   switch (getTutorialStep(state.input)) {
     case TutorialSteps.start:
     case TutorialSteps.input:
@@ -69,7 +74,10 @@ const isActionAllowed = (state, action, suggestionsType) => {
         action.char === tutorialSentence[state.input.length]
       );
     case TutorialSteps.suggestion:
-      if (suggestionsType === SuggestionTypes.inline) {
+      if (
+        suggestionsType === SuggestionTypes.inline ||
+        isVirtualKeyboardEnabled
+      ) {
         return action.type === Actions.inputSuggestion;
       }
       return (
@@ -79,7 +87,10 @@ const isActionAllowed = (state, action, suggestionsType) => {
           state.focusTarget.suggestionNumber === 0)
       );
     case TutorialSteps.wrongSuggestion:
-      if (suggestionsType === SuggestionTypes.inline) {
+      if (
+        suggestionsType === SuggestionTypes.inline ||
+        isVirtualKeyboardEnabled
+      ) {
         return action.type === Actions.inputSuggestion;
       }
       return (
@@ -96,7 +107,10 @@ const isActionAllowed = (state, action, suggestionsType) => {
         action.char === tutorialSentence[state.input.length]
       );
     case TutorialSteps.delaySuggestion:
-      if (suggestionsType === SuggestionTypes.inline) {
+      if (
+        suggestionsType === SuggestionTypes.inline ||
+        isVirtualKeyboardEnabled
+      ) {
         return action.type === Actions.inputSuggestion;
       }
       return (
@@ -122,7 +136,8 @@ const Tutorial = ({
   onLog,
   keyStrokeDelay: trialKeyStrokeDelay,
   id,
-  suggestionsType
+  suggestionsType,
+  isVirtualKeyboardEnabled
 }) => {
   const totalSuggestions = suggestionsType === SuggestionTypes.inline ? 1 : 3;
 
@@ -147,7 +162,12 @@ const Tutorial = ({
     weightedAccuracy: 0,
     sdAccuracy: 0,
     reducer: (state, action) => {
-      const nextState = isActionAllowed(state, action, suggestionsType)
+      const nextState = isActionAllowed(
+        state,
+        action,
+        suggestionsType,
+        isVirtualKeyboardEnabled
+      )
         ? action.changes
         : state;
 
@@ -202,6 +222,8 @@ const Tutorial = ({
       tutorialStep={getTutorialStep(input)}
       totalSuggestions={totalSuggestions}
       showsHelp={false}
+      isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
+      isSystemKeyboardEnabled={!isVirtualKeyboardEnabled}
     />
   );
 };
@@ -211,7 +233,8 @@ Tutorial.propTypes = {
   onLog: PropTypes.func.isRequired,
   keyStrokeDelay: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
-  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
+  isVirtualKeyboardEnabled: PropTypes.bool.isRequired
 };
 
 export default Tutorial;

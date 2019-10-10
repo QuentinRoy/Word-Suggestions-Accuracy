@@ -1,6 +1,7 @@
 import React from "react";
 import Keyboard from "react-simple-keyboard";
-import { KeyboardLayoutNames } from "../utils/constants";
+import PropTypes from "prop-types";
+import { KeyboardLayoutNames } from "../../utils/constants";
 
 const keyboardProps = Object.freeze({
   layout: {
@@ -21,13 +22,29 @@ const keyboardProps = Object.freeze({
   display: {
     "{space}": " ",
     "{numbers}": "123",
-    "{enter}": "return",
+    "{enter}": "enter",
     "{bksp}": "⌫",
     "{shift}": "⇧",
     "{abc}": "ABC"
   }
 });
 
-const VirtualKeyboard = props => <Keyboard {...keyboardProps} {...props} />;
+const VirtualKeyboard = ({ layout, onVirtualKeyDown, onVirtualKeyUp }) => {
+  return (
+    <Keyboard
+      layoutName={layout}
+      layout={keyboardProps.layout}
+      display={keyboardProps.display}
+      onKeyPress={onVirtualKeyDown}
+      onKeyReleased={onVirtualKeyUp}
+    />
+  );
+};
+
+VirtualKeyboard.propTypes = {
+  layout: PropTypes.string.isRequired,
+  onVirtualKeyDown: PropTypes.func.isRequired,
+  onVirtualKeyUp: PropTypes.func.isRequired
+};
 
 export default VirtualKeyboard;

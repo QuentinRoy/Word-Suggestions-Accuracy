@@ -15,7 +15,7 @@ import {
   SuggestionTypes,
   TutorialSteps
 } from "../../utils/constants";
-import VirtualKeyboard from "../VirtualKeyboard";
+import VirtualKeyboard from "./VirtualKeyboard";
 import TrialInput from "./TrialInput";
 import styles from "./styles/TrialPresenter.module.scss";
 import SuccessBanner from "./SuccessBanner";

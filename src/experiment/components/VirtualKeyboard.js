@@ -1,7 +1,7 @@
 import React from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
-import { KeyboardLayoutNames } from "../utils/constants";
+import { KeyboardLayoutNames } from "../../utils/constants";
 
 const keyboardProps = Object.freeze({
   layout: {

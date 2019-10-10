@@ -178,17 +178,19 @@ const useTrial = ({
   reducer: controlInversionReducer = (state, action) => action.changes
 }) => {
   const dictionary = useDictionary();
-  const getSuggestionsFromInput =
-    suggestionsType === SuggestionTypes.none
-      ? () => []
-      : input =>
-          getSuggestions(
-            suggestionsType === SuggestionTypes.inline ? 1 : totalSuggestions,
-            dictionary,
-            sksDistribution,
-            input,
-            suggestionsType === SuggestionTypes.bar
-          );
+
+  const getSuggestionsFromInput = input => {
+    if (suggestionsType === SuggestionTypes.none) {
+      return [];
+    }
+    return getSuggestions(
+      suggestionsType === SuggestionTypes.inline ? 1 : totalSuggestions,
+      dictionary,
+      sksDistribution,
+      input,
+      suggestionsType === SuggestionTypes.bar
+    );
+  };
 
   // Compute the initial state.
   const initState = () => ({

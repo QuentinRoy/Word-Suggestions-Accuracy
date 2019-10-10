@@ -148,8 +148,15 @@ const TrialPresenter = ({
         break;
       case "Tab":
         if (
-          suggestionsType === SuggestionTypes.inline &&
+          (suggestionsType === SuggestionTypes.inline ||
+            // In case of bar suggestions, the tab key may be used to accept
+            // a suggestion, but only if there are only one.
+            (suggestionsType === SuggestionTypes.bar &&
+              totalSuggestions === 1)) &&
           arrangedSuggestions[mainSuggestionPosition] !== undefined &&
+          // If the input ends with the suggestions, the suggestion would not
+          // add anything. It is not allowed to accept suggestions that don't
+          // add anything.
           !input.endsWith(arrangedSuggestions[mainSuggestionPosition].trim())
         ) {
           dispatch({
@@ -158,7 +165,11 @@ const TrialPresenter = ({
             word: arrangedSuggestions[mainSuggestionPosition],
             status
           });
-        } else if (suggestionsType === SuggestionTypes.bar) {
+        } else if (
+          suggestionsType === SuggestionTypes.bar &&
+          // Do not switch focus if there is no more than one suggestion.
+          totalSuggestions > 1
+        ) {
           dispatch({
             type: Actions.moveFocusTarget,
             direction: pressedKeys.has("Shift") ? -1 : 1,

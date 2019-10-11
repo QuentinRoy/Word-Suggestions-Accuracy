@@ -168,7 +168,8 @@ const TutorialStepSuggestion = ({
   suggestionsBarRect,
   presenterBottom,
   suggestionsType,
-  isVirtualKeyboardEnabled
+  isVirtualKeyboardEnabled,
+  totalSuggestions
 }) => {
   // Store this in a ref as we don't want it to change once set up the first
   // time.
@@ -221,7 +222,7 @@ const TutorialStepSuggestion = ({
             <div>
               Word suggestions will be shown and updated as you type.
               <br />
-              You can ignore them, or select them by pressing on the word.
+              You can ignore them, or accept them by tapping on the word.
             </div>
           ) : (
             <div>
@@ -236,7 +237,9 @@ const TutorialStepSuggestion = ({
             </div>
           )}
         </Info>
-        <Instruction>Select the first suggestion.</Instruction>
+        <Instruction>
+          Accept the {totalSuggestions > 1 ? "first" : null} suggestion.
+        </Instruction>
       </div>
     </div>
   );
@@ -247,7 +250,8 @@ TutorialStepSuggestion.propTypes = {
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
   inlineSuggestionRect: RectPropType,
   suggestionsBarRect: RectPropType,
-  isVirtualKeyboardEnabled: PropTypes.bool
+  isVirtualKeyboardEnabled: PropTypes.bool,
+  totalSuggestions: PropTypes.number.isRequired
 };
 TutorialStepSuggestion.defaultProps = {
   inlineSuggestionRect: undefined,
@@ -255,12 +259,16 @@ TutorialStepSuggestion.defaultProps = {
   isVirtualKeyboardEnabled: false
 };
 
-const TutorialStepWrongSuggestion = ({ presenterBottom, suggestionsType }) => (
+const TutorialStepWrongSuggestion = ({
+  presenterBottom,
+  suggestionsType,
+  totalSuggestions
+}) => (
   <div className={styles.stepWrongSuggestion}>
     <Instruction presenterBottom={presenterBottom}>
       Now{" "}
-      {suggestionsType === SuggestionTypes.bar
-        ? "select the first "
+      {suggestionsType === SuggestionTypes.bar && totalSuggestions > 1
+        ? "accept the first "
         : "accept the "}
       suggestion again.
     </Instruction>
@@ -268,7 +276,8 @@ const TutorialStepWrongSuggestion = ({ presenterBottom, suggestionsType }) => (
 );
 TutorialStepWrongSuggestion.propTypes = {
   presenterBottom: PropTypes.number.isRequired,
-  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
+  totalSuggestions: PropTypes.number.isRequired
 };
 
 const TutorialStepError = ({ presenterBottom, isVirtualKeyboardEnabled }) => (
@@ -283,10 +292,8 @@ const TutorialStepError = ({ presenterBottom, isVirtualKeyboardEnabled }) => (
         <span className={styles.key}>&#9003;</span>
       ) : (
         <>
-          <span className={styles.key}>backspace</span>
-          {" / "}
-          <span className={styles.key}>delete</span>
-          {" / "}
+          <span className={styles.key}>backspace</span> /{" "}
+          <span className={styles.key}>delete</span> /{" "}
           <span className={styles.key}>&#9003;</span>
         </>
       )}{" "}
@@ -321,18 +328,26 @@ const TutorialStepDelay = ({ presenterBottom }) => (
 
 TutorialStepDelay.propTypes = { presenterBottom: PropTypes.number.isRequired };
 
-const TutorialStepDelaySuggestion = ({ presenterBottom, suggestionsType }) => (
+const TutorialStepDelaySuggestion = ({
+  presenterBottom,
+  suggestionsType,
+  totalSuggestions
+}) => (
   <div className={styles.stepDelaySuggestion} style={{ top: presenterBottom }}>
     <Info>Impairment also applies to suggestion.</Info>
     <Instruction>
-      Now accept the{suggestionsType === SuggestionTypes.bar ? " first " : " "}
+      Now accept the
+      {suggestionsType === SuggestionTypes.bar && totalSuggestions > 1
+        ? " first "
+        : " "}
       suggestion.
     </Instruction>
   </div>
 );
 TutorialStepDelaySuggestion.propTypes = {
   presenterBottom: PropTypes.number.isRequired,
-  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
+  totalSuggestions: PropTypes.number.isRequired
 };
 
 const TutorialStepFinish = ({ presenterBottom }) => (
@@ -378,7 +393,8 @@ const TutorialOverlay = memo(
     suggestionsBarRect,
     suggestionsType,
     virtualKeyboardRect,
-    isVirtualKeyboardEnabled
+    isVirtualKeyboardEnabled,
+    totalSuggestions
   }) => {
     const transitions = useTransition(tutorialStep, null, {
       from: { opacity: 0 },
@@ -418,6 +434,7 @@ const TutorialOverlay = memo(
             suggestionsType={suggestionsType}
             presenterBottom={presenterBottom}
             isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
+            totalSuggestions={totalSuggestions}
           />
         </animated.div>
       );
@@ -433,7 +450,8 @@ TutorialOverlay.propTypes = {
   suggestionsBarRect: RectPropType,
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
   virtualKeyboardRect: RectPropType,
-  isVirtualKeyboardEnabled: PropTypes.bool
+  isVirtualKeyboardEnabled: PropTypes.bool,
+  totalSuggestions: PropTypes.number.isRequired
 };
 
 TutorialOverlay.defaultProps = {

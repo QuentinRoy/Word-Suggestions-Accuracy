@@ -340,6 +340,7 @@ const TrialPresenter = ({
           }
           suggestionsType={suggestionsType}
           isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
+          totalSuggestions={totalSuggestions}
         />
       )}
     </div>

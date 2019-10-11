@@ -76,7 +76,9 @@ const isActionAllowed = (
     case TutorialSteps.suggestion:
       if (
         suggestionsType === SuggestionTypes.inline ||
-        isVirtualKeyboardEnabled
+        isVirtualKeyboardEnabled ||
+        (suggestionsType === SuggestionTypes.bar &&
+          state.totalSuggestionTargets === 1)
       ) {
         return action.type === Actions.inputSuggestion;
       }
@@ -89,7 +91,9 @@ const isActionAllowed = (
     case TutorialSteps.wrongSuggestion:
       if (
         suggestionsType === SuggestionTypes.inline ||
-        isVirtualKeyboardEnabled
+        isVirtualKeyboardEnabled ||
+        (suggestionsType === SuggestionTypes.bar &&
+          state.totalSuggestionTargets === 1)
       ) {
         return action.type === Actions.inputSuggestion;
       }
@@ -109,7 +113,9 @@ const isActionAllowed = (
     case TutorialSteps.delaySuggestion:
       if (
         suggestionsType === SuggestionTypes.inline ||
-        isVirtualKeyboardEnabled
+        isVirtualKeyboardEnabled ||
+        (suggestionsType === SuggestionTypes.bar &&
+          state.totalSuggestionTargets === 1)
       ) {
         return action.type === Actions.inputSuggestion;
       }

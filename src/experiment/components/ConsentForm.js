@@ -7,7 +7,7 @@ import classes from "./styles/ConsentForm.module.scss";
 import TaskPaper from "./TaskPaper";
 
 const duration = 15; // (minutes)
-const remuneration = 2; // (dollars)
+const remuneration = 2.5; // (dollars)
 
 const ConsentForm = ({ onAdvanceWorkflow }) => {
   const [isConsentApproved, setIsConsentApproved] = useState(false);

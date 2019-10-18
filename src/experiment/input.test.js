@@ -168,13 +168,16 @@ describe("getRemainingKeyStrokes", () => {
   });
 });
 
-describe("getSuggestionSks", () => {
+describe("getRksImprovement", () => {
   test("returns the number of saved key strokes when the suggestion is correct", () => {
     expect(getRksImprovement("hello", "hello", "hello there")).toBe(0);
     expect(getRksImprovement("hel", "hello", "hello there")).toBe(2);
     expect(getRksImprovement("hel", "hello ", "hello there")).toBe(3);
     expect(getRksImprovement("hal", "hello", "hello there")).toBe(6);
     expect(getRksImprovement("forcesss", "force", "force")).toBe("sss".length);
+    expect(getRksImprovement("helo the", "hello there", "hello there")).toBe(
+      "lo there".length + "o the".length
+    );
   });
 
   test("returns the number of saved key strokes when the suggestion is incorrect", () => {

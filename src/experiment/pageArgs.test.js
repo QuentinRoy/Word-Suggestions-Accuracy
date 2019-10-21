@@ -1,14 +1,16 @@
 import { sortBy } from "lodash";
 import {
-  parseExtrasArg,
+  parseExtraConditionsArg,
   getPageArgs,
   checkPageArgs,
   getAllPossibleConditions
-} from "./getPageArgs";
+} from "./pageArgs";
 
-describe("parseExtrasArg", () => {
+describe("parseExtraConditionsArg", () => {
   test("it parses the extras querystring argument", () => {
-    const { keyStrokeDelay, targetAccuracy } = parseExtrasArg("200-0.5");
+    const { keyStrokeDelay, targetAccuracy } = parseExtraConditionsArg(
+      "200-0.5"
+    );
     expect(keyStrokeDelay).toEqual(200);
     expect(targetAccuracy).toBeCloseTo(0.5);
   });
@@ -24,7 +26,7 @@ describe("getPageArgs", () => {
           "&suggestionsType=FOO" +
           "&keyStrokeDelays=100,200" +
           "&targetAccuracies=0.1,0.2,0.4" +
-          "&extras=150-0.3,120-0.1" +
+          "&extraConditions=150-0.3,120-0.1" +
           "&workerId=test" +
           "&hitId=HIT" +
           "&assignmentId=ASSIGNMENT" +
@@ -35,7 +37,7 @@ describe("getPageArgs", () => {
       suggestionsType: "FOO",
       keyStrokeDelays: [100, 200],
       targetAccuracies: [0.1, 0.2, 0.4],
-      extras: [
+      extraConditions: [
         { keyStrokeDelay: 150, targetAccuracy: 0.3 },
         { keyStrokeDelay: 120, targetAccuracy: 0.1 }
       ],
@@ -50,7 +52,7 @@ describe("getPageArgs", () => {
       suggestionsType: null,
       keyStrokeDelays: null,
       targetAccuracies: null,
-      extras: null,
+      extraConditions: null,
       participant: null,
       hitId: null,
       assignmentId: null
@@ -64,7 +66,7 @@ describe("checkPageArgs", () => {
       checkPageArgs({
         keyStrokeDelays: [100],
         targetAccuracies: [0.1],
-        extras: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
+        extraConditions: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
         participant: "mock-participant",
         wave: "mock-wave",
         suggestionsType: "BAR"
@@ -72,7 +74,7 @@ describe("checkPageArgs", () => {
     ).toBe(true);
   });
 
-  test("returns true if only extras is missing", () => {
+  test("returns true if only extraConditions is missing", () => {
     expect(
       checkPageArgs({
         keyStrokeDelays: [100],
@@ -87,7 +89,7 @@ describe("checkPageArgs", () => {
   test("returns true if only keyStrokeDelays and targetAccuracies are missing", () => {
     expect(
       checkPageArgs({
-        extras: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
+        extraConditions: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
         participant: "mock-participant",
         wave: "mock-wave",
         suggestionsType: "BAR"
@@ -95,18 +97,18 @@ describe("checkPageArgs", () => {
     ).toBe(true);
   });
 
-  test("returns false if keyStrokeDelays is provided but not targetAccuracies, regardless of extras", () => {
-    // With extras.
+  test("returns false if keyStrokeDelays is provided but not targetAccuracies, regardless of extraConditions", () => {
+    // With extraConditions.
     expect(
       checkPageArgs({
         keyStrokeDelays: [100],
-        extras: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
+        extraConditions: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
         participant: "mock-participant",
         wave: "mock-wave",
         suggestionsType: "BAR"
       })
     ).toBe(false);
-    // Without extras.
+    // Without extraConditions.
     expect(
       checkPageArgs({
         keyStrokeDelays: [100],
@@ -117,18 +119,18 @@ describe("checkPageArgs", () => {
     ).toBe(false);
   });
 
-  test("returns false if targetAccuracies is provided but not keyStrokeDelays, regardless of extras", () => {
-    // With extras.
+  test("returns false if targetAccuracies is provided but not keyStrokeDelays, regardless of extraConditions", () => {
+    // With extraConditions.
     expect(
       checkPageArgs({
         targetAccuracies: [0.4],
-        extras: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
+        extraConditions: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
         participant: "mock-participant",
         wave: "mock-wave",
         suggestionsType: "BAR"
       })
     ).toBe(false);
-    // Without extras.
+    // Without extraConditions.
     expect(
       checkPageArgs({
         targetAccuracies: [0.4],
@@ -144,7 +146,7 @@ describe("checkPageArgs", () => {
       checkPageArgs({
         keyStrokeDelays: [100],
         targetAccuracies: [0.1],
-        extras: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
+        extraConditions: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
         participant: "mock-participant",
         wave: "mock-wave",
         suggestionsType: "UNKNOWN"
@@ -154,7 +156,7 @@ describe("checkPageArgs", () => {
       checkPageArgs({
         keyStrokeDelays: [100],
         targetAccuracies: [0.1],
-        extras: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
+        extraConditions: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
         participant: "mock-participant",
         wave: "mock-wave"
       })
@@ -166,7 +168,7 @@ describe("checkPageArgs", () => {
       checkPageArgs({
         keyStrokeDelays: [100],
         targetAccuracies: [0.1],
-        extras: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
+        extraConditions: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
         participant: "mock-participant",
         suggestionsType: "BAR"
       })
@@ -178,7 +180,7 @@ describe("checkPageArgs", () => {
       checkPageArgs({
         keyStrokeDelays: [100],
         targetAccuracies: [0.1],
-        extras: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
+        extraConditions: [{ keyStrokeDelay: 150, targetAccuracy: 0.3 }],
         wave: "mock-wave",
         suggestionsType: "BAR"
       })
@@ -190,11 +192,11 @@ describe("getAllPossibleConditions", () => {
   const sortConditions = conditions =>
     sortBy(conditions, ["keyStrokeDelay", "targetAccuracy"]);
 
-  test("get all possible conditions from keyStrokeDelays, targetAccuracies and extras", () => {
+  test("get all possible conditions from keyStrokeDelays, targetAccuracies and extraConditions", () => {
     const all = getAllPossibleConditions({
       targetAccuracies: [0.1, 0.5, 0.7],
       keyStrokeDelays: [100, 200, 300],
-      extras: [
+      extraConditions: [
         { keyStrokeDelay: 150, targetAccuracy: 0.7 },
         { keyStrokeDelay: 200, targetAccuracy: 0.9 }
       ]
@@ -222,7 +224,7 @@ describe("getAllPossibleConditions", () => {
     const all = getAllPossibleConditions({
       targetAccuracies: [0.1, 0.5, 0.7],
       keyStrokeDelays: [100, 200, 300],
-      extras: [
+      extraConditions: [
         { keyStrokeDelay: 150, targetAccuracy: 0.7 },
         { keyStrokeDelay: 200, targetAccuracy: 0.9 },
         // The two below would create duplicate
@@ -250,7 +252,7 @@ describe("getAllPossibleConditions", () => {
     const all = getAllPossibleConditions({
       targetAccuracies: [0.1, 0.5, 0.7],
       keyStrokeDelays: [100, 200, 300],
-      extras: []
+      extraConditions: []
     });
     const expected = [
       { keyStrokeDelay: 100, targetAccuracy: 0.1 },
@@ -270,7 +272,7 @@ describe("getAllPossibleConditions", () => {
     const all = getAllPossibleConditions({
       targetAccuracies: [],
       keyStrokeDelays: [],
-      extras: [
+      extraConditions: [
         { keyStrokeDelay: 150, targetAccuracy: 0.7 },
         { keyStrokeDelay: 200, targetAccuracy: 0.9 },
         { keyStrokeDelay: 100, targetAccuracy: 0.5 },

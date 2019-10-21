@@ -9,11 +9,11 @@ const PageArguments = {
   hitId: "hitId",
   suggestionsType: "suggestionsType",
   wave: "wave",
-  extras: "extras"
+  extraConditions: "extraConditions"
 };
 
-export const parseExtrasArg = extraArg => {
-  const [delayStr, targetAccuracyStr] = extraArg.split("-");
+export const parseExtraConditionsArg = extraConditionsArg => {
+  const [delayStr, targetAccuracyStr] = extraConditionsArg.split("-");
   const keyStrokeDelay = parseInt(delayStr, 10);
   const targetAccuracy = parseFloat(targetAccuracyStr, 10);
   return { keyStrokeDelay, targetAccuracy };
@@ -41,11 +41,11 @@ export const getPageArgs = urlString => {
         .split(",")
         .map(parseFloat)
     : null;
-  const extras = urlParams.has(PageArguments.extras)
+  const extraConditions = urlParams.has(PageArguments.extraConditions)
     ? urlParams
-        .get(PageArguments.extras)
+        .get(PageArguments.extraConditions)
         .split(",")
-        .map(parseExtrasArg)
+        .map(parseExtraConditionsArg)
     : null;
 
   return {
@@ -55,22 +55,25 @@ export const getPageArgs = urlString => {
     suggestionsType: suggestionsParam,
     targetAccuracies,
     keyStrokeDelays,
-    extras,
+    extraConditions,
     wave: waveState
   };
 };
 
 export const checkPageArgs = ({
   wave,
-  extras,
+  extraConditions,
   participant,
   targetAccuracies,
   keyStrokeDelays,
   suggestionsType
 }) => {
-  // If extras is not provided, both targetAccuracy and keyStrokeDelays must be
+  // If extraConditions is not provided, both targetAccuracy and keyStrokeDelays must be
   // provided.
-  if ((targetAccuracies == null || keyStrokeDelays == null) && extras == null) {
+  if (
+    (targetAccuracies == null || keyStrokeDelays == null) &&
+    extraConditions == null
+  ) {
     return false;
   }
   // If targetAccuracies is provided, keyStrokeDelays must be too, and
@@ -93,9 +96,9 @@ export const checkPageArgs = ({
 export const getAllPossibleConditions = ({
   targetAccuracies,
   keyStrokeDelays,
-  extras
+  extraConditions
 } = {}) => {
-  const results = [...extras];
+  const results = [...extraConditions];
   for (let i = 0; i < targetAccuracies.length; i += 1) {
     for (let j = 0; j < keyStrokeDelays.length; j += 1) {
       results.push({
@@ -104,7 +107,7 @@ export const getAllPossibleConditions = ({
       });
     }
   }
-  // Removes duplicates which may happen if the value is both in extras and
+  // Removes duplicates which may happen if the value is both in extraConditions and
   // a combination of targetAccuracies and keyStrokeDelays
   return uniqWith(
     results,

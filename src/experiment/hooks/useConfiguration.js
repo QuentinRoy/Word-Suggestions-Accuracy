@@ -12,7 +12,7 @@ import {
   getPageArgs,
   checkPageArgs,
   getAllPossibleConditions
-} from "../getPageArgs";
+} from "../pageArgs";
 
 const totalSuggestions = 1;
 const numberOfPracticeTasks = 3;
@@ -191,7 +191,8 @@ const pickConditions = () => {
   if (!arePageArgsValid) return { ...pageArgs, isValid: false };
 
   const possibleConditions = getAllPossibleConditions({
-    extras: pageArgs.extras == null ? [] : pageArgs.extras,
+    extraConditions:
+      pageArgs.extraConditions == null ? [] : pageArgs.extraConditions,
     keyStrokeDelays:
       pageArgs.keyStrokeDelays == null ? [] : pageArgs.keyStrokeDelays,
     targetAccuracies:
@@ -273,7 +274,6 @@ const useConfiguration = () => {
     suggestionsType,
     wave
   ]);
-
   return arePageArgsValid
     ? [loadingState, config]
     : [LoadingStates.invalidArguments, null];

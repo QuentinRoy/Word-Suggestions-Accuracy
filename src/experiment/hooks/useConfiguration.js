@@ -8,7 +8,8 @@ import {
   SuggestionTypes
 } from "../../utils/constants";
 import getTimeZone from "../../utils/getTimeZone";
-import getPageArgs, {
+import {
+  getPageArgs,
   checkPageArgs,
   getAllPossibleConditions
 } from "../getPageArgs";

@@ -4,7 +4,8 @@ import { LoadingStates } from "./constants";
 const ActionTypes = {
   loaded: "loaded",
   crashed: "crashed",
-  start: "start"
+  start: "start",
+  stop: "stop"
 };
 
 const reducer = (state, action) => {
@@ -15,31 +16,37 @@ const reducer = (state, action) => {
       return [LoadingStates.crashed, null];
     case ActionTypes.start:
       return [LoadingStates.loading, null];
+    case ActionTypes.stop:
+      return [LoadingStates.idle, null];
     default:
       return state;
   }
 };
 
 const useJson = url => {
-  const [state, dispatch] = useReducer(reducer, [LoadingStates.loading, null]);
+  const [state, dispatch] = useReducer(reducer, [LoadingStates.idle, null]);
 
   useEffect(() => {
+    if (url == null) {
+      dispatch({ type: ActionTypes.stop });
+      return () => {};
+    }
     dispatch({ type: ActionTypes.start });
-    let canceled = false;
+    let isCanceled = false;
     fetch(url)
       .then(resp => {
-        if (canceled) throw new Error(`Request canceled`);
+        if (isCanceled) throw new Error(`Request canceled`);
         if (resp.ok) return resp.json();
         throw new Error(`Cannot fetch ${url}`);
       })
       .then(jsonData => {
-        if (!canceled) dispatch({ type: ActionTypes.loaded, data: jsonData });
+        if (!isCanceled) dispatch({ type: ActionTypes.loaded, data: jsonData });
       })
       .catch(() => {
-        if (!canceled) dispatch({ type: ActionTypes.crashed });
+        if (!isCanceled) dispatch({ type: ActionTypes.crashed });
       });
     return () => {
-      canceled = true;
+      isCanceled = true;
     };
   }, [url]);
 

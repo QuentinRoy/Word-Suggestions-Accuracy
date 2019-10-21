@@ -8,7 +8,8 @@ export const LoadingStates = Object.freeze({
   loading: "LOADING",
   loaded: "LOADED",
   crashed: "CRASHED",
-  invalidArguments: "INVALID_ARGUMENTS"
+  invalidArguments: "INVALID_ARGUMENTS",
+  idle: "IDLE"
 });
 
 export const Actions = Object.freeze({

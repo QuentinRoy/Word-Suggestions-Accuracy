@@ -7,7 +7,9 @@ const getURL = accuracy =>
   `./sks-distributions/acc-${accuracy.toFixed(3)}.json`;
 
 const useCorpusFromJson = (accuracy, { shuffleRows = true } = {}) => {
-  const [loadingState, data] = useJson(getURL(accuracy));
+  const [loadingState, data] = useJson(
+    accuracy == null ? null : getURL(accuracy)
+  );
   const corpusRef = useRef(null);
 
   if (

@@ -1,5 +1,6 @@
 import { useMemo, useRef } from "react";
 import omit from "lodash/omit";
+import sample from "lodash/sample";
 import useCorpusFromJson from "./useCorpusFromJson";
 import {
   LoadingStates,
@@ -7,64 +8,15 @@ import {
   SuggestionTypes
 } from "../../utils/constants";
 import getTimeZone from "../../utils/getTimeZone";
+import getPageArgs, {
+  checkPageArgs,
+  getAllPossibleConditions
+} from "../getPageArgs";
 
-const defaultAccuracies = [0, 0.1, 0.3, 0.5, 0.7, 0.9];
-const defaultKeyStrokeDelays = [0, 100, 200, 300, 400];
 const totalSuggestions = 1;
 const numberOfPracticeTasks = 3;
 const numberOfTypingTasks = 20;
 const numberOfTypingSpeedTasks = 5;
-
-const PageArguments = {
-  targetAccuracies: "targetAccuracies",
-  workerId: "workerId",
-  keyStrokeDelays: "keyStrokeDelays",
-  assignmentId: "assignmentId",
-  hitId: "hitId",
-  suggestionsType: "suggestionsType",
-  wave: "wave"
-};
-
-const {
-  participant,
-  targetAccuracy,
-  keyStrokeDelay,
-  suggestionsType,
-  wave,
-  ...otherPageArgs
-} = (() => {
-  const urlParams = new URL(document.location).searchParams;
-  const workerId = urlParams.get(PageArguments.workerId);
-  const assignmentId = urlParams.get(PageArguments.assignmentId);
-  const hitId = urlParams.get(PageArguments.hitId);
-  const suggestionsParam = urlParams.get(PageArguments.suggestionsType);
-  const keyStrokeDelays = urlParams.has(PageArguments.keyStrokeDelays)
-    ? urlParams
-        .get(PageArguments.keyStrokeDelays)
-        .split(",")
-        .map(x => +x)
-    : defaultKeyStrokeDelays;
-  const targetAccuracies = urlParams.has(PageArguments.targetAccuracies)
-    ? urlParams
-        .get(PageArguments.targetAccuracies)
-        .split(",")
-        .map(x => +x)
-    : defaultAccuracies;
-  const waveState = urlParams.has(PageArguments.wave)
-    ? urlParams.get(PageArguments.wave)
-    : null;
-  return {
-    assignmentId,
-    hitId,
-    participant: workerId,
-    suggestionsType: suggestionsParam,
-    keyStrokeDelay:
-      keyStrokeDelays[Math.floor(Math.random() * keyStrokeDelays.length)],
-    targetAccuracy:
-      targetAccuracies[Math.floor(Math.random() * targetAccuracies.length)],
-    wave: waveState
-  };
-})();
 
 const TypingTask = (id, isPractice, { words, ...props }) => ({
   ...props,
@@ -232,11 +184,42 @@ export const generateTasks = (corpus, uploadFileName) => {
   return tasks;
 };
 
-const useConfiguration = () => {
-  const [loadingState, corpus] = useCorpusFromJson(targetAccuracy, {
-    shuffleRows: true
+const pickConditions = () => {
+  const pageArgs = getPageArgs(document.location);
+  const arePageArgsValid = checkPageArgs(pageArgs);
+  if (!arePageArgsValid) return { ...pageArgs, isValid: false };
+
+  const possibleConditions = getAllPossibleConditions({
+    extras: pageArgs.extras == null ? [] : pageArgs.extras,
+    keyStrokeDelays:
+      pageArgs.keyStrokeDelays == null ? [] : pageArgs.keyStrokeDelays,
+    targetAccuracies:
+      pageArgs.targetAccuracies == null ? [] : pageArgs.targetAccuracies
   });
+  const { targetAccuracy, keyStrokeDelay } = sample(possibleConditions);
+  return { ...pageArgs, targetAccuracy, keyStrokeDelay, isValid: true };
+};
+
+const useConfiguration = () => {
+  const {
+    current: {
+      participant,
+      wave,
+      suggestionsType,
+      targetAccuracy,
+      keyStrokeDelay,
+      isValid: arePageArgsValid,
+      ...otherPageArgs
+    }
+  } = useRef(pickConditions());
+
+  const [loadingState, corpus] = useCorpusFromJson(
+    arePageArgsValid ? targetAccuracy : null,
+    { shuffleRows: true }
+  );
+
   const { current: startDate } = useRef(new Date());
+
   const config = useMemo(() => {
     if (loadingState === LoadingStates.loaded) {
       return {
@@ -278,12 +261,21 @@ const useConfiguration = () => {
       };
     }
     return null;
-  }, [loadingState, corpus, startDate]);
-  return participant == null ||
-    wave == null ||
-    !Object.values(SuggestionTypes).includes(suggestionsType)
-    ? [LoadingStates.invalidArguments, null]
-    : [loadingState, config];
+  }, [
+    loadingState,
+    otherPageArgs,
+    corpus,
+    participant,
+    startDate,
+    keyStrokeDelay,
+    targetAccuracy,
+    suggestionsType,
+    wave
+  ]);
+
+  return arePageArgsValid
+    ? [loadingState, config]
+    : [LoadingStates.invalidArguments, null];
 };
 
 export default useConfiguration;

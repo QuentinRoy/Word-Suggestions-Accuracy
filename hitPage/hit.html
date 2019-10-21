@@ -130,9 +130,11 @@
 
 <!-- Open internal javascript -->
 <script>
-  var targetAccuracies = [0.1, 0.3, 0.5, 0.7, 0.9];
-  var suggestionsType = "INLINE";
+  var targetAccuracies = [0.1, 0.5, 0.9];
+  var suggestionsType = "BAR";
   var keyStrokeDelays = [0, 100, 200];
+  // Extra conditions format: [keyStrokeDelay]-[targetAccuracy]
+  var extraConditions = ["0-0.3", "0-0.7"];
   var wave = "template";
 
   var workerID = turkGetParam("workerId", false);
@@ -146,21 +148,21 @@
       btn.disabled = false;
       btn.value = "Click to begin task";
       var url =
-        "https://exii-accuracy-control.s3.us-east-2.amazonaws.com/index.html" +
-        "?workerId=" +
-        workerID +
-        "&assignmentId=" +
-        assignmentID +
-        "&hitId=" +
-        hitId +
-        "&wave=" +
-        wave +
-        "&suggestionsType=" +
-        suggestionsType +
-        "&keyStrokeDelays=" +
-        keyStrokeDelays.join(",") +
-        "&targetAccuracies=" +
-        targetAccuracies.join(",");
+        "https://exii-accuracy-control.s3.us-east-2.amazonaws.com/index.html";
+      if (workerID) url += "?workerId=" + workerID;
+      if (assignmentID) url += "&assignmentId=" + assignmentID;
+      if (hitId) url += "&hitId=" + hitId;
+      if (wave) url += "&wave=" + wave;
+      if (suggestionsType) url += "&suggestionsType=" + suggestionsType;
+      if (keyStrokeDelays && keyStrokeDelays.length > 0) {
+        url += "&keyStrokeDelays=" + keyStrokeDelays.join(",");
+      }
+      if (targetAccuracies && targetAccuracies.length > 0) {
+        url += "&targetAccuracies=" + targetAccuracies.join(",");
+      }
+      if (extraConditions && extraConditions.length > 0) {
+        url += "&extraConditions=" + extraConditions.join(",");
+      }
       btn.onclick = function() {
         window.open(url);
       };

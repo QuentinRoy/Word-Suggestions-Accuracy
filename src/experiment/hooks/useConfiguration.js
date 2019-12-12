@@ -94,8 +94,10 @@ export const generateTasks = (corpus, uploadFileName) => {
       key: `info-${tasks.length}`,
       label: "Practice"
     });
-    const practiceTaskBlock = pickCorpusEntries(numberOfPracticeTasks).map(
-      (props, i) => TypingTask(`practice-${tasks.length}-${i}`, true, props)
+    const practiceTaskBlock = pickCorpusEntries(
+      numberOfPracticeTasks
+    ).map((props, i) =>
+      TypingTask(`practice-${tasks.length}-${i}`, true, props)
     );
     tasks.push({
       children: practiceTaskBlock,
@@ -118,9 +120,9 @@ export const generateTasks = (corpus, uploadFileName) => {
   });
 
   // Insert measured tasks.
-  const measuredTasksBlock = pickCorpusEntries(numberOfTypingTasks).map(
-    (props, i) => TypingTask(`trial-${tasks.length}-${i}`, false, props)
-  );
+  const measuredTasksBlock = pickCorpusEntries(
+    numberOfTypingTasks
+  ).map((props, i) => TypingTask(`trial-${tasks.length}-${i}`, false, props));
   tasks.push({
     children: measuredTasksBlock,
     fullProgress: false,
@@ -148,9 +150,9 @@ export const generateTasks = (corpus, uploadFileName) => {
     label: "Typing Speed"
   });
 
-  const typingTasksBlock = pickCorpusEntries(numberOfTypingSpeedTasks).map(
-    (props, i) => TypingTask(`typing-${tasks.length}-${i}`, false, props)
-  );
+  const typingTasksBlock = pickCorpusEntries(
+    numberOfTypingSpeedTasks
+  ).map((props, i) => TypingTask(`typing-${tasks.length}-${i}`, false, props));
   tasks.push({
     children: typingTasksBlock,
     suggestionsType: SuggestionTypes.none,

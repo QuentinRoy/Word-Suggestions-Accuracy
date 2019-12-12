@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withFormik } from "formik";
+import { useFormik } from "formik";
 import Button from "@material-ui/core/Button";
 import FormInput from "../../utils/FormInput";
 import { InputTypes, Directions } from "../../utils/constants";
@@ -139,87 +139,85 @@ const questions = {
   }
 };
 
-const EndQuestionnaire = ({
-  handleSubmit,
-  values,
-  setFieldValue,
-  handleBlur,
-  errors,
-  isValid
-}) => (
-  <TaskPaper className={styles.main}>
-    <h1>Questionnaire</h1>
-    <p className={styles.instructions}>Please answer the questions below.</p>
-
-    <form onSubmit={handleSubmit} className={styles.endForm}>
-      {Object.entries(questions).map(([questionId, question]) => {
-        return (
-          <div className={styles.question} key={questionId}>
-            <FormInput
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...question}
-              id={questionId}
-              value={values[questionId]}
-              error={errors[questionId]}
-              onChange={setFieldValue}
-              onBlur={handleBlur}
-            />
-          </div>
-        );
-      })}
-      <div className={styles.buttonWrapper}>
-        <Button
-          disabled={!isValid}
-          className={styles.button}
-          variant="contained"
-          color="primary"
-          type="submit"
-        >
-          Submit
-        </Button>
-      </div>
-    </form>
-  </TaskPaper>
-);
-
-EndQuestionnaire.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ).isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  handleBlur: PropTypes.func.isRequired,
-  errors: PropTypes.objectOf(PropTypes.string).isRequired,
-  isValid: PropTypes.bool.isRequired
+const validate = values => {
+  const errors = {};
+  Object.entries(values).forEach(([qId, value]) => {
+    if (value == null && questions[qId].isAnswerRequired) {
+      errors[qId] = "Required";
+    }
+  });
+  return errors;
 };
 
-const EnhancedEndQuestionnaire = withFormik({
-  mapPropsToValues: () =>
-    Object.entries(questions).reduce(
-      (acc, [qId, question]) => ({
-        ...acc,
-        [qId]: question.defaultAnswer
-      }),
-      {}
-    ),
-  handleSubmit: (values, { props: { onLog, onAdvanceWorkflow } }) => {
-    onLog("log", values);
-    onAdvanceWorkflow();
-  },
-  validate: values => {
-    const errors = {};
-    Object.entries(values).forEach(([qId, value]) => {
-      if (value == null && questions[qId].isAnswerRequired) {
-        errors[qId] = "Required";
-      }
-    });
-    return errors;
-  }
-})(EndQuestionnaire);
+// Formik should never change initial values. But I would still rather have
+// this frozen.
+const initialValues = Object.freeze(
+  Object.entries(questions).reduce(
+    (acc, [qId, question]) => ({
+      ...acc,
+      [qId]: question.defaultAnswer
+    }),
+    {}
+  )
+);
 
-EnhancedEndQuestionnaire.propTypes = {
+const EndQuestionnaire = ({ onLog, onAdvanceWorkflow }) => {
+  const {
+    handleSubmit,
+    values,
+    setFieldValue,
+    handleBlur,
+    errors,
+    isValid
+  } = useFormik({
+    initialValues,
+    validate,
+    onSubmit: () => {
+      onLog("log", values);
+      onAdvanceWorkflow();
+    }
+  });
+
+  return (
+    <TaskPaper className={styles.main}>
+      <h1>Questionnaire</h1>
+      <p className={styles.instructions}>Please answer the questions below.</p>
+
+      <form onSubmit={handleSubmit} className={styles.endForm}>
+        {Object.entries(questions).map(([questionId, question]) => {
+          return (
+            <div className={styles.question} key={questionId}>
+              <FormInput
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...question}
+                id={questionId}
+                value={values[questionId]}
+                error={errors[questionId]}
+                onChange={setFieldValue}
+                onBlur={handleBlur}
+              />
+            </div>
+          );
+        })}
+        <div className={styles.buttonWrapper}>
+          <Button
+            disabled={!isValid}
+            className={styles.button}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Submit
+          </Button>
+        </div>
+      </form>
+    </TaskPaper>
+  );
+};
+
+EndQuestionnaire.propTypes = {
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired
 };
 
-export default EnhancedEndQuestionnaire;
+export default EndQuestionnaire;

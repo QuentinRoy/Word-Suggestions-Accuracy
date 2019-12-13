@@ -28,6 +28,8 @@ describe("getPageArgs", () => {
           "&targetAccuracies=0.1,0.2,0.4" +
           "&extraConditions=150-0.3,120-0.1" +
           "&workerId=test" +
+          "&totalSuggestions=5" +
+          "&device=phone" +
           "&hitId=HIT" +
           "&assignmentId=ASSIGNMENT" +
           "&extraneousArgument=SHOULD_NOT_BE_HERE"
@@ -36,6 +38,8 @@ describe("getPageArgs", () => {
       wave: "test",
       suggestionsType: "FOO",
       keyStrokeDelays: [100, 200],
+      device: "phone",
+      totalSuggestions: 5,
       targetAccuracies: [0.1, 0.2, 0.4],
       extraConditions: [
         { keyStrokeDelay: 150, targetAccuracy: 0.3 },
@@ -54,6 +58,8 @@ describe("getPageArgs", () => {
       targetAccuracies: null,
       extraConditions: null,
       participant: null,
+      device: null,
+      totalSuggestions: null,
       hitId: null,
       assignmentId: null
     });

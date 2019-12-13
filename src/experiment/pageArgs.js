@@ -1,16 +1,5 @@
 import uniqWith from "lodash/uniqWith";
-import { SuggestionTypes } from "../utils/constants";
-
-const PageArguments = {
-  targetAccuracies: "targetAccuracies",
-  workerId: "workerId",
-  keyStrokeDelays: "keyStrokeDelays",
-  assignmentId: "assignmentId",
-  hitId: "hitId",
-  suggestionsType: "suggestionsType",
-  wave: "wave",
-  extraConditions: "extraConditions"
-};
+import { SuggestionTypes, PageArguments } from "../utils/constants";
 
 export const parseExtraConditionsArg = extraConditionsArg => {
   const [delayStr, targetAccuracyStr] = extraConditionsArg.split("-");
@@ -28,6 +17,9 @@ export const getPageArgs = urlString => {
   const assignmentId = urlParams.get(PageArguments.assignmentId);
   const hitId = urlParams.get(PageArguments.hitId);
   const suggestionsParam = urlParams.get(PageArguments.suggestionsType);
+  const totalSuggestions = urlParams.has(PageArguments.totalSuggestions)
+    ? parseInt(urlParams.get(PageArguments.totalSuggestions), 10)
+    : null;
   const waveState = urlParams.get(PageArguments.wave);
   const keyStrokeDelays = urlParams.has(PageArguments.keyStrokeDelays)
     ? urlParams
@@ -56,6 +48,7 @@ export const getPageArgs = urlString => {
     targetAccuracies,
     keyStrokeDelays,
     extraConditions,
+    totalSuggestions,
     wave: waveState
   };
 };

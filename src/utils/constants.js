@@ -87,3 +87,22 @@ export const Directions = Object.freeze({
   horizontal: "HORIZONTAL",
   vertical: "VERTICAL"
 });
+
+export const PageArguments = Object.freeze({
+  targetAccuracies: "targetAccuracies",
+  workerId: "workerId",
+  keyStrokeDelays: "keyStrokeDelays",
+  assignmentId: "assignmentId",
+  hitId: "hitId",
+  suggestionsType: "suggestionsType",
+  wave: "wave",
+  extraConditions: "extraConditions",
+  totalSuggestions: "totalSuggestions",
+  device: "device"
+});
+
+export const Devices = Object.freeze({
+  phone: "phone",
+  laptop: "laptop",
+  tablet: "tablet"
+});

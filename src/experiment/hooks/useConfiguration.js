@@ -14,7 +14,6 @@ import {
   getAllPossibleConditions
 } from "../pageArgs";
 
-const totalSuggestions = 1;
 const numberOfPracticeTasks = 3;
 const numberOfTypingTasks = 20;
 const numberOfTypingSpeedTasks = 5;
@@ -212,6 +211,7 @@ const useConfiguration = () => {
       suggestionsType,
       targetAccuracy,
       keyStrokeDelay,
+      totalSuggestions,
       isValid: arePageArgsValid,
       ...otherPageArgs
     }
@@ -274,6 +274,7 @@ const useConfiguration = () => {
     keyStrokeDelay,
     targetAccuracy,
     suggestionsType,
+    totalSuggestions,
     wave
   ]);
   return arePageArgsValid

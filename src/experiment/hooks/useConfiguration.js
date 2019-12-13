@@ -212,6 +212,7 @@ const useConfiguration = () => {
       targetAccuracy,
       keyStrokeDelay,
       totalSuggestions,
+      device,
       isValid: arePageArgsValid,
       ...otherPageArgs
     }
@@ -239,6 +240,7 @@ const useConfiguration = () => {
         keyStrokeDelay,
         targetAccuracy,
         participant,
+        device,
         mode: process.env.NODE_ENV,
         gitSha: process.env.REACT_APP_GIT_SHA,
         version: process.env.REACT_APP_VERSION,
@@ -257,7 +259,7 @@ const useConfiguration = () => {
         fullProgress: true,
         currentProgress: false,
         progressLevel: true,
-        isVirtualKeyboardEnabled: false,
+        isVirtualKeyboardEnabled: device === "phone" || device === "tablet",
 
         // Fixes an issue with components being rendered with the same key.
         [TaskTypes.experimentProgress]: { key: "progress" },
@@ -275,6 +277,7 @@ const useConfiguration = () => {
     targetAccuracy,
     suggestionsType,
     totalSuggestions,
+    device,
     wave
   ]);
   return arePageArgsValid

@@ -48,75 +48,75 @@ export const generateTasks = (corpus, uploadFileName) => {
 
   const tasks = [];
 
-  tasks.push({
-    task: TaskTypes.consentForm,
-    key: `consent-${tasks.length}`,
-    tasks: [TaskTypes.experimentProgress],
-    label: "Consent Form"
-  });
+  // tasks.push({
+  //   task: TaskTypes.consentForm,
+  //   key: `consent-${tasks.length}`,
+  //   tasks: [TaskTypes.experimentProgress],
+  //   label: "Consent Form"
+  // });
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
+  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  tasks.push({
-    task: TaskTypes.startup,
-    key: `startup-${tasks.length}`,
-    label: "Instructions"
-  });
+  // tasks.push({
+  //   task: TaskTypes.startup,
+  //   key: `startup-${tasks.length}`,
+  //   label: "Instructions"
+  // });
 
-  tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
+  // tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
 
-  tasks.push({
-    task: TaskTypes.informationScreen,
-    content:
-      "<h1>Tutorial</h1><p>Now you will complete an interactive tutorial.</p>",
-    key: `info-${tasks.length}`,
-    label: "Tutorial"
-  });
+  // tasks.push({
+  //   task: TaskTypes.informationScreen,
+  //   content:
+  //     "<h1>Tutorial</h1><p>Now you will complete an interactive tutorial.</p>",
+  //   key: `info-${tasks.length}`,
+  //   label: "Tutorial"
+  // });
 
-  tasks.push({
-    task: TaskTypes.tutorial,
-    key: `tuto-${tasks.length}`,
-    id: `tuto-${tasks.length}`,
-    isPractice: true,
-    fullProgress: false,
-    currentProgress: true,
-    progressLevel: true,
-    shortcutEnabled: false,
-    noProgress: true
-  });
+  // tasks.push({
+  //   task: TaskTypes.tutorial,
+  //   key: `tuto-${tasks.length}`,
+  //   id: `tuto-${tasks.length}`,
+  //   isPractice: true,
+  //   fullProgress: false,
+  //   currentProgress: true,
+  //   progressLevel: true,
+  //   shortcutEnabled: false,
+  //   noProgress: true
+  // });
 
-  // Insert practice tasks.
-  if (numberOfPracticeTasks > 0) {
-    tasks.push({
-      task: TaskTypes.informationScreen,
-      content: "<h1>Practice</h1><p>Continue with the practice tasks.</p>",
-      key: `info-${tasks.length}`,
-      label: "Practice"
-    });
-    const practiceTaskBlock = pickCorpusEntries(
-      numberOfPracticeTasks
-    ).map((props, i) =>
-      TypingTask(`practice-${tasks.length}-${i}`, true, props)
-    );
-    tasks.push({
-      children: practiceTaskBlock,
-      fullProgress: false,
-      currentProgress: true,
-      progressLevel: true,
-      shortcutEnabled: false,
-      noProgress: true
-    });
-  }
+  // // Insert practice tasks.
+  // if (numberOfPracticeTasks > 0) {
+  //   tasks.push({
+  //     task: TaskTypes.informationScreen,
+  //     content: "<h1>Practice</h1><p>Continue with the practice tasks.</p>",
+  //     key: `info-${tasks.length}`,
+  //     label: "Practice"
+  //   });
+  //   const practiceTaskBlock = pickCorpusEntries(
+  //     numberOfPracticeTasks
+  //   ).map((props, i) =>
+  //     TypingTask(`practice-${tasks.length}-${i}`, true, props)
+  //   );
+  //   tasks.push({
+  //     children: practiceTaskBlock,
+  //     fullProgress: false,
+  //     currentProgress: true,
+  //     progressLevel: true,
+  //     shortcutEnabled: false,
+  //     noProgress: true
+  //   });
+  // }
 
-  tasks.push({
-    task: TaskTypes.informationScreen,
-    content:
-      numberOfPracticeTasks > 0
-        ? "<h1>Experiment</h1><p>Practice is over. You may take a break. The real experiment begins immediately after this screen!</p><p>Remember to complete every task as fast and accurately as you can.</p>"
-        : "<h1>Experiment</h1><p>You may take a break. The real experiment begins immediately after this screen!</p><p>Remember to complete every task as fast and accurately as you can.</p>",
-    key: `info-${tasks.length}`,
-    label: "Experiment"
-  });
+  // tasks.push({
+  //   task: TaskTypes.informationScreen,
+  //   content:
+  //     numberOfPracticeTasks > 0
+  //       ? "<h1>Experiment</h1><p>Practice is over. You may take a break. The real experiment begins immediately after this screen!</p><p>Remember to complete every task as fast and accurately as you can.</p>"
+  //       : "<h1>Experiment</h1><p>You may take a break. The real experiment begins immediately after this screen!</p><p>Remember to complete every task as fast and accurately as you can.</p>",
+  //   key: `info-${tasks.length}`,
+  //   label: "Experiment"
+  // });
 
   // Insert measured tasks.
   const measuredTasksBlock = pickCorpusEntries(

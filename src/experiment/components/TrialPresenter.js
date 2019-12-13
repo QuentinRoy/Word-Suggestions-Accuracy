@@ -6,6 +6,7 @@ import React, {
   useMemo
 } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import {
   Actions,
@@ -13,7 +14,8 @@ import {
   ActionStatuses,
   FocusTargetTypes,
   SuggestionTypes,
-  TutorialSteps
+  TutorialSteps,
+  Devices
 } from "../../utils/constants";
 import VirtualKeyboard from "./VirtualKeyboard";
 import TrialInput from "./TrialInput";
@@ -87,6 +89,7 @@ const TrialPresenter = ({
   input,
   keyboardLayoutName,
   isVirtualKeyboardEnabled,
+  device,
   isSystemKeyboardEnabled,
   isCompleted,
   totalSuggestions,
@@ -248,7 +251,13 @@ const TrialPresenter = ({
   }, [dispatch]);
 
   return (
-    <div className={styles.trial}>
+    <div
+      className={classNames(styles.trial, {
+        [styles.laptopTrial]: device === Devices.laptop,
+        [styles.phoneTrial]: device === Devices.phone,
+        [styles.tabletTrial]: device === Devices.tablet
+      })}
+    >
       <div className={styles.banner}>
         {isCompleted ? (
           // eslint-disable-next-line react/jsx-props-no-spreading
@@ -263,69 +272,74 @@ const TrialPresenter = ({
         )}
       </div>
       <div className={styles.content}>
-        <TrialInput
-          suggestionRef={tutorialStep == null ? null : inlineSuggestionRef}
-          ref={tutorialStep == null ? null : inputRef}
-          hasErrors={hasErrors}
-          input={input}
-          isFocused={
-            focusTarget != null &&
-            !isFocusAlertShown &&
-            focusTarget.type === FocusTargetTypes.input
-          }
-          text={text}
-          shouldCaretBlink={isNoKeyPressed}
-          suggestion={
-            suggestionsType === SuggestionTypes.inline
-              ? arrangedSuggestions[mainSuggestionPosition]
-              : null
-          }
-        />
-        {suggestionsType === SuggestionTypes.bar ? (
-          <div ref={tutorialStep == null ? null : suggestionsBarRef}>
-            <SuggestionsBar
-              totalSuggestions={totalSuggestions}
-              focusedSuggestion={
-                focusTarget != null &&
-                !isFocusAlertShown &&
-                focusTarget.type === FocusTargetTypes.suggestion
-                  ? focusTarget.suggestionNumber
-                  : null
-              }
-              suggestions={arrangedSuggestions}
-              onSelectionStart={selection => {
-                if (isNoKeyPressed) {
-                  dispatch({
-                    type: Actions.inputSuggestion,
-                    word: selection,
-                    status: ActionStatuses.start
-                  });
-                }
-              }}
-              onSelectionEnd={selection => {
-                dispatch({
-                  type: Actions.inputSuggestion,
-                  word: selection,
-                  status: ActionStatuses.end
-                });
-              }}
-            />
-          </div>
-        ) : null}
-        {isVirtualKeyboardEnabled ? (
-          <div ref={tutorialStep == null ? null : virtualKeyboardRef}>
-            <VirtualKeyboard
-              layout={keyboardLayoutName}
-              onVirtualKeyDown={onVirtualKeyDown}
-              onVirtualKeyUp={onVirtualKeyUp}
-            />
-          </div>
-        ) : null}
+        <div className={styles.input}>
+          <TrialInput
+            suggestionRef={tutorialStep == null ? null : inlineSuggestionRef}
+            ref={tutorialStep == null ? null : inputRef}
+            hasErrors={hasErrors}
+            input={input}
+            isFocused={
+              focusTarget != null &&
+              !isFocusAlertShown &&
+              focusTarget.type === FocusTargetTypes.input
+            }
+            text={text}
+            shouldCaretBlink={isNoKeyPressed}
+            suggestion={
+              suggestionsType === SuggestionTypes.inline
+                ? arrangedSuggestions[mainSuggestionPosition]
+                : null
+            }
+          />
+        </div>
+
         {showsHelp && (
           <div className={styles.trialHelp}>
             <TrialHelp isVirtualKeyboardEnabled={isVirtualKeyboardEnabled} />
           </div>
         )}
+        <div className={styles.controls}>
+          {suggestionsType === SuggestionTypes.bar ? (
+            <div ref={tutorialStep == null ? null : suggestionsBarRef}>
+              <SuggestionsBar
+                totalSuggestions={totalSuggestions}
+                focusedSuggestion={
+                  focusTarget != null &&
+                  !isFocusAlertShown &&
+                  focusTarget.type === FocusTargetTypes.suggestion
+                    ? focusTarget.suggestionNumber
+                    : null
+                }
+                suggestions={arrangedSuggestions}
+                onSelectionStart={selection => {
+                  if (isNoKeyPressed) {
+                    dispatch({
+                      type: Actions.inputSuggestion,
+                      word: selection,
+                      status: ActionStatuses.start
+                    });
+                  }
+                }}
+                onSelectionEnd={selection => {
+                  dispatch({
+                    type: Actions.inputSuggestion,
+                    word: selection,
+                    status: ActionStatuses.end
+                  });
+                }}
+              />
+            </div>
+          ) : null}
+          {isVirtualKeyboardEnabled ? (
+            <div ref={tutorialStep == null ? null : virtualKeyboardRef}>
+              <VirtualKeyboard
+                layout={keyboardLayoutName}
+                onVirtualKeyDown={onVirtualKeyDown}
+                onVirtualKeyUp={onVirtualKeyUp}
+              />
+            </div>
+          ) : null}
+        </div>
       </div>
       <FocusAlert isShown={isFocusAlertShown} onClose={onCloseFocusAlert} />
       {tutorialStep && (
@@ -358,6 +372,7 @@ TrialPresenter.propTypes = {
   text: PropTypes.string.isRequired,
   input: PropTypes.string.isRequired,
   keyboardLayoutName: PropTypes.oneOf(Object.values(KeyboardLayoutNames)),
+  device: PropTypes.oneOf(Object.values(Devices)).isRequired,
   isVirtualKeyboardEnabled: PropTypes.bool,
   isSystemKeyboardEnabled: PropTypes.bool,
   isCompleted: PropTypes.bool.isRequired,

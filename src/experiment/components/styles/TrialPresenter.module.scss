@@ -1,11 +1,52 @@
 .trial {
   outline: none;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 
-  .content {
+  > .content {
     width: 100%;
     max-width: 800px;
     margin: 40px auto 20px auto;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: [input-start] auto [input-end control-start] auto [control-end help-start] auto [help-end];
+
+    .input {
+      grid-row-start: input-start;
+      grid-row-end: input-end;
+    }
+
+    .controls {
+      grid-row-start: control-start;
+      grid-row-end: control-end;
+    }
+
+    .trialHelp {
+      grid-row-start: help-start;
+      grid-row-end: help-end;
+
+      margin-top: 4rem;
+    }
+  }
+
+  &.tabletTrial,
+  &.phoneTrial {
+    > .content {
+      flex-grow: 1;
+      margin-bottom: 0;
+      grid-template-rows: [input-start] auto [input-end help-start] 1fr [help-end control-start] 1fr [control-end];
+
+      > .trialHelp {
+        align-self: center;
+        margin-top: 0;
+      }
+
+      > .controls {
+        align-self: end;
+      }
+    }
   }
 
   .success {
@@ -14,13 +55,9 @@
     color: green;
   }
 
-  .banner {
+  > .banner {
     height: 150px;
     width: 100%;
     overflow: hidden;
-  }
-
-  .trialHelp {
-    margin-top: 4rem;
   }
 }

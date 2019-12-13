@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { SuggestionTypes } from "../../utils/constants";
+import { SuggestionTypes, Devices } from "../../utils/constants";
 import "react-simple-keyboard/build/css/index.css";
 import TrialPresenter from "./TrialPresenter";
 import useTrial from "../hooks/useTrial";
@@ -15,6 +15,7 @@ const Trial = ({
   totalKss,
   sdWordsKss,
   suggestionsType,
+  device,
   totalSuggestions,
   isVirtualKeyboardEnabled
 }) => {
@@ -54,6 +55,7 @@ const Trial = ({
       totalSuggestions={totalSuggestions}
       suggestionsType={suggestionsType}
       hasErrors={hasErrors}
+      device={device}
       isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
       isSystemKeyboardEnabled={!isVirtualKeyboardEnabled}
     />
@@ -76,6 +78,7 @@ Trial.propTypes = {
   sdWordsKss: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
+  device: PropTypes.oneOf(Object.values(Devices)).isRequired,
   isVirtualKeyboardEnabled: PropTypes.bool.isRequired
 };
 

@@ -17,6 +17,7 @@ export const getPageArgs = urlString => {
   const assignmentId = urlParams.get(PageArguments.assignmentId);
   const hitId = urlParams.get(PageArguments.hitId);
   const suggestionsParam = urlParams.get(PageArguments.suggestionsType);
+  const device = urlParams.get(PageArguments.device);
   const totalSuggestions = urlParams.has(PageArguments.totalSuggestions)
     ? parseInt(urlParams.get(PageArguments.totalSuggestions), 10)
     : null;
@@ -47,9 +48,10 @@ export const getPageArgs = urlString => {
     suggestionsType: suggestionsParam,
     targetAccuracies,
     keyStrokeDelays,
-    extraConditions,
     totalSuggestions,
-    wave: waveState
+    extraConditions,
+    wave: waveState,
+    device
   };
 };
 

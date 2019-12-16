@@ -33,7 +33,6 @@ const Job = (jobId, delay, onConfirm, onCancel, onEnd) => {
         if (onConfirm != null) onConfirm();
       }
     };
-
     timeoutId = setTimeout(confirm, delay);
     isStarted = true;
   };

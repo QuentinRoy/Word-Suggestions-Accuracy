@@ -237,7 +237,6 @@ const useTrial = ({
     if (action.type === Actions.confirmAction) {
       nextState = reducer(nextState, action.action);
     }
-
     return nextState;
   };
 
@@ -312,7 +311,7 @@ const useTrial = ({
       } else if (
         action.status == null ||
         (action.status === ActionStatuses.start &&
-          instantActions.includes(action.type))
+          (keyStrokeDelay === 0 || instantActions.includes(action.type)))
       ) {
         dispatch(action);
       } else if (action.status === ActionStatuses.start) {
@@ -328,7 +327,7 @@ const useTrial = ({
         );
       }
     },
-    [actionScheduler]
+    [actionScheduler, keyStrokeDelay]
   );
 
   return {

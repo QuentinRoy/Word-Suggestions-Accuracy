@@ -15,14 +15,12 @@ function SuggestionsBar({
 
   const buttons = Array.from({ length: totalSuggestions }, (_, i) => {
     const suggestion = suggestions[i];
-    const selStart = e => {
-      e.preventDefault();
+    const selStart = () => {
       if (suggestion != null) {
         onSelectionStart(suggestion);
       }
     };
-    const selEnd = e => {
-      e.preventDefault();
+    const selEnd = () => {
       if (suggestion != null) {
         onSelectionEnd(suggestion);
       }

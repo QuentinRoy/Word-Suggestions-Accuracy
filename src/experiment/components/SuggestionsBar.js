@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import styles from "./styles/SuggestionsBar.module.css";
+import styles from "./styles/SuggestionsBar.module.scss";
 import useMultiRef from "../../utils/useMultiRef";
 
 function SuggestionsBar({

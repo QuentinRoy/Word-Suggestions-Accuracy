@@ -1,0 +1,36 @@
+$spacing: 3px;
+
+.main {
+  .vkTheme {
+    padding: $spacing;
+
+    :global(.hg-row) {
+      justify-content: center;
+
+      &:not(:last-child) {
+        margin-bottom: $spacing;
+      }
+
+      :global(.hg-button) {
+        height: 50px;
+        font-size: 20px;
+
+        &:not(:last-child) {
+          margin-right: $spacing;
+        }
+      }
+      :global(.hg-functionBtn) {
+        flex-grow: 1;
+      }
+      :global(.hg-standardBtn) {
+        // This ensures standard buttons grow much more than function buttons.
+        flex-grow: 5;
+        // This will force all buttons to have the same width.
+        width: 100vw;
+      }
+      :global(.hg-button-space) {
+        flex-grow: 10;
+      }
+    }
+  }
+}

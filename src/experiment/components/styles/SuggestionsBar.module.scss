@@ -1,3 +1,6 @@
+$border-width: 3px;
+$height: 50px;
+
 .main {
   display: flex;
   width: 100%;
@@ -5,24 +8,24 @@
 }
 
 .button {
-  border: 4px solid lightgray;
+  border: $border-width solid lightgray;
   border-right-width: 0px;
   outline: none;
   margin: 0;
-  font-size: 15px;
-  height: 30px;
+  font-size: 18px;
+  height: $height;
   width: 100%;
   background-color: white;
 }
 
 .button:active {
   color: inherit;
-  background: inherit;
+  background: #eee;
 }
 
 .button:last-child,
 .button.focused {
-  border-right-width: 4px;
+  border-right-width: $border-width;
 }
 
 .button:last-child {

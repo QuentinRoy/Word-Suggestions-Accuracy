@@ -1,6 +1,7 @@
 .main {
-  opacity: 0.7;
+  opacity: 0.3;
   font-style: italic;
+  font-size: 12px !important;
 }
 
 .main .key {

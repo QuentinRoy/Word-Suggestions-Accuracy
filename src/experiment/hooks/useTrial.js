@@ -1,5 +1,4 @@
-import { useReducer, useRef, useCallback } from "react";
-import pipe from "lodash/fp/pipe";
+import { useReducer, useRef, useCallback, useMemo } from "react";
 import {
   Actions,
   ActionStatuses,
@@ -8,7 +7,6 @@ import {
   FocusTargetTypes
 } from "../../utils/constants";
 import { useDictionary } from "./useDictionary";
-import getSuggestions from "../getSuggestions";
 import "react-simple-keyboard/build/css/index.css";
 import useActionScheduler from "./useActionScheduler";
 import defaultGetEventLog from "../getEventLog";
@@ -19,20 +17,15 @@ import {
   isInputCorrect
 } from "../input";
 
-import charReducer from "../trialReducers/charReducer";
-import keyboardLayoutReducer from "../trialReducers/keyboardLayoutReducer";
-import inputSuggestionReducer from "../trialReducers/inputSuggestionReducer";
-import focusAlertReducer from "../trialReducers/focusAlertReducer";
-import subFocusReducer from "../trialReducers/subFocusReducer";
 import useWindowFocus from "./useWindowFocus";
 import useFirstRenderTime from "./useFirstRenderTime";
+import TrialReducer from "../trialReducers/TrialReducer";
 
 // **********
 //  CONSTANTS
 // **********
 
 // This actions won't be logged.
-const noEventActions = [Actions.endAction, Actions.confirmAction];
 const instantActions = [
   Actions.moveFocusTarget,
   Actions.cancelAction,
@@ -41,29 +34,11 @@ const instantActions = [
   Actions.submit
 ];
 
-// **********
-//  Utils
-// **********
-
-// Consumes a list of reducers, and returns a new reducer that call each
-// of these reducers, one after the other, providing the result of the previous
-// one to the other.
-const composeReducers = (...reducers) => (state, action) =>
-  reducers.reduce((newState, reducer) => reducer(newState, action), state);
-
-// Consumes a list of control reducers, and returns a new control reducer that
-// call each of these reducers, one after the other, providing the result of the
-// previous one to the changes property of the next one changes property of
-// the action argument.
-const composeControlReducers = (...reducers) => (state, action) =>
-  reducers.reduce(
-    (changes, reducer) => reducer(state, { ...action, changes }),
-    action.changes
-  );
-
 // ******
 //  HOOK
 // ******
+
+const defaultControlInversionReducer = (state, action) => action.changes;
 
 const useTrial = ({
   suggestionsType,
@@ -78,73 +53,34 @@ const useTrial = ({
   onLog,
   getEventLog = defaultGetEventLog,
   getTrialLog = defaultGetTrialLog,
-  reducer: controlInversionReducer = (state, action) => action.changes
+  reducer: controlInversionReducer = defaultControlInversionReducer
 }) => {
   const dictionary = useDictionary();
-
-  const suggestionsControlReducer = (state, action) => {
-    if (suggestionsType === SuggestionTypes.none) {
-      return [];
-    }
-    const suggestions = getSuggestions(
-      suggestionsType === SuggestionTypes.inline ? 1 : totalSuggestions,
-      dictionary,
-      sksDistribution,
-      action.changes.input,
-      suggestionsType === SuggestionTypes.bar
-    );
-    return { ...action.changes, suggestions };
-  };
-
-  const eventReducer = (originalState, action) => {
-    if (noEventActions.includes(action.type)) return action.changes;
-    return {
-      ...action.changes,
-      events: [
-        ...action.changes.events,
-        getEventLog(
-          originalState,
-          action,
-          action.changes,
-          { sksDistribution },
-          action.reductionStartTime
-        )
-      ]
-    };
-  };
 
   // Returns a new state based on an action.
   // This expects the following action property: type (one of Actions), and
   // reductionStartTime (automatically inserted by the dispatchWrapper below).
-  const reducer = (originalState, action) => {
-    const standardReducers = composeReducers(
-      charReducer,
-      keyboardLayoutReducer,
-      inputSuggestionReducer,
-      focusAlertReducer,
-      subFocusReducer
-    );
-    const controlReducers = composeControlReducers(
-      suggestionsControlReducer,
+  // We use useMemo. Otherwise it will change on each render and react will call
+  // it twice. It is not usually a problem, but our reducer is very expensive.
+  const reducer = useMemo(
+    () =>
+      TrialReducer({
+        suggestionsType,
+        totalSuggestions,
+        dictionary,
+        sksDistribution,
+        getEventLog,
+        controlInversionReducer
+      }),
+    [
       controlInversionReducer,
-      eventReducer
-    );
-    // This reducer needs to be defined here because it triggers a recursion on
-    // reducer.
-    const confirmActionReducer =
-      action.type === Actions.confirmAction
-        ? s => reducer(s, action.action)
-        : s => s;
-    return pipe(
-      // Standard reducer: consume a state and an action, and return a new state
-      s => standardReducers(s, action),
-      // Control reducers: consume the *original state*, and an action with
-      // a changes property. Returns a new state too.
-      changes => controlReducers(originalState, { ...action, changes }),
-      // The confirm action reducer must come at the end.
-      confirmActionReducer
-    )(originalState);
-  };
+      dictionary,
+      getEventLog,
+      sksDistribution,
+      suggestionsType,
+      totalSuggestions
+    ]
+  );
 
   // Compute the initial state.
   const initState = () =>

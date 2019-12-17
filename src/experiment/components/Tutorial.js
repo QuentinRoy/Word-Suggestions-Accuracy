@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import {
   SuggestionTypes,
   TutorialSteps,
   Actions,
-  FocusTargetTypes
+  FocusTargetTypes,
+  Devices
 } from "../../utils/constants";
 import "react-simple-keyboard/build/css/index.css";
 import TrialPresenter from "./TrialPresenter";
@@ -144,30 +145,13 @@ const Tutorial = ({
   id,
   suggestionsType,
   isVirtualKeyboardEnabled,
-  totalSuggestions
+  totalSuggestions,
+  device
 }) => {
-  const {
-    dispatch,
-    focusTarget,
-    suggestions,
-    input,
-    keyboardLayoutName,
-    isCompleted,
-    hasErrors,
-    text
-  } = useTrial({
-    suggestionsType,
-    onComplete: onAdvanceWorkflow,
-    onLog,
-    initKeyStrokeDelay: 0,
-    sksDistribution: tutorialSksDistribution,
-    totalSuggestions:
-      suggestionsType === SuggestionTypes.inline ? 1 : totalSuggestions,
-    id,
-    targetAccuracy: 0,
-    weightedAccuracy: 0,
-    sdAccuracy: 0,
-    reducer: (state, action) => {
+  // We use useCallback to prevent the trial reducer from being called
+  // twice. It is expensive.
+  const reducer = useCallback(
+    (state, action) => {
       const nextState = isActionAllowed(
         state,
         action,
@@ -211,7 +195,32 @@ const Tutorial = ({
         default:
           return nextState;
       }
-    }
+    },
+    [isVirtualKeyboardEnabled, suggestionsType, trialKeyStrokeDelay]
+  );
+
+  const {
+    dispatch,
+    focusTarget,
+    suggestions,
+    input,
+    keyboardLayoutName,
+    isCompleted,
+    hasErrors,
+    text
+  } = useTrial({
+    suggestionsType,
+    onComplete: onAdvanceWorkflow,
+    onLog,
+    initKeyStrokeDelay: 0,
+    sksDistribution: tutorialSksDistribution,
+    totalSuggestions:
+      suggestionsType === SuggestionTypes.inline ? 1 : totalSuggestions,
+    id,
+    targetAccuracy: 0,
+    weightedAccuracy: 0,
+    sdAccuracy: 0,
+    reducer
   });
 
   return (
@@ -230,6 +239,7 @@ const Tutorial = ({
       showsHelp={false}
       isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
       isSystemKeyboardEnabled={!isVirtualKeyboardEnabled}
+      device={device}
     />
   );
 };
@@ -241,7 +251,8 @@ Tutorial.propTypes = {
   id: PropTypes.string.isRequired,
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
   isVirtualKeyboardEnabled: PropTypes.bool.isRequired,
-  totalSuggestions: PropTypes.number.isRequired
+  totalSuggestions: PropTypes.number.isRequired,
+  device: PropTypes.oneOf(Object.values(Devices)).isRequired
 };
 
 export default Tutorial;

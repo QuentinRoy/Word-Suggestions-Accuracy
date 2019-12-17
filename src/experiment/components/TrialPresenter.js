@@ -97,7 +97,8 @@ const TrialPresenter = ({
   suggestionsType,
   hasErrors,
   tutorialStep,
-  showsHelp
+  showsHelp,
+  shouldUseNumberToInputBarSuggestions
 }) => {
   // Using a reference for the pressed keys since we don't care about
   // re-rendering when it changes.
@@ -169,6 +170,7 @@ const TrialPresenter = ({
             status
           });
         } else if (
+          !shouldUseNumberToInputBarSuggestions &&
           suggestionsType === SuggestionTypes.bar &&
           // Do not switch focus if there is no more than one suggestion.
           totalSuggestions > 1
@@ -202,7 +204,25 @@ const TrialPresenter = ({
         break;
       default:
         // Case the key is a character.
-        if (key.length === 1 && focusTargetType === FocusTargetTypes.input) {
+        if (
+          shouldUseNumberToInputBarSuggestions &&
+          Number.isInteger(+key) &&
+          // blanc strings (e.g. " ") are converted to 0.
+          key.trim() !== ""
+        ) {
+          const selectedSuggestion = arrangedSuggestions[+key - 1];
+          if (selectedSuggestion != null) {
+            dispatch({
+              id: `suggestion-${key}`,
+              type: Actions.inputSuggestion,
+              word: selectedSuggestion,
+              status
+            });
+          }
+        } else if (
+          key.length === 1 &&
+          focusTargetType === FocusTargetTypes.input
+        ) {
           dispatch({
             id: `input-${key}`,
             type: Actions.inputChar,
@@ -381,7 +401,8 @@ TrialPresenter.propTypes = {
   hasErrors: PropTypes.bool.isRequired,
   tutorialStep: PropTypes.oneOf(Object.values(TutorialSteps)),
   isFocusAlertShown: PropTypes.bool,
-  showsHelp: PropTypes.bool
+  showsHelp: PropTypes.bool,
+  shouldUseNumberToInputBarSuggestions: PropTypes.bool
 };
 
 TrialPresenter.defaultProps = {
@@ -392,7 +413,8 @@ TrialPresenter.defaultProps = {
   isSystemKeyboardEnabled: true,
   tutorialStep: null,
   isFocusAlertShown: false,
-  showsHelp: true
+  showsHelp: true,
+  shouldUseNumberToInputBarSuggestions: true
 };
 
 export default TrialPresenter;

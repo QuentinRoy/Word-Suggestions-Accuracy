@@ -12,126 +12,21 @@ import "react-simple-keyboard/build/css/index.css";
 import useActionScheduler from "./useActionScheduler";
 import defaultGetEventLog from "../getEventLog";
 import defaultGetTrialLog from "../getTrialLog";
-import { mod } from "../../utils/math";
 import {
   isTargetCompleted,
   getTextFromSksDistribution,
   isInputCorrect
 } from "../input";
 
+import charReducer from "../trialReducers/charReducer";
+import keyboardLayoutReducer from "../trialReducers/keyboardLayoutReducer";
+import inputSuggestionReducer from "../trialReducers/inputSuggestionReducer";
+import subFocusReducer from "../trialReducers/subFocusReducer";
+import focusAlertReducer from "../trialReducers/focusAlertReducer";
+
 // **********
 //  REDUCERS
 // **********
-
-export const charReducer = (state, action) => {
-  switch (action.type) {
-    // Insert character.
-    case Actions.inputChar:
-      return { ...state, input: state.input + action.char };
-
-    // Delete character.
-    case Actions.deleteChar:
-      if (state.input === "") return state;
-      return { ...state, input: state.input.slice(0, -1) };
-
-    default:
-      return state;
-  }
-};
-
-export const keyboardLayoutReducer = (state, action) => {
-  switch (action.type) {
-    // Go back to the default layout every time a character is inserted.
-    case Actions.inputChar:
-    case Actions.deleteChar:
-    case Actions.inputSuggestion:
-      return { ...state, layoutName: KeyboardLayoutNames.default };
-
-    // Toggle the layout.
-    case Actions.toggleKeyboardLayout:
-      if (
-        state.layoutName === KeyboardLayoutNames.default &&
-        action.layoutName === KeyboardLayoutNames.default
-      ) {
-        return state;
-      }
-      if (state.layoutName === action.layoutName) {
-        return {
-          ...state,
-          layoutName: KeyboardLayoutNames.default
-        };
-      }
-      return { ...state, layoutName: action.layoutName };
-
-    default:
-      return state;
-  }
-};
-
-const inputFocusTarget = Object.freeze({ type: FocusTargetTypes.input });
-export const subFocusReducer = (state, action) => {
-  switch (action.type) {
-    case Actions.moveFocusTarget:
-      if (
-        state.focusTarget != null &&
-        (state.focusTarget.type === FocusTargetTypes.input ||
-          state.focusTarget.type === FocusTargetTypes.suggestion)
-      ) {
-        const currentFocusTargetIndex =
-          state.focusTarget.type === FocusTargetTypes.input
-            ? state.totalSuggestionTargets
-            : state.focusTarget.suggestionNumber;
-        const newFocusTargetIndex = mod(
-          currentFocusTargetIndex + action.direction,
-          state.totalSuggestionTargets + 1
-        );
-        const newFocusTarget =
-          newFocusTargetIndex < state.totalSuggestionTargets
-            ? {
-                type: FocusTargetTypes.suggestion,
-                suggestionNumber: newFocusTargetIndex
-              }
-            : inputFocusTarget;
-        return { ...state, focusTarget: newFocusTarget };
-      }
-      return state;
-
-    case Actions.inputSuggestion:
-      return { ...state, focusTarget: inputFocusTarget };
-
-    case Actions.windowBlurred:
-      return { ...state, focusTarget: null };
-
-    case Actions.windowFocused:
-      return { ...state, focusTarget: inputFocusTarget };
-
-    default:
-      return state;
-  }
-};
-
-export const inputSuggestionReducer = (state, action) => {
-  if (action.type !== Actions.inputSuggestion) return state;
-  const inputWithoutLastWord = state.input.slice(
-    0,
-    state.input.lastIndexOf(" ") + 1
-  );
-  return {
-    ...state,
-    input: `${inputWithoutLastWord}${action.word}`
-  };
-};
-
-export const focusAlertReducer = (state, action) => {
-  switch (action.type) {
-    case Actions.windowBlurred:
-      return { ...state, isFocusAlertShown: true };
-    case Actions.closeFocusAlert:
-      return { ...state, isFocusAlertShown: false };
-    default:
-      return state;
-  }
-};
 
 // Creates the main reducer, by applying each reducer one after the other.
 const reducers = [
@@ -141,7 +36,8 @@ const reducers = [
   subFocusReducer,
   focusAlertReducer
 ];
-const trialReducer = (state, action) =>
+
+export const trialReducer = (state, action) =>
   reducers.reduce((newState, reducer) => reducer(newState, action), state);
 
 // **********
@@ -179,7 +75,7 @@ const useTrial = ({
 }) => {
   const dictionary = useDictionary();
 
-  const getSuggestionsFromInput = input => {
+  const getSuggestionsFromStates = newState => {
     if (suggestionsType === SuggestionTypes.none) {
       return [];
     }
@@ -187,7 +83,7 @@ const useTrial = ({
       suggestionsType === SuggestionTypes.inline ? 1 : totalSuggestions,
       dictionary,
       sksDistribution,
-      input,
+      newState.input,
       suggestionsType === SuggestionTypes.bar
     );
   };
@@ -198,24 +94,24 @@ const useTrial = ({
     layoutName: KeyboardLayoutNames.default,
     input: "",
     keyStrokeDelay: initKeyStrokeDelay,
-    focusTarget: inputFocusTarget,
+    focusTarget: { type: FocusTargetTypes.input },
     totalSuggestionTargets:
       suggestionsType === SuggestionTypes.bar ? totalSuggestions : 0,
-    suggestions: getSuggestionsFromInput(""),
+    suggestions: getSuggestionsFromStates({ input: "" }, null),
     isFocusAlertShown: false
   });
 
   // Returns a new state based on an action.
-  const reducer = (state, action) => {
+  const reducer = (oldState, action) => {
     const actionStartTime = new Date();
-    let nextState = trialReducer(state, action);
-    if (nextState.input !== state.input) {
+    let nextState = trialReducer(oldState, action);
+    if (nextState.input !== oldState.input) {
       nextState = {
         ...nextState,
-        suggestions: getSuggestionsFromInput(nextState.input)
+        suggestions: getSuggestionsFromStates(nextState, oldState)
       };
     }
-    nextState = controlInversionReducer(state, {
+    nextState = controlInversionReducer(oldState, {
       ...action,
       changes: nextState
     });
@@ -225,7 +121,7 @@ const useTrial = ({
         events: [
           ...nextState.events,
           getEventLog(
-            state,
+            oldState,
             action,
             nextState,
             { sksDistribution },

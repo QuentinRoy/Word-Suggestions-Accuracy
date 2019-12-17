@@ -29,14 +29,12 @@ const getEventLog = (
   actionStartTime
 ) => {
   const text = getTextFromSksDistribution(sksDistribution);
-  const totalCommonCharsFromStart = totalMatchedCharsFromStart(
-    oldState.input,
-    newState.input
-  );
-  const oldTotalIncorrectChars = getTotalIncorrectCharacters(
-    oldState.input,
-    text
-  );
+  const totalCommonCharsFromStart =
+    oldState == null
+      ? 0
+      : totalMatchedCharsFromStart(oldState.input, newState.input);
+  const oldTotalIncorrectChars =
+    oldState == null ? 0 : getTotalIncorrectCharacters(oldState.input, text);
   const newTotalIncorrectChars = getTotalIncorrectCharacters(
     newState.input,
     text
@@ -45,10 +43,10 @@ const getEventLog = (
     totalCommonCharsFromStart,
     newState.input.length
   );
-  const removedInput = oldState.input.slice(
-    totalCommonCharsFromStart,
-    oldState.input.length
-  );
+  const removedInput =
+    oldState == null
+      ? ""
+      : oldState.input.slice(totalCommonCharsFromStart, oldState.input.length);
   const log = {
     type: action.type,
     scheduledAction: action.action == null ? undefined : action.action.type,
@@ -59,7 +57,7 @@ const getEventLog = (
     isError: oldTotalIncorrectChars < newTotalIncorrectChars,
     remainingKeyStrokes: getRemainingKeyStrokes(newState.input, text),
     diffRemainingKeyStrokes: -getRksImprovement(
-      oldState.input,
+      oldState == null ? "" : oldState.input,
       newState.input,
       text
     ),

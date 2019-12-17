@@ -21,9 +21,9 @@ const FocusAlert = memo(({ isShown, onClose }) => (
       <DialogContentText component="div">
         <p>
           We understand remaining focused for a long period of time is
-          difficult. However, the time is measured. Any interruption invalidates
+          difficult. However, time is measured. Any interruption invalidates
           your data. For the success of this experiment, it is very important
-          that you try not to interrupt the task in the middle.
+          that you strive to not interrupt the task.
         </p>
         <p>We are counting on you!</p>
       </DialogContentText>

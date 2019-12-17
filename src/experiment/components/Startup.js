@@ -42,6 +42,7 @@ const Startup = ({ onAdvanceWorkflow, onLog, numberOfPracticeTasks }) => {
     if (isCorrect) {
       onLog("trials", logs);
       onAdvanceWorkflow();
+      document.body.requestFullscreen().catch(console.error);
     } else {
       setIsAlertOpen(true);
     }

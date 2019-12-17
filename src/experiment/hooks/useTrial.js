@@ -1,4 +1,5 @@
-import { useReducer, useEffect, useRef, useCallback } from "react";
+import { useReducer, useRef, useCallback } from "react";
+import pipe from "lodash/fp/pipe";
 import {
   Actions,
   ActionStatuses,
@@ -21,24 +22,10 @@ import {
 import charReducer from "../trialReducers/charReducer";
 import keyboardLayoutReducer from "../trialReducers/keyboardLayoutReducer";
 import inputSuggestionReducer from "../trialReducers/inputSuggestionReducer";
-import subFocusReducer from "../trialReducers/subFocusReducer";
 import focusAlertReducer from "../trialReducers/focusAlertReducer";
-
-// **********
-//  REDUCERS
-// **********
-
-// Creates the main reducer, by applying each reducer one after the other.
-const reducers = [
-  charReducer,
-  keyboardLayoutReducer,
-  inputSuggestionReducer,
-  subFocusReducer,
-  focusAlertReducer
-];
-
-export const trialReducer = (state, action) =>
-  reducers.reduce((newState, reducer) => reducer(newState, action), state);
+import subFocusReducer from "../trialReducers/subFocusReducer";
+import useWindowFocus from "./useWindowFocus";
+import useFirstRenderTime from "./useFirstRenderTime";
 
 // **********
 //  CONSTANTS
@@ -53,6 +40,26 @@ const instantActions = [
   Actions.scheduleAction,
   Actions.submit
 ];
+
+// **********
+//  Utils
+// **********
+
+// Consumes a list of reducers, and returns a new reducer that call each
+// of these reducers, one after the other, providing the result of the previous
+// one to the other.
+const composeReducers = (...reducers) => (state, action) =>
+  reducers.reduce((newState, reducer) => reducer(newState, action), state);
+
+// Consumes a list of control reducers, and returns a new control reducer that
+// call each of these reducers, one after the other, providing the result of the
+// previous one to the changes property of the next one changes property of
+// the action argument.
+const composeControlReducers = (...reducers) => (state, action) =>
+  reducers.reduce(
+    (changes, reducer) => reducer(state, { ...action, changes }),
+    action.changes
+  );
 
 // ******
 //  HOOK
@@ -75,66 +82,86 @@ const useTrial = ({
 }) => {
   const dictionary = useDictionary();
 
-  const getSuggestionsFromStates = newState => {
+  const suggestionsControlReducer = (state, action) => {
     if (suggestionsType === SuggestionTypes.none) {
       return [];
     }
-    return getSuggestions(
+    const suggestions = getSuggestions(
       suggestionsType === SuggestionTypes.inline ? 1 : totalSuggestions,
       dictionary,
       sksDistribution,
-      newState.input,
+      action.changes.input,
       suggestionsType === SuggestionTypes.bar
     );
+    return { ...action.changes, suggestions };
+  };
+
+  const eventReducer = (originalState, action) => {
+    if (noEventActions.includes(action.type)) return action.changes;
+    return {
+      ...action.changes,
+      events: [
+        ...action.changes.events,
+        getEventLog(
+          originalState,
+          action,
+          action.changes,
+          { sksDistribution },
+          action.reductionStartTime
+        )
+      ]
+    };
+  };
+
+  // Returns a new state based on an action.
+  // This expects the following action property: type (one of Actions), and
+  // reductionStartTime (automatically inserted by the dispatchWrapper below).
+  const reducer = (originalState, action) => {
+    const standardReducers = composeReducers(
+      charReducer,
+      keyboardLayoutReducer,
+      inputSuggestionReducer,
+      focusAlertReducer,
+      subFocusReducer
+    );
+    const controlReducers = composeControlReducers(
+      suggestionsControlReducer,
+      controlInversionReducer,
+      eventReducer
+    );
+    // This reducer needs to be defined here because it triggers a recursion on
+    // reducer.
+    const confirmActionReducer =
+      action.type === Actions.confirmAction
+        ? s => reducer(s, action.action)
+        : s => s;
+    return pipe(
+      // Standard reducer: consume a state and an action, and return a new state
+      s => standardReducers(s, action),
+      // Control reducers: consume the *original state*, and an action with
+      // a changes property. Returns a new state too.
+      changes => controlReducers(originalState, { ...action, changes }),
+      // The confirm action reducer must come at the end.
+      confirmActionReducer
+    )(originalState);
   };
 
   // Compute the initial state.
-  const initState = () => ({
-    events: [],
-    layoutName: KeyboardLayoutNames.default,
-    input: "",
-    keyStrokeDelay: initKeyStrokeDelay,
-    focusTarget: { type: FocusTargetTypes.input },
-    totalSuggestionTargets:
-      suggestionsType === SuggestionTypes.bar ? totalSuggestions : 0,
-    suggestions: getSuggestionsFromStates({ input: "" }, null),
-    isFocusAlertShown: false
-  });
-
-  // Returns a new state based on an action.
-  const reducer = (oldState, action) => {
-    const actionStartTime = new Date();
-    let nextState = trialReducer(oldState, action);
-    if (nextState.input !== oldState.input) {
-      nextState = {
-        ...nextState,
-        suggestions: getSuggestionsFromStates(nextState, oldState)
-      };
-    }
-    nextState = controlInversionReducer(oldState, {
-      ...action,
-      changes: nextState
-    });
-    if (!noEventActions.includes(action.type)) {
-      nextState = {
-        ...nextState,
-        events: [
-          ...nextState.events,
-          getEventLog(
-            oldState,
-            action,
-            nextState,
-            { sksDistribution },
-            actionStartTime
-          )
-        ]
-      };
-    }
-    if (action.type === Actions.confirmAction) {
-      nextState = reducer(nextState, action.action);
-    }
-    return nextState;
-  };
+  const initState = () =>
+    reducer(
+      {
+        events: [],
+        layoutName: KeyboardLayoutNames.default,
+        input: "",
+        keyStrokeDelay: initKeyStrokeDelay,
+        focusTarget: { type: FocusTargetTypes.input },
+        totalSuggestionTargets:
+          suggestionsType === SuggestionTypes.bar ? totalSuggestions : 0,
+        suggestions: [],
+        isFocusAlertShown: !document.hasFocus()
+      },
+      { type: Actions.init }
+    );
 
   // Maps the state, reducer, and actions.
   const [
@@ -150,32 +177,25 @@ const useTrial = ({
     dispatch
   ] = useReducer(reducer, null, initState);
 
+  useWindowFocus({
+    onBlur() {
+      dispatch({ type: Actions.windowBlurred });
+    },
+    onFocus() {
+      dispatch({ type: Actions.windowFocused });
+    }
+  });
+
   // Used to schedule action to be performed after a delay.
   const actionScheduler = useActionScheduler(dispatch, keyStrokeDelay);
 
-  // Monitor when the window is focused or blurred.
-  useEffect(() => {
-    const onWindowBlurred = () => {
-      dispatch({ type: Actions.windowBlurred });
-    };
-    const onWindowFocused = () => {
-      dispatch({ type: Actions.windowFocused });
-    };
-    window.addEventListener("blur", onWindowBlurred);
-    window.addEventListener("focus", onWindowFocused);
-    return () => {
-      window.removeEventListener("blur", onWindowBlurred);
-      window.removeEventListener("focus", onWindowFocused);
-    };
-  }, []);
+  // Record the start date of the trial.
+  const startTime = useFirstRenderTime();
 
   // Some useful variables.
   const text = getTextFromSksDistribution(sksDistribution);
   const isCompleted = isTargetCompleted(input, text);
   const hasErrors = !isInputCorrect(input, text);
-
-  // Record the start date of the trial.
-  const { current: startTime } = useRef(new Date());
 
   const completeTrial = () => {
     if (!isCompleted) return;
@@ -200,6 +220,7 @@ const useTrial = ({
   const completeTrialRef = useRef(null);
   completeTrialRef.current = completeTrial;
 
+  // This cannot be included in the reducer since it would make it impure.
   const dispatchWrapper = useCallback(
     action => {
       if (action.type === Actions.submit) {
@@ -209,7 +230,7 @@ const useTrial = ({
         (action.status === ActionStatuses.start &&
           (keyStrokeDelay === 0 || instantActions.includes(action.type)))
       ) {
-        dispatch(action);
+        dispatch({ ...action, reductionStartTime: new Date() });
       } else if (action.status === ActionStatuses.start) {
         actionScheduler.endAll();
         actionScheduler.start(

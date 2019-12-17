@@ -13,6 +13,8 @@ export const LoadingStates = Object.freeze({
 });
 
 export const Actions = Object.freeze({
+  init: "INIT",
+
   inputChar: "INPUT_CHAR",
   deleteChar: "DELETE_CHAR",
   inputSuggestion: "INPUT_SUGGESTION",

@@ -109,10 +109,6 @@ const TrialPresenter = ({
     [suggestions, mainSuggestionPosition]
   );
 
-  useEffect(() => {
-    document.body.requestFullscreen().catch(console.error);
-  }, []);
-
   // Called when a key is being pressed down.Called multiple times
   // (for the same key) when the key is held down.
   function onKeyboardEvent(key, isDown) {

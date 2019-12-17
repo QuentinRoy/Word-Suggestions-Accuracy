@@ -1,52 +1,47 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import PropTypes from "prop-types";
-import { parse } from "papaparse";
 import Loading from "../../utils/Loading";
 import Crashed from "../../utils/Crashed";
 import { LoadingStates } from "../../utils/constants";
+import fetchDictionary from "./fetchDictionary";
+import SuggestionsEngine from "./SuggestionsEngine";
 
-const path = "./dictionaries_en_US_wordlist.csv";
-
-const DictionaryContext = createContext();
+const WordSuggestionsContext = createContext();
 
 export const useDictionary = () => {
-  const dictionary = useContext(DictionaryContext);
+  const dictionary = useContext(WordSuggestionsContext);
   return dictionary;
 };
 
-const DictionaryProvider = ({ children, loadingMessage, crashedMessage }) => {
-  const [dictionary, setDictionary] = useState(null);
+export const WordSuggestionsEngineProvider = ({
+  dictionaryPath,
+  children,
+  loadingMessage,
+  crashedMessage
+}) => {
+  const [engine, setEngine] = useState(null);
   const [loadingState, setLoadingState] = useState(LoadingStates.loading);
 
   useEffect(() => {
-    parse(path, {
-      download: true,
-      header: true,
-      skipEmptyLines: "greedy",
-      transform(value, columnName) {
-        switch (columnName) {
-          case "f":
-            return +value; // Convert f to a number
-          default:
-            return value;
-        }
-      },
-      complete(results) {
-        setDictionary(results.data);
+    setLoadingState(LoadingStates.loading);
+    setEngine(null);
+    fetchDictionary(dictionaryPath)
+      .then(dictionary => {
+        setEngine(SuggestionsEngine(dictionary));
         setLoadingState(LoadingStates.loaded);
-      },
-      error() {
+      })
+      .catch(() => {
         setLoadingState(LoadingStates.crashed);
-      }
-    });
-  }, []);
+        setEngine(null);
+      });
+  }, [dictionaryPath]);
 
   switch (loadingState) {
     case LoadingStates.loaded:
       return (
-        <DictionaryContext.Provider value={dictionary}>
+        <WordSuggestionsContext.Provider value={engine}>
           {children}
-        </DictionaryContext.Provider>
+        </WordSuggestionsContext.Provider>
       );
     case LoadingStates.loading:
       return <Loading>{loadingMessage}</Loading>;
@@ -55,15 +50,18 @@ const DictionaryProvider = ({ children, loadingMessage, crashedMessage }) => {
   }
 };
 
-DictionaryProvider.propTypes = {
+WordSuggestionsEngineProvider.propTypes = {
+  dictionaryPath: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   loadingMessage: PropTypes.node,
   crashedMessage: PropTypes.node
 };
 
-DictionaryProvider.defaultProps = {
+WordSuggestionsEngineProvider.defaultProps = {
   loadingMessage: "Loading dictionary...",
   crashedMessage: "Failed to load the dictionary..."
 };
 
-export default DictionaryProvider;
+export const useWordSuggestionsEngine = () => {
+  return useContext(WordSuggestionsContext);
+};

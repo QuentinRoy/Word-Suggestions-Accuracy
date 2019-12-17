@@ -1,3 +1,5 @@
+export const dictionaryPath = "./dictionaries_en_US_wordlist.csv";
+
 export const KeyboardLayoutNames = Object.freeze({
   default: "default",
   shift: "shift",

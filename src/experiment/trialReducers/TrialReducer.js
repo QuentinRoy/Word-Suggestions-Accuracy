@@ -35,7 +35,7 @@ const standardReducers = composeReducers(
 export default function TrialReducer({
   suggestionsType,
   totalSuggestions,
-  dictionary,
+  wordSuggestionEngine,
   sksDistribution,
   getEventLog,
   controlInversionReducer
@@ -43,7 +43,7 @@ export default function TrialReducer({
   const suggestionsControlReducer = SuggestionsControlReducer({
     suggestionsType,
     totalSuggestions,
-    dictionary,
+    wordSuggestionEngine,
     sksDistribution
   });
 

@@ -6,7 +6,6 @@ import {
   SuggestionTypes,
   FocusTargetTypes
 } from "../../utils/constants";
-import { useDictionary } from "./useDictionary";
 import "react-simple-keyboard/build/css/index.css";
 import useActionScheduler from "./useActionScheduler";
 import defaultGetEventLog from "../getEventLog";
@@ -20,6 +19,7 @@ import {
 import useWindowFocus from "./useWindowFocus";
 import useFirstRenderTime from "./useFirstRenderTime";
 import TrialReducer from "../trialReducers/TrialReducer";
+import { useWordSuggestionsEngine } from "../wordSuggestions/wordSuggestionsContext";
 
 // **********
 //  CONSTANTS
@@ -55,7 +55,7 @@ const useTrial = ({
   getTrialLog = defaultGetTrialLog,
   reducer: controlInversionReducer = defaultControlInversionReducer
 }) => {
-  const dictionary = useDictionary();
+  const wordSuggestionEngine = useWordSuggestionsEngine();
 
   // Returns a new state based on an action.
   // This expects the following action property: type (one of Actions), and
@@ -67,14 +67,14 @@ const useTrial = ({
       TrialReducer({
         suggestionsType,
         totalSuggestions,
-        dictionary,
+        wordSuggestionEngine,
         sksDistribution,
         getEventLog,
         controlInversionReducer
       }),
     [
       controlInversionReducer,
-      dictionary,
+      wordSuggestionEngine,
       getEventLog,
       sksDistribution,
       suggestionsType,

@@ -5,10 +5,13 @@ import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 import TypingTask from "./TypingTask";
 import useConfiguration from "../hooks/useConfiguration";
-import DictionaryProvider from "../hooks/useDictionary";
 import Loading from "../../utils/Loading";
 import Crashed from "../../utils/Crashed";
-import { LoadingStates, TaskTypes } from "../../utils/constants";
+import {
+  LoadingStates,
+  TaskTypes,
+  dictionaryPath
+} from "../../utils/constants";
 import createS3Uploader from "../s3Uploader";
 import EndExperiment from "./EndExperiment";
 import Startup from "./Startup";
@@ -17,6 +20,7 @@ import Tutorial from "./Tutorial";
 import ConsentForm from "./ConsentForm";
 import FinalFeedbacks from "./FinalFeedbacks";
 import InjectEnd from "./InjectEnd";
+import { WordSuggestionsEngineProvider } from "../wordSuggestions/wordSuggestionsContext";
 
 const UploadComponent = createUpload(
   createS3Uploader(
@@ -46,12 +50,13 @@ function ExperimentContent() {
   }
   if (loadingState === LoadingStates.loaded) {
     return (
-      <DictionaryProvider
+      <WordSuggestionsEngineProvider
+        dictionaryPath={dictionaryPath}
         loadingMessage="Loading experiment's data..."
         crashedMessage="Failed to load the experiment's data..."
       >
         <Experiment configuration={configuration} />
-      </DictionaryProvider>
+      </WordSuggestionsEngineProvider>
     );
   }
   if (loadingState === LoadingStates.invalidArguments) {

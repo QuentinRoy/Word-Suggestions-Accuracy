@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useRef, useMemo, useState } from "react";
 import omit from "lodash/omit";
 import sample from "lodash/sample";
 import useCorpusFromJson from "./useCorpusFromJson";
@@ -212,8 +212,26 @@ const pickConditions = () => {
 };
 
 const useConfiguration = () => {
-  const {
-    current: {
+  // Using a state because pickConditions may be non-deterministic. However,
+  // in practice this state will never be changed. This used to be a ref,
+  // but the conditions where then picked on each render (because useRef does
+  // not accept a factory function conditions). Also, if where to change (which
+  // should never happen), we would want to re-render, so useState seems more
+  // appropriate.
+  const [conditions] = useState(pickConditions);
+
+  const [corpusLoadingState, corpus] = useCorpusFromJson(
+    conditions.isValid ? conditions.targetAccuracy : null,
+    { shuffleRows: true }
+  );
+
+  const { current: startDate } = useRef(new Date());
+
+  // The config generation is expensive but deterministic so useMemo is fine.
+  // A ref could be good too.
+  const config = useMemo(() => {
+    if (corpusLoadingState !== LoadingStates.loaded) return null;
+    const {
       participant,
       wave,
       suggestionsType,
@@ -221,75 +239,50 @@ const useConfiguration = () => {
       keyStrokeDelay,
       totalSuggestions,
       device,
-      isValid: arePageArgsValid,
-      ...otherPageArgs
-    }
-  } = useRef(pickConditions());
+      ...extraPageArgs
+    } = conditions;
+    return {
+      ...extraPageArgs,
+      children: generateTasks(
+        corpus.rows,
+        process.env.NODE_ENV === "development"
+          ? `dev/${conditions.participant}_${startDate.toISOString()}.json`
+          : `prod/${conditions.participant}_${startDate.toISOString()}.json`
+      ),
+      corpusConfig: omit(corpus, "rows"),
+      corpusSize: corpus.rows.length,
+      keyStrokeDelay,
+      targetAccuracy,
+      participant,
+      device,
+      mode: process.env.NODE_ENV,
+      gitSha: process.env.REACT_APP_GIT_SHA,
+      version: process.env.REACT_APP_VERSION,
+      totalSuggestions,
+      suggestionsType,
+      numberOfPracticeTasks,
+      numberOfTypingTasks,
+      href: window.location.href,
+      userAgent: navigator.userAgent,
+      isExperimentCompleted: false,
+      startDate,
+      wave,
+      nextLevel: "section",
+      timeZone: getTimeZone(),
+      tasks: [TaskTypes.experimentProgress],
+      fullProgress: true,
+      currentProgress: false,
+      progressLevel: true,
+      isVirtualKeyboardEnabled: device === "phone" || device === "tablet",
 
-  const [loadingState, corpus] = useCorpusFromJson(
-    arePageArgsValid ? targetAccuracy : null,
-    { shuffleRows: true }
-  );
+      // Fixes an issue with components being rendered with the same key.
+      [TaskTypes.experimentProgress]: { key: "progress" },
+      [TaskTypes.informationScreen]: { shortcutEnabled: true }
+    };
+  }, [conditions, corpus, corpusLoadingState, startDate]);
 
-  const { current: startDate } = useRef(new Date());
-
-  const config = useMemo(() => {
-    if (loadingState === LoadingStates.loaded) {
-      return {
-        ...otherPageArgs,
-        children: generateTasks(
-          corpus.rows,
-          process.env.NODE_ENV === "development"
-            ? `dev/${participant}_${startDate.toISOString()}.json`
-            : `prod/${participant}_${startDate.toISOString()}.json`
-        ),
-        corpusConfig: omit(corpus, "rows"),
-        corpusSize: corpus.rows.length,
-        keyStrokeDelay,
-        targetAccuracy,
-        participant,
-        device,
-        mode: process.env.NODE_ENV,
-        gitSha: process.env.REACT_APP_GIT_SHA,
-        version: process.env.REACT_APP_VERSION,
-        totalSuggestions,
-        suggestionsType,
-        numberOfPracticeTasks,
-        numberOfTypingTasks,
-        href: window.location.href,
-        userAgent: navigator.userAgent,
-        isExperimentCompleted: false,
-        startDate,
-        wave,
-        nextLevel: "section",
-        timeZone: getTimeZone(),
-        tasks: [TaskTypes.experimentProgress],
-        fullProgress: true,
-        currentProgress: false,
-        progressLevel: true,
-        isVirtualKeyboardEnabled: device === "phone" || device === "tablet",
-
-        // Fixes an issue with components being rendered with the same key.
-        [TaskTypes.experimentProgress]: { key: "progress" },
-        [TaskTypes.informationScreen]: { shortcutEnabled: true }
-      };
-    }
-    return null;
-  }, [
-    loadingState,
-    otherPageArgs,
-    corpus,
-    participant,
-    startDate,
-    keyStrokeDelay,
-    targetAccuracy,
-    suggestionsType,
-    totalSuggestions,
-    device,
-    wave
-  ]);
-  return arePageArgsValid
-    ? [loadingState, config]
+  return conditions.isValid
+    ? [corpusLoadingState, config]
     : [LoadingStates.invalidArguments, null];
 };
 

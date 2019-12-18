@@ -1,6 +1,7 @@
 import { getCurrentInputWord } from "../input";
-import getWordSuggestions from "./getWordSuggestions";
+import getMockedWordSuggestions from "./getMockedWordSuggestions";
 
+// This could be reimplemented using wasm to speed things up.
 export default function SuggestionsEngine(dictionary) {
   // Returns a new state with the suggestions filled in based on the input.
   const getSuggestions = (
@@ -14,20 +15,22 @@ export default function SuggestionsEngine(dictionary) {
       index: currentInputWordIndex
     } = getCurrentInputWord(input);
 
-    let sks = null;
+    let correctSuggestionPositions = null;
     let targetWord = null;
     if (currentInputWordIndex < sksDistribution.length) {
-      ({ sks, word: targetWord } = sksDistribution[currentInputWordIndex]);
+      ({ correctSuggestionPositions, word: targetWord } = sksDistribution[
+        currentInputWordIndex
+      ]);
     }
 
-    return getWordSuggestions(
+    return getMockedWordSuggestions({
       inputWord,
-      sks,
       targetWord,
       totalSuggestions,
       dictionary,
-      canReplaceLetters
-    );
+      canReplaceLetters,
+      correctSuggestionPositions
+    });
   };
 
   return { getSuggestions };

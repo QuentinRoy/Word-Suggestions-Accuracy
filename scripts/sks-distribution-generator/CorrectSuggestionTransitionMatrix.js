@@ -1,8 +1,11 @@
-import { parse } from "papaparse";
-import camelCase from "lodash/camelCase";
-import { mapGetSetDefault } from "../../utils/map";
+const { camelCase } = require("lodash");
+const { parse } = require("papaparse");
+const { mapGetSetDefault } = require("../utils");
 
-export default function TransitionMatrix(data) {
+const areAlmostEqual = (x, y, tolerance = 0.00001) =>
+  Math.abs(x - y) < tolerance;
+
+function CorrectSuggestionTransitionMatrix(data) {
   const map = {};
   for (let i = 0; i < data.length; i += 1) {
     const row = data[i];
@@ -15,9 +18,35 @@ export default function TransitionMatrix(data) {
     prevPositionMap[row.newPosition] = row.p;
   }
 
+  Object.entries(map).forEach(([wordLength, wordLengthMatrix]) => {
+    Object.entries(wordLengthMatrix).forEach(
+      ([startPos, startPosTransitions]) => {
+        const sumOfPs = Object.values(startPosTransitions).reduce(
+          (sum, x) => sum + x
+        );
+        if (!areAlmostEqual(sumOfPs, 1)) {
+          throw new Error(
+            `The matrix is ill-formed: for words of size ${wordLength} and prev position ${startPos}, the sum of the transition probabilities is not 1.`
+          );
+        }
+      }
+    );
+  });
+
   return {
-    pickNext({ wordLength, currentPosition, seed = Math.random }) {
-      const matrix = map[wordLength][currentPosition];
+    pickNext({ wordLength, currentPosition, seed = Math.random() }) {
+      const wordLengthMatrix = map[wordLength];
+      if (wordLengthMatrix == null) {
+        throw new Error(
+          `The matrix does not support words of length ${wordLength}.`
+        );
+      }
+      const matrix = wordLengthMatrix[currentPosition];
+      if (matrix == null) {
+        throw new Error(
+          `The matrix does not support transitions from ${currentPosition} for word of length ${wordLength}.`
+        );
+      }
       const entries = Object.entries(matrix);
       let cumulativeProb = 0;
       for (let i = 0; i < entries.length; i += 1) {
@@ -27,15 +56,16 @@ export default function TransitionMatrix(data) {
           return Number.isNaN(+pos) ? null : +pos;
         }
       }
-      throw new Error(`No next position found. Is the matrix ill formed?`);
+      throw new Error(
+        `No next position found for words of length ${wordLength} and current position ${currentPosition} with seed ${seed}. Is the matrix ill formed?`
+      );
     }
   };
 }
 
-TransitionMatrix.fetch = function fetchTransitionMatrix(path) {
+CorrectSuggestionTransitionMatrix.parse = function parseTransitionMatrix(path) {
   return new Promise((resolve, reject) => {
     parse(path, {
-      download: true,
       header: true,
       skipEmptyLines: "greedy",
       transformHeader: camelCase,
@@ -44,7 +74,7 @@ TransitionMatrix.fetch = function fetchTransitionMatrix(path) {
         return Number.isNaN(numValue) ? null : numValue;
       },
       complete(results) {
-        resolve(TransitionMatrix(results.data));
+        resolve(CorrectSuggestionTransitionMatrix(results.data));
       },
       error(error) {
         reject(error);
@@ -52,3 +82,5 @@ TransitionMatrix.fetch = function fetchTransitionMatrix(path) {
     });
   });
 };
+
+module.exports = CorrectSuggestionTransitionMatrix;

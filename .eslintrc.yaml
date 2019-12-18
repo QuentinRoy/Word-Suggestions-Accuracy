@@ -1,25 +1,33 @@
 env:
   browser: true
 extends:
-  - react-app
-  - airbnb
-  - prettier
+  - "react-app"
+  - "airbnb"
+  - "prettier"
 plugins:
-  - prettier
+  - "prettier"
 rules:
-  valid-jsdoc: warn
-  prettier/prettier: warn
+  valid-jsdoc: "warn"
+  prettier/prettier: "warn"
   class-methods-use-this: 0
   react/jsx-filename-extension: 0
   react/jsx-one-expression-per-line: 0
-  react-hooks/rules-of-hooks: error
-  react-hooks/exhaustive-deps: warn
+  react-hooks/rules-of-hooks: "error"
+  react-hooks/exhaustive-deps: "warn"
   react/jsx-indent: 0
   react/jsx-wrap-multilines: 0
 
 overrides:
   - files:
-      - src/**/*.test.js
+      - "src/**/*.test.js"
+    env:
+      jest: true
+  - files:
+      - "scripts/**/*.js"
+    env:
+      node: true
+  - files:
+      - "scripts/**/*.test.js"
     env:
       jest: true
 root: true

@@ -4,16 +4,22 @@ const log = require("loglevel");
 const range = require("lodash/range");
 const uniq = require("lodash/uniq");
 const getWordAccuracies = require("./getWordAccuracies");
+const TransitionMatrix = require("./CorrectSuggestionTransitionMatrix");
+const mapCorrectSuggestionPositions = require("./mapCorrectSuggestionPositions");
 
 log.setDefaultLevel(log.levels.INFO);
 
 const addUnusableSentences = false;
 
+const numberOfWordSuggestions = 3;
+
 const sentencesPath = path.join(__dirname, "../../public/sentences.txt");
 const outputDirPath = path.join(__dirname, "../../public/sks-distributions");
+const transitionMatrixPath = path.join(
+  __dirname,
+  `../../public/transition-matrix-${numberOfWordSuggestions}.csv`
+);
 const targetFilePrefix = "acc-";
-
-// { targetKss, targetSdWordsKss, maxDiffKss, maxDiffSdWordsKss }
 
 const configs = (() => {
   const targetSdWordsKss = 0.2;
@@ -23,12 +29,14 @@ const configs = (() => {
     {
       targetKss: 0,
       targetSdWordsKss,
+      numberOfWordSuggestions,
       maxDiffKss,
       maxDiffSdWordsKss: targetSdWordsKss
     },
     ...uniq([...range(0.1, 1, 0.2), ...range(0.25, 1, 0.25)]).map(
       targetKss => ({
         targetKss,
+        numberOfWordSuggestions,
         targetSdWordsKss,
         maxDiffKss,
         maxDiffSdWordsKss
@@ -38,6 +46,7 @@ const configs = (() => {
       targetKss: 1,
       targetSdWordsKss,
       maxDiffKss,
+      numberOfWordSuggestions,
       maxDiffSdWordsKss: targetSdWordsKss
     }
   ];
@@ -45,7 +54,7 @@ const configs = (() => {
 
 const getTargetFileName = kss => `${targetFilePrefix}${kss.toFixed(3)}.json`;
 
-const generateDistribution = async (sentences, config) => {
+const generateDistribution = async (sentences, transitionMatrix, config) => {
   const { targetKss, targetSdWordsKss, maxDiffKss, maxDiffSdWordsKss } = config;
   log.info(
     `Creating saved key strokes distributions for targetKss ${targetKss} (targetSdWordsKss: ${targetSdWordsKss}, maxDiffKss: ${maxDiffKss}, maxDiffSdWordsKss: ${maxDiffSdWordsKss})`
@@ -61,7 +70,12 @@ const generateDistribution = async (sentences, config) => {
       accuracyDistribution.diffSdWordsKss <= maxDiffSdWordsKss;
     if (usable || addUnusableSentences) {
       totalUsableSentences += 1;
-      rows.push({ ...accuracyDistribution, usable });
+      rows.push(
+        mapCorrectSuggestionPositions(transitionMatrix, {
+          ...accuracyDistribution,
+          usable
+        })
+      );
     }
   }
 
@@ -74,7 +88,12 @@ const generateDistribution = async (sentences, config) => {
 };
 
 const main = async () => {
-  const file = await fs.readFile(sentencesPath, "utf-8");
+  const [file, transitionMatrix] = await Promise.all([
+    fs.readFile(sentencesPath, "utf-8"),
+    fs
+      .readFile(transitionMatrixPath, "utf-8")
+      .then(data => TransitionMatrix.parse(data))
+  ]);
 
   const sentences = file
     .split("\n")
@@ -94,7 +113,7 @@ const main = async () => {
     // fast anyway, but since it deals with a lot of data, I would rather
     // not have many instances of it in memory.
     // eslint-disable-next-line no-await-in-loop
-    await generateDistribution(sentences, configs[i]);
+    await generateDistribution(sentences, transitionMatrix, configs[i]);
   }
 };
 

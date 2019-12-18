@@ -9,5 +9,8 @@ jobs:
           name: Install deps
           command: npm ci
       - run:
-          name: Run tests
+          name: Run app tests
           command: npm run test
+      - run:
+          name: Run script tests
+          command: npm run test-scripts

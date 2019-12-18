@@ -1,4 +1,4 @@
-import { mapGetSetDefault } from "./map";
+const { mapGetSetDefault } = require("./utils");
 
 describe("mapGetSetDefault", () => {
   test("returns the value and does not mutate the map if the key is in the map", () => {

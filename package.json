@@ -2,6 +2,7 @@
   "name": "exii-accuracy-control",
   "version": "2.1.0",
   "private": true,
+  "type": "commonjs",
   "dependencies": {
     "@hcikit/tasks": "^0.3.0",
     "@hcikit/workflow": "^0.3.0",
@@ -38,6 +39,7 @@
     "start": "cross-env REACT_APP_VERSION=$npm_package_version REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts start",
     "build": "cross-env REACT_APP_VERSION=$npm_package_version REACT_APP_GIT_SHA=`git rev-parse --short HEAD` GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
+    "test-scripts": "jest scripts",
     "eject": "react-scripts eject",
     "generate-sks-distribution": "node scripts/sks-distribution-generator/index.js",
     "deploy": "aws s3 sync build/ s3://exii-accuracy-control",
@@ -67,6 +69,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.17.0",
+    "jest": "^24.9.0",
     "node-sass": "^4.13.0",
     "prettier": "^1.19.1",
     "typescript": "^3.7.3"

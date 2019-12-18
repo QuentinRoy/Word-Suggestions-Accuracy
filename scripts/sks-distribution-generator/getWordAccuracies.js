@@ -1,7 +1,4 @@
-const sum = require("lodash/sum");
-const sumBy = require("lodash/sumBy");
-const mean = require("lodash/mean");
-const meanBy = require("lodash/meanBy");
+const { sum, sumBy, mean, meanBy } = require("lodash");
 
 const maxSDPenalty = 100;
 const maxAccuracyPenalty = 1000;

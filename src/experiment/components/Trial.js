@@ -54,6 +54,7 @@ const Trial = ({
       isCompleted={isCompleted}
       totalSuggestions={totalSuggestions}
       suggestionsType={suggestionsType}
+      mainSuggestionPosition={Math.floor(totalSuggestions / 3)}
       hasErrors={hasErrors}
       device={device}
       isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}

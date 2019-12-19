@@ -1,5 +1,6 @@
 import { getRksImprovement } from "../input";
 import getWordSuggestions from "./getWordSuggestions";
+import { totalMatchedChars } from "../../utils/strings";
 
 const isAGoodSuggestion = (
   lowerCaseTargetWord,
@@ -12,21 +13,6 @@ const isAGoodSuggestion = (
     `${lowercaseSuggestion} `,
     lowerCaseTargetWord
   ) > 0;
-
-const shouldCorrectSuggestionBeShown = ({
-  lowerCaseTargetWord,
-  sks,
-  lowerCaseInputWord,
-  canReplaceLetters
-}) =>
-  lowerCaseTargetWord != null &&
-  sks >=
-    getRksImprovement(
-      lowerCaseInputWord,
-      lowerCaseTargetWord,
-      lowerCaseTargetWord
-    ) &&
-  (canReplaceLetters || lowerCaseTargetWord.startsWith(lowerCaseInputWord));
 
 export default function getMockedWordSuggestions({
   inputWord,
@@ -60,24 +46,25 @@ export default function getMockedWordSuggestions({
     filter
   });
 
-  // if (
-  //   shouldCorrectSuggestionBeShown({
-  //     lowerCaseTargetWord,
-  //     sks,
-  //     lowerCaseInputWord,
-  //     canReplaceLetters
-  //   })
-  // ) {
-  //   const correctPosition = getCorrectSuggestionPosition({ totalSuggestions });
-  //   return [
-  //     ...algoWordSuggestions.slice(0, correctPosition),
-  //     targetWord,
-  //     ...algoWordSuggestions.slice(
-  //       correctPosition,
-  //       algoWordSuggestions.length - 1
-  //     )
-  //   ];
-  // }
+  const targetTotalMatchingChars =
+    targetWord == null
+      ? 0
+      : totalMatchedChars(lowerCaseInputWord, lowerCaseTargetWord);
+
+  const correctSuggestionPosition =
+    correctSuggestionPositions?.[targetTotalMatchingChars];
+
+  if (correctSuggestionPosition != null) {
+    // Positions starts from 1, not 0. We need to adjust it every time.
+    return [
+      ...algoWordSuggestions.slice(0, correctSuggestionPosition - 1),
+      targetWord,
+      ...algoWordSuggestions.slice(
+        correctSuggestionPosition - 1,
+        algoWordSuggestions.length - 1
+      )
+    ];
+  }
 
   return algoWordSuggestions;
 }

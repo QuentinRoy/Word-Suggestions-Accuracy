@@ -42,6 +42,7 @@
     "test-scripts": "jest scripts",
     "eject": "react-scripts eject",
     "generate-sks-distribution": "node scripts/sks-distribution-generator/index.js",
+    "generate-design": "node scripts/design/index.js",
     "deploy": "aws s3 sync build/ s3://exii-accuracy-control",
     "predeploy": "npm run build",
     "export-logs": "python3 scripts/loggings/export_runs.py && python3 scripts/loggings/export_trials.py && python3 scripts/loggings/export_events.py",

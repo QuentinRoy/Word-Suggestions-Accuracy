@@ -57,6 +57,7 @@ export const TaskTypes = Object.freeze({
   s3Upload: "S3Upload",
   endExperiment: "EndExperiment",
   startup: "Startup",
+  startQuestionnaire: "StartQuestionnaire",
   endQuestionnaire: "EndQuestionnaire",
   tutorial: "Tutorial",
   consentForm: "ConsentForm",

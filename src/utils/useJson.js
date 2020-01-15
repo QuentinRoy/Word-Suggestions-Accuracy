@@ -1,13 +1,13 @@
 import useAsync from "./useAsync";
 
-const useJson = url =>
-  useAsync(
-    () =>
-      fetch(url).then(resp => {
-        if (resp.ok) return resp.json();
-        throw new Error(`Cannot fetch ${url}`);
-      }),
-    [url]
-  );
+const useJSON = url =>
+  useAsync(async () => {
+    if (url == null) {
+      throw new Error(`url argument is missing`);
+    }
+    const resp = await fetch(url);
+    if (resp.ok) return resp.json();
+    throw new Error(`Error while fetching ${url}`);
+  }, [url]);
 
-export default useJson;
+export default useJSON;

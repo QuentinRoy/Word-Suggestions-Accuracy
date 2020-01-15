@@ -1,19 +1,19 @@
 const fs = require("fs-extra");
 const path = require("path");
-const _ = require("lodash");
+const lodash = require("lodash");
 const log = require("loglevel");
 const { balancedLatinSquare } = require("./ordering");
 
 log.setDefaultLevel(log.levels.DEBUG);
 
+const numberOfPracticeTasks = 3;
+const numberOfTypingTasks = 20;
+const minParticipants = 30;
 const accuracyValues = [0.1, 0.5, 0.9];
 const devices = ["phone", "laptop", "tablet"];
 const publicDir = path.join(__dirname, "../../public");
 const sksDistributionsDir = path.join(publicDir, "sks-distributions");
 const outputDir = path.join(publicDir, "configs");
-const numberOfPracticeTasks = 3;
-const numberOfTypingTasks = 20;
-const minParticipants = 30;
 
 const getSksDistributionPath = accuracy =>
   path.join(sksDistributionsDir, `acc-${accuracy.toFixed(3)}.json`);
@@ -49,10 +49,15 @@ const createTypingBlock = ({
   const children = [
     {
       task: "InformationScreen",
-      content: `<h1>Typing</h1><p>Typing on ${device}. Let us start with a short tutorial</p>`,
+      content: `<h1>Typing on ${device}</h1><p>Let's start with a short tutorial</p>`,
       key: `typing-${device}-info-start`
     },
-    { task: "Tutorial", isPractice: true, key: `typing-${device}-tuto` },
+    {
+      task: "Tutorial",
+      isPractice: true,
+      key: `typing-${device}-tuto`,
+      id: `typing-${device}-tuto`
+    },
     {
       task: "InformationScreen",
       content: "<h1>Practice</h1><p>Continue with the practice tasks.</p>",
@@ -90,6 +95,7 @@ const createTypingBlock = ({
       id: `typing-${device}-phrase-${i}`,
       key: `typing-${device}-phrase-${i}`
     })),
+    { task: "BlockQuestionnaire" },
     { task: "S3Upload", filename: uploadFile, key: `init-upload` }
   ];
   if (nextDevice !== device) {
@@ -105,7 +111,7 @@ const createTypingBlock = ({
 const createTypingBlocks = async ({ deviceOrder, accuracy, uploadFiles }) => {
   const corpusPath = getSksDistributionPath(accuracy);
   const corpusFile = await fs.readFile(corpusPath);
-  const corpus = _.shuffle(JSON.parse(corpusFile.toString()).rows);
+  const corpus = lodash.shuffle(JSON.parse(corpusFile.toString()).rows);
   return deviceOrder.map((device, i) => {
     const corpusStart = i * (numberOfPracticeTasks + numberOfTypingTasks);
     return createTypingBlock({
@@ -130,8 +136,8 @@ const createFinalBlock = ({ uploadFile }) => ({
     { task: "EndQuestionnaire", key: `final-questionnaire` },
     { task: "FinalFeedbacks", key: `final-feedbacks` },
     { task: "InjectEnd", key: `final-inject-end` },
-    { task: "S3Upload", key: `final-upload` },
-    { task: "EndExperiment", filename: uploadFile, key: `final-end` }
+    { task: "S3Upload", key: `final-upload`, filename: uploadFile },
+    { task: "EndExperiment", key: `final-end` }
   ]
 });
 
@@ -146,6 +152,10 @@ const createRun = async ({ accuracy, deviceOrder, participant }) => {
     deviceOrder,
     targetAccuracy: accuracy,
     keyStrokeDelay: 0,
+    totalSuggestions: 3,
+    suggestionsType: "BAR",
+    numberOfPracticeTasks,
+    numberOfTypingTasks,
     wave: "multi-device",
     children: [
       await createInitBlock({
@@ -188,9 +198,10 @@ const createDesign = async () => {
                   getRunOutputPath(pid, device),
                   JSON.stringify({
                     ...run,
-                    children: run.children.filter(
-                      child => child.device === device
-                    )
+                    device,
+                    children: run.children
+                      .filter(child => child.device === device)
+                      .map(({ device: _, ...child }) => child)
                   })
                 );
                 log.info(`${pid} written.`);

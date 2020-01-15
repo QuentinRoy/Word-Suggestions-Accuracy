@@ -1,289 +1,82 @@
-import { useRef, useMemo, useState } from "react";
-import omit from "lodash/omit";
-import sample from "lodash/sample";
-import useCorpusFromJson from "./useCorpusFromJson";
-import {
-  LoadingStates,
-  TaskTypes,
-  SuggestionTypes
-} from "../../utils/constants";
+import { useRef } from "react";
+import last from "lodash/last";
+import { LoadingStates } from "../../utils/constants";
 import getTimeZone from "../../utils/getTimeZone";
-import {
-  getPageArgs,
-  checkPageArgs,
-  getAllPossibleConditions
-} from "../pageArgs";
+import useJSON from "../../utils/useJson";
 
-const trialDebugMode = false;
+const timeZone = getTimeZone();
 
-const numberOfPracticeTasks = 3;
-const numberOfTypingTasks = 20;
-const numberOfTypingSpeedTasks = 5;
+const loadingTime = new Date();
 
-const TypingTask = (id, isPractice, { words, ...props }) => ({
-  ...props,
-  task: TaskTypes.typingTask,
-  sksDistribution: words,
-  key: id,
-  id,
-  isPractice
-});
-
-const UploadLogTask = (id, fireAndForget, uploadFileName) => ({
-  task: TaskTypes.s3Upload,
-  filename: uploadFileName,
-  key: id,
-  fireAndForget,
-  noProgress: true
-});
-
-export const generateTasks = (corpus, uploadFileName) => {
-  let totalPickedCorpusEntry = 0;
-  const pickCorpusEntries = n => {
-    const slice = corpus.slice(
-      totalPickedCorpusEntry,
-      totalPickedCorpusEntry + n
-    );
-    totalPickedCorpusEntry += n;
-    return slice;
-  };
-
-  const tasks = [];
-
-  if (!trialDebugMode) {
-    tasks.push({
-      task: TaskTypes.consentForm,
-      key: `consent-${tasks.length}`,
-      tasks: [TaskTypes.experimentProgress],
-      label: "Consent Form"
-    });
-
-    tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
-
-    tasks.push({
-      task: TaskTypes.startup,
-      key: `startup-${tasks.length}`,
-      label: "Instructions"
-    });
-
-    tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
-
-    tasks.push({
-      task: TaskTypes.informationScreen,
-      content:
-        "<h1>Tutorial</h1><p>Now you will complete an interactive tutorial.</p>",
-      key: `info-${tasks.length}`,
-      label: "Tutorial"
-    });
-
-    tasks.push({
-      task: TaskTypes.tutorial,
-      key: `tuto-${tasks.length}`,
-      id: `tuto-${tasks.length}`,
-      isPractice: true,
-      fullProgress: false,
-      currentProgress: true,
-      progressLevel: true,
-      shortcutEnabled: false,
-      noProgress: true
-    });
-
-    // Insert practice tasks.
-    if (numberOfPracticeTasks > 0) {
-      tasks.push({
-        task: TaskTypes.informationScreen,
-        content: "<h1>Practice</h1><p>Continue with the practice tasks.</p>",
-        key: `info-${tasks.length}`,
-        label: "Practice"
-      });
-      const practiceTaskBlock = pickCorpusEntries(
-        numberOfPracticeTasks
-      ).map((props, i) =>
-        TypingTask(`practice-${tasks.length}-${i}`, true, props)
-      );
-      tasks.push({
-        children: practiceTaskBlock,
-        fullProgress: false,
-        currentProgress: true,
-        progressLevel: true,
-        shortcutEnabled: false,
-        noProgress: true
-      });
-    }
-
-    tasks.push({
-      task: TaskTypes.informationScreen,
-      content:
-        numberOfPracticeTasks > 0
-          ? "<h1>Experiment</h1><p>Practice is over. You may take a break. The real experiment begins immediately after this screen!</p><p>Remember to complete every task as fast and accurately as you can.</p>"
-          : "<h1>Experiment</h1><p>You may take a break. The real experiment begins immediately after this screen!</p><p>Remember to complete every task as fast and accurately as you can.</p>",
-      key: `info-${tasks.length}`,
-      label: "Experiment"
-    });
-  }
-
-  // Insert measured tasks.
-  const measuredTasksBlock = pickCorpusEntries(
-    numberOfTypingTasks
-  ).map((props, i) => TypingTask(`trial-${tasks.length}-${i}`, false, props));
-  tasks.push({
-    children: measuredTasksBlock,
-    fullProgress: false,
-    currentProgress: true,
-    progressLevel: true,
-    shortcutEnabled: false,
-    noProgress: true
-  });
-
-  if (!trialDebugMode) {
-    tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
-
-    tasks.push({
-      task: TaskTypes.endQuestionnaire,
-      label: "Questionnaire",
-      key: `${tasks.length}`
-    });
-
-    tasks.push(UploadLogTask(`upload-${tasks.length}`, true, uploadFileName));
-
-    tasks.push({
-      task: TaskTypes.informationScreen,
-      content:
-        "<h1>Typing Speed</h1><p>To finish, please complete a few additional typing tasks, without impairment or suggestions.</p><p>Remember to be as fast and accurately as you can.</p>",
-      key: `info-${tasks.length}`,
-      label: "Typing Speed"
-    });
-
-    const typingTasksBlock = pickCorpusEntries(
-      numberOfTypingSpeedTasks
-    ).map((props, i) =>
-      TypingTask(`typing-${tasks.length}-${i}`, false, props)
-    );
-    tasks.push({
-      children: typingTasksBlock,
-      suggestionsType: SuggestionTypes.none,
-      keyStrokeDelay: 0,
-      fullProgress: false,
-      currentProgress: true,
-      progressLevel: true,
-      shortcutEnabled: false,
-      noProgress: true
-    });
-
-    tasks.push({
-      task: TaskTypes.finalFeedbacks,
-      key: `feedbacks-${tasks.length}`,
-      label: "Final Feedbacks"
-    });
-
-    tasks.push({
-      task: TaskTypes.injectEnd,
-      key: `inject-end-${tasks.length}`,
-      noProgress: true
-    });
-
-    tasks.push(UploadLogTask(`upload-${tasks.length}`, false, uploadFileName));
-
-    tasks.push({
-      task: TaskTypes.endExperiment,
-      key: `end-${tasks.length}`,
-      label: "End"
-    });
-  }
-
-  return tasks;
+const udpateUploadAddress = oldAddress => {
+  const addrParts = oldAddress.split(".");
+  return [
+    ...addrParts.slice(0, -1),
+    loadingTime.toISOString().replace(/:/g, "_"),
+    last(addrParts)
+  ].join(".");
 };
 
-const pickConditions = () => {
-  const pageArgs = getPageArgs(document.location);
-  const arePageArgsValid = checkPageArgs(pageArgs);
-  if (!arePageArgsValid) return { ...pageArgs, isValid: false };
-
-  const possibleConditions = getAllPossibleConditions({
-    extraConditions:
-      pageArgs.extraConditions == null ? [] : pageArgs.extraConditions,
-    keyStrokeDelays:
-      pageArgs.keyStrokeDelays == null ? [] : pageArgs.keyStrokeDelays,
-    targetAccuracies:
-      pageArgs.targetAccuracies == null ? [] : pageArgs.targetAccuracies
-  });
-  const { targetAccuracy, keyStrokeDelay } = sample(possibleConditions);
-  return { ...pageArgs, targetAccuracy, keyStrokeDelay, isValid: true };
+// This adds this module's loading time just before the extension of the upload
+// files.
+const changeAllUploadAddresses = taskGroup => {
+  let newTaskGroup = taskGroup;
+  if (newTaskGroup.task === "S3Upload" && newTaskGroup.filename != null) {
+    newTaskGroup = {
+      ...newTaskGroup,
+      filename: udpateUploadAddress(newTaskGroup.filename)
+    };
+  }
+  if (newTaskGroup.S3Upload != null && newTaskGroup.S3Upload.filename != null) {
+    newTaskGroup = {
+      ...newTaskGroup,
+      S3Upload: {
+        ...newTaskGroup.S3Upload,
+        filename: udpateUploadAddress(newTaskGroup.S3Upload.filename)
+      }
+    };
+  }
+  if (newTaskGroup.children != null) {
+    newTaskGroup.children = newTaskGroup.children.map(changeAllUploadAddresses);
+  }
+  return newTaskGroup;
 };
 
-const useConfiguration = () => {
-  // Using a state because pickConditions may be non-deterministic. However,
-  // in practice this state will never be changed. This used to be a ref,
-  // but the conditions where then picked on each render (because useRef does
-  // not accept a factory function conditions). Also, if where to change (which
-  // should never happen), we would want to re-render, so useState seems more
-  // appropriate.
-  const [conditions] = useState(pickConditions);
-
-  const [corpusLoadingState, corpus] = useCorpusFromJson(
-    conditions.isValid ? conditions.targetAccuracy : null,
-    { shuffleRows: true }
-  );
-
+const useConfiguration = ({ participant, device, isTest }) => {
   const { current: startDate } = useRef(new Date());
 
-  // The config generation is expensive but deterministic so useMemo is fine.
-  // A ref could be good too.
-  const config = useMemo(() => {
-    if (corpusLoadingState !== LoadingStates.loaded) return null;
-    const {
-      participant,
-      wave,
-      suggestionsType,
-      targetAccuracy,
-      keyStrokeDelay,
-      totalSuggestions,
-      device,
-      ...extraPageArgs
-    } = conditions;
-    return {
-      ...extraPageArgs,
-      children: generateTasks(
-        corpus.rows,
-        process.env.NODE_ENV === "development"
-          ? `dev/${conditions.participant}_${startDate.toISOString()}.json`
-          : `prod/${conditions.participant}_${startDate.toISOString()}.json`
-      ),
-      corpusConfig: omit(corpus, "rows"),
-      corpusSize: corpus.rows.length,
-      keyStrokeDelay,
-      targetAccuracy,
-      participant,
-      device,
+  // In the case there are missing information, providing a null URL to useJson
+  // will prevent any loading attempt.
+  const [loadingState, baseConfig] = useJSON(
+    participant == null || device == null
+      ? null
+      : `./configs/${participant}-${device}.json`
+  );
+
+  if (participant == null || device == null) {
+    return [LoadingStates.invalidArguments, null];
+  }
+  if (loadingState !== LoadingStates.loaded) {
+    return [loadingState, null];
+  }
+  return [
+    loadingState,
+    {
+      ...changeAllUploadAddresses(baseConfig),
+      isTest,
       mode: process.env.NODE_ENV,
       gitSha: process.env.REACT_APP_GIT_SHA,
       version: process.env.REACT_APP_VERSION,
-      totalSuggestions,
-      suggestionsType,
-      numberOfPracticeTasks,
-      numberOfTypingTasks,
       href: window.location.href,
       userAgent: navigator.userAgent,
       isExperimentCompleted: false,
-      startDate,
-      wave,
-      nextLevel: "section",
-      timeZone: getTimeZone(),
-      tasks: [TaskTypes.experimentProgress],
-      fullProgress: true,
-      currentProgress: false,
-      progressLevel: true,
       isVirtualKeyboardEnabled: device === "phone" || device === "tablet",
-
-      // Fixes an issue with components being rendered with the same key.
-      [TaskTypes.experimentProgress]: { key: "progress" },
-      [TaskTypes.informationScreen]: { shortcutEnabled: true }
-    };
-  }, [conditions, corpus, corpusLoadingState, startDate]);
-
-  return conditions.isValid
-    ? [corpusLoadingState, config]
-    : [LoadingStates.invalidArguments, null];
+      startDate,
+      // This is not much useful since the last experiment is run locally,
+      // but I left it here for the sake of consistency.
+      timeZone
+    }
+  ];
 };
 
 export default useConfiguration;

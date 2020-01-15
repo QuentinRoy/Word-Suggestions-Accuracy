@@ -58,6 +58,7 @@ export const TaskTypes = Object.freeze({
   endExperiment: "EndExperiment",
   startup: "Startup",
   startQuestionnaire: "StartQuestionnaire",
+  blockQuestionnaire: "BlockQuestionnaire",
   endQuestionnaire: "EndQuestionnaire",
   tutorial: "Tutorial",
   consentForm: "ConsentForm",
@@ -91,19 +92,6 @@ export const SuggestionTypes = Object.freeze({
 export const Directions = Object.freeze({
   horizontal: "HORIZONTAL",
   vertical: "VERTICAL"
-});
-
-export const PageArguments = Object.freeze({
-  targetAccuracies: "targetAccuracies",
-  workerId: "workerId",
-  keyStrokeDelays: "keyStrokeDelays",
-  assignmentId: "assignmentId",
-  hitId: "hitId",
-  suggestionsType: "suggestionsType",
-  wave: "wave",
-  extraConditions: "extraConditions",
-  totalSuggestions: "totalSuggestions",
-  device: "device"
 });
 
 export const Devices = Object.freeze({

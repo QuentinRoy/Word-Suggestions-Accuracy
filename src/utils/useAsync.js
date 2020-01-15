@@ -33,7 +33,10 @@ const useAsync = (createPromise, deps = []) => {
   useEffect(() => {
     dispatch({ type: ActionTypes.start });
     let isCanceled = false;
-    createPromise()
+    Promise.resolve()
+      // Chaining createPromise from a resolved promise ensure that
+      // if it throws, it will be caught by the catch block below.
+      .then(createPromise)
       .then(result => {
         if (isCanceled) throw new Error(`Request canceled`);
         dispatch({ type: ActionTypes.loaded, data: result });

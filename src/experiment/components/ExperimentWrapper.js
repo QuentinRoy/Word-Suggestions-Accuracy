@@ -1,6 +1,6 @@
 import React from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
-import { registerAll, createUpload, ExperimentProgress } from "@hcikit/tasks";
+import { registerAll, createUpload } from "@hcikit/tasks";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 import TypingTask from "./TypingTask";
@@ -16,6 +16,8 @@ import createS3Uploader from "../s3Uploader";
 import EndExperiment from "./EndExperiment";
 import Startup from "./Startup";
 import EndQuestionnaire from "./EndQuestionnaire";
+import BlockQuestionnaire from "./BlockQuestionnaire";
+import StartQuestionnaire from "./StartQuestionnaire";
 import Tutorial from "./Tutorial";
 import ConsentForm from "./ConsentForm";
 import FinalFeedbacks from "./FinalFeedbacks";
@@ -36,14 +38,22 @@ registerTask(TaskTypes.s3Upload, UploadComponent);
 registerTask(TaskTypes.endExperiment, EndExperiment);
 registerTask(TaskTypes.startup, Startup);
 registerTask(TaskTypes.endQuestionnaire, EndQuestionnaire);
+registerTask(TaskTypes.blockQuestionnaire, BlockQuestionnaire);
+registerTask(TaskTypes.startQuestionnaire, StartQuestionnaire);
 registerTask(TaskTypes.tutorial, Tutorial);
 registerTask(TaskTypes.consentForm, ConsentForm);
 registerTask(TaskTypes.finalFeedbacks, FinalFeedbacks);
-registerTask(TaskTypes.experimentProgress, ExperimentProgress);
 registerTask(TaskTypes.injectEnd, InjectEnd);
 
+const urlParams = new URL(document.location).searchParams;
+const configArgs = {
+  participant: urlParams.get("participant"),
+  device: urlParams.get("device"),
+  isTest: urlParams.get("isTest")
+};
+
 function ExperimentContent() {
-  const [loadingState, configuration] = useConfiguration();
+  const [loadingState, configuration] = useConfiguration(configArgs);
 
   if (loadingState === LoadingStates.loading) {
     return <Loading>Loading experiment...</Loading>;

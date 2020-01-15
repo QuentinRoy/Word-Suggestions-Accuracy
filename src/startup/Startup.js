@@ -5,8 +5,7 @@ import { stringify } from "qs";
 import omit from "lodash/omit";
 import { Devices } from "../utils/constants";
 
-const requiredValues = ["participant", "device", "isTest"];
-
+const requiredValues = ["participant", "config", "device", "isTest"];
 const localStorageKey = "startup-values";
 
 // eslint-disable-next-line react/prop-types
@@ -31,7 +30,12 @@ const onSubmit = (values, { setSubmitting }) => {
     localStorageKey,
     JSON.stringify(omit(values, "participant"))
   );
-  window.location.replace(`${window.location.origin}?${stringify(values)}`);
+  window.location.replace(
+    `${window.location.origin}?${stringify({
+      ...values,
+      isTest: values.isTest === "yes"
+    })}`
+  );
 };
 
 const prevValuesJSON = localStorage.getItem(localStorageKey);
@@ -44,7 +48,8 @@ const Startup = () => {
         initialValues={{
           participant: "",
           device: "",
-          isTest: true,
+          config: "",
+          isTest: "",
           ...prevValues
         }}
         validate={validate}
@@ -58,6 +63,22 @@ const Startup = () => {
             <ErrorMessage name="participant" component={StyledErrorMessage} />
           </p>
           <p>
+            <label htmlFor="config">Configuration Id: </label>
+            <Field name="config" id="config" type="text" />{" "}
+            <ErrorMessage name="config" component={StyledErrorMessage} />
+          </p>
+          <p>
+            <label htmlFor="isTest">
+              Is this a test Run?{" "}
+              <Field id="isTest" name="isTest" as="select">
+                <option value=""> </option>
+                <option value="yes">yes</option>
+                <option value="no">no</option>
+              </Field>
+            </label>
+            <ErrorMessage name="isTest" component={StyledErrorMessage} />
+          </p>
+          <p>
             <label htmlFor="device">Device: </label>
             <Field name="device" as="select" id="device">
               <option value=""> </option>
@@ -69,13 +90,7 @@ const Startup = () => {
             </Field>{" "}
             <ErrorMessage name="device" component={StyledErrorMessage} />
           </p>
-          <p>
-            <label htmlFor="isTest">
-              <Field id="isTest" name="isTest" as="input" type="checkbox" /> Is
-              a test Run
-            </label>
-            <ErrorMessage name="isTest" component={StyledErrorMessage} />
-          </p>
+
           <p>
             <button type="submit">Submit</button>
           </p>

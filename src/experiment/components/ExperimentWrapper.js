@@ -49,7 +49,8 @@ const urlParams = new URL(document.location).searchParams;
 const configArgs = {
   participant: urlParams.get("participant"),
   device: urlParams.get("device"),
-  isTest: urlParams.get("isTest")
+  isTest: urlParams.get("isTest"),
+  config: urlParams.get("config")
 };
 
 function ExperimentContent() {

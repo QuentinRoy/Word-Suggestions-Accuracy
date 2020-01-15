@@ -18,17 +18,17 @@ const outputDir = path.join(publicDir, "configs");
 const getSksDistributionPath = accuracy =>
   path.join(sksDistributionsDir, `acc-${accuracy.toFixed(3)}.json`);
 
-const getRunOutputPath = (participant, device) =>
-  path.join(outputDir, `${participant}-${device}.json`);
+const getRunOutputPath = (config, device) =>
+  path.join(outputDir, `${config}-${device}.json`);
 
-const createParticipantId = participantNumber => `S${participantNumber}`;
+const createConfigurationId = configNumber => `C${configNumber}`;
 
-const createInitBlock = ({ firstDevice, uploadFile }) => {
+const createInitBlock = ({ firstDevice }) => {
   const children = [
     { task: "ConsentForm", key: `init-consent` },
     { task: "Startup", key: `init-startup` },
     { task: "StartQuestionnaire", key: `init-start-questionnaire` },
-    { task: "S3Upload", filename: uploadFile, key: `init-upload` }
+    { task: "S3Upload", key: `init-upload` }
   ];
   if (firstDevice !== "laptop") {
     children.push({
@@ -42,7 +42,6 @@ const createInitBlock = ({ firstDevice, uploadFile }) => {
 const createTypingBlock = ({
   device,
   nextDevice = "laptop",
-  uploadFile,
   phrases,
   practicePhrases
 }) => {
@@ -96,7 +95,7 @@ const createTypingBlock = ({
       key: `typing-${device}-phrase-${i}`
     })),
     { task: "BlockQuestionnaire" },
-    { task: "S3Upload", filename: uploadFile, key: `init-upload` }
+    { task: "S3Upload", key: `init-upload` }
   ];
   if (nextDevice !== device) {
     children.push({
@@ -108,7 +107,7 @@ const createTypingBlock = ({
   return { device, children };
 };
 
-const createTypingBlocks = async ({ deviceOrder, accuracy, uploadFiles }) => {
+const createTypingBlocks = async ({ deviceOrder, accuracy }) => {
   const corpusPath = getSksDistributionPath(accuracy);
   const corpusFile = await fs.readFile(corpusPath);
   const corpus = lodash.shuffle(JSON.parse(corpusFile.toString()).rows);
@@ -117,7 +116,6 @@ const createTypingBlocks = async ({ deviceOrder, accuracy, uploadFiles }) => {
     return createTypingBlock({
       device,
       nextDevice: deviceOrder[i + 1],
-      uploadFile: uploadFiles[device],
       practicePhrases: corpus.slice(
         corpusStart,
         corpusStart + numberOfPracticeTasks
@@ -130,25 +128,20 @@ const createTypingBlocks = async ({ deviceOrder, accuracy, uploadFiles }) => {
   });
 };
 
-const createFinalBlock = ({ uploadFile }) => ({
+const createFinalBlock = () => ({
   device: "laptop",
   children: [
     { task: "EndQuestionnaire", key: `final-questionnaire` },
     { task: "FinalFeedbacks", key: `final-feedbacks` },
     { task: "InjectEnd", key: `final-inject-end` },
-    { task: "S3Upload", key: `final-upload`, filename: uploadFile },
+    { task: "S3Upload", key: `final-upload` },
     { task: "EndExperiment", key: `final-end` }
   ]
 });
 
-const createRun = async ({ accuracy, deviceOrder, participant }) => {
-  const uploadFiles = {
-    laptop: `${participant}-laptop.json`,
-    phone: `${participant}-phone.json`,
-    tablet: `${participant}-tablet.json`
-  };
+const createRun = async ({ accuracy, deviceOrder, config }) => {
   return {
-    participant,
+    config,
     deviceOrder,
     targetAccuracy: accuracy,
     keyStrokeDelay: 0,
@@ -159,11 +152,10 @@ const createRun = async ({ accuracy, deviceOrder, participant }) => {
     wave: "multi-device",
     children: [
       await createInitBlock({
-        firstDevice: deviceOrder[0],
-        uploadFile: uploadFiles.laptop
+        firstDevice: deviceOrder[0]
       }),
-      ...(await createTypingBlocks({ deviceOrder, accuracy, uploadFiles })),
-      await createFinalBlock({ uploadFile: uploadFiles.laptop })
+      ...(await createTypingBlocks({ deviceOrder, accuracy })),
+      await createFinalBlock()
     ]
   };
 };
@@ -175,19 +167,19 @@ const createDesign = async () => {
     if (err.code !== "EEXIST") throw err;
   }
   const deviceOrders = balancedLatinSquare(devices);
-  let totalParticipant = 0;
+  let totalConfig = 0;
   const promises = [];
-  while (totalParticipant < minParticipants) {
+  while (totalConfig < minParticipants) {
     // eslint-disable-next-line no-restricted-syntax
     for (const accuracy of accuracyValues) {
       // eslint-disable-next-line no-restricted-syntax
       for (const deviceOrder of deviceOrders) {
-        const pid = createParticipantId(totalParticipant + 1);
+        const cid = createConfigurationId(totalConfig + 1);
         promises.push(
           createRun({
             accuracy,
             deviceOrder,
-            participant: pid
+            config: cid
           }).then(run => {
             // Split the run into three different files, one for each device.
             // Each of these config files contain only the tasks specific
@@ -195,7 +187,7 @@ const createDesign = async () => {
             return Promise.all(
               ["laptop", "phone", "tablet"].map(async device => {
                 await fs.writeFile(
-                  getRunOutputPath(pid, device),
+                  getRunOutputPath(cid, device),
                   JSON.stringify({
                     ...run,
                     device,
@@ -204,12 +196,12 @@ const createDesign = async () => {
                       .map(({ device: _, ...child }) => child)
                   })
                 );
-                log.info(`${pid} written.`);
+                log.info(`${cid} written.`);
               })
             );
           })
         );
-        totalParticipant += 1;
+        totalConfig += 1;
       }
     }
   }

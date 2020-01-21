@@ -27,7 +27,7 @@ const createInitBlock = ({ firstDevice }) => {
   const children = [
     { task: "ConsentForm", key: `init-consent` },
     { task: "Startup", key: `init-startup` },
-    { task: "StartQuestionnaire", key: `init-start-questionnaire` },
+    { task: "DemographicQuestionnaire", key: `init-demographic-questionnaire` },
     { task: "S3Upload", key: `init-upload` }
   ];
   if (firstDevice !== "laptop") {
@@ -135,7 +135,6 @@ const createTypingBlocks = async ({ deviceOrder, accuracy }) => {
 const createFinalBlock = () => ({
   device: "laptop",
   children: [
-    { task: "EndQuestionnaire", key: `final-questionnaire` },
     { task: "FinalFeedbacks", key: `final-feedbacks` },
     { task: "InjectEnd", key: `final-inject-end` },
     { task: "S3Upload", key: `final-upload` },

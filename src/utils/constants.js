@@ -57,9 +57,8 @@ export const TaskTypes = Object.freeze({
   s3Upload: "S3Upload",
   endExperiment: "EndExperiment",
   startup: "Startup",
-  startQuestionnaire: "StartQuestionnaire",
+  demographicQuestionnaire: "DemographicQuestionnaire",
   blockQuestionnaire: "BlockQuestionnaire",
-  endQuestionnaire: "EndQuestionnaire",
   tutorial: "Tutorial",
   consentForm: "ConsentForm",
   finalFeedbacks: "FinalFeedbacks",
@@ -99,3 +98,13 @@ export const Devices = Object.freeze({
   laptop: "laptop",
   tablet: "tablet"
 });
+
+export const agreementScaleAnswers = Object.freeze([
+  "Strongly disagree",
+  "Disagree",
+  "Somewhat disagree",
+  "Neither agree nor disagree",
+  "Somewhat agree",
+  "Agree",
+  "Strongly agree"
+]);

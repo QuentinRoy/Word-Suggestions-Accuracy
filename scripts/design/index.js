@@ -104,7 +104,11 @@ const createTypingBlock = ({
       key: `typing-${device}-info-typing-end`
     });
   }
-  return { device, children };
+  return {
+    device,
+    children,
+    isVirtualKeyboardEnabled: device === "phone" || device === "tablet"
+  };
 };
 
 const createTypingBlocks = async ({ deviceOrder, accuracy }) => {

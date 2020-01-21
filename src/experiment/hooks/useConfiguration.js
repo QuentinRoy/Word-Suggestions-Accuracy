@@ -33,7 +33,6 @@ const useConfiguration = ({ participant, device, isTest, config }) => {
       href: window.location.href,
       userAgent: navigator.userAgent,
       isExperimentCompleted: false,
-      isVirtualKeyboardEnabled: device === "phone" || device === "tablet",
       startDate,
       // This is not much useful since the last experiment is run locally,
       // but I left it here for the sake of consistency.

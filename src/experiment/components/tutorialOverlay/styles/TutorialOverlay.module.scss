@@ -3,9 +3,11 @@
   top: 0;
   left: 0;
   width: 100%;
+  height: 100%;
+  overflow: hidden;
   --bg-color: #fac96d;
   --bg-color-alpha: #fac96d21;
-  --margin-input: 40px;
+  --margin-input: 20px;
 }
 
 .arrow {
@@ -21,16 +23,27 @@
   max-width: 800px;
 }
 
-.instruction {
+.topOfBarWrapper {
   position: absolute;
-  margin-top: var(--margin-input);
-  text-align: center;
-  font-style: italic;
+  height: 0;
   width: 100%;
-  font-weight: bolder;
+
+  .topOfBarWrapperContent {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+}
+
+.instruction {
+  position: relative;
   animation: appear 200ms linear forwards;
   animation-delay: 600ms;
   opacity: 0;
+  text-align: center;
+  font-style: italic;
+  font-weight: bolder;
+  margin: var(--margin-input);
 
   > .box {
     display: inline-block;
@@ -48,7 +61,7 @@
 }
 
 .info {
-  position: absolute;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,6 +82,7 @@
 
   .info {
     margin: 0;
+    position: absolute;
     animation: appear 200ms linear forwards;
     animation-delay: 1.8s;
     opacity: 0;
@@ -107,7 +121,7 @@
     animation: appear 200ms linear forwards;
     animation-delay: 1000ms;
     opacity: 0;
-    max-width: 680px;
+    max-width: 750px;
   }
 
   .instruction {
@@ -125,9 +139,8 @@
     }
 
     .messagesWrapper {
-      margin-top: var(--margin-input);
-      position: absolute;
-      width: 100%;
+      margin-bottom: calc(var(--margin-input) + 10px);
+      position: relative;
     }
   }
 }
@@ -142,9 +155,8 @@
 .stepDelay,
 .stepDelaySuggestion,
 .stepFinish {
-  position: absolute;
   width: 100%;
-  margin-top: var(--margin-input);
+  margin-bottom: var(--margin-input);
 
   .instruction,
   .info {

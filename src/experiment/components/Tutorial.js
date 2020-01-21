@@ -84,10 +84,7 @@ const isActionAllowed = (
         return action.type === Actions.inputSuggestion;
       }
       return (
-        action.type === Actions.moveFocusTarget ||
-        (action.type === Actions.inputSuggestion &&
-          state.focusTarget.type === FocusTargetTypes.suggestion &&
-          state.focusTarget.suggestionNumber === 0)
+        action.type === Actions.inputSuggestion && action.word === "video "
       );
     case TutorialSteps.wrongSuggestion:
       if (
@@ -99,10 +96,7 @@ const isActionAllowed = (
         return action.type === Actions.inputSuggestion;
       }
       return (
-        action.type === Actions.moveFocusTarget ||
-        (action.type === Actions.inputSuggestion &&
-          state.focusTarget.type === FocusTargetTypes.suggestion &&
-          state.focusTarget.suggestionNumber === 0)
+        action.type === Actions.inputSuggestion && action.word === "camping "
       );
     case TutorialSteps.error:
       return action.type === Actions.deleteChar;

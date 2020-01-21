@@ -1,0 +1,18 @@
+{
+  "config": "test-tuto",
+  "totalSuggestions": 3,
+  "suggestionsType": "BAR",
+  "keyStrokeDelay": 0,
+  "wave": "test",
+  "children": [
+    {
+      "task": "Tutorial",
+      "isPractice": true,
+      "key": "typing-tablet-tuto",
+      "id": "typing-tablet-tuto",
+      "isVirtualKeyboardEnabled": true
+    },
+    { "task": "EndExperiment", "key": "final-end" }
+  ],
+  "device": "laptop"
+}

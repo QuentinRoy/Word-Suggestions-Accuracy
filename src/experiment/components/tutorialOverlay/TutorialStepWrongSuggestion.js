@@ -1,0 +1,26 @@
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "./styles/TutorialOverlay.module.scss";
+import Instruction from "./Instruction";
+import { SuggestionTypes } from "../../../utils/constants";
+import TopOfBarWrapper from "./TopOfBarWrapper";
+
+const TutorialStepWrongSuggestion = ({ suggestionsType, totalSuggestions }) => (
+  <div className={styles.stepWrongSuggestion}>
+    <TopOfBarWrapper>
+      <Instruction>
+        Now{" "}
+        {suggestionsType === SuggestionTypes.bar && totalSuggestions > 1
+          ? "accept the first "
+          : "accept the "}
+        suggestion again.
+      </Instruction>
+    </TopOfBarWrapper>
+  </div>
+);
+TutorialStepWrongSuggestion.propTypes = {
+  suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
+  totalSuggestions: PropTypes.number.isRequired
+};
+
+export default TutorialStepWrongSuggestion;

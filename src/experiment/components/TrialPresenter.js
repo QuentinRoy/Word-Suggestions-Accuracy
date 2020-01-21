@@ -23,7 +23,7 @@ import styles from "./styles/TrialPresenter.module.scss";
 import SuccessBanner from "./SuccessBanner";
 import Stimulus from "./Stimulus";
 import SuggestionsBar from "./SuggestionsBar";
-import TutorialOverlay from "./TutorialOverlay";
+import TutorialOverlay from "./tutorialOverlay/TutorialOverlay";
 import FocusAlert from "./FocusAlert";
 import useClientRect from "../hooks/useClientRect";
 import TrialHelp from "./TrialHelp";

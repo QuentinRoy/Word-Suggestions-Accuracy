@@ -1,0 +1,22 @@
+{
+  "config": "test-tuto",
+  "deviceOrder": ["phone", "laptop", "tablet"],
+  "targetAccuracy": 0.1,
+  "keyStrokeDelay": 0,
+  "totalSuggestions": 3,
+  "suggestionsType": "BAR",
+  "numberOfPracticeTasks": 3,
+  "numberOfTypingTasks": 20,
+  "wave": "test",
+  "children": [
+    {
+      "task": "Tutorial",
+      "isPractice": true,
+      "key": "typing-laptop-tuto",
+      "id": "typing-laptop-tuto",
+      "isVirtualKeyboardEnabled": false
+    },
+    { "task": "EndExperiment", "key": "final-end" }
+  ],
+  "device": "laptop"
+}

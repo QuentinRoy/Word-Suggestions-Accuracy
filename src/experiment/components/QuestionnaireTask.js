@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useMemo } from "react";
+import mapValues from "lodash/mapValues";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import Button from "@material-ui/core/Button";
@@ -22,14 +23,9 @@ export default function QuestionnaireTask({
     return errors;
   };
 
-  // Formik should never change initial values. But I would still rather have
-  // this frozen.
-  const initialValues = Object.entries(questions).reduce(
-    (acc, [qId, question]) => ({
-      ...acc,
-      [qId]: question.defaultAnswer
-    }),
-    {}
+  const initialValues = useMemo(
+    () => mapValues(questions, q => q.defaultAnswer),
+    [questions]
   );
 
   const {

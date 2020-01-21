@@ -39,9 +39,9 @@ const questions = {
 export default function DemographicQuestionnaire({ onAdvanceWorkflow, onLog }) {
   return (
     <QuestionnaireTask
+      title="Demographic Questionnaire"
       questions={questions}
       onAdvanceWorkflow={onAdvanceWorkflow}
-      title="Demographic Questionnaire"
       onLog={onLog}
     />
   );

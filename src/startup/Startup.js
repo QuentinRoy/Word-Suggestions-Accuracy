@@ -1,101 +1,52 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import { stringify } from "qs";
-import omit from "lodash/omit";
-import { Devices } from "../utils/constants";
+import React, { useEffect } from "react";
 
-const requiredValues = ["participant", "config", "device", "isTest"];
-const localStorageKey = "startup-values";
+import PreviousState from "./PreviousState";
+import StartForm from "./StartForm";
 
 // eslint-disable-next-line react/prop-types
-const StyledErrorMessage = ({ children }) => (
-  <span style={{ color: "red" }}>{children}</span>
+const Area = ({ children }) => (
+  <div
+    style={{
+      width: "500px",
+      borderStyle: "solid",
+      borderColor: "#DDD",
+      padding: "0 1em",
+      borderRadius: "5px",
+      borderWidth: "1px",
+      margin: "1em",
+      backgroundColor: "white"
+    }}
+  >
+    {children}
+  </div>
 );
 
-const validate = values => {
-  const errors = {};
-  Object.entries(values).forEach(([qId, value]) => {
-    if ((value == null || value === "") && requiredValues.includes(qId)) {
-      errors[qId] = "This field is required";
-    }
-  });
-  return errors;
-};
-
-const onSubmit = (values, { setSubmitting }) => {
-  setSubmitting(true);
-  // Register some of the keys that should not change often.
-  localStorage.setItem(
-    localStorageKey,
-    JSON.stringify(omit(values, "participant"))
-  );
-  window.location.replace(
-    `${window.location.origin}?${stringify({
-      ...values,
-      isTest: values.isTest === "yes"
-    })}`
-  );
-};
-
-const prevValuesJSON = localStorage.getItem(localStorageKey);
-const prevValues = prevValuesJSON == null ? {} : JSON.parse(prevValuesJSON);
-
 const Startup = () => {
+  useEffect(() => {
+    const prevColor = document.body.style.backgroundColor;
+    document.body.style.backgroundColor = "#EEE";
+    return () => {
+      document.body.style.backgroundColor = prevColor;
+    };
+  }, []);
   return (
-    <div style={{ width: "600px", margin: "50px auto" }}>
-      <Formik
-        initialValues={{
-          participant: "",
-          device: "",
-          config: "",
-          isTest: "",
-          ...prevValues
-        }}
-        validate={validate}
-        onSubmit={onSubmit}
-        validateOnChange={false}
-      >
-        <Form>
-          <p>
-            <label htmlFor="participant">Participant Id: </label>
-            <Field name="participant" id="participant" type="text" />{" "}
-            <ErrorMessage name="participant" component={StyledErrorMessage} />
-          </p>
-          <p>
-            <label htmlFor="config">Configuration Id: </label>
-            <Field name="config" id="config" type="text" />{" "}
-            <ErrorMessage name="config" component={StyledErrorMessage} />
-          </p>
-          <p>
-            <label htmlFor="isTest">
-              Is this a test Run?{" "}
-              <Field id="isTest" name="isTest" as="select">
-                <option value=""> </option>
-                <option value="yes">yes</option>
-                <option value="no">no</option>
-              </Field>
-            </label>
-            <ErrorMessage name="isTest" component={StyledErrorMessage} />
-          </p>
-          <p>
-            <label htmlFor="device">Device: </label>
-            <Field name="device" as="select" id="device">
-              <option value=""> </option>
-              {Object.entries(Devices).map(([key, value]) => (
-                <option key={key} value={value}>
-                  {key}
-                </option>
-              ))}
-            </Field>{" "}
-            <ErrorMessage name="device" component={StyledErrorMessage} />
-          </p>
-
-          <p>
-            <button type="submit">Submit</button>
-          </p>
-        </Form>
-      </Formik>
+    <div
+      style={{
+        boxSizing: "border-box",
+        justifyContent: "center",
+        alignItems: "self-start",
+        display: "flex",
+        padding: "1em",
+        width: "100%",
+        flexWrap: "wrap"
+      }}
+    >
+      <Area>
+        <PreviousState />
+      </Area>
+      <Area>
+        <StartForm />
+      </Area>
     </div>
   );
 };

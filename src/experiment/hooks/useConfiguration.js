@@ -26,6 +26,7 @@ const useConfiguration = ({ participant, device, isTest, config }) => {
     loadingState,
     {
       ...baseConfig,
+      participant,
       isTest,
       mode: process.env.NODE_ENV,
       gitSha: process.env.REACT_APP_GIT_SHA,

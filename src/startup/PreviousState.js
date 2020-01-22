@@ -4,15 +4,20 @@ import React, { useState } from "react";
 // but there is no other way that I am aware of.
 const localStorageStateKey = "state";
 
-let previousState = localStorage.getItem(localStorageStateKey);
-if (previousState != null) previousState = JSON.parse(previousState);
+const getPreviousState = () => {
+  const previousState = localStorage.getItem(localStorageStateKey);
+  if (previousState == null) return null;
+  return JSON.parse(previousState);
+};
+
+const previousState = getPreviousState();
 
 const PreviousState = () => {
   const [storageState, setStorageState] = useState(previousState);
 
   const clearState = () => {
     localStorage.removeItem(localStorageStateKey);
-    setStorageState(null);
+    setStorageState(getPreviousState());
   };
 
   if (storageState == null)

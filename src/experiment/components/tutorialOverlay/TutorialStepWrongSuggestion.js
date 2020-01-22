@@ -11,9 +11,9 @@ const TutorialStepWrongSuggestion = ({ suggestionsType, totalSuggestions }) => (
       <Instruction>
         Now{" "}
         {suggestionsType === SuggestionTypes.bar && totalSuggestions > 1
-          ? "accept the first "
+          ? "accept the second "
           : "accept the "}
-        suggestion again.
+        suggestion{totalSuggestions === 1 ? "again" : ""}.
       </Instruction>
     </TopOfBarWrapper>
   </div>

@@ -27,7 +27,7 @@ const tutorialSksDistribution = [
 
 const tutorialSentence = getTextFromSksDistribution(tutorialSksDistribution);
 
-const getTutorialStep = input => {
+const getTutorialStep = (input, keyStrokeDelay) => {
   const hasErrors = !isInputCorrect(input, tutorialSentence);
 
   if (input === "" || input == null) {
@@ -45,18 +45,18 @@ const getTutorialStep = input => {
   if (hasErrors && !input.startsWith("video camera with")) {
     return TutorialSteps.error;
   }
-  if ("video camera w".startsWith(input)) {
+  if ("video camera w".startsWith(input) && keyStrokeDelay > 0) {
     return TutorialSteps.delay;
   }
-  if (input === "video camera wi") {
+  if (input === "video camera wi" && keyStrokeDelay > 0) {
     return TutorialSteps.delaySuggestion;
   }
   const isCompleted = isTargetCompleted(input, tutorialSentence);
-  if (!isCompleted && !input.startsWith("video camera with a zoom lens")) {
-    return TutorialSteps.finish;
+  if (!isCompleted && input.startsWith("video camera with a zoom lens")) {
+    return TutorialSteps.finalWhiteSpace;
   }
   if (!isCompleted) {
-    return TutorialSteps.finalWhiteSpace;
+    return TutorialSteps.finish;
   }
   return TutorialSteps.end;
 };
@@ -162,12 +162,18 @@ const Tutorial = ({
         case TutorialSteps.suggestion:
           return {
             ...nextState,
-            suggestions: ["video ", "vidicon ", "videotapes "]
+            suggestions:
+              totalSuggestions > 1
+                ? ["video ", "vidicon ", "videotapes "]
+                : ["video"]
           };
         case TutorialSteps.wrongSuggestion:
           return {
             ...nextState,
-            suggestions: ["camping ", "campaign ", "campuses "]
+            suggestions:
+              totalSuggestions > 1
+                ? ["campaign ", "camping ", "campuses "]
+                : ["camping"]
           };
         case TutorialSteps.error: {
           let stateSuggestions = ["are ", "the ", "of "];

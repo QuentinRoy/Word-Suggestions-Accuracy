@@ -74,17 +74,8 @@ const createTypingBlock = ({
     })),
     {
       task: "InformationScreen",
-      content: `
-      <h1>Experiment</h1>
-      <p>
-        Practice is over.
-        You may take a break.
-        The real experiment begins immediately after this screen!
-      </p>
-      <p>
-        Remember to complete every task as fast and accurately as you can.
-      </p>
-    `,
+      content:
+        "<h1>Experiment</h1><p>Practice is over. You may take a break. The real experiment begins immediately after this screen!</p><p>Remember to complete every task as fast and accurately as you can.</p>",
       key: `typing-${device}-info-typing-start`
     },
     // Insert measured trials.

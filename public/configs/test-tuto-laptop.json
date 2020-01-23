@@ -8,6 +8,7 @@
   "numberOfPracticeTasks": 3,
   "numberOfTypingTasks": 20,
   "wave": "test",
+  "doNotShowDelayInstructions": true,
   "children": [
     {
       "task": "Tutorial",

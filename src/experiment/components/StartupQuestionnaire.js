@@ -21,7 +21,10 @@ const questions = [
       "always use word suggestions"
     ],
     correctAnswer: "type as fast and accurately as possible"
-  },
+  }
+];
+
+const delayQuestions = [
   {
     text: "You will...",
     answers: [
@@ -35,16 +38,24 @@ const questions = [
   }
 ];
 
-const StartupTest = ({ onSubmit }) => {
+const makeQuestions = includesDelayQuestions =>
+  shuffle(
+    // Mapping before shuffling to maintain consistent ids.
+    (includesDelayQuestions
+      ? questions
+      : [...questions, ...delayQuestions]
+    ).map((q, i) => ({
+      ...q,
+      answers: shuffle(q.answers),
+      id: `q${i}`
+    }))
+  );
+
+const StartupTest = ({ onSubmit, includesDelayQuestions }) => {
   const { current: shuffledQuestions } = useRef(
-    shuffle(
-      // Mapping before shuffling to maintain consistent ids.
-      questions.map((q, i) => ({
-        ...q,
-        answers: shuffle(q.answers),
-        id: `q${i}`
-      }))
-    )
+    // This is a bit expensive and uselessly run on every render, but that's
+    // fine.
+    makeQuestions(includesDelayQuestions)
   );
   const [answers, setAnswers] = useState({});
 
@@ -101,7 +112,8 @@ const StartupTest = ({ onSubmit }) => {
 };
 
 StartupTest.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  includesDelayQuestions: PropTypes.bool.isRequired
 };
 
 export default StartupTest;

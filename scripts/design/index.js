@@ -11,6 +11,7 @@ const numberOfTypingTasks = 20;
 const minParticipants = 30;
 const accuracyValues = [0.1, 0.5, 0.9];
 const devices = ["phone", "laptop", "tablet"];
+const doNotShowDelayInstructions = true;
 const publicDir = path.join(__dirname, "../../public");
 const sksDistributionsDir = path.join(publicDir, "sks-distributions");
 const outputDir = path.join(publicDir, "configs");
@@ -152,6 +153,7 @@ const createRun = async ({ accuracy, deviceOrder, config }) => {
     suggestionsType: "BAR",
     numberOfPracticeTasks,
     numberOfTypingTasks,
+    doNotShowDelayInstructions,
     wave: "multi-device",
     children: [
       await createInitBlock({

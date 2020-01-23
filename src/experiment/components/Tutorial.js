@@ -27,7 +27,8 @@ const tutorialSksDistribution = [
 
 const tutorialSentence = getTextFromSksDistribution(tutorialSksDistribution);
 
-const getTutorialStep = (input, keyStrokeDelay) => {
+const getTutorialStep = (input, doNotShowDelayInstructions) => {
+  console.log({ doNotShowDelayInstructions });
   const hasErrors = !isInputCorrect(input, tutorialSentence);
 
   if (input === "" || input == null) {
@@ -45,10 +46,10 @@ const getTutorialStep = (input, keyStrokeDelay) => {
   if (hasErrors && !input.startsWith("video camera with")) {
     return TutorialSteps.error;
   }
-  if ("video camera w".startsWith(input) && keyStrokeDelay > 0) {
+  if ("video camera w".startsWith(input) && !doNotShowDelayInstructions) {
     return TutorialSteps.delay;
   }
-  if (input === "video camera wi" && keyStrokeDelay > 0) {
+  if (input === "video camera wi" && !doNotShowDelayInstructions) {
     return TutorialSteps.delaySuggestion;
   }
   const isCompleted = isTargetCompleted(input, tutorialSentence);
@@ -65,9 +66,10 @@ const isActionAllowed = (
   state,
   action,
   suggestionsType,
-  isVirtualKeyboardEnabled
+  isVirtualKeyboardEnabled,
+  doNotShowDelayInstructions
 ) => {
-  switch (getTutorialStep(state.input)) {
+  switch (getTutorialStep(state.input, doNotShowDelayInstructions)) {
     case TutorialSteps.start:
     case TutorialSteps.input:
       return (
@@ -140,7 +142,8 @@ const Tutorial = ({
   suggestionsType,
   isVirtualKeyboardEnabled,
   totalSuggestions,
-  device
+  device,
+  doNotShowDelayInstructions
 }) => {
   // We use useCallback to prevent the trial reducer from being called
   // twice. It is expensive.
@@ -150,12 +153,13 @@ const Tutorial = ({
         state,
         action,
         suggestionsType,
-        isVirtualKeyboardEnabled
+        isVirtualKeyboardEnabled,
+        doNotShowDelayInstructions
       )
         ? action.changes
         : state;
 
-      switch (getTutorialStep(nextState.input)) {
+      switch (getTutorialStep(nextState.input, doNotShowDelayInstructions)) {
         case TutorialSteps.start:
         case TutorialSteps.input:
           return { ...nextState, suggestions: [] };
@@ -197,8 +201,9 @@ const Tutorial = ({
       }
     },
     [
-      isVirtualKeyboardEnabled,
       suggestionsType,
+      isVirtualKeyboardEnabled,
+      doNotShowDelayInstructions,
       totalSuggestions,
       trialKeyStrokeDelay
     ]
@@ -239,7 +244,7 @@ const Tutorial = ({
       isCompleted={isCompleted}
       suggestionsType={suggestionsType}
       hasErrors={hasErrors}
-      tutorialStep={getTutorialStep(input)}
+      tutorialStep={getTutorialStep(input, doNotShowDelayInstructions)}
       totalSuggestions={totalSuggestions}
       showsHelp={false}
       isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
@@ -257,7 +262,8 @@ Tutorial.propTypes = {
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
   isVirtualKeyboardEnabled: PropTypes.bool.isRequired,
   totalSuggestions: PropTypes.number.isRequired,
-  device: PropTypes.oneOf(Object.values(Devices)).isRequired
+  device: PropTypes.oneOf(Object.values(Devices)).isRequired,
+  doNotShowDelayInstructions: PropTypes.bool.isRequired
 };
 
 export default Tutorial;

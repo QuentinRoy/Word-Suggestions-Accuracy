@@ -12,7 +12,12 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import StartupInstructions from "./StartupInstructions";
 import StartupQuestionnaire from "./StartupQuestionnaire";
 
-const Startup = ({ onAdvanceWorkflow, onLog, numberOfPracticeTasks }) => {
+const Startup = ({
+  onAdvanceWorkflow,
+  onLog,
+  numberOfPracticeTasks,
+  doNotShowDelayInstructions
+}) => {
   const [areInstructionPassed, setAreInstructionPassed] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
@@ -22,6 +27,7 @@ const Startup = ({ onAdvanceWorkflow, onLog, numberOfPracticeTasks }) => {
   if (!areInstructionPassed) {
     return (
       <StartupInstructions
+        doNotShowDelayInstructions={doNotShowDelayInstructions}
         numberOfPracticeTasks={numberOfPracticeTasks}
         onStart={() => {
           lastLog.instructionEndDate = new Date();
@@ -55,7 +61,10 @@ const Startup = ({ onAdvanceWorkflow, onLog, numberOfPracticeTasks }) => {
 
   return (
     <>
-      <StartupQuestionnaire onSubmit={handleQuestionnaireSubmit} />
+      <StartupQuestionnaire
+        includesDelayQuestions={doNotShowDelayInstructions}
+        onSubmit={handleQuestionnaireSubmit}
+      />
       <Dialog
         open={isAlertOpen}
         aria-labelledby="alert-dialog-title"
@@ -82,7 +91,8 @@ const Startup = ({ onAdvanceWorkflow, onLog, numberOfPracticeTasks }) => {
 Startup.propTypes = {
   onLog: PropTypes.func.isRequired,
   onAdvanceWorkflow: PropTypes.func.isRequired,
-  numberOfPracticeTasks: PropTypes.number.isRequired
+  numberOfPracticeTasks: PropTypes.number.isRequired,
+  doNotShowDelayInstructions: PropTypes.bool.isRequired
 };
 
 export default Startup;

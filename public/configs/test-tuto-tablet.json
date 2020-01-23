@@ -4,6 +4,7 @@
   "suggestionsType": "BAR",
   "keyStrokeDelay": 0,
   "wave": "test",
+  "doNotShowDelayInstructions": true,
   "children": [
     {
       "task": "Tutorial",

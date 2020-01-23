@@ -5,7 +5,11 @@ import Appear from "./Appear";
 import styles from "./styles/StartupInstructions.module.css";
 import TaskPaper from "./TaskPaper";
 
-const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
+const StartupInstructions = ({
+  onStart,
+  numberOfPracticeTasks,
+  doNotShowDelayInstructions
+}) => {
   const [step, setStep] = useState(0);
 
   const instructionElements = (
@@ -20,14 +24,19 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
         Suggestions of words will appear as you type. It is up to you to use
         them or not.
       </Appear.Fragment>
-      <Appear.Fragment component="p">
-        Moreover, you may be assigned an <strong>impairment</strong> factor. You
-        may need to <strong>keep your keyboard key pressed down</strong> for a
-        certain period of time before the system reacts.{" "}
-      </Appear.Fragment>
-      <Appear.Fragment component="p">
-        If you release the key before this delay is passed, nothing will happen.
-      </Appear.Fragment>
+      {doNotShowDelayInstructions ? null : (
+        <>
+          <Appear.Fragment component="p">
+            Moreover, you may be assigned an <strong>impairment</strong> factor.
+            You may need to <strong>keep your keyboard key pressed down</strong>{" "}
+            for a certain period of time before the system reacts.{" "}
+          </Appear.Fragment>
+          <Appear.Fragment component="p">
+            If you release the key before this delay is passed, nothing will
+            happen.
+          </Appear.Fragment>
+        </>
+      )}
       <br />
       <Appear.Fragment component="p">
         After a short tutorial, you will train on{" "}
@@ -53,7 +62,7 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
     </>
   );
 
-  const totalSteps = 10;
+  const totalSteps = doNotShowDelayInstructions ? 8 : 10;
 
   return (
     <TaskPaper className={styles.main}>
@@ -93,6 +102,7 @@ const StartupInstructions = ({ onStart, numberOfPracticeTasks }) => {
 };
 
 StartupInstructions.propTypes = {
+  doNotShowDelayInstructions: PropTypes.bool.isRequired,
   onStart: PropTypes.func.isRequired,
   numberOfPracticeTasks: PropTypes.number.isRequired
 };

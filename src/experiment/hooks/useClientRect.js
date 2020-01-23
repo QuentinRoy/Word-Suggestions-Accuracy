@@ -1,11 +1,28 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 export default function useClientRect() {
-  const [node, setNode] = useState(null);
+  const [rect, setRect] = useState(null);
+  const innerRef = useRef(null);
+
+  const onChange = () => {
+    if (innerRef.current == null) {
+      setRect(null);
+    } else {
+      setRect(innerRef.current.getBoundingClientRect());
+    }
+  };
 
   const ref = useCallback(newNode => {
-    setNode(newNode);
+    innerRef.current = newNode;
+    onChange();
   }, []);
 
-  return [node != null ? node.getBoundingClientRect() : null, ref];
+  useEffect(() => {
+    window.addEventListener("resize", onChange);
+    return () => {
+      window.removeEventListener("resize", onChange);
+    };
+  }, []);
+
+  return [rect, ref];
 }

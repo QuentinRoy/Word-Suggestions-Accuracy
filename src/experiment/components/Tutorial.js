@@ -28,7 +28,6 @@ const tutorialSksDistribution = [
 const tutorialSentence = getTextFromSksDistribution(tutorialSksDistribution);
 
 const getTutorialStep = (input, doNotShowDelayInstructions) => {
-  console.log({ doNotShowDelayInstructions });
   const hasErrors = !isInputCorrect(input, tutorialSentence);
 
   if (input === "" || input == null) {

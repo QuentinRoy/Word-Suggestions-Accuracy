@@ -42,7 +42,7 @@ const onSubmit = (values, { setSubmitting }) => {
   setSubmitting(true);
   // Register some of the keys that should not change often.
   saveValues(values);
-  window.location.href = `${window.location.origin}?${stringify(
+  window.location.href = `${window.location.pathname}?${stringify(
     transformValues(values)
   )}`;
 };

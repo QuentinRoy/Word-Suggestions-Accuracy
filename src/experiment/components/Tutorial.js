@@ -196,7 +196,12 @@ const Tutorial = ({
           return nextState;
       }
     },
-    [isVirtualKeyboardEnabled, suggestionsType, trialKeyStrokeDelay]
+    [
+      isVirtualKeyboardEnabled,
+      suggestionsType,
+      totalSuggestions,
+      trialKeyStrokeDelay
+    ]
   );
 
   const {

@@ -34,12 +34,26 @@
     "styled-components": "^4.4.1",
     "xml2js": "^0.4.23"
   },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-flowtype": "^3.13.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.3",
+    "html-minifier": "^4.0.0",
+    "node-sass": "^4.13.1",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.5"
+  },
   "homepage": ".",
   "scripts": {
     "start": "cross-env REACT_APP_VERSION=$npm_package_version REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts start",
     "build": "cross-env REACT_APP_VERSION=$npm_package_version REACT_APP_GIT_SHA=`git rev-parse --short HEAD` GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
-    "test-scripts": "jest scripts",
+    "test-scripts": "./node_modules/react-scripts/node_modules/.bin/jest scripts",
     "eject": "react-scripts eject",
     "generate-sks-distribution": "node scripts/sks-distribution-generator/index.js",
     "generate-design": "node scripts/design/index.js",
@@ -61,20 +75,5 @@
       "last 1 firefox version",
       "last 3 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-flowtype": "^3.13.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.18.3",
-    "html-minifier": "^4.0.0",
-    "jest": "^25.1.0",
-    "node-sass": "^4.13.1",
-    "prettier": "^1.19.1",
-    "typescript": "^3.7.5"
   }
 }

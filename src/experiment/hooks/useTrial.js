@@ -66,7 +66,7 @@ const useTrial = ({
   // This expects the following action property: type (one of Actions), and
   // reductionStartTime (automatically inserted by the dispatchWrapper below).
   // We use useMemo. Otherwise it will change on each render and react will call
-  // it twice. It is not usually a problem, but our reducer is very expensive.
+  // it twice. It is not usually a problem, but our reducer may be expensive.
   const reducer = useMemo(
     () =>
       TrialReducer({

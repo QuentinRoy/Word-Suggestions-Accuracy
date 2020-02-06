@@ -6,6 +6,9 @@ export default function SuggestionsControlReducer({
   wordSuggestionEngine,
   sksDistribution
 }) {
+  // It is not clear why this is a control reducer rather than a simple reducer
+  // since it does not do anything with the initial state. I think it used to
+  // but has changed since.
   return function suggestionControlReducer(state, action) {
     if (suggestionsType === SuggestionTypes.none) {
       return [];

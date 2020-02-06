@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, memo } from "react";
 import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
 import { KeyboardLayoutNames } from "../../utils/constants";
@@ -55,7 +55,7 @@ const adjustButtonsSize = container => {
   });
 };
 
-const VirtualKeyboard = ({ layout, onVirtualKeyDown, onVirtualKeyUp }) => {
+const VirtualKeyboard = memo(({ layout, onVirtualKeyDown, onVirtualKeyUp }) => {
   const ref = useRef();
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const VirtualKeyboard = ({ layout, onVirtualKeyDown, onVirtualKeyUp }) => {
       />
     </div>
   );
-};
+});
 
 VirtualKeyboard.propTypes = {
   layout: PropTypes.string.isRequired,

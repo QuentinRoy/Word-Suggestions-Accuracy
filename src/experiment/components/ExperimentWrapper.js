@@ -21,6 +21,7 @@ import Tutorial from "./Tutorial";
 import ConsentForm from "./ConsentForm";
 import FinalFeedbacks from "./FinalFeedbacks";
 import InjectEnd from "./InjectEnd";
+import FullScreenRequestTask from "./FullScreenRequestTask";
 import { WordSuggestionsEngineProvider } from "../wordSuggestions/wordSuggestionsContext";
 
 const UploadComponent = createUpload(
@@ -42,6 +43,7 @@ registerTask(TaskTypes.tutorial, Tutorial);
 registerTask(TaskTypes.consentForm, ConsentForm);
 registerTask(TaskTypes.finalFeedbacks, FinalFeedbacks);
 registerTask(TaskTypes.injectEnd, InjectEnd);
+registerTask(TaskTypes.fullScreenRequest, FullScreenRequestTask);
 
 const urlParams = new URL(document.location).searchParams;
 const configArgs = {

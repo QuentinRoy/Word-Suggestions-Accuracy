@@ -2,7 +2,19 @@ const fs = require("fs-extra");
 const path = require("path");
 const lodash = require("lodash");
 const log = require("loglevel");
+// eslint-disable-next-line import/no-extraneous-dependencies
+const htmlMinifier = require("html-minifier");
 const { balancedLatinSquare } = require("./ordering");
+
+const minify = (str, opts = {}) => {
+  return htmlMinifier.minify(str, {
+    collapseBooleanAttributes: true,
+    collapseInlineTagWhitespace: true,
+    collapseWhitespace: true,
+    keepClosingSlash: true,
+    ...opts
+  });
+};
 
 log.setDefaultLevel(log.levels.DEBUG);
 
@@ -27,14 +39,29 @@ const createConfigurationId = configNumber => `C${configNumber}`;
 const createInitBlock = ({ firstDevice }) => {
   const children = [
     { task: "ConsentForm", key: `init-consent` },
+    { task: "FullScreenRequest", key: `full-scree-req-tuto` },
     { task: "Startup", key: `init-startup` },
     { task: "DemographicQuestionnaire", key: `init-demographic-questionnaire` },
+    {
+      task: "InformationScreen",
+      content: minify(
+        `Let's start with a short tutorial demonstrating your task.`
+      ),
+      key: `info-tuto`
+    },
+    {
+      task: "Tutorial",
+      isPractice: true,
+      key: `tuto`,
+      id: `tuto`
+    },
     { task: "S3Upload", key: `init-upload` }
   ];
   if (firstDevice !== "laptop") {
     children.push({
       task: "InformationScreen",
-      content: `Now switch to the ${firstDevice}.`
+      content: minify(`Now switch to the ${firstDevice}.`),
+      key: `info-first-switch`
     });
   }
   return { device: "laptop", children };
@@ -47,20 +74,10 @@ const createTypingBlock = ({
   practicePhrases
 }) => {
   const children = [
+    { task: "FullScreenRequest", key: `full-scree-req-${device}` },
     {
       task: "InformationScreen",
-      content: `<h1>Typing on ${device}</h1><p>Let's start with a short tutorial</p>`,
-      key: `typing-${device}-info-start`
-    },
-    {
-      task: "Tutorial",
-      isPractice: true,
-      key: `typing-${device}-tuto`,
-      id: `typing-${device}-tuto`
-    },
-    {
-      task: "InformationScreen",
-      content: "<h1>Practice</h1><p>Continue with the practice tasks.</p>",
+      content: minify(`<h1>Typing on ${device}: Practice</h1>`),
       key: `typing-${device}-info-practice-start`
     },
     // Insert practice trials.
@@ -74,8 +91,11 @@ const createTypingBlock = ({
     })),
     {
       task: "InformationScreen",
-      content:
-        "<h1>Experiment</h1><p>Practice is over. You may take a break. The real experiment begins immediately after this screen!</p><p>Remember to complete every task as fast and accurately as you can.</p>",
+      content: minify(`
+        <h1>Experiment</h1>
+        <p>Practice is over. You may take a break. The real experiment begins immediately after this screen!</p>
+        <p>Remember to complete every task as fast and accurately as you can.</p>
+      `),
       key: `typing-${device}-info-typing-start`
     },
     // Insert measured trials.
@@ -86,13 +106,13 @@ const createTypingBlock = ({
       id: `typing-${device}-phrase-${i}`,
       key: `typing-${device}-phrase-${i}`
     })),
-    { task: "BlockQuestionnaire" },
-    { task: "S3Upload", key: `init-upload` }
+    { task: "BlockQuestionnaire", key: `typing-questionnaire-${device}` },
+    { task: "S3Upload", key: `typing-upload-${device}` }
   ];
   if (nextDevice !== device) {
     children.push({
       task: "InformationScreen",
-      content: `Now switch to the ${nextDevice}.`,
+      content: minify(`Now switch to the ${nextDevice}.`),
       key: `typing-${device}-info-typing-end`
     });
   }

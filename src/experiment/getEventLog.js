@@ -69,6 +69,7 @@ const getEventLog = (
       newState.input.length - newTotalIncorrectChars,
       text.length
     ),
+    isFullScreen: newState.isFullScreen,
     totalIncorrectCharacters: newTotalIncorrectChars,
     isInputCorrect: isInputCorrect(newState.input, text),
     isTargetCompleted: isTargetCompleted(newState.input, text),

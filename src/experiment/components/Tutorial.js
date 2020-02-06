@@ -68,6 +68,14 @@ const isActionAllowed = (
   isVirtualKeyboardEnabled,
   doNotShowDelayInstructions
 ) => {
+  if (
+    action.type === Actions.windowBlurred ||
+    action.type === Actions.windowFocused ||
+    action.type === Actions.fullScreenEntered ||
+    action.type === Actions.fullScreenLeft
+  ) {
+    return true;
+  }
   switch (getTutorialStep(state.input, doNotShowDelayInstructions)) {
     case TutorialSteps.start:
     case TutorialSteps.input:
@@ -216,7 +224,8 @@ const Tutorial = ({
     keyboardLayoutName,
     isCompleted,
     hasErrors,
-    text
+    text,
+    isFullScreen
   } = useTrial({
     suggestionsType,
     onComplete: onAdvanceWorkflow,
@@ -238,6 +247,7 @@ const Tutorial = ({
       focusTarget={focusTarget}
       suggestions={input === "" ? [] : suggestions}
       text={text}
+      isFullScreen={isFullScreen}
       input={input}
       keyboardLayoutName={keyboardLayoutName}
       isCompleted={isCompleted}

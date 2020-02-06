@@ -27,6 +27,7 @@ import TutorialOverlay from "./tutorialOverlay/TutorialOverlay";
 import FocusAlert from "./FocusAlert";
 import useClientRect from "../hooks/useClientRect";
 import TrialHelp from "./TrialHelp";
+import FullScreenDialog from "./FullScreenDialog";
 
 const mapVirtualKey = key => {
   switch (key) {
@@ -98,6 +99,7 @@ const TrialPresenter = ({
   hasErrors,
   tutorialStep,
   showsHelp,
+  isFullScreen,
   shouldUseNumberToInputBarSuggestions
 }) => {
   // Using a reference for the pressed keys since we don't care about
@@ -271,113 +273,121 @@ const TrialPresenter = ({
   }, [dispatch]);
 
   return (
-    <div
-      className={classNames(styles.trial, {
-        [styles.laptopTrial]: device === Devices.laptop,
-        [styles.phoneTrial]: device === Devices.phone,
-        [styles.tabletTrial]: device === Devices.tablet
-      })}
-    >
-      <div className={styles.banner}>
-        {isCompleted ? (
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          <SuccessBanner />
-        ) : (
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          <Stimulus
-            text={text}
-            input={input}
-            stimulusTextRef={tutorialStep == null ? null : stimulusTextRef}
-          />
-        )}
-      </div>
-      <div className={styles.content}>
-        <div className={styles.input}>
-          <TrialInput
-            suggestionRef={tutorialStep == null ? null : inlineSuggestionRef}
-            ref={tutorialStep == null ? null : inputRef}
-            hasErrors={hasErrors}
-            input={input}
-            isFocused={
-              focusTarget != null &&
-              !isFocusAlertShown &&
-              focusTarget.type === FocusTargetTypes.input
-            }
-            text={text}
-            shouldCaretBlink={isNoKeyPressed}
-            suggestion={
-              suggestionsType === SuggestionTypes.inline
-                ? arrangedSuggestions[mainSuggestionPosition]
-                : null
-            }
-          />
+    <>
+      <div
+        className={classNames(styles.trial, {
+          [styles.laptopTrial]: device === Devices.laptop,
+          [styles.phoneTrial]: device === Devices.phone,
+          [styles.tabletTrial]: device === Devices.tablet,
+          [styles.blurred]: !isFullScreen || isFocusAlertShown
+        })}
+      >
+        <div className={styles.banner}>
+          {isCompleted ? (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <SuccessBanner />
+          ) : (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <Stimulus
+              text={text}
+              input={input}
+              stimulusTextRef={tutorialStep == null ? null : stimulusTextRef}
+            />
+          )}
         </div>
-
-        {showsHelp && (
-          <div className={styles.trialHelp}>
-            <TrialHelp isVirtualKeyboardEnabled={isVirtualKeyboardEnabled} />
+        <div className={styles.content}>
+          <div className={styles.input}>
+            <TrialInput
+              suggestionRef={tutorialStep == null ? null : inlineSuggestionRef}
+              ref={tutorialStep == null ? null : inputRef}
+              hasErrors={hasErrors}
+              input={input}
+              isFocused={
+                focusTarget != null &&
+                !isFocusAlertShown &&
+                focusTarget.type === FocusTargetTypes.input
+              }
+              text={text}
+              shouldCaretBlink={isNoKeyPressed}
+              suggestion={
+                suggestionsType === SuggestionTypes.inline
+                  ? arrangedSuggestions[mainSuggestionPosition]
+                  : null
+              }
+            />
           </div>
-        )}
-        <div className={styles.controls}>
-          {suggestionsType === SuggestionTypes.bar ? (
-            <div ref={tutorialStep == null ? null : suggestionsBarRef}>
-              <SuggestionsBar
-                totalSuggestions={totalSuggestions}
-                focusedSuggestion={
-                  focusTarget != null &&
-                  !isFocusAlertShown &&
-                  focusTarget.type === FocusTargetTypes.suggestion
-                    ? focusTarget.suggestionNumber
-                    : null
-                }
-                suggestions={arrangedSuggestions}
-                onSelectionStart={selection => {
-                  if (isNoKeyPressed) {
+
+          {showsHelp && (
+            <div className={styles.trialHelp}>
+              <TrialHelp isVirtualKeyboardEnabled={isVirtualKeyboardEnabled} />
+            </div>
+          )}
+          <div className={styles.controls}>
+            {suggestionsType === SuggestionTypes.bar ? (
+              <div ref={tutorialStep == null ? null : suggestionsBarRef}>
+                <SuggestionsBar
+                  totalSuggestions={totalSuggestions}
+                  focusedSuggestion={
+                    focusTarget != null &&
+                    !isFocusAlertShown &&
+                    focusTarget.type === FocusTargetTypes.suggestion
+                      ? focusTarget.suggestionNumber
+                      : null
+                  }
+                  suggestions={arrangedSuggestions}
+                  onSelectionStart={selection => {
+                    if (isNoKeyPressed) {
+                      dispatch({
+                        type: Actions.inputSuggestion,
+                        word: selection,
+                        status: ActionStatuses.start
+                      });
+                    }
+                  }}
+                  onSelectionEnd={selection => {
                     dispatch({
                       type: Actions.inputSuggestion,
                       word: selection,
-                      status: ActionStatuses.start
+                      status: ActionStatuses.end
                     });
-                  }
-                }}
-                onSelectionEnd={selection => {
-                  dispatch({
-                    type: Actions.inputSuggestion,
-                    word: selection,
-                    status: ActionStatuses.end
-                  });
-                }}
-              />
-            </div>
-          ) : null}
-          {isVirtualKeyboardEnabled ? (
-            <div ref={tutorialStep == null ? null : virtualKeyboardRef}>
-              <VirtualKeyboard
-                layout={keyboardLayoutName}
-                onVirtualKeyDown={onVirtualKeyDown}
-                onVirtualKeyUp={onVirtualKeyUp}
-              />
-            </div>
-          ) : null}
+                  }}
+                />
+              </div>
+            ) : null}
+            {isVirtualKeyboardEnabled ? (
+              <div ref={tutorialStep == null ? null : virtualKeyboardRef}>
+                <VirtualKeyboard
+                  layout={keyboardLayoutName}
+                  onVirtualKeyDown={onVirtualKeyDown}
+                  onVirtualKeyUp={onVirtualKeyUp}
+                />
+              </div>
+            ) : null}
+          </div>
         </div>
-      </div>
-      <FocusAlert isShown={isFocusAlertShown} onClose={onCloseFocusAlert} />
-      {tutorialStep && (
-        <TutorialOverlay
-          tutorialStep={tutorialStep}
-          stimulusTextRect={stimulusTextRect}
-          inputRect={inputRect}
-          inlineSuggestionRect={inlineSuggestionRect}
-          suggestionsBarRect={suggestionsBarRect}
-          virtualKeyboardRect={
-            isVirtualKeyboardEnabled ? virtualKeyboardRect : null
-          }
-          suggestionsType={suggestionsType}
-          isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
-          totalSuggestions={totalSuggestions}
+        <FocusAlert
+          isShown={isFocusAlertShown && isFullScreen}
+          onClose={onCloseFocusAlert}
         />
-      )}
-    </div>
+        {/* The key argument makes sure the error is not kept in the dialog */}
+        <FullScreenDialog isShown={!isFullScreen} key={isFullScreen} />
+        {tutorialStep && (
+          <TutorialOverlay
+            tutorialStep={tutorialStep}
+            stimulusTextRect={stimulusTextRect}
+            inputRect={inputRect}
+            inlineSuggestionRect={inlineSuggestionRect}
+            suggestionsBarRect={suggestionsBarRect}
+            virtualKeyboardRect={
+              isVirtualKeyboardEnabled ? virtualKeyboardRect : null
+            }
+            suggestionsType={suggestionsType}
+            isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
+            totalSuggestions={totalSuggestions}
+          />
+        )}
+      </div>
+    </>
   );
 };
 
@@ -402,7 +412,8 @@ TrialPresenter.propTypes = {
   tutorialStep: PropTypes.oneOf(Object.values(TutorialSteps)),
   isFocusAlertShown: PropTypes.bool,
   showsHelp: PropTypes.bool,
-  shouldUseNumberToInputBarSuggestions: PropTypes.bool
+  shouldUseNumberToInputBarSuggestions: PropTypes.bool,
+  isFullScreen: PropTypes.bool.isRequired
 };
 
 TrialPresenter.defaultProps = {

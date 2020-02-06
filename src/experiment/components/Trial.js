@@ -28,7 +28,8 @@ const Trial = ({
     keyboardLayoutName,
     isCompleted,
     hasErrors,
-    isFocusAlertShown
+    isFocusAlertShown,
+    isFullScreen
   } = useTrial({
     totalSuggestions,
     suggestionsType,
@@ -50,6 +51,7 @@ const Trial = ({
       suggestions={suggestions}
       text={text}
       input={input}
+      isFullScreen={isFullScreen}
       keyboardLayoutName={keyboardLayoutName}
       isCompleted={isCompleted}
       totalSuggestions={totalSuggestions}

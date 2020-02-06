@@ -1,4 +1,4 @@
-import { useReducer, useRef, useCallback, useMemo } from "react";
+import { useReducer, useRef, useCallback, useMemo, useEffect } from "react";
 import {
   Actions,
   ActionStatuses,
@@ -20,6 +20,11 @@ import useWindowFocus from "./useWindowFocus";
 import useFirstRenderTime from "./useFirstRenderTime";
 import TrialReducer from "../trialReducers/TrialReducer";
 import { useWordSuggestionsEngine } from "../wordSuggestions/wordSuggestionsContext";
+import {
+  isFullScreen,
+  listenToFullScreenChange,
+  stopListeningToFullScreenChange
+} from "../../utils/fullScreen";
 
 // **********
 //  CONSTANTS
@@ -94,7 +99,8 @@ const useTrial = ({
         totalSuggestionTargets:
           suggestionsType === SuggestionTypes.bar ? totalSuggestions : 0,
         suggestions: [],
-        isFocusAlertShown: !document.hasFocus()
+        isFocusAlertShown: !document.hasFocus(),
+        isFullScreen: isFullScreen()
       },
       { type: Actions.init }
     );
@@ -108,7 +114,8 @@ const useTrial = ({
       focusTarget,
       events,
       keyStrokeDelay,
-      isFocusAlertShown
+      isFocusAlertShown,
+      isFullScreen: isFullScreenState
     },
     dispatch
   ] = useReducer(reducer, null, initState);
@@ -121,6 +128,20 @@ const useTrial = ({
       dispatch({ type: Actions.windowFocused });
     }
   });
+
+  useEffect(() => {
+    const handler = () => {
+      dispatch({
+        type: isFullScreen()
+          ? Actions.fullScreenEntered
+          : Actions.fullScreenLeft
+      });
+    };
+    listenToFullScreenChange(handler);
+    return () => {
+      stopListeningToFullScreenChange(handler);
+    };
+  }, []);
 
   // Used to schedule action to be performed after a delay.
   const actionScheduler = useActionScheduler(dispatch, keyStrokeDelay);
@@ -192,7 +213,8 @@ const useTrial = ({
     isCompleted,
     input,
     hasErrors,
-    isFocusAlertShown
+    isFocusAlertShown,
+    isFullScreen: isFullScreenState
   };
 };
 

@@ -27,6 +27,8 @@ export const Actions = Object.freeze({
   windowFocused: "WINDOW_FOCUSED",
   closeFocusAlert: "CLOSE_FOCUS_ALERT",
   submit: "SUBMIT",
+  fullScreenEntered: "FULL_SCREEN_ENTERED",
+  fullScreenLeft: "FULL_SCREEN_LEFT",
 
   // Scheduled action
   scheduleAction: "SCHEDULE_ACTION",

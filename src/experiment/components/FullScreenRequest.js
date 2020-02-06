@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
-import TaskPaper from "./TaskPaper";
 import styles from "./styles/FullScreenRequest.module.css";
-import useIsFullScreen from "../hooks/useIsFullScreen";
+import { useIsFullScreen, requestFullScreen } from "../../utils/fullScreen";
 
 export default function FullScreenRequest({ onFullScreen }) {
   const [error, setError] = useState(null);
@@ -19,10 +18,10 @@ export default function FullScreenRequest({ onFullScreen }) {
   }, [isFullScreen, onFullScreen]);
 
   if (isFullScreen) {
-    return <TaskPaper />;
+    return null;
   }
   return (
-    <TaskPaper>
+    <>
       <p>The app need to be in full screen to work properly.</p>
       <p>
         <Button
@@ -31,8 +30,7 @@ export default function FullScreenRequest({ onFullScreen }) {
           disabled={isClicked}
           onClick={() => {
             setIsClicked(true);
-            document.documentElement
-              .requestFullscreen()
+            requestFullScreen()
               .then(onFullScreen, setError)
               .finally(() => {
                 setIsClicked(false);
@@ -47,10 +45,14 @@ export default function FullScreenRequest({ onFullScreen }) {
           Something went wrong: &ldquo;{error.message}&rdquo;
         </p>
       )}
-    </TaskPaper>
+    </>
   );
 }
 
 FullScreenRequest.propTypes = {
-  onFullScreen: PropTypes.func.isRequired
+  onFullScreen: PropTypes.func
+};
+
+FullScreenRequest.defaultProps = {
+  onFullScreen: () => {}
 };

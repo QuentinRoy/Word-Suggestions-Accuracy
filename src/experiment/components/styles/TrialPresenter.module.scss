@@ -74,3 +74,19 @@ $maxContentWidth: 800px;
     overflow: hidden;
   }
 }
+
+.blurred {
+  filter: blur(5px);
+}
+
+.fullScreenRequest {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 20px auto;
+  width: 400px;
+}

@@ -52,6 +52,7 @@ const createInitBlock = ({ firstDevice }) => {
     {
       task: "Tutorial",
       isPractice: true,
+      isVirtualKeyboardEnabled: false,
       key: `tuto`,
       id: `tuto`
     },

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Word Suggestions Test</title>
+    <script type="text/javascript">
+      const suggestionRequestType = "sreq";
+      const suggestionResponseType = "sresp";
+      const fieldSeparator = ";";
+
+      let prevMessageId = 0;
+      function getMessageId() {
+        prevMessageId += 1;
+        return prevMessageId;
+      }
+      function getLastMessageId() {
+        return prevMessageId;
+      }
+
+      function logPrefix() {
+        return `<span class="prefix">${new Date().toISOString()}: </span>`;
+      }
+
+      window.addEventListener("load", () => {
+        const textArea = document.getElementById("text");
+        const suggestionsElt = document.getElementById("suggestions");
+        const messagesElt = document.getElementById("messages");
+        let conn = null;
+
+        function appendLog(item) {
+          messagesElt.appendChild(item);
+        }
+
+        function onError(message) {
+          var item = document.createElement("div");
+          item.classList.add("error");
+          item.innerHTML = `${logPrefix()}${message}`;
+          appendLog(item);
+        }
+
+        textArea.addEventListener("keyup", evt => {
+          let lastWord = textArea.value.split(/\s+/).pop();
+          if (lastWord == null) return;
+          conn.send(
+            `${suggestionRequestType};${getMessageId()};target;${lastWord}`
+          );
+        });
+
+        if (window["WebSocket"]) {
+          conn = new WebSocket("ws://" + document.location.host + "/ws");
+          conn.addEventListener("close", evt => {
+            let item = document.createElement("div");
+            item.innerHTML = `${logPrefix()}<b>Connection closed.</b>`;
+            appendLog(item);
+            conn = null;
+            suggestionsElt.innerHTML = "";
+          });
+          let lastAnswerNum = null;
+          conn.addEventListener("message", evt => {
+            let parts = evt.data.split(";");
+            if (parts[0] !== suggestionResponseType) {
+              onError(`Received unknown message type: ${parts[0]}`);
+            }
+            // Check that the responses are received in order.
+            let answerNum = +parts[1];
+            if (lastAnswerNum != null && answerNum < lastAnswerNum) {
+              return;
+            }
+            lastAnswerNum = answerNum;
+            let totalSuggestions = parts[2];
+            let suggestions = parts.slice(3, 3 + totalSuggestions);
+            suggestionsElt.innerHTML = suggestions
+              .map(sug => `<div class="suggestion">${sug}</div>`)
+              .join("");
+          });
+        } else {
+          onError("Your browser does not support WebSockets");
+        }
+      });
+    </script>
+    <style type="text/css">
+      html {
+        overflow: hidden;
+        font-size: 5mm;
+      }
+
+      body {
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background: lightgray;
+      }
+
+      #text {
+        margin: 0.5rem;
+        font-size: 1rem;
+      }
+
+      #messages {
+        padding: 0.5rem;
+        overflow: scroll;
+      }
+
+      #main {
+        display: grid;
+        grid-template-rows: 30% auto 1fr;
+        height: 100vh;
+      }
+
+      .error {
+        color: red;
+      }
+
+      .suggestion {
+        display: inline-block;
+        padding: 0.5rem;
+        margin: 0.5rem;
+        background: #444;
+        color: white;
+        flex-grow: 1;
+        text-align: center;
+      }
+
+      #suggestions {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .prefix {
+        color: #444;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <textarea id="text"></textarea>
+      <div id="suggestions"></div>
+      <div id="messages"></div>
+    </div>
+  </body>
+</html>

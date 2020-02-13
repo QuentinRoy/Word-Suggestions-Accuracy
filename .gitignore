@@ -90,3 +90,4 @@ $RECYCLE.BIN/
 events.csv
 *.pyc
 participants-logs
+suggestionServer/suggestionServer

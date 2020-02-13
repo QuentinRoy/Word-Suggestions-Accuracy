@@ -8,6 +8,8 @@ import (
 	"flag"
 	"log"
 	"net/http"
+
+	"controlAccuracy/suggestionServer/dictionary"
 )
 
 var addr = flag.String("addr", ":8080", "http service address")
@@ -27,12 +29,12 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	flag.Parse()
-	dict := Dictionary{}
+	dict := dictionary.LoadFromXML("./dictionary.xml")
 	hub := newHub()
 	go hub.run()
 	http.HandleFunc("/", serveHome)
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		serveWs(hub, &dict, w, r)
+		serveWs(hub, dict, w, r)
 	})
 	err := http.ListenAndServe(*addr, nil)
 	if err != nil {

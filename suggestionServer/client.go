@@ -9,6 +9,8 @@ import (
 	"strings"
 	"time"
 
+	"controlAccuracy/suggestionServer/dictionary"
+
 	"github.com/gorilla/websocket"
 )
 
@@ -45,7 +47,7 @@ var upgrader = websocket.Upgrader{
 type Client struct {
 	hub *Hub
 
-	dict *Dictionary
+	dict *dictionary.Dictionary
 
 	// The websocket connection.
 	conn *websocket.Conn
@@ -66,9 +68,10 @@ func (c *Client) handleTextMessage(message string) {
 		return
 	}
 	reqID := parts[1]
-	suggestions := c.dict.GetMockedWordSuggestions(
-		inputContext{TargetWord: parts[2], InputWord: parts[3]},
+	suggestions := c.dict.MockedWordSuggestions(
+		dictionary.InputContext{TargetWord: parts[2], InputWord: parts[3]},
 		totalSuggestions,
+		make(chan bool),
 	)
 	c.send <- fmt.Sprintf(
 		"%s%s%s%s%v%s%s",
@@ -153,7 +156,7 @@ func (c *Client) writePump() {
 }
 
 // serveWs handles websocket requests from the peer.
-func serveWs(hub *Hub, dict *Dictionary, w http.ResponseWriter, r *http.Request) {
+func serveWs(hub *Hub, dict *dictionary.Dictionary, w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err)

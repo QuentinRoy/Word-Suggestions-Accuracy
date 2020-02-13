@@ -30,7 +30,7 @@ const suggestionScore = (suggestionFScore, suggestion, inputWord) => {
   // matter since all sentences are in English.
   const wordScore = suggestion === inputWord ? 255 : suggestionFScore;
   const score =
-    2 ** (totalMatchedChars(suggestion, inputWord) * wordScore) * multiplier;
+    2 ** totalMatchedChars(suggestion, inputWord) * wordScore * multiplier;
   // Normalize the score.
   return score / maxScore;
 };

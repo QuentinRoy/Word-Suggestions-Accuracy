@@ -13,7 +13,11 @@ const (
 	sliceSize                   = 1000
 )
 
-var totalRoutines = int(math.Floor((float64(runtime.NumCPU()) - 2) / (maxSimultaneousParticipants + 1)))
+// Half of the CPUs are kept for main thread, OS and other apps, but we want to make sure we have at least one.
+var totalRoutines = int(math.Max(
+	1,
+	math.Floor(float64(runtime.NumCPU()))/(2*maxSimultaneousParticipants),
+))
 
 // MockedWordSuggestions computes a list of mocked word suggestions from an input context.
 // NOT CURRENTLY FUNCTIONAL

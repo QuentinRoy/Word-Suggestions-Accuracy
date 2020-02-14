@@ -5,7 +5,8 @@
     <script type="text/javascript">
       const suggestionRequestType = "sreq";
       const suggestionResponseType = "sresp";
-      const fieldSeparator = ";";
+      const fieldSeparator = "|";
+      const suggestionSeparator = ";";
 
       let prevMessageId = 0;
       function getMessageId() {
@@ -24,6 +25,13 @@
         const textArea = document.getElementById("text");
         const suggestionsElt = document.getElementById("suggestions");
         const messagesElt = document.getElementById("messages");
+        const targetWordInput = document.getElementById("target-word");
+        const totalSuggestionsInput = document.getElementById(
+          "total-suggestions"
+        );
+        const targetPositionsInput = document.getElementById(
+          "target-positions"
+        );
         let conn = null;
 
         function appendLog(item) {
@@ -37,44 +45,84 @@
           appendLog(item);
         }
 
-        textArea.addEventListener("keyup", evt => {
+        function requestSuggestions() {
           let lastWord = textArea.value.split(/\s+/).pop();
           if (lastWord == null) return;
           conn.send(
-            `${suggestionRequestType};${getMessageId()};target;${lastWord}`
+            [
+              suggestionRequestType,
+              getMessageId(),
+              lastWord,
+              totalSuggestionsInput.value,
+              targetWordInput.value,
+              targetPositionsInput.value
+            ].join(fieldSeparator)
           );
+        }
+
+        function updateTargetPositions() {
+          let fixedInput = targetPositionsInput.value
+            .replace(/[^0-9;\-]/g, "")
+            .replace(
+              new RegExp(`${suggestionSeparator}+`, "g"),
+              suggestionSeparator
+            )
+            .replace(new RegExp(`${suggestionSeparator}$`), "")
+            .trim();
+          let positions =
+            fixedInput == "" ? [] : fixedInput.split(suggestionSeparator);
+          let n = targetWordInput.value.length;
+          let last =
+            positions.length > 0 ? positions[positions.length - 1] : -1;
+          for (let i = positions.length; i < n; i += 1) {
+            positions.push(last);
+          }
+          targetPositionsInput.value = positions
+            .slice(0, n)
+            .join(suggestionSeparator);
+          requestSuggestions();
+        }
+
+        textArea.addEventListener("keyup", requestSuggestions);
+
+        targetPositionsInput.addEventListener("blur", updateTargetPositions);
+        targetWordInput.addEventListener("blur", updateTargetPositions);
+        totalSuggestionsInput.addEventListener("change", requestSuggestions);
+
+        if (!window["WebSocket"]) {
+          onError("Your browser does not support WebSockets");
+          return;
+        }
+
+        conn = new WebSocket("ws://" + document.location.host + "/ws");
+
+        conn.addEventListener("close", evt => {
+          let item = document.createElement("div");
+          item.innerHTML = `${logPrefix()}<b>Connection closed.</b>`;
+          appendLog(item);
+          conn = null;
+          suggestionsElt.innerHTML = "";
         });
 
-        if (window["WebSocket"]) {
-          conn = new WebSocket("ws://" + document.location.host + "/ws");
-          conn.addEventListener("close", evt => {
-            let item = document.createElement("div");
-            item.innerHTML = `${logPrefix()}<b>Connection closed.</b>`;
-            appendLog(item);
-            conn = null;
-            suggestionsElt.innerHTML = "";
-          });
-          let lastAnswerNum = null;
-          conn.addEventListener("message", evt => {
-            let parts = evt.data.split(";");
-            if (parts[0] !== suggestionResponseType) {
-              onError(`Received unknown message type: ${parts[0]}`);
-            }
-            // Check that the responses are received in order.
-            let answerNum = +parts[1];
-            if (lastAnswerNum != null && answerNum < lastAnswerNum) {
-              return;
-            }
-            lastAnswerNum = answerNum;
-            let totalSuggestions = parts[2];
-            let suggestions = parts.slice(3, 3 + totalSuggestions);
-            suggestionsElt.innerHTML = suggestions
-              .map(sug => `<div class="suggestion">${sug}</div>`)
-              .join("");
-          });
-        } else {
-          onError("Your browser does not support WebSockets");
-        }
+        let lastAnswerNum = null;
+        conn.addEventListener("message", evt => {
+          let parts = evt.data.split(fieldSeparator);
+          if (parts[0] !== suggestionResponseType) {
+            onError(`Received unknown message type: ${parts[0]}`);
+          }
+          // Check that the responses are received in order.
+          let answerNum = +parts[1];
+          if (lastAnswerNum != null && answerNum < lastAnswerNum) {
+            return;
+          }
+          lastAnswerNum = answerNum;
+          let suggestions = parts[2].split(suggestionSeparator);
+          suggestionsElt.innerHTML = suggestions
+            .map(sug => `<div class="suggestion">${sug}</div>`)
+            .join("");
+        });
+
+        conn.addEventListener("open", requestSuggestions);
       });
     </script>
     <style type="text/css">
@@ -104,7 +152,7 @@
 
       #main {
         display: grid;
-        grid-template-rows: 30% auto 1fr;
+        grid-template-rows: 30% auto auto 1fr;
         height: 100vh;
       }
 
@@ -116,8 +164,7 @@
         display: inline-block;
         padding: 0.5rem;
         margin: 0.5rem;
-        background: #444;
-        color: white;
+        border: black solid 1px;
         flex-grow: 1;
         text-align: center;
         width: 100%;
@@ -129,6 +176,10 @@
         justify-content: center;
       }
 
+      #target label {
+        margin: 0.5em;
+      }
+
       .prefix {
         color: #444;
       }
@@ -138,6 +189,19 @@
     <div id="main">
       <textarea id="text"></textarea>
       <div id="suggestions"></div>
+      <div id="target">
+        <label for="target-word">
+          target: <input type="text" id="target-word" value="target" />
+        </label>
+        <label for="target-positions">
+          target positions (sep by ';'):
+          <input type="text" id="target-positions" value="-1;-1;-1;2;0;0" />
+        </label>
+        <label for="total-suggestions">
+          # suggestions:
+          <input type="number" id="total-suggestions" value="3" min="0" />
+        </label>
+      </div>
       <div id="messages"></div>
     </div>
   </body>

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -27,14 +28,13 @@ const (
 	// Maximum message size allowed from peer.
 	maxMessageSize = 512
 
-	// Expected number of suggestions
-	totalSuggestions = 3
-
 	suggestionRequestType = "sreq"
 
 	suggestionResponseType = "sresp"
 
-	fieldSeparator = ";"
+	fieldSeparator = "|"
+
+	suggestionSeparator = ";"
 )
 
 var upgrader = websocket.Upgrader{
@@ -63,22 +63,26 @@ func (c *Client) handleTextMessage(message string) {
 		log.Println(fmt.Sprintf("Received unknown message type: %s ", mType))
 		return
 	}
-	if len(parts) != 4 {
+	if len(parts) != 6 {
 		log.Println(fmt.Sprintf("Unexpected sreq message format: %s", message))
+		return
+	}
+	totalSuggestions, err := strconv.Atoi(parts[3])
+	if err != nil {
+		log.Println(fmt.Sprintf("Cannot parse number of suggestions (field 3): %s", parts[3]))
 		return
 	}
 	reqID := parts[1]
 	suggestions := c.dict.MockedWordSuggestions(
-		dictionary.InputContext{TargetWord: parts[2], InputWord: parts[3]},
+		dictionary.InputContext{InputWord: parts[2], TargetWord: parts[4]},
 		totalSuggestions,
 		make(chan bool),
 	)
 	c.send <- fmt.Sprintf(
-		"%s%s%s%s%v%s%s",
+		"%s%s%s%s%s",
 		suggestionResponseType, fieldSeparator,
 		reqID, fieldSeparator,
-		len(suggestions), fieldSeparator,
-		strings.Join(suggestions, fieldSeparator),
+		strings.Join(suggestions, suggestionSeparator),
 	)
 }
 

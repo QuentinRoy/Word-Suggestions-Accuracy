@@ -39,3 +39,15 @@ func capitalize(s string) string {
 	}
 	return strings.ToUpper(s[:1]) + s[1:]
 }
+
+func areRuneSlicesEqual(s1, s2 []rune) bool {
+	if len(s1) != len(s2) {
+		return false
+	}
+	for i, r1 := range s1 {
+		if r1 != s2[i] {
+			return false
+		}
+	}
+	return true
+}

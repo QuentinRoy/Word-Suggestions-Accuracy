@@ -19,16 +19,28 @@ var totalRoutines = int(math.Max(
 	math.Floor(float64(runtime.NumCPU()))/(2*maxSimultaneousParticipants),
 ))
 
-// MockedWordSuggestions computes a list of mocked word suggestions from an input context.
-// NOT CURRENTLY FUNCTIONAL
-// Mocked word suggestions will only contains the target word as indicated in the input context.
-// Other suggestions are never worth picking.
-func (dict *Dictionary) MockedWordSuggestions(inputCtx InputContext, totalSuggestions int, cancel chan bool) []string {
-	return dict.WordSuggestions(inputCtx.InputWord, totalSuggestions, cancel)
+// WordSuggestions returns a list of word suggestions from an inputWord.
+func (dict *Dictionary) WordSuggestions(
+	inputWord string,
+	totalSuggestions int,
+	cancel chan bool,
+) []string {
+	return dict.FilteredWordSuggestions(
+		inputWord,
+		totalSuggestions,
+		func(_ string) bool { return true },
+		cancel,
+	)
 }
 
-// WordSuggestions returns a list of word suggestions from an inputWord.
-func (dict *Dictionary) WordSuggestions(inputWord string, totalSuggestions int, cancel chan bool) []string {
+// FilteredWordSuggestions returns a list of word suggestions from an inputWord, filtered using
+// filter.
+func (dict *Dictionary) FilteredWordSuggestions(
+	inputWord string,
+	totalSuggestions int,
+	filter func(string) bool,
+	cancel chan bool,
+) []string {
 	start := time.Now()
 	runeInputWord := []rune(strings.ToLower(inputWord))
 
@@ -39,7 +51,7 @@ func (dict *Dictionary) WordSuggestions(inputWord string, totalSuggestions int, 
 		go func() {
 			suggestions := make([]*suggestionEntry, totalSuggestions)
 			for slice, ok := <-orders; ok; slice, ok = <-orders {
-				insertSuggestions(slice, runeInputWord, totalSuggestions, suggestions)
+				insertSuggestions(slice, runeInputWord, totalSuggestions, suggestions, filter)
 			}
 			results <- suggestions
 		}()
@@ -79,7 +91,7 @@ func (dict *Dictionary) WordSuggestions(inputWord string, totalSuggestions int, 
 			if isInputCapitalized {
 				word = capitalize(word)
 			}
-			result = append(result, word)
+			result = append(result, word+" ")
 		}
 	}
 	elapsed := time.Now().Sub(start)
@@ -92,21 +104,18 @@ func insertSuggestions(
 	inputWord []rune,
 	totalSuggestions int,
 	suggestions []*suggestionEntry,
+	filter func(string) bool,
 ) {
 	for _, e := range entries {
+		if !filter(e.Word) {
+			continue
+		}
 		sEntry := suggestionEntry{
 			Score:      e.suggestionScore(inputWord),
 			Suggestion: e,
 		}
 		insertEject(suggestions, &sEntry)
 	}
-}
-
-// InputContext represents a participant's input and its context, in particular
-// what has been typed of the current word (InputWord) and the expected
-// target word.
-type InputContext struct {
-	InputWord, TargetWord string
 }
 
 type suggestionEntry struct {

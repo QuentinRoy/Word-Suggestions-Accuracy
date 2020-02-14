@@ -61,6 +61,9 @@
         }
 
         function updateTargetPositions() {
+          if (!targetWordInput.value.endsWith(" ")) {
+            targetWordInput.value = targetWordInput.value + " ";
+          }
           let fixedInput = targetPositionsInput.value
             .replace(/[^0-9;\-]/g, "")
             .replace(
@@ -216,11 +219,11 @@
       </div>
       <div id="target">
         <label for="target-word">
-          target: <input type="text" id="target-word" value="target" />
+          target: <input type="text" id="target-word" value="target " />
         </label>
         <label for="target-positions">
           target positions (sep by ';'):
-          <input type="text" id="target-positions" value="-1;-1;-1;2;0;0" />
+          <input type="text" id="target-positions" value="-1;-1;-1;2;0;0;0" />
         </label>
         <label for="total-suggestions">
           # suggestions:

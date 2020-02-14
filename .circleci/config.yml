@@ -6,6 +6,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Move to clien dir
+          command: cd client
+      - run:
           name: Install deps
           command: npm ci
       - run:

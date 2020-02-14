@@ -32,6 +32,8 @@ const (
 
 	suggestionResponseType = "sresp"
 
+	errorType = "err"
+
 	fieldSeparator = "|"
 
 	suggestionSeparator = ";"
@@ -56,25 +58,58 @@ type Client struct {
 	send chan string
 }
 
+func parseTargetPositions(targetPositionsString string) ([]int, error) {
+	fields := strings.Split(targetPositionsString, suggestionSeparator)
+	targetPositions := make([]int, len(fields))
+	var e error
+	for i, f := range fields {
+		targetPositions[i], e = strconv.Atoi(f)
+	}
+	return targetPositions, e
+}
+
+func (c *Client) printSendError(errMsg string) {
+	log.Println(errMsg)
+	c.send <- errorType +
+		fieldSeparator +
+		// Escape separators in the error msg.
+		strings.ReplaceAll(
+			strings.ReplaceAll(errMsg, fieldSeparator, `\`+fieldSeparator),
+			suggestionSeparator,
+			`\`+suggestionSeparator,
+		)
+}
+
 func (c *Client) handleTextMessage(message string) {
 	parts := strings.Split(message, fieldSeparator)
 	mType := strings.TrimSpace(parts[0])
 	if mType != suggestionRequestType {
-		log.Println(fmt.Sprintf("Received unknown message type: %s ", mType))
+		c.printSendError(fmt.Sprintf("Received unknown message type: %s ", mType))
 		return
 	}
 	if len(parts) != 6 {
-		log.Println(fmt.Sprintf("Unexpected sreq message format: %s", message))
+		c.printSendError(fmt.Sprintf("Unexpected sreq message format: %s", message))
 		return
 	}
 	totalSuggestions, err := strconv.Atoi(parts[3])
 	if err != nil {
-		log.Println(fmt.Sprintf("Cannot parse number of suggestions (field 3): %s", parts[3]))
+		c.printSendError(fmt.Sprintf("Cannot parse number of suggestions (field 3): %s", parts[3]))
+		return
+	}
+	targetPositions, err := parseTargetPositions(parts[5])
+	if err != nil {
+		c.printSendError(fmt.Sprintf("Cannot parse target positions (field 5): %s", parts[5]))
 		return
 	}
 	reqID := parts[1]
+	inputCtx := dictionary.InputContext{
+		InputWord:                 parts[2],
+		TargetWord:                parts[4],
+		CanReplaceLetters:         true,
+		TargetSuggestionPositions: targetPositions,
+	}
 	suggestions := c.dict.MockedWordSuggestions(
-		dictionary.InputContext{InputWord: parts[2], TargetWord: parts[4]},
+		inputCtx,
 		totalSuggestions,
 		make(chan bool),
 	)

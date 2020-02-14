@@ -97,3 +97,25 @@ func TestCapitalize(t *testing.T) {
 		t.Errorf("capitalize(\"hello There\") was incorrect, got: \"%s\", want: \"Hello There\".", cap)
 	}
 }
+
+func TestAreRuneSlicesEqual(t *testing.T) {
+	got := areRuneSlicesEqual([]rune("hello"), []rune("hello"))
+	if !got {
+		t.Error("areRuneSlicesEqual(hello, hello) = false, want true")
+	}
+
+	got = areRuneSlicesEqual([]rune("hella"), []rune("hello"))
+	if got {
+		t.Error("areRuneSlicesEqual(hella, hello) = true, want false")
+	}
+
+	got = areRuneSlicesEqual([]rune("hell"), []rune("hello"))
+	if got {
+		t.Error("areRuneSlicesEqual(hell, hello) = true, want false")
+	}
+
+	got = areRuneSlicesEqual([]rune("hello"), []rune("hell"))
+	if got {
+		t.Error("areRuneSlicesEqual(hello, hell) = true, want false")
+	}
+}

@@ -71,7 +71,7 @@
             .trim();
           let positions =
             fixedInput == "" ? [] : fixedInput.split(suggestionSeparator);
-          let n = targetWordInput.value.length;
+          const n = targetWordInput.value.length;
           let last =
             positions.length > 0 ? positions[positions.length - 1] : -1;
           for (let i = positions.length; i < n; i += 1) {
@@ -83,8 +83,27 @@
           requestSuggestions();
         }
 
-        textArea.addEventListener("keyup", requestSuggestions);
+        function updateSuggestions(suggestions) {
+          const totalPositions = +totalSuggestionsInput.value;
+          // Remove extraneous suggestions (and create new array).
+          suggestions.slice(0, totalPositions);
+          // Add missing suggestions (we can push because the array has been
+          // copied anyway).
+          suggestions.push(
+            ...Array.from({
+              length: totalPositions - suggestions.length
+            }).fill()
+          );
+          suggestionsElt.innerHTML = suggestions
+            .map(sug =>
+              sug == null
+                ? `<div class="suggestion empty">&nbsp;</div>`
+                : `<div class="suggestion">${sug}</div>`
+            )
+            .join("");
+        }
 
+        textArea.addEventListener("keyup", requestSuggestions);
         targetPositionsInput.addEventListener("blur", updateTargetPositions);
         targetWordInput.addEventListener("blur", updateTargetPositions);
         totalSuggestionsInput.addEventListener("change", requestSuggestions);
@@ -101,7 +120,7 @@
           item.innerHTML = `${logPrefix()}<b>Connection closed.</b>`;
           appendLog(item);
           conn = null;
-          suggestionsElt.innerHTML = "";
+          updateSuggestions([]);
         });
 
         let lastAnswerNum = null;
@@ -116,10 +135,7 @@
             return;
           }
           lastAnswerNum = answerNum;
-          let suggestions = parts[2].split(suggestionSeparator);
-          suggestionsElt.innerHTML = suggestions
-            .map(sug => `<div class="suggestion">${sug}</div>`)
-            .join("");
+          updateSuggestions(parts[2].split(suggestionSeparator));
         });
 
         conn.addEventListener("open", requestSuggestions);
@@ -170,6 +186,10 @@
         width: 100%;
       }
 
+      .empty.suggestion {
+        opacity: 0.5;
+      }
+
       #suggestions {
         display: flex;
         flex-direction: row;
@@ -177,6 +197,7 @@
       }
 
       #target label {
+        display: inline-block;
         margin: 0.5em;
       }
 
@@ -188,7 +209,11 @@
   <body>
     <div id="main">
       <textarea id="text"></textarea>
-      <div id="suggestions"></div>
+      <div id="suggestions">
+        <div class="suggestion empty">&nbsp;</div>
+        <div class="suggestion empty">&nbsp;</div>
+        <div class="suggestion empty">&nbsp;</div>
+      </div>
       <div id="target">
         <label for="target-word">
           target: <input type="text" id="target-word" value="target" />

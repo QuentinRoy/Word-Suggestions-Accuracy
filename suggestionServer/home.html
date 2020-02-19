@@ -21,6 +21,14 @@
         return `<span class="prefix">${new Date().toISOString()}: </span>`;
       }
 
+      function sum(list) {
+        return list.reduce((a, b) => a + b);
+      }
+
+      function avg(list) {
+        return sum(list) / list.length;
+      }
+
       window.addEventListener("load", () => {
         const textArea = document.getElementById("text");
         const suggestionsElt = document.getElementById("suggestions");
@@ -32,6 +40,7 @@
         const targetPositionsInput = document.getElementById(
           "target-positions"
         );
+        const averageReqTimeElt = document.getElementById("avg-req-time");
         let conn = null;
 
         function appendLog(item) {
@@ -45,13 +54,37 @@
           appendLog(item);
         }
 
+        const maxDurationEntries = 500;
+        let requestSendTimeMap = new Map();
+        let requestDurations = [];
+        // We track the index to limit the number of durations, but without
+        // creating a new index every times.
+        let nextDurationIdx = 0;
+
+        function onSendRequest(reqId) {
+          requestSendTimeMap.set(reqId, Date.now());
+        }
+
+        function onReceiveAnswer(reqId) {
+          let now = Date.now();
+          let sendTime = requestSendTimeMap.get(reqId);
+          requestSendTimeMap.delete(reqId);
+          if (sendTime == null) return;
+          requestDurations[nextDurationIdx] = now - sendTime;
+          nextDurationIdx = (nextDurationIdx + 1) % maxDurationEntries;
+          averageReqTimeElt.innerHTML = Math.round(avg(requestDurations));
+        }
+
         function requestSuggestions() {
+          if (conn == null) return;
           let lastWord = textArea.value.split(/\s+/).pop();
           if (lastWord == null) return;
+          let reqId = getMessageId();
+          onSendRequest(reqId);
           conn.send(
             [
               suggestionRequestType,
-              getMessageId(),
+              reqId,
               lastWord,
               totalSuggestionsInput.value,
               targetWordInput.value,
@@ -86,15 +119,17 @@
           requestSuggestions();
         }
 
-        function updateSuggestions(suggestions) {
-          const totalPositions = +totalSuggestionsInput.value;
+        let currentSuggestions = [];
+        function updateSuggestions(suggestions = currentSuggestions) {
+          currentSuggestions = suggestions;
+          const totalSuggestions = +totalSuggestionsInput.value;
           // Remove extraneous suggestions (and create new array).
-          suggestions.slice(0, totalPositions);
+          suggestions = suggestions.slice(0, totalSuggestions);
           // Add missing suggestions (we can push because the array has been
           // copied anyway).
           suggestions.push(
             ...Array.from({
-              length: totalPositions - suggestions.length
+              length: totalSuggestions - suggestions.length
             }).fill()
           );
           suggestionsElt.innerHTML = suggestions
@@ -109,7 +144,10 @@
         textArea.addEventListener("keyup", requestSuggestions);
         targetPositionsInput.addEventListener("blur", updateTargetPositions);
         targetWordInput.addEventListener("blur", updateTargetPositions);
-        totalSuggestionsInput.addEventListener("change", requestSuggestions);
+        totalSuggestionsInput.addEventListener("change", () => {
+          requestSuggestions();
+          updateSuggestions();
+        });
 
         if (!window["WebSocket"]) {
           onError("Your browser does not support WebSockets");
@@ -134,6 +172,7 @@
           }
           // Check that the responses are received in order.
           let answerNum = +parts[1];
+          onReceiveAnswer(answerNum);
           if (lastAnswerNum != null && answerNum < lastAnswerNum) {
             return;
           }
@@ -159,6 +198,12 @@
         background: lightgray;
       }
 
+      #main {
+        display: grid;
+        grid-template-rows: 30% auto auto auto 1fr;
+        height: 100vh;
+      }
+
       #text {
         margin: 0.5rem;
         font-size: 1rem;
@@ -169,10 +214,8 @@
         overflow: scroll;
       }
 
-      #main {
-        display: grid;
-        grid-template-rows: 30% auto auto 1fr;
-        height: 100vh;
+      #stats {
+        padding: 0.5rem;
       }
 
       .error {
@@ -229,6 +272,9 @@
           # suggestions:
           <input type="number" id="total-suggestions" value="3" min="0" />
         </label>
+      </div>
+      <div id="stats">
+        Average suggestion request time: <span id="avg-req-time">?</span>ms
       </div>
       <div id="messages"></div>
     </div>

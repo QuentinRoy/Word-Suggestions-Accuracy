@@ -51,3 +51,10 @@ func areRuneSlicesEqual(s1, s2 []rune) bool {
 	}
 	return true
 }
+
+func intMin(a, b int) int {
+	if b < a {
+		return b
+	}
+	return a
+}

@@ -119,3 +119,20 @@ func TestAreRuneSlicesEqual(t *testing.T) {
 		t.Error("areRuneSlicesEqual(hello, hell) = true, want false")
 	}
 }
+
+func TestIntMin(t *testing.T) {
+	got := intMin(4, 2)
+	if got != 2 {
+		t.Errorf("intMin(4, 2) = %v, want 2", got)
+	}
+
+	got = intMin(-2, 8)
+	if got != -2 {
+		t.Errorf("intMin(4, 8) = %v, want -2", got)
+	}
+
+	got = intMin(2, 2)
+	if got != 2 {
+		t.Errorf("intMin(2, 2) = %v, want 2", got)
+	}
+}

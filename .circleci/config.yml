@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  test-client:
     working_directory: ~/repo/client
     docker:
       - image: circleci/node:10.16
@@ -16,3 +16,32 @@ jobs:
       - run:
           name: Run script tests
           command: npm run test-scripts
+  build-server:
+    working_directory: ~/repo/suggestionServer
+    docker:
+      - image: circleci/golang:1.13.8
+    steps:
+      - checkout:
+          path: ~/repo
+      - run:
+          name: Build
+          command: go build
+  test-server:
+    working_directory: ~/repo/suggestionServer
+    docker:
+      - image: circleci/golang:1.13.8
+    steps:
+      - checkout:
+          path: ~/repo
+      - run:
+          name: Test
+          command: go test ./...
+workflows:
+  version: 2
+  client:
+    jobs:
+      - test-client
+  suggestionSever:
+    jobs:
+      - build-server
+      - test-server

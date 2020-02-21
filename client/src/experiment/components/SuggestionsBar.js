@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import styles from "./styles/SuggestionsBar.module.scss";
 import useMultiRef from "../../utils/useMultiRef";
+import usePreventBodyScroll from "../hooks/usePreventBodyScroll";
 
 function SuggestionsBar({
   totalSuggestions,
@@ -47,7 +48,11 @@ function SuggestionsBar({
     );
   });
 
-  return <div className={styles.main}>{buttons}</div>;
+  return (
+    <div className={styles.main} ref={usePreventBodyScroll()}>
+      {buttons}
+    </div>
+  );
 }
 
 SuggestionsBar.propTypes = {

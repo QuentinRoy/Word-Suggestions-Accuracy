@@ -3,7 +3,9 @@
   <head>
     <title>Word Suggestions Test</title>
     <script type="text/javascript">
-      const serverAddress = `ws://${document.location.host}/ws`;
+      const serverAddress = `${
+        location.protocol === "https:" ? "wss" : "ws"
+      }://${document.location.host}/ws`;
       const suggestionRequestType = "sreq";
       const suggestionResponseType = "sresp";
       const fieldSeparator = "|";

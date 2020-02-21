@@ -3,7 +3,7 @@ import Keyboard from "react-simple-keyboard";
 import PropTypes from "prop-types";
 import { KeyboardLayoutNames } from "../../utils/constants";
 import { vkTheme, main } from "./styles/VirtualKeyboard.module.scss";
-import usePreventBodyScroll from "../hooks/usePreventBodyScroll";
+import usePreventTouchScroll from "../hooks/usePreventTouchScroll";
 
 const keyboardProps = Object.freeze({
   layout: {
@@ -66,7 +66,7 @@ const VirtualKeyboard = memo(({ layout, onVirtualKeyDown, onVirtualKeyUp }) => {
     return () => window.removeEventListener("resize", handler);
   }, [layout]);
 
-  usePreventBodyScroll(true, ref);
+  usePreventTouchScroll(true, ref);
 
   return (
     <div className={main} ref={ref}>

@@ -3,6 +3,7 @@
   <head>
     <title>Word Suggestions Test</title>
     <script type="text/javascript">
+      const serverAddress = `ws://${document.location.host}/ws`;
       const suggestionRequestType = "sreq";
       const suggestionResponseType = "sresp";
       const fieldSeparator = "|";
@@ -54,7 +55,7 @@
           appendLog(item);
         }
 
-        const maxDurationEntries = 500;
+        const maxDurationEntries = 50;
         let requestSendTimeMap = new Map();
         let requestDurations = [];
         // We track the index to limit the number of durations, but without
@@ -107,7 +108,7 @@
             .trim();
           let positions =
             fixedInput == "" ? [] : fixedInput.split(suggestionSeparator);
-          const n = targetWordInput.value.length;
+          const n = targetWordInput.value.length + 1;
           let last =
             positions.length > 0 ? positions[positions.length - 1] : -1;
           for (let i = positions.length; i < n; i += 1) {
@@ -141,7 +142,7 @@
             .join("");
         }
 
-        textArea.addEventListener("keyup", requestSuggestions);
+        textArea.addEventListener("input", requestSuggestions);
         targetPositionsInput.addEventListener("blur", updateTargetPositions);
         targetWordInput.addEventListener("blur", updateTargetPositions);
         totalSuggestionsInput.addEventListener("change", () => {
@@ -154,7 +155,7 @@
           return;
         }
 
-        conn = new WebSocket("ws://" + document.location.host + "/ws");
+        conn = new WebSocket(serverAddress);
 
         conn.addEventListener("close", evt => {
           let item = document.createElement("div");

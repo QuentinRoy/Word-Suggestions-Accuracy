@@ -19,12 +19,12 @@ import {
 import useWindowFocus from "./useWindowFocus";
 import useFirstRenderTime from "./useFirstRenderTime";
 import TrialReducer from "../trialReducers/TrialReducer";
-import { useWordSuggestionsEngine } from "../wordSuggestions/wordSuggestionsContext";
 import {
   isFullScreen,
   listenToFullScreenChange,
   stopListeningToFullScreenChange
 } from "../../utils/fullScreen";
+import { useSuggestions } from "../wordSuggestions/wordSuggestions";
 
 // **********
 //  CONSTANTS
@@ -36,7 +36,8 @@ const instantActions = [
   Actions.cancelAction,
   Actions.confirmAction,
   Actions.scheduleAction,
-  Actions.submit
+  Actions.submit,
+  Actions.updateSuggestions
 ];
 
 // ******
@@ -60,8 +61,6 @@ const useTrial = ({
   getTrialLog = defaultGetTrialLog,
   reducer: controlInversionReducer = defaultControlInversionReducer
 }) => {
-  const wordSuggestionEngine = useWordSuggestionsEngine();
-
   // Returns a new state based on an action.
   // This expects the following action property: type (one of Actions), and
   // reductionStartTime (automatically inserted by the dispatchWrapper below).
@@ -72,14 +71,12 @@ const useTrial = ({
       TrialReducer({
         suggestionsType,
         totalSuggestions,
-        wordSuggestionEngine,
         sksDistribution,
         getEventLog,
         controlInversionReducer
       }),
     [
       controlInversionReducer,
-      wordSuggestionEngine,
       getEventLog,
       sksDistribution,
       suggestionsType,
@@ -203,6 +200,34 @@ const useTrial = ({
     },
     [actionScheduler, keyStrokeDelay]
   );
+
+  const { requestSuggestions } = useSuggestions(response => {
+    dispatchWrapper({
+      type: Actions.updateSuggestions,
+      suggestions: response.suggestions
+    });
+  });
+
+  // This is dirty, we would want to request the suggestions when receiving the
+  // action instead of waiting for the next render... But it works good enough.
+  useEffect(() => {
+    requestSuggestions({
+      totalSuggestions,
+      sksDistribution,
+      input,
+      canReplaceLetters: suggestionsType === SuggestionTypes.bar
+    }).catch(() => {
+      // Requests may get canceled, and in this case fails. This is fine.
+      // This catch handler is required to avoid unhandled rejected promises
+      // errors.
+    });
+  }, [
+    input,
+    requestSuggestions,
+    sksDistribution,
+    suggestionsType,
+    totalSuggestions
+  ]);
 
   return {
     text,

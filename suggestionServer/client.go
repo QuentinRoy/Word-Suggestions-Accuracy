@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"controlAccuracy/suggestionServer/dictionary"
@@ -40,6 +41,7 @@ const (
 )
 
 var upgrader = websocket.Upgrader{
+	CheckOrigin:       func(r *http.Request) bool { return true },
 	ReadBufferSize:    1024,
 	WriteBufferSize:   1024,
 	EnableCompression: true,
@@ -56,9 +58,17 @@ type Client struct {
 
 	// Buffered channel of outbound messages.
 	send chan string
+
+	hasOnGoingRequest     bool
+	lastReqNum            int
+	cancelPreviousRequest chan bool
+	reqMux                sync.Mutex
 }
 
 func parseTargetPositions(targetPositionsString string) ([]int, error) {
+	if targetPositionsString == "" {
+		return nil, nil
+	}
 	fields := strings.Split(targetPositionsString, suggestionSeparator)
 	targetPositions := make([]int, len(fields))
 	var e error
@@ -98,9 +108,24 @@ func (c *Client) handleTextMessage(message string) {
 	}
 	targetPositions, err := parseTargetPositions(parts[5])
 	if err != nil {
-		c.printSendError(fmt.Sprintf("Cannot parse target positions (field 5): %s", parts[5]))
+		c.printSendError(fmt.Sprintf("Cannot parse target positions (field 5): \"%s\"", parts[5]))
 		return
 	}
+
+	// Cancel any previously ongoing requests, and set up ways for the next requests
+	// to request this one if it is ongoing.
+	c.reqMux.Lock()
+	if c.hasOnGoingRequest {
+		log.Printf("Cancel req %v", c.lastReqNum)
+		c.cancelPreviousRequest <- true
+	}
+	cancelThisRequest := make(chan bool, 1)
+	c.cancelPreviousRequest = cancelThisRequest
+	c.hasOnGoingRequest = true
+	thisReqNum := c.lastReqNum + 1
+	c.lastReqNum = thisReqNum
+	c.reqMux.Unlock()
+
 	reqID := parts[1]
 	inputCtx := dictionary.InputContext{
 		InputWord:                 parts[2],
@@ -111,14 +136,22 @@ func (c *Client) handleTextMessage(message string) {
 	suggestions := c.dict.MockedWordSuggestions(
 		inputCtx,
 		totalSuggestions,
-		make(chan bool),
+		cancelThisRequest,
 	)
-	c.send <- fmt.Sprintf(
-		"%s%s%s%s%s",
-		suggestionResponseType, fieldSeparator,
-		reqID, fieldSeparator,
-		strings.Join(suggestions, suggestionSeparator),
-	)
+	// If the requests get cancels, suggestions will be null.
+	if suggestions != nil {
+		c.send <- fmt.Sprintf(
+			"%s%s%s%s%s",
+			suggestionResponseType, fieldSeparator,
+			reqID, fieldSeparator,
+			strings.Join(suggestions, suggestionSeparator),
+		)
+	}
+	c.reqMux.Lock()
+	if c.lastReqNum == thisReqNum {
+		c.hasOnGoingRequest = false
+	}
+	c.reqMux.Unlock()
 }
 
 // readPump pumps messages from the websocket connection to the hub.

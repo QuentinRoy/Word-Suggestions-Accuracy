@@ -38,6 +38,10 @@ func (dict *Dictionary) MockedWordSuggestions(
 
 	suggestions := dict.FilteredWordSuggestions(inputCtx.InputWord, totalSuggestions, filter, cancel)
 
+	if suggestions == nil {
+		return nil
+	}
+
 	nTargetSuggestionPositions := len(inputCtx.TargetSuggestionPositions)
 	if nTargetSuggestionPositions == 0 {
 		return suggestions
@@ -47,6 +51,9 @@ func (dict *Dictionary) MockedWordSuggestions(
 		[]rune(inputCtx.TargetWord),
 	)
 	if targetTotalMatchingChars >= nTargetSuggestionPositions {
+		return suggestions
+	}
+	if inputCtx.TargetSuggestionPositions == nil {
 		return suggestions
 	}
 	targetPosition := inputCtx.TargetSuggestionPositions[targetTotalMatchingChars]

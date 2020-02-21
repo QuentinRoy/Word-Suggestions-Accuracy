@@ -6,8 +6,8 @@ import focusAlertReducer from "./focusAlertReducer";
 import fullScreenReducer from "./fullScreenReducer";
 import subFocusReducer from "./subFocusReducer";
 import { Actions } from "../../utils/constants";
-import SuggestionsControlReducer from "./SuggestionsControlReducer";
 import EventReducer from "./EventsReducer";
+import suggestionsReducer from "./suggestionsReducer";
 
 // Consumes a list of reducers, and returns a new reducer that call each
 // of these reducers, one after the other, providing the result of the previous
@@ -31,28 +31,18 @@ const standardReducers = composeReducers(
   inputSuggestionReducer,
   focusAlertReducer,
   subFocusReducer,
+  suggestionsReducer,
   fullScreenReducer
 );
 
 export default function TrialReducer({
-  suggestionsType,
-  totalSuggestions,
-  wordSuggestionEngine,
   sksDistribution,
   getEventLog,
   controlInversionReducer
 }) {
-  const suggestionsControlReducer = SuggestionsControlReducer({
-    suggestionsType,
-    totalSuggestions,
-    wordSuggestionEngine,
-    sksDistribution
-  });
-
   const eventReducer = EventReducer({ getEventLog, sksDistribution });
 
   const controlReducers = composeControlReducers(
-    suggestionsControlReducer,
     controlInversionReducer,
     eventReducer
   );

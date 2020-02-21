@@ -1,4 +1,4 @@
-export const dictionaryPath = "./dictionaries_en_US_wordlist.csv";
+export const suggestionServerAddress = `ws://${document.location.hostname}:8080/ws`;
 
 export const KeyboardLayoutNames = Object.freeze({
   default: "default",
@@ -11,6 +11,7 @@ export const LoadingStates = Object.freeze({
   loaded: "LOADED",
   crashed: "CRASHED",
   invalidArguments: "INVALID_ARGUMENTS",
+  closed: "CLOSED",
   idle: "IDLE"
 });
 
@@ -29,6 +30,7 @@ export const Actions = Object.freeze({
   submit: "SUBMIT",
   fullScreenEntered: "FULL_SCREEN_ENTERED",
   fullScreenLeft: "FULL_SCREEN_LEFT",
+  updateSuggestions: "UPDATE_SUGGESTIONS",
 
   // Scheduled action
   scheduleAction: "SCHEDULE_ACTION",

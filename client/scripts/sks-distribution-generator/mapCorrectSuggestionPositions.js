@@ -15,7 +15,9 @@ const mapWord = transitionMatrix => wordEntry => {
         currentPosition
       });
     }
-    correctSuggestionPositions.push(currentPosition);
+    correctSuggestionPositions.push(
+      currentPosition == null ? -1 : currentPosition - 1
+    );
   }
   return { ...wordEntry, correctSuggestionPositions };
 };

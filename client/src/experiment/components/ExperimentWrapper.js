@@ -10,7 +10,7 @@ import Crashed from "../../utils/Crashed";
 import {
   LoadingStates,
   TaskTypes,
-  dictionaryPath
+  suggestionServerAddress
 } from "../../utils/constants";
 import createS3Uploader from "../s3Uploader";
 import EndExperiment from "./EndExperiment";
@@ -22,7 +22,10 @@ import ConsentForm from "./ConsentForm";
 import FinalFeedbacks from "./FinalFeedbacks";
 import InjectEnd from "./InjectEnd";
 import FullScreenRequestTask from "./FullScreenRequestTask";
-import { WordSuggestionsEngineProvider } from "../wordSuggestions/wordSuggestionsContext";
+import {
+  WordSuggestionsProvider,
+  useSuggestions
+} from "../wordSuggestions/wordSuggestions";
 
 const UploadComponent = createUpload(
   createS3Uploader(
@@ -54,26 +57,24 @@ const configArgs = {
 };
 
 function ExperimentContent() {
-  const [loadingState, configuration] = useConfiguration(configArgs);
+  const [configLoadingState, configuration] = useConfiguration(configArgs);
+  const { loadingState: suggestionsLoadingState } = useSuggestions();
 
-  if (loadingState === LoadingStates.loading) {
+  if (configLoadingState === LoadingStates.loading) {
     return <Loading>Loading experiment...</Loading>;
   }
-  if (loadingState === LoadingStates.loaded) {
-    return (
-      <WordSuggestionsEngineProvider
-        dictionaryPath={dictionaryPath}
-        loadingMessage="Loading experiment's data..."
-        crashedMessage="Failed to load the experiment's data..."
-      >
-        <Experiment configuration={configuration} />
-      </WordSuggestionsEngineProvider>
-    );
+  if (suggestionsLoadingState === LoadingStates.loading) {
+    return <Loading>Loading suggestions...</Loading>;
   }
-  if (loadingState === LoadingStates.invalidArguments) {
+  if (
+    configLoadingState === LoadingStates.loaded &&
+    suggestionsLoadingState === LoadingStates.loaded
+  ) {
+    return <Experiment configuration={configuration} />;
+  }
+  if (configLoadingState === LoadingStates.invalidArguments) {
     return <Crashed>HIT information missing or incorrect...</Crashed>;
   }
-
   return <Crashed>Failed to load the experiment...</Crashed>;
 }
 
@@ -81,14 +82,16 @@ function ExperimentContent() {
 // is not included by default.
 const theme = createMuiTheme({
   typography: {
-    fontFamily: ['"Helvetica Neue"', "sans-serif"].join(",")
+    fontFamily: '"Helvetica Neue", "sans-serif"'
   }
 });
 
 export default function ExperimentWrapper() {
   return (
     <ThemeProvider theme={theme}>
-      <ExperimentContent />
+      <WordSuggestionsProvider serverAddress={suggestionServerAddress}>
+        <ExperimentContent />
+      </WordSuggestionsProvider>
     </ThemeProvider>
   );
 }

@@ -1,13 +1,12 @@
 version: 2.1
 jobs:
   build:
+    working_directory: ~/repo/client
     docker:
       - image: circleci/node:10.16
     steps:
-      - checkout
-      - run:
-          name: Move to clien dir
-          command: cd client
+      - checkout:
+          path: ~/repo
       - run:
           name: Install deps
           command: npm ci

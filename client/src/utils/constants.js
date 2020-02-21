@@ -1,4 +1,4 @@
-export const suggestionServerAddress = `ws://words.docete.me/ws`;
+export const suggestionServerAddress = `wss://words.docete.me/ws`;
 
 export const KeyboardLayoutNames = Object.freeze({
   default: "default",

@@ -27,7 +27,7 @@ import TutorialOverlay from "./tutorialOverlay/TutorialOverlay";
 import FocusAlert from "./FocusAlert";
 import useClientRect from "../hooks/useClientRect";
 import TrialHelp from "./TrialHelp";
-import FullScreenDialog from "./FullScreenDialog";
+import useWindowInnerHeight from "../hooks/useWindowInnerHeight";
 
 const mapVirtualKey = key => {
   switch (key) {
@@ -99,7 +99,6 @@ const TrialPresenter = ({
   hasErrors,
   tutorialStep,
   showsHelp,
-  isFullScreen,
   shouldUseNumberToInputBarSuggestions
 }) => {
   // Using a reference for the pressed keys since we don't care about
@@ -276,11 +275,9 @@ const TrialPresenter = ({
     <>
       <div
         className={classNames(styles.trial, {
-          [styles.laptopTrial]: device === Devices.laptop,
-          [styles.phoneTrial]: device === Devices.phone,
-          [styles.tabletTrial]: device === Devices.tablet,
-          [styles.blurred]: !isFullScreen || isFocusAlertShown
+          [styles.laptopTrial]: device === Devices.laptop
         })}
+        style={{ height: useWindowInnerHeight() }}
       >
         <div className={styles.banner}>
           {isCompleted ? (
@@ -365,12 +362,7 @@ const TrialPresenter = ({
             ) : null}
           </div>
         </div>
-        <FocusAlert
-          isShown={isFocusAlertShown && isFullScreen}
-          onClose={onCloseFocusAlert}
-        />
-        {/* The key argument makes sure the error is not kept in the dialog */}
-        <FullScreenDialog isShown={!isFullScreen} key={isFullScreen} />
+        <FocusAlert isShown={isFocusAlertShown} onClose={onCloseFocusAlert} />
         {tutorialStep && (
           <TutorialOverlay
             tutorialStep={tutorialStep}
@@ -412,8 +404,7 @@ TrialPresenter.propTypes = {
   tutorialStep: PropTypes.oneOf(Object.values(TutorialSteps)),
   isFocusAlertShown: PropTypes.bool,
   showsHelp: PropTypes.bool,
-  shouldUseNumberToInputBarSuggestions: PropTypes.bool,
-  isFullScreen: PropTypes.bool.isRequired
+  shouldUseNumberToInputBarSuggestions: PropTypes.bool
 };
 
 TrialPresenter.defaultProps = {

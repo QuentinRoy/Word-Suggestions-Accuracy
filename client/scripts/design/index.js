@@ -39,7 +39,6 @@ const createConfigurationId = configNumber => `C${configNumber}`;
 const createInitBlock = ({ firstDevice }) => {
   const children = [
     { task: "ConsentForm", key: `init-consent` },
-    { task: "FullScreenRequest", key: `full-scree-req-tuto` },
     { task: "Startup", key: `init-startup` },
     { task: "DemographicQuestionnaire", key: `init-demographic-questionnaire` },
     {
@@ -75,7 +74,6 @@ const createTypingBlock = ({
   practicePhrases
 }) => {
   const children = [
-    { task: "FullScreenRequest", key: `full-scree-req-${device}` },
     {
       task: "InformationScreen",
       content: minify(`<h1>Typing on ${device}: Practice</h1>`),

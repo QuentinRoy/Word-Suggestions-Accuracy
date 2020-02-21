@@ -3,7 +3,6 @@ import charReducer from "./charReducer";
 import keyboardLayoutReducer from "./keyboardLayoutReducer";
 import inputSuggestionReducer from "./inputSuggestionReducer";
 import focusAlertReducer from "./focusAlertReducer";
-import fullScreenReducer from "./fullScreenReducer";
 import subFocusReducer from "./subFocusReducer";
 import { Actions } from "../../utils/constants";
 import EventReducer from "./EventsReducer";
@@ -31,8 +30,7 @@ const standardReducers = composeReducers(
   inputSuggestionReducer,
   focusAlertReducer,
   subFocusReducer,
-  suggestionsReducer,
-  fullScreenReducer
+  suggestionsReducer
 );
 
 export default function TrialReducer({

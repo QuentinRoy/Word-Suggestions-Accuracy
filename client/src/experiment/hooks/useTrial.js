@@ -19,11 +19,6 @@ import {
 import useWindowFocus from "./useWindowFocus";
 import useFirstRenderTime from "./useFirstRenderTime";
 import TrialReducer from "../trialReducers/TrialReducer";
-import {
-  isFullScreen,
-  listenToFullScreenChange,
-  stopListeningToFullScreenChange
-} from "../../utils/fullScreen";
 import { useSuggestions } from "../wordSuggestions/wordSuggestions";
 
 // **********
@@ -96,8 +91,7 @@ const useTrial = ({
         totalSuggestionTargets:
           suggestionsType === SuggestionTypes.bar ? totalSuggestions : 0,
         suggestions: [],
-        isFocusAlertShown: !document.hasFocus(),
-        isFullScreen: isFullScreen()
+        isFocusAlertShown: !document.hasFocus()
       },
       { type: Actions.init }
     );
@@ -125,20 +119,6 @@ const useTrial = ({
       dispatch({ type: Actions.windowFocused });
     }
   });
-
-  useEffect(() => {
-    const handler = () => {
-      dispatch({
-        type: isFullScreen()
-          ? Actions.fullScreenEntered
-          : Actions.fullScreenLeft
-      });
-    };
-    listenToFullScreenChange(handler);
-    return () => {
-      stopListeningToFullScreenChange(handler);
-    };
-  }, []);
 
   // Used to schedule action to be performed after a delay.
   const actionScheduler = useActionScheduler(dispatch, keyStrokeDelay);

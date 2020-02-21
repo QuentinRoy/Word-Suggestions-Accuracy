@@ -21,11 +21,11 @@ import Tutorial from "./Tutorial";
 import ConsentForm from "./ConsentForm";
 import FinalFeedbacks from "./FinalFeedbacks";
 import InjectEnd from "./InjectEnd";
-import FullScreenRequestTask from "./FullScreenRequestTask";
 import {
   WordSuggestionsProvider,
   useSuggestions
 } from "../wordSuggestions/wordSuggestions";
+import { main } from "./styles/ExperimentWrapper.module.css";
 
 const UploadComponent = createUpload(
   createS3Uploader(
@@ -46,7 +46,6 @@ registerTask(TaskTypes.tutorial, Tutorial);
 registerTask(TaskTypes.consentForm, ConsentForm);
 registerTask(TaskTypes.finalFeedbacks, FinalFeedbacks);
 registerTask(TaskTypes.injectEnd, InjectEnd);
-registerTask(TaskTypes.fullScreenRequest, FullScreenRequestTask);
 
 const urlParams = new URL(document.location).searchParams;
 const configArgs = {
@@ -75,7 +74,12 @@ function ExperimentContent() {
   if (configLoadingState === LoadingStates.invalidArguments) {
     return <Crashed>HIT information missing or incorrect...</Crashed>;
   }
-  return <Crashed>Failed to load the experiment...</Crashed>;
+  if (configLoadingState === LoadingStates.crashed) {
+    return <Crashed>Failed to load the experiment...</Crashed>;
+  }
+  return (
+    <Crashed>Something went wrong, probably the suggestion engine.</Crashed>
+  );
 }
 
 // Change Material-ui default font for their widgets. It is using a font that
@@ -90,7 +94,9 @@ export default function ExperimentWrapper() {
   return (
     <ThemeProvider theme={theme}>
       <WordSuggestionsProvider serverAddress={suggestionServerAddress}>
-        <ExperimentContent />
+        <div className={main}>
+          <ExperimentContent />
+        </div>
       </WordSuggestionsProvider>
     </ThemeProvider>
   );

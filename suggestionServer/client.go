@@ -94,7 +94,7 @@ func NewClient(hub *Hub, dict *dictionary.Dictionary, conn *websocket.Conn) *Cli
 }
 
 func (c *Client) run() {
-	log.Println("New client connected")
+	log.Printf("New client connected\n")
 	c.hub.register <- c
 
 	send := make(chan string, 10)
@@ -110,7 +110,7 @@ func (c *Client) run() {
 		}
 		c.requests = nil
 		c.hub.unregister <- c
-		log.Println("Client done")
+		log.Printf("Client gone\n")
 	}()
 
 	for {
@@ -190,23 +190,17 @@ func (c *Client) handleTextMessage(message string) {
 	// We add a buffer to this channel, because the reading side may be already done when sending
 	// the message. In that case, it will not listen to the message anymore.
 	cancelSuggestions := make(chan bool, 1)
-	suggestionsDone := make(chan []string)
+	suggestionsDone := make(chan []string, 1)
 
+	startTime := time.Now()
 	go func() {
-		startTime := time.Now()
 		suggestionsDone <- c.dict.MockedWordSuggestions(
 			inputCtx,
 			totalSuggestions,
 			cancelSuggestions,
 			c.totalSuggestionsRoutine,
 		)
-		elapsed := time.Now().Sub(startTime)
-		log.Printf(
-			"Computed %v suggestion(s) for \"%s\" in %v with %v routines",
-			totalSuggestions, inputCtx.InputWord, elapsed, c.totalSuggestionsRoutine,
-		)
 	}()
-
 	var suggestions []string
 	select {
 	case <-req.cancel:
@@ -214,6 +208,11 @@ func (c *Client) handleTextMessage(message string) {
 		log.Printf("Request canceled (\"%s\")\n", inputCtx.InputWord)
 		return
 	case suggestions = <-suggestionsDone:
+		elapsed := time.Now().Sub(startTime)
+		log.Printf(
+			"Computed %v suggestion(s) for \"%s\" in %v with %v routines (%v currently ongoing routines)",
+			totalSuggestions, inputCtx.InputWord, elapsed, c.totalSuggestionsRoutine, runtime.NumGoroutine(),
+		)
 	}
 	select {
 	case <-req.cancel:

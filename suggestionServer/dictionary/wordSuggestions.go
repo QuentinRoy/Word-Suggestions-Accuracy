@@ -1,8 +1,10 @@
 package dictionary
 
 import (
+	"log"
 	"math"
 	"strings"
+	"time"
 )
 
 const (
@@ -47,7 +49,9 @@ func (dict *Dictionary) FilteredWordSuggestions(
 	// Used to send instructions to the sub routines. When closed, there is nothing more to do.
 	orders := make(chan []*DictEntry)
 	// When they are done, coroutines use this channel to send their results.
-	results := make(chan []*suggestionEntry)
+	// We need a buffer here to make sure the routines do not need to wait while sending their
+	// result, otherwise they might get blocked on cancel.
+	results := make(chan []*suggestionEntry, totalRoutines)
 
 	// Start all the routines.
 	for i := 0; i < totalRoutines; i++ {
@@ -57,7 +61,11 @@ func (dict *Dictionary) FilteredWordSuggestions(
 			for slice, isNotDone := <-orders; isNotDone; slice, isNotDone = <-orders {
 				insertSuggestions(slice, runeInputWord, totalSuggestions, suggestions, filter)
 			}
-			results <- suggestions
+			select {
+			case results <- suggestions:
+			case <-time.After(3 * time.Second):
+				log.Printf("Warning: routine timed out.")
+			}
 		}()
 	}
 

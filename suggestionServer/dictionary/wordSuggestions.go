@@ -196,6 +196,8 @@ func insertEject(sEntries []*suggestionEntry, newSEntry *suggestionEntry) {
 
 func insertEjectAll(suggestions, newSuggestions []*suggestionEntry) {
 	for _, s := range newSuggestions {
-		insertEject(suggestions, s)
+		if s != nil {
+			insertEject(suggestions, s)
+		}
 	}
 }

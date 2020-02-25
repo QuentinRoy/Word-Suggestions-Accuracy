@@ -30,6 +30,7 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 func main() {
 	flag.Parse()
 	dict := dictionary.LoadFromXML("./dictionary.xml")
+	// It is unclear why the hub is important at the moment, but we keept just in case.
 	hub := newHub()
 	go hub.run()
 	http.HandleFunc("/", serveHome)

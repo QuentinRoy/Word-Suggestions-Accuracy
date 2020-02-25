@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 
 	"controlAccuracy/suggestionServer/dictionary"
@@ -47,6 +46,10 @@ var upgrader = websocket.Upgrader{
 	EnableCompression: true,
 }
 
+type request struct {
+	cancel chan bool
+}
+
 // Client is a middleman between the websocket connection and the hub.
 type Client struct {
 	hub *Hub
@@ -57,25 +60,71 @@ type Client struct {
 	conn *websocket.Conn
 
 	// Buffered channel of outbound messages.
-	send chan string
+	requests map[*request]bool
 
-	hasOnGoingRequest     bool
-	lastReqNum            int
-	cancelPreviousRequest chan bool
-	reqMux                sync.Mutex
+	send         chan string
+	startRequest chan *request
+	requestDone  chan *request
+	stop         chan bool
 }
 
-func parseTargetPositions(targetPositionsString string) ([]int, error) {
-	if targetPositionsString == "" {
-		return nil, nil
+// NewClient creates a new client.
+func NewClient(hub *Hub, dict *dictionary.Dictionary, conn *websocket.Conn) *Client {
+	return &Client{
+		hub:          hub,
+		dict:         dict,
+		conn:         conn,
+		send:         make(chan string),
+		startRequest: make(chan *request),
+		requestDone:  make(chan *request),
+		stop:         make(chan bool),
 	}
-	fields := strings.Split(targetPositionsString, suggestionSeparator)
-	targetPositions := make([]int, len(fields))
-	var e error
-	for i, f := range fields {
-		targetPositions[i], e = strconv.Atoi(f)
+}
+
+func (c *Client) run() {
+	log.Println("New client connected")
+	c.hub.register <- c
+
+	send := make(chan string, 10)
+	// Allow collection of memory referenced by the caller by doing all work in
+	// new goroutines.
+	go c.writePump(send)
+	go c.readPump()
+
+	defer func() {
+		close(send)
+		for oldReq := range c.requests {
+			oldReq.cancel <- true
+		}
+		c.requests = nil
+		c.hub.unregister <- c
+		log.Println("Client done")
+	}()
+
+	for {
+		select {
+		case req := <-c.startRequest:
+			for oldReq := range c.requests {
+				oldReq.cancel <- true
+			}
+			c.requests = map[*request]bool{req: true}
+
+		case msg := <-c.send:
+			// Handle the very rare case where the send buffer is full, and c<-send is called before
+			// c<-stop but the writePump is stopped before sending.
+			select {
+			case send <- msg:
+			case <-c.stop:
+				return
+			}
+
+		case req := <-c.requestDone:
+			delete(c.requests, req)
+
+		case <-c.stop:
+			return
+		}
 	}
-	return targetPositions, e
 }
 
 func (c *Client) printSendError(errMsg string) {
@@ -114,44 +163,55 @@ func (c *Client) handleTextMessage(message string) {
 
 	// Cancel any previously ongoing requests, and set up ways for the next requests
 	// to request this one if it is ongoing.
-	c.reqMux.Lock()
-	if c.hasOnGoingRequest {
-		log.Printf("Cancel req %v", c.lastReqNum)
-		c.cancelPreviousRequest <- true
-	}
-	cancelThisRequest := make(chan bool, 1)
-	c.cancelPreviousRequest = cancelThisRequest
-	c.hasOnGoingRequest = true
-	thisReqNum := c.lastReqNum + 1
-	c.lastReqNum = thisReqNum
-	c.reqMux.Unlock()
-
 	reqID := parts[1]
+
+	req := &request{cancel: make(chan bool)}
+	c.startRequest <- req
+
 	inputCtx := dictionary.InputContext{
 		InputWord:                 parts[2],
 		TargetWord:                parts[4],
 		CanReplaceLetters:         true,
 		TargetSuggestionPositions: targetPositions,
 	}
-	suggestions := c.dict.MockedWordSuggestions(
-		inputCtx,
-		totalSuggestions,
-		cancelThisRequest,
-	)
-	// If the requests get cancels, suggestions will be null.
-	if suggestions != nil {
-		c.send <- fmt.Sprintf(
-			"%s%s%s%s%s",
-			suggestionResponseType, fieldSeparator,
-			reqID, fieldSeparator,
-			strings.Join(suggestions, suggestionSeparator),
+
+	// We add a buffer to this channel, because the reading side may be already done when sending
+	// the message. In that case, it will not listen to the message anymore.
+	cancelSuggestions := make(chan bool, 1)
+	suggestionsDone := make(chan []string)
+
+	go func() {
+		suggestionsDone <- c.dict.MockedWordSuggestions(
+			inputCtx,
+			totalSuggestions,
+			cancelSuggestions,
 		)
+	}()
+
+	var suggestions []string
+	select {
+	case <-req.cancel:
+		cancelSuggestions <- true
+		log.Printf("Request canceled (\"%s\")\n", inputCtx.InputWord)
+		return
+	case suggestions = <-suggestionsDone:
 	}
-	c.reqMux.Lock()
-	if c.lastReqNum == thisReqNum {
-		c.hasOnGoingRequest = false
+	select {
+	case <-req.cancel:
+		log.Printf("Request canceled (\"%s\")\n", inputCtx.InputWord)
+		return
+	case c.send <- fmt.Sprintf(
+		"%s%s%s%s%s",
+		suggestionResponseType, fieldSeparator,
+		reqID, fieldSeparator,
+		strings.Join(suggestions, suggestionSeparator),
+	):
 	}
-	c.reqMux.Unlock()
+	select {
+	case <-req.cancel:
+		log.Printf("Request canceled (\"%s\")\n", inputCtx.InputWord)
+	case c.requestDone <- req:
+	}
 }
 
 // readPump pumps messages from the websocket connection to the hub.
@@ -161,12 +221,15 @@ func (c *Client) handleTextMessage(message string) {
 // reads from this goroutine.
 func (c *Client) readPump() {
 	defer func() {
-		c.hub.unregister <- c
 		c.conn.Close()
+		c.stop <- true
 	}()
 	c.conn.SetReadLimit(maxMessageSize)
 	c.conn.SetReadDeadline(time.Now().Add(pongWait))
-	c.conn.SetPongHandler(func(string) error { c.conn.SetReadDeadline(time.Now().Add(pongWait)); return nil })
+	c.conn.SetPongHandler(func(string) error {
+		c.conn.SetReadDeadline(time.Now().Add(pongWait))
+		return nil
+	})
 	for {
 		msgType, message, err := c.conn.ReadMessage()
 		if err != nil {
@@ -186,7 +249,7 @@ func (c *Client) readPump() {
 // A goroutine running writePump is started for each connection. The
 // application ensures that there is at most one writer to a connection by
 // executing all writes from this goroutine.
-func (c *Client) writePump() {
+func (c *Client) writePump(send chan string) {
 	ticker := time.NewTicker(pingPeriod)
 	defer func() {
 		ticker.Stop()
@@ -194,7 +257,7 @@ func (c *Client) writePump() {
 	}()
 	for {
 		select {
-		case message, ok := <-c.send:
+		case message, ok := <-send:
 			c.conn.SetWriteDeadline(time.Now().Add(writeWait))
 			if !ok {
 				// The hub closed the channel.
@@ -207,13 +270,6 @@ func (c *Client) writePump() {
 				return
 			}
 			w.Write([]byte(message))
-
-			// Add queued chat messages to the current websocket message.
-			// n := len(c.send)
-			// for i := 0; i < n; i++ {
-			// 	w.Write('\n')
-			// 	w.Write([]byte(<-c.send))
-			// }
 
 			if err := w.Close(); err != nil {
 				return
@@ -234,11 +290,19 @@ func serveWs(hub *Hub, dict *dictionary.Dictionary, w http.ResponseWriter, r *ht
 		log.Println(err)
 		return
 	}
-	client := &Client{hub: hub, dict: dict, conn: conn, send: make(chan string, 10)}
-	client.hub.register <- client
+	client := NewClient(hub, dict, conn)
+	go client.run()
+}
 
-	// Allow collection of memory referenced by the caller by doing all work in
-	// new goroutines.
-	go client.writePump()
-	go client.readPump()
+func parseTargetPositions(targetPositionsString string) ([]int, error) {
+	if targetPositionsString == "" {
+		return nil, nil
+	}
+	fields := strings.Split(targetPositionsString, suggestionSeparator)
+	targetPositions := make([]int, len(fields))
+	var e error
+	for i, f := range fields {
+		targetPositions[i], e = strconv.Atoi(f)
+	}
+	return targetPositions, e
 }

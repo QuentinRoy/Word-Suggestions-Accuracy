@@ -5,7 +5,9 @@ package main
 import (
 	"fmt"
 	"log"
+	"math"
 	"net/http"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -27,6 +29,10 @@ const (
 
 	// Maximum message size allowed from peer.
 	maxMessageSize = 512
+
+	// This is used to determine the number of allocated routines to calculate suggestions. The
+	// more participants, the less routines per participant is allocated.
+	maxSimultaneousParticipants = 2
 
 	suggestionRequestType = "sreq"
 
@@ -62,6 +68,8 @@ type Client struct {
 	// Buffered channel of outbound messages.
 	requests map[*request]bool
 
+	totalSuggestionsRoutine int
+
 	send         chan string
 	startRequest chan *request
 	requestDone  chan *request
@@ -78,6 +86,10 @@ func NewClient(hub *Hub, dict *dictionary.Dictionary, conn *websocket.Conn) *Cli
 		startRequest: make(chan *request),
 		requestDone:  make(chan *request),
 		stop:         make(chan bool),
+		totalSuggestionsRoutine: int(math.Max(
+			1,
+			math.Floor(float64(runtime.NumCPU()))/(2*maxSimultaneousParticipants),
+		)),
 	}
 }
 
@@ -181,10 +193,17 @@ func (c *Client) handleTextMessage(message string) {
 	suggestionsDone := make(chan []string)
 
 	go func() {
+		startTime := time.Now()
 		suggestionsDone <- c.dict.MockedWordSuggestions(
 			inputCtx,
 			totalSuggestions,
 			cancelSuggestions,
+			c.totalSuggestionsRoutine,
+		)
+		elapsed := time.Now().Sub(startTime)
+		log.Printf(
+			"Computed %v suggestion(s) for \"%s\" in %v with %v routines",
+			totalSuggestions, inputCtx.InputWord, elapsed, c.totalSuggestionsRoutine,
 		)
 	}()
 

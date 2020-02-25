@@ -22,6 +22,7 @@ func (dict *Dictionary) MockedWordSuggestions(
 	inputCtx InputContext,
 	totalSuggestions int,
 	cancel chan bool,
+	totalRoutines int,
 ) []string {
 	lowerCaseTargetWord := strings.ToLower(inputCtx.TargetWord)
 	lowerCaseTargetWordR := []rune(lowerCaseTargetWord)
@@ -36,7 +37,9 @@ func (dict *Dictionary) MockedWordSuggestions(
 			(inputCtx.CanReplaceLetters || strings.HasPrefix(lowerCaseSuggestion, lowerCaseInputWord))
 	}
 
-	suggestions := dict.FilteredWordSuggestions(inputCtx.InputWord, totalSuggestions, filter, cancel)
+	suggestions := dict.FilteredWordSuggestions(
+		inputCtx.InputWord, totalSuggestions, filter, cancel, totalRoutines,
+	)
 
 	if suggestions == nil {
 		return nil

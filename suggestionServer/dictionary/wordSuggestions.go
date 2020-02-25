@@ -1,36 +1,27 @@
 package dictionary
 
 import (
-	"log"
 	"math"
-	"runtime"
 	"strings"
-	"time"
 )
 
 const (
-	maxSimultaneousParticipants = 2
-	sliceSize                   = 1000
+	sliceSize = 1000
 )
-
-// Half of the CPUs are kept for main thread, OS and other apps, but we want to make sure we always
-// have at least one routine.
-var totalRoutines = int(math.Max(
-	1,
-	math.Floor(float64(runtime.NumCPU()))/(2*maxSimultaneousParticipants),
-))
 
 // WordSuggestions returns a list of word suggestions from an inputWord.
 func (dict *Dictionary) WordSuggestions(
 	inputWord string,
 	totalSuggestions int,
 	cancel chan bool,
+	totalRoutines int,
 ) []string {
 	return dict.FilteredWordSuggestions(
 		inputWord,
 		totalSuggestions,
 		func(_ string) bool { return true },
 		cancel,
+		totalRoutines,
 	)
 }
 
@@ -41,8 +32,16 @@ func (dict *Dictionary) FilteredWordSuggestions(
 	totalSuggestions int,
 	filter func(string) bool,
 	cancel chan bool,
+	totalRoutines int,
 ) []string {
-	startTime := time.Now()
+	if totalSuggestions <= 0 {
+		return make([]string, 0)
+	}
+	if totalRoutines <= 0 {
+		// FIXME: it would be better to fail.
+		totalRoutines = 1
+	}
+
 	runeInputWord := []rune(strings.ToLower(inputWord))
 
 	// Used to send instructions to the sub routines. When closed, there is nothing more to do.
@@ -105,8 +104,6 @@ func (dict *Dictionary) FilteredWordSuggestions(
 		// a space.
 		result = append(result, word+" ")
 	}
-	elapsed := time.Now().Sub(startTime)
-	log.Printf("Computed suggestions for \"%s\" in %v with %v routines", inputWord, elapsed, totalRoutines)
 	return result
 }
 

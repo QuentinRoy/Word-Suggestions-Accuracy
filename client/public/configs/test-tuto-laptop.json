@@ -1,7 +1,7 @@
 {
   "config": "test-tuto",
   "deviceOrder": ["phone", "laptop", "tablet"],
-  "targetAccuracy": 0.1,
+  "targetAccuracy": 0.5,
   "keyStrokeDelay": 0,
   "totalSuggestions": 3,
   "suggestionsType": "BAR",
@@ -16,8 +16,7 @@
       "key": "typing-laptop-tuto",
       "id": "typing-laptop-tuto",
       "isVirtualKeyboardEnabled": false
-    },
-    { "task": "EndExperiment", "key": "final-end" }
+    }
   ],
   "device": "laptop"
 }

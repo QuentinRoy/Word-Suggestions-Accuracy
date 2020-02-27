@@ -15,19 +15,13 @@ import {
   isInputCorrect,
   getTextFromSksDistribution
 } from "../input";
+import tutorialSksDistributions from "./tutorialSKSDistributions.json";
 
-const tutorialSksDistribution = [
-  { word: "video ", sks: 0 },
-  { word: "camera ", sks: 0 },
-  { word: "with ", sks: 0 },
-  { word: "a ", sks: 0 },
-  { word: "zoom ", sks: 3 },
-  { word: "lens ", sks: 0 }
-];
-
-const tutorialSentence = getTextFromSksDistribution(tutorialSksDistribution);
-
-const getTutorialStep = (input, doNotShowDelayInstructions) => {
+const getTutorialStep = (
+  tutorialSentence,
+  input,
+  doNotShowDelayInstructions
+) => {
   const hasErrors = !isInputCorrect(input, tutorialSentence);
 
   if (input === "" || input == null) {
@@ -62,6 +56,7 @@ const getTutorialStep = (input, doNotShowDelayInstructions) => {
 };
 
 const isActionAllowed = (
+  tutorialSentence,
   state,
   action,
   suggestionsType,
@@ -76,7 +71,9 @@ const isActionAllowed = (
   ) {
     return true;
   }
-  switch (getTutorialStep(state.input, doNotShowDelayInstructions)) {
+  switch (
+    getTutorialStep(tutorialSentence, state.input, doNotShowDelayInstructions)
+  ) {
     case TutorialSteps.start:
     case TutorialSteps.input:
       return (
@@ -145,6 +142,7 @@ const Tutorial = ({
   onAdvanceWorkflow,
   onLog,
   keyStrokeDelay: trialKeyStrokeDelay,
+  targetAccuracy,
   id,
   suggestionsType,
   isVirtualKeyboardEnabled,
@@ -152,11 +150,16 @@ const Tutorial = ({
   device,
   doNotShowDelayInstructions
 }) => {
+  const tutorialSksDistribution =
+    tutorialSksDistributions[Math.round(targetAccuracy * 100).toFixed(0)];
+  const tutorialSentence = getTextFromSksDistribution(tutorialSksDistribution);
+
   // We use useCallback to prevent the trial reducer from being called
   // twice. It is expensive.
   const reducer = useCallback(
     (state, action) => {
       const nextState = isActionAllowed(
+        tutorialSentence,
         state,
         action,
         suggestionsType,
@@ -166,7 +169,13 @@ const Tutorial = ({
         ? action.changes
         : state;
 
-      switch (getTutorialStep(nextState.input, doNotShowDelayInstructions)) {
+      switch (
+        getTutorialStep(
+          tutorialSentence,
+          nextState.input,
+          doNotShowDelayInstructions
+        )
+      ) {
         case TutorialSteps.start:
         case TutorialSteps.input:
           return { ...nextState, suggestions: [] };
@@ -212,7 +221,8 @@ const Tutorial = ({
       isVirtualKeyboardEnabled,
       doNotShowDelayInstructions,
       totalSuggestions,
-      trialKeyStrokeDelay
+      trialKeyStrokeDelay,
+      tutorialSentence
     ]
   );
 
@@ -253,7 +263,11 @@ const Tutorial = ({
       isCompleted={isCompleted}
       suggestionsType={suggestionsType}
       hasErrors={hasErrors}
-      tutorialStep={getTutorialStep(input, doNotShowDelayInstructions)}
+      tutorialStep={getTutorialStep(
+        tutorialSentence,
+        input,
+        doNotShowDelayInstructions
+      )}
       totalSuggestions={totalSuggestions}
       showsHelp={false}
       isVirtualKeyboardEnabled={isVirtualKeyboardEnabled}
@@ -264,6 +278,7 @@ const Tutorial = ({
 };
 
 Tutorial.propTypes = {
+  targetAccuracy: PropTypes.number.isRequired,
   onAdvanceWorkflow: PropTypes.func.isRequired,
   onLog: PropTypes.func.isRequired,
   keyStrokeDelay: PropTypes.number.isRequired,

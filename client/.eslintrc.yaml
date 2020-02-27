@@ -16,6 +16,7 @@ rules:
   react-hooks/exhaustive-deps: "warn"
   react/jsx-indent: 0
   react/jsx-wrap-multilines: 0
+  max-classes-per-file: 0
 
 overrides:
   - files:

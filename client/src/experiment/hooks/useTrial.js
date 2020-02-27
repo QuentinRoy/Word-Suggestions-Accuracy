@@ -19,7 +19,10 @@ import {
 import useWindowFocus from "./useWindowFocus";
 import useFirstRenderTime from "./useFirstRenderTime";
 import TrialReducer from "../trialReducers/TrialReducer";
-import { useSuggestions } from "../wordSuggestions/wordSuggestions";
+import {
+  useSuggestions,
+  RequestCanceledError
+} from "../wordSuggestions/wordSuggestions";
 
 // **********
 //  CONSTANTS
@@ -188,7 +191,7 @@ const useTrial = ({
     });
   });
 
-  // This is dirty, we would want to request the suggestions when receiving the
+  // This is ugly, we would want to request the suggestions when receiving the
   // action instead of waiting for the next render... But it works good enough.
   useEffect(() => {
     requestSuggestions({
@@ -196,10 +199,14 @@ const useTrial = ({
       sksDistribution,
       input,
       canReplaceLetters: suggestionsType === SuggestionTypes.bar
-    }).catch(() => {
-      // Requests may get canceled, and in this case fails. This is fine.
-      // This catch handler is required to avoid unhandled rejected promises
-      // errors.
+    }).catch(error => {
+      if (error instanceof RequestCanceledError) {
+        // Requests may get canceled, and in this case fail. This is fine.
+        // This catch handler is required to avoid unhandled rejected promises
+        // errors.
+        return;
+      }
+      throw error;
     });
   }, [
     input,

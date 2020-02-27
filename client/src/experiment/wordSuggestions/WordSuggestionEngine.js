@@ -1,5 +1,10 @@
 import mitt from "mitt";
 import { getCurrentInputWord } from "../input";
+import {
+  NotSupportedError,
+  RequestCanceledError,
+  ConnectionClosedError
+} from "./errors";
 
 const suggestionRequestMsgType = "sreq";
 const suggestionResponseMsgType = "sresp";
@@ -9,7 +14,7 @@ const subSeparator = ";";
 
 export default function WordSuggestionsEngine(serverAddress) {
   if (window.WebSocket == null) {
-    throw new Error("Requires WebSockets support");
+    throw new NotSupportedError("Requires WebSockets support");
   }
 
   const { on, off, emit } = mitt();
@@ -93,7 +98,9 @@ export default function WordSuggestionsEngine(serverAddress) {
       .splice(0, reqIdx + 1)
       .forEach(canceledReq =>
         canceledReq.reject(
-          new Error(`Received an answer for a more recent request`)
+          new RequestCanceledError(
+            `Received an answer for a more recent request`
+          )
         )
       );
 
@@ -128,7 +135,9 @@ export default function WordSuggestionsEngine(serverAddress) {
   socket.addEventListener("close", () => {
     requests
       .splice(0, requests.length)
-      .forEach(r => r.reject(new Error(`The connection has been closed`)));
+      .forEach(r =>
+        r.reject(new ConnectionClosedError(`The connection has been closed`))
+      );
     emit("close");
   });
 

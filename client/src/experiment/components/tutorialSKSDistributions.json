@@ -1,0 +1,142 @@
+{
+  "10": [
+    {
+      "word": "video ",
+      "sks": 3,
+      "correctSuggestionPositions": [-1, -1, -1, 1, 0, 0, 0]
+    },
+    {
+      "word": "camera ",
+      "sks": 0,
+      "correctSuggestionPositions": [-1, -1, -1, -1, -1, -1, -1, 0]
+    },
+    {
+      "word": "with ",
+      "sks": 0,
+      "correctSuggestionPositions": [-1, -1, -1, -1, -1, 0]
+    },
+    { "word": "a ", "sks": 0, "correctSuggestionPositions": [-1, -1, 1] },
+    {
+      "word": "zoom ",
+      "sks": 0,
+      "correctSuggestionPositions": [-1, -1, -1, -1, -1, 0]
+    },
+    {
+      "word": "lens ",
+      "sks": 0,
+      "correctSuggestionPositions": [-1, -1, -1, -1, -1, 1]
+    }
+  ],
+  "30": [
+    {
+      "word": "video ",
+      "sks": 3,
+      "correctSuggestionPositions": [-1, -1, -1, 2, 0, 0, 0]
+    },
+    {
+      "word": "camera ",
+      "sks": 2,
+      "correctSuggestionPositions": [-1, -1, -1, -1, -1, 1, 1, 1]
+    },
+    {
+      "word": "with ",
+      "sks": 0,
+      "correctSuggestionPositions": [-1, -1, -1, -1, -1, 0]
+    },
+    { "word": "a ", "sks": 0, "correctSuggestionPositions": [-1, -1, 0] },
+    {
+      "word": "zoom ",
+      "sks": 2,
+      "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0]
+    },
+    {
+      "word": "lens ",
+      "sks": 2,
+      "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0]
+    }
+  ],
+  "50": [
+    {
+      "word": "video ",
+      "sks": 3,
+      "correctSuggestionPositions": [-1, -1, -1, 1, 1, 0, 0]
+    },
+    {
+      "word": "camera ",
+      "sks": 4,
+      "correctSuggestionPositions": [-1, -1, -1, 2, 0, 0, 0, 0]
+    },
+    {
+      "word": "with ",
+      "sks": 3,
+      "correctSuggestionPositions": [-1, -1, 0, 0, 0, 0]
+    },
+    { "word": "a ", "sks": 0, "correctSuggestionPositions": [-1, -1, 2] },
+    {
+      "word": "zoom ",
+      "sks": 3,
+      "correctSuggestionPositions": [-1, -1, 0, 0, 0, 0]
+    },
+    {
+      "word": "lens ",
+      "sks": 2,
+      "correctSuggestionPositions": [-1, -1, -1, 2, 1, 0]
+    }
+  ],
+  "70": [
+    {
+      "word": "video ",
+      "sks": 5,
+      "correctSuggestionPositions": [-1, 1, 0, 0, 0, 0, 0]
+    },
+    {
+      "word": "camera ",
+      "sks": 6,
+      "correctSuggestionPositions": [-1, 2, 1, 2, 0, 0, 0, 0]
+    },
+    {
+      "word": "with ",
+      "sks": 2,
+      "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0]
+    },
+    { "word": "a ", "sks": 2, "correctSuggestionPositions": [1, 0, 0] },
+    {
+      "word": "zoom ",
+      "sks": 3,
+      "correctSuggestionPositions": [-1, -1, 2, 0, 1, 1]
+    },
+    {
+      "word": "lens ",
+      "sks": 3,
+      "correctSuggestionPositions": [-1, -1, 1, 0, 0, 0]
+    }
+  ],
+  "90": [
+    {
+      "word": "video ",
+      "sks": 3,
+      "correctSuggestionPositions": [-1, -1, -1, 1, 0, 0, 0]
+    },
+    {
+      "word": "camera ",
+      "sks": 7,
+      "correctSuggestionPositions": [0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "word": "with ",
+      "sks": 5,
+      "correctSuggestionPositions": [0, 0, 0, 0, 0, 0]
+    },
+    { "word": "a ", "sks": 2, "correctSuggestionPositions": [0, 0, 0] },
+    {
+      "word": "zoom ",
+      "sks": 5,
+      "correctSuggestionPositions": [0, 0, 0, 0, 0, 0]
+    },
+    {
+      "word": "lens ",
+      "sks": 5,
+      "correctSuggestionPositions": [1, 0, 0, 0, 0, 0]
+    }
+  ]
+}

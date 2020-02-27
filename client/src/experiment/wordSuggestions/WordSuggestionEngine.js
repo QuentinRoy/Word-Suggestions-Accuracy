@@ -92,10 +92,8 @@ export default function WordSuggestionsEngine(serverAddress) {
 
     // Check that the responses are received in order.
     if (reqIdx < 0) return;
-
-    const req = requests[reqIdx];
     requests
-      .splice(0, reqIdx + 1)
+      .splice(0, reqIdx)
       .forEach(canceledReq =>
         canceledReq.reject(
           new RequestCanceledError(
@@ -103,7 +101,7 @@ export default function WordSuggestionsEngine(serverAddress) {
           )
         )
       );
-
+    const req = requests.shift();
     req.resolve(suggestions);
     emit("suggestions", {
       ...req.args,

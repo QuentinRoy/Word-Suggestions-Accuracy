@@ -184,36 +184,44 @@ const useTrial = ({
     [actionScheduler, keyStrokeDelay]
   );
 
-  const { requestSuggestions } = useSuggestions(response => {
-    dispatchWrapper({
-      type: Actions.updateSuggestions,
-      suggestions: response.suggestions
-    });
-  });
+  const { requestSuggestions } = useSuggestions();
 
   // This is ugly, we would want to request the suggestions when receiving the
   // action instead of waiting for the next render... But it works good enough.
   useEffect(() => {
+    const requestTime = new Date();
     requestSuggestions({
       totalSuggestions,
       sksDistribution,
       input,
       canReplaceLetters: suggestionsType === SuggestionTypes.bar
-    }).catch(error => {
-      if (error instanceof RequestCanceledError) {
-        // Requests may get canceled, and in this case fail. This is fine.
-        // This catch handler is required to avoid unhandled rejected promises
-        // errors.
-        return;
+    }).then(
+      newSuggestions => {
+        dispatchWrapper({
+          requestInput: input,
+          requestTime,
+          responseTime: new Date(),
+          type: Actions.updateSuggestions,
+          suggestions: newSuggestions
+        });
+      },
+      error => {
+        if (error instanceof RequestCanceledError) {
+          // Requests may get canceled, and in this case fail. This is fine.
+          // This catch handler is required to avoid unhandled rejected promises
+          // errors.
+          return;
+        }
+        throw error;
       }
-      throw error;
-    });
+    );
   }, [
     input,
     requestSuggestions,
     sksDistribution,
     suggestionsType,
-    totalSuggestions
+    totalSuggestions,
+    dispatchWrapper
   ]);
 
   return {

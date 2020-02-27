@@ -74,6 +74,9 @@ const getEventLog = (
     isInputCorrect: isInputCorrect(newState.input, text),
     isTargetCompleted: isTargetCompleted(newState.input, text),
     actionStartTime,
+    requestInput: action.requestInput,
+    requestTime: action.requestTime,
+    responseTime: action.responseTime,
     time: new Date()
   };
   newState.suggestions.forEach((s, i) => {

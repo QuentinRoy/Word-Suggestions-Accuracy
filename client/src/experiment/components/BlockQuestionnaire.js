@@ -6,25 +6,25 @@ import QuestionnaireTask from "./QuestionnaireTask";
 const questions = Object.freeze({
   controlsSatisfactory: Object.freeze({
     text:
-      "The controls keyboard and word suggestions) are satisfactory for the completion of the task",
+      "The controls keyboard and word suggestions) are satisfactory for the completion of the task.",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
     isAnswerRequired: true
   }),
   suggestionsAccuracy: Object.freeze({
-    text: "The word suggestions are accurate",
+    text: "The word suggestions are accurate.",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
     isAnswerRequired: true
   }),
   keyboardUseEfficiency: Object.freeze({
-    text: "The use of the keyboard i)s efficient in this task",
+    text: "The use of the keyboard is efficient in this task.",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
     isAnswerRequired: true
   }),
   suggestionDistraction: Object.freeze({
-    text: "The word suggestions are distracting",
+    text: "The word suggestions are distracting.",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
     isAnswerRequired: true

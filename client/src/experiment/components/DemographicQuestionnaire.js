@@ -21,14 +21,14 @@ const questions = {
   },
   suggestionsUseFrequencyDesktop: {
     text:
-      "I frequently use word suggestions when typing on a laptop or desktop computer",
+      "I frequently use word suggestions when typing on a laptop or desktop computer.",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
     answers: agreementScaleAnswers,
     isAnswerRequired: true
   },
   suggestionsUseFrequencyMobile: {
-    text: "I frequently use word suggestions when typing on a mobile phone",
+    text: "I frequently use word suggestions when typing on a mobile phone.",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
     answers: agreementScaleAnswers,

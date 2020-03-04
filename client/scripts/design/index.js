@@ -60,7 +60,13 @@ const createInitBlock = ({ firstDevice }) => {
   if (firstDevice !== "laptop") {
     children.push({
       task: "InformationScreen",
-      content: minify(`Now switch to the ${firstDevice}.`),
+      content: minify(`
+        <p>Now switch to the ${firstDevice}.</p>
+        <p>
+          Press continue if and when you have been told to switch to the
+          laptop again.
+        </p>
+      `),
       key: `info-first-switch`
     });
   }
@@ -92,8 +98,14 @@ const createTypingBlock = ({
       task: "InformationScreen",
       content: minify(`
         <h1>Experiment</h1>
-        <p>Practice is over. You may take a break. The real experiment begins immediately after this screen!</p>
-        <p>Remember to complete every task as fast and accurately as you can.</p>
+        <p>
+          Practice is over.
+          You may take a break.
+          The real experiment begins immediately after this screen!
+        </p>
+        <p>
+          Remember to complete every task as fast and accurately as you can.
+        </p>
       `),
       key: `typing-${device}-info-typing-start`
     },
@@ -111,7 +123,13 @@ const createTypingBlock = ({
   if (nextDevice !== device) {
     children.push({
       task: "InformationScreen",
-      content: minify(`Now switch to the ${nextDevice}.`),
+      content: minify(`
+        <p>Now switch to the ${nextDevice}.</p>
+        <p>
+          Press continue if and when you have been told to switch to the
+          ${device} again.
+        </p>
+      `),
       key: `typing-${device}-info-typing-end`
     });
   }

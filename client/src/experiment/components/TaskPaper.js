@@ -1,19 +1,12 @@
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import classes from "./styles/TaskPaper.module.css";
-
-const backgroundColor = "#EEE";
+import useBodyBackgroundColor from "../hooks/useBodyBackgroundColor";
 
 const TaskPaper = ({ children, className }) => {
-  useLayoutEffect(() => {
-    const prevBackgroundColor = document.body.style.backgroundColor;
-    document.body.style.backgroundColor = backgroundColor;
-    return () => {
-      document.body.style.backgroundColor = prevBackgroundColor;
-    };
-  }, []);
+  useBodyBackgroundColor("#EEE");
   return (
     <div className={classNames(classes.paperWrapper, className)}>
       <Paper className={classes.paper}>{children}</Paper>

@@ -28,6 +28,7 @@ import FocusAlert from "./FocusAlert";
 import useClientRect from "../hooks/useClientRect";
 import TrialHelp from "./TrialHelp";
 import useWindowInnerHeight from "../hooks/useWindowInnerHeight";
+import useBodyBackgroundColor from "../hooks/useBodyBackgroundColor";
 
 const mapVirtualKey = key => {
   switch (key) {
@@ -101,6 +102,8 @@ const TrialPresenter = ({
   showsHelp,
   shouldUseNumberToInputBarSuggestions
 }) => {
+  useBodyBackgroundColor("#EEE");
+
   // Using a reference for the pressed keys since we don't care about
   // re-rendering when it changes.
   const { current: pressedKeys } = useRef(new Set());

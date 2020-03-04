@@ -4,11 +4,12 @@ $maxContentWidth: 800px;
   outline: none;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
   height: 100vh;
 
   > .content {
-    height: calc(100% - 130px);
-    margin: 40px auto 20px auto;
+    background: white;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: [input-start] auto [input-end control-start] auto [control-end help-start] auto [help-end];
@@ -20,14 +21,19 @@ $maxContentWidth: 800px;
       box-sizing: border-box;
     }
 
+    .trialHelp {
+      margin: 20px 0;
+    }
+
     .laptopTrial & .controls,
     .input,
     .trialHelp {
       max-width: 800px;
-      margin: 0 auto;
+      margin: 20px auto;
     }
 
     .input {
+      margin-top: 40px;
       grid-row-start: input-start;
       grid-row-end: input-end;
     }
@@ -50,10 +56,9 @@ $maxContentWidth: 800px;
   // This part used to be only set up for phone and tablets. I left it separated
   // so we could revert that decision later if needed.
   > .content {
-    flex-grow: 1;
     flex-shrink: 1;
     margin-bottom: 0;
-    grid-template-rows: [input-start] auto [input-end help-start] 1fr [help-end control-start] 1fr [control-end];
+    grid-template-rows: [input-start] auto [input-end help-start] auto [help-end control-start] auto [control-end];
 
     > .trialHelp {
       align-self: center;

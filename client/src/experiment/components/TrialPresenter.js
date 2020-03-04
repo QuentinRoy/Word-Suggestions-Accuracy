@@ -354,9 +354,12 @@ const TrialPresenter = ({
             {isVirtualKeyboardEnabled ? (
               <div ref={tutorialStep == null ? null : virtualKeyboardRef}>
                 <VirtualKeyboard
+                  device={device}
                   layout={keyboardLayoutName}
                   onVirtualKeyDown={onVirtualKeyDown}
                   onVirtualKeyUp={onVirtualKeyUp}
+                  isEnterDisabled={!isCompleted}
+                  isBackspaceDisabled={input === "" || input == null}
                 />
               </div>
             ) : null}

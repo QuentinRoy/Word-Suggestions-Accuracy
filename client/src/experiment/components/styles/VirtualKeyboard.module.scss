@@ -1,8 +1,17 @@
-$spacing: 3px;
+$spacing: 0px;
+
+$button-height: 50px;
+
+@mixin disabled {
+  background-color: #dbdbdb;
+  color: black;
+}
 
 .main {
   .vkTheme {
     padding: $spacing;
+
+    overflow: visible;
 
     :global(.hg-row) {
       justify-content: center;
@@ -12,8 +21,8 @@ $spacing: 3px;
       }
 
       :global(.hg-button) {
-        height: 50px;
-        font-size: 20px;
+        height: $button-height;
+        font-size: 25px;
 
         &:not(:last-child) {
           margin-right: $spacing;
@@ -28,9 +37,51 @@ $spacing: 3px;
         // This will force all buttons to have the same width.
         width: 100vw;
       }
+
+      :global(.hg-button):active {
+        background-color: #dbdbdb;
+      }
+
       :global(.hg-button-space) {
         flex-grow: 10;
       }
+      :global(.hg-button-enter) {
+        background-color: #2e7cf6;
+        color: white;
+        font-size: 20px;
+      }
+      :global(.hg-button-numbers),
+      :global(.hg-button-abc) {
+        font-size: 20px;
+      }
+    }
+  }
+  &.enterDisabled .vkTheme {
+    :global(.hg-button-enter) {
+      @include disabled();
+    }
+  }
+  &.backspaceDisabled .vkTheme {
+    :global(.hg-button-bksp) {
+      @include disabled();
+    }
+  }
+  &.phone .vkTheme :global(.hg-standardBtn):active {
+    background-color: white;
+    z-index: 10;
+    transform: translate(0, calc(-3px - #{$button-height})) scale(1.2);
+    box-shadow: 0 0 6px -2px rgba(0, 0, 0, 0.5);
+    border-style: none none none none;
+  }
+  &.tablet .vkTheme {
+    :global(.hg-row) {
+      justify-content: flex-end;
+    }
+    :global(.hg-button-bksp) {
+      min-width: 75px;
+    }
+    :global(.hg-button-enter) {
+      max-width: 130px;
     }
   }
 }

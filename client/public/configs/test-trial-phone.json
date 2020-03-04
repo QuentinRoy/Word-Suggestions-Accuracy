@@ -1,0 +1,1099 @@
+{
+  "config": "test-trial",
+  "deviceOrder": ["phone", "laptop", "tablet"],
+  "targetAccuracy": 0.5,
+  "keyStrokeDelay": 0,
+  "totalSuggestions": 3,
+  "suggestionsType": "BAR",
+  "numberOfPracticeTasks": 3,
+  "numberOfTypingTasks": 20,
+  "doNotShowDelayInstructions": true,
+  "wave": "multi-device",
+  "children": [
+    {
+      "children": [
+        {
+          "totalKss": 0.48484848484848486,
+          "meanWordsKss": 0.564141414141414,
+          "sdWordsKss": 0.20090347915843942,
+          "diffTotalKss": 0.015151515151515138,
+          "diffWordsMeanKss": 0.06414141414141405,
+          "diffSdWordsKss": 0.0009034791584394131,
+          "score": 0.008027497154977276,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "the ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, 0, 0, 0, 0]
+            },
+            {
+              "word": "treasury ",
+              "sks": 5,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "word": "department ",
+              "sks": 2,
+              "correctSuggestionPositions": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "word": "is ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 0, 0, 0]
+            },
+            {
+              "word": "broke ",
+              "sks": 4,
+              "correctSuggestionPositions": [-1, -1, 2, 0, 0, 0, 0]
+            }
+          ],
+          "isPractice": true,
+          "id": "typing-laptop-practice-0",
+          "key": "typing-laptop-practice-0"
+        },
+        {
+          "totalKss": 0.5185185185185185,
+          "meanWordsKss": 0.5499999999999999,
+          "sdWordsKss": 0.20615528128088303,
+          "diffTotalKss": 0.01851851851851849,
+          "diffWordsMeanKss": 0.04999999999999993,
+          "diffSdWordsKss": 0.006155281280883024,
+          "score": 0.012336899899700757,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "just ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "in ",
+              "sks": 3,
+              "correctSuggestionPositions": [0, 0, 0, 0]
+            },
+            {
+              "word": "time ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 1, 0, 0]
+            },
+            {
+              "word": "for ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 1, 0, 0]
+            },
+            {
+              "word": "the ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "party ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0, 0]
+            }
+          ],
+          "isPractice": true,
+          "id": "typing-laptop-practice-1",
+          "key": "typing-laptop-practice-1"
+        },
+        {
+          "totalKss": 0.5217391304347826,
+          "meanWordsKss": 0.56,
+          "sdWordsKss": 0.19136933459209765,
+          "diffTotalKss": 0.021739130434782594,
+          "diffWordsMeanKss": 0.06000000000000005,
+          "diffSdWordsKss": 0.00863066540790236,
+          "score": 0.015184897921342477,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "it ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 0, 0, 0]
+            },
+            {
+              "word": "is ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 0, 0, 0]
+            },
+            {
+              "word": "very ",
+              "sks": 4,
+              "correctSuggestionPositions": [-1, 0, 0, 0, 0, 0]
+            },
+            {
+              "word": "windy ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "today ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 0, 0, 0]
+            }
+          ],
+          "isPractice": true,
+          "id": "typing-laptop-practice-2",
+          "key": "typing-laptop-practice-2"
+        },
+        {
+          "task": "InformationScreen",
+          "content": "<h1>Experiment</h1><p>Practice is over. You may take a break. The real experiment begins immediately after this screen!</p><p>Remember to complete every task as fast and accurately as you can.</p>",
+          "key": "typing-laptop-info-typing-start"
+        },
+        {
+          "totalKss": 0.5,
+          "meanWordsKss": 0.5570294784580498,
+          "sdWordsKss": 0.20007576426020623,
+          "diffTotalKss": 0,
+          "diffWordsMeanKss": 0.05702947845804984,
+          "diffSdWordsKss": 0.00007576426020622362,
+          "score": 0.00003788213010311181,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "please ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "try ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, 0, 0, 0, 0]
+            },
+            {
+              "word": "to ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 2, 0, 0]
+            },
+            {
+              "word": "be ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 0, 0, 0]
+            },
+            {
+              "word": "home ",
+              "sks": 4,
+              "correctSuggestionPositions": [-1, 2, 0, 0, 0, 0]
+            },
+            {
+              "word": "before ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, -1, 1, 1, 1]
+            },
+            {
+              "word": "midnight ",
+              "sks": 4,
+              "correctSuggestionPositions": [-1, -1, -1, -1, -1, 0, 0, 0, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-0",
+          "key": "typing-laptop-phrase-0"
+        },
+        {
+          "totalKss": 0.5,
+          "meanWordsKss": 0.5,
+          "sdWordsKss": 0.1932183566158592,
+          "diffTotalKss": 0,
+          "diffWordsMeanKss": 0,
+          "diffSdWordsKss": 0.006781643384140806,
+          "score": 0.003390821692070403,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "every ",
+              "sks": 5,
+              "correctSuggestionPositions": [-1, 2, 0, 0, 0, 0, 0]
+            },
+            {
+              "word": "apple ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 1, 0, 0]
+            },
+            {
+              "word": "from ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 1, 1, 1]
+            },
+            {
+              "word": "every ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "tree ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, 2, 2, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-1",
+          "key": "typing-laptop-phrase-1"
+        },
+        {
+          "totalKss": 0.5185185185185185,
+          "meanWordsKss": 0.5658730158730158,
+          "sdWordsKss": 0.21480390021011592,
+          "diffTotalKss": 0.01851851851851849,
+          "diffWordsMeanKss": 0.06587301587301575,
+          "diffSdWordsKss": 0.014803900210115906,
+          "score": 0.016661209364317198,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "this ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "is ",
+              "sks": 3,
+              "correctSuggestionPositions": [1, 0, 0, 0]
+            },
+            {
+              "word": "too ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "much ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "to ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 2, 0, 0]
+            },
+            {
+              "word": "handle ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 0, 0, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-2",
+          "key": "typing-laptop-phrase-2"
+        },
+        {
+          "totalKss": 0.4827586206896552,
+          "meanWordsKss": 0.5333333333333334,
+          "sdWordsKss": 0.2011080417199781,
+          "diffTotalKss": 0.017241379310344807,
+          "diffWordsMeanKss": 0.03333333333333344,
+          "diffSdWordsKss": 0.0011080417199780812,
+          "score": 0.009174710515161444,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "six ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "daughters ",
+              "sks": 2,
+              "correctSuggestionPositions": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "word": "and ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "seven ",
+              "sks": 4,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0, 0, 0]
+            },
+            {
+              "word": "sons ",
+              "sks": 4,
+              "correctSuggestionPositions": [-1, 0, 0, 0, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-3",
+          "key": "typing-laptop-phrase-3"
+        },
+        {
+          "totalKss": 0.47619047619047616,
+          "meanWordsKss": 0.5597222222222222,
+          "sdWordsKss": 0.20197233492256822,
+          "diffTotalKss": 0.023809523809523836,
+          "diffWordsMeanKss": 0.05972222222222223,
+          "diffSdWordsKss": 0.0019723349225682085,
+          "score": 0.012890929366046022,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "you ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, 1, 0, 0, 0]
+            },
+            {
+              "word": "have ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0, 0]
+            },
+            {
+              "word": "my ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 0, 0, 0]
+            },
+            {
+              "word": "sympathy ",
+              "sks": 2,
+              "correctSuggestionPositions": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                0,
+                0
+              ]
+            }
+          ],
+          "id": "typing-laptop-phrase-4",
+          "key": "typing-laptop-phrase-4"
+        },
+        {
+          "totalKss": 0.5161290322580645,
+          "meanWordsKss": 0.5873015873015873,
+          "sdWordsKss": 0.20093633176463752,
+          "diffTotalKss": 0.016129032258064502,
+          "diffWordsMeanKss": 0.08730158730158732,
+          "diffSdWordsKss": 0.0009363317646375047,
+          "score": 0.008532682011351003,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            { "word": "I ", "sks": 2, "correctSuggestionPositions": [1, 0, 0] },
+            {
+              "word": "spilled ",
+              "sks": 4,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 0, 0, 0, 0, 0]
+            },
+            {
+              "word": "coffee ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 0, 0, 0, 0]
+            },
+            {
+              "word": "on ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 0, 0, 0]
+            },
+            {
+              "word": "the ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "carpet ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 1, 1, 1, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-5",
+          "key": "typing-laptop-phrase-5"
+        },
+        {
+          "totalKss": 0.52,
+          "meanWordsKss": 0.5777777777777777,
+          "sdWordsKss": 0.20875882475617705,
+          "diffTotalKss": 0.020000000000000018,
+          "diffWordsMeanKss": 0.07777777777777772,
+          "diffSdWordsKss": 0.008758824756177036,
+          "score": 0.014379412378088527,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "that ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 1, 0, 0]
+            },
+            {
+              "word": "is ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 0, 0, 0]
+            },
+            { "word": "a ", "sks": 2, "correctSuggestionPositions": [0, 0, 0] },
+            {
+              "word": "very ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "nasty ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, -1, 2, 2, 0, 0]
+            },
+            {
+              "word": "cut ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 2, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-6",
+          "key": "typing-laptop-phrase-6"
+        },
+        {
+          "totalKss": 0.5,
+          "meanWordsKss": 0.5388888888888889,
+          "sdWordsKss": 0.21552405268078692,
+          "diffTotalKss": 0,
+          "diffWordsMeanKss": 0.03888888888888886,
+          "diffSdWordsKss": 0.01552405268078691,
+          "score": 0.007762026340393455,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "the ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "sun ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "rises ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 1, 0, 0]
+            },
+            {
+              "word": "in ",
+              "sks": 3,
+              "correctSuggestionPositions": [2, 0, 0, 0]
+            },
+            {
+              "word": "the ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "east ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 1, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-7",
+          "key": "typing-laptop-phrase-7"
+        },
+        {
+          "totalKss": 0.5172413793103449,
+          "meanWordsKss": 0.5916666666666667,
+          "sdWordsKss": 0.19947848672643037,
+          "diffTotalKss": 0.017241379310344862,
+          "diffWordsMeanKss": 0.09166666666666667,
+          "diffSdWordsKss": 0.0005215132735696404,
+          "score": 0.008881446291957251,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "machinery ",
+              "sks": 7,
+              "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "word": "is ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 0, 0, 0]
+            },
+            {
+              "word": "too ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, 0, 0, 0, 0]
+            },
+            {
+              "word": "complicated ",
+              "sks": 3,
+              "correctSuggestionPositions": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                1,
+                1,
+                1
+              ]
+            }
+          ],
+          "id": "typing-laptop-phrase-8",
+          "key": "typing-laptop-phrase-8"
+        },
+        {
+          "totalKss": 0.5128205128205128,
+          "meanWordsKss": 0.5564625850340136,
+          "sdWordsKss": 0.20020120380437337,
+          "diffTotalKss": 0.012820512820512775,
+          "diffWordsMeanKss": 0.05646258503401358,
+          "diffSdWordsKss": 0.0002012038043733566,
+          "score": 0.006510858312443066,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "important ",
+              "sks": 5,
+              "correctSuggestionPositions": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "word": "news ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "always ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 1, 0, 2, 1]
+            },
+            {
+              "word": "seems ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0, 0]
+            },
+            {
+              "word": "to ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 0, 0, 0]
+            },
+            {
+              "word": "be ",
+              "sks": 3,
+              "correctSuggestionPositions": [0, 0, 0, 0]
+            },
+            {
+              "word": "late ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 2, 1, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-9",
+          "key": "typing-laptop-phrase-9"
+        },
+        {
+          "totalKss": 0.5,
+          "meanWordsKss": 0.5778787878787879,
+          "sdWordsKss": 0.20572075361149886,
+          "diffTotalKss": 0,
+          "diffWordsMeanKss": 0.07787878787878788,
+          "diffSdWordsKss": 0.005720753611498847,
+          "score": 0.0028603768057494233,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "completely ",
+              "sks": 3,
+              "correctSuggestionPositions": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                2,
+                1,
+                0,
+                0
+              ]
+            },
+            {
+              "word": "sold ",
+              "sks": 4,
+              "correctSuggestionPositions": [-1, 1, 0, 0, 0, 0]
+            },
+            {
+              "word": "out ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, 0, 0, 0, 0]
+            },
+            {
+              "word": "of ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 0, 0, 0]
+            },
+            {
+              "word": "that ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 1, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-10",
+          "key": "typing-laptop-phrase-10"
+        },
+        {
+          "totalKss": 0.5,
+          "meanWordsKss": 0.5927272727272728,
+          "sdWordsKss": 0.2170729397161811,
+          "diffTotalKss": 0,
+          "diffWordsMeanKss": 0.09272727272727277,
+          "diffSdWordsKss": 0.017072939716181096,
+          "score": 0.008536469858090548,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "mom ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "made ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, 1, 1, 0, 0]
+            },
+            {
+              "word": "her ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            { "word": "a ", "sks": 2, "correctSuggestionPositions": [1, 0, 0] },
+            {
+              "word": "turtleneck ",
+              "sks": 4,
+              "correctSuggestionPositions": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "id": "typing-laptop-phrase-11",
+          "key": "typing-laptop-phrase-11"
+        },
+        {
+          "totalKss": 0.5,
+          "meanWordsKss": 0.5071428571428571,
+          "sdWordsKss": 0.19743249944407504,
+          "diffTotalKss": 0,
+          "diffWordsMeanKss": 0.0071428571428571175,
+          "diffSdWordsKss": 0.002567500555924973,
+          "score": 0.0012837502779624865,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "the ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 1, 0, 0]
+            },
+            {
+              "word": "fourth ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 1, 0, 0, 0]
+            },
+            {
+              "word": "edition ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "was ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "better ",
+              "sks": 6,
+              "correctSuggestionPositions": [-1, 0, 0, 0, 0, 0, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-12",
+          "key": "typing-laptop-phrase-12"
+        },
+        {
+          "totalKss": 0.4827586206896552,
+          "meanWordsKss": 0.525,
+          "sdWordsKss": 0.1964971020425266,
+          "diffTotalKss": 0.017241379310344807,
+          "diffWordsMeanKss": 0.025000000000000022,
+          "diffSdWordsKss": 0.003502897957473411,
+          "score": 0.010372138633909109,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "these ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 2, 0, 0]
+            },
+            {
+              "word": "cookies ",
+              "sks": 5,
+              "correctSuggestionPositions": [-1, -1, -1, 1, 0, 0, 0, 0, 0]
+            },
+            {
+              "word": "are ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, 2, 0, 0, 0]
+            },
+            {
+              "word": "so ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 1, 0, 0]
+            },
+            {
+              "word": "amazing ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, -1, -1, 2, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-13",
+          "key": "typing-laptop-phrase-13"
+        },
+        {
+          "totalKss": 0.5142857142857142,
+          "meanWordsKss": 0.5555555555555555,
+          "sdWordsKss": 0.19969111950679366,
+          "diffTotalKss": 0.014285714285714235,
+          "diffWordsMeanKss": 0.05555555555555547,
+          "diffSdWordsKss": 0.00030888049320634825,
+          "score": 0.007297297389460292,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "good ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, 1, 0, 0, 0]
+            },
+            {
+              "word": "jobs ",
+              "sks": 4,
+              "correctSuggestionPositions": [-1, 2, 0, 0, 0, 0]
+            },
+            {
+              "word": "for ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "those ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "with ",
+              "sks": 4,
+              "correctSuggestionPositions": [-1, 0, 0, 0, 0, 0]
+            },
+            {
+              "word": "education ",
+              "sks": 3,
+              "correctSuggestionPositions": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                2,
+                1,
+                1,
+                0
+              ]
+            }
+          ],
+          "id": "typing-laptop-phrase-14",
+          "key": "typing-laptop-phrase-14"
+        },
+        {
+          "totalKss": 0.5,
+          "meanWordsKss": 0.5547619047619048,
+          "sdWordsKss": 0.20141224745292,
+          "diffTotalKss": 0,
+          "diffWordsMeanKss": 0.05476190476190479,
+          "diffSdWordsKss": 0.0014122474529199847,
+          "score": 0.0007061237264599923,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "the ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 1, 0, 0]
+            },
+            {
+              "word": "imagination ",
+              "sks": 3,
+              "correctSuggestionPositions": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "word": "of ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 0, 0, 0]
+            },
+            {
+              "word": "the ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "nation ",
+              "sks": 6,
+              "correctSuggestionPositions": [-1, 2, 0, 0, 0, 0, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-15",
+          "key": "typing-laptop-phrase-15"
+        },
+        {
+          "totalKss": 0.5185185185185185,
+          "meanWordsKss": 0.5535714285714286,
+          "sdWordsKss": 0.19964892656248123,
+          "diffTotalKss": 0.01851851851851849,
+          "diffWordsMeanKss": 0.0535714285714286,
+          "diffSdWordsKss": 0.0003510734375187785,
+          "score": 0.009434795978018634,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "the ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, 2, 0, 0, 0]
+            },
+            {
+              "word": "second ",
+              "sks": 5,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0, 0, 0, 0]
+            },
+            {
+              "word": "largest ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "country ",
+              "sks": 4,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 0, 0, 0, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-16",
+          "key": "typing-laptop-phrase-16"
+        },
+        {
+          "totalKss": 0.5217391304347826,
+          "meanWordsKss": 0.5466666666666666,
+          "sdWordsKss": 0.17429221949868495,
+          "diffTotalKss": 0.021739130434782594,
+          "diffWordsMeanKss": 0.046666666666666634,
+          "diffSdWordsKss": 0.02570778050131506,
+          "score": 0.023723455468048826,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "yes ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "you ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, 0, 0, 0, 0]
+            },
+            {
+              "word": "are ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, 0, 0, 0, 0]
+            },
+            {
+              "word": "very ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 2, 0, 0]
+            },
+            {
+              "word": "smart ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, -1, 2, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-17",
+          "key": "typing-laptop-phrase-17"
+        },
+        {
+          "totalKss": 0.52,
+          "meanWordsKss": 0.5777777777777777,
+          "sdWordsKss": 0.21659542988464364,
+          "diffTotalKss": 0.020000000000000018,
+          "diffWordsMeanKss": 0.07777777777777772,
+          "diffSdWordsKss": 0.01659542988464363,
+          "score": 0.018297714942321824,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            { "word": "I ", "sks": 2, "correctSuggestionPositions": [0, 0, 0] },
+            {
+              "word": "want ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 1, 0, 0]
+            },
+            {
+              "word": "to ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 2, 0, 0]
+            },
+            {
+              "word": "hold ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "your ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, -1, 0, 0, 0]
+            },
+            {
+              "word": "hand ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, 1, 0, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-18",
+          "key": "typing-laptop-phrase-18"
+        },
+        {
+          "totalKss": 0.4838709677419355,
+          "meanWordsKss": 0.5252525252525253,
+          "sdWordsKss": 0.2014892011340949,
+          "diffTotalKss": 0.016129032258064502,
+          "diffWordsMeanKss": 0.025252525252525304,
+          "diffSdWordsKss": 0.0014892011340948974,
+          "score": 0.0088091166960797,
+          "usable": true,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "the ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 1, 0, 0]
+            },
+            {
+              "word": "gun ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 0, 0, 0]
+            },
+            {
+              "word": "discharged ",
+              "sks": 2,
+              "correctSuggestionPositions": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                2,
+                2,
+                1
+              ]
+            },
+            {
+              "word": "by ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 2, 0, 0]
+            },
+            {
+              "word": "accident ",
+              "sks": 7,
+              "correctSuggestionPositions": [-1, -1, 1, 0, 0, 0, 0, 0, 0, 0]
+            }
+          ],
+          "id": "typing-laptop-phrase-19",
+          "key": "typing-laptop-phrase-19"
+        }
+      ],
+      "isVirtualKeyboardEnabled": true
+    }
+  ],
+  "device": "phone"
+}

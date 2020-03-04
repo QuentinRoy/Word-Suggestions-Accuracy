@@ -2,8 +2,51 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import styles from "./styles/SuggestionsBar.module.scss";
-import useMultiRef from "../../utils/useMultiRef";
-import usePreventTouchScroll from "../hooks/usePreventTouchScroll";
+import usePreventTouchDefault from "../hooks/usePreventTouchDefault";
+
+const Suggestionbutton = ({
+  suggestion,
+  onSelectionStart,
+  onSelectionEnd,
+  isFocused
+}) => {
+  const selStart = evt => {
+    evt.preventDefault();
+    if (suggestion != null) {
+      onSelectionStart(suggestion);
+    }
+  };
+  const selEnd = evt => {
+    evt.preventDefault();
+    if (suggestion != null) {
+      onSelectionEnd(suggestion);
+    }
+  };
+  return (
+    <button
+      type="button"
+      className={classNames({
+        [styles.button]: true,
+        [styles.focused]: isFocused
+      })}
+      tabIndex={-1}
+      onTouchStart={selStart}
+      onTouchEnd={selEnd}
+      onTouchCancel={selEnd}
+    >
+      {suggestion != null ? suggestion.trim() : null}
+    </button>
+  );
+};
+Suggestionbutton.propTypes = {
+  suggestion: PropTypes.string,
+  onSelectionStart: PropTypes.func.isRequired,
+  onSelectionEnd: PropTypes.func.isRequired,
+  isFocused: PropTypes.bool.isRequired
+};
+Suggestionbutton.defaultProps = { suggestion: undefined };
+
+const preventedEvents = ["touchmove"];
 
 function SuggestionsBar({
   totalSuggestions,
@@ -12,44 +55,21 @@ function SuggestionsBar({
   onSelectionStart,
   onSelectionEnd
 }) {
-  const buttonRefs = useMultiRef(totalSuggestions);
-
-  const buttons = Array.from({ length: totalSuggestions }, (_, i) => {
-    const suggestion = suggestions[i];
-    const selStart = evt => {
-      evt.preventDefault();
-      if (suggestion != null) {
-        onSelectionStart(suggestion);
-      }
-    };
-    const selEnd = evt => {
-      evt.preventDefault();
-      if (suggestion != null) {
-        onSelectionEnd(suggestion);
-      }
-    };
-    return (
-      <button
-        type="button"
-        // eslint-disable-next-line react/no-array-index-key
-        key={i}
-        className={classNames({
-          [styles.button]: true,
-          [styles.focused]: focusedSuggestion === i
-        })}
-        ref={buttonRefs[i]}
-        tabIndex={-1}
-        onTouchStart={selStart}
-        onTouchEnd={selEnd}
-        onTouchCancel={selEnd}
-      >
-        {suggestion != null ? suggestion.trim() : null}
-      </button>
-    );
-  });
+  const buttons = Array.from({ length: totalSuggestions }, (_, i) => (
+    <Suggestionbutton
+      key={i}
+      suggestion={suggestions[i]}
+      onSelectionStart={onSelectionStart}
+      onSelectionEnd={onSelectionEnd}
+      isFocused={focusedSuggestion === suggestions[i]}
+    />
+  ));
 
   return (
-    <div className={styles.main} ref={usePreventTouchScroll()}>
+    <div
+      className={styles.main}
+      ref={usePreventTouchDefault(true, preventedEvents)}
+    >
       {buttons}
     </div>
   );

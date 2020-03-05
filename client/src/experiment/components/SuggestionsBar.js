@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import styles from "./styles/SuggestionsBar.module.scss";
 import usePreventTouchDefault from "../hooks/usePreventTouchDefault";
+
+const buttonPadding = 10;
 
 const Suggestionbutton = ({
   suggestion,
@@ -10,6 +12,16 @@ const Suggestionbutton = ({
   onSelectionEnd,
   isFocused
 }) => {
+  const ref = useRef();
+  useLayoutEffect(() => {
+    const { current: button } = ref;
+    const span = button.querySelector("span");
+    // offsetWidth does not take scale into account, so we can safely use it
+    // to compute the new one.
+    const ratio = (button.offsetWidth - buttonPadding * 2) / span.offsetWidth;
+    span.style.transform = `scale(${Math.min(ratio, 1)})`;
+  }, [suggestion]);
+
   const selStart = evt => {
     evt.preventDefault();
     if (suggestion != null) {
@@ -24,17 +36,17 @@ const Suggestionbutton = ({
   };
   return (
     <button
+      ref={ref}
       type="button"
-      className={classNames({
-        [styles.button]: true,
-        [styles.focused]: isFocused
-      })}
+      className={classNames(styles.button, { [styles.focused]: isFocused })}
       tabIndex={-1}
       onTouchStart={selStart}
       onTouchEnd={selEnd}
       onTouchCancel={selEnd}
     >
-      {suggestion != null ? suggestion.trim() : null}
+      <span className={styles.buttonContent}>
+        {suggestion != null ? suggestion.trim() : null}
+      </span>
     </button>
   );
 };
@@ -57,6 +69,8 @@ function SuggestionsBar({
 }) {
   const buttons = Array.from({ length: totalSuggestions }, (_, i) => (
     <Suggestionbutton
+      // We cannot use suggestion as a key, more than one suggestion may be
+      // null. The index is fine, and also limits re-rendering.
       key={i}
       suggestion={suggestions[i]}
       onSelectionStart={onSelectionStart}

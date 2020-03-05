@@ -105,7 +105,7 @@
 
 .stepSuggestion {
   pointer-events: none;
-  --dash-length: 2000;
+  --dash-length: 5000;
   .inlineSuggestionOverlay & {
     --dash-length: 500;
   }

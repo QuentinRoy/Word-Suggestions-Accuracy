@@ -322,6 +322,7 @@ const TrialPresenter = ({
               <TrialHelp isVirtualKeyboardEnabled={isVirtualKeyboardEnabled} />
             </div>
           )}
+          {tutorialStep && <div className={styles.tutorialSpacer} />}
           <div className={styles.controls}>
             {suggestionsType === SuggestionTypes.bar ? (
               <div ref={tutorialStep == null ? null : suggestionsBarRef}>

@@ -43,13 +43,18 @@ $maxContentWidth: 800px;
       grid-row-end: control-end;
     }
 
-    .trialHelp {
+    .trialHelp,
+    .tutorialSpacer {
       grid-row-start: help-start;
       grid-row-end: help-end;
 
       @media (max-width: $maxContentWidth) {
         padding: 0 1rem;
       }
+    }
+
+    .tutorialSpacer {
+      min-height: 200px;
     }
   }
 

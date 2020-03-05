@@ -52,8 +52,18 @@ const configArgs = {
   participant: urlParams.get("participant"),
   device: urlParams.get("device"),
   isTest: urlParams.get("isTest"),
-  config: urlParams.get("config")
+  config: urlParams.get("config"),
+  reset: urlParams.get("reset")
 };
+
+if (
+  configArgs.reset &&
+  // eslint-disable-next-line no-alert
+  window.confirm("Are you sure you want to clear previous state?")
+) {
+  // This is the key used by hci kit.
+  localStorage.removeItem("state");
+}
 
 function ExperimentContent() {
   const [configLoadingState, configuration] = useConfiguration(configArgs);

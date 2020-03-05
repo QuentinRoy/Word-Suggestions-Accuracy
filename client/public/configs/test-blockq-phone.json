@@ -1,0 +1,16 @@
+{
+  "config": "test-blockq",
+  "deviceOrder": ["phone", "laptop", "tablet"],
+  "targetAccuracy": 0.1,
+  "keyStrokeDelay": 0,
+  "totalSuggestions": 3,
+  "suggestionsType": "BAR",
+  "numberOfPracticeTasks": 3,
+  "numberOfTypingTasks": 20,
+  "doNotShowDelayInstructions": true,
+  "wave": "multi-device",
+  "children": [
+    { "task": "BlockQuestionnaire", "key": "typing-questionnaire-phone" }
+  ],
+  "device": "phone"
+}

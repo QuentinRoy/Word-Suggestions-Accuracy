@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { InputTypes, Directions } from "../../utils/constants";
+import {
+  InputTypes,
+  Directions,
+  agreementScaleAnswers
+} from "../../utils/constants";
 import QuestionnaireTask from "./QuestionnaireTask";
 
 const questions = Object.freeze({
@@ -8,24 +12,28 @@ const questions = Object.freeze({
     text:
       "The controls keyboard and word suggestions) are satisfactory for the completion of the task.",
     inputType: InputTypes.choice,
+    answers: agreementScaleAnswers,
     direction: Directions.horizontal,
     isAnswerRequired: true
   }),
   suggestionsAccuracy: Object.freeze({
     text: "The word suggestions are accurate.",
     inputType: InputTypes.choice,
+    answers: agreementScaleAnswers,
     direction: Directions.horizontal,
     isAnswerRequired: true
   }),
   keyboardUseEfficiency: Object.freeze({
     text: "The use of the keyboard is efficient in this task.",
     inputType: InputTypes.choice,
+    answers: agreementScaleAnswers,
     direction: Directions.horizontal,
     isAnswerRequired: true
   }),
   suggestionDistraction: Object.freeze({
     text: "The word suggestions are distracting.",
     inputType: InputTypes.choice,
+    answers: agreementScaleAnswers,
     direction: Directions.horizontal,
     isAnswerRequired: true
   }),

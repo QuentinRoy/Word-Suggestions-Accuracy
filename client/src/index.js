@@ -1,8 +1,10 @@
 import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./index.css";
 import Loading from "./utils/Loading";
+import Crashed from "./utils/Crashed";
+import DocumentTitle from "./utils/DocumentTitle";
 
 const ExperimentWrapper = lazy(() =>
   import("./experiment/components/ExperimentWrapper")
@@ -18,11 +20,29 @@ ReactDOM.render(
   <Suspense fallback={<Loading>Loading...</Loading>}>
     <Router>
       <Switch>
-        <Route exact path="/viewer" component={DistributionViewer} />
-        <Route exact path="/startup" component={Startup} />
-        <Route exact path="/" component={ExperimentWrapper} />
+        <Route exact path="/viewer">
+          <DocumentTitle title="Distribution Viewer">
+            <DistributionViewer />
+          </DocumentTitle>
+        </Route>
+
+        <Route exact path="/">
+          <DocumentTitle title="Experiment Startup">
+            <Startup />
+          </DocumentTitle>
+        </Route>
+
+        <Route exact path="/experiment">
+          <ExperimentWrapper />
+        </Route>
+
         <Route path="*">
-          No match for <code>{window.location.href}</code>
+          <DocumentTitle title="Not found">
+            <Crashed>
+              <h1>Not found</h1>
+              This page does not exist
+            </Crashed>
+          </DocumentTitle>
         </Route>
       </Switch>
     </Router>

@@ -41,6 +41,10 @@ const PreviousState = () => {
         settings).
       </p>
       <p>
+        If you remove this state, any unsaved content from the previous run will
+        be lost.
+      </p>
+      <p>
         <button type="button" onClick={clearState}>
           Clear previous state
         </button>

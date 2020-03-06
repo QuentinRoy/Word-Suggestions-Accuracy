@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import { useHistory } from "react-router-dom";
 import { stringify } from "qs";
 import pick from "lodash/pick";
 import { Devices } from "../utils/constants";
@@ -38,15 +39,6 @@ const validate = values => {
   return errors;
 };
 
-const onSubmit = (values, { setSubmitting }) => {
-  setSubmitting(true);
-  // Register some of the keys that should not change often.
-  saveValues(values);
-  window.location.href = `${window.location.pathname}?${stringify(
-    transformValues(values)
-  )}`;
-};
-
 const prevValues = fetchStoredValues();
 
 // eslint-disable-next-line react/prop-types
@@ -55,6 +47,18 @@ const StyledErrorMessage = ({ children }) => (
 );
 
 const StartForm = () => {
+  const history = useHistory();
+
+  const onSubmit = (values, { setSubmitting }) => {
+    setSubmitting(true);
+    // Register some of the keys that should not change often.
+    saveValues(values);
+    history.push({
+      pathname: "/experiment",
+      search: `?${stringify(transformValues(values))}`
+    });
+  };
+
   return (
     <>
       <h2>Experiment Startup</h2>

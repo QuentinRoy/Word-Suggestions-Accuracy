@@ -1,25 +1,8 @@
 import React, { useEffect } from "react";
+import style from "./Startup.module.css";
 
 import PreviousState from "./PreviousState";
 import StartForm from "./StartForm";
-
-// eslint-disable-next-line react/prop-types
-const Area = ({ children }) => (
-  <div
-    style={{
-      width: "500px",
-      borderStyle: "solid",
-      borderColor: "#DDD",
-      padding: "0 1em",
-      borderRadius: "5px",
-      borderWidth: "1px",
-      margin: "1em",
-      backgroundColor: "white"
-    }}
-  >
-    {children}
-  </div>
-);
 
 const Startup = () => {
   useEffect(() => {
@@ -30,23 +13,13 @@ const Startup = () => {
     };
   }, []);
   return (
-    <div
-      style={{
-        boxSizing: "border-box",
-        justifyContent: "center",
-        alignItems: "self-start",
-        display: "flex",
-        padding: "1em",
-        width: "100%",
-        flexWrap: "wrap"
-      }}
-    >
-      <Area>
+    <div className={style.main}>
+      <div className={style.area}>
         <PreviousState />
-      </Area>
-      <Area>
+      </div>
+      <div className={style.area}>
         <StartForm />
-      </Area>
+      </div>
     </div>
   );
 };

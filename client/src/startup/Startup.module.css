@@ -1,0 +1,20 @@
+.main {
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: self-start;
+  display: flex;
+  padding: 1em;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.area {
+  width: 500px;
+  border-style: solid #ddd;
+  border-color: #ddd;
+  padding: 0 1em;
+  border-radius: 5px;
+  border-width: 1px;
+  margin: 1em;
+  background-color: white;
+}

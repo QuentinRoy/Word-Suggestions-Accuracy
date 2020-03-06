@@ -69,6 +69,10 @@ export const TaskTypes = Object.freeze({
   injectEnd: "InjectEnd",
   fullScreenRequest: "FullScreenRequest",
 
+  // Typing test-only tasks.
+  typingSpeedTask: "TypingSpeedTask",
+  results: "Results",
+
   // These tasks are built in @hcikit
   informationScreen: "InformationScreen",
   experimentProgress: "ExperimentProgress"

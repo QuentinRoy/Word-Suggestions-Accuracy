@@ -16,6 +16,8 @@ const DistributionViewer = lazy(() =>
 
 const Startup = lazy(() => import("./startup/Startup"));
 
+const TypingTest = lazy(() => import("./typing-test/TypingTest"));
+
 ReactDOM.render(
   <Suspense fallback={<Loading>Loading...</Loading>}>
     <Router>
@@ -34,6 +36,12 @@ ReactDOM.render(
 
         <Route exact path="/experiment">
           <ExperimentWrapper />
+        </Route>
+
+        <Route exact path="/typing">
+          <DocumentTitle title="Typing Test">
+            <TypingTest />
+          </DocumentTitle>
         </Route>
 
         <Route path="*">

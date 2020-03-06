@@ -49,6 +49,7 @@ export const WordSuggestionsProvider = ({ serverAddress, children }) => {
   const [state, dispatch] = useReducer(reducer, initState);
 
   useEffect(() => {
+    if (serverAddress == null) return undefined;
     try {
       // This may throw, in particular if websockets are not supported
       const engine = WordSuggestionsEngine(serverAddress);
@@ -79,9 +80,11 @@ export const WordSuggestionsProvider = ({ serverAddress, children }) => {
 };
 
 WordSuggestionsProvider.propTypes = {
-  serverAddress: PropTypes.string.isRequired,
+  serverAddress: PropTypes.string,
   children: PropTypes.node.isRequired
 };
+
+WordSuggestionsProvider.defaultProps = { serverAddress: undefined };
 
 export const useSuggestions = onSuggestions => {
   // Put the callback on a ref, to avoid constantly subscribing and

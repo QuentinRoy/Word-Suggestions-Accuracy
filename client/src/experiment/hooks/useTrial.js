@@ -189,6 +189,7 @@ const useTrial = ({
   // This is ugly, we would want to request the suggestions when receiving the
   // action instead of waiting for the next render... But it works good enough.
   useEffect(() => {
+    if (totalSuggestions <= 0) return;
     const requestTime = new Date();
     requestSuggestions({
       totalSuggestions,

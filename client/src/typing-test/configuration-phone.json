@@ -1,0 +1,73 @@
+{
+  "device": "phone",
+  "children": [
+    {
+      "task": "InformationScreen",
+      "content": "Typing on laptop: Speed test",
+      "key": "phone-typing-speed-test"
+    },
+    {
+      "key": "tst0",
+      "id": "tst0",
+      "task": "TypingSpeedTask",
+      "phrase": "my watch fell in the water"
+    },
+    {
+      "key": "tst1",
+      "id": "tst1",
+      "task": "TypingSpeedTask",
+      "phrase": "prevailing wind from the east"
+    },
+    {
+      "key": "tst2",
+      "id": "tst2",
+      "task": "TypingSpeedTask",
+      "phrase": "never too rich and never too thin"
+    },
+    {
+      "key": "tst3",
+      "id": "tst3",
+      "task": "TypingSpeedTask",
+      "phrase": "breathing is difficult"
+    },
+    {
+      "key": "tst4",
+      "id": "tst4",
+      "task": "TypingSpeedTask",
+      "phrase": "I can see the rings on Saturn"
+    },
+    {
+      "key": "tst5",
+      "id": "tst5",
+      "task": "TypingSpeedTask",
+      "phrase": "physics and chemistry are hard"
+    },
+    {
+      "key": "tst6",
+      "id": "tst6",
+      "task": "TypingSpeedTask",
+      "phrase": "my bank account is overdrawn"
+    },
+    {
+      "key": "tst7",
+      "id": "tst7",
+      "task": "TypingSpeedTask",
+      "phrase": "elections bring out the best"
+    },
+    {
+      "key": "tst8",
+      "id": "tst8",
+      "task": "TypingSpeedTask",
+      "phrase": "we are having spaghetti"
+    },
+    {
+      "key": "tst9",
+      "id": "tst9",
+      "task": "TypingSpeedTask",
+      "phrase": "time to go shopping"
+    },
+    { "task": "S3Upload", "key": "upload-phone" },
+    { "task": "Results", "key": "results" }
+  ],
+  "isVirtualKeyboardEnabled": true
+}

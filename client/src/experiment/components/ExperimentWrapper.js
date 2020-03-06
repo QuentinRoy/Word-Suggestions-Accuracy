@@ -1,6 +1,6 @@
 import React from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
-import { registerAll, createUpload } from "@hcikit/tasks";
+import { registerAll } from "@hcikit/tasks";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 import TypingTask from "./TypingTask";
@@ -12,7 +12,6 @@ import {
   TaskTypes,
   suggestionServerAddress
 } from "../../utils/constants";
-import createS3Uploader from "../s3Uploader";
 import EndExperiment from "./EndExperiment";
 import Startup from "./Startup";
 import BlockQuestionnaire from "./BlockQuestionnaire";
@@ -26,18 +25,12 @@ import {
   useSuggestions
 } from "../wordSuggestions/wordSuggestions";
 import { main } from "./styles/ExperimentWrapper.module.css";
-
-const UploadComponent = createUpload(
-  createS3Uploader(
-    "us-east-2",
-    "us-east-2:5e4b7193-2a48-42b9-be38-de801a857b26",
-    "exii-accuracy-control-uploads"
-  )
-);
+import UploadTask from "./UploadTask";
+import useBodyBackgroundColor from "../hooks/useBodyBackgroundColor";
 
 registerAll(registerTask);
 registerTask(TaskTypes.typingTask, TypingTask);
-registerTask(TaskTypes.s3Upload, UploadComponent);
+registerTask(TaskTypes.s3Upload, UploadTask);
 registerTask(TaskTypes.endExperiment, EndExperiment);
 registerTask(TaskTypes.startup, Startup);
 registerTask(TaskTypes.blockQuestionnaire, BlockQuestionnaire);
@@ -59,13 +52,16 @@ const configArgs = {
 if (
   configArgs.reset &&
   // eslint-disable-next-line no-alert
-  window.confirm("Are you sure you want to clear previous state?")
+  window.confirm(
+    "Are you sure you do not want to resume the previous experiment? All unsaved data will be lost."
+  )
 ) {
   // This is the key used by hci kit.
   localStorage.removeItem("state");
 }
 
 function ExperimentContent() {
+  useBodyBackgroundColor("#EEE");
   const [configLoadingState, configuration] = useConfiguration(configArgs);
   const { loadingState: suggestionsLoadingState } = useSuggestions();
 

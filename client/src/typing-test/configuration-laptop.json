@@ -1,0 +1,74 @@
+{
+  "device": "laptop",
+  "children": [
+    {
+      "task": "InformationScreen",
+      "content": "<h1>Typing on laptop: Speed test</h1><p>Press continue when you are ready to start the test.</p>",
+      "key": "laptop-typing-speed-test"
+    },
+    {
+      "key": "tst0",
+      "id": "tst0",
+      "task": "TypingSpeedTask",
+      "phrase": "a problem with the engine"
+    },
+    {
+      "key": "tst1",
+      "id": "tst1",
+      "task": "TypingSpeedTask",
+      "phrase": "elephants are afraid of mice"
+    },
+    {
+      "key": "tst2",
+      "id": "tst2",
+      "task": "TypingSpeedTask",
+      "phrase": "my favorite place to visit"
+    },
+    {
+      "key": "tst3",
+      "id": "tst3",
+      "task": "TypingSpeedTask",
+      "phrase": "three two one zero blast off"
+    },
+    {
+      "key": "tst4",
+      "id": "tst4",
+      "task": "TypingSpeedTask",
+      "phrase": "my favorite subject is psychology"
+    },
+    {
+      "key": "tst5",
+      "id": "tst5",
+      "task": "TypingSpeedTask",
+      "phrase": "circumstances are unacceptable"
+    },
+    {
+      "key": "tst6",
+      "id": "tst6",
+      "task": "TypingSpeedTask",
+      "phrase": "watch out for low flying objects"
+    },
+    {
+      "key": "tst7",
+      "id": "tst7",
+      "task": "TypingSpeedTask",
+      "phrase": "if at first you do not succeed"
+    },
+    {
+      "key": "tst8",
+      "id": "tst8",
+      "task": "TypingSpeedTask",
+      "phrase": "please provide your date of birth"
+    },
+    {
+      "key": "tst9",
+      "id": "tst9",
+      "task": "TypingSpeedTask",
+      "phrase": "we run the risk of failure"
+    },
+
+    { "task": "S3Upload", "key": "upload-laptop", "id": "upload-laptop" },
+    { "task": "Results", "key": "results", "id": "results" }
+  ],
+  "isVirtualKeyboardEnabled": false
+}

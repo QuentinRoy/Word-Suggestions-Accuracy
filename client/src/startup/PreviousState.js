@@ -28,6 +28,8 @@ const PreviousState = () => {
       </>
     );
 
+  const isCompleted = storageState.Configuration.isExperimentCompleted;
+
   return (
     <>
       <h2>Existing Experiment State</h2>
@@ -36,9 +38,13 @@ const PreviousState = () => {
         {storageState.Configuration.participant}&rdquo;, config: &ldquo;
         {storageState.Configuration.config}&rdquo;).{" "}
       </p>
+      {isCompleted ? (
+        <p>This experiment is complete.</p>
+      ) : (
+        <p>This experiment is incomplete.</p>
+      )}
       <p>
-        Starting the experiment would resume this state (regardless of config
-        settings).
+        Starting now would resume this state (regardless of config settings).
       </p>
       <p>
         If you remove this state, any unsaved content from the previous run will

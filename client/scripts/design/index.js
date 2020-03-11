@@ -38,7 +38,6 @@ const createConfigurationId = configNumber => `C${configNumber}`;
 
 const createInitBlock = ({ firstDevice }) => {
   const children = [
-    { task: "ConsentForm", key: `init-consent` },
     { task: "Startup", key: `init-startup` },
     { task: "DemographicQuestionnaire", key: `init-demographic-questionnaire` },
     {
@@ -63,8 +62,8 @@ const createInitBlock = ({ firstDevice }) => {
       content: minify(`
         <p>Now switch to the ${firstDevice}.</p>
         <p>
-          Press continue if and when you have been told to switch to the
-          laptop again.
+          <strong>Do not press continue</strong>
+          before you are told to switch to the laptop again.
         </p>
       `),
       key: `info-first-switch`
@@ -77,7 +76,8 @@ const createTypingBlock = ({
   device,
   nextDevice = "laptop",
   phrases,
-  practicePhrases
+  practicePhrases,
+  isDoneAfter = false
 }) => {
   const children = [
     {
@@ -120,15 +120,27 @@ const createTypingBlock = ({
     { task: "BlockQuestionnaire", key: `typing-questionnaire-${device}` },
     { task: "S3Upload", key: `typing-upload-${device}` }
   ];
-  if (nextDevice !== device) {
+  if (isDoneAfter) {
+    children.push({ task: "InjectEnd", key: `final-inject-end` });
+  }
+  if (nextDevice !== device && !isDoneAfter) {
     children.push({
       task: "InformationScreen",
       content: minify(`
         <p>Now switch to the ${nextDevice}.</p>
         <p>
-          Press continue if and when you have been told to switch to the
-          ${device} again.
+          <strong>Do not press continue</strong>
+          before you are told to switch to the ${device} again.
         </p>
+      `),
+      key: `typing-${device}-info-typing-end`
+    });
+  } else if (nextDevice !== device) {
+    children.push({
+      task: "InformationScreen",
+      content: minify(`
+        <p>You are now done with this device</p>
+        <p>Switch to the ${nextDevice}.</p>
       `),
       key: `typing-${device}-info-typing-end`
     });
@@ -156,7 +168,8 @@ const createTypingBlocks = async ({ deviceOrder, accuracy }) => {
       phrases: corpus.slice(
         corpusStart + numberOfPracticeTasks,
         corpusStart + numberOfPracticeTasks + numberOfTypingTasks
-      )
+      ),
+      isDoneAfter: device !== "laptop"
     });
   });
 };
@@ -184,9 +197,7 @@ const createRun = async ({ accuracy, deviceOrder, config }) => {
     doNotShowDelayInstructions,
     wave: "multi-device",
     children: [
-      await createInitBlock({
-        firstDevice: deviceOrder[0]
-      }),
+      await createInitBlock({ firstDevice: deviceOrder[0] }),
       ...(await createTypingBlocks({ deviceOrder, accuracy })),
       await createFinalBlock()
     ]

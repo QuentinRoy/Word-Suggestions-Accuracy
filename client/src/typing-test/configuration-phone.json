@@ -3,7 +3,7 @@
   "children": [
     {
       "task": "InformationScreen",
-      "content": "Typing on laptop: Speed test",
+      "content": "Typing on phone: Speed test",
       "key": "phone-typing-speed-test"
     },
     {

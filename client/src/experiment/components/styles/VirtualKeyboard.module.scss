@@ -38,7 +38,7 @@ $button-height: 60px;
         width: 100vw;
       }
 
-      :global(.hg-button):active {
+      :global(.hg-button.hg-activeButton) {
         background-color: #dbdbdb;
       }
 
@@ -66,7 +66,8 @@ $button-height: 60px;
       @include disabled();
     }
   }
-  &.phone .vkTheme :global(.hg-standardBtn):active {
+  &.phone .vkTheme :global(.hg-standardBtn.hg-activeButton)
+  {
     background-color: white;
     z-index: 10;
     transform: translate(0, calc(-3px - #{$button-height})) scale(1.2);

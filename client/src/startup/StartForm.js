@@ -6,7 +6,7 @@ import { stringify } from "qs";
 import pick from "lodash/pick";
 import { Devices } from "../utils/constants";
 
-const requiredValues = ["participant", "config", "device", "isTest"];
+const requiredValues = ["participant", "config", "device", "isTest", "target"];
 const savedValues = ["device", "isTest"];
 const localStorageSavedValuesKey = "startup-values";
 
@@ -50,12 +50,13 @@ const StartForm = () => {
   const history = useHistory();
 
   const onSubmit = (values, { setSubmitting }) => {
+    const { target, ...qsValues } = values;
     setSubmitting(true);
     // Register some of the keys that should not change often.
     saveValues(values);
     history.push({
-      pathname: "/experiment",
-      search: `?${stringify(transformValues(values))}`
+      pathname: target === "speed-test" ? "/typing" : "/experiment",
+      search: `?${stringify(transformValues(qsValues))}`
     });
   };
 
@@ -107,6 +108,14 @@ const StartForm = () => {
               ))}
             </Field>{" "}
             <ErrorMessage name="device" component={StyledErrorMessage} />
+          </p>
+          <p>
+            <Field id="target" name="target" as="select">
+              <option value=""> </option>
+              <option value="speed-test">Typing Speed Test</option>
+              <option value="experiment">Experiment</option>
+            </Field>
+            <ErrorMessage name="isTest" component={StyledErrorMessage} />
           </p>
           <p>
             <button type="submit">Start</button>

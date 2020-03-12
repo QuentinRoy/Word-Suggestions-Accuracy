@@ -8,15 +8,19 @@ from config_tasks import (
     INPUT_CHAR_EVENT,
     DELETE_CHAR_EVENT,
     INPUT_SUGGESTION_EVENT,
+    TYPING_SPEED_TASK,
+    create_task_iterator,
 )
 from utils import copy_rename
 
-IS_ANONYMOUS = True
-
 this_dir = os.path.dirname(os.path.abspath(__file__))
-json_logs_dir = os.path.join(this_dir, "../../participants-logs/")
+json_logs_dir = os.path.join(this_dir, "../../logs/multi-device")
 output_file_path = os.path.abspath(os.path.join(json_logs_dir, "trials.csv"))
-p_registry_path = os.path.abspath(os.path.join(json_logs_dir, "p_registry.csv"))
+
+typing_test_json_logs_dir = os.path.join(this_dir, "../../logs/multi-device-typing")
+typing_test_output_file_path = os.path.abspath(
+    os.path.join(typing_test_json_logs_dir, "trials.csv")
+)
 
 log_columns = {
     "participant": "participant",
@@ -25,10 +29,9 @@ log_columns = {
     "sd_word_kss": "sdWordsKss",
     "is_practice": "isPractice",
     "suggestions_type": "suggestionsType",
+    "device": "device",
+    "wave": "wave",
 }
-if not IS_ANONYMOUS:
-    log_columns.update({"hit_id": "hitId", "assignment_id": "assignmentId"})
-
 
 trial_columns = {
     "sentence": "sentence",
@@ -46,18 +49,16 @@ trial_columns = {
     "total_suggestion_errors": "totalSuggestionErrors",
     "time_zone": "timeZone",
     "version": "version",
+    "git_sha": "gitSha",
 }
-if not IS_ANONYMOUS:
-    trial_columns.update({"git_sha": "gitSha"})
 
 other_columns = [
     "total_removed_manual_chars",
     "total_removed_suggestion_chars",
     "total_final_suggestion_chars",
     "total_final_manual_chars",
+    "file_name",
 ]
-if not IS_ANONYMOUS:
-    other_columns.append("file_name")
 
 
 def get_ks_info(task):
@@ -92,7 +93,7 @@ def get_ks_info(task):
 # This should just yield once, but we still use an iterators for consistency
 # with export_events.
 def iter_trials(task, file_name, **kwargs):
-    record = {} if IS_ANONYMOUS else {"file_name": file_name}
+    record = {"file_name": file_name}
     copy_rename(task, record, log_columns)
     if "trial" in task:
         copy_rename(task["trial"], record, trial_columns)
@@ -108,6 +109,16 @@ if __name__ == "__main__":
         header,
         iter_trials,
         iter_typing_tasks,
-        participant_registry_path=p_registry_path if IS_ANONYMOUS else None,
+        participant_registry_path=None,
     )
     print("{} written.".format(output_file_path))
+    csv_export(
+        typing_test_json_logs_dir,
+        typing_test_output_file_path,
+        header,
+        iter_trials,
+        create_task_iterator(TYPING_SPEED_TASK),
+        participant_registry_path=None,
+    )
+    print("{} written.".format(typing_test_output_file_path))
+

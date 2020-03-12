@@ -5,16 +5,16 @@ from csv_export import csv_export
 from config_tasks import (
     iter_task_of_type,
     FINAL_FEEDBACKS,
-    END_QUESTIONNAIRE,
+    DEMOGRAPHIC_QUESTIONNAIRE,
+    BLOCK_QUESTIONNAIRE,
     STARTUP,
     CONSENT_FORM,
 )
 from utils import to_snake_case, copy_rename
 
-IS_ANONYMOUS = True
 
 this_dir = os.path.dirname(os.path.abspath(__file__))
-json_logs_dir = os.path.join(this_dir, "../../participants-logs/")
+json_logs_dir = os.path.join(this_dir, "../../logs/multi-device/")
 output_file_path = os.path.abspath(os.path.join(json_logs_dir, "runs.csv"))
 p_registry_path = os.path.abspath(os.path.join(json_logs_dir, "p_registry.csv"))
 
@@ -34,48 +34,28 @@ record_columns = dict(
         "endDate",
         "timeZone",
         "wave",
+        "config",
+        "device",
+        "gitSha",
+        "href",
+        "userAgent",
     ]
 )
 
-if not IS_ANONYMOUS:
-    record_columns.update(
-        dict(
-            (to_snake_case(col), col)
-            for col in [
-                "assignmentId",
-                "hitId",
-                "gitSha",
-                "confirmationCode",
-                "href",
-                "userAgent",
-                "confirmationCode",
-            ]
-        )
-    )
 
+other_columns = ["feedbacks", "start_up_questionnaire_trials", "file_name"]
 
-corpus_columns = {
-    "corpus_target_kss": "targetKss",
-    "corpus_target_sd_words_kss": "targetSdWordsKss",
-    "corpus_max_diff_kss": "maxDiffKss",
-    "corpus_max_diff_sd_words_kss": "maxDiffSdWordsKss",
-    "was_corpus_shuffled": "shuffled",
-}
-
-other_columns = ["feedbacks", "start_up_questionnaire_trials", "accepted_consent_form"]
-
-if not IS_ANONYMOUS:
-    other_columns.insert(0, "file_name")
-
-end_questionnaire_columns = {
+demo_questionnaire_columns = {
     "age": "age",
     "gender": "gender",
-    "controls_satisfactory": "controlsSatisfactory",
-    "suggestions_accuracy": "suggestionsAccuracy",
-    "middle_answer": "middleAnswer",
-    "keyboard_use_efficiency": "keyboardUseEfficiency",
     "suggestions_use_frequency_desktop": "suggestionsUseFrequencyDesktop",
     "suggestions_use_frequency_mobile": "suggestionsUseFrequencyMobile",
+}
+
+block_questionnaire_columns = {
+    "controls_satisfactory": "controlsSatisfactory",
+    "suggestions_accuracy": "suggestionsAccuracy",
+    "keyboard_use_efficiency": "keyboardUseEfficiency",
     "suggestion_distraction": "suggestionDistraction",
     "mental_demand": "mentalDemand",
     "physical_demand": "physicalDemand",
@@ -86,34 +66,44 @@ end_questionnaire_columns = {
 }
 
 
-def get_feedbacks(run_record):
-    feedback_tasks = list(iter_task_of_type(run_record, FINAL_FEEDBACKS))
-    assert len(feedback_tasks) == 1
-    if "feedbacks" in feedback_tasks[0]:
-        return feedback_tasks[0]["feedbacks"]
-    return None
+def use_one_task(task_type, is_one_required=False):
+    def inject(func):
+        def wrapper(run_record):
+            tasks = list(iter_task_of_type(run_record, task_type))
+            if not is_one_required and len(tasks) == 0:
+                return func(None)
+            assert len(tasks) == 1
+            return func(tasks[0])
+
+        return wrapper
+
+    return inject
 
 
-def get_start_questionnaire_trials(run_record):
-    startup_questionnaire_task = list(iter_task_of_type(run_record, STARTUP))
-    assert len(startup_questionnaire_task) == 1
-    if "trials" in startup_questionnaire_task[0]:
-        return len(startup_questionnaire_task[0]["trials"])
-    return 0
+def get_task_prop(task, prop_name, default):
+    if task is None or prop_name not in task:
+        return default
+    return task[prop_name]
 
 
-def get_end_questionnaire(run_record):
-    end_questionnaire_task = list(iter_task_of_type(run_record, END_QUESTIONNAIRE))
-    assert len(end_questionnaire_task) == 1
-    if "log" in end_questionnaire_task[0]:
-        return end_questionnaire_task[0]["log"]
-    return {}
+@use_one_task(FINAL_FEEDBACKS)
+def get_feedbacks(task):
+    return get_task_prop(task, prop_name="feedbacks", default=None)
 
 
-def accepted_consent_form(run_record):
-    consent_form_task = list(iter_task_of_type(run_record, CONSENT_FORM))
-    assert len(consent_form_task) == 1
-    return "end" in consent_form_task[0]
+@use_one_task(STARTUP)
+def get_start_questionnaire_trials(task):
+    return len(get_task_prop(task, prop_name="feedbacks", default=[]))
+
+
+@use_one_task(DEMOGRAPHIC_QUESTIONNAIRE)
+def get_demographic_questionnaire(task):
+    return get_task_prop(task, prop_name="log", default={})
+
+
+@use_one_task(BLOCK_QUESTIONNAIRE)
+def get_block_questionnaire(task):
+    return get_task_prop(task, prop_name="log", default={})
 
 
 # This should just yield once, but we still use an iterators for consistency
@@ -122,28 +112,30 @@ def iter_run_record(run_record, file_name, **kwargs):
     result = {
         "feedbacks": get_feedbacks(run_record),
         "start_up_questionnaire_trials": get_start_questionnaire_trials(run_record),
-        "accepted_consent_form": accepted_consent_form(run_record),
+        "file_name": file_name,
     }
-    if not IS_ANONYMOUS:
-        result.update({"file_name": file_name})
     copy_rename(run_record, result, record_columns)
-    copy_rename(run_record["corpusConfig"], result, corpus_columns)
-    copy_rename(get_end_questionnaire(run_record), result, end_questionnaire_columns)
+    copy_rename(
+        get_demographic_questionnaire(run_record), result, demo_questionnaire_columns
+    )
+    copy_rename(
+        get_block_questionnaire(run_record), result, block_questionnaire_columns
+    )
     yield result
 
 
 if __name__ == "__main__":
     header = (
         list(record_columns.keys())
-        + list(corpus_columns.keys())
         + other_columns
-        + list(end_questionnaire_columns.keys())
+        + list(demo_questionnaire_columns.keys())
+        + list(block_questionnaire_columns.keys())
     )
     csv_export(
         json_logs_dir,
         output_file_path,
         header,
         iter_run_record,
-        participant_registry_path=p_registry_path if IS_ANONYMOUS else None,
+        participant_registry_path=None,
     )
     print("{} written.".format(output_file_path))

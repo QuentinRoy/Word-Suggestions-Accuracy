@@ -9,7 +9,7 @@ log.setDefaultLevel(log.levels.INFO);
 
 const bucket = "exii-accuracy-control-uploads";
 const objectsRemoteDirectory = "prod/";
-const outputDir = path.join(__dirname, "../participants-logs");
+const outputDir = path.join(__dirname, "../logs/multi-device");
 
 const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 

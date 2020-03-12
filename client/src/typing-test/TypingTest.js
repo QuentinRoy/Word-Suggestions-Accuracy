@@ -48,8 +48,8 @@ const config = {
 // Add the target filename for every upload tasks.
 const filename =
   process.env.NODE_ENV === "development"
-    ? `typing-dev/${participant}-${device}-${new Date().toISOString()}.json`
-    : `typing-prod/${participant}-${device}-${new Date().toISOString()}.json`;
+    ? `typing-dev/${participant}-typing-${device}-${new Date().toISOString()}.json`
+    : `typing-prod/${participant}-typing-${device}-${new Date().toISOString()}.json`;
 config.children = config.children.map(c =>
   c.task === TaskTypes.s3Upload ? { ...c, filename } : c
 );

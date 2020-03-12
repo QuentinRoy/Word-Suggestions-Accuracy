@@ -10,7 +10,7 @@ import QuestionnaireTask from "./QuestionnaireTask";
 const questions = Object.freeze({
   controlsSatisfactory: Object.freeze({
     text:
-      "The controls keyboard and word suggestions) are satisfactory for the completion of the task.",
+      "The controls (keyboard and word suggestions) are satisfactory for the completion of the task.",
     inputType: InputTypes.choice,
     answers: agreementScaleAnswers,
     direction: Directions.horizontal,

@@ -1,5 +1,8 @@
+from collections.abc import Iterable
+
 # All of this is unfortunately copied from src/utils/constants.js.
 TYPING_TASK = "TypingTask"
+TYPING_SPEED_TASK = "TypingSpeedTask"
 S3_UPLOAD = "S3Upload"
 END_EXPERIMENT = "EndExperiment"
 STARTUP = "Startup"
@@ -10,7 +13,8 @@ FINAL_FEEDBACKS = "FinalFeedbacks"
 INJECT_END = "InjectEnd"
 INFORMATION_SCREEN = "InformationScreen"
 EXPERIMENT_PROGRESS = "ExperimentProgress"
-
+DEMOGRAPHIC_QUESTIONNAIRE = "DemographicQuestionnaire"
+BLOCK_QUESTIONNAIRE = "BlockQuestionnaire"
 
 INPUT_CHAR_EVENT = "INPUT_CHAR"
 DELETE_CHAR_EVENT = "DELETE_CHAR"
@@ -39,9 +43,19 @@ def iter_config_tasks(config):
 
 
 def iter_task_of_type(log, task_type):
+    if not isinstance(task_type, Iterable):
+        task_type = [task_type]
     for task in iter_config_tasks(log):
-        if "task" in task and task["task"] == task_type:
-            yield task
+        if "task" in task:
+            if task["task"] in task_type:
+                yield task
+
+
+def create_task_iterator(task_type):
+    def iterator(log):
+        yield from iter_task_of_type(log, task_type)
+
+    return iterator
 
 
 def iter_typing_tasks(log):

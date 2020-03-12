@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useMemo } from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll } from "@hcikit/tasks";
 import { TaskTypes, Devices } from "../utils/constants";
@@ -8,10 +8,12 @@ import Crashed from "../utils/Crashed";
 import TypingSpeedTask from "./TypingSpeedTask";
 import { WordSuggestionsProvider } from "../experiment/wordSuggestions/wordSuggestions";
 import UploadTask from "../experiment/components/UploadTask";
+import InjectEnd from "../experiment/components/InjectEnd";
 import ResultsTask from "./ResultsTask";
 import useBodyBackgroundColor from "../experiment/hooks/useBodyBackgroundColor";
 
 registerAll(registerTask);
+registerTask(TaskTypes.injectEnd, InjectEnd);
 registerTask(TaskTypes.s3Upload, UploadTask);
 registerTask(TaskTypes.typingSpeedTask, TypingSpeedTask);
 registerTask(TaskTypes.results, ResultsTask);
@@ -39,7 +41,7 @@ if (
   localStorage.removeItem("state");
 }
 
-const config = {
+const baseConfig = {
   ...(device === Devices.phone ? configPhone : configLaptop),
   isTest,
   participant
@@ -50,11 +52,16 @@ const filename =
   process.env.NODE_ENV === "development"
     ? `typing-dev/${participant}-typing-${device}-${new Date().toISOString()}.json`
     : `typing-prod/${participant}-typing-${device}-${new Date().toISOString()}.json`;
-config.children = config.children.map(c =>
+baseConfig.children = baseConfig.children.map(c =>
   c.task === TaskTypes.s3Upload ? { ...c, filename } : c
 );
 
 export default function TypingTest() {
+  const startDate = useRef(new Date());
+  const config = useMemo(
+    () => ({ ...baseConfig, startDate: startDate.current }),
+    []
+  );
   useBodyBackgroundColor("#EEE");
   if (device == null || participant == null || isTest == null) {
     return <Crashed>Invalid page arguments</Crashed>;

@@ -1,5 +1,6 @@
 {
   "device": "laptop",
+  "wave": "multi-device-typing-test",
   "children": [
     {
       "task": "InformationScreen",
@@ -67,6 +68,7 @@
       "phrase": "we run the risk of failure"
     },
 
+    { "task": "InjectEnd", "key": "inject-end", "id": "inject-end" },
     { "task": "S3Upload", "key": "upload-laptop", "id": "upload-laptop" },
     { "task": "Results", "key": "results", "id": "results" }
   ],

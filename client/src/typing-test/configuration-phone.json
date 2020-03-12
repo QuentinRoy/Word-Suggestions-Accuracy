@@ -1,5 +1,6 @@
 {
   "device": "phone",
+  "wave": "multi-device-typing-test",
   "children": [
     {
       "task": "InformationScreen",
@@ -66,6 +67,7 @@
       "task": "TypingSpeedTask",
       "phrase": "time to go shopping"
     },
+    { "task": "InjectEnd", "key": "inject-end", "id": "inject-end" },
     { "task": "S3Upload", "key": "upload-phone" },
     { "task": "Results", "key": "results" }
   ],

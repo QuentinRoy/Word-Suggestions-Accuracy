@@ -4,17 +4,9 @@ const lodash = require("lodash");
 const log = require("loglevel");
 // eslint-disable-next-line import/no-extraneous-dependencies
 const htmlMinifier = require("html-minifier");
+const { exec } = require("child_process");
 const { balancedLatinSquare } = require("./ordering");
-
-const minify = (str, opts = {}) => {
-  return htmlMinifier.minify(str, {
-    collapseBooleanAttributes: true,
-    collapseInlineTagWhitespace: true,
-    collapseWhitespace: true,
-    keepClosingSlash: true,
-    ...opts
-  });
-};
+const pkgInfo = require("../../package.json");
 
 log.setDefaultLevel(log.levels.DEBUG);
 
@@ -35,6 +27,16 @@ const getRunOutputPath = (config, device) =>
   path.join(outputDir, `${config}-${device}.json`);
 
 const createConfigurationId = configNumber => `C${configNumber}`;
+
+const minify = (str, opts = {}) => {
+  return htmlMinifier.minify(str, {
+    collapseBooleanAttributes: true,
+    collapseInlineTagWhitespace: true,
+    collapseWhitespace: true,
+    keepClosingSlash: true,
+    ...opts
+  });
+};
 
 const createInitBlock = ({ firstDevice }) => {
   const children = [
@@ -184,9 +186,20 @@ const createFinalBlock = () => ({
   ]
 });
 
-const createRun = async ({ accuracy, deviceOrder, config }) => {
+// Putting this here to avoid requesting for every run.
+const gitShaPromise = new Promise((resolve, reject) => {
+  exec("git rev-parse --short HEAD", (err, stdout) => {
+    if (err != null) reject(err);
+    else resolve(stdout.trim());
+  });
+}).catch(() => "");
+
+const createRun = async ({ accuracy, deviceOrder, configId }) => {
   return {
-    config,
+    config: configId,
+    configGenerationDate: new Date(),
+    configGenerationGitSha: await gitShaPromise,
+    configGenerationVersion: pkgInfo.version,
     deviceOrder,
     targetAccuracy: accuracy,
     keyStrokeDelay: 0,
@@ -223,7 +236,7 @@ const createDesign = async () => {
           createRun({
             accuracy,
             deviceOrder,
-            config: cid
+            configId: cid
           }).then(run => {
             // Split the run into three different files, one for each device.
             // Each of these config files contain only the tasks specific

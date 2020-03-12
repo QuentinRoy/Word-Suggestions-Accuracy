@@ -1,13 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from "react";
+import React, { useMemo } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useHistory } from "react-router-dom";
 import { stringify } from "qs";
 import pick from "lodash/pick";
 import { Devices } from "../utils/constants";
+import RadioBoxGroup from "./RadioBoxGroup";
+import style from "./StartForm.module.css";
+import Checkbox from "./CheckboxWithLabel";
 
-const requiredValues = ["participant", "config", "device", "isTest", "target"];
-const savedValues = ["device", "isTest"];
+const savedValues = ["device", "isTest", "participant"];
 const localStorageSavedValuesKey = "startup-values";
 
 const fetchStoredValues = () => {
@@ -24,103 +26,133 @@ const saveValues = values => {
   );
 };
 
-const transformValues = values => {
-  if (values.isTest == null) return values;
-  return { ...values, isTest: values.isTest === "yes" };
-};
-
 const validate = values => {
   const errors = {};
-  Object.entries(values).forEach(([qId, value]) => {
-    if ((value == null || value === "") && requiredValues.includes(qId)) {
+  ["device", "isTest", "target"].forEach(qId => {
+    const value = values[qId];
+    if (value == null || value === "") {
       errors[qId] = "This field is required";
     }
   });
+  if (
+    values.config == null ||
+    (values.config === "" && values.target === "experiment")
+  ) {
+    errors.config = "This field is required";
+  }
+  if (
+    !values.isTest &&
+    (values.participant == null || values.participant === "")
+  ) {
+    errors.participant = "This field is required";
+  }
   return errors;
 };
 
-const prevValues = fetchStoredValues();
-
 // eslint-disable-next-line react/prop-types
 const StyledErrorMessage = ({ children }) => (
-  <span style={{ color: "red" }}>{children}</span>
+  <span className={style.error}>{children}</span>
 );
 
 const StartForm = () => {
   const history = useHistory();
 
   const onSubmit = (values, { setSubmitting }) => {
-    const { target, ...qsValues } = values;
+    const { target, config, participant, isTest, ...otherValues } = values;
     setSubmitting(true);
     // Register some of the keys that should not change often.
     saveValues(values);
     history.push({
       pathname: target === "speed-test" ? "/typing" : "/experiment",
-      search: `?${stringify(transformValues(qsValues))}`
+      search: `?${stringify({
+        ...otherValues,
+        isTest,
+        participant:
+          isTest && (participant === "" || participant == null)
+            ? "test"
+            : participant,
+        config: target === "speed-test" ? undefined : config
+      })}`
     });
   };
 
   return (
     <>
-      <h2>Experiment Startup</h2>
+      <h2>Startup</h2>
       <Formik
-        initialValues={{
-          participant: "",
-          device: "",
-          config: "",
-          isTest: "",
-          ...prevValues
-        }}
+        initialValues={useMemo(
+          () => ({
+            // We need to provide an initial values for these as they are
+            // text inputs.
+            participant: "",
+            config: "",
+            isTest: false,
+            device: null,
+            target: null,
+            ...fetchStoredValues()
+          }),
+          []
+        )}
         validate={validate}
         onSubmit={onSubmit}
-        validateOnChange={false}
       >
-        <Form>
-          <p>
-            <label htmlFor="participant">Participant Id: </label>
-            <Field name="participant" id="participant" type="text" />{" "}
-            <ErrorMessage name="participant" component={StyledErrorMessage} />
-          </p>
-          <p>
-            <label htmlFor="config">Configuration Id: </label>
-            <Field name="config" id="config" type="text" />{" "}
-            <ErrorMessage name="config" component={StyledErrorMessage} />
-          </p>
-          <p>
-            <label htmlFor="isTest">
-              Is this a test Run?{" "}
-              <Field id="isTest" name="isTest" as="select">
-                <option value=""> </option>
-                <option value="yes">yes</option>
-                <option value="no">no</option>
+        {({ values }) => (
+          <Form>
+            <div className={style.formRow}>
+              <Field name="target" as={RadioBoxGroup}>
+                <option value="speed-test">Typing Speed Test</option>
+                <option value="experiment">Experiment</option>
               </Field>
-            </label>
-            <ErrorMessage name="isTest" component={StyledErrorMessage} />
-          </p>
-          <p>
-            <label htmlFor="device">Device: </label>
-            <Field name="device" as="select" id="device">
-              <option value=""> </option>
-              {Object.entries(Devices).map(([key, value]) => (
-                <option key={key} value={value}>
-                  {key}
-                </option>
-              ))}
-            </Field>{" "}
-            <ErrorMessage name="device" component={StyledErrorMessage} />
-          </p>
-          <p>
-            <Field id="target" name="target" as="select">
-              <option value=""> </option>
-              <option value="speed-test">Typing Speed Test</option>
-              <option value="experiment">Experiment</option>
-            </Field>
-            <ErrorMessage name="isTest" component={StyledErrorMessage} />
-          </p>
-          <p>
-            <button type="submit">Start</button>
-          </p>
-        </Form>
+              <ErrorMessage name="target" component={StyledErrorMessage} />
+            </div>
+
+            <div className={style.formRow}>
+              <Field name="isTest" as={Checkbox}>
+                Is a test run
+              </Field>
+              <ErrorMessage name="isTest" component={StyledErrorMessage} />
+            </div>
+
+            <div className={style.formRow}>
+              <label htmlFor="participant">Participant Id: </label>
+              <Field name="participant" id="participant" type="text" />{" "}
+              <ErrorMessage name="participant" component={StyledErrorMessage} />
+            </div>
+
+            <div className={style.formRow}>
+              <label
+                htmlFor="config"
+                className={
+                  values.target !== "experiment" ? style.disabledLabel : null
+                }
+              >
+                Configuration Id:{" "}
+              </label>
+              <Field
+                name="config"
+                id="config"
+                type="text"
+                disabled={values.target !== "experiment"}
+              />{" "}
+              <ErrorMessage name="config" component={StyledErrorMessage} />
+            </div>
+
+            <div className={style.formRow}>
+              <Field name="device" as={RadioBoxGroup}>
+                {Object.entries(Devices).map(([key, value]) => (
+                  <option key={key} value={value}>
+                    {key !== "" ? key[0].toUpperCase() + key.slice(1) : ""}
+                  </option>
+                ))}
+              </Field>
+              <ErrorMessage name="device" component={StyledErrorMessage} />
+            </div>
+
+            <div className={style.formRow}>
+              <button type="submit">Start</button>
+            </div>
+          </Form>
+        )}
       </Formik>
     </>
   );

@@ -1,0 +1,11 @@
+.formRow {
+  margin: 1em 0;
+}
+
+.disabledLabel {
+  opacity: 0.6;
+}
+
+.error {
+  color: red;
+}

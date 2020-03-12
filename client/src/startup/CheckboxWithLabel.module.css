@@ -1,0 +1,8 @@
+.checkboxWithLabel {
+  display: flex;
+  align-items: center;
+}
+
+.checkboxWithLabel > input {
+  margin-right: 0.5em;
+}

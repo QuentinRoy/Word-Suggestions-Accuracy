@@ -115,6 +115,7 @@ const createTypingBlock = ({
     ...phrases.map(({ words, ...props }, i) => ({
       ...props,
       task: "TypingTask",
+      isPractice: false,
       sksDistribution: words,
       id: `typing-${device}-phrase-${i}`,
       key: `typing-${device}-phrase-${i}`

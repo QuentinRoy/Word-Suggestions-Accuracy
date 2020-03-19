@@ -49,7 +49,8 @@ demo_questionnaire_columns = {
     "age": "age",
     "gender": "gender",
     "suggestions_use_frequency_desktop": "suggestionsUseFrequencyDesktop",
-    "suggestions_use_frequency_mobile": "suggestionsUseFrequencyMobile",
+    "suggestions_use_frequency_phone": "suggestionsUseFrequencyPhone",
+    "suggestions_use_frequency_tablet": "suggestionsUseFrequencyTablet",
 }
 
 block_questionnaire_columns = {

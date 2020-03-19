@@ -23,6 +23,7 @@ log_columns = {
     "is_practice": "isPractice",
     "device": "device",
     "wave": "wave",
+    "config": "config",
 }
 
 

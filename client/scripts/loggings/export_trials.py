@@ -29,6 +29,7 @@ log_columns = {
     "sd_word_kss": "sdWordsKss",
     "is_practice": "isPractice",
     "suggestions_type": "suggestionsType",
+    "config": "config",
     "device": "device",
     "wave": "wave",
 }

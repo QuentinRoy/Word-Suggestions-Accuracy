@@ -10,7 +10,7 @@ const Suggestionbutton = ({
   suggestion,
   onSelectionStart,
   onSelectionEnd,
-  isFocused
+  isFocused,
 }) => {
   const ref = useRef();
   useLayoutEffect(() => {
@@ -22,13 +22,13 @@ const Suggestionbutton = ({
     span.style.transform = `scale(${Math.min(ratio, 1)})`;
   }, [suggestion]);
 
-  const selStart = evt => {
+  const selStart = (evt) => {
     evt.preventDefault();
     if (suggestion != null) {
       onSelectionStart(suggestion);
     }
   };
-  const selEnd = evt => {
+  const selEnd = (evt) => {
     evt.preventDefault();
     if (suggestion != null) {
       onSelectionEnd(suggestion);
@@ -54,7 +54,7 @@ Suggestionbutton.propTypes = {
   suggestion: PropTypes.string,
   onSelectionStart: PropTypes.func.isRequired,
   onSelectionEnd: PropTypes.func.isRequired,
-  isFocused: PropTypes.bool.isRequired
+  isFocused: PropTypes.bool.isRequired,
 };
 Suggestionbutton.defaultProps = { suggestion: undefined };
 
@@ -65,7 +65,7 @@ function SuggestionsBar({
   focusedSuggestion,
   suggestions,
   onSelectionStart,
-  onSelectionEnd
+  onSelectionEnd,
 }) {
   const buttons = Array.from({ length: totalSuggestions }, (_, i) => (
     <Suggestionbutton
@@ -94,12 +94,12 @@ SuggestionsBar.propTypes = {
   focusedSuggestion: PropTypes.number,
   suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
   onSelectionStart: PropTypes.func.isRequired,
-  onSelectionEnd: PropTypes.func
+  onSelectionEnd: PropTypes.func,
 };
 
 SuggestionsBar.defaultProps = {
   focusedSuggestion: null,
-  onSelectionEnd: () => {}
+  onSelectionEnd: () => {},
 };
 
 export default SuggestionsBar;

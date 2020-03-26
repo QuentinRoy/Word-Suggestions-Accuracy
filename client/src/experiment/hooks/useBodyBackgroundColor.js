@@ -1,6 +1,6 @@
 import { useLayoutEffect } from "react";
 
-const useBodyBackgroundColor = color => {
+const useBodyBackgroundColor = (color) => {
   useLayoutEffect(() => {
     const prevBackgroundColor = document.body.style.backgroundColor;
     document.body.style.backgroundColor = color;

@@ -15,7 +15,7 @@ const FinalFeedbacks = ({ onAdvanceWorkflow, onLog }) => {
         them below.
       </p>
       <form
-        onSubmit={evt => {
+        onSubmit={(evt) => {
           evt.preventDefault();
           onLog("feedbacks", value);
           onAdvanceWorkflow();
@@ -28,7 +28,7 @@ const FinalFeedbacks = ({ onAdvanceWorkflow, onLog }) => {
           value={value}
           multiline
           rows="8"
-          onChange={evt => {
+          onChange={(evt) => {
             setValue(evt.target.value);
           }}
         />
@@ -44,7 +44,7 @@ const FinalFeedbacks = ({ onAdvanceWorkflow, onLog }) => {
 
 FinalFeedbacks.propTypes = {
   onAdvanceWorkflow: PropTypes.func.isRequired,
-  onLog: PropTypes.func.isRequired
+  onLog: PropTypes.func.isRequired,
 };
 
 export default FinalFeedbacks;

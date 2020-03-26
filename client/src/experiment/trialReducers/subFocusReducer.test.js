@@ -21,15 +21,15 @@ describe("subFocusReducer", () => {
           totalSuggestionTargets: 0,
           focusTarget: {
             type: FocusTargetTypes[currentFT],
-            suggestionNumber
+            suggestionNumber,
           },
-          foo: "bar"
+          foo: "bar",
         };
         const action = { type: Actions.moveFocusTarget, direction };
         const expectedState = {
           totalSuggestionTargets: 0,
           focusTarget: { type: FocusTargetTypes.input },
-          foo: "bar"
+          foo: "bar",
         };
         expect(subFocusReducer(initialState, action)).toEqual(expectedState);
       }
@@ -54,21 +54,21 @@ describe("subFocusReducer", () => {
           totalSuggestionTargets: totalSuggestions,
           focusTarget: {
             type: FocusTargetTypes.suggestion,
-            suggestionNumber: suggestionNb
+            suggestionNumber: suggestionNb,
           },
-          foo: "bar"
+          foo: "bar",
         };
         const action = {
           type: Actions.moveFocusTarget,
-          direction
+          direction,
         };
         const expectedState = {
           totalSuggestionTargets: totalSuggestions,
           focusTarget: {
             type: FocusTargetTypes.suggestion,
-            suggestionNumber: expectedSuggestionNb
+            suggestionNumber: expectedSuggestionNb,
           },
-          foo: "bar"
+          foo: "bar",
         };
         expect(subFocusReducer(initialState, action)).toEqual(expectedState);
       }
@@ -87,18 +87,18 @@ describe("subFocusReducer", () => {
           totalSuggestionTargets: totalSuggestions,
           focusTarget: {
             type: FocusTargetTypes.suggestion,
-            suggestionNumber: suggestionNb
+            suggestionNumber: suggestionNb,
           },
-          foo: "bar"
+          foo: "bar",
         };
         const action = {
           type: Actions.moveFocusTarget,
-          direction
+          direction,
         };
         const expectedState = {
           totalSuggestionTargets: totalSuggestions,
           focusTarget: { type: FocusTargetTypes.input },
-          foo: "bar"
+          foo: "bar",
         };
         expect(subFocusReducer(initialState, action)).toEqual(expectedState);
       }
@@ -116,19 +116,19 @@ describe("subFocusReducer", () => {
         const initialState = {
           totalSuggestionTargets: totalSuggestions,
           focusTarget: { type: FocusTargetTypes.input },
-          foo: "bar"
+          foo: "bar",
         };
         const action = {
           type: Actions.moveFocusTarget,
-          direction
+          direction,
         };
         const expectedState = {
           totalSuggestionTargets: totalSuggestions,
           focusTarget: {
             type: FocusTargetTypes.suggestion,
-            suggestionNumber: expectedSuggestionNumber
+            suggestionNumber: expectedSuggestionNumber,
           },
-          foo: "bar"
+          foo: "bar",
         };
         expect(subFocusReducer(initialState, action)).toEqual(expectedState);
       }
@@ -138,11 +138,11 @@ describe("subFocusReducer", () => {
       const initialState = {
         totalSuggestionTargets: 5,
         focusTarget: { type: "some type that does not exist" },
-        foo: "bar"
+        foo: "bar",
       };
       const action = {
         type: Actions.moveFocusTarget,
-        direction: 1
+        direction: 1,
       };
       expect(subFocusReducer(initialState, action)).toBe(initialState);
     });
@@ -151,11 +151,11 @@ describe("subFocusReducer", () => {
       const initialState = {
         totalSuggestionTargets: 5,
         focusTarget: null,
-        foo: "bar"
+        foo: "bar",
       };
       const action = {
         type: Actions.moveFocusTarget,
-        direction: 1
+        direction: 1,
       };
       expect(subFocusReducer(initialState, action)).toBe(initialState);
     });
@@ -167,9 +167,9 @@ describe("subFocusReducer", () => {
         totalSuggestionTargets: 5,
         focusTarget: {
           type: FocusTargetTypes.suggestion,
-          suggestionNumber: 2
+          suggestionNumber: 2,
         },
-        foo: "bar"
+        foo: "bar",
       };
       const action = { type: "some unknown type" };
       expect(subFocusReducer(initialState, action)).toBe(initialState);
@@ -182,15 +182,15 @@ describe("subFocusReducer", () => {
         totalSuggestionTargets: 5,
         focusTarget: {
           type: FocusTargetTypes.suggestion,
-          suggestionNumber: 2
+          suggestionNumber: 2,
         },
-        foo: "bar"
+        foo: "bar",
       };
       const action = { type: Actions.inputSuggestion };
       const expectedState = {
         focusTarget: { type: FocusTargetTypes.input },
         totalSuggestionTargets: 5,
-        foo: "bar"
+        foo: "bar",
       };
       expect(subFocusReducer(initialState, action)).toEqual(expectedState);
     });
@@ -202,15 +202,15 @@ describe("subFocusReducer", () => {
         totalSuggestionTargets: 5,
         focusTarget: {
           type: FocusTargetTypes.suggestion,
-          suggestionNumber: 2
+          suggestionNumber: 2,
         },
-        foo: "bar"
+        foo: "bar",
       };
       const action = { type: Actions.windowBlurred };
       const expectedState = {
         focusTarget: null,
         totalSuggestionTargets: 5,
-        foo: "bar"
+        foo: "bar",
       };
       expect(subFocusReducer(initialState, action)).toEqual(expectedState);
     });
@@ -219,15 +219,15 @@ describe("subFocusReducer", () => {
         totalSuggestionTargets: 5,
         focusTarget: {
           type: FocusTargetTypes.suggestion,
-          suggestionNumber: 2
+          suggestionNumber: 2,
         },
-        foo: "bar"
+        foo: "bar",
       };
       const action = { type: Actions.windowFocused };
       const expectedState = {
         focusTarget: { type: FocusTargetTypes.input },
         totalSuggestionTargets: 5,
-        foo: "bar"
+        foo: "bar",
       };
       expect(subFocusReducer(initialState, action)).toEqual(expectedState);
     });

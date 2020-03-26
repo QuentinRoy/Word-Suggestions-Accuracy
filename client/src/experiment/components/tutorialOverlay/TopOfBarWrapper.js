@@ -9,7 +9,7 @@ const TopOfBarWrapper = ({ children }) => {
     <div
       className={styles.topOfBarWrapper}
       style={{
-        top: suggestionsBarRect.top
+        top: suggestionsBarRect.top,
       }}
     >
       <div className={styles.topOfBarWrapperContent}>{children}</div>
@@ -17,6 +17,6 @@ const TopOfBarWrapper = ({ children }) => {
   );
 };
 TopOfBarWrapper.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 export default TopOfBarWrapper;

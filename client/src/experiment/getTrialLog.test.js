@@ -20,7 +20,7 @@ describe("getTrialLog", () => {
   test("produces the log of a trial", () => {
     const sksDistribution = [
       { word: "hello ", sks: 5 },
-      { word: "there ", sks: 4 }
+      { word: "there ", sks: 4 },
     ];
     const events = [
       { type: Actions.inputChar, isError: true },
@@ -28,13 +28,13 @@ describe("getTrialLog", () => {
       {
         type: Actions.inputSuggestion,
         isError: false,
-        diffRemainingKeyStrokes: -5
+        diffRemainingKeyStrokes: -5,
       },
       { type: Actions.inputChar, isError: false },
       {
         type: Actions.inputSuggestion,
         isError: true,
-        diffRemainingKeyStrokes: 2
+        diffRemainingKeyStrokes: 2,
       },
       { type: Actions.deleteChar, isError: false },
       { type: Actions.deleteChar, isError: false },
@@ -42,8 +42,8 @@ describe("getTrialLog", () => {
       {
         type: Actions.inputSuggestion,
         isError: false,
-        diffRemainingKeyStrokes: -4
-      }
+        diffRemainingKeyStrokes: -4,
+      },
     ];
     expect(
       getTrialLog(
@@ -76,7 +76,7 @@ describe("getTrialLog", () => {
       totalKss: 0.21,
       totalSuggestionErrors: 1,
       totalSuggestionUsed: 3,
-      version: "mock version"
+      version: "mock version",
     });
   });
 });

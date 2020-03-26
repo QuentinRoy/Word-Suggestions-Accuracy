@@ -3,7 +3,7 @@ import { LoadingStates } from "../common/constants";
 
 const url = `./sentences.txt`;
 
-const fetchCorpus = async link => {
+const fetchCorpus = async (link) => {
   const resp = await fetch(link);
   if (!resp.ok) {
     throw new Error(`Cannot fetch ${link}`);
@@ -11,8 +11,8 @@ const fetchCorpus = async link => {
   const txtContent = await resp.text();
   return txtContent
     .split("\n")
-    .map(s => s.trim())
-    .filter(s => s !== "");
+    .map((s) => s.trim())
+    .filter((s) => s !== "");
 };
 
 const useSentenceCorpus = () => {
@@ -21,7 +21,7 @@ const useSentenceCorpus = () => {
 
   useEffect(() => {
     fetchCorpus(url)
-      .then(corpusResult => {
+      .then((corpusResult) => {
         setCorpus(corpusResult);
         setLoadingState(LoadingStates.loaded);
       })

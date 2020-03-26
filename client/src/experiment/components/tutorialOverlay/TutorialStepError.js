@@ -31,11 +31,11 @@ const TutorialStepError = ({ isVirtualKeyboardEnabled }) => (
   </TopOfBarWrapper>
 );
 TutorialStepError.propTypes = {
-  isVirtualKeyboardEnabled: PropTypes.bool
+  isVirtualKeyboardEnabled: PropTypes.bool,
 };
 
 TutorialStepError.defaultProps = {
-  isVirtualKeyboardEnabled: false
+  isVirtualKeyboardEnabled: false,
 };
 
 export default TutorialStepError;

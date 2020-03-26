@@ -10,7 +10,7 @@ import Crashed from "../../common/components/Crashed";
 import {
   LoadingStates,
   TaskTypes,
-  suggestionServerAddress
+  suggestionServerAddress,
 } from "../../common/constants";
 import EndExperiment from "./EndExperiment";
 import Startup from "./Startup";
@@ -22,7 +22,7 @@ import FinalFeedbacks from "./FinalFeedbacks";
 import InjectEnd from "./InjectEnd";
 import {
   WordSuggestionsProvider,
-  useSuggestions
+  useSuggestions,
 } from "../wordSuggestions/wordSuggestions";
 import { main } from "./styles/ExperimentWrapper.module.css";
 import UploadTask from "./UploadTask";
@@ -46,7 +46,7 @@ const configArgs = {
   device: urlParams.get("device"),
   isTest: urlParams.get("isTest"),
   config: urlParams.get("config"),
-  reset: urlParams.get("reset")
+  reset: urlParams.get("reset"),
 };
 
 if (
@@ -92,8 +92,8 @@ function ExperimentContent() {
 // is not included by default.
 const theme = createMuiTheme({
   typography: {
-    fontFamily: '"Helvetica Neue", "sans-serif"'
-  }
+    fontFamily: '"Helvetica Neue", "sans-serif"',
+  },
 });
 
 export default function ExperimentWrapper() {

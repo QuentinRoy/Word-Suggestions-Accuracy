@@ -8,7 +8,7 @@ import {
   sentenceTable,
   valueTable,
   plot,
-  big
+  big,
 } from "./ViewerContent.module.css";
 import { table } from "./ScientificTable.module.css";
 
@@ -21,7 +21,7 @@ export default function ViewerContent({
   maxDiffSd,
   meanWordsKss,
   sdWordKss,
-  totalKss
+  totalKss,
 }) {
   return (
     <div className={content}>
@@ -39,7 +39,7 @@ export default function ViewerContent({
             <tr>
               <td
                 className={classNames({
-                  [big]: Math.abs(totalKss - targetAccuracy) > maxDiffAccuracy
+                  [big]: Math.abs(totalKss - targetAccuracy) > maxDiffAccuracy,
                 })}
               >
                 {totalKss.toFixed(4)}
@@ -47,14 +47,14 @@ export default function ViewerContent({
               <td
                 className={classNames({
                   [big]:
-                    Math.abs(meanWordsKss - targetAccuracy) > maxDiffAccuracy
+                    Math.abs(meanWordsKss - targetAccuracy) > maxDiffAccuracy,
                 })}
               >
                 {meanWordsKss.toFixed(4)}
               </td>
               <td
                 className={classNames({
-                  [big]: Math.abs(sdWordKss - targetSd) > maxDiffSd
+                  [big]: Math.abs(sdWordKss - targetSd) > maxDiffSd,
                 })}
               >
                 {sdWordKss.toFixed(4)}
@@ -78,5 +78,5 @@ ViewerContent.propTypes = {
   maxDiffAccuracy: PropTypes.number.isRequired,
   maxDiffSd: PropTypes.number.isRequired,
   targetAccuracy: PropTypes.number.isRequired,
-  targetSd: PropTypes.number.isRequired
+  targetSd: PropTypes.number.isRequired,
 };

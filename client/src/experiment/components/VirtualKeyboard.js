@@ -9,7 +9,7 @@ import {
   enterDisabled,
   backspaceDisabled,
   phone,
-  tablet
+  tablet,
 } from "./styles/VirtualKeyboard.module.scss";
 import usePreventTouchDefault from "../hooks/usePreventTouchDefault";
 
@@ -19,15 +19,20 @@ const phoneKeyboardProps = Object.freeze({
       "q w e r t y u i o p",
       "a s d f g h j k l",
       "{shift} z x c v b n m {bksp}",
-      "{numbers} {space} {enter}"
+      "{numbers} {space} {enter}",
     ],
     [KeyboardLayoutNames.shift]: [
       "Q W E R T Y U I O P",
       "A S D F G H J K L",
       "{shift} Z X C V B N M {bksp}",
-      "{numbers} {space} {enter}"
+      "{numbers} {space} {enter}",
     ],
-    [KeyboardLayoutNames.numbers]: ["1 2 3", "4 5 6", "7 8 9", "{abc} 0 {bksp}"]
+    [KeyboardLayoutNames.numbers]: [
+      "1 2 3",
+      "4 5 6",
+      "7 8 9",
+      "{abc} 0 {bksp}",
+    ],
   },
   display: {
     "{space}": " ",
@@ -35,8 +40,8 @@ const phoneKeyboardProps = Object.freeze({
     "{enter}": "enter",
     "{bksp}": "⌫",
     "{shift}": "⇧",
-    "{abc}": "ABC"
-  }
+    "{abc}": "ABC",
+  },
 });
 
 const tabletKeyboardProps = Object.freeze({
@@ -47,15 +52,15 @@ const tabletKeyboardProps = Object.freeze({
       "q w e r t y u i o p {bksp}",
       "a s d f g h j k l {enter}",
       "{shift} z x c v b n m {shift}",
-      "{numbers} {space} {numbers}"
-    ]
-  }
+      "{numbers} {space} {numbers}",
+    ],
+  },
 });
 
 // This ensures all the keyboard's letter keys have the same size.
-const adjustButtonsSize = container => {
+const adjustButtonsSize = (container) => {
   const standardBtns = container.querySelectorAll(".hg-standardBtn");
-  standardBtns.forEach(b => {
+  standardBtns.forEach((b) => {
     // eslint-disable-next-line no-param-reassign
     b.style.width = null;
     // eslint-disable-next-line no-param-reassign
@@ -69,7 +74,7 @@ const adjustButtonsSize = container => {
     },
     Number.POSITIVE_INFINITY
   );
-  standardBtns.forEach(b => {
+  standardBtns.forEach((b) => {
     // eslint-disable-next-line no-param-reassign
     b.style.width = `${smallestWidth}px`;
     // eslint-disable-next-line no-param-reassign
@@ -84,7 +89,7 @@ const VirtualKeyboard = memo(
     onVirtualKeyDown,
     onVirtualKeyUp,
     isEnterDisabled,
-    isBackspaceDisabled
+    isBackspaceDisabled,
   }) => {
     const ref = usePreventTouchDefault();
 
@@ -104,7 +109,7 @@ const VirtualKeyboard = memo(
           [enterDisabled]: isEnterDisabled,
           [backspaceDisabled]: isBackspaceDisabled,
           [phone]: device === Devices.phone,
-          [tablet]: device === Devices.tablet
+          [tablet]: device === Devices.tablet,
         })}
         ref={ref}
       >
@@ -128,7 +133,7 @@ VirtualKeyboard.propTypes = {
   onVirtualKeyDown: PropTypes.func.isRequired,
   onVirtualKeyUp: PropTypes.func.isRequired,
   isEnterDisabled: PropTypes.bool.isRequired,
-  isBackspaceDisabled: PropTypes.bool.isRequired
+  isBackspaceDisabled: PropTypes.bool.isRequired,
 };
 
 export default VirtualKeyboard;

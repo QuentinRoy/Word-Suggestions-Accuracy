@@ -18,7 +18,7 @@ const Loading = ({ children, delay }) => {
     <div
       className={classNames({
         [classes.main]: true,
-        [classes.hidden]: !isShown
+        [classes.hidden]: !isShown,
       })}
     >
       <CircularProgress />
@@ -29,12 +29,12 @@ const Loading = ({ children, delay }) => {
 
 Loading.propTypes = {
   children: PropTypes.node,
-  delay: PropTypes.number
+  delay: PropTypes.number,
 };
 
 Loading.defaultProps = {
   children: "Loading...",
-  delay: 1000
+  delay: 1000,
 };
 
 export default Loading;

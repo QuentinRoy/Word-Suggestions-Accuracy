@@ -4,7 +4,7 @@ import classNames from "classnames";
 import last from "lodash/last";
 import styles from "./styles/TrialInput.module.css";
 
-const lastWordLength = str => last(str.split(" ")).length;
+const lastWordLength = (str) => last(str.split(" ")).length;
 
 const TrialInput = forwardRef(
   (
@@ -14,7 +14,7 @@ const TrialInput = forwardRef(
       isFocused,
       shouldCaretBlink,
       suggestion,
-      suggestionRef
+      suggestionRef,
     },
     ref
   ) => {
@@ -26,7 +26,7 @@ const TrialInput = forwardRef(
         className={classNames({
           [styles.trialInput]: true,
           [styles.focused]: isFocused,
-          [styles.error]: hasErrors
+          [styles.error]: hasErrors,
         })}
       >
         <span className={styles.inputText}>{input}</span>
@@ -37,7 +37,7 @@ const TrialInput = forwardRef(
             <div
               className={classNames({
                 [styles.caret]: true,
-                [styles.blinking]: shouldCaretBlink
+                [styles.blinking]: shouldCaretBlink,
               })}
               key={input}
             />
@@ -65,13 +65,13 @@ TrialInput.propTypes = {
   suggestion: PropTypes.string,
   suggestionRef: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-  ])
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
 };
 
 TrialInput.defaultProps = {
   suggestion: null,
-  suggestionRef: undefined
+  suggestionRef: undefined,
 };
 
 export default TrialInput;

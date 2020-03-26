@@ -6,7 +6,7 @@ import {
   getCurrentInputWord,
   getRksImprovement,
   getRemainingKeyStrokes,
-  getTextFromSksDistribution
+  getTextFromSksDistribution,
 } from "./input";
 
 describe("isTargetCompleted", () => {
@@ -112,13 +112,13 @@ describe("getCurrentInputWord", () => {
   test("returns the last word, and its index, if there are no white space at the end", () => {
     expect(getCurrentInputWord("hello my friend")).toEqual({
       word: "friend",
-      index: 2
+      index: 2,
     });
   });
   test("returns an empty string and the index of the last word + 1 if there are white spaces at the end", () => {
     expect(getCurrentInputWord("hello my dear friend ")).toEqual({
       word: "",
-      index: 4
+      index: 4,
     });
   });
 
@@ -202,7 +202,7 @@ describe("getTextFromSksDistribution", () => {
     expect(
       getTextFromSksDistribution([
         { word: "hello ", sks: 1 },
-        { word: "there ", sks: 2 }
+        { word: "there ", sks: 2 },
       ])
     ).toBe("hello there ");
   });

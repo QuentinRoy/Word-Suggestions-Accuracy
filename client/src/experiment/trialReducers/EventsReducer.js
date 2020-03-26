@@ -5,7 +5,7 @@ const defaultNoEventActions = [Actions.endAction, Actions.confirmAction];
 export default function EventsReducer({
   getEventLog,
   sksDistribution,
-  noEventActions = defaultNoEventActions
+  noEventActions = defaultNoEventActions,
 }) {
   return function eventsReducer(originalState, action) {
     if (noEventActions.includes(action.type)) return action.changes;
@@ -19,8 +19,8 @@ export default function EventsReducer({
           action.changes,
           { sksDistribution },
           action.reductionStartTime
-        )
-      ]
+        ),
+      ],
     };
   };
 }

@@ -8,7 +8,7 @@ function TypingTask({ id, ...otherProps }) {
 }
 
 TypingTask.propTypes = {
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
 };
 
 export default TypingTask;

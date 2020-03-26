@@ -3,7 +3,7 @@ import React, {
   useEffect,
   useState,
   useCallback,
-  useMemo
+  useMemo,
 } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
@@ -15,7 +15,7 @@ import {
   FocusTargetTypes,
   SuggestionTypes,
   TutorialSteps,
-  Devices
+  Devices,
 } from "../../common/constants";
 import VirtualKeyboard from "./VirtualKeyboard";
 import TrialInput from "./TrialInput";
@@ -30,7 +30,7 @@ import TrialHelp from "./TrialHelp";
 import useWindowInnerHeight from "../hooks/useWindowInnerHeight";
 import useBodyBackgroundColor from "../hooks/useBodyBackgroundColor";
 
-const mapVirtualKey = key => {
+const mapVirtualKey = (key) => {
   switch (key) {
     case "{bksp}":
       return "Backspace";
@@ -100,7 +100,7 @@ const TrialPresenter = ({
   hasErrors,
   tutorialStep,
   showsHelp,
-  shouldUseNumberToInputBarSuggestions
+  shouldUseNumberToInputBarSuggestions,
 }) => {
   useBodyBackgroundColor("#EEE");
 
@@ -135,7 +135,7 @@ const TrialPresenter = ({
           id: "toggle-shift-layout",
           type: Actions.toggleKeyboardLayout,
           layoutName: KeyboardLayoutNames.shift,
-          status
+          status,
         });
         break;
       case "{numbers}":
@@ -143,7 +143,7 @@ const TrialPresenter = ({
           id: "toggle-number-layout",
           type: Actions.toggleKeyboardLayout,
           layoutName: KeyboardLayoutNames.numbers,
-          status
+          status,
         });
         break;
       case "{abc}":
@@ -151,7 +151,7 @@ const TrialPresenter = ({
           id: "toggle-default-layout",
           type: Actions.toggleKeyboardLayout,
           layoutName: KeyboardLayoutNames.default,
-          status
+          status,
         });
         break;
       case "Tab":
@@ -171,7 +171,7 @@ const TrialPresenter = ({
             type: Actions.inputSuggestion,
             id: `suggestion-${mainSuggestionPosition}`,
             word: arrangedSuggestions[mainSuggestionPosition],
-            status
+            status,
           });
         } else if (
           !shouldUseNumberToInputBarSuggestions &&
@@ -182,7 +182,7 @@ const TrialPresenter = ({
           dispatch({
             type: Actions.moveFocusTarget,
             direction: pressedKeys.has("Shift") ? -1 : 1,
-            status
+            status,
           });
         }
         break;
@@ -197,7 +197,7 @@ const TrialPresenter = ({
             id: `suggestion-${focusTarget.suggestionNumber}`,
             type: Actions.inputSuggestion,
             word: arrangedSuggestions[focusTarget.suggestionNumber],
-            status
+            status,
           });
         }
         break;
@@ -220,7 +220,7 @@ const TrialPresenter = ({
               id: `suggestion-${key}`,
               type: Actions.inputSuggestion,
               word: selectedSuggestion,
-              status
+              status,
             });
           }
         } else if (
@@ -231,27 +231,27 @@ const TrialPresenter = ({
             id: `input-${key}`,
             type: Actions.inputChar,
             status,
-            char: key
+            char: key,
           });
         }
     }
   }
 
-  const onSystemKeyDown = event => {
+  const onSystemKeyDown = (event) => {
     event.preventDefault();
     if (isSystemKeyboardEnabled) onKeyboardEvent(event.key, true);
   };
 
-  const onSystemKeyUp = event => {
+  const onSystemKeyUp = (event) => {
     event.preventDefault();
     if (isSystemKeyboardEnabled) onKeyboardEvent(event.key, false);
   };
 
-  const onVirtualKeyDown = key => {
+  const onVirtualKeyDown = (key) => {
     onKeyboardEvent(mapVirtualKey(key), true);
   };
 
-  const onVirtualKeyUp = key => {
+  const onVirtualKeyUp = (key) => {
     onKeyboardEvent(mapVirtualKey(key), false);
   };
 
@@ -278,7 +278,7 @@ const TrialPresenter = ({
     <>
       <div
         className={classNames(styles.trial, {
-          [styles.laptopTrial]: device === Devices.laptop
+          [styles.laptopTrial]: device === Devices.laptop,
         })}
         style={{ height: useWindowInnerHeight() }}
       >
@@ -336,20 +336,20 @@ const TrialPresenter = ({
                       : null
                   }
                   suggestions={arrangedSuggestions}
-                  onSelectionStart={selection => {
+                  onSelectionStart={(selection) => {
                     if (isNoKeyPressed) {
                       dispatch({
                         type: Actions.inputSuggestion,
                         word: selection,
-                        status: ActionStatuses.start
+                        status: ActionStatuses.start,
                       });
                     }
                   }}
-                  onSelectionEnd={selection => {
+                  onSelectionEnd={(selection) => {
                     dispatch({
                       type: Actions.inputSuggestion,
                       word: selection,
-                      status: ActionStatuses.end
+                      status: ActionStatuses.end,
                     });
                   }}
                 />
@@ -395,7 +395,7 @@ TrialPresenter.propTypes = {
   dispatch: PropTypes.func.isRequired,
   focusTarget: PropTypes.shape({
     type: PropTypes.string.isRequired,
-    suggestionNumber: PropTypes.number
+    suggestionNumber: PropTypes.number,
   }),
   suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
   text: PropTypes.string.isRequired,
@@ -411,7 +411,7 @@ TrialPresenter.propTypes = {
   tutorialStep: PropTypes.oneOf(Object.values(TutorialSteps)),
   isFocusAlertShown: PropTypes.bool,
   showsHelp: PropTypes.bool,
-  shouldUseNumberToInputBarSuggestions: PropTypes.bool
+  shouldUseNumberToInputBarSuggestions: PropTypes.bool,
 };
 
 TrialPresenter.defaultProps = {
@@ -423,7 +423,7 @@ TrialPresenter.defaultProps = {
   tutorialStep: null,
   isFocusAlertShown: false,
   showsHelp: true,
-  shouldUseNumberToInputBarSuggestions: true
+  shouldUseNumberToInputBarSuggestions: true,
 };
 
 export default TrialPresenter;

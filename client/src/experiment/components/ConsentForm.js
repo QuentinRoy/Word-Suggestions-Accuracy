@@ -208,7 +208,7 @@ const ConsentForm = ({ onAdvanceWorkflow }) => {
 };
 
 ConsentForm.propTypes = {
-  onAdvanceWorkflow: PropTypes.func.isRequired
+  onAdvanceWorkflow: PropTypes.func.isRequired,
 };
 
 export default ConsentForm;

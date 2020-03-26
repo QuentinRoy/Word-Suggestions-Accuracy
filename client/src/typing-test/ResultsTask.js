@@ -7,11 +7,11 @@ import TaskPaper from "../experiment/components/TaskPaper";
 
 function ResultsTask({ participant, configuration }) {
   const typingTasks = configuration.children.filter(
-    t => t.task === TaskTypes.typingSpeedTask
+    (t) => t.task === TaskTypes.typingSpeedTask
   );
-  const typingTaskSpeeds = typingTasks.map(t => {
-    const firstCharEvent = t.events.find(e => e.input !== "");
-    const completionEvent = t.events.find(e => e.isTargetCompleted);
+  const typingTaskSpeeds = typingTasks.map((t) => {
+    const firstCharEvent = t.events.find((e) => e.input !== "");
+    const completionEvent = t.events.find((e) => e.isTargetCompleted);
     return (
       t.phrase.length / ((completionEvent.time - firstCharEvent.time) / 1000)
     );
@@ -43,12 +43,12 @@ ResultsTask.propTypes = {
           PropTypes.shape({
             time: PropTypes.instanceOf(Date).isRequired,
             input: PropTypes.string.isRequired,
-            isTargetCompleted: PropTypes.bool.isRequired
+            isTargetCompleted: PropTypes.bool.isRequired,
           })
-        )
+        ),
       })
-    ).isRequired
-  }).isRequired
+    ).isRequired,
+  }).isRequired,
 };
 
 export default withRawConfiguration(ResultsTask);

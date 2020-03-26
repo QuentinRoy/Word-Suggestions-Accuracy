@@ -14,7 +14,7 @@ const TutorialStepSuggestion = ({
   suggestionsBarRect,
   suggestionsType,
   isVirtualKeyboardEnabled,
-  totalSuggestions
+  totalSuggestions,
 }) => {
   // Store this in a ref as we don't want it to change once set up the first
   // time.
@@ -95,12 +95,12 @@ TutorialStepSuggestion.propTypes = {
   inlineSuggestionRect: RectPropType,
   suggestionsBarRect: RectPropType,
   isVirtualKeyboardEnabled: PropTypes.bool,
-  totalSuggestions: PropTypes.number.isRequired
+  totalSuggestions: PropTypes.number.isRequired,
 };
 TutorialStepSuggestion.defaultProps = {
   inlineSuggestionRect: undefined,
   suggestionsBarRect: undefined,
-  isVirtualKeyboardEnabled: false
+  isVirtualKeyboardEnabled: false,
 };
 
 export default TutorialStepSuggestion;

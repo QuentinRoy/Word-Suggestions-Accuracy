@@ -8,7 +8,7 @@ import { SuggestionTypes } from "../../../common/constants";
 const TutorialStepDelaySuggestion = ({
   presenterBottom,
   suggestionsType,
-  totalSuggestions
+  totalSuggestions,
 }) => (
   <div className={styles.stepDelaySuggestion} style={{ top: presenterBottom }}>
     <Info>Impairment also applies to suggestion.</Info>
@@ -24,7 +24,7 @@ const TutorialStepDelaySuggestion = ({
 TutorialStepDelaySuggestion.propTypes = {
   presenterBottom: PropTypes.number.isRequired,
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
-  totalSuggestions: PropTypes.number.isRequired
+  totalSuggestions: PropTypes.number.isRequired,
 };
 
 export default TutorialStepDelaySuggestion;

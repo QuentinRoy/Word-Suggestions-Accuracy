@@ -4,7 +4,7 @@ import { Devices, SuggestionTypes } from "../common/constants";
 import useTrial from "../experiment/hooks/useTrial";
 import TrialPresenter from "../experiment/components/TrialPresenter";
 
-const phraseToWords = phrase => () => {
+const phraseToWords = (phrase) => () => {
   const words = phrase.split(" ");
   return words.map((word, i) => {
     const isLast = i >= words.length - 1;
@@ -18,7 +18,7 @@ export default function TypingSpeedTask({
   device,
   isVirtualKeyboardEnabled,
   phrase,
-  id
+  id,
 }) {
   const suggestionsType = SuggestionTypes.none;
   const sksDistribution = useMemo(phraseToWords(phrase), [phrase]);
@@ -32,7 +32,7 @@ export default function TypingSpeedTask({
     isCompleted,
     hasErrors,
     text,
-    isFullScreen
+    isFullScreen,
   } = useTrial({
     suggestionsType,
     onComplete: onAdvanceWorkflow,
@@ -43,7 +43,7 @@ export default function TypingSpeedTask({
     id,
     targetAccuracy: 0,
     weightedAccuracy: 0,
-    sdAccuracy: 0
+    sdAccuracy: 0,
   });
 
   return (
@@ -73,5 +73,5 @@ TypingSpeedTask.propTypes = {
   device: PropTypes.oneOf(Object.values(Devices)).isRequired,
   phrase: PropTypes.string.isRequired,
   isVirtualKeyboardEnabled: PropTypes.bool.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
 };

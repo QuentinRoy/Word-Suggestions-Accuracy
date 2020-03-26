@@ -22,7 +22,7 @@ export default function subFocusReducer(state, action) {
           newFocusTargetIndex < state.totalSuggestionTargets
             ? {
                 type: FocusTargetTypes.suggestion,
-                suggestionNumber: newFocusTargetIndex
+                suggestionNumber: newFocusTargetIndex,
               }
             : inputFocusTarget;
         return { ...state, focusTarget: newFocusTarget };

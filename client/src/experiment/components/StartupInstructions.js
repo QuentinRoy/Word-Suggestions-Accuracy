@@ -8,7 +8,7 @@ import TaskPaper from "./TaskPaper";
 const StartupInstructions = ({
   onStart,
   numberOfPracticeTasks,
-  doNotShowDelayInstructions
+  doNotShowDelayInstructions,
 }) => {
   const [step, setStep] = useState(0);
 
@@ -104,7 +104,7 @@ const StartupInstructions = ({
 StartupInstructions.propTypes = {
   doNotShowDelayInstructions: PropTypes.bool.isRequired,
   onStart: PropTypes.func.isRequired,
-  numberOfPracticeTasks: PropTypes.number.isRequired
+  numberOfPracticeTasks: PropTypes.number.isRequired,
 };
 
 export default StartupInstructions;

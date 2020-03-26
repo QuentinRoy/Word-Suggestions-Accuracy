@@ -3,7 +3,7 @@ import {
   totalMatchedChars,
   isUpperCase,
   trimEnd,
-  trimStart
+  trimStart,
 } from "./strings";
 
 describe("totalMatchedCharsFromStart", () => {

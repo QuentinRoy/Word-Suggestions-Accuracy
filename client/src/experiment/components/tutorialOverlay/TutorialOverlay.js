@@ -27,7 +27,7 @@ const StepComponents = {
   [TutorialSteps.delaySuggestion]: TutorialStepDelaySuggestion,
   [TutorialSteps.finish]: TutorialStepFinish,
   [TutorialSteps.finalWhiteSpace]: TutorialStepFinalWhiteSpace,
-  [TutorialSteps.end]: TutorialStepEnd
+  [TutorialSteps.end]: TutorialStepEnd,
 };
 
 const TutorialOverlay = memo(
@@ -40,12 +40,12 @@ const TutorialOverlay = memo(
     suggestionsType,
     virtualKeyboardRect,
     isVirtualKeyboardEnabled,
-    totalSuggestions
+    totalSuggestions,
   }) => {
     const transitions = useTransition(tutorialStep, null, {
       from: { opacity: 0 },
       enter: { opacity: 1 },
-      leave: { opacity: 0 }
+      leave: { opacity: 0 },
     });
 
     if (inputRect == null) return null;
@@ -68,7 +68,7 @@ const TutorialOverlay = memo(
             [styles.inlineSuggestionOverlay]:
               suggestionsType === SuggestionTypes.inline,
             [styles.barSuggestionOverlay]:
-              suggestionsType === SuggestionTypes.bar
+              suggestionsType === SuggestionTypes.bar,
           })}
           style={props}
         >
@@ -100,7 +100,7 @@ const TutorialOverlay = memo(
           suggestionsType,
           virtualKeyboardRect,
           isVirtualKeyboardEnabled,
-          totalSuggestions
+          totalSuggestions,
         }}
       >
         {content}
@@ -118,7 +118,7 @@ TutorialOverlay.propTypes = {
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
   virtualKeyboardRect: RectPropType,
   isVirtualKeyboardEnabled: PropTypes.bool,
-  totalSuggestions: PropTypes.number.isRequired
+  totalSuggestions: PropTypes.number.isRequired,
 };
 
 TutorialOverlay.defaultProps = {
@@ -128,7 +128,7 @@ TutorialOverlay.defaultProps = {
   inlineSuggestionRect: null,
   suggestionsBarRect: null,
   virtualKeyboardRect: null,
-  isVirtualKeyboardEnabled: false
+  isVirtualKeyboardEnabled: false,
 };
 
 export default TutorialOverlay;

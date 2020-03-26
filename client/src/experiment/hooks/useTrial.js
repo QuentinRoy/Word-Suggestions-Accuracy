@@ -4,7 +4,7 @@ import {
   ActionStatuses,
   KeyboardLayoutNames,
   SuggestionTypes,
-  FocusTargetTypes
+  FocusTargetTypes,
 } from "../../common/constants";
 import "react-simple-keyboard/build/css/index.css";
 import useActionScheduler from "./useActionScheduler";
@@ -13,7 +13,7 @@ import defaultGetTrialLog from "../getTrialLog";
 import {
   isTargetCompleted,
   getTextFromSksDistribution,
-  isInputCorrect
+  isInputCorrect,
 } from "../input";
 
 import useWindowFocus from "./useWindowFocus";
@@ -21,7 +21,7 @@ import useFirstRenderTime from "./useFirstRenderTime";
 import TrialReducer from "../trialReducers/TrialReducer";
 import {
   useSuggestions,
-  RequestCanceledError
+  RequestCanceledError,
 } from "../wordSuggestions/wordSuggestions";
 
 // **********
@@ -35,7 +35,7 @@ const instantActions = [
   Actions.confirmAction,
   Actions.scheduleAction,
   Actions.submit,
-  Actions.updateSuggestions
+  Actions.updateSuggestions,
 ];
 
 // ******
@@ -57,7 +57,7 @@ const useTrial = ({
   onLog,
   getEventLog = defaultGetEventLog,
   getTrialLog = defaultGetTrialLog,
-  reducer: controlInversionReducer = defaultControlInversionReducer
+  reducer: controlInversionReducer = defaultControlInversionReducer,
 }) => {
   // Returns a new state based on an action.
   // This expects the following action property: type (one of Actions), and
@@ -71,14 +71,14 @@ const useTrial = ({
         totalSuggestions,
         sksDistribution,
         getEventLog,
-        controlInversionReducer
+        controlInversionReducer,
       }),
     [
       controlInversionReducer,
       getEventLog,
       sksDistribution,
       suggestionsType,
-      totalSuggestions
+      totalSuggestions,
     ]
   );
 
@@ -94,7 +94,7 @@ const useTrial = ({
         totalSuggestionTargets:
           suggestionsType === SuggestionTypes.bar ? totalSuggestions : 0,
         suggestions: [],
-        isFocusAlertShown: !document.hasFocus()
+        isFocusAlertShown: !document.hasFocus(),
       },
       { type: Actions.init }
     );
@@ -109,9 +109,9 @@ const useTrial = ({
       events,
       keyStrokeDelay,
       isFocusAlertShown,
-      isFullScreen: isFullScreenState
+      isFullScreen: isFullScreenState,
     },
-    dispatch
+    dispatch,
   ] = useReducer(reducer, null, initState);
 
   useWindowFocus({
@@ -120,7 +120,7 @@ const useTrial = ({
     },
     onFocus() {
       dispatch({ type: Actions.windowFocused });
-    }
+    },
   });
 
   // Used to schedule action to be performed after a delay.
@@ -159,7 +159,7 @@ const useTrial = ({
 
   // This cannot be included in the reducer since it would make it impure.
   const dispatchWrapper = useCallback(
-    action => {
+    (action) => {
       if (action.type === Actions.submit) {
         completeTrialRef.current();
       } else if (
@@ -195,18 +195,18 @@ const useTrial = ({
       totalSuggestions,
       sksDistribution,
       input,
-      canReplaceLetters: suggestionsType === SuggestionTypes.bar
+      canReplaceLetters: suggestionsType === SuggestionTypes.bar,
     }).then(
-      newSuggestions => {
+      (newSuggestions) => {
         dispatchWrapper({
           requestInput: input,
           requestTime,
           responseTime: new Date(),
           type: Actions.updateSuggestions,
-          suggestions: newSuggestions
+          suggestions: newSuggestions,
         });
       },
-      error => {
+      (error) => {
         if (error instanceof RequestCanceledError) {
           // Requests may get canceled, and in this case fail. This is fine.
           // This catch handler is required to avoid unhandled rejected promises
@@ -222,7 +222,7 @@ const useTrial = ({
     sksDistribution,
     suggestionsType,
     totalSuggestions,
-    dispatchWrapper
+    dispatchWrapper,
   ]);
 
   return {
@@ -235,7 +235,7 @@ const useTrial = ({
     input,
     hasErrors,
     isFocusAlertShown,
-    isFullScreen: isFullScreenState
+    isFullScreen: isFullScreenState,
   };
 };
 

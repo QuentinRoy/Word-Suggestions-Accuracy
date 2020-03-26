@@ -16,7 +16,7 @@ const TaskPaper = ({ children, className }) => {
 
 TaskPaper.propTypes = {
   children: PropTypes.node,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 TaskPaper.defaultProps = { children: null, className: undefined };

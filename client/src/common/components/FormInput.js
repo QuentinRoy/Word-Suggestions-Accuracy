@@ -15,8 +15,8 @@ import { InputTypes, Directions } from "../constants";
 import styles from "./FormInput.module.css";
 import NasaTlxInput from "./NasaTlxInput";
 
-const useStyles = makeStyles(theme => ({
-  choiceLabel: { ...theme.typography.body2, textAlign: "center" }
+const useStyles = makeStyles((theme) => ({
+  choiceLabel: { ...theme.typography.body2, textAlign: "center" },
 }));
 
 const FormInput = memo(
@@ -31,7 +31,7 @@ const FormInput = memo(
     description,
     direction,
     lowLabel,
-    highLabel
+    highLabel,
   }) => {
     const { choiceLabel } = useStyles();
     switch (inputType) {
@@ -70,7 +70,7 @@ const FormInput = memo(
               className={styles.radioGroup}
               row={direction === Directions.horizontal}
             >
-              {answers.map(answerText => (
+              {answers.map((answerText) => (
                 <FormControlLabel
                   classes={{ label: choiceLabel }}
                   key={answerText}
@@ -102,7 +102,7 @@ const FormInput = memo(
               name={id}
               value={value == null ? "" : value}
               type="number"
-              onChange={event => {
+              onChange={(event) => {
                 onChange(id, event.target.value);
               }}
               disabled={value === "Prefer not to say"}
@@ -139,7 +139,7 @@ const FormInput = memo(
             </FormLabel>
             <Select
               value={value == null ? "" : value}
-              onChange={event => {
+              onChange={(event) => {
                 onChange(id, event.target.value);
               }}
               name={id}
@@ -171,7 +171,7 @@ FormInput.propTypes = {
   description: PropTypes.string,
   id: PropTypes.string.isRequired,
   lowLabel: PropTypes.string,
-  highLabel: PropTypes.string
+  highLabel: PropTypes.string,
 };
 
 FormInput.defaultProps = {
@@ -180,7 +180,7 @@ FormInput.defaultProps = {
   description: null,
   direction: null,
   lowLabel: null,
-  highLabel: null
+  highLabel: null,
 };
 
 export default FormInput;

@@ -8,7 +8,7 @@ import {
   sentenceSelect,
   content,
   accuracySelect,
-  standardDeviationSelect
+  standardDeviationSelect,
 } from "./DistributionViewer.module.css";
 import useWindowSize from "../common/hooks/useWindowSize";
 import getWordAccuracies from "./getWordAccuracies";
@@ -20,7 +20,7 @@ const KeyCodes = {
   left: 37,
   top: 38,
   right: 39,
-  bottom: 40
+  bottom: 40,
 };
 
 const maxDiffAccuracy = 0.025;
@@ -38,7 +38,7 @@ const DistributionViewer = () => {
   // previous sentence.
   useEffect(() => {
     if (corpus == null) return undefined;
-    const handler = evt => {
+    const handler = (evt) => {
       if (evt.keyCode === KeyCodes.top) {
         evt.preventDefault();
         // If the slider is focused, it will automatically move when arrow keys
@@ -81,7 +81,7 @@ const DistributionViewer = () => {
       targetKss: accuracy,
       targetSdWordKss: sd,
       maxDiffKss: maxDiffAccuracy,
-      maxDiffSdKss: maxDiffSd
+      maxDiffSdKss: maxDiffSd,
     }
   );
 

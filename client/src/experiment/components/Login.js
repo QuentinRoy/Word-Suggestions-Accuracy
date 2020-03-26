@@ -7,7 +7,7 @@ const Login = ({ onEditConfig, onAdvanceWorkflow }) => {
   return (
     <div className={loginDiv}>
       <form
-        onSubmit={e => {
+        onSubmit={(e) => {
           if (value !== "") {
             onEditConfig("participant", value);
             onAdvanceWorkflow();
@@ -20,7 +20,7 @@ const Login = ({ onEditConfig, onAdvanceWorkflow }) => {
           type="text"
           placeholder="Enter your ID"
           value={value}
-          onChange={e => setValue(e.target.value)}
+          onChange={(e) => setValue(e.target.value)}
         />
         <input
           className={submitButton}
@@ -34,7 +34,7 @@ const Login = ({ onEditConfig, onAdvanceWorkflow }) => {
 
 Login.propTypes = {
   onEditConfig: PropTypes.func.isRequired,
-  onAdvanceWorkflow: PropTypes.func.isRequired
+  onAdvanceWorkflow: PropTypes.func.isRequired,
 };
 
 export default Login;

@@ -10,7 +10,7 @@ const questions = [
   {
     text: "You will...",
     answers: ["read long paragraphs", "find typos in a text", "type sentences"],
-    correctAnswer: "type sentences"
+    correctAnswer: "type sentences",
   },
   {
     text: "You must...",
@@ -18,10 +18,10 @@ const questions = [
       "type as fast and accurately as possible",
       "take all the time you need, but not make errors",
       "never use word suggestions",
-      "always use word suggestions"
+      "always use word suggestions",
     ],
-    correctAnswer: "type as fast and accurately as possible"
-  }
+    correctAnswer: "type as fast and accurately as possible",
+  },
 ];
 
 const delayQuestions = [
@@ -31,14 +31,14 @@ const delayQuestions = [
       "need to keep your keyboard's keys pressed down longer than usual",
       "need to click on small buttons",
       "not use your keyboard",
-      "need to click on words"
+      "need to click on words",
     ],
     correctAnswer:
-      "need to keep your keyboard's keys pressed down longer than usual"
-  }
+      "need to keep your keyboard's keys pressed down longer than usual",
+  },
 ];
 
-const makeQuestions = includesDelayQuestions =>
+const makeQuestions = (includesDelayQuestions) =>
   shuffle(
     // Mapping before shuffling to maintain consistent ids.
     (includesDelayQuestions
@@ -47,7 +47,7 @@ const makeQuestions = includesDelayQuestions =>
     ).map((q, i) => ({
       ...q,
       answers: shuffle(q.answers),
-      id: `q${i}`
+      id: `q${i}`,
     }))
   );
 
@@ -62,15 +62,15 @@ const StartupTest = ({ onSubmit, includesDelayQuestions }) => {
   function onSubmitForm(event) {
     event.preventDefault();
     const isCorrect = shuffledQuestions.every(
-      q => answers[q.id] === q.correctAnswer
+      (q) => answers[q.id] === q.correctAnswer
     );
     onSubmit(
       isCorrect,
-      shuffledQuestions.map(q => ({
+      shuffledQuestions.map((q) => ({
         id: q.id,
         answer: answers[q.id],
         question: q.text,
-        isCorrect: answers[q.id] === q.correctAnswer
+        isCorrect: answers[q.id] === q.correctAnswer,
       }))
     );
   }
@@ -80,7 +80,7 @@ const StartupTest = ({ onSubmit, includesDelayQuestions }) => {
       <h1>Startup Questionnaire</h1>
       <p className={styles.instructions}>Please answer the questions below.</p>
       <form onSubmit={onSubmitForm} className={styles.form}>
-        {shuffledQuestions.map(question => {
+        {shuffledQuestions.map((question) => {
           return (
             <MultipleChoiceQuestion
               key={question.id}
@@ -89,7 +89,7 @@ const StartupTest = ({ onSubmit, includesDelayQuestions }) => {
               text={question.text}
               correctAnswer={question.correctAnswer}
               answer={answers[question.id]}
-              onAnswerChange={newAnswer => {
+              onAnswerChange={(newAnswer) => {
                 setAnswers({ ...answers, [question.id]: newAnswer });
               }}
             />
@@ -98,7 +98,7 @@ const StartupTest = ({ onSubmit, includesDelayQuestions }) => {
         <div className={styles.submitButtonWrapper}>
           <Button
             className={styles.button}
-            disabled={shuffledQuestions.some(q => answers[q.id] == null)}
+            disabled={shuffledQuestions.some((q) => answers[q.id] == null)}
             variant="contained"
             color="primary"
             type="submit"
@@ -113,7 +113,7 @@ const StartupTest = ({ onSubmit, includesDelayQuestions }) => {
 
 StartupTest.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  includesDelayQuestions: PropTypes.bool.isRequired
+  includesDelayQuestions: PropTypes.bool.isRequired,
 };
 
 export default StartupTest;

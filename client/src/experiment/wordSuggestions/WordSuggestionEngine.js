@@ -3,7 +3,7 @@ import { getCurrentInputWord } from "../input";
 import {
   NotSupportedError,
   RequestCanceledError,
-  ConnectionClosedError
+  ConnectionClosedError,
 } from "./errors";
 
 const suggestionRequestMsgType = "sreq";
@@ -41,7 +41,7 @@ export default function WordSuggestionsEngine(serverAddress) {
     return new Promise((resolve, reject) => {
       const {
         word: inputWord,
-        index: currentInputWordIndex
+        index: currentInputWordIndex,
       } = getCurrentInputWord(input);
 
       let correctSuggestionPositions = [];
@@ -58,11 +58,11 @@ export default function WordSuggestionsEngine(serverAddress) {
           sksDistribution,
           input,
           canReplaceLetters,
-          ...otherArgs
+          ...otherArgs,
         },
         num: reqNum,
         resolve,
-        reject
+        reject,
       });
       socket.send(
         [
@@ -71,13 +71,13 @@ export default function WordSuggestionsEngine(serverAddress) {
           inputWord,
           totalSuggestions,
           targetWord,
-          correctSuggestionPositions.join(subSeparator)
+          correctSuggestionPositions.join(subSeparator),
         ].join(fieldSeparator)
       );
     });
   };
 
-  const handleSuggestionResponse = parts => {
+  const handleSuggestionResponse = (parts) => {
     if (parts.length !== 2) {
       // eslint-disable-next-line no-console
       console.error(
@@ -88,13 +88,13 @@ export default function WordSuggestionsEngine(serverAddress) {
     const reqNum = +parts[0];
     const suggestions = parts[1] === "" ? [] : parts[1].split(subSeparator);
 
-    const reqIdx = requests.findIndex(r => r.num === reqNum);
+    const reqIdx = requests.findIndex((r) => r.num === reqNum);
 
     // Check that the responses are received in order.
     if (reqIdx < 0) return;
     requests
       .splice(0, reqIdx)
-      .forEach(canceledReq =>
+      .forEach((canceledReq) =>
         canceledReq.reject(
           new RequestCanceledError(
             `Received an answer for a more recent request`
@@ -105,7 +105,7 @@ export default function WordSuggestionsEngine(serverAddress) {
     req.resolve(suggestions);
     emit("suggestions", {
       ...req.args,
-      suggestions: parts[1].split(subSeparator)
+      suggestions: parts[1].split(subSeparator),
     });
   };
 
@@ -128,14 +128,14 @@ export default function WordSuggestionsEngine(serverAddress) {
   });
 
   socket.addEventListener("open", () => emit("open"));
-  socket.addEventListener("error", err => {
-    requests.splice(0, requests.length).forEach(r => r.reject(err));
+  socket.addEventListener("error", (err) => {
+    requests.splice(0, requests.length).forEach((r) => r.reject(err));
     emit("error", err);
   });
   socket.addEventListener("close", () => {
     requests
       .splice(0, requests.length)
-      .forEach(r =>
+      .forEach((r) =>
         r.reject(new ConnectionClosedError(`The connection has been closed`))
       );
     emit("close");

@@ -8,7 +8,7 @@ export default function CheckboxWithLabel({
   onBlur,
   name,
   value,
-  children
+  children,
 }) {
   const id = useUniqueId("RadioBoxItem");
   return (
@@ -31,12 +31,12 @@ CheckboxWithLabel.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   value: PropTypes.bool,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 CheckboxWithLabel.defaultProps = {
   onChange: () => {},
   onBlur: () => {},
   children: null,
-  value: false
+  value: false,
 };

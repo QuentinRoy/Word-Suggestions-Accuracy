@@ -8,7 +8,7 @@ const Job = (jobId, delay, onConfirm, onCancel, onEnd) => {
     jobId,
     isConfirmed: false,
     isEnded: false,
-    isCanceled: false
+    isCanceled: false,
   };
 
   job.end = () => {
@@ -45,7 +45,7 @@ const Scheduler = () => {
 
   // If this is called before the timer runs out, the action is canceled before
   // being ended. Calls the currentJob's onEnd, and possibly onCancel.
-  const end = jobId => {
+  const end = (jobId) => {
     const job = jobs.get(jobId);
     if (job == null) return;
     job.end();
@@ -63,7 +63,7 @@ const Scheduler = () => {
   };
 
   const endAll = () => {
-    jobs.forEach(job => job.end());
+    jobs.forEach((job) => job.end());
     jobs.clear();
   };
 

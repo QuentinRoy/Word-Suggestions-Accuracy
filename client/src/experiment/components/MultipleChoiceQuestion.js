@@ -19,9 +19,9 @@ const MultipleChoiceQuestion = memo(
             aria-label={text}
             name={id}
             value={answer == null ? "" : answer}
-            onChange={evt => onAnswerChange(evt.target.value)}
+            onChange={(evt) => onAnswerChange(evt.target.value)}
           >
-            {answers.map(answerText => (
+            {answers.map((answerText) => (
               <FormControlLabel
                 key={answerText}
                 value={answerText}
@@ -41,7 +41,7 @@ MultipleChoiceQuestion.propTypes = {
   answer: PropTypes.string,
   answers: PropTypes.arrayOf(PropTypes.string).isRequired,
   text: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
 };
 
 MultipleChoiceQuestion.defaultProps = { answer: undefined };

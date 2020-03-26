@@ -15,7 +15,7 @@ const EndExperiment = ({ confirmationCode }) => {
 };
 
 EndExperiment.propTypes = {
-  confirmationCode: PropTypes.string.isRequired
+  confirmationCode: PropTypes.string.isRequired,
 };
 
 export default EndExperiment;

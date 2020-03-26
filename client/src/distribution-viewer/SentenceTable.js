@@ -33,7 +33,7 @@ const SentenceTable = ({ words }) => (
       </tr>
       <tr>
         <th>Accuracy</th>
-        {words.map(w => (
+        {words.map((w) => (
           <td key={w.word}>{getSaving(w.word, w.sks).toFixed(2)}</td>
         ))}
       </tr>
@@ -44,7 +44,7 @@ const SentenceTable = ({ words }) => (
 SentenceTable.propTypes = {
   words: PropTypes.arrayOf(
     PropTypes.shape({ word: PropTypes.string, normalizedSks: PropTypes.number })
-  ).isRequired
+  ).isRequired,
 };
 
 export default SentenceTable;

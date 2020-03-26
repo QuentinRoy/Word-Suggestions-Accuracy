@@ -15,11 +15,13 @@ const SentenceItem = memo(({ onClick, sentence, selected }) => (
 SentenceItem.propTypes = {
   onClick: PropTypes.func.isRequired,
   sentence: PropTypes.string.isRequired,
-  selected: PropTypes.bool.isRequired
+  selected: PropTypes.bool.isRequired,
 };
 
 const SentenceSelect = memo(({ corpus, selectedIndex, setSelectedIndex }) => {
-  const callbacks = useMultiRef(corpus.length, i => () => setSelectedIndex(i));
+  const callbacks = useMultiRef(corpus.length, (i) => () =>
+    setSelectedIndex(i)
+  );
 
   const items = corpus.map((sentence, i) => (
     <SentenceItem
@@ -41,7 +43,7 @@ const SentenceSelect = memo(({ corpus, selectedIndex, setSelectedIndex }) => {
 SentenceSelect.propTypes = {
   corpus: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectedIndex: PropTypes.number.isRequired,
-  setSelectedIndex: PropTypes.func.isRequired
+  setSelectedIndex: PropTypes.func.isRequired,
 };
 
 export default SentenceSelect;

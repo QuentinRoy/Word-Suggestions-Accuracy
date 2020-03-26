@@ -28,11 +28,11 @@ const TrialHelp = ({ isVirtualKeyboardEnabled }) => (
 );
 
 TrialHelp.propTypes = {
-  isVirtualKeyboardEnabled: PropTypes.bool
+  isVirtualKeyboardEnabled: PropTypes.bool,
 };
 
 TrialHelp.defaultProps = {
-  isVirtualKeyboardEnabled: false
+  isVirtualKeyboardEnabled: false,
 };
 
 export default TrialHelp;

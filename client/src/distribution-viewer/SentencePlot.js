@@ -8,7 +8,7 @@ import {
   scaleLine,
   barLabel,
   tickLabel,
-  plot
+  plot,
 } from "./SentencePlot.module.css";
 import { getSaving } from "./getWordAccuracies";
 
@@ -22,11 +22,9 @@ const histogram = Histogram()
   .domain([0, 1])
   // Last one is a bit bigger than 1 to make sure 1 is included.
   .thresholds([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0001])
-  .value(d => getSaving(d.word, d.sks));
+  .value((d) => getSaving(d.word, d.sks));
 
-const scaleX = ScaleLinear()
-  .domain([0, 1])
-  .range([0, width]);
+const scaleX = ScaleLinear().domain([0, 1]).range([0, width]);
 
 const WordBar = ({ scaleY, words, x0, x1 }) => {
   const n = words.length;
@@ -67,12 +65,12 @@ WordBar.propTypes = {
   words: PropTypes.arrayOf(PropTypes.shape({ word: PropTypes.string }))
     .isRequired,
   x0: PropTypes.number.isRequired,
-  x1: PropTypes.number.isRequired
+  x1: PropTypes.number.isRequired,
 };
 
 const Scale = () => {
   const ticks = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1].map(
-    tValue => (
+    (tValue) => (
       <g key={tValue} transform={`translate(${scaleX(tValue)})`}>
         <line x0={0} x1={0} y0={0} y1={tickLength} className={tick} />
         <text
@@ -98,10 +96,8 @@ const Scale = () => {
 
 const SentencePlot = memo(({ words }) => {
   const data = histogram(words);
-  const yMax = max(data, d => d.length);
-  const scaleY = ScaleLinear()
-    .domain([0, yMax])
-    .range([height, 0]);
+  const yMax = max(data, (d) => d.length);
+  const scaleY = ScaleLinear().domain([0, yMax]).range([height, 0]);
 
   const bars = data.map((d, i) => (
     // eslint-disable-next-line react/no-array-index-key
@@ -121,9 +117,9 @@ const SentencePlot = memo(({ words }) => {
   return (
     <svg
       className={plot}
-      viewBox={`0 0 ${width + margin.left + margin.right} ${height +
-        margin.top +
-        margin.bottom}`}
+      viewBox={`0 0 ${width + margin.left + margin.right} ${
+        height + margin.top + margin.bottom
+      }`}
     >
       {barGroup}
       {scale}
@@ -134,7 +130,7 @@ const SentencePlot = memo(({ words }) => {
 SentencePlot.propTypes = {
   words: PropTypes.arrayOf(
     PropTypes.shape({ word: PropTypes.string, normalizedSks: PropTypes.number })
-  ).isRequired
+  ).isRequired,
 };
 
 export default SentencePlot;

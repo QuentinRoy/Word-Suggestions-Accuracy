@@ -36,7 +36,7 @@ const standardReducers = composeReducers(
 export default function TrialReducer({
   sksDistribution,
   getEventLog,
-  controlInversionReducer
+  controlInversionReducer,
 }) {
   const eventReducer = EventReducer({ getEventLog, sksDistribution });
 
@@ -50,15 +50,15 @@ export default function TrialReducer({
     // trialReducer.
     const confirmActionReducer =
       action.type === Actions.confirmAction
-        ? s => trialReducer(s, action.action)
-        : s => s;
+        ? (s) => trialReducer(s, action.action)
+        : (s) => s;
 
     return pipe(
       // Standard reducer: consume a state and an action, and return a new state
-      s => standardReducers(s, action),
+      (s) => standardReducers(s, action),
       // Control reducers: consume the *original state*, and an action with
       // a changes property. Returns a new state too.
-      s => controlReducers(originalState, { ...action, changes: s }),
+      (s) => controlReducers(originalState, { ...action, changes: s }),
       // The confirm action reducer must come at the end.
       confirmActionReducer
     )(originalState);

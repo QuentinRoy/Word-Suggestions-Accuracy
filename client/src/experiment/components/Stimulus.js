@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {
   totalMatchedCharsFromStart,
-  trimEnd
+  trimEnd,
 } from "../../common/utils/strings";
 import styles from "./styles/Stimulus.module.css";
 
@@ -34,12 +34,12 @@ Stimulus.propTypes = {
   input: PropTypes.string.isRequired,
   stimulusTextRef: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-  ])
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
 };
 
 Stimulus.defaultProps = {
-  stimulusTextRef: undefined
+  stimulusTextRef: undefined,
 };
 
 export default Stimulus;

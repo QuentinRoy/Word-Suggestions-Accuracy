@@ -15,10 +15,10 @@ export const totalMatchedChars = (str1, str2) => {
   return count;
 };
 
-export const isUpperCase = str => str === str.toUpperCase();
+export const isUpperCase = (str) => str === str.toUpperCase();
 
 const regexTrimEnd = /\s+$/;
-export const trimEnd = str => str.replace(regexTrimEnd, "");
+export const trimEnd = (str) => str.replace(regexTrimEnd, "");
 
 const regexTrimStart = /^\s+/;
-export const trimStart = str => str.replace(regexTrimStart, "");
+export const trimStart = (str) => str.replace(regexTrimStart, "");

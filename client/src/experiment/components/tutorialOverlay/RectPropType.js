@@ -6,5 +6,5 @@ export default PropTypes.shape({
   top: PropTypes.number.isRequired,
   bottom: PropTypes.number.isRequired,
   right: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired,
 });

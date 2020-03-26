@@ -21,7 +21,7 @@ describe("inputSuggestionReducer", () => {
     const action = { type: Actions.inputSuggestion, word: "finished " };
     const outputState = {
       input: "this sentence is finished ",
-      some: "prop to keep"
+      some: "prop to keep",
     };
     expect(inputSuggestionReducer(inputState, action)).toEqual(outputState);
   });

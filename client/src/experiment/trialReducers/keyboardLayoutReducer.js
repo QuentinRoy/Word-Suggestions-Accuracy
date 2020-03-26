@@ -19,7 +19,7 @@ export default function keyboardLayoutReducer(state, action) {
       if (state.layoutName === action.layoutName) {
         return {
           ...state,
-          layoutName: KeyboardLayoutNames.default
+          layoutName: KeyboardLayoutNames.default,
         };
       }
       return { ...state, layoutName: action.layoutName };

@@ -16,7 +16,7 @@ const Startup = ({
   onAdvanceWorkflow,
   onLog,
   numberOfPracticeTasks,
-  doNotShowDelayInstructions
+  doNotShowDelayInstructions,
 }) => {
   const [areInstructionPassed, setAreInstructionPassed] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
@@ -92,7 +92,7 @@ Startup.propTypes = {
   onLog: PropTypes.func.isRequired,
   onAdvanceWorkflow: PropTypes.func.isRequired,
   numberOfPracticeTasks: PropTypes.number.isRequired,
-  doNotShowDelayInstructions: PropTypes.bool.isRequired
+  doNotShowDelayInstructions: PropTypes.bool.isRequired,
 };
 
 export default Startup;

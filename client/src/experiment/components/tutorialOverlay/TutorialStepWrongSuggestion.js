@@ -20,7 +20,7 @@ const TutorialStepWrongSuggestion = ({ suggestionsType, totalSuggestions }) => (
 );
 TutorialStepWrongSuggestion.propTypes = {
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
-  totalSuggestions: PropTypes.number.isRequired
+  totalSuggestions: PropTypes.number.isRequired,
 };
 
 export default TutorialStepWrongSuggestion;

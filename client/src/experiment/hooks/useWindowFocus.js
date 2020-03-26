@@ -4,11 +4,11 @@ export default function useWindowFocus({ onFocus, onBlur }) {
   const [hasFocus, setHasFocus] = useState(document.hasFocus());
   // Monitor when the window is focused or blurred.
   useEffect(() => {
-    const onFocusHandler = evt => {
+    const onFocusHandler = (evt) => {
       if (onFocus != null) onFocus(evt);
       setHasFocus(true);
     };
-    const onBlurHandler = evt => {
+    const onBlurHandler = (evt) => {
       if (onBlur != null) onBlur(evt);
       setHasFocus(false);
     };

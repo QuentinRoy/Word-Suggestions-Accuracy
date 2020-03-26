@@ -8,7 +8,7 @@ const reducer = (state, action) => {
         ...state,
         participant: action.participant,
         device: action.device,
-        isEditing: false
+        isEditing: false,
       };
     case "edit":
       return { ...state, isEditing: true };
@@ -19,7 +19,7 @@ const reducer = (state, action) => {
 
 export default function ParticipantStartup() {
   const [{ participant, device, isEditing }, dispatch] = useReducer(reducer, {
-    isEditing: true
+    isEditing: true,
   });
 
   if (isEditing) {

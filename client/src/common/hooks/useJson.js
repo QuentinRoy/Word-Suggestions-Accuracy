@@ -1,6 +1,6 @@
 import useAsync from "./useAsync";
 
-const useJSON = url =>
+const useJSON = (url) =>
   useAsync(async () => {
     if (url == null) {
       throw new Error(`url argument is missing`);

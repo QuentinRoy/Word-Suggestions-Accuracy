@@ -6,10 +6,10 @@ import {
   getTextFromSksDistribution,
   getRksImprovement,
   isTargetCompleted,
-  isInputCorrect
+  isInputCorrect,
 } from "./input";
 
-const exportFocusTarget = focusTarget => {
+const exportFocusTarget = (focusTarget) => {
   if (focusTarget == null) return null;
   switch (focusTarget.type) {
     case FocusTargetTypes.input:
@@ -77,7 +77,7 @@ const getEventLog = (
     requestInput: action.requestInput,
     requestTime: action.requestTime,
     responseTime: action.responseTime,
-    time: new Date()
+    time: new Date(),
   };
   newState.suggestions.forEach((s, i) => {
     log[`suggestion${i}`] = s;

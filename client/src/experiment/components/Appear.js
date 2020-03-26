@@ -14,7 +14,7 @@ const Appear = ({ children, currentStep }) => {
         getFragmentNum: () => {
           previousFragmentNum += 1;
           return previousFragmentNum;
-        }
+        },
       }}
     >
       {children}
@@ -24,11 +24,11 @@ const Appear = ({ children, currentStep }) => {
 
 Appear.propTypes = {
   children: PropTypes.node,
-  currentStep: PropTypes.number.isRequired
+  currentStep: PropTypes.number.isRequired,
 };
 
 Appear.defaultProps = {
-  children: undefined
+  children: undefined,
 };
 
 const AppearFragment = ({ children, num: numProp, component: Component }) => {
@@ -37,7 +37,7 @@ const AppearFragment = ({ children, num: numProp, component: Component }) => {
   return (
     <Component
       className={classNames(classes.appearItem, {
-        [classes.visible]: num < currentStep
+        [classes.visible]: num < currentStep,
       })}
     >
       {children}
@@ -48,13 +48,13 @@ const AppearFragment = ({ children, num: numProp, component: Component }) => {
 AppearFragment.propTypes = {
   children: PropTypes.node,
   num: PropTypes.node,
-  component: PropTypes.elementType
+  component: PropTypes.elementType,
 };
 
 AppearFragment.defaultProps = {
   children: null,
   num: null,
-  component: "div"
+  component: "div",
 };
 
 Appear.Fragment = AppearFragment;

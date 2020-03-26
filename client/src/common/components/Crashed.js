@@ -9,11 +9,11 @@ const Crashed = ({ children }) => (
 );
 
 Crashed.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 Crashed.defaultProps = {
-  children: "Something bad happened... Please contact the experimenter."
+  children: "Something bad happened... Please contact the experimenter.",
 };
 
 export default Crashed;

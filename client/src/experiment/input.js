@@ -71,7 +71,7 @@ export const getRksImprovement = (input, newInput, target) => {
  * @return {{ word: string, index: number }} The last word of the input, and its
  * index.
  */
-export const getCurrentInputWord = fullInput => {
+export const getCurrentInputWord = (fullInput) => {
   // This may produce empty words (""). This is OK.
   const inputWords = fullInput.split(" ");
   // Note: if input ends with a space, then the input word is "". This is
@@ -80,12 +80,12 @@ export const getCurrentInputWord = fullInput => {
 
   // Since inputWords may contain empty words, we only count the non empty
   // ones.
-  const totalWordsInInput = count(inputWords, w => w !== "");
+  const totalWordsInInput = count(inputWords, (w) => w !== "");
   const currentWordIndex =
     currentInputWord === "" ? totalWordsInInput : totalWordsInInput - 1;
   return {
     word: currentInputWord,
-    index: currentWordIndex
+    index: currentWordIndex,
   };
 };
 
@@ -93,5 +93,5 @@ export const getCurrentInputWord = fullInput => {
  * @param {{word,sks}[]} sksDistribution The distribution of saved key strokes.
  * @return {string} the corresponding text
  */
-export const getTextFromSksDistribution = sksDistribution =>
-  sksDistribution.map(w => w.word).join("");
+export const getTextFromSksDistribution = (sksDistribution) =>
+  sksDistribution.map((w) => w.word).join("");

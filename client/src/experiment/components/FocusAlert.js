@@ -38,7 +38,7 @@ const FocusAlert = memo(({ isShown, onClose }) => (
 
 FocusAlert.propTypes = {
   isShown: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
 export default FocusAlert;

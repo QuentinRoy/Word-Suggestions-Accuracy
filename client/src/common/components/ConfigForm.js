@@ -17,11 +17,11 @@ const ConfigForm = ({
   onSubmit,
   initialValues,
   submitLabel,
-  enabledFields
+  enabledFields,
 }) => {
-  const validate = values => {
+  const validate = (values) => {
     const errors = {};
-    ["device", "isTest", "targetExperiment"].forEach(qId => {
+    ["device", "isTest", "targetExperiment"].forEach((qId) => {
       const value = values[qId];
       if (enabledFields.includes(qId) && (value == null || value === "")) {
         errors[qId] = "This field is required";
@@ -66,7 +66,7 @@ const ConfigForm = ({
         targetExperiment: null,
         // Remove any undefined value from the initial values because this
         // or the inputs may end up being uncontrolled.
-        ...omitBy(initialValues, v => v === undefined)
+        ...omitBy(initialValues, (v) => v === undefined),
       }}
       validate={validate}
       onSubmit={handleSubmit}
@@ -159,7 +159,7 @@ ConfigForm.propTypes = {
       "config",
       "isTest",
       "device",
-      "targetExperiment"
+      "targetExperiment",
     ])
   ),
   initialValues: PropTypes.shape({
@@ -167,9 +167,9 @@ ConfigForm.propTypes = {
     config: PropTypes.string,
     isTest: PropTypes.bool,
     device: PropTypes.oneOf(Object.values(Devices)),
-    targetExperiment: PropTypes.oneOf(["speed-test", "experiment"])
+    targetExperiment: PropTypes.oneOf(["speed-test", "experiment"]),
   }),
-  submitLabel: PropTypes.string
+  submitLabel: PropTypes.string,
 };
 
 ConfigForm.defaultProps = {
@@ -180,8 +180,8 @@ ConfigForm.defaultProps = {
     "config",
     "isTest",
     "device",
-    "targetExperiment"
-  ]
+    "targetExperiment",
+  ],
 };
 
 export default ConfigForm;

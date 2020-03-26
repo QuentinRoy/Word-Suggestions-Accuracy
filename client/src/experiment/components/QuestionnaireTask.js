@@ -11,9 +11,9 @@ export default function QuestionnaireTask({
   onAdvanceWorkflow,
   onLog,
   questions,
-  title
+  title,
 }) {
-  const validate = values => {
+  const validate = (values) => {
     const errors = {};
     Object.entries(values).forEach(([qId, value]) => {
       if (value == null && questions[qId].isAnswerRequired) {
@@ -24,7 +24,7 @@ export default function QuestionnaireTask({
   };
 
   const initialValues = useMemo(
-    () => mapValues(questions, q => q.defaultAnswer),
+    () => mapValues(questions, (q) => q.defaultAnswer),
     [questions]
   );
 
@@ -34,14 +34,14 @@ export default function QuestionnaireTask({
     setFieldValue,
     handleBlur,
     errors,
-    isValid
+    isValid,
   } = useFormik({
     initialValues,
     validate,
     onSubmit: () => {
       onLog("log", values);
       onAdvanceWorkflow();
-    }
+    },
   });
 
   return (
@@ -87,12 +87,12 @@ QuestionnaireTask.propTypes = {
   questions: PropTypes.objectOf(
     PropTypes.shape({
       defaultAnswer: PropTypes.any,
-      isAnswerRequired: PropTypes.bool.isRequired
+      isAnswerRequired: PropTypes.bool.isRequired,
     })
   ).isRequired,
-  title: PropTypes.node
+  title: PropTypes.node,
 };
 
 QuestionnaireTask.defaultProps = {
-  title: "Questionnaire"
+  title: "Questionnaire",
 };

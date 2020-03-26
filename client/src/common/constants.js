@@ -3,7 +3,7 @@ export const suggestionServerAddress = `wss://words.docete.me/ws`;
 export const KeyboardLayoutNames = Object.freeze({
   default: "default",
   shift: "shift",
-  numbers: "numbers"
+  numbers: "numbers",
 });
 
 export const LoadingStates = Object.freeze({
@@ -12,7 +12,7 @@ export const LoadingStates = Object.freeze({
   crashed: "CRASHED",
   invalidArguments: "INVALID_ARGUMENTS",
   closed: "CLOSED",
-  idle: "IDLE"
+  idle: "IDLE",
 });
 
 export const Actions = Object.freeze({
@@ -36,24 +36,24 @@ export const Actions = Object.freeze({
   scheduleAction: "SCHEDULE_ACTION",
   cancelAction: "CANCEL_ACTION",
   endAction: "END_ACTION",
-  confirmAction: "CONFIRM_ACTION"
+  confirmAction: "CONFIRM_ACTION",
 });
 
 export const ActionStatuses = Object.freeze({
   start: "START",
-  end: "END"
+  end: "END",
 });
 
 export const FocusTargetTypes = Object.freeze({
   input: "INPUT",
-  suggestion: "SUGGESTION"
+  suggestion: "SUGGESTION",
 });
 
 export const InputTypes = Object.freeze({
   number: "number",
   selectInput: "selectInput",
   choice: "choice",
-  nasaTlx: "nasaTlx"
+  nasaTlx: "nasaTlx",
 });
 
 export const TaskTypes = Object.freeze({
@@ -75,7 +75,7 @@ export const TaskTypes = Object.freeze({
 
   // These tasks are built in @hcikit
   informationScreen: "InformationScreen",
-  experimentProgress: "ExperimentProgress"
+  experimentProgress: "ExperimentProgress",
 });
 
 export const TutorialSteps = Object.freeze({
@@ -88,24 +88,24 @@ export const TutorialSteps = Object.freeze({
   delaySuggestion: "DelaySuggestion",
   finalWhiteSpace: "FinalWhiteSpace",
   finish: "Finish",
-  end: "End"
+  end: "End",
 });
 
 export const SuggestionTypes = Object.freeze({
   none: "NONE",
   inline: "INLINE",
-  bar: "BAR"
+  bar: "BAR",
 });
 
 export const Directions = Object.freeze({
   horizontal: "HORIZONTAL",
-  vertical: "VERTICAL"
+  vertical: "VERTICAL",
 });
 
 export const Devices = Object.freeze({
   phone: "phone",
   laptop: "laptop",
-  tablet: "tablet"
+  tablet: "tablet",
 });
 
 export const agreementScaleAnswers = Object.freeze([
@@ -115,5 +115,5 @@ export const agreementScaleAnswers = Object.freeze([
   "Neither agree nor disagree",
   "Somewhat agree",
   "Agree",
-  "Strongly agree"
+  "Strongly agree",
 ]);

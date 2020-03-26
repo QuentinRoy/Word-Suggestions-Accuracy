@@ -27,14 +27,14 @@ RadioBoxItem.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   value: PropTypes.string.isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 RadioBoxItem.defaultProps = {
   checked: false,
   onChange: () => {},
   onBlur: () => {},
-  children: null
+  children: null,
 };
 
 export default function RadioBoxGroup({
@@ -42,7 +42,7 @@ export default function RadioBoxGroup({
   onBlur,
   name,
   value,
-  children
+  children,
 }) {
   return (
     <ul className={style.radioBoxGroup}>
@@ -69,11 +69,11 @@ RadioBoxGroup.propTypes = {
   onBlur: PropTypes.func,
   name: PropTypes.string.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 RadioBoxGroup.defaultProps = {
   onChange: () => {},
   onBlur: () => {},
-  value: null
+  value: null,
 };

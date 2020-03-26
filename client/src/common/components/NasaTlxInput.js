@@ -11,15 +11,15 @@ const NasaTlxInput = ({
   value,
   onChange,
   lowLabel,
-  highLabel
+  highLabel,
 }) => {
   // End is excluded from range.
-  const boxes = range(5, 105, 5).map(x => (
+  const boxes = range(5, 105, 5).map((x) => (
     <Fragment key={x}>
       <div className={classNames(style.sep, { [style.middle]: x === 55 })} />
       <div
         className={classNames(style.box, {
-          [style.selected]: x === value
+          [style.selected]: x === value,
         })}
       >
         <div className={style.check} />
@@ -29,7 +29,7 @@ const NasaTlxInput = ({
           value={x}
           name={name}
           checked={value === x}
-          onChange={evt => onChange(evt, +evt.target.value)}
+          onChange={(evt) => onChange(evt, +evt.target.value)}
         />
       </div>
       {x === 100 && <div className={style.sep} />}
@@ -57,11 +57,11 @@ NasaTlxInput.propTypes = {
   value: PropTypes.number,
   onChange: PropTypes.func.isRequired,
   lowLabel: PropTypes.string.isRequired,
-  highLabel: PropTypes.string.isRequired
+  highLabel: PropTypes.string.isRequired,
 };
 
 NasaTlxInput.defaultProps = {
-  value: undefined
+  value: undefined,
 };
 
 export default NasaTlxInput;

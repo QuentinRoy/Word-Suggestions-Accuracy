@@ -3,7 +3,7 @@ import React, {
   useReducer,
   useEffect,
   useContext,
-  useRef
+  useRef,
 } from "react";
 import PropTypes from "prop-types";
 import { LoadingStates } from "../../common/constants";
@@ -19,7 +19,7 @@ const engineStoppedAction = Symbol("engine stopped");
 const initState = {
   loadingState: LoadingStates.idle,
   engine: null,
-  error: null
+  error: null,
 };
 
 const reducer = (state, action) => {
@@ -28,7 +28,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         loadingState: LoadingStates.loading,
-        engine: action.engine
+        engine: action.engine,
       };
     case engineReadyAction:
       return { ...state, loadingState: LoadingStates.loaded };
@@ -36,7 +36,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         loadingState: LoadingStates.crashed,
-        error: action.error
+        error: action.error,
       };
     case engineStoppedAction:
       return initState;
@@ -57,7 +57,7 @@ export const WordSuggestionsProvider = ({ serverAddress, children }) => {
       dispatch({ type: engineCreatedAction, engine });
 
       const onOpen = () => dispatch({ type: engineReadyAction });
-      const onError = error => dispatch({ type: engineErrorAction, error });
+      const onError = (error) => dispatch({ type: engineErrorAction, error });
 
       engine.on("open", onOpen);
       engine.on("error", onError);
@@ -81,12 +81,12 @@ export const WordSuggestionsProvider = ({ serverAddress, children }) => {
 
 WordSuggestionsProvider.propTypes = {
   serverAddress: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 WordSuggestionsProvider.defaultProps = { serverAddress: undefined };
 
-export const useSuggestions = onSuggestions => {
+export const useSuggestions = (onSuggestions) => {
   // Put the callback on a ref, to avoid constantly subscribing and
   // desubscribing in the use effect handler.
   const ref = useRef();
@@ -109,7 +109,7 @@ export const useSuggestions = onSuggestions => {
             throw new Error(`Suggestion engine not ready`);
           }
         : engine.requestSuggestions,
-    loadingState
+    loadingState,
   };
 };
 

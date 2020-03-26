@@ -42,9 +42,9 @@ const useConfiguration = ({ participant, device, isTest, config }) => {
         filename:
           process.env.NODE_ENV === "development"
             ? `dev/${participant}-${device}-${startDate.toISOString()}.json`
-            : `prod/${participant}-${device}-${startDate.toISOString()}.json`
-      }
-    }
+            : `prod/${participant}-${device}-${startDate.toISOString()}.json`,
+      },
+    },
   ];
 };
 

@@ -11,7 +11,7 @@ describe("sliceIf", () => {
 
   test("returns a slice of the expected size with items from lst that pass predicate", () => {
     expect(
-      sliceIf(["a1", "a2", "b3", "a4", "b5", "a6", "a7", "a8"], 1, 4, w =>
+      sliceIf(["a1", "a2", "b3", "a4", "b5", "a6", "a7", "a8"], 1, 4, (w) =>
         w.startsWith("a")
       )
     ).toEqual(["a2", "a4", "a6", "a7"]);
@@ -19,7 +19,7 @@ describe("sliceIf", () => {
 
   test("returns a slice smaller than the expected size if not enough items of lst pass predicate", () => {
     expect(
-      sliceIf(["a1", "a2", "b3", "b4", "b5", "a6", "b7", "a8"], 1, 4, w =>
+      sliceIf(["a1", "a2", "b3", "b4", "b5", "a6", "b7", "a8"], 1, 4, (w) =>
         w.startsWith("a")
       )
     ).toEqual(["a2", "a6", "a8"]);
@@ -31,11 +31,11 @@ describe("insertEject", () => {
     const topWords = [
       { word: "a", score: 15 },
       { word: "b", score: 10 },
-      { word: "c", score: 5 }
+      { word: "c", score: 5 },
     ];
     const wordToInsert = { word: "x", score: 0 };
     const expected = [...topWords];
-    insertEject(topWords, wordToInsert, x => x.score);
+    insertEject(topWords, wordToInsert, (x) => x.score);
     expect(topWords).toEqual(expected);
   });
 
@@ -43,11 +43,11 @@ describe("insertEject", () => {
     const topWords = [
       { word: "a", score: 15 },
       { word: "b", score: 10 },
-      { word: "c", score: 5 }
+      { word: "c", score: 5 },
     ];
     const wordToInsert = { word: "x", score: 5 };
     const expected = [...topWords];
-    insertEject(topWords, wordToInsert, x => x.score);
+    insertEject(topWords, wordToInsert, (x) => x.score);
     expect(topWords).toEqual(expected);
   });
 
@@ -55,15 +55,15 @@ describe("insertEject", () => {
     const topWords = [
       { word: "a", score: 15 },
       { word: "b", score: 10 },
-      { word: "c", score: 0 }
+      { word: "c", score: 0 },
     ];
     const wordToInsert = { word: "x", score: 5 };
     const expected = [
       { word: "a", score: 15 },
       { word: "b", score: 10 },
-      { word: "x", score: 5 }
+      { word: "x", score: 5 },
     ];
-    insertEject(topWords, wordToInsert, x => x.score);
+    insertEject(topWords, wordToInsert, (x) => x.score);
     expect(topWords).toEqual(expected);
   });
 
@@ -71,15 +71,15 @@ describe("insertEject", () => {
     const topWords = [
       { word: "a", score: 15 },
       { word: "b", score: 10 },
-      { word: "c", score: 5 }
+      { word: "c", score: 5 },
     ];
     const wordToInsert = { word: "x", score: 20 };
     const expected = [
       { word: "x", score: 20 },
       { word: "a", score: 15 },
-      { word: "b", score: 10 }
+      { word: "b", score: 10 },
     ];
-    insertEject(topWords, wordToInsert, x => x.score);
+    insertEject(topWords, wordToInsert, (x) => x.score);
     expect(topWords).toEqual(expected);
   });
 
@@ -89,7 +89,7 @@ describe("insertEject", () => {
       { word: "b", score: 4 },
       { word: "c", score: 2 },
       { word: "d", score: 1 },
-      { word: "e", score: 0 }
+      { word: "e", score: 0 },
     ];
     const wordToInsert = { word: "x", score: 3 };
     const expected = [
@@ -97,9 +97,9 @@ describe("insertEject", () => {
       { word: "b", score: 4 },
       { word: "x", score: 3 },
       { word: "c", score: 2 },
-      { word: "d", score: 1 }
+      { word: "d", score: 1 },
     ];
-    insertEject(topWords, wordToInsert, x => x.score);
+    insertEject(topWords, wordToInsert, (x) => x.score);
     expect(topWords).toEqual(expected);
   });
 });

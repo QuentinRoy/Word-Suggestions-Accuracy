@@ -17,7 +17,7 @@ const Trial = ({
   suggestionsType,
   device,
   totalSuggestions,
-  isVirtualKeyboardEnabled
+  isVirtualKeyboardEnabled,
 }) => {
   const {
     dispatch,
@@ -29,7 +29,7 @@ const Trial = ({
     isCompleted,
     hasErrors,
     isFocusAlertShown,
-    isFullScreen
+    isFullScreen,
   } = useTrial({
     totalSuggestions,
     suggestionsType,
@@ -40,7 +40,7 @@ const Trial = ({
     id,
     targetAccuracy,
     totalKss,
-    sdWordsKss
+    sdWordsKss,
   });
 
   return (
@@ -72,7 +72,7 @@ Trial.propTypes = {
   sksDistribution: PropTypes.arrayOf(
     PropTypes.shape({
       word: PropTypes.string.isRequired,
-      sks: PropTypes.number.isRequired
+      sks: PropTypes.number.isRequired,
     })
   ).isRequired,
   totalSuggestions: PropTypes.number.isRequired,
@@ -82,7 +82,7 @@ Trial.propTypes = {
   id: PropTypes.string.isRequired,
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
   device: PropTypes.oneOf(Object.values(Devices)).isRequired,
-  isVirtualKeyboardEnabled: PropTypes.bool.isRequired
+  isVirtualKeyboardEnabled: PropTypes.bool.isRequired,
 };
 
 export default Trial;

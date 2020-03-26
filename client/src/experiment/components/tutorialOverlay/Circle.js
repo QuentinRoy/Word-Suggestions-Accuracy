@@ -5,7 +5,7 @@ import RectPropType from "./RectPropType";
 
 export const CircleTypes = {
   circle: "circle",
-  rectangle: "rectangle"
+  rectangle: "rectangle",
 };
 
 const Circle = ({
@@ -14,7 +14,7 @@ const Circle = ({
   circleYMargin,
   strokeWidth,
   type,
-  rectRadius
+  rectRadius,
 }) => {
   const circleWidth = rect.width + circleXMargin * 2;
   const circleHeight = rect.height + circleYMargin * 2;
@@ -28,7 +28,7 @@ const Circle = ({
       style={{
         position: "absolute",
         top: rect.top - circleYMargin - strokeWidth / 2,
-        left: rect.left - circleXMargin - strokeWidth / 2
+        left: rect.left - circleXMargin - strokeWidth / 2,
       }}
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
     >
@@ -61,14 +61,14 @@ Circle.propTypes = {
   circleXMargin: PropTypes.number,
   circleYMargin: PropTypes.number,
   strokeWidth: PropTypes.number,
-  rectRadius: PropTypes.number
+  rectRadius: PropTypes.number,
 };
 Circle.defaultProps = {
   type: CircleTypes.circle,
   circleXMargin: 0,
   circleYMargin: 0,
   strokeWidth: 6,
-  rectRadius: 20
+  rectRadius: 20,
 };
 
 export default Circle;

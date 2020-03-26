@@ -14,7 +14,7 @@ const fetchStoredValues = () => {
     : pick(JSON.parse(prevValuesJSON), savedValues);
 };
 
-const saveValues = values => {
+const saveValues = (values) => {
   localStorage.setItem(
     localStorageSavedValuesKey,
     JSON.stringify(pick(values, savedValues))
@@ -44,8 +44,8 @@ const StartForm = () => {
           isTest && (participant === "" || participant == null)
             ? "test"
             : participant,
-        config: targetExperiment === "speed-test" ? undefined : config
-      })}`
+        config: targetExperiment === "speed-test" ? undefined : config,
+      })}`,
     });
   };
 

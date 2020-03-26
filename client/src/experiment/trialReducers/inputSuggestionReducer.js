@@ -8,6 +8,6 @@ export default function InputSuggestionReducer(state, action) {
   );
   return {
     ...state,
-    input: `${inputWithoutLastWord}${action.word}`
+    input: `${inputWithoutLastWord}${action.word}`,
   };
 }

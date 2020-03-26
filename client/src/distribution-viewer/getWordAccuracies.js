@@ -10,7 +10,7 @@ const weightTotalKss = 4;
 const weightDiffSd = 4;
 
 const sd = (lst, lstMean = mean(lst)) => {
-  const squareDiffs = lst.map(x => (x - lstMean) ** 2);
+  const squareDiffs = lst.map((x) => (x - lstMean) ** 2);
   return Math.sqrt(sum(squareDiffs) / lst.length);
 };
 
@@ -18,9 +18,9 @@ const randomBool = () => Math.random() < 0.5;
 
 const getSaving = (word, sks) => sks / word.length;
 
-const getBranchTotalKeyStrokeSaving = wordEntries => {
-  const totalCharacters = sumBy(wordEntries, e => e.word.length);
-  return sumBy(wordEntries, e => e.sks) / totalCharacters;
+const getBranchTotalKeyStrokeSaving = (wordEntries) => {
+  const totalCharacters = sumBy(wordEntries, (e) => e.word.length);
+  return sumBy(wordEntries, (e) => e.sks) / totalCharacters;
 };
 
 // Smaller is better.
@@ -28,9 +28,9 @@ const getBranchResult = (
   wordEntries,
   { targetKss, targetSdWordKss, maxDiffKss, maxDiffSdWordKss }
 ) => {
-  const meanWordsKss = meanBy(wordEntries, e => getSaving(e.word, e.sks));
+  const meanWordsKss = meanBy(wordEntries, (e) => getSaving(e.word, e.sks));
   const sdWordKss = sd(
-    wordEntries.map(e => getSaving(e.word, e.sks)),
+    wordEntries.map((e) => getSaving(e.word, e.sks)),
     meanWordsKss
   );
   const totalKss = getBranchTotalKeyStrokeSaving(wordEntries);
@@ -53,7 +53,7 @@ const getBranchResult = (
     diffTotalKss,
     diffWordMeanKss,
     diffSdWordKss,
-    score
+    score,
   };
 };
 
@@ -65,7 +65,7 @@ const getWordAccuraciesFromWordList = (
   if (wordList.length === branchWordEntries.length) {
     return {
       ...getBranchResult(branchWordEntries, scoreOpts),
-      words: branchWordEntries
+      words: branchWordEntries,
     };
   }
   const currentWordIdx = branchWordEntries.length;
@@ -101,14 +101,14 @@ const getWordAccuracies = (
   getWordAccuraciesFromWordList(
     sentence
       .split(" ")
-      .filter(s => s !== "")
-      .map(w => `${w} `),
+      .filter((s) => s !== "")
+      .map((w) => `${w} `),
     [],
     {
       targetKss,
       targetSdWordKss,
       maxDiffKss,
-      maxDiffSdWordKss
+      maxDiffSdWordKss,
     }
   );
 

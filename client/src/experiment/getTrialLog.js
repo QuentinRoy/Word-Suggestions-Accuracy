@@ -22,7 +22,7 @@ const getTrialLog = (
   let totalSuggestionErrors = 0;
   let totalSuggestionUsed = 0;
   let actualSks = 0;
-  events.forEach(evt => {
+  events.forEach((evt) => {
     if (evt.type === Actions.inputChar || evt.type === Actions.deleteChar) {
       if (evt.isError) totalKeyStrokeErrors += 1;
       totalKeyStrokes += 1;
@@ -35,11 +35,11 @@ const getTrialLog = (
   });
 
   const sentenceWordsAndSks = sksDistribution
-    .map(item => `${item.word}{${item.sks}}`)
+    .map((item) => `${item.word}{${item.sks}}`)
     .join(" ");
 
   const theoreticalSks = sksDistribution
-    .map(item => item.sks)
+    .map((item) => item.sks)
     .reduce((a, b) => {
       return a + b;
     }, 0);
@@ -63,7 +63,7 @@ const getTrialLog = (
     totalSuggestionErrors,
     timeZone,
     gitSha: process.env.REACT_APP_GIT_SHA,
-    version: process.env.REACT_APP_VERSION
+    version: process.env.REACT_APP_VERSION,
   };
 };
 

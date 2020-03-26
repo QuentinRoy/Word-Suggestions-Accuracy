@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {
   InputTypes,
   Directions,
-  agreementScaleAnswers
+  agreementScaleAnswers,
 } from "../../common/constants";
 import QuestionnaireTask from "./QuestionnaireTask";
 
@@ -14,28 +14,28 @@ const questions = Object.freeze({
     inputType: InputTypes.choice,
     answers: agreementScaleAnswers,
     direction: Directions.horizontal,
-    isAnswerRequired: true
+    isAnswerRequired: true,
   }),
   suggestionsAccuracy: Object.freeze({
     text: "The word suggestions are accurate.",
     inputType: InputTypes.choice,
     answers: agreementScaleAnswers,
     direction: Directions.horizontal,
-    isAnswerRequired: true
+    isAnswerRequired: true,
   }),
   keyboardUseEfficiency: Object.freeze({
     text: "The use of the keyboard is efficient in this task.",
     inputType: InputTypes.choice,
     answers: agreementScaleAnswers,
     direction: Directions.horizontal,
-    isAnswerRequired: true
+    isAnswerRequired: true,
   }),
   suggestionDistraction: Object.freeze({
     text: "The word suggestions are distracting.",
     inputType: InputTypes.choice,
     answers: agreementScaleAnswers,
     direction: Directions.horizontal,
-    isAnswerRequired: true
+    isAnswerRequired: true,
   }),
   mentalDemand: Object.freeze({
     text: "Mental demand",
@@ -43,7 +43,7 @@ const questions = Object.freeze({
     inputType: InputTypes.nasaTlx,
     isAnswerRequired: true,
     lowLabel: "Very low",
-    highLabel: "Very high"
+    highLabel: "Very high",
   }),
   physicalDemand: Object.freeze({
     text: "Physical demand",
@@ -51,7 +51,7 @@ const questions = Object.freeze({
     inputType: InputTypes.nasaTlx,
     isAnswerRequired: true,
     lowLabel: "Very low",
-    highLabel: "Very high"
+    highLabel: "Very high",
   }),
   temporalDemand: Object.freeze({
     text: "Temporal Demand",
@@ -59,7 +59,7 @@ const questions = Object.freeze({
     inputType: InputTypes.nasaTlx,
     isAnswerRequired: true,
     lowLabel: "Very low",
-    highLabel: "Very high"
+    highLabel: "Very high",
   }),
   performance: Object.freeze({
     text: "Performance",
@@ -68,7 +68,7 @@ const questions = Object.freeze({
     inputType: InputTypes.nasaTlx,
     isAnswerRequired: true,
     lowLabel: "Perfect",
-    highLabel: "Failure"
+    highLabel: "Failure",
   }),
   effort: Object.freeze({
     text: "Effort",
@@ -77,7 +77,7 @@ const questions = Object.freeze({
     inputType: InputTypes.nasaTlx,
     isAnswerRequired: true,
     lowLabel: "Very low",
-    highLabel: "Very high"
+    highLabel: "Very high",
   }),
   frustration: Object.freeze({
     text: "Frustration",
@@ -86,8 +86,8 @@ const questions = Object.freeze({
     inputType: InputTypes.nasaTlx,
     isAnswerRequired: true,
     lowLabel: "Very low",
-    highLabel: "Very high"
-  })
+    highLabel: "Very high",
+  }),
 });
 
 export default function BlockQuestionnaire({ onAdvanceWorkflow, onLog }) {
@@ -102,5 +102,5 @@ export default function BlockQuestionnaire({ onAdvanceWorkflow, onLog }) {
 
 BlockQuestionnaire.propTypes = {
   onAdvanceWorkflow: PropTypes.func.isRequired,
-  onLog: PropTypes.func.isRequired
+  onLog: PropTypes.func.isRequired,
 };

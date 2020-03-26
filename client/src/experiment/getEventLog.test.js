@@ -16,12 +16,12 @@ describe("getEventLog", () => {
 
   test("creates an event log for a correct input", () => {
     const oldState = {
-      input: "hello "
+      input: "hello ",
     };
     const newState = {
       focusTarget: { type: FocusTargetTypes.suggestion, suggestionNumber: 5 },
       input: "hello there ",
-      suggestions: ["s1", "s2", "s3"]
+      suggestions: ["s1", "s2", "s3"],
     };
     const action = { type: Actions.inputSuggestion, word: "there " };
     const sksDistribution = [{ word: "hello " }, { word: "there " }];
@@ -52,18 +52,18 @@ describe("getEventLog", () => {
       type: Actions.inputSuggestion,
       usedSuggestion: "there ",
       actionStartTime,
-      time: { type: mockDateType }
+      time: { type: mockDateType },
     });
   });
 
   test("creates an event log for a incorrect input", () => {
     const oldState = {
-      input: "hello "
+      input: "hello ",
     };
     const newState = {
       focusTarget: { type: "INPUT" },
       input: "hello m",
-      suggestions: ["s1", "s2", "s3"]
+      suggestions: ["s1", "s2", "s3"],
     };
     const action = { type: "ACTION_TYPE" };
     const sksDistribution = [{ word: "hello " }, { word: "there " }];
@@ -93,18 +93,18 @@ describe("getEventLog", () => {
       totalIncorrectCharacters: 1,
       type: "ACTION_TYPE",
       actionStartTime,
-      time: { type: mockDateType }
+      time: { type: mockDateType },
     });
   });
 
   test("creates an event log when input is removed", () => {
     const oldState = {
-      input: "hella"
+      input: "hella",
     };
     const newState = {
       focusTarget: { type: "INPUT" },
       input: "hell",
-      suggestions: ["bla"]
+      suggestions: ["bla"],
     };
     const action = { type: "ACTION_TYPE" };
     const sksDistribution = [{ word: "hello " }, { word: "there " }];
@@ -132,22 +132,22 @@ describe("getEventLog", () => {
       totalIncorrectCharacters: 0,
       type: "ACTION_TYPE",
       actionStartTime,
-      time: { type: mockDateType }
+      time: { type: mockDateType },
     });
   });
 
   test("log scheduled actions", () => {
     const oldState = {
-      input: "hella my"
+      input: "hella my",
     };
     const newState = {
       focusTarget: { type: "INPUT" },
       input: "hella my",
-      suggestions: []
+      suggestions: [],
     };
     const action = {
       type: Actions.scheduleAction,
-      action: { type: "MOCK_ACTION" }
+      action: { type: "MOCK_ACTION" },
     };
     const sksDistribution = [{ word: "hello " }, { word: "there " }];
     const actionStartTime = new Date();
@@ -174,7 +174,7 @@ describe("getEventLog", () => {
       totalIncorrectCharacters: 4,
       type: Actions.scheduleAction,
       actionStartTime,
-      time: { type: mockDateType }
+      time: { type: mockDateType },
     });
   });
 });

@@ -5,7 +5,7 @@ import {
   TutorialSteps,
   Actions,
   FocusTargetTypes,
-  Devices
+  Devices,
 } from "../../common/constants";
 import "react-simple-keyboard/build/css/index.css";
 import TrialPresenter from "./TrialPresenter";
@@ -13,7 +13,7 @@ import useTrial from "../hooks/useTrial";
 import {
   isTargetCompleted,
   isInputCorrect,
-  getTextFromSksDistribution
+  getTextFromSksDistribution,
 } from "../input";
 import tutorialSksDistributions from "./tutorialSKSDistributions.json";
 
@@ -148,7 +148,7 @@ const Tutorial = ({
   isVirtualKeyboardEnabled,
   totalSuggestions,
   device,
-  doNotShowDelayInstructions
+  doNotShowDelayInstructions,
 }) => {
   const tutorialSksDistribution =
     tutorialSksDistributions[Math.round(targetAccuracy * 100).toFixed(0)];
@@ -185,7 +185,7 @@ const Tutorial = ({
             suggestions:
               totalSuggestions > 1
                 ? ["video ", "vidicon ", "videotapes "]
-                : ["video"]
+                : ["video"],
           };
         case TutorialSteps.wrongSuggestion:
           return {
@@ -193,7 +193,7 @@ const Tutorial = ({
             suggestions:
               totalSuggestions > 1
                 ? ["campaign ", "camping ", "campuses "]
-                : ["camping"]
+                : ["camping"],
           };
         case TutorialSteps.error: {
           let stateSuggestions = ["are ", "the ", "of "];
@@ -208,7 +208,7 @@ const Tutorial = ({
           return {
             ...nextState,
             keyStrokeDelay: trialKeyStrokeDelay,
-            suggestions: []
+            suggestions: [],
           };
         case TutorialSteps.delaySuggestion:
           return { ...nextState, suggestions: ["with ", "wing ", "wish "] };
@@ -222,7 +222,7 @@ const Tutorial = ({
       doNotShowDelayInstructions,
       totalSuggestions,
       trialKeyStrokeDelay,
-      tutorialSentence
+      tutorialSentence,
     ]
   );
 
@@ -235,7 +235,7 @@ const Tutorial = ({
     isCompleted,
     hasErrors,
     text,
-    isFullScreen
+    isFullScreen,
   } = useTrial({
     suggestionsType,
     onComplete: onAdvanceWorkflow,
@@ -248,7 +248,7 @@ const Tutorial = ({
     targetAccuracy: 0,
     weightedAccuracy: 0,
     sdAccuracy: 0,
-    reducer
+    reducer,
   });
 
   return (
@@ -287,7 +287,7 @@ Tutorial.propTypes = {
   isVirtualKeyboardEnabled: PropTypes.bool.isRequired,
   totalSuggestions: PropTypes.number.isRequired,
   device: PropTypes.oneOf(Object.values(Devices)).isRequired,
-  doNotShowDelayInstructions: PropTypes.bool.isRequired
+  doNotShowDelayInstructions: PropTypes.bool.isRequired,
 };
 
 export default Tutorial;

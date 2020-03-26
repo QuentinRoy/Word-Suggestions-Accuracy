@@ -3,7 +3,7 @@ import shuffle from "lodash/shuffle";
 import useJson from "../../common/hooks/useJson";
 import { LoadingStates } from "../../common/constants";
 
-const getURL = accuracy =>
+const getURL = (accuracy) =>
   `./sks-distributions/acc-${accuracy.toFixed(3)}.json`;
 
 const useCorpusFromJson = (accuracy, { shuffleRows = true } = {}) => {

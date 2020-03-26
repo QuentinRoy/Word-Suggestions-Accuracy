@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-const handler = evt => {
+const handler = (evt) => {
   evt.preventDefault();
 };
 

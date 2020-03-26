@@ -31,7 +31,7 @@ const PreviousState = () => {
   const {
     isExperimentCompleted,
     participant,
-    config
+    config,
   } = storageState.Configuration;
 
   return (

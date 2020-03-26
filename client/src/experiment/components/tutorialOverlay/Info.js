@@ -15,14 +15,14 @@ Info.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 Info.defaultProps = {
   top: undefined,
   left: undefined,
   width: undefined,
   height: undefined,
-  style: {}
+  style: {},
 };
 
 export default Info;

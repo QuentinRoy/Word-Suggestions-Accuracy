@@ -14,7 +14,13 @@ const DistributionViewer = lazy(() =>
   import("./distribution-viewer/DistributionViewer")
 );
 
-const Startup = lazy(() => import("./startup/Startup"));
+const ParticipantStartup = lazy(() =>
+  import("./participant-startup/ParticipantStartup")
+);
+
+const ExperimenterStartup = lazy(() =>
+  import("./experimenter-startup/ExperimenterStartup")
+);
 
 const TypingTest = lazy(() => import("./typing-test/TypingTest"));
 
@@ -30,7 +36,13 @@ ReactDOM.render(
 
         <Route exact path="/">
           <DocumentTitle title="Experiment Startup">
-            <Startup />
+            <ParticipantStartup />
+          </DocumentTitle>
+        </Route>
+
+        <Route exact path="/startup">
+          <DocumentTitle title="Experiment Startup">
+            <ExperimenterStartup />
           </DocumentTitle>
         </Route>
 

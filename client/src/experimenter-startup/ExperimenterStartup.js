@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import style from "./Startup.module.css";
-
 import PreviousState from "./PreviousState";
+import style from "./ExperimenterStartup.module.css";
 import StartForm from "./StartForm";
 
-const Startup = () => {
+const ExperimenterStartup = () => {
   useEffect(() => {
     const prevColor = document.body.style.backgroundColor;
     document.body.style.backgroundColor = "#EEE";
@@ -12,6 +11,7 @@ const Startup = () => {
       document.body.style.backgroundColor = prevColor;
     };
   }, []);
+
   return (
     <div className={style.main}>
       <div className={style.area}>
@@ -24,4 +24,4 @@ const Startup = () => {
   );
 };
 
-export default Startup;
+export default ExperimenterStartup;

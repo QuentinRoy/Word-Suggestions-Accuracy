@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useUniqueId from "../utils/useUniqueId";
+import useUniqueId from "../../utils/useUniqueId";
 import style from "./CheckboxWithLabel.module.css";
 
 export default function CheckboxWithLabel({

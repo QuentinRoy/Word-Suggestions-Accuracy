@@ -28,17 +28,20 @@ const PreviousState = () => {
       </>
     );
 
-  const isCompleted = storageState.Configuration.isExperimentCompleted;
+  const {
+    isExperimentCompleted,
+    participant,
+    config
+  } = storageState.Configuration;
 
   return (
     <>
       <h2>Existing Experiment State</h2>
       <p>
         There is already an existing experiment state (participant: &ldquo;
-        {storageState.Configuration.participant}&rdquo;, config: &ldquo;
-        {storageState.Configuration.config}&rdquo;).{" "}
+        {participant}&rdquo;, config: &ldquo; {config}&rdquo;).{" "}
       </p>
-      {isCompleted ? (
+      {isExperimentCompleted ? (
         <p>This experiment is complete.</p>
       ) : (
         <p>This experiment is incomplete.</p>

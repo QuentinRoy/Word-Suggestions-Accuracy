@@ -1,10 +1,10 @@
 import React, { useRef, useMemo } from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll } from "@hcikit/tasks";
-import { TaskTypes, Devices } from "../utils/constants";
+import { TaskTypes, Devices } from "../common/constants";
 import configLaptop from "./configuration-laptop.json";
 import configPhone from "./configuration-phone.json";
-import Crashed from "../utils/Crashed";
+import Crashed from "../common/components/Crashed";
 import TypingSpeedTask from "./TypingSpeedTask";
 import { WordSuggestionsProvider } from "../experiment/wordSuggestions/wordSuggestions";
 import UploadTask from "../experiment/components/UploadTask";

@@ -1,5 +1,5 @@
-import { FocusTargetTypes, Actions } from "../../utils/constants";
-import { mod } from "../../utils/math";
+import { FocusTargetTypes, Actions } from "../../common/constants";
+import { mod } from "../../common/utils/math";
 
 const inputFocusTarget = Object.freeze({ type: FocusTargetTypes.input });
 export default function subFocusReducer(state, action) {

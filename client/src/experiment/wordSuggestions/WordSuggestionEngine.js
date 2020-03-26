@@ -116,11 +116,13 @@ export default function WordSuggestionsEngine(serverAddress) {
         handleSuggestionResponse(msgContent);
         break;
       case errorMsgType:
+        // eslint-disable-next-line no-console
         console.error(
           `Received server error: ${msgContent.join(fieldSeparator)}`
         );
         break;
       default:
+        // eslint-disable-next-line no-console
         console.error(`Received unknown message type: ${msgType}`);
     }
   });

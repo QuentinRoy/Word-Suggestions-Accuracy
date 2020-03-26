@@ -1,4 +1,4 @@
-import { Actions, KeyboardLayoutNames } from "../../utils/constants";
+import { Actions, KeyboardLayoutNames } from "../../common/constants";
 
 export default function keyboardLayoutReducer(state, action) {
   switch (action.type) {

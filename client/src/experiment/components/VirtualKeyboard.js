@@ -2,7 +2,7 @@ import React, { useEffect, memo } from "react";
 import Keyboard from "react-simple-keyboard";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import { KeyboardLayoutNames, Devices } from "../../utils/constants";
+import { KeyboardLayoutNames, Devices } from "../../common/constants";
 import {
   vkTheme,
   main,

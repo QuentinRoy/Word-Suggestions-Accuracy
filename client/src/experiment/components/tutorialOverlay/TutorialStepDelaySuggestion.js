@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styles from "./styles/TutorialOverlay.module.scss";
 import Info from "./Info";
 import Instruction from "./Instruction";
-import { SuggestionTypes } from "../../../utils/constants";
+import { SuggestionTypes } from "../../../common/constants";
 
 const TutorialStepDelaySuggestion = ({
   presenterBottom,

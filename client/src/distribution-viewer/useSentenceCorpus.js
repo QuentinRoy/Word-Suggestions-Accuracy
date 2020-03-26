@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { LoadingStates } from "../utils/constants";
+import { LoadingStates } from "../common/constants";
 
 const url = `./sentences.txt`;
 

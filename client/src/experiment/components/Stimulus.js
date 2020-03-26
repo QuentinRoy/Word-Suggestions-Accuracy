@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { totalMatchedCharsFromStart, trimEnd } from "../../utils/strings";
+import {
+  totalMatchedCharsFromStart,
+  trimEnd
+} from "../../common/utils/strings";
 import styles from "./styles/Stimulus.module.css";
 
 const Stimulus = ({ text, input, stimulusTextRef }) => {

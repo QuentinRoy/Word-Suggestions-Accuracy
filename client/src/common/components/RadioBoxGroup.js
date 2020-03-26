@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useUniqueId from "../../utils/useUniqueId";
+import useUniqueId from "../hooks/useUniqueId";
 import style from "./RadioBoxGroup.module.css";
 
 function RadioBoxItem({ checked, name, onChange, value, children, onBlur }) {

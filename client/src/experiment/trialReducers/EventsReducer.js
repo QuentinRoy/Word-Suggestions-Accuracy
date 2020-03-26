@@ -1,4 +1,4 @@
-import { Actions } from "../../utils/constants";
+import { Actions } from "../../common/constants";
 
 const defaultNoEventActions = [Actions.endAction, Actions.confirmAction];
 

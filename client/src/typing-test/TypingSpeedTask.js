@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import { Devices, SuggestionTypes } from "../utils/constants";
+import { Devices, SuggestionTypes } from "../common/constants";
 import useTrial from "../experiment/hooks/useTrial";
 import TrialPresenter from "../experiment/components/TrialPresenter";
 

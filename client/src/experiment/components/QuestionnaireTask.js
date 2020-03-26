@@ -3,7 +3,7 @@ import mapValues from "lodash/mapValues";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import Button from "@material-ui/core/Button";
-import FormInput from "../../utils/FormInput";
+import FormInput from "../../common/components/FormInput";
 import TaskPaper from "./TaskPaper";
 import styles from "./styles/QuestionnaireTask.module.scss";
 

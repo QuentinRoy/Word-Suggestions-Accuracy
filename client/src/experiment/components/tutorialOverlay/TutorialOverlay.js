@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { useTransition, animated } from "react-spring";
 import classNames from "classnames";
-import { TutorialSteps, SuggestionTypes } from "../../../utils/constants";
+import { TutorialSteps, SuggestionTypes } from "../../../common/constants";
 import Context from "./TutorialOverlayContext";
 import styles from "./styles/TutorialOverlay.module.scss";
 import TutorialStepStart from "./TutorialStepStart";

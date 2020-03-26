@@ -5,13 +5,13 @@ import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 import TypingTask from "./TypingTask";
 import useConfiguration from "../hooks/useConfiguration";
-import Loading from "../../utils/Loading";
-import Crashed from "../../utils/Crashed";
+import Loading from "../../common/components/Loading";
+import Crashed from "../../common/components/Crashed";
 import {
   LoadingStates,
   TaskTypes,
   suggestionServerAddress
-} from "../../utils/constants";
+} from "../../common/constants";
 import EndExperiment from "./EndExperiment";
 import Startup from "./Startup";
 import BlockQuestionnaire from "./BlockQuestionnaire";

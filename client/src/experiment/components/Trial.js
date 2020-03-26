@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { SuggestionTypes, Devices } from "../../utils/constants";
+import { SuggestionTypes, Devices } from "../../common/constants";
 import "react-simple-keyboard/build/css/index.css";
 import TrialPresenter from "./TrialPresenter";
 import useTrial from "../hooks/useTrial";

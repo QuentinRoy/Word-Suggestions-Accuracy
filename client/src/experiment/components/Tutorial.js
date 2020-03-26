@@ -6,7 +6,7 @@ import {
   Actions,
   FocusTargetTypes,
   Devices
-} from "../../utils/constants";
+} from "../../common/constants";
 import "react-simple-keyboard/build/css/index.css";
 import TrialPresenter from "./TrialPresenter";
 import useTrial from "../hooks/useTrial";

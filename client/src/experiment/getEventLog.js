@@ -1,5 +1,5 @@
-import { totalMatchedCharsFromStart } from "../utils/strings";
-import { Actions, FocusTargetTypes } from "../utils/constants";
+import { totalMatchedCharsFromStart } from "../common/utils/strings";
+import { Actions, FocusTargetTypes } from "../common/constants";
 import {
   getTotalIncorrectCharacters,
   getRemainingKeyStrokes,

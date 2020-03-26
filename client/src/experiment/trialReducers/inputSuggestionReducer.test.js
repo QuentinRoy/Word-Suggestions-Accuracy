@@ -1,4 +1,4 @@
-import { Actions } from "../../utils/constants";
+import { Actions } from "../../common/constants";
 import inputSuggestionReducer from "./inputSuggestionReducer";
 
 describe("inputSuggestionReducer", () => {

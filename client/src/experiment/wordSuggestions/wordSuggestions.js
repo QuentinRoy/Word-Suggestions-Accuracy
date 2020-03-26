@@ -6,7 +6,7 @@ import React, {
   useRef
 } from "react";
 import PropTypes from "prop-types";
-import { LoadingStates } from "../../utils/constants";
+import { LoadingStates } from "../../common/constants";
 import WordSuggestionsEngine from "./WordSuggestionEngine";
 
 const context = createContext();

@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import { LoadingStates } from "../../utils/constants";
-import getTimeZone from "../../utils/getTimeZone";
-import useJSON from "../../utils/useJson";
+import { LoadingStates } from "../../common/constants";
+import getTimeZone from "../../common/utils/getTimeZone";
+import useJSON from "../../common/hooks/useJson";
 
 const timeZone = getTimeZone();
 

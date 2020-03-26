@@ -1,5 +1,5 @@
 import subFocusReducer from "./subFocusReducer";
-import { Actions, FocusTargetTypes } from "../../utils/constants";
+import { Actions, FocusTargetTypes } from "../../common/constants";
 
 describe("subFocusReducer", () => {
   describe("on moveFocusTarget actions", () => {

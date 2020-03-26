@@ -1,5 +1,5 @@
-import { totalMatchedCharsFromStart } from "../utils/strings";
-import { count } from "../utils/arrays";
+import { totalMatchedCharsFromStart } from "../common/utils/strings";
+import { count } from "../common/utils/arrays";
 
 /**
  * @param {string} input The input, i.e. what has been typed by the user.

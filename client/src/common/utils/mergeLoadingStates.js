@@ -1,4 +1,4 @@
-import { LoadingStates } from "./constants";
+import { LoadingStates } from "../constants";
 
 export default function mergeLoadingState(loadingState1, loadingState2) {
   if (

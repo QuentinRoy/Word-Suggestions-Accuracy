@@ -1,7 +1,7 @@
 import getTrialLog from "./getTrialLog";
-import { Actions } from "../utils/constants";
+import { Actions } from "../common/constants";
 
-jest.mock("../utils/getTimeZone", () => jest.fn(() => "mock time zone"));
+jest.mock("../common/utils/getTimeZone", () => jest.fn(() => "mock time zone"));
 
 describe("getTrialLog", () => {
   const gitSHA = process.env.REACT_APP_GIT_SHA;

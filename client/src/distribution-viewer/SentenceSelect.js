@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import useMultiRef from "../utils/useMultiRef";
+import useMultiRef from "../common/hooks/useMultiRef";
 
 // The list is long. Extracting this in its own component so we can optimize it.
 const SentenceItem = memo(({ onClick, sentence, selected }) => (

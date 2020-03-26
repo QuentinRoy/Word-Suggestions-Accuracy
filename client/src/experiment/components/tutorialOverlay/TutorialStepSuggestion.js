@@ -5,7 +5,7 @@ import Info from "./Info";
 import Instruction from "./Instruction";
 import Circle, { CircleTypes } from "./Circle";
 import RectPropType from "./RectPropType";
-import { SuggestionTypes } from "../../../utils/constants";
+import { SuggestionTypes } from "../../../common/constants";
 import TopOfBarWrapper from "./TopOfBarWrapper";
 
 const TutorialStepSuggestion = ({

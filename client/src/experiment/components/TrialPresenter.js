@@ -16,7 +16,7 @@ import {
   SuggestionTypes,
   TutorialSteps,
   Devices
-} from "../../utils/constants";
+} from "../../common/constants";
 import VirtualKeyboard from "./VirtualKeyboard";
 import TrialInput from "./TrialInput";
 import styles from "./styles/TrialPresenter.module.scss";

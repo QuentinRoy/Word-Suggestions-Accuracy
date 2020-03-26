@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import useDocumentTitle from "./useDocumentTitle";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 export default function DocumentTitle({ title, children }) {
   useDocumentTitle(title);

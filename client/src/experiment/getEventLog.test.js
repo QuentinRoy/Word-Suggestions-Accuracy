@@ -1,5 +1,5 @@
 import getEventLog from "./getEventLog";
-import { FocusTargetTypes, Actions } from "../utils/constants";
+import { FocusTargetTypes, Actions } from "../common/constants";
 
 describe("getEventLog", () => {
   const GlobalDate = global.Date;

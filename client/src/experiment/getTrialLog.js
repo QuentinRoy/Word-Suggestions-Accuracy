@@ -1,6 +1,6 @@
-import { Actions } from "../utils/constants";
+import { Actions } from "../common/constants";
 import { getTextFromSksDistribution } from "./input";
-import getTimeZone from "../utils/getTimeZone";
+import getTimeZone from "../common/utils/getTimeZone";
 
 const timeZone = getTimeZone();
 

@@ -1,4 +1,4 @@
-import { KeyboardLayoutNames, Actions } from "../../utils/constants";
+import { KeyboardLayoutNames, Actions } from "../../common/constants";
 import keyboardLayoutReducer from "./keyboardLayoutReducer";
 
 describe("keyboardLayoutReducer", () => {

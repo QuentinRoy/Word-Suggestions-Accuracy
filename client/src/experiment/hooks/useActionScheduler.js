@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { Actions } from "../../utils/constants";
+import { Actions } from "../../common/constants";
 
 const Job = (jobId, delay, onConfirm, onCancel, onEnd) => {
   let isStarted = false;

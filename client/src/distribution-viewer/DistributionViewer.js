@@ -10,11 +10,11 @@ import {
   accuracySelect,
   standardDeviationSelect
 } from "./DistributionViewer.module.css";
-import useWindowSize from "../utils/useWindowSize";
+import useWindowSize from "../common/hooks/useWindowSize";
 import getWordAccuracies from "./getWordAccuracies";
-import Loading from "../utils/Loading";
-import Crashed from "../utils/Crashed";
-import { LoadingStates } from "../utils/constants";
+import Loading from "../common/components/Loading";
+import Crashed from "../common/components/Crashed";
+import { LoadingStates } from "../common/constants";
 
 const KeyCodes = {
   left: 37,

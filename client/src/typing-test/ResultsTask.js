@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRawConfiguration } from "@hcikit/workflow";
 import style from "./ResultsTask.module.css";
-import { TaskTypes } from "../utils/constants";
+import { TaskTypes } from "../common/constants";
 import TaskPaper from "../experiment/components/TaskPaper";
 
 function ResultsTask({ participant, configuration }) {

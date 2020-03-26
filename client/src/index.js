@@ -2,9 +2,9 @@ import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./index.css";
-import Loading from "./utils/Loading";
-import Crashed from "./utils/Crashed";
-import DocumentTitle from "./utils/DocumentTitle";
+import Loading from "./common/components/Loading";
+import Crashed from "./common/components/Crashed";
+import DocumentTitle from "./common/components/DocumentTitle";
 
 const ExperimentWrapper = lazy(() =>
   import("./experiment/components/ExperimentWrapper")

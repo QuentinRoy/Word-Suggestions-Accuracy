@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { LoadingStates } from "./constants";
+import { LoadingStates } from "../constants";
 
 const ActionTypes = {
   loaded: "loaded",

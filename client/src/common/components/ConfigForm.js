@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import omitBy from "lodash/omitBy";
-import { Devices } from "../../utils/constants";
+import { Devices } from "../constants";
 import RadioBoxGroup from "./RadioBoxGroup";
 import style from "./ConfigForm.module.css";
 import Checkbox from "./CheckboxWithLabel";

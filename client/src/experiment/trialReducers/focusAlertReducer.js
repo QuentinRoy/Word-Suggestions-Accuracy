@@ -1,4 +1,4 @@
-import { Actions } from "../../utils/constants";
+import { Actions } from "../../common/constants";
 
 export default function focusAlertReducer(state, action) {
   switch (action.type) {

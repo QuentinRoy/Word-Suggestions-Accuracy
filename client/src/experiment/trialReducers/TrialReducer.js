@@ -4,7 +4,7 @@ import keyboardLayoutReducer from "./keyboardLayoutReducer";
 import inputSuggestionReducer from "./inputSuggestionReducer";
 import focusAlertReducer from "./focusAlertReducer";
 import subFocusReducer from "./subFocusReducer";
-import { Actions } from "../../utils/constants";
+import { Actions } from "../../common/constants";
 import EventReducer from "./EventsReducer";
 import suggestionsReducer from "./suggestionsReducer";
 

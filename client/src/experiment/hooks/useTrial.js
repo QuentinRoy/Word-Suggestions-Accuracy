@@ -5,7 +5,7 @@ import {
   KeyboardLayoutNames,
   SuggestionTypes,
   FocusTargetTypes
-} from "../../utils/constants";
+} from "../../common/constants";
 import "react-simple-keyboard/build/css/index.css";
 import useActionScheduler from "./useActionScheduler";
 import defaultGetEventLog from "../getEventLog";

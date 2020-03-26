@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./styles/TutorialOverlay.module.scss";
 import Instruction from "./Instruction";
-import { SuggestionTypes } from "../../../utils/constants";
+import { SuggestionTypes } from "../../../common/constants";
 import TopOfBarWrapper from "./TopOfBarWrapper";
 
 const TutorialStepWrongSuggestion = ({ suggestionsType, totalSuggestions }) => (

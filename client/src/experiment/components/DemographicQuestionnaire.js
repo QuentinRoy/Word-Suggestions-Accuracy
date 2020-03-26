@@ -4,7 +4,7 @@ import {
   InputTypes,
   Directions,
   agreementScaleAnswers
-} from "../../utils/constants";
+} from "../../common/constants";
 import QuestionnaireTask from "./QuestionnaireTask";
 
 const questions = {

@@ -1,4 +1,4 @@
-import { Actions } from "../../utils/constants";
+import { Actions } from "../../common/constants";
 
 export default function InputSuggestionReducer(state, action) {
   if (action.type !== Actions.inputSuggestion) return state;

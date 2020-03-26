@@ -1,5 +1,5 @@
 import charReducer from "./charReducer";
-import { Actions } from "../../utils/constants";
+import { Actions } from "../../common/constants";
 
 describe("charReducer", () => {
   test("adds a character to the input on input char actions", () => {

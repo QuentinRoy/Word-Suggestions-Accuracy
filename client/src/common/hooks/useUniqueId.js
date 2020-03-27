@@ -1,12 +1,10 @@
 import { useRef } from "react";
-
-let nextId = 0;
+import { generate } from "shortid";
 
 export default function useUniqueId(prefix = "") {
   const ref = useRef();
   if (ref.current == null) {
-    ref.current = nextId;
-    nextId += 1;
+    ref.current = generate();
   }
   return `${prefix}${ref.current}`;
 }

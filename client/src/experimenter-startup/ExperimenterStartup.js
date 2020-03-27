@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import PreviousState from "./PreviousState";
 import style from "./ExperimenterStartup.module.css";
 import StartForm from "./StartForm";
+import RemoteStartup from "./RemoteStartup";
 
 const ExperimenterStartup = () => {
   useEffect(() => {
@@ -19,6 +20,9 @@ const ExperimenterStartup = () => {
       </div>
       <div className={style.area}>
         <StartForm />
+      </div>
+      <div className={style.area}>
+        <RemoteStartup />
       </div>
     </div>
   );

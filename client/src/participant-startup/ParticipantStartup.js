@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { CircularProgress } from "@material-ui/core";
 import ConfigForm from "../common/components/ConfigForm";
-import useControlServer from "./useControlServer";
+import useControlClient from "./useControlClient";
 import { LoadingStates } from "../common/constants";
 import style from "./ParticipantStartup.module.css";
 
@@ -41,7 +41,7 @@ export default function ParticipantStartup() {
     dispatch,
   ] = useReducer(reducer, { isEditing: true });
 
-  const controlServer = useControlServer();
+  const controlServer = useControlClient();
 
   const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting(true);

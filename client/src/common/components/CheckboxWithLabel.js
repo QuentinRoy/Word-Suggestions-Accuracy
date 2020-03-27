@@ -10,7 +10,7 @@ export default function CheckboxWithLabel({
   value,
   children,
 }) {
-  const id = useUniqueId("RadioBoxItem");
+  const id = useUniqueId();
   return (
     <label htmlFor={id} className={style.checkboxWithLabel}>
       <input

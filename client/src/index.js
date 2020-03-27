@@ -41,7 +41,7 @@ ReactDOM.render(
         </Route>
 
         <Route exact path="/startup">
-          <DocumentTitle title="Experiment Startup">
+          <DocumentTitle title="Experimenter Dashboard">
             <ExperimenterStartup />
           </DocumentTitle>
         </Route>

@@ -7,6 +7,7 @@ import { Devices } from "../constants";
 import RadioBoxGroup from "./RadioBoxGroup";
 import style from "./ConfigForm.module.css";
 import Checkbox from "./CheckboxWithLabel";
+import useUniqueId from "../hooks/useUniqueId";
 
 // eslint-disable-next-line react/prop-types
 const StyledErrorMessage = ({ children }) => (
@@ -20,6 +21,8 @@ const ConfigForm = ({
   enabledFields,
   canSubmit,
 }) => {
+  const id = useUniqueId();
+
   const validate = (values) => {
     const errors = {};
     ["device", "isTest", "targetExperiment"].forEach((qId) => {
@@ -98,8 +101,12 @@ const ConfigForm = ({
 
           {enabledFields.includes("participant") && (
             <div className={style.formRow}>
-              <label htmlFor="participant">Participant Id: </label>
-              <Field name="participant" id="participant" type="text" />{" "}
+              <label htmlFor={`${id}-participant`}>Participant Id: </label>
+              <Field
+                name="participant"
+                id={`${id}-participant`}
+                type="text"
+              />{" "}
               <ErrorMessage name="participant" component={StyledErrorMessage} />
             </div>
           )}
@@ -107,7 +114,7 @@ const ConfigForm = ({
           {enabledFields.includes("config") && (
             <div className={style.formRow}>
               <label
-                htmlFor="config"
+                htmlFor={`${id}-config`}
                 className={
                   values.targetExperiment == null ||
                   values.targetExperiment === "experiment"
@@ -119,7 +126,7 @@ const ConfigForm = ({
               </label>
               <Field
                 name="config"
-                id="config"
+                id={`${id}-config`}
                 type="text"
                 disabled={
                   values.targetExperiment !== "experiment" &&

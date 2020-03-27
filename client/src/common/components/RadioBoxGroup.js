@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import useUniqueId from "../hooks/useUniqueId";
 import style from "./RadioBoxGroup.module.css";
 
 function RadioBoxItem({ checked, name, onChange, value, children, onBlur }) {
-  const id = useUniqueId("RadioBoxItem");
+  const id = useUniqueId();
   return (
     <label htmlFor={id} className={style.radioBoxItem}>
       <input
@@ -43,9 +44,14 @@ export default function RadioBoxGroup({
   name,
   value,
   children,
+  direction,
 }) {
   return (
-    <ul className={style.radioBoxGroup}>
+    <ul
+      className={classNames(style.radioBoxGroup, {
+        [style.verticalGroup]: direction === "vertical",
+      })}
+    >
       {React.Children.map(children, ({ props: childProps }) => (
         <li key={childProps.value}>
           <RadioBoxItem
@@ -70,10 +76,12 @@ RadioBoxGroup.propTypes = {
   name: PropTypes.string.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   value: PropTypes.string,
+  direction: PropTypes.oneOf(["vertical", "horizontal"]),
 };
 
 RadioBoxGroup.defaultProps = {
   onChange: () => {},
   onBlur: () => {},
+  direction: "horizontal",
   value: null,
 };

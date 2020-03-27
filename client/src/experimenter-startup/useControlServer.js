@@ -15,13 +15,15 @@ const useControlServer = () => {
     });
   }, []);
 
+  const startApp = () => wait(500);
+
   return {
     state,
-    setParameters: () => wait(500),
-    clearParameters: () =>
-      wait(500).then(() => {
-        throw new Error(`Nope!`);
-      }),
+    clients: [
+      { id: "1", participant: "P1", device: "phone" },
+      { id: "2", participant: "P1", device: "tablet" },
+    ],
+    startApp,
   };
 };
 

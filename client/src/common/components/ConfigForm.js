@@ -18,6 +18,7 @@ const ConfigForm = ({
   initialValues,
   submitLabel,
   enabledFields,
+  canSubmit,
 }) => {
   const validate = (values) => {
     const errors = {};
@@ -143,7 +144,9 @@ const ConfigForm = ({
           )}
 
           <div className={style.formRow}>
-            <button type="submit">{submitLabel}</button>
+            <button type="submit" disabled={!canSubmit}>
+              {submitLabel}
+            </button>
           </div>
         </Form>
       )}
@@ -153,6 +156,7 @@ const ConfigForm = ({
 
 ConfigForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  canSubmit: PropTypes.bool,
   enabledFields: PropTypes.arrayOf(
     PropTypes.oneOf([
       "participant",
@@ -173,6 +177,7 @@ ConfigForm.propTypes = {
 };
 
 ConfigForm.defaultProps = {
+  canSubmit: true,
   initialValues: {},
   submitLabel: "Submit",
   enabledFields: [

@@ -6,9 +6,9 @@
   "dependencies": {
     "@hcikit/tasks": "^0.3.0",
     "@hcikit/workflow": "^0.3.0",
-    "@material-ui/core": "^4.9.7",
+    "@material-ui/core": "^4.9.8",
     "@material-ui/styles": "^4.9.6",
-    "aws-sdk": "^2.647.0",
+    "aws-sdk": "^2.648.0",
     "classnames": "^2.2.6",
     "cross-env": "^7.0.2",
     "css-loader": "^3.4.2",
@@ -27,7 +27,7 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.1",
-    "react-simple-keyboard": "^2.2.46",
+    "react-simple-keyboard": "^2.2.53",
     "react-spring": "^8.0.27",
     "sanitize-filename": "^1.6.3",
     "short-uuid": "^3.1.1",
@@ -40,12 +40,13 @@
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-flowtype": "^3.13.0",
-    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.19.0",
     "html-minifier": "^4.0.0",
     "node-sass": "^4.13.1",
+    "plop": "^2.6.0",
     "prettier": "^2.0.2",
     "typescript": "^3.8.3"
   },
@@ -63,7 +64,8 @@
     "export-logs": "python3 scripts/loggings/export_runs.py && python3 scripts/loggings/export_trials.py && python3 scripts/loggings/export_events.py",
     "download-logs": "node scripts/download-logs.js",
     "associate-qualification": "node scripts/associate-participant-qualification.js",
-    "log-workflow": "npm run download-logs && npm run export-logs"
+    "log-workflow": "npm run download-logs && npm run export-logs",
+    "plop": "plop"
   },
   "browserslist": {
     "production": [

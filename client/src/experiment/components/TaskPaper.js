@@ -2,8 +2,8 @@ import React from "react";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import useBodyBackgroundColor from "../../common/hooks/useBodyBackgroundColor";
 import classes from "./styles/TaskPaper.module.css";
-import useBodyBackgroundColor from "../hooks/useBodyBackgroundColor";
 
 const TaskPaper = ({ children, className }) => {
   useBodyBackgroundColor("#EEE");

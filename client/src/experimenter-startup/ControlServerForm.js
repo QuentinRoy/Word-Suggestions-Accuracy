@@ -1,17 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
-import PropTypes from "prop-types";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import RadioBoxGroup from "../common/components/RadioBoxGroup";
 import Checkbox from "../common/components/CheckboxWithLabel";
-import style from "./RemoteStartup.module.css";
 import useControlServer from "./useControlServer";
 import useUniqueId from "../common/hooks/useUniqueId";
-
-const StyledErrorMessage = ({ children }) => (
-  <span className={style.error}>{children}</span>
-);
-StyledErrorMessage.propTypes = { children: PropTypes.node.isRequired };
+import FormErrorMessage from "../common/components/FormErrorMessage";
+import style from "./ControlServerForm.module.css";
 
 const isBlank = (value) => value == null || value === "";
 
@@ -29,7 +24,7 @@ const validate = (values) => {
   return errors;
 };
 
-const RemoteStartup = () => {
+const ControlServerForm = () => {
   const { clients, startApp } = useControlServer();
   const id = useUniqueId();
 
@@ -51,22 +46,27 @@ const RemoteStartup = () => {
       {({ values }) => (
         <Form>
           <div className={style.formRow}>
-            <label htmlFor={`${id}-client`}>Client: </label>
-            <div className={style.leftPadding}>
-              <Field
-                id={`${id}-client`}
-                name="client"
-                as={RadioBoxGroup}
-                direction="vertical"
-              >
-                {clients.map((client) => (
-                  <option value={client.id} key={client.id}>
-                    {client.participant} – {client.device}
-                  </option>
-                ))}
-              </Field>
-              {clients.length === 0 && "No client connected yet."}
-            </div>
+            {clients.length === 0 ? (
+              "No client connected yet."
+            ) : (
+              <>
+                <label htmlFor={`${id}-client`}>Client: </label>
+                <div className={style.leftPadding}>
+                  <Field
+                    id={`${id}-client`}
+                    name="client"
+                    as={RadioBoxGroup}
+                    direction="vertical"
+                  >
+                    {clients.map((client) => (
+                      <option value={client.id} key={client.id}>
+                        {client.participant} – {client.device}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+              </>
+            )}
           </div>
 
           <div className={style.formRow}>
@@ -76,7 +76,7 @@ const RemoteStartup = () => {
             </Field>
             <ErrorMessage
               name="targetExperiment"
-              component={StyledErrorMessage}
+              component={FormErrorMessage}
             />
           </div>
 
@@ -84,7 +84,7 @@ const RemoteStartup = () => {
             <Field name="isTest" as={Checkbox}>
               Is a test run
             </Field>
-            <ErrorMessage name="isTest" component={StyledErrorMessage} />
+            <ErrorMessage name="isTest" component={FormErrorMessage} />
           </div>
 
           <div className={style.formRow}>
@@ -108,13 +108,7 @@ const RemoteStartup = () => {
                 values.targetExperiment != null
               }
             />{" "}
-            <ErrorMessage name="config" component={StyledErrorMessage} />
-          </div>
-
-          <div className={style.formRow}>
-            <label htmlFor={`${id}-password`}>Password: </label>
-            <Field name="password" id={`${id}-password`} type="password" />{" "}
-            <ErrorMessage name="password" component={StyledErrorMessage} />
+            <ErrorMessage name="config" component={FormErrorMessage} />
           </div>
 
           <div className={style.formRow}>
@@ -127,4 +121,4 @@ const RemoteStartup = () => {
     </Formik>
   );
 };
-export default RemoteStartup;
+export default ControlServerForm;

@@ -1,17 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PreviousState from "./PreviousState";
 import style from "./ExperimenterStartup.module.css";
 import StartForm from "./StartForm";
-import RemoteStartup from "./RemoteStartup";
+import useBackgroundColor from "../common/hooks/useBodyBackgroundColor";
+import ControlServer from "./ControlServer";
 
 const ExperimenterStartup = () => {
-  useEffect(() => {
-    const prevColor = document.body.style.backgroundColor;
-    document.body.style.backgroundColor = "#EEE";
-    return () => {
-      document.body.style.backgroundColor = prevColor;
-    };
-  }, []);
+  useBackgroundColor("#EEE");
 
   return (
     <div className={style.main}>
@@ -22,7 +17,7 @@ const ExperimenterStartup = () => {
         <StartForm />
       </div>
       <div className={style.area}>
-        <RemoteStartup />
+        <ControlServer />
       </div>
     </div>
   );

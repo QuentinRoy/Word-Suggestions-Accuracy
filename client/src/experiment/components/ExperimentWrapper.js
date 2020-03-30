@@ -26,7 +26,7 @@ import {
 } from "../wordSuggestions/wordSuggestions";
 import { main } from "./styles/ExperimentWrapper.module.css";
 import UploadTask from "./UploadTask";
-import useBodyBackgroundColor from "../hooks/useBodyBackgroundColor";
+import useBodyBackgroundColor from "../../common/hooks/useBodyBackgroundColor";
 
 registerAll(registerTask);
 registerTask(TaskTypes.typingTask, TypingTask);

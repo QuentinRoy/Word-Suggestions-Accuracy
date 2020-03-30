@@ -28,7 +28,7 @@ import FocusAlert from "./FocusAlert";
 import useClientRect from "../hooks/useClientRect";
 import TrialHelp from "./TrialHelp";
 import useWindowInnerHeight from "../hooks/useWindowInnerHeight";
-import useBodyBackgroundColor from "../hooks/useBodyBackgroundColor";
+import useBodyBackgroundColor from "../../common/hooks/useBodyBackgroundColor";
 
 const mapVirtualKey = (key) => {
   switch (key) {

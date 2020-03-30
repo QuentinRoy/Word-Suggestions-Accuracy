@@ -4,15 +4,11 @@ import PropTypes from "prop-types";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import omitBy from "lodash/omitBy";
 import { Devices } from "../constants";
+import FormErrorMessage from "./FormErrorMessage";
 import RadioBoxGroup from "./RadioBoxGroup";
 import style from "./ConfigForm.module.css";
 import Checkbox from "./CheckboxWithLabel";
 import useUniqueId from "../hooks/useUniqueId";
-
-// eslint-disable-next-line react/prop-types
-const StyledErrorMessage = ({ children }) => (
-  <span className={style.error}>{children}</span>
-);
 
 const ConfigForm = ({
   onSubmit,
@@ -85,7 +81,7 @@ const ConfigForm = ({
               </Field>
               <ErrorMessage
                 name="targetExperiment"
-                component={StyledErrorMessage}
+                component={FormErrorMessage}
               />
             </div>
           )}
@@ -95,7 +91,7 @@ const ConfigForm = ({
               <Field name="isTest" as={Checkbox}>
                 Is a test run
               </Field>
-              <ErrorMessage name="isTest" component={StyledErrorMessage} />
+              <ErrorMessage name="isTest" component={FormErrorMessage} />
             </div>
           )}
 
@@ -107,7 +103,7 @@ const ConfigForm = ({
                 id={`${id}-participant`}
                 type="text"
               />{" "}
-              <ErrorMessage name="participant" component={StyledErrorMessage} />
+              <ErrorMessage name="participant" component={FormErrorMessage} />
             </div>
           )}
 
@@ -133,7 +129,7 @@ const ConfigForm = ({
                   values.targetExperiment != null
                 }
               />{" "}
-              <ErrorMessage name="config" component={StyledErrorMessage} />
+              <ErrorMessage name="config" component={FormErrorMessage} />
             </div>
           )}
 
@@ -146,7 +142,7 @@ const ConfigForm = ({
                   </option>
                 ))}
               </Field>
-              <ErrorMessage name="device" component={StyledErrorMessage} />
+              <ErrorMessage name="device" component={FormErrorMessage} />
             </div>
           )}
 

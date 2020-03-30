@@ -19,10 +19,7 @@ const useControlServer = () => {
 
   return {
     state,
-    clients: [
-      { id: "1", participant: "P1", device: "phone" },
-      { id: "2", participant: "P1", device: "tablet" },
-    ],
+    clients: [],
     startApp,
   };
 };

@@ -10,7 +10,7 @@ import { WordSuggestionsProvider } from "../experiment/wordSuggestions/wordSugge
 import UploadTask from "../experiment/components/UploadTask";
 import InjectEnd from "../experiment/components/InjectEnd";
 import ResultsTask from "./ResultsTask";
-import useBodyBackgroundColor from "../experiment/hooks/useBodyBackgroundColor";
+import useBodyBackgroundColor from "../common/hooks/useBodyBackgroundColor";
 
 registerAll(registerTask);
 registerTask(TaskTypes.injectEnd, InjectEnd);

@@ -1,16 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import PropTypes from "prop-types";
+import omitBy from "lodash/omitBy";
 import RadioBoxGroup from "../common/components/RadioBoxGroup";
 import Checkbox from "../common/components/CheckboxWithLabel";
-import useControlServer from "./useControlServer";
 import useUniqueId from "../common/hooks/useUniqueId";
 import FormErrorMessage from "../common/components/FormErrorMessage";
 import style from "./ControlServerForm.module.css";
+import { Devices, UserRoles } from "../common/constants";
 
 const isBlank = (value) => value == null || value === "";
 
-const validate = (values) => {
+const validate = (participants) => (values) => {
   const errors = {};
   if (isBlank(values.targetExperiment)) {
     errors.targetExperiment = "This field is required";
@@ -18,19 +20,29 @@ const validate = (values) => {
   if (values.targetExperiment === "experiment" && isBlank(values.config)) {
     errors.config = "This field is required";
   }
-  if (isBlank(values.client)) {
-    errors.client = "This field is required";
+  if (
+    isBlank(values.targetParticipant) ||
+    !participants.find((p) => p.id === values.targetParticipant)
+  ) {
+    errors.targetParticipant = "This field is required";
   }
   return errors;
 };
 
-const ControlServerForm = () => {
-  const { clients, startApp } = useControlServer();
+const ControlServerForm = ({ clients, startApp }) => {
   const id = useUniqueId();
+  const participants = clients.filter((c) => c.role === UserRoles.participant);
 
-  const handleStart = (values, ...args) => {
-    const client = clients.find((c) => values.client === c.id);
-    startApp({ ...values, client }, ...args);
+  const handleStart = ({
+    targetExperiment,
+    targetParticipant: pid,
+    ...args
+  }) => {
+    const participant = participants.find((p) => p.id === pid);
+    startApp(targetExperiment, participant.id, {
+      ...participant.info,
+      ...omitBy(args, isBlank),
+    });
   };
 
   return (
@@ -38,29 +50,43 @@ const ControlServerForm = () => {
       initialValues={
         // We need to provide  initial values or some inputs will be
         // uncontrolled.
-        { config: "", isTest: false, client: "", targetExperiment: null }
+        {
+          config: "",
+          isTest: false,
+          targetParticipant: "",
+          targetExperiment: null,
+        }
       }
-      validate={validate}
+      validate={validate(participants)}
       onSubmit={handleStart}
     >
       {({ values }) => (
         <Form>
           <div className={style.formRow}>
-            {clients.length === 0 ? (
-              "No client connected yet."
+            {participants.length === 0 ? (
+              "No participants connected yet."
             ) : (
               <>
-                <label htmlFor={`${id}-client`}>Client: </label>
+                <label
+                  className={style.verticalRadioBoxGroupLabel}
+                  htmlFor={`${id}-target-participant`}
+                >
+                  Participant{participants.length !== 1 && "s"}:{" "}
+                </label>
                 <div className={style.leftPadding}>
                   <Field
-                    id={`${id}-client`}
-                    name="client"
+                    id={`${id}-target-participant`}
+                    name="targetParticipant"
                     as={RadioBoxGroup}
                     direction="vertical"
                   >
-                    {clients.map((client) => (
-                      <option value={client.id} key={client.id}>
-                        {client.participant} – {client.device}
+                    {participants.map((targetParticipant) => (
+                      <option
+                        value={targetParticipant.id}
+                        key={targetParticipant.id}
+                      >
+                        {targetParticipant.info.participant} –{" "}
+                        {targetParticipant.info.device}
                       </option>
                     ))}
                   </Field>
@@ -71,7 +97,7 @@ const ControlServerForm = () => {
 
           <div className={style.formRow}>
             <Field name="targetExperiment" as={RadioBoxGroup}>
-              <option value="speed-test">Typing Speed Test</option>
+              <option value="typing">Typing Speed Test</option>
               <option value="experiment">Experiment</option>
             </Field>
             <ErrorMessage
@@ -112,7 +138,7 @@ const ControlServerForm = () => {
           </div>
 
           <div className={style.formRow}>
-            <button type="submit" disabled={clients.length === 0}>
+            <button type="submit" disabled={participants.length === 0}>
               start
             </button>
           </div>
@@ -121,4 +147,18 @@ const ControlServerForm = () => {
     </Formik>
   );
 };
+
+ControlServerForm.propTypes = {
+  clients: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      info: PropTypes.shape({
+        participant: PropTypes.string.isRequired,
+        device: PropTypes.oneOf(Object.values(Devices)).isRequired,
+      }),
+    })
+  ).isRequired,
+  startApp: PropTypes.func.isRequired,
+};
+
 export default ControlServerForm;

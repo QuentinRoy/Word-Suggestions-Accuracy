@@ -1,4 +1,5 @@
 export const suggestionServerAddress = `wss://words.docete.me/ws`;
+export const controlServerAddress = `ws://localhost:8080`;
 
 export const KeyboardLayoutNames = Object.freeze({
   default: "default",
@@ -117,3 +118,19 @@ export const agreementScaleAnswers = Object.freeze([
   "Agree",
   "Strongly agree",
 ]);
+
+// This is copied from the control-server module.
+export const MessageTypes = Object.freeze({
+  response: "response",
+  command: "command",
+  register: "register",
+  unregister: "unregister",
+  error: "error",
+  clientUpdate: "client-update",
+});
+
+// This is copied from the control-server module.
+export const UserRoles = Object.freeze({
+  moderator: "moderator",
+  participant: "participant",
+});

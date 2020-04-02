@@ -17,6 +17,7 @@ rules:
   react/jsx-indent: 0
   react/jsx-wrap-multilines: 0
   max-classes-per-file: 0
+  react/jsx-curly-newline: 0
 
 overrides:
   - files:

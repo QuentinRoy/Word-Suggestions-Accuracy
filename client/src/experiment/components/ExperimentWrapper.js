@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll } from "@hcikit/tasks";
 import { ThemeProvider } from "@material-ui/styles";
-import { createMuiTheme } from "@material-ui/core";
+import {
+  createMuiTheme,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@material-ui/core";
+import { useLocation } from "react-router-dom";
 import TypingTask from "./TypingTask";
 import useConfiguration from "../hooks/useConfiguration";
 import Loading from "../../common/components/Loading";
@@ -40,32 +48,65 @@ registerTask(TaskTypes.consentForm, ConsentForm);
 registerTask(TaskTypes.finalFeedbacks, FinalFeedbacks);
 registerTask(TaskTypes.injectEnd, InjectEnd);
 
-const urlParams = new URL(document.location).searchParams;
-const configArgs = {
-  participant: urlParams.get("participant"),
-  device: urlParams.get("device"),
-  isTest: urlParams.get("isTest"),
-  config: urlParams.get("config"),
-  reset: urlParams.get("reset"),
-};
-
-if (
-  configArgs.reset &&
-  // eslint-disable-next-line no-alert
-  window.confirm(
-    "Are you sure you do not want to resume the previous experiment? All unsaved data will be lost."
-  )
-) {
-  // This is the key used by hci kit.
-  localStorage.removeItem("state");
+// eslint-disable-next-line react/prop-types
+function ResetDialog({ onClose, open }) {
+  return (
+    <Dialog open={open}>
+      <DialogTitle>Reset State</DialogTitle>
+      <DialogContent>
+        Are you sure you do not want to resume the previous experiment?
+        <br />
+        All unsaved data will be lost.
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={() => {
+            localStorage.removeItem("state");
+            onClose();
+          }}
+          color="secondary"
+        >
+          Clear State
+        </Button>
+        <Button
+          autoFocus
+          onClick={() => {
+            onClose();
+          }}
+          color="primary"
+        >
+          Resume Experiment
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 }
 
 function ExperimentContent() {
   useBodyBackgroundColor("#EEE");
+  const location = useLocation();
+  const configArgs = useMemo(() => {
+    const urlParams = new URLSearchParams(location.search);
+    return {
+      participant: urlParams.get("participant"),
+      device: urlParams.get("device"),
+      isTest: urlParams.get("isTest"),
+      config: urlParams.get("config"),
+      reset: urlParams.get("reset") ?? false,
+    };
+  }, [location]);
+  const [isAskingReset, setIsAskingReset] = useState(configArgs.reset);
   const [configLoadingState, configuration] = useConfiguration(configArgs);
   const { loadingState: suggestionsLoadingState } = useSuggestions();
 
-  if (configLoadingState === LoadingStates.loading) {
+  if (isAskingReset) {
+    return <ResetDialog open onClose={() => setIsAskingReset(false)} />;
+  }
+
+  if (
+    configLoadingState === LoadingStates.loading ||
+    configLoadingState === LoadingStates.idle
+  ) {
     return <Loading>Loading experiment...</Loading>;
   }
   if (suggestionsLoadingState === LoadingStates.loading) {

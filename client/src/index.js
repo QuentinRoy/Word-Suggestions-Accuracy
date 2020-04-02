@@ -14,6 +14,10 @@ const DistributionViewer = lazy(() =>
   import("./distribution-viewer/DistributionViewer")
 );
 
+const ParticipantSetup = lazy(() =>
+  import("./participant-setup/ParticipantSetup")
+);
+
 const ParticipantStartup = lazy(() =>
   import("./participant-startup/ParticipantStartup")
 );
@@ -35,12 +39,18 @@ ReactDOM.render(
         </Route>
 
         <Route exact path="/">
+          <DocumentTitle title="Setup">
+            <ParticipantSetup />
+          </DocumentTitle>
+        </Route>
+
+        <Route exact path="/startup">
           <DocumentTitle title="Experiment Startup">
             <ParticipantStartup />
           </DocumentTitle>
         </Route>
 
-        <Route exact path="/startup">
+        <Route exact path="/experimenter">
           <DocumentTitle title="Experimenter Dashboard">
             <ExperimenterStartup />
           </DocumentTitle>

@@ -1,0 +1,29 @@
+{
+  "name": "control-accuracy-typing-control-server",
+  "version": "0.1.0",
+  "main": "index.js",
+  "keywords": [
+    "control",
+    "server"
+  ],
+  "scripts": {
+    "start": "node -r dotenv/config index.js"
+  },
+  "type": "module",
+  "author": "Quentin Roy <quentin@quentinroy.fr>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "dedent": "^0.7.0",
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.15",
+    "loglevel": "^1.6.7",
+    "shortid": "^2.2.15",
+    "ws": "^7.2.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "prettier": "^2.0.2"
+  }
+}

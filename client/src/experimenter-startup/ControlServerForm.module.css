@@ -13,3 +13,8 @@
 .leftPadding {
   padding-left: 1em;
 }
+
+.verticalRadioBoxGroupLabel {
+  display: block;
+  margin-bottom: 0.25em;
+}

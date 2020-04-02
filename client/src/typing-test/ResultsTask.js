@@ -1,11 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withRawConfiguration } from "@hcikit/workflow";
+import { Button } from "@material-ui/core";
+import { useHistory, useLocation } from "react-router-dom";
 import style from "./ResultsTask.module.css";
 import { TaskTypes } from "../common/constants";
 import TaskPaper from "../experiment/components/TaskPaper";
 
 function ResultsTask({ participant, configuration }) {
+  const history = useHistory();
+  const location = useLocation();
   const typingTasks = configuration.children.filter(
     (t) => t.task === TaskTypes.typingSpeedTask
   );
@@ -28,6 +32,17 @@ function ResultsTask({ participant, configuration }) {
         <li>characters per second: {avgSpeed}</li>
         <li>words per minute: {(avgSpeed * 60) / 5}</li>
       </ul>
+      <div className={style.controls}>
+        <Button
+          color="primary"
+          onClick={() => {
+            localStorage.removeItem("state");
+            history.push({ pathname: `/startup`, search: location.search });
+          }}
+        >
+          Finish
+        </Button>
+      </div>
     </TaskPaper>
   );
 }

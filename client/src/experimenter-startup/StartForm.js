@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { stringify } from "qs";
 import { useHistory } from "react-router-dom";
 import pick from "lodash/pick";
 import ConfigForm from "../common/components/ConfigForm";
+import useBodyBackgroundColor from "../common/hooks/useBodyBackgroundColor";
 
 const savedValues = ["device", "isTest", "participant"];
 const localStorageSavedValuesKey = "startup-values";
@@ -49,13 +50,7 @@ const StartForm = () => {
     });
   };
 
-  useEffect(() => {
-    const prevColor = document.body.style.backgroundColor;
-    document.body.style.backgroundColor = "#EEE";
-    return () => {
-      document.body.style.backgroundColor = prevColor;
-    };
-  }, []);
+  useBodyBackgroundColor("#EEE");
 
   return (
     <>

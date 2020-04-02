@@ -2,8 +2,13 @@ import http from "http";
 import WebSocket from "ws";
 import log from "loglevel";
 import dedent from "dedent";
+import serveStatic from "node-static";
 import { handleMessage, handleConnection, handleClose } from "./api.js";
-import { DEFAULT_PONG_DURATION } from "./constants.js";
+import {
+  DEFAULT_PONG_DURATION,
+  DEFAULT_STATIC_FILES,
+  DEFAULT_STATIC_NOT_FOUND_FILE,
+} from "./constants.js";
 import dotenv from "dotenv";
 import Client from "./Client.js";
 import { noop } from "./utils.js";
@@ -22,7 +27,31 @@ log.setDefaultLevel(
   process.env.LOG_LEVEL == null ? log.levels.INFO : process.env.LOG_LEVEL
 );
 
-const server = http.createServer();
+const fileServer = new serveStatic.Server(
+  process.env.STATIC_FILES == null
+    ? DEFAULT_STATIC_FILES
+    : process.env.STATIC_FILES
+);
+const server = http.createServer(function onRequest(request, response) {
+  request
+    .addListener("end", () => {
+      fileServer.serve(request, response, (e) => {
+        if (e && e.status === 404) {
+          // If the file wasn't found
+          fileServer.serveFile(
+            process.env.STATIC_NOT_FOUND_FILE == null
+              ? DEFAULT_STATIC_NOT_FOUND_FILE
+              : process.env.STATIC_NOT_FOUND_FILE,
+            404,
+            {},
+            request,
+            response
+          );
+        }
+      });
+    })
+    .resume();
+});
 const wss = new WebSocket.Server({ server });
 
 const clients = new Map();

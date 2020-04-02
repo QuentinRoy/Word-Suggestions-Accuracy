@@ -2,6 +2,8 @@ export const MODERATOR_ROLE = "moderator";
 export const PARTICIPANT_ROLE = "participant";
 export const DEFAULT_PONG_DURATION = 30000;
 export const DEFAULT_RESPONSE_TIMEOUT = 5000;
+export const DEFAULT_STATIC_FILES = "./static";
+export const DEFAULT_STATIC_NOT_FOUND_FILE = "/404.html";
 
 export const MessageTypes = Object.freeze({
   response: "response",

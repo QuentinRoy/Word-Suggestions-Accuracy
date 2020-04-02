@@ -15,11 +15,7 @@ import TypingTask from "./TypingTask";
 import useConfiguration from "../hooks/useConfiguration";
 import Loading from "../../common/components/Loading";
 import Crashed from "../../common/components/Crashed";
-import {
-  LoadingStates,
-  TaskTypes,
-  suggestionServerAddress,
-} from "../../common/constants";
+import { LoadingStates, TaskTypes } from "../../common/constants";
 import EndExperiment from "./EndExperiment";
 import Startup from "./Startup";
 import BlockQuestionnaire from "./BlockQuestionnaire";
@@ -35,6 +31,8 @@ import {
 import { main } from "./styles/ExperimentWrapper.module.css";
 import UploadTask from "./UploadTask";
 import useBodyBackgroundColor from "../../common/hooks/useBodyBackgroundColor";
+import getEndPoints from "../../common/utils/endpoints";
+import useAsync from "../../common/hooks/useAsync";
 
 registerAll(registerTask);
 registerTask(TaskTypes.typingTask, TypingTask);
@@ -138,9 +136,29 @@ const theme = createMuiTheme({
 });
 
 export default function ExperimentWrapper() {
+  const [endPointsLoadingState, endpoints] = useAsync(getEndPoints);
+
+  if (endPointsLoadingState === LoadingStates.crashed) {
+    return (
+      <ThemeProvider theme={theme}>
+        <Crashed>
+          Could not retrieve the address of the suggestion engine...
+        </Crashed>
+      </ThemeProvider>
+    );
+  }
+
+  if (endPointsLoadingState !== LoadingStates.loaded) {
+    return (
+      <ThemeProvider theme={theme}>
+        <Loading />
+      </ThemeProvider>
+    );
+  }
+
   return (
     <ThemeProvider theme={theme}>
-      <WordSuggestionsProvider serverAddress={suggestionServerAddress}>
+      <WordSuggestionsProvider serverAddress={endpoints.suggestionServer}>
         <div className={main}>
           <ExperimentContent />
         </div>

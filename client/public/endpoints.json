@@ -1,0 +1,4 @@
+{
+  "suggestionServer": "wss://words.docete.me/ws",
+  "controlServer": "ws://localhost:9090"
+}

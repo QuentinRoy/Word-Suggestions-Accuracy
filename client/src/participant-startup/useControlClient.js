@@ -1,8 +1,13 @@
 import { useMemo } from "react";
 import useWebsocket from "../common/hooks/useWebsocket";
-import { MessageTypes, UserRoles } from "../common/constants";
+import { MessageTypes, UserRoles, LoadingStates } from "../common/constants";
+import useAsync from "../common/hooks/useAsync";
+import getEndPoints from "../common/utils/endpoints";
+import mergeLoadingStates from "../common/utils/mergeLoadingStates";
 
-const useControlClient = (url, { onCommand } = {}) => {
+const useControlClient = ({ onCommand } = {}) => {
+  const [endPointsState, endpoints] = useAsync(getEndPoints);
+
   const onMessage = (message) => {
     switch (message.type) {
       case MessageTypes.command:
@@ -12,11 +17,16 @@ const useControlClient = (url, { onCommand } = {}) => {
     }
   };
 
-  const [state, send] = useWebsocket(url, { onMessage });
+  const [socketState, send] = useWebsocket(
+    endPointsState === LoadingStates.loaded ? endpoints.controlServer : null,
+    { onMessage }
+  );
+
+  const mergedState = mergeLoadingStates(endPointsState, socketState);
 
   return useMemo(
     () => ({
-      state,
+      state: mergedState,
       setInfo: (info) =>
         send({
           type: MessageTypes.register,
@@ -25,7 +35,7 @@ const useControlClient = (url, { onCommand } = {}) => {
         }),
       clearInfo: () => send({ type: MessageTypes.unregister }),
     }),
-    [state, send]
+    [mergedState, send]
   );
 };
 

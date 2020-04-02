@@ -3,11 +3,7 @@ import PropTypes from "prop-types";
 import { stringify } from "qs";
 import omit from "lodash/omit";
 import { useHistory } from "react-router-dom";
-import {
-  Devices,
-  controlServerAddress,
-  LoadingStates,
-} from "../common/constants";
+import { Devices, LoadingStates } from "../common/constants";
 import SetupSummary from "./SetupSummary";
 import useControlClient from "./useControlClient";
 import Loading from "../common/components/Loading";
@@ -84,7 +80,7 @@ export default function ParticipantStartupClient({
   device,
   onEdit,
 }) {
-  const controlClient = useControlClient(controlServerAddress, {
+  const controlClient = useControlClient({
     onCommand: Controller(useHistory()),
   });
   const [registrationStatus, dispatch] = useReducer(reducer, {

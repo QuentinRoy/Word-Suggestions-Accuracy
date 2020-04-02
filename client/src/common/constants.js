@@ -1,5 +1,6 @@
-export const suggestionServerAddress = `wss://words.docete.me/ws`;
-export const controlServerAddress = `ws://${document.location.host}`;
+const wsProtocolo = document.location.protocol === "https " ? "wss" : "ws";
+export const defaultSuggestionServerAddress = `${wsProtocolo}://words.${document.location.host}/words`;
+export const defaultControlServerAddress = `${wsProtocolo}://${document.location.host}/control`;
 
 export const KeyboardLayoutNames = Object.freeze({
   default: "default",

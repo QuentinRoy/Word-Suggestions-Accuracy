@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import useWebsocket from "../common/hooks/useWebsocket";
 import { MessageTypes, UserRoles, LoadingStates } from "../common/constants";
+import useAsync from "../common/hooks/useAsync";
+import getEndPoints from "../common/utils/endpoints";
+import mergeLoadingStates from "../common/utils/mergeLoadingStates";
 
 export const LogInStates = Object.freeze({
   loggedIn: "LOGGED_IN",
@@ -8,7 +11,8 @@ export const LogInStates = Object.freeze({
   loggedOut: "LOGGED_OUT",
 });
 
-const useControlServer = (url) => {
+const useControlServer = () => {
+  const [endPointsState, endpoints] = useAsync(getEndPoints);
   const [logInState, setLogInState] = useState(LogInStates.loggedOut);
   const [clients, setClients] = useState([]);
 
@@ -22,7 +26,12 @@ const useControlServer = (url) => {
     }
   };
 
-  const [loadingState, send] = useWebsocket(url, { onMessage });
+  const [socketState, send] = useWebsocket(
+    endPointsState === LoadingStates.loaded ? endpoints.controlServer : null,
+    { onMessage }
+  );
+
+  const loadingState = mergeLoadingStates(socketState, endPointsState);
 
   // Handle server disconnection. We can only be logged in while the server
   // is loaded.

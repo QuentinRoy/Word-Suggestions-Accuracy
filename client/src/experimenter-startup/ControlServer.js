@@ -4,7 +4,6 @@ import MuiAlert from "@material-ui/lab/Alert";
 import ControlServerLogin from "./ControlServerLogin";
 import ControlServerForm from "./ControlServerForm";
 import useControlServer, { LogInStates } from "./useControlServer";
-import { controlServerAddress } from "../common/constants";
 
 function Alert(props) {
   // eslint-disable-next-line react/jsx-props-no-spreading
@@ -18,7 +17,7 @@ export default function ControlServer() {
     logIn,
     clients,
     startApp,
-  } = useControlServer(controlServerAddress);
+  } = useControlServer();
   const [snack, setSnack] = useState({ isOpened: false });
 
   const handleSnackClose = () => {

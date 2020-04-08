@@ -1,0 +1,7 @@
+FROM golang:1.13.9-alpine
+WORKDIR /app
+EXPOSE 80
+COPY ./suggestionServer .
+ENV TOTAL_PARTICIPANTS 1
+RUN go build
+CMD ./suggestionServer -addr=:80 -total-participants=${TOTAL_PARTICIPANTS}

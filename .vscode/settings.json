@@ -1,12 +1,14 @@
 {
-  "spellright.language": [
-    "en"
-  ],
+  "spellright.language": ["en"],
   "spellright.documentTypes": [
     "markdown",
     "latex",
     "plaintext",
     "javascript",
     "go"
-  ]
+  ],
+  "files.associations": {
+    "Dockerfile-typing": "dockerfile",
+    "Dockerfile-words": "dockerfile"
+  }
 }

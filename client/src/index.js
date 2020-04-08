@@ -50,7 +50,7 @@ ReactDOM.render(
           </DocumentTitle>
         </Route>
 
-        <Route exact path="/experimenter">
+        <Route exact path="/moderation">
           <DocumentTitle title="Experimenter Dashboard">
             <ExperimenterStartup />
           </DocumentTitle>

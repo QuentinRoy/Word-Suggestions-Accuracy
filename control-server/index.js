@@ -17,7 +17,7 @@ dotenv.config();
 
 if (!process.env.SERVER_PORT || !process.env.MODERATOR_PASSWORD) {
   log.error(dedent`
-    SERVER_PORT and CONTROLLER_PASSWORD environment variables are required.
+    SERVER_PORT and MODERATOR_PASSWORD environment variables are required.
     Consider creating a .env file (https://github.com/motdotla/dotenv).
   `);
   process.exit(1);

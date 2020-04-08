@@ -31,6 +31,13 @@ function merge2LoadingStates(loadingState1, loadingState2) {
   ) {
     return LoadingStates.loaded;
   }
+  if (
+    loadingState1 === LoadingStates.closed ||
+    loadingState2 === LoadingStates.closed
+  ) {
+    return LoadingStates.closed;
+  }
+
   throw new Error(
     `Unexpected loading state combination: (${loadingState1}, ${loadingState2})`
   );

@@ -34,6 +34,7 @@
     "short-uuid": "^3.1.1",
     "shortid": "^2.2.15",
     "styled-components": "^4.4.1",
+    "node-sass": "^4.13.1",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
@@ -46,7 +47,6 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.19.0",
     "html-minifier": "^4.0.0",
-    "node-sass": "^4.13.1",
     "plop": "^2.6.0",
     "prettier": "^2.0.2",
     "typescript": "^3.8.3"

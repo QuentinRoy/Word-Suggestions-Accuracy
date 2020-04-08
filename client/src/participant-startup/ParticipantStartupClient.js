@@ -56,7 +56,7 @@ function Status({ registrationStatus, clientState }) {
         </ErrorMessage>
       );
     case "ready":
-      return null;
+      return <>Please wait for your experimenter to start the next step.</>;
     default:
       throw new Error(`Unexpected state: ${registrationStatus.state}`);
   }

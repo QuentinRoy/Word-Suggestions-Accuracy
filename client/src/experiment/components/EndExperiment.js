@@ -1,21 +1,28 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { Button } from "@material-ui/core";
+import { useHistory, useLocation } from "react-router-dom";
 import styles from "./styles/EndExperiment.module.css";
 import TaskPaper from "./TaskPaper";
 
-const EndExperiment = ({ confirmationCode }) => {
+const EndExperiment = () => {
+  const history = useHistory();
+  const location = useLocation();
   return (
     <TaskPaper>
       <h1>Thank you!</h1>
-      Here is your confirmation code. Make sure you properly copy it in the
-      corresponding text box on Amazon Mechanical Turk:
-      <p className={styles.code}>{confirmationCode}</p>
+      <div className={styles.controls}>
+        <Button
+          color="primary"
+          onClick={() => {
+            localStorage.removeItem("state");
+            history.push({ pathname: `/startup`, search: location.search });
+          }}
+        >
+          Finish
+        </Button>
+      </div>
     </TaskPaper>
   );
-};
-
-EndExperiment.propTypes = {
-  confirmationCode: PropTypes.string.isRequired,
 };
 
 export default EndExperiment;

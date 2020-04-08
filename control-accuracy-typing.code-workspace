@@ -11,9 +11,6 @@
     },
     {
       "path": "control-server"
-    },
-    {
-      "path": "docker"
     }
   ],
   "settings": {}

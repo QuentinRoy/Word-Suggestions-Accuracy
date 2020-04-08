@@ -5,14 +5,20 @@
 package main
 
 import (
+	"controlAccuracy/suggestionServer/dictionary"
 	"flag"
 	"log"
+	"math"
 	"net/http"
-
-	"controlAccuracy/suggestionServer/dictionary"
+	"runtime"
 )
 
-var addr = flag.String("addr", ":8080", "http service address")
+var addr = flag.String("addr", ":8080", "HTTP service address")
+var totalParticipants = flag.Int(
+	"total-participants",
+	1,
+	"The number of expected maximum simultaneous participants. Use a value >0 to limit the resources allocated to each participant.",
+)
 
 func serveHome(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.URL)
@@ -30,12 +36,31 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 func main() {
 	flag.Parse()
 	dict := dictionary.LoadFromXML("./dictionary.xml")
-	// It is unclear why the hub is important at the moment, but we keept just in case.
+	// It is unclear why the hub is important at the moment, but we keep it just in case.
 	hub := newHub()
 	go hub.run()
-	http.HandleFunc("/", serveHome)
-	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		serveWs(hub, dict, w, r)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		upgrade := false
+		for _, header := range r.Header["Upgrade"] {
+			if header == "websocket" {
+				upgrade = true
+				break
+			}
+		}
+		if upgrade {
+			totalSuggestionRoutines := runtime.NumCPU()
+			if *totalParticipants > 0 {
+				totalSuggestionRoutines =
+					int(math.Max(
+						1,
+						math.Floor(float64(runtime.NumCPU()))/float64(*totalParticipants),
+					))
+			}
+
+			serveWs(hub, dict, totalSuggestionRoutines, w, r)
+		} else {
+			serveHome(w, r)
+		}
 	})
 	log.Printf("Server listening on %v\n", *addr)
 	err := http.ListenAndServe(*addr, nil)

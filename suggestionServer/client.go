@@ -5,7 +5,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"math"
 	"net/http"
 	"runtime"
 	"strconv"
@@ -77,19 +76,21 @@ type Client struct {
 }
 
 // NewClient creates a new client.
-func NewClient(hub *Hub, dict *dictionary.Dictionary, conn *websocket.Conn) *Client {
+func NewClient(
+	hub *Hub,
+	dict *dictionary.Dictionary,
+	conn *websocket.Conn,
+	totalSuggestionsRoutine int,
+) *Client {
 	return &Client{
-		hub:          hub,
-		dict:         dict,
-		conn:         conn,
-		send:         make(chan string),
-		startRequest: make(chan *request),
-		requestDone:  make(chan *request),
-		stop:         make(chan bool),
-		totalSuggestionsRoutine: int(math.Max(
-			1,
-			math.Floor(float64(runtime.NumCPU()))/(2*maxSimultaneousParticipants),
-		)),
+		hub:                     hub,
+		dict:                    dict,
+		conn:                    conn,
+		send:                    make(chan string),
+		startRequest:            make(chan *request),
+		requestDone:             make(chan *request),
+		stop:                    make(chan bool),
+		totalSuggestionsRoutine: totalSuggestionsRoutine,
 	}
 }
 
@@ -302,13 +303,19 @@ func (c *Client) writePump(send chan string) {
 }
 
 // serveWs handles websocket requests from the peer.
-func serveWs(hub *Hub, dict *dictionary.Dictionary, w http.ResponseWriter, r *http.Request) {
+func serveWs(
+	hub *Hub,
+	dict *dictionary.Dictionary,
+	totalSuggestionsRoutines int,
+	w http.ResponseWriter,
+	r *http.Request,
+) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	client := NewClient(hub, dict, conn)
+	client := NewClient(hub, dict, conn, totalSuggestionsRoutines)
 	go client.run()
 }
 

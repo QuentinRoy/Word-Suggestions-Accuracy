@@ -3,9 +3,8 @@
   <head>
     <title>Word Suggestions Test</title>
     <script type="text/javascript">
-      const serverAddress = `${
-        location.protocol === "https:" ? "wss" : "ws"
-      }://${document.location.host}/ws`;
+      const wsProtocol = location.protocol === "https:" ? "wss" : "ws";
+      const serverAddress = `${wsProtocol}://${document.location.host}`;
       const suggestionRequestType = "sreq";
       const suggestionResponseType = "sresp";
       const fieldSeparator = "|";
@@ -38,10 +37,10 @@
         const messagesElt = document.getElementById("messages");
         const targetWordInput = document.getElementById("target-word");
         const totalSuggestionsInput = document.getElementById(
-          "total-suggestions"
+          "total-suggestions",
         );
         const targetPositionsInput = document.getElementById(
-          "target-positions"
+          "target-positions",
         );
         const averageReqTimeElt = document.getElementById("avg-req-time");
         let conn = null;
@@ -91,8 +90,8 @@
               lastWord,
               totalSuggestionsInput.value,
               targetWordInput.value,
-              targetPositionsInput.value
-            ].join(fieldSeparator)
+              targetPositionsInput.value,
+            ].join(fieldSeparator),
           );
         }
 
@@ -104,7 +103,7 @@
             .replace(/[^0-9;\-]/g, "")
             .replace(
               new RegExp(`${suggestionSeparator}+`, "g"),
-              suggestionSeparator
+              suggestionSeparator,
             )
             .replace(new RegExp(`${suggestionSeparator}$`), "")
             .trim();
@@ -132,14 +131,14 @@
           // copied anyway).
           suggestions.push(
             ...Array.from({
-              length: totalSuggestions - suggestions.length
-            }).fill()
+              length: totalSuggestions - suggestions.length,
+            }).fill(),
           );
           suggestionsElt.innerHTML = suggestions
-            .map(sug =>
+            .map((sug) =>
               sug == null
                 ? `<div class="suggestion empty">&nbsp;</div>`
-                : `<div class="suggestion">${sug}</div>`
+                : `<div class="suggestion">${sug}</div>`,
             )
             .join("");
         }
@@ -159,7 +158,7 @@
 
         conn = new WebSocket(serverAddress);
 
-        conn.addEventListener("close", evt => {
+        conn.addEventListener("close", (evt) => {
           let item = document.createElement("div");
           item.innerHTML = `${logPrefix()}<b>Connection closed.</b>`;
           appendLog(item);
@@ -168,7 +167,7 @@
         });
 
         let lastAnswerNum = null;
-        conn.addEventListener("message", evt => {
+        conn.addEventListener("message", (evt) => {
           let parts = evt.data.split(fieldSeparator);
           if (parts[0] !== suggestionResponseType) {
             onError(`Received unknown message type: ${parts[0]}`);

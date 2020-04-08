@@ -4,6 +4,7 @@ import { registerAll } from "@hcikit/tasks";
 import { TaskTypes, Devices } from "../common/constants";
 import configLaptop from "./configuration-laptop.json";
 import configPhone from "./configuration-phone.json";
+import configTablet from "./configuration-tablet.json";
 import Crashed from "../common/components/Crashed";
 import TypingSpeedTask from "./TypingSpeedTask";
 import { WordSuggestionsProvider } from "../experiment/wordSuggestions/wordSuggestions";
@@ -41,27 +42,40 @@ if (
   localStorage.removeItem("state");
 }
 
-const baseConfig = {
-  ...(device === Devices.phone ? configPhone : configLaptop),
-  isTest,
-  participant,
+const getConfig = (startDate) => {
+  let baseConfig;
+  switch (device) {
+    case Devices.phone:
+      baseConfig = configPhone;
+      break;
+    case Devices.tablet:
+      baseConfig = configTablet;
+      break;
+    case Devices.laptop:
+      baseConfig = configLaptop;
+      break;
+    default:
+      throw new Error(`Unknown device: ${device}`);
+  }
+  // Add the target filename for every upload tasks.
+  const filename =
+    process.env.NODE_ENV === "development"
+      ? `typing-dev/${participant}-typing-${device}-${startDate}.json`
+      : `typing-prod/${participant}-typing-${device}-${startDate}.json`;
+  baseConfig.children = baseConfig.children.map((c) =>
+    c.task === TaskTypes.s3Upload ? { ...c, filename } : c
+  );
+  return {
+    ...baseConfig,
+    isTest,
+    participant,
+    startDate,
+  };
 };
-
-// Add the target filename for every upload tasks.
-const filename =
-  process.env.NODE_ENV === "development"
-    ? `typing-dev/${participant}-typing-${device}-${new Date().toISOString()}.json`
-    : `typing-prod/${participant}-typing-${device}-${new Date().toISOString()}.json`;
-baseConfig.children = baseConfig.children.map((c) =>
-  c.task === TaskTypes.s3Upload ? { ...c, filename } : c
-);
 
 export default function TypingTest() {
   const startDate = useRef(new Date());
-  const config = useMemo(
-    () => ({ ...baseConfig, startDate: startDate.current }),
-    []
-  );
+  const config = useMemo(() => getConfig(startDate.current), []);
   useBodyBackgroundColor("#EEE");
   if (device == null || participant == null || isTest == null) {
     return <Crashed>Invalid page arguments</Crashed>;

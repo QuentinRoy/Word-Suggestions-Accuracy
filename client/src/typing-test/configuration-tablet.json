@@ -1,0 +1,70 @@
+{
+  "device": "tablet",
+  "wave": "multi-device-typing-test",
+  "isVirtualKeyboardEnabled": true,
+  "children": [
+    {
+      "task": "InformationScreen",
+      "content": "<h1>Typing on tablet: Speed test</h1><p>Press continue when you are ready to start the test.</p>",
+      "key": "laptop-typing-speed-test"
+    },
+    {
+      "task": "TypingSpeedTask",
+      "children": [
+        {
+          "key": "tst0",
+          "id": "tst0",
+          "phrase": "he is just like everyone else"
+        },
+        {
+          "key": "tst1",
+          "id": "tst1",
+          "phrase": "great disturbance in the force"
+        },
+        {
+          "key": "tst2",
+          "id": "tst2",
+          "phrase": "love means many things"
+        },
+        {
+          "key": "tst3",
+          "id": "tst3",
+          "phrase": "you must be getting old"
+        },
+        {
+          "key": "tst4",
+          "id": "tst4",
+          "phrase": "the world is a stage"
+        },
+        {
+          "key": "tst5",
+          "id": "tst5",
+          "phrase": "neither a borrower nor a lender be"
+        },
+        {
+          "key": "tst6",
+          "id": "tst6",
+          "phrase": "one heck of a question"
+        },
+        {
+          "key": "tst7",
+          "id": "tst7",
+          "phrase": "the power of denial"
+        },
+        {
+          "key": "tst8",
+          "id": "tst8",
+          "phrase": "do not say anything"
+        },
+        {
+          "key": "tst9",
+          "id": "tst9",
+          "phrase": "yes you are very smart"
+        }
+      ]
+    },
+    { "task": "InjectEnd", "key": "inject-end", "id": "inject-end" },
+    { "task": "S3Upload", "key": "upload-laptop", "id": "upload-laptop" },
+    { "task": "Results", "key": "results", "id": "results" }
+  ]
+}

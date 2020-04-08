@@ -1,6 +1,6 @@
 const wsProtocolo = document.location.protocol === "https " ? "wss" : "ws";
-export const defaultSuggestionServerAddress = `${wsProtocolo}://${document.location.host}:8080`;
-export const defaultControlServerAddress = `${wsProtocolo}://${document.location.host}:9090`;
+export const defaultSuggestionServerAddress = `${wsProtocolo}://${document.location.hostname}:8080`;
+export const defaultControlServerAddress = `${wsProtocolo}://${document.location.hostname}:9090`;
 
 export const KeyboardLayoutNames = Object.freeze({
   default: "default",

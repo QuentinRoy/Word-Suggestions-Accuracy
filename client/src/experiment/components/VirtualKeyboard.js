@@ -54,6 +54,12 @@ const tabletKeyboardProps = Object.freeze({
       "{shift} z x c v b n m {shift}",
       "{numbers} {space} {numbers}",
     ],
+    [KeyboardLayoutNames.shift]: [
+      "Q W E R T Y U I O P {bksp}",
+      "A S D F G H J K L {enter}",
+      "{shift} Z X C V B N M {shift}",
+      "{numbers} {space} {numbers}",
+    ],
   },
 });
 

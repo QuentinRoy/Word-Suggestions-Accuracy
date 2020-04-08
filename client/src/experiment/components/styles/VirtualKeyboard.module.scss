@@ -66,8 +66,7 @@ $button-height: 60px;
       @include disabled();
     }
   }
-  &.phone .vkTheme :global(.hg-standardBtn.hg-activeButton)
-  {
+  &.phone .vkTheme :global(.hg-standardBtn.hg-activeButton) {
     background-color: white;
     z-index: 10;
     transform: translate(0, calc(-3px - #{$button-height})) scale(1.2);
@@ -79,7 +78,7 @@ $button-height: 60px;
       justify-content: flex-end;
     }
     :global(.hg-button-bksp) {
-      min-width: 75px;
+      min-width: 100px;
     }
     :global(.hg-button-enter) {
       max-width: 130px;

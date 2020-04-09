@@ -5,6 +5,7 @@ import {
   KeyboardLayoutNames,
   SuggestionTypes,
   FocusTargetTypes,
+  defaultMinSuggestionDelay,
 } from "../../common/constants";
 import "react-simple-keyboard/build/css/index.css";
 import useActionScheduler from "./useActionScheduler";
@@ -38,6 +39,19 @@ const instantActions = [
   Actions.updateSuggestions,
 ];
 
+// **********
+//  Utils
+// **********
+
+const wait = (delay) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, delay);
+  });
+
+const minDelay = (promise, delay) => {
+  return Promise.all([promise, wait(delay)]).then(([res]) => res);
+};
+
 // ******
 //  HOOK
 // ******
@@ -55,6 +69,7 @@ const useTrial = ({
   totalKss,
   sdWordsKss,
   onLog,
+  minSuggestionDelay = defaultMinSuggestionDelay,
   getEventLog = defaultGetEventLog,
   getTrialLog = defaultGetTrialLog,
   reducer: controlInversionReducer = defaultControlInversionReducer,
@@ -185,18 +200,23 @@ const useTrial = ({
   );
 
   const { requestSuggestions } = useSuggestions();
+  const minSuggestionDelayRef = useRef();
+  minSuggestionDelayRef.current = minSuggestionDelay;
 
   // This is ugly, we would want to request the suggestions when receiving the
   // action instead of waiting for the next render... But it works good enough.
   useEffect(() => {
     if (totalSuggestions <= 0) return;
     const requestTime = new Date();
-    requestSuggestions({
-      totalSuggestions,
-      sksDistribution,
-      input,
-      canReplaceLetters: suggestionsType === SuggestionTypes.bar,
-    }).then(
+    minDelay(
+      requestSuggestions({
+        totalSuggestions,
+        sksDistribution,
+        input,
+        canReplaceLetters: suggestionsType === SuggestionTypes.bar,
+      }),
+      minSuggestionDelayRef.current
+    ).then(
       (newSuggestions) => {
         dispatchWrapper({
           requestInput: input,

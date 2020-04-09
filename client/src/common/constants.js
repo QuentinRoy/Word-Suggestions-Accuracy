@@ -135,3 +135,5 @@ export const UserRoles = Object.freeze({
   moderator: "moderator",
   participant: "participant",
 });
+
+export const defaultMinSuggestionDelay = 200; // in ms.

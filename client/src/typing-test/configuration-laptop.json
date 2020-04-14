@@ -3,6 +3,11 @@
   "wave": "multi-device-typing-test",
   "children": [
     {
+      "task": "MeasureDisplay",
+      "rulersOrientation": "vertical",
+      "key": "laptop-measure-display"
+    },
+    {
       "task": "InformationScreen",
       "content": "<h1>Typing on laptop: Speed test</h1><p>Press continue when you are ready to start the test.</p>",
       "key": "laptop-typing-speed-test"

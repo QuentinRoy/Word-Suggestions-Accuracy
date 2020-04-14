@@ -3,6 +3,11 @@
   "wave": "multi-device-typing-test",
   "children": [
     {
+      "task": "MeasureDisplay",
+      "rulersOrientation": "horizontal",
+      "key": "phone-measure-display"
+    },
+    {
       "task": "InformationScreen",
       "content": "Typing on phone: Speed test",
       "key": "phone-typing-speed-test"

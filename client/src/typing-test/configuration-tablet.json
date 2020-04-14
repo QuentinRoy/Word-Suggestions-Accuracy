@@ -4,6 +4,11 @@
   "isVirtualKeyboardEnabled": true,
   "children": [
     {
+      "task": "MeasureDisplay",
+      "rulersOrientation": "vertical",
+      "key": "tablet-measure-display"
+    },
+    {
       "task": "InformationScreen",
       "content": "<h1>Typing on tablet: Speed test</h1><p>Press continue when you are ready to start the test.</p>",
       "key": "laptop-typing-speed-test"

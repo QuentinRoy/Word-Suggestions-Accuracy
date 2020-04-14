@@ -1,5 +1,6 @@
 import React, { useRef, useLayoutEffect, useState } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import MeasureDisplayView, {
   Directions,
 } from "@quentinroy/measure-display-view";
@@ -53,7 +54,11 @@ export default function MeasureDisplayTask({
 
   return (
     <TaskPaper>
-      <div className={style.main}>
+      <div
+        className={classNames(style.main, {
+          [style.horizontal]: rulersOrientation === Directions.horizontal,
+        })}
+      >
         <h1>Display Size</h1>
         <div>
           Drag the blue line below to precisely fit the size of a credit card.

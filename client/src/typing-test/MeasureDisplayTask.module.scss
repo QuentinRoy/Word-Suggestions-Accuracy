@@ -3,7 +3,13 @@
 }
 
 .main .measureView {
-  margin: 1em;
+  margin-right: -2em;
+  padding-right: 2em;
+  overflow: hidden;
+}
+
+.main.horizontal .measureView {
+  max-width: calc(100vw - 4em);
 }
 
 .main .controls {

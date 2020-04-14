@@ -12,9 +12,11 @@ import UploadTask from "../experiment/components/UploadTask";
 import InjectEnd from "../experiment/components/InjectEnd";
 import ResultsTask from "./ResultsTask";
 import useBodyBackgroundColor from "../common/hooks/useBodyBackgroundColor";
+import MeasureDisplayTask from "./MeasureDisplayTask";
 
 registerAll(registerTask);
 registerTask(TaskTypes.injectEnd, InjectEnd);
+registerTask(TaskTypes.measureDisplay, MeasureDisplayTask);
 registerTask(TaskTypes.s3Upload, UploadTask);
 registerTask(TaskTypes.typingSpeedTask, TypingSpeedTask);
 registerTask(TaskTypes.results, ResultsTask);

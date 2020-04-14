@@ -5,5 +5,5 @@
 
 .paperWrapper {
   place-self: center;
-  width: 800px;
+  min-width: 800px;
 }

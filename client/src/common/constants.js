@@ -70,6 +70,7 @@ export const TaskTypes = Object.freeze({
   finalFeedbacks: "FinalFeedbacks",
   injectEnd: "InjectEnd",
   fullScreenRequest: "FullScreenRequest",
+  measureDisplay: "MeasureDisplay",
 
   // Typing test-only tasks.
   typingSpeedTask: "TypingSpeedTask",

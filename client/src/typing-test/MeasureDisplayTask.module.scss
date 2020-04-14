@@ -1,0 +1,13 @@
+.main > div {
+  margin: 1em 0;
+}
+
+.main .measureView {
+  margin: 1em;
+}
+
+.main .controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

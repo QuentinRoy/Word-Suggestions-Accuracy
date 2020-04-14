@@ -13,11 +13,11 @@ const addUnusableSentences = false;
 
 const numberOfWordSuggestions = 3;
 
-const sentencesPath = path.join(__dirname, "../../public/sentences.txt");
-const outputDirPath = path.join(__dirname, "../../public/sks-distributions");
+const sentencesPath = path.join(__dirname, "../../data/sentences.txt");
+const outputDirPath = path.join(__dirname, "../../data/sks-distributions");
 const transitionMatrixPath = path.join(
   __dirname,
-  `../../public/transition-matrix-${numberOfWordSuggestions}.csv`
+  `../../data/transition-matrix-${numberOfWordSuggestions}.csv`
 );
 const targetFilePrefix = "acc-";
 
@@ -31,15 +31,15 @@ const configs = (() => {
       targetSdWordsKss,
       numberOfWordSuggestions,
       maxDiffKss,
-      maxDiffSdWordsKss: targetSdWordsKss
+      maxDiffSdWordsKss: targetSdWordsKss,
     },
     ...uniq([...range(0.1, 1, 0.2), ...range(0.25, 1, 0.25)]).map(
-      targetKss => ({
+      (targetKss) => ({
         targetKss,
         numberOfWordSuggestions,
         targetSdWordsKss,
         maxDiffKss,
-        maxDiffSdWordsKss
+        maxDiffSdWordsKss,
       })
     ),
     {
@@ -47,12 +47,12 @@ const configs = (() => {
       targetSdWordsKss,
       maxDiffKss,
       numberOfWordSuggestions,
-      maxDiffSdWordsKss: targetSdWordsKss
-    }
+      maxDiffSdWordsKss: targetSdWordsKss,
+    },
   ];
 })();
 
-const getTargetFileName = kss => `${targetFilePrefix}${kss.toFixed(3)}.json`;
+const getTargetFileName = (kss) => `${targetFilePrefix}${kss.toFixed(3)}.json`;
 
 const generateDistribution = async (sentences, transitionMatrix, config) => {
   const { targetKss, targetSdWordsKss, maxDiffKss, maxDiffSdWordsKss } = config;
@@ -73,7 +73,7 @@ const generateDistribution = async (sentences, transitionMatrix, config) => {
       rows.push(
         mapCorrectSuggestionPositions(transitionMatrix, {
           ...accuracyDistribution,
-          usable
+          usable,
         })
       );
     }
@@ -92,13 +92,13 @@ const main = async () => {
     fs.readFile(sentencesPath, "utf-8"),
     fs
       .readFile(transitionMatrixPath, "utf-8")
-      .then(data => TransitionMatrix.parse(data))
+      .then((data) => TransitionMatrix.parse(data)),
   ]);
 
   const sentences = file
     .split("\n")
-    .map(s => s.trim())
-    .filter(s => s !== "");
+    .map((s) => s.trim())
+    .filter((s) => s !== "");
 
   log.info(`${sentences.length} sentences found in ${sentencesPath}.`);
 
@@ -118,5 +118,5 @@ const main = async () => {
 };
 
 if (require.main === module) {
-  main().catch(err => log.error(err));
+  main().catch((err) => log.error(err));
 }

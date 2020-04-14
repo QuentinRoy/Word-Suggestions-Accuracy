@@ -17,16 +17,17 @@ const accuracyValues = [0.1, 0.5, 0.9];
 const devices = ["phone", "laptop", "tablet"];
 const doNotShowDelayInstructions = true;
 const publicDir = path.join(__dirname, "../../public");
-const sksDistributionsDir = path.join(publicDir, "sks-distributions");
+const dataDir = path.join(__dirname, "../../data");
+const sksDistributionsDir = path.join(dataDir, "sks-distributions");
 const outputDir = path.join(publicDir, "configs");
 
-const getSksDistributionPath = accuracy =>
+const getSksDistributionPath = (accuracy) =>
   path.join(sksDistributionsDir, `acc-${accuracy.toFixed(3)}.json`);
 
 const getRunOutputPath = (config, device) =>
   path.join(outputDir, `${config}-${device}.json`);
 
-const createConfigurationId = configNumber => `C${configNumber}`;
+const createConfigurationId = (configNumber) => `C${configNumber}`;
 
 const minify = (str, opts = {}) => {
   return htmlMinifier.minify(str, {
@@ -34,7 +35,7 @@ const minify = (str, opts = {}) => {
     collapseInlineTagWhitespace: true,
     collapseWhitespace: true,
     keepClosingSlash: true,
-    ...opts
+    ...opts,
   });
 };
 
@@ -47,16 +48,16 @@ const createInitBlock = ({ firstDevice }) => {
       content: minify(
         `Let's start with a short tutorial demonstrating your task.`
       ),
-      key: `info-tuto`
+      key: `info-tuto`,
     },
     {
       task: "Tutorial",
       isPractice: true,
       isVirtualKeyboardEnabled: false,
       key: `tuto`,
-      id: `tuto`
+      id: `tuto`,
     },
-    { task: "S3Upload", key: `init-upload` }
+    { task: "S3Upload", key: `init-upload` },
   ];
   if (firstDevice !== "laptop") {
     children.push({
@@ -68,7 +69,7 @@ const createInitBlock = ({ firstDevice }) => {
           before you are told to switch to the laptop again.
         </p>
       `),
-      key: `info-first-switch`
+      key: `info-first-switch`,
     });
   }
   return { device: "laptop", children };
@@ -79,13 +80,13 @@ const createTypingBlock = ({
   nextDevice = "laptop",
   phrases,
   practicePhrases,
-  isDoneAfter = false
+  isDoneAfter = false,
 }) => {
   const children = [
     {
       task: "InformationScreen",
       content: minify(`<h1>Typing on ${device}: Practice</h1>`),
-      key: `typing-${device}-info-practice-start`
+      key: `typing-${device}-info-practice-start`,
     },
     // Insert practice trials.
     ...practicePhrases.map(({ words, ...props }, i) => ({
@@ -94,7 +95,7 @@ const createTypingBlock = ({
       sksDistribution: words,
       isPractice: true,
       id: `typing-${device}-practice-${i}`,
-      key: `typing-${device}-practice-${i}`
+      key: `typing-${device}-practice-${i}`,
     })),
     {
       task: "InformationScreen",
@@ -109,7 +110,7 @@ const createTypingBlock = ({
           Remember to complete every task as fast and accurately as you can.
         </p>
       `),
-      key: `typing-${device}-info-typing-start`
+      key: `typing-${device}-info-typing-start`,
     },
     // Insert measured trials.
     ...phrases.map(({ words, ...props }, i) => ({
@@ -118,10 +119,10 @@ const createTypingBlock = ({
       isPractice: false,
       sksDistribution: words,
       id: `typing-${device}-phrase-${i}`,
-      key: `typing-${device}-phrase-${i}`
+      key: `typing-${device}-phrase-${i}`,
     })),
     { task: "BlockQuestionnaire", key: `typing-questionnaire-${device}` },
-    { task: "S3Upload", key: `typing-upload-${device}` }
+    { task: "S3Upload", key: `typing-upload-${device}` },
   ];
   if (isDoneAfter) {
     children.push({ task: "InjectEnd", key: `final-inject-end` });
@@ -136,7 +137,7 @@ const createTypingBlock = ({
           before you are told to switch to the ${device} again.
         </p>
       `),
-      key: `typing-${device}-info-typing-end`
+      key: `typing-${device}-info-typing-end`,
     });
   } else if (nextDevice !== device) {
     children.push({
@@ -145,13 +146,13 @@ const createTypingBlock = ({
         <p>You are now done with this device</p>
         <p>Switch to the ${nextDevice}.</p>
       `),
-      key: `typing-${device}-info-typing-end`
+      key: `typing-${device}-info-typing-end`,
     });
   }
   return {
     device,
     children,
-    isVirtualKeyboardEnabled: device === "phone" || device === "tablet"
+    isVirtualKeyboardEnabled: device === "phone" || device === "tablet",
   };
 };
 
@@ -172,7 +173,7 @@ const createTypingBlocks = async ({ deviceOrder, accuracy }) => {
         corpusStart + numberOfPracticeTasks,
         corpusStart + numberOfPracticeTasks + numberOfTypingTasks
       ),
-      isDoneAfter: device !== "laptop"
+      isDoneAfter: device !== "laptop",
     });
   });
 };
@@ -183,8 +184,8 @@ const createFinalBlock = () => ({
     { task: "FinalFeedbacks", key: `final-feedbacks` },
     { task: "InjectEnd", key: `final-inject-end` },
     { task: "S3Upload", key: `final-upload` },
-    { task: "EndExperiment", key: `final-end` }
-  ]
+    { task: "EndExperiment", key: `final-end` },
+  ],
 });
 
 // Putting this here to avoid requesting for every run.
@@ -213,8 +214,8 @@ const createRun = async ({ accuracy, deviceOrder, configId }) => {
     children: [
       await createInitBlock({ firstDevice: deviceOrder[0] }),
       ...(await createTypingBlocks({ deviceOrder, accuracy })),
-      await createFinalBlock()
-    ]
+      await createFinalBlock(),
+    ],
   };
 };
 
@@ -237,21 +238,21 @@ const createDesign = async () => {
           createRun({
             accuracy,
             deviceOrder,
-            configId: cid
-          }).then(run => {
+            configId: cid,
+          }).then((run) => {
             // Split the run into three different files, one for each device.
             // Each of these config files contain only the tasks specific
             // to that device.
             return Promise.all(
-              ["laptop", "phone", "tablet"].map(async device => {
+              ["laptop", "phone", "tablet"].map(async (device) => {
                 await fs.writeFile(
                   getRunOutputPath(cid, device),
                   JSON.stringify({
                     ...run,
                     device,
                     children: run.children
-                      .filter(child => child.device === device)
-                      .map(({ device: _, ...child }) => child)
+                      .filter((child) => child.device === device)
+                      .map(({ device: _, ...child }) => child),
                   })
                 );
                 log.info(`${cid} written.`);

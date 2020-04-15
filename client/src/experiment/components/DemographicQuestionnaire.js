@@ -27,8 +27,16 @@ const questions = {
     answers: agreementScaleAnswers,
     isAnswerRequired: true,
   },
-  suggestionsUseFrequencyMobile: {
-    text: "I frequently use word suggestions when typing on a mobile phone.",
+  suggestionsUseFrequencyTablet: {
+    text:
+      "I frequently use word suggestions when typing on a touch tablet without a physical keyboard.",
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true,
+  },
+  suggestionsUseFrequencyPhone: {
+    text: "I frequently use word suggestions when typing on a phone.",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
     answers: agreementScaleAnswers,

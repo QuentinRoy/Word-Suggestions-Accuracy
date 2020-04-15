@@ -40,6 +40,7 @@ export default function QuestionnaireTask({
     validate,
     onSubmit: () => {
       onLog("log", values);
+      onLog("questions", questions);
       onAdvanceWorkflow();
     },
   });

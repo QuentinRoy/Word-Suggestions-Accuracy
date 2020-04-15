@@ -10,15 +10,24 @@ const ExperimenterStartup = () => {
 
   return (
     <div className={style.main}>
-      <div className={style.area}>
-        <PreviousState />
-      </div>
-      <div className={style.area}>
-        <StartForm />
-      </div>
-      <div className={style.area}>
-        <ControlServer />
-      </div>
+      <section className={style.content}>
+        <div className={style.area}>
+          <PreviousState />
+        </div>
+        <div className={style.area}>
+          <StartForm />
+        </div>
+        <div className={style.area}>
+          <ControlServer />
+        </div>
+      </section>
+      <footer className={style.footer}>
+        v{process.env.REACT_APP_VERSION} (
+        {process.env.REACT_APP_GIT_SHA
+          ? process.env.REACT_APP_GIT_SHA
+          : "git SHA unknown"}
+        )
+      </footer>
     </div>
   );
 };

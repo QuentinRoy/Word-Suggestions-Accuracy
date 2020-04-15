@@ -10,10 +10,8 @@ const getPreviousState = () => {
   return JSON.parse(previousState);
 };
 
-const previousState = getPreviousState();
-
 const PreviousState = () => {
-  const [storageState, setStorageState] = useState(previousState);
+  const [storageState, setStorageState] = useState(getPreviousState);
 
   const clearState = () => {
     localStorage.removeItem(localStorageStateKey);

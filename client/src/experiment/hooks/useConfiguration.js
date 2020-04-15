@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { LoadingStates } from "../../common/constants";
+import { LoadingStates, TaskTypes } from "../../common/constants";
 import getTimeZone from "../../common/utils/getTimeZone";
 import useJSON from "../../common/hooks/useJson";
 
@@ -38,7 +38,7 @@ const useConfiguration = ({ participant, device, isTest, config }) => {
       // This is not much useful since the last experiment is run locally,
       // but I left it here for the sake of consistency.
       timeZone,
-      S3Upload: {
+      [TaskTypes.s3Upload]: {
         filename:
           process.env.NODE_ENV === "development"
             ? `dev/${participant}-${device}-${startDate.toISOString()}.json`

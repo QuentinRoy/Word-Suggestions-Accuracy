@@ -60,18 +60,17 @@ const getConfig = (startDate) => {
       throw new Error(`Unknown device: ${device}`);
   }
   // Add the target filename for every upload tasks.
-  const filename =
-    process.env.NODE_ENV === "development"
-      ? `typing-dev/${participant}-typing-${device}-${startDate}.json`
-      : `typing-prod/${participant}-typing-${device}-${startDate}.json`;
-  baseConfig.children = baseConfig.children.map((c) =>
-    c.task === TaskTypes.s3Upload ? { ...c, filename } : c
-  );
   return {
     ...baseConfig,
     isTest,
     participant,
     startDate,
+    [TaskTypes.s3Upload]: {
+      filename:
+        process.env.NODE_ENV === "development"
+          ? `typing-dev/${participant}-typing-${device}-${startDate.toISOString()}.json`
+          : `typing-prod/${participant}-typing-${device}-${startDate.toISOString()}.json`,
+    },
   };
 };
 

@@ -4,6 +4,7 @@ import getTimeZone from "../../common/utils/getTimeZone";
 import useJSON from "../../common/hooks/useJson";
 
 const timeZone = getTimeZone();
+const timeZoneOffset = new Date().getTimezoneOffset();
 
 const useConfiguration = ({ participant, device, isTest, config }) => {
   const areArgsIncomplete =
@@ -38,6 +39,7 @@ const useConfiguration = ({ participant, device, isTest, config }) => {
       // This is not much useful since the last experiment is run locally,
       // but I left it here for the sake of consistency.
       timeZone,
+      timeZoneOffset,
       [TaskTypes.s3Upload]: {
         filename:
           process.env.NODE_ENV === "development"

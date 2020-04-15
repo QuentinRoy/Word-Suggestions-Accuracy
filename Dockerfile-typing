@@ -1,4 +1,4 @@
-FROM node:13.12.0-slim AS build
+FROM node:13.13.0-slim AS build
 WORKDIR /app/client
 COPY ./client .
 RUN npm install --production
@@ -6,7 +6,7 @@ RUN GENERATE_SOURCEMAP=false npx react-scripts build
 
 # Use multi-stage build, to get rid of the client's dependencies once it has
 # been built. 
-FROM node:13.12.0-slim
+FROM node:13.13.0-slim
 WORKDIR /app/server
 COPY ./control-server .
 COPY --from=0 /app/client/build /app/client

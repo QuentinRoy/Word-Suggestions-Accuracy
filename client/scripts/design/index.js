@@ -33,6 +33,7 @@ const minify = (str, opts = {}) => {
   return htmlMinifier.minify(str, {
     collapseBooleanAttributes: true,
     collapseInlineTagWhitespace: true,
+    conservativeCollapse: true,
     collapseWhitespace: true,
     keepClosingSlash: true,
     ...opts,
@@ -75,6 +76,45 @@ const createInitBlock = ({ firstDevice }) => {
   return { device: "laptop", children };
 };
 
+const TypingInfo = ({ device }) => {
+  switch (device) {
+    case "laptop":
+      return {
+        task: "InformationScreen",
+        content: minify(`
+          <h1>Typing on ${device}: Practice</h1>
+          <p>You may use the keys 1, 2, and 3 to accept suggestions.</p>
+        `),
+        key: `typing-${device}-info-practice-start`,
+      };
+    case "tablet":
+      return {
+        task: "InformationScreen",
+        content: minify(`
+          <h1>Typing on ${device}: Practice</h1>
+          <p>Lay your tablet flat on a table. Orient it in <strong>landscape</strong> position.</p>
+          <p>You may tap on a suggestion to accept it.</p>
+        `),
+        key: `typing-${device}-info-practice-start`,
+      };
+    case "phone":
+      return {
+        task: "InformationScreen",
+        content: minify(`
+          <h1>Typing on ${device}: Practice</h1>
+          <p>
+            Hold your phone <strong>with only one hand</strong>.
+            Do not use your second hand during the typing tasks.
+          </p>
+          <p>You may tap on a suggestion to accept it.</p>
+        `),
+        key: `typing-${device}-info-practice-start`,
+      };
+    default:
+      throw new Error(`Unknown device: ${device}`);
+  }
+};
+
 const createTypingBlock = ({
   device,
   nextDevice = "laptop",
@@ -83,11 +123,7 @@ const createTypingBlock = ({
   isDoneAfter = false,
 }) => {
   const children = [
-    {
-      task: "InformationScreen",
-      content: minify(`<h1>Typing on ${device}: Practice</h1>`),
-      key: `typing-${device}-info-practice-start`,
-    },
+    TypingInfo({ device }),
     // Insert practice trials.
     ...practicePhrases.map(({ words, ...props }, i) => ({
       ...props,

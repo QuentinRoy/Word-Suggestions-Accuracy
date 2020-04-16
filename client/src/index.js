@@ -22,9 +22,7 @@ const ParticipantStartup = lazy(() =>
   import("./participant-startup/ParticipantStartup")
 );
 
-const ExperimenterStartup = lazy(() =>
-  import("./experimenter-startup/ExperimenterStartup")
-);
+const Moderation = lazy(() => import("./moderation/Moderation"));
 
 const TypingTest = lazy(() => import("./typing-test/TypingTest"));
 
@@ -52,7 +50,7 @@ ReactDOM.render(
 
         <Route exact path="/moderation">
           <DocumentTitle title="Experimenter Dashboard">
-            <ExperimenterStartup />
+            <Moderation />
           </DocumentTitle>
         </Route>
 

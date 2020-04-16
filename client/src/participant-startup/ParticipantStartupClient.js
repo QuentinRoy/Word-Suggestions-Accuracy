@@ -92,7 +92,7 @@ export default function ParticipantStartupClient({
       controlClient.state === LoadingStates.loaded &&
       registrationStatus.state === "waiting"
     ) {
-      controlClient.setInfo({ participant, device }).then(
+      controlClient.setInfo({ participant, device, activity: "waiting" }).then(
         () => {
           dispatch({ type: "registered" });
         },

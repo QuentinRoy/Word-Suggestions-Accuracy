@@ -15,17 +15,6 @@
   flex-wrap: wrap;
 }
 
-.content .area {
-  width: 500px;
-  border-style: solid #ddd;
-  border-color: #ddd;
-  padding: 0 1em;
-  border-radius: 5px;
-  border-width: 1px;
-  margin: 1em;
-  background-color: white;
-}
-
 .footer {
   text-align: center;
   color: #838383;

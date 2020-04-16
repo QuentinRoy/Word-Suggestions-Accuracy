@@ -34,6 +34,8 @@ const useControlClient = ({ onCommand } = {}) => {
           info,
         }),
       clearInfo: () => send({ type: MessageTypes.unregister }),
+      sendLog: (type, content) =>
+        send({ type: MessageTypes.log, log: { type, content } }),
     }),
     [mergedState, send]
   );

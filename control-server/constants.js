@@ -1,5 +1,3 @@
-export const MODERATOR_ROLE = "moderator";
-export const PARTICIPANT_ROLE = "participant";
 export const DEFAULT_PONG_DURATION = 30000;
 export const DEFAULT_RESPONSE_TIMEOUT = 5000;
 export const DEFAULT_STATIC_FILES = "./static";
@@ -11,7 +9,10 @@ export const MessageTypes = Object.freeze({
   register: "register",
   unregister: "unregister",
   error: "error",
-  clientUpdate: "client-update",
+  setClients: "set-clients",
+  clearLogs: "clear-logs",
+  setLogs: "set-logs",
+  log: "log",
 });
 
 export const UserRoles = Object.freeze({

@@ -2,19 +2,24 @@ import React, { useState } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import ControlServerLogin from "./ControlServerLogin";
-import ControlServerForm from "./ControlServerForm";
-import useControlServer, { LogInStates } from "./useControlServer";
+import Logs from "./Logs";
+import useControlServer from "./useControlServer";
+import { LogInStates } from "../common/constants";
+import Area from "./Area";
+import RemoteStartup from "./RemoteStartup";
 
 function Alert(props) {
   // eslint-disable-next-line react/jsx-props-no-spreading
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function ControlServer() {
+export default function RemoteModeration() {
   const {
     loadingState,
     logInState,
     logIn,
+    logs,
+    clearLogs,
     clients,
     startApp,
   } = useControlServer();
@@ -25,28 +30,30 @@ export default function ControlServer() {
   };
 
   if (logInState === LogInStates.loggedIn) {
+    const handleStartApp = (...args) => {
+      startApp(...args).then(
+        () =>
+          setSnack({
+            message: "App started",
+            severity: "success",
+            isOpened: true,
+          }),
+        (error) =>
+          setSnack({
+            message: error.message,
+            severity: "error",
+            isOpened: true,
+          })
+      );
+    };
     return (
       <>
-        <h2>Remote Startup</h2>
-        <ControlServerForm
-          clients={clients}
-          startApp={(...args) => {
-            startApp(...args).then(
-              () =>
-                setSnack({
-                  message: "App started",
-                  severity: "success",
-                  isOpened: true,
-                }),
-              (error) =>
-                setSnack({
-                  message: error.message,
-                  severity: "error",
-                  isOpened: true,
-                })
-            );
-          }}
-        />
+        <Area>
+          <RemoteStartup clients={clients} onStartApp={handleStartApp} />
+        </Area>
+        <Area maxHeight={500}>
+          <Logs logs={logs} onClear={clearLogs} />
+        </Area>
         <Snackbar open={snack.isOpened} onClose={handleSnackClose}>
           <Alert
             onClose={handleSnackClose}
@@ -60,13 +67,13 @@ export default function ControlServer() {
   }
 
   return (
-    <>
-      <h2>Remote Startup</h2>
+    <Area>
+      <h2>Login</h2>
       <ControlServerLogin
         onLogin={(...args) => logIn(...args)}
         serverState={loadingState}
       />
-    </>
+    </Area>
   );
 }
-ControlServer.propTypes = {};
+RemoteModeration.propTypes = {};

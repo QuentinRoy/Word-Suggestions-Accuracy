@@ -1,16 +1,15 @@
 import lodash from "lodash";
 import Joi from "@hapi/joi";
-import {
-  MODERATOR_ROLE,
-  DEFAULT_RESPONSE_TIMEOUT,
-  UserRoles,
-} from "./constants.js";
+import { DEFAULT_RESPONSE_TIMEOUT, UserRoles } from "./constants.js";
 import {
   ValidationError,
   UnauthorizedError,
   InvalidMessageError,
 } from "./errors.js";
+import loglevel from "loglevel";
 import { MessageTypes } from "./constants.js";
+
+const log = loglevel.getLogger("api");
 
 export async function handleMessage(data, client, context) {
   let msg;
@@ -30,11 +29,11 @@ export async function handleMessage(data, client, context) {
 }
 
 export function handleConnection(client, context) {
-  updateModerators(context);
+  setModeratorsClients(context);
 }
 export function handleClose(client, context) {
   rejectClientResponses(client);
-  updateModerators(context);
+  setModeratorsClients(context);
 }
 
 const messageIdShema = () => Joi.alternatives().try(Joi.string(), Joi.number());
@@ -48,7 +47,7 @@ function addHandler(name, schema, handler, requiredRoles) {
   }
   messageHandlers[name] = (message, client, ...args) => {
     if (requiredRoles != null && !requiredRoles.includes(client.role)) {
-      throw new UnauthorizedError(validation.error);
+      throw new UnauthorizedError(`Not allowed`);
     }
     let validation = schema.validate(lodash.omit(message, ["type", "id"]));
     if (validation.error != null) throw new ValidationError(validation.error);
@@ -70,7 +69,10 @@ addHandler(
     client.role = role;
     client.info = info;
     // No need to wait for that.
-    updateModerators(context);
+    setModeratorsClients(context);
+    if (role === UserRoles.moderator) {
+      setModeratorLogs(client);
+    }
   }
 );
 
@@ -78,7 +80,7 @@ addHandler(MessageTypes.unregister, Joi.any(), (_, client, context) => {
   client.role = null;
   client.info = null;
   // No need to wait for that.
-  updateModerators(context);
+  setModeratorsClients(context);
 });
 
 addHandler(
@@ -90,26 +92,95 @@ addHandler(
     const id = targetClient.send({ ...args, type: MessageTypes.command });
     return waitForResponse(id, targetClient);
   },
-  [MODERATOR_ROLE]
+  [UserRoles.moderator]
 );
 
-async function updateModerators({ clients }) {
+let logs = [];
+
+addHandler(
+  MessageTypes.log,
+  Joi.object({
+    log: Joi.object({
+      content: Joi.any(),
+      type: Joi.string(),
+    }).required(),
+  }),
+  ({ log }, client, context) => {
+    const newLog = { ...log, client, date: new Date() };
+    logs.push(newLog);
+
+    // Send the new log to all moderators, but do not wait for it.
+    const message = {
+      log: { ...newLog, client: exportClient(newLog.client) },
+      type: MessageTypes.log,
+    };
+    for (let client of context.clients.values()) {
+      if (client.role !== UserRoles.moderator) continue;
+      const messageId = client.send(message);
+      waitForResponse(messageId, client).catch((error) => {
+        log.error(
+          `Could not send new log to moderator ${client.id}: ${error.message}`
+        );
+      });
+    }
+  }
+);
+
+addHandler(
+  MessageTypes.setLogs,
+  Joi.object({
+    logs: Joi.array()
+      .items(Joi.object({ content: Joi.object().required() }))
+      .required(),
+  }),
+  (message, client, context) => {
+    logs = message.logs;
+    setModeratorsLogs(context);
+  },
+  [UserRoles.moderator]
+);
+
+async function setModeratorsLogs(context, _logs = logs.map(exportLog)) {
+  await Promise.all(
+    [...context.clients.values()]
+      .filter((client) => client.role === UserRoles.moderator)
+      .map((moderator) => setModeratorLogs(moderator, _logs))
+  );
+}
+
+async function setModeratorLogs(moderator, _logs = logs.map(exportLog)) {
+  let messageId = moderator.send({ type: MessageTypes.setLogs, logs: _logs });
+  await waitForResponse(messageId, moderator).catch((error) => {
+    log.error(`Could not update moderator ${moderator.id}: ${error.message}`);
+  });
+}
+
+async function setModeratorsClients({ clients }) {
   const clientList = [...clients.values()];
-  let baseMessage = {
-    type: MessageTypes.clientUpdate,
-    clients: clientList.map((c) => lodash.pick(c, "id", "role", "info")),
+  let message = {
+    type: MessageTypes.setClients,
+    clients: clientList.map(exportClient),
   };
   await Promise.all(
     clientList
-      .filter((client) => client.role === MODERATOR_ROLE)
-      .map((client) => {
-        const id = client.generateMessageId();
-        client.socket.send(JSON.stringify({ ...baseMessage, id }));
-        return waitForResponse(id, client).catch((error) => {
-          console.error(`Could not update moderator: ${error.message}`);
+      .filter((client) => client.role === UserRoles.moderator)
+      .map((moderator) => {
+        const messageId = moderator.send(message);
+        return waitForResponse(messageId, moderator).catch((error) => {
+          log.error(
+            `Could not update moderator ${moderator.id}: ${error.message}`
+          );
         });
       })
   );
+}
+
+function exportClient(client) {
+  return lodash.pick(client, "id", "role", "info");
+}
+
+function exportLog(log) {
+  return { ...log, client: exportClient(log.client) };
 }
 
 function handleError(message, error, client) {

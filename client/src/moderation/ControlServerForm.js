@@ -9,6 +9,7 @@ import useUniqueId from "../common/hooks/useUniqueId";
 import FormErrorMessage from "../common/components/FormErrorMessage";
 import style from "./ControlServerForm.module.css";
 import { Devices, UserRoles } from "../common/constants";
+import Info from "./Info";
 
 const isBlank = (value) => value == null || value === "";
 
@@ -27,6 +28,22 @@ const validate = (participants) => (values) => {
     errors.targetParticipant = "This field is required";
   }
   return errors;
+};
+
+const Client = ({ info }) => {
+  return (
+    <span>
+      {info.participant} – {info.device}{" "}
+      {info.activity ? `(${info.activity})` : ""}
+    </span>
+  );
+};
+Client.propTypes = {
+  info: PropTypes.shape({
+    participant: PropTypes.string.isRequired,
+    device: PropTypes.string.isRequired,
+    activity: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 const ControlServerForm = ({ clients, startApp }) => {
@@ -64,14 +81,14 @@ const ControlServerForm = ({ clients, startApp }) => {
         <Form>
           <div className={style.formRow}>
             {participants.length === 0 ? (
-              "No participants connected yet."
+              <Info>No connected participants yet</Info>
             ) : (
               <>
                 <label
                   className={style.verticalRadioBoxGroupLabel}
                   htmlFor={`${id}-target-participant`}
                 >
-                  Participant{participants.length !== 1 && "s"}:{" "}
+                  Client{participants.length !== 1 && "s"}:{" "}
                 </label>
                 <div className={style.leftPadding}>
                   <Field
@@ -85,8 +102,7 @@ const ControlServerForm = ({ clients, startApp }) => {
                         value={targetParticipant.id}
                         key={targetParticipant.id}
                       >
-                        {targetParticipant.info.participant} –{" "}
-                        {targetParticipant.info.device}
+                        <Client {...targetParticipant} />
                       </option>
                     ))}
                   </Field>

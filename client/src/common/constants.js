@@ -121,6 +121,12 @@ export const agreementScaleAnswers = Object.freeze([
   "Strongly agree",
 ]);
 
+export const LogInStates = Object.freeze({
+  loggedIn: "LOGGED_IN",
+  loggingIn: "LOGGING_IN",
+  loggedOut: "LOGGED_OUT",
+});
+
 // This is copied from the control-server module.
 export const MessageTypes = Object.freeze({
   response: "response",
@@ -128,7 +134,10 @@ export const MessageTypes = Object.freeze({
   register: "register",
   unregister: "unregister",
   error: "error",
-  clientUpdate: "client-update",
+  setClients: "set-clients",
+  clearLogs: "clear-logs",
+  setLogs: "set-logs",
+  log: "log",
 });
 
 // This is copied from the control-server module.
@@ -138,3 +147,8 @@ export const UserRoles = Object.freeze({
 });
 
 export const defaultMinSuggestionDelay = 200; // in ms.
+
+export const LogTypes = Object.freeze({
+  switchDevice: "switch-device",
+  typingSpeedResults: "typing-speed-results",
+});

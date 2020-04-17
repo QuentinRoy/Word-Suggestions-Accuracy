@@ -6,7 +6,7 @@ import React, {
   useRef,
 } from "react";
 import PropTypes from "prop-types";
-import { LoadingStates } from "../../common/constants";
+import { ReadyStates } from "../../common/constants";
 import WordSuggestionsEngine from "./WordSuggestionEngine";
 
 const context = createContext();
@@ -17,7 +17,7 @@ const engineErrorAction = Symbol("engine error");
 const engineStoppedAction = Symbol("engine stopped");
 
 const initState = {
-  loadingState: LoadingStates.idle,
+  loadingState: ReadyStates.idle,
   engine: null,
   error: null,
 };
@@ -27,15 +27,15 @@ const reducer = (state, action) => {
     case engineCreatedAction:
       return {
         ...state,
-        loadingState: LoadingStates.loading,
+        loadingState: ReadyStates.loading,
         engine: action.engine,
       };
     case engineReadyAction:
-      return { ...state, loadingState: LoadingStates.loaded };
+      return { ...state, loadingState: ReadyStates.ready };
     case engineErrorAction:
       return {
         ...state,
-        loadingState: LoadingStates.crashed,
+        loadingState: ReadyStates.crashed,
         error: action.error,
       };
     case engineStoppedAction:
@@ -94,7 +94,7 @@ export const useSuggestions = (onSuggestions) => {
 
   const { loadingState, engine } = useContext(context);
   useEffect(() => {
-    if (loadingState !== LoadingStates.loaded) return undefined;
+    if (loadingState !== ReadyStates.ready) return undefined;
     const callback = (...args) => {
       if (ref.current != null) ref.current(...args);
     };
@@ -104,7 +104,7 @@ export const useSuggestions = (onSuggestions) => {
 
   return {
     requestSuggestions:
-      loadingState !== LoadingStates.loaded
+      loadingState !== ReadyStates.ready
         ? () => {
             throw new Error(`Suggestion engine not ready`);
           }

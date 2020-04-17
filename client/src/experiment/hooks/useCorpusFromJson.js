@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import shuffle from "lodash/shuffle";
 import useJson from "../../common/hooks/useJson";
-import { LoadingStates } from "../../common/constants";
+import { ReadyStates } from "../../common/constants";
 
 const getURL = (accuracy) =>
   `./sks-distributions/acc-${accuracy.toFixed(3)}.json`;
@@ -13,13 +13,13 @@ const useCorpusFromJson = (accuracy, { shuffleRows = true } = {}) => {
   const corpusRef = useRef(null);
 
   if (
-    (corpusRef.current == null && loadingState === LoadingStates.loaded) ||
+    (corpusRef.current == null && loadingState === ReadyStates.ready) ||
     (corpusRef.current != null && corpusRef.current.shuffled !== shuffleRows)
   ) {
     corpusRef.current = shuffleRows
       ? { ...data, rows: shuffle(data.rows), shuffled: true }
       : { ...data, shuffled: false };
-  } else if (loadingState !== LoadingStates.loaded) {
+  } else if (loadingState !== ReadyStates.ready) {
     corpusRef.current = null;
   }
 

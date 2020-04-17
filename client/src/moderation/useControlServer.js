@@ -3,12 +3,12 @@ import useWebsocket from "../common/hooks/useWebsocket";
 import {
   MessageTypes,
   UserRoles,
-  LoadingStates,
+  ReadyStates,
   LogInStates,
 } from "../common/constants";
 import useAsync from "../common/hooks/useAsync";
 import getEndPoints from "../common/utils/endpoints";
-import mergeLoadingStates from "../common/utils/mergeLoadingStates";
+import mergeReadyStates from "../common/utils/mergeReadyStates";
 
 const useControlServer = () => {
   const [endPointsState, endpoints] = useAsync(getEndPoints);
@@ -36,17 +36,17 @@ const useControlServer = () => {
   };
 
   const [socketState, send] = useWebsocket(
-    endPointsState === LoadingStates.loaded ? endpoints.controlServer : null,
+    endPointsState === ReadyStates.ready ? endpoints.controlServer : null,
     { onMessage }
   );
 
-  const loadingState = mergeLoadingStates(socketState, endPointsState);
+  const loadingState = mergeReadyStates(socketState, endPointsState);
 
   // Handle server disconnection. We can only be logged in while the server
   // is loaded.
   useEffect(() => {
     if (
-      loadingState !== LoadingStates.loaded &&
+      loadingState !== ReadyStates.ready &&
       logInState !== LogInStates.loggedOut
     ) {
       setLogInState(LogInStates.loggedOut);
@@ -54,7 +54,7 @@ const useControlServer = () => {
   }, [loadingState, logInState]);
 
   const logIn = async (pass) => {
-    if (loadingState !== LoadingStates.loaded) {
+    if (loadingState !== ReadyStates.ready) {
       throw new Error(`The webserver is not ready`);
     }
     if (logInState !== LogInStates.loggedOut) {

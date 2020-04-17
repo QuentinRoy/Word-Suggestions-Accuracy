@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { LoadingStates, MessageTypes } from "../constants";
+import { ReadyStates, MessageTypes } from "../constants";
 
 function throwNotReady() {
   throw new Error(`Websocket not ready`);
 }
 
 export default function useWebsocket(url, { onMessage, timeOut = 10000 } = {}) {
-  const [readyState, setReadyState] = useState(LoadingStates.idle);
+  const [readyState, setReadyState] = useState(ReadyStates.idle);
   const websocketRef = useRef(null);
   const sendRef = useRef(throwNotReady);
 
@@ -25,7 +25,7 @@ export default function useWebsocket(url, { onMessage, timeOut = 10000 } = {}) {
       return undefined;
     }
 
-    setReadyState(LoadingStates.loading);
+    setReadyState(ReadyStates.loading);
     const ws = new WebSocket(url);
     websocketRef.current = ws;
 
@@ -71,13 +71,13 @@ export default function useWebsocket(url, { onMessage, timeOut = 10000 } = {}) {
 
     const handlers = {
       open() {
-        setReadyState(LoadingStates.loaded);
+        setReadyState(ReadyStates.ready);
       },
       error() {
-        setReadyState(LoadingStates.crashed);
+        setReadyState(ReadyStates.crashed);
       },
       close() {
-        setReadyState(LoadingStates.closed);
+        setReadyState(ReadyStates.done);
       },
       message(event) {
         const message = JSON.parse(event.data);
@@ -142,7 +142,7 @@ export default function useWebsocket(url, { onMessage, timeOut = 10000 } = {}) {
       ws.close();
       websocketRef.current = null;
       sendRef.current = throwNotReady;
-      setReadyState(LoadingStates.closed);
+      setReadyState(ReadyStates.done);
     };
   }, [url]);
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { LoadingStates } from "../common/constants";
+import { ReadyStates } from "../common/constants";
 
 const url = `./sentences.txt`;
 
@@ -17,16 +17,16 @@ const fetchCorpus = async (link) => {
 
 const useSentenceCorpus = () => {
   const [corpus, setCorpus] = useState(null);
-  const [loadingState, setLoadingState] = useState(LoadingStates.loading);
+  const [loadingState, setLoadingState] = useState(ReadyStates.loading);
 
   useEffect(() => {
     fetchCorpus(url)
       .then((corpusResult) => {
         setCorpus(corpusResult);
-        setLoadingState(LoadingStates.loaded);
+        setLoadingState(ReadyStates.ready);
       })
       .catch(() => {
-        setLoadingState(LoadingStates.crashed);
+        setLoadingState(ReadyStates.crashed);
       });
   }, []);
 

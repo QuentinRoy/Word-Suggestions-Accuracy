@@ -15,7 +15,7 @@ import TypingTask from "./TypingTask";
 import useConfiguration from "../hooks/useConfiguration";
 import Loading from "../../common/components/Loading";
 import Crashed from "../../common/components/Crashed";
-import { LoadingStates, TaskTypes } from "../../common/constants";
+import { ReadyStates, TaskTypes } from "../../common/constants";
 import EndExperiment from "./EndExperiment";
 import Startup from "./Startup";
 import BlockQuestionnaire from "./BlockQuestionnaire";
@@ -94,7 +94,9 @@ function ExperimentContent() {
     };
   }, [location]);
   const [isAskingReset, setIsAskingReset] = useState(configArgs.reset);
-  const [configLoadingState, configuration] = useConfiguration(configArgs);
+  const [configLoadingState, configuration, error] = useConfiguration(
+    configArgs
+  );
   const { loadingState: suggestionsLoadingState } = useSuggestions();
 
   if (isAskingReset) {
@@ -102,25 +104,22 @@ function ExperimentContent() {
   }
 
   if (
-    configLoadingState === LoadingStates.loading ||
-    configLoadingState === LoadingStates.idle
+    configLoadingState === ReadyStates.loading ||
+    configLoadingState === ReadyStates.idle
   ) {
     return <Loading>Loading experiment...</Loading>;
   }
-  if (suggestionsLoadingState === LoadingStates.loading) {
+  if (suggestionsLoadingState === ReadyStates.loading) {
     return <Loading>Loading suggestions...</Loading>;
   }
   if (
-    configLoadingState === LoadingStates.loaded &&
-    suggestionsLoadingState === LoadingStates.loaded
+    configLoadingState === ReadyStates.ready &&
+    suggestionsLoadingState === ReadyStates.ready
   ) {
     return <Experiment configuration={configuration} />;
   }
-  if (configLoadingState === LoadingStates.invalidArguments) {
-    return <Crashed>HIT information missing or incorrect...</Crashed>;
-  }
-  if (configLoadingState === LoadingStates.crashed) {
-    return <Crashed>Failed to load the experiment...</Crashed>;
+  if (configLoadingState === ReadyStates.crashed) {
+    return <Crashed>Failed to load the experiment: {error.message}</Crashed>;
   }
   return (
     <Crashed>Something went wrong, probably the suggestion engine.</Crashed>
@@ -138,7 +137,7 @@ const theme = createMuiTheme({
 export default function ExperimentWrapper() {
   const [endPointsLoadingState, endpoints] = useAsync(getEndPoints);
 
-  if (endPointsLoadingState === LoadingStates.crashed) {
+  if (endPointsLoadingState === ReadyStates.crashed) {
     return (
       <ThemeProvider theme={theme}>
         <Crashed>
@@ -148,7 +147,7 @@ export default function ExperimentWrapper() {
     );
   }
 
-  if (endPointsLoadingState !== LoadingStates.loaded) {
+  if (endPointsLoadingState !== ReadyStates.ready) {
     return (
       <ThemeProvider theme={theme}>
         <Loading />

@@ -8,12 +8,11 @@ export const KeyboardLayoutNames = Object.freeze({
   numbers: "numbers",
 });
 
-export const LoadingStates = Object.freeze({
+export const ReadyStates = Object.freeze({
   loading: "LOADING",
-  loaded: "LOADED",
+  ready: "READY",
   crashed: "CRASHED",
-  invalidArguments: "INVALID_ARGUMENTS",
-  closed: "CLOSED",
+  done: "DONE",
   idle: "IDLE",
 });
 

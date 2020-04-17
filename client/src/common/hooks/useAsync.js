@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { LoadingStates } from "../constants";
+import { ReadyStates } from "../constants";
 
 const ActionTypes = {
   loaded: "loaded",
@@ -11,20 +11,20 @@ const ActionTypes = {
 const reducer = (state, action) => {
   switch (action.type) {
     case ActionTypes.loaded:
-      return [LoadingStates.loaded, action.data];
+      return [ReadyStates.ready, action.data, null];
     case ActionTypes.crashed:
-      return [LoadingStates.crashed, null];
+      return [ReadyStates.crashed, null, action.error];
     case ActionTypes.start:
-      return [LoadingStates.loading, null];
+      return [ReadyStates.loading, null, null];
     case ActionTypes.stop:
-      return [LoadingStates.idle, null];
+      return [ReadyStates.done, null, null];
     default:
       return state;
   }
 };
 
 const useAsync = (createPromise, deps = []) => {
-  const [state, dispatch] = useReducer(reducer, [LoadingStates.idle, null]);
+  const [state, dispatch] = useReducer(reducer, [ReadyStates.idle, null]);
 
   // useEffect will create the promise. Most of the time this should only happen
   // once, event if createPromise changes. The deps argument may be used
@@ -41,8 +41,8 @@ const useAsync = (createPromise, deps = []) => {
         if (isCanceled) throw new Error(`Request canceled`);
         dispatch({ type: ActionTypes.loaded, data: result });
       })
-      .catch(() => {
-        if (!isCanceled) dispatch({ type: ActionTypes.crashed });
+      .catch((error) => {
+        if (!isCanceled) dispatch({ type: ActionTypes.crashed, error });
       });
     return () => {
       isCanceled = true;

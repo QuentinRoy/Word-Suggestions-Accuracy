@@ -45,16 +45,16 @@ function Status({ registrationStatus, clientState }) {
   }
 
   switch (registrationStatus.state) {
-    case ReadyStates.idle:
-    case ReadyStates.loading:
+    case "waiting":
+    case "registering":
       return <Loading>Registering...</Loading>;
-    case ReadyStates.crashed:
+    case "error":
       return (
         <ErrorMessage>
           Regisration error: {registrationStatus.error.message}
         </ErrorMessage>
       );
-    case ReadyStates.ready:
+    case "ready":
       return <>Please wait for your experimenter to start the next step.</>;
     default:
       throw new Error(`Unexpected state: ${registrationStatus.state}`);
@@ -64,11 +64,11 @@ function Status({ registrationStatus, clientState }) {
 function reducer(state, action) {
   switch (action.type) {
     case "registering":
-      return { ...state, state: ReadyStates.loading };
+      return { ...state, state: "loading" };
     case "registered":
-      return { ...state, state: ReadyStates.ready };
+      return { ...state, state: "ready" };
     case "error":
-      return { ...state, state: ReadyStates.crashed, error: action.error };
+      return { ...state, state: "crashed", error: action.error };
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
@@ -83,13 +83,13 @@ export default function ParticipantStartupClient({
     onCommand: Controller(useHistory()),
   });
   const [registrationStatus, dispatch] = useReducer(reducer, {
-    state: ReadyStates.idle,
+    state: "waiting",
   });
 
   useEffect(() => {
     if (
       controlClient.state === ReadyStates.ready &&
-      registrationStatus.state === ReadyStates.idle
+      registrationStatus.state === "waiting"
     ) {
       controlClient.setInfo({ participant, device, activity: "waiting" }).then(
         () => {

@@ -14,7 +14,7 @@ import useWindowSize from "../common/hooks/useWindowSize";
 import getWordAccuracies from "./getWordAccuracies";
 import Loading from "../common/components/Loading";
 import Crashed from "../common/components/Crashed";
-import { LoadingStates } from "../common/constants";
+import { ReadyStates } from "../common/constants";
 
 const KeyCodes = {
   left: 37,
@@ -67,10 +67,10 @@ const DistributionViewer = () => {
     };
   });
 
-  if (loadingState === LoadingStates.loading) {
+  if (loadingState === ReadyStates.loading) {
     return <Loading>Loading corpus...</Loading>;
   }
-  if (loadingState !== LoadingStates.loaded) {
+  if (loadingState !== ReadyStates.ready) {
     return <Crashed>Could not load the corpus...</Crashed>;
   }
 

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { LoadingStates, TaskTypes } from "../../common/constants";
+import { ReadyStates, TaskTypes } from "../../common/constants";
 import getTimeZone from "../../common/utils/getTimeZone";
 import useJSON from "../../common/hooks/useJson";
 
@@ -13,15 +13,18 @@ const useConfiguration = ({ participant, device, isTest, config }) => {
   const { current: startDate } = useRef(new Date());
   // In the case there are missing information, providing a null URL to useJson
   // will prevent any loading attempt.
-  const [loadingState, baseConfig] = useJSON(
+  const [loadingState, baseConfig, error] = useJSON(
     areArgsIncomplete ? null : `./configs/${config}-${device}.json`
   );
 
   if (areArgsIncomplete) {
-    return [LoadingStates.invalidArguments, null];
+    return [ReadyStates.crashed, null, new Error(`Invalid arguments`)];
   }
-  if (loadingState !== LoadingStates.loaded) {
-    return [loadingState, null];
+  if (loadingState === ReadyStates.crashed) {
+    return [loadingState, null, error];
+  }
+  if (loadingState !== ReadyStates.ready) {
+    return [loadingState, null, null];
   }
   return [
     loadingState,
@@ -47,6 +50,7 @@ const useConfiguration = ({ participant, device, isTest, config }) => {
             : `prod/${participant}-${device}-${startDate.toISOString()}.json`,
       },
     },
+    null,
   ];
 };
 

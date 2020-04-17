@@ -4,7 +4,7 @@ import { Formik, Field, ErrorMessage, Form } from "formik";
 import useUniqueId from "../common/hooks/useUniqueId";
 import style from "./ControlServerLogin.module.scss";
 import FormErrorMessage from "../common/components/FormErrorMessage";
-import { LoadingStates } from "../common/constants";
+import { ReadyStates } from "../common/constants";
 
 function ControlServerLoginForm({ onLogin, canSubmit }) {
   const id = useUniqueId();
@@ -54,14 +54,14 @@ ControlServerLoginForm.propTypes = {
 
 function StatusMessage({ state }) {
   switch (state) {
-    case LoadingStates.closed:
-    case LoadingStates.idle:
+    case ReadyStates.done:
+    case ReadyStates.idle:
       return <>Server connection closed.</>;
-    case LoadingStates.crashed:
+    case ReadyStates.crashed:
       return <>Server connection lost...</>;
-    case LoadingStates.loading:
+    case ReadyStates.loading:
       return <>Connecting to server...</>;
-    case LoadingStates.loaded:
+    case ReadyStates.ready:
       return null;
     default:
       throw new Error(`Unexpected state: ${state}`);
@@ -73,7 +73,7 @@ export default function ControlServerLogin({ onLogin, serverState }) {
     <>
       <ControlServerLoginForm
         onLogin={onLogin}
-        canSubmit={serverState === LoadingStates.loaded}
+        canSubmit={serverState === ReadyStates.ready}
       />
       <div className={style.statusMessage}>
         <StatusMessage state={serverState} />
@@ -83,5 +83,5 @@ export default function ControlServerLogin({ onLogin, serverState }) {
 }
 ControlServerLogin.propTypes = {
   onLogin: PropTypes.func.isRequired,
-  serverState: PropTypes.oneOf(Object.values(LoadingStates)).isRequired,
+  serverState: PropTypes.oneOf(Object.values(ReadyStates)).isRequired,
 };

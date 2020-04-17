@@ -1,22 +1,36 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Devices } from "../common/constants";
+import * as qs from "qs";
+import { useHistory } from "react-router-dom";
+import { Paths } from "../common/constants";
+import style from "./SetupSummary.module.css";
+import { useClientInfo } from "./ClientInfo";
 
-export default function SetupSummary({ participant, device, onEdit }) {
+export default function SetupSummary() {
+  const { participant, device } = useClientInfo();
+  const history = useHistory();
+
+  const handleChangeParameters = () => {
+    history.push({
+      pathname: Paths.setup,
+      search: qs.stringify({ participant, device }),
+    });
+  };
+
   return (
-    <>
-      <p>Participant Id: {participant}</p>
-      <p>Device: {device}</p>
-      <p>
-        <button type="button" onClick={onEdit}>
-          Change
-        </button>
-      </p>
-    </>
+    <div className={style.summary}>
+      <div className={style.parameters}>
+        <ul>
+          <li>Participant Id: {participant}</li>
+          <li>Device: {device}</li>
+        </ul>
+      </div>
+      <button
+        className={style.changeParamsButton}
+        type="button"
+        onClick={handleChangeParameters}
+      >
+        Change
+      </button>
+    </div>
   );
 }
-SetupSummary.propTypes = {
-  onEdit: PropTypes.func.isRequired,
-  participant: PropTypes.string.isRequired,
-  device: PropTypes.oneOf(Object.values(Devices)).isRequired,
-};

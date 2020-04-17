@@ -4,15 +4,8 @@ import { useHistory, useLocation } from "react-router-dom";
 import ParticipantStartupForm from "./ParticipantSetupForm";
 import style from "./ParticipantSetup.module.css";
 import { Paths } from "../common/constants";
-
-// eslint-disable-next-line react/prop-types
-function Wrapper({ children }) {
-  return (
-    <div className={style.wrapper}>
-      <div className={style.wrapperContent}>{children}</div>
-    </div>
-  );
-}
+import useBodyBackgroundColor from "../common/hooks/useBodyBackgroundColor";
+import Area from "../common/components/Area";
 
 const useQuerystringArguments = () => {
   const location = useLocation();
@@ -25,19 +18,23 @@ const useQuerystringArguments = () => {
   }, [location]);
 };
 
-export default function ParticipantStartup() {
+export default function ParticipantSetup() {
   const history = useHistory();
+  useBodyBackgroundColor("#EEE");
+
   return (
-    <Wrapper>
-      <ParticipantStartupForm
-        initialValues={useQuerystringArguments()}
-        onSubmit={(values) => {
-          history.push({
-            pathname: Paths.waitingRoom,
-            search: `?${stringify(values)}`,
-          });
-        }}
-      />
-    </Wrapper>
+    <div className={style.wrapper}>
+      <Area>
+        <ParticipantStartupForm
+          initialValues={useQuerystringArguments()}
+          onSubmit={(values) => {
+            history.push({
+              pathname: Paths.waitingRoom,
+              search: `?${stringify(values)}`,
+            });
+          }}
+        />
+      </Area>
+    </div>
   );
 }

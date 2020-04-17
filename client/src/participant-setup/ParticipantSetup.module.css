@@ -1,9 +1,6 @@
 .wrapper {
-  width: 700px;
-  margin: 0 auto;
-  padding: 2em;
-}
-
-.error {
-  color: red;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 2em;
 }

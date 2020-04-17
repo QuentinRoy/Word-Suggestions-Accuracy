@@ -5,7 +5,7 @@ import ControlServerLogin from "./ControlServerLogin";
 import Logs from "./Logs";
 import useModerationServer from "./useModerationServer";
 import { LogInStates } from "../common/constants";
-import Area from "./Area";
+import Area from "../common/components/Area";
 import RemoteStartup from "./RemoteStartup";
 
 function Alert(props) {
@@ -48,10 +48,10 @@ export default function RemoteModeration() {
     };
     return (
       <>
-        <Area>
+        <Area width={500}>
           <RemoteStartup clients={clients} onStartApp={handleStartApp} />
         </Area>
-        <Area maxHeight={500}>
+        <Area maxHeight={500} width={500}>
           <Logs logs={logs} onClear={clearLogs} />
         </Area>
         <Snackbar open={snack.isOpened} onClose={handleSnackClose}>

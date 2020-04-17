@@ -1,19 +1,27 @@
 import React, { useMemo, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import ParticipantStartupClient from "./ParticipantStartupClient";
 import style from "./WaitingRoom.module.css";
 import { Paths } from "../common/constants";
+import Area from "../common/components/Area";
+import useBodyBackgroundColor from "../common/hooks/useBodyBackgroundColor";
+import ValidWaitingRoom from "./ValidWaitingRoom";
+import { ClientInfoProvider } from "./ClientInfo";
+import { ModerationClientProvider } from "../common/contexts/ModerationClient";
 
 // eslint-disable-next-line react/prop-types
 function Wrapper({ children }) {
   return (
     <div className={style.wrapper}>
-      <div className={style.wrapperContent}>{children}</div>
+      <Area>
+        <h1>Waiting Room</h1>
+        {children}
+      </Area>
     </div>
   );
 }
 
 export default function WaitingRoom() {
+  useBodyBackgroundColor("#EEE");
   const history = useHistory();
   const location = useLocation();
   const qsArgs = useMemo(() => {
@@ -32,23 +40,20 @@ export default function WaitingRoom() {
     }
   }, [isValid, history, location]);
 
-  if (!isValid) {
+  if (isValid) {
     return (
       <Wrapper>
-        <div className={style.error}>Invalid Page Arguments.</div>
+        <ClientInfoProvider clientInfo={qsArgs}>
+          <ModerationClientProvider>
+            <ValidWaitingRoom />
+          </ModerationClientProvider>
+        </ClientInfoProvider>
       </Wrapper>
     );
   }
-
   return (
     <Wrapper>
-      <ParticipantStartupClient
-        participant={qsArgs.participant}
-        device={qsArgs.device}
-        onEdit={() => {
-          history.push({ pathname: Paths.setup, search: location.search });
-        }}
-      />
+      <div className={style.error}>Invalid Page Arguments.</div>
     </Wrapper>
   );
 }

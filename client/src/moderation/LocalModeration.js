@@ -1,15 +1,15 @@
 import React from "react";
 import PreviousState from "./PreviousState";
 import StartForm from "./StartForm";
-import Area from "./Area";
+import Area from "../common/components/Area";
 
 export default function LocalModeration() {
   return (
     <>
-      <Area>
+      <Area width={500}>
         <PreviousState />
       </Area>
-      <Area>
+      <Area width={500}>
         <StartForm />
       </Area>
     </>

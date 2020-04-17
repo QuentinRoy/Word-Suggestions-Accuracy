@@ -4,7 +4,7 @@ import { withRawConfiguration } from "@hcikit/workflow";
 import { Button } from "@material-ui/core";
 import { useHistory, useLocation } from "react-router-dom";
 import style from "./ResultsTask.module.css";
-import { TaskTypes } from "../common/constants";
+import { TaskTypes, Paths } from "../common/constants";
 import TaskPaper from "../experiment/components/TaskPaper";
 
 function ResultsTask({ participant, configuration }) {
@@ -37,7 +37,10 @@ function ResultsTask({ participant, configuration }) {
           color="primary"
           onClick={() => {
             localStorage.removeItem("state");
-            history.push({ pathname: `/startup`, search: location.search });
+            history.push({
+              pathname: Paths.waitingRoom,
+              search: location.search,
+            });
           }}
         >
           Finish

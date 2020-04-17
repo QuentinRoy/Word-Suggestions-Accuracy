@@ -151,3 +151,12 @@ export const LogTypes = Object.freeze({
   switchDevice: "switch-device",
   typingSpeedResults: "typing-speed-results",
 });
+
+export const Paths = Object.freeze({
+  viewer: "/viewer",
+  setup: "/",
+  waitingRoom: "/waiting-room",
+  moderation: "/moderation",
+  experiment: "/experiment",
+  typingTest: "/typing-test",
+});

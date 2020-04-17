@@ -5,6 +5,7 @@ import "./index.css";
 import Loading from "./common/components/Loading";
 import Crashed from "./common/components/Crashed";
 import DocumentTitle from "./common/components/DocumentTitle";
+import { Paths } from "./common/constants";
 
 const ExperimentWrapper = lazy(() =>
   import("./experiment/components/ExperimentWrapper")
@@ -18,9 +19,7 @@ const ParticipantSetup = lazy(() =>
   import("./participant-setup/ParticipantSetup")
 );
 
-const ParticipantStartup = lazy(() =>
-  import("./participant-startup/ParticipantStartup")
-);
+const WaitingRoom = lazy(() => import("./waiting-room/WaitingRoom"));
 
 const Moderation = lazy(() => import("./moderation/Moderation"));
 
@@ -30,35 +29,35 @@ ReactDOM.render(
   <Suspense fallback={<Loading>Loading...</Loading>}>
     <Router>
       <Switch>
-        <Route exact path="/viewer">
+        <Route exact path={Paths.viewer}>
           <DocumentTitle title="Distribution Viewer">
             <DistributionViewer />
           </DocumentTitle>
         </Route>
 
-        <Route exact path="/">
+        <Route exact path={Paths.setup}>
           <DocumentTitle title="Setup">
             <ParticipantSetup />
           </DocumentTitle>
         </Route>
 
-        <Route exact path="/startup">
-          <DocumentTitle title="Experiment Startup">
-            <ParticipantStartup />
+        <Route exact path={Paths.waitingRoom}>
+          <DocumentTitle title="Waiting Room">
+            <WaitingRoom />
           </DocumentTitle>
         </Route>
 
-        <Route exact path="/moderation">
+        <Route exact path={Paths.moderation}>
           <DocumentTitle title="Experimenter Dashboard">
             <Moderation />
           </DocumentTitle>
         </Route>
 
-        <Route exact path="/experiment">
+        <Route exact path={Paths.experiment}>
           <ExperimentWrapper />
         </Route>
 
-        <Route exact path="/typing">
+        <Route exact path={Paths.typingTest}>
           <DocumentTitle title="Typing Test">
             <TypingTest />
           </DocumentTitle>

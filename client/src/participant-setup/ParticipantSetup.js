@@ -3,6 +3,7 @@ import { stringify } from "qs";
 import { useHistory, useLocation } from "react-router-dom";
 import ParticipantStartupForm from "./ParticipantSetupForm";
 import style from "./ParticipantSetup.module.css";
+import { Paths } from "../common/constants";
 
 // eslint-disable-next-line react/prop-types
 function Wrapper({ children }) {
@@ -32,7 +33,7 @@ export default function ParticipantStartup() {
         initialValues={useQuerystringArguments()}
         onSubmit={(values) => {
           history.push({
-            pathname: `/startup`,
+            pathname: Paths.waitingRoom,
             search: `?${stringify(values)}`,
           });
         }}

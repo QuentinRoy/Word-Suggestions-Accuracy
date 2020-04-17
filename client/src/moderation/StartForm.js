@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import pick from "lodash/pick";
 import ConfigForm from "../common/components/ConfigForm";
 import useBodyBackgroundColor from "../common/hooks/useBodyBackgroundColor";
+import { Paths } from "../common/constants";
 
 const savedValues = ["device", "isTest", "participant"];
 const localStorageSavedValuesKey = "startup-values";
@@ -37,7 +38,8 @@ const StartForm = () => {
     // Register some of the keys that should not change often.
     saveValues(values);
     history.push({
-      pathname: targetExperiment === "speed-test" ? "/typing" : "/experiment",
+      pathname:
+        targetExperiment === "speed-test" ? Paths.typingTest : Paths.experiment,
       search: `?${stringify({
         ...otherValues,
         isTest,

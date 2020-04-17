@@ -8,7 +8,7 @@ import Checkbox from "../common/components/CheckboxWithLabel";
 import useUniqueId from "../common/hooks/useUniqueId";
 import FormErrorMessage from "../common/components/FormErrorMessage";
 import style from "./ControlServerForm.module.css";
-import { Devices, UserRoles } from "../common/constants";
+import { Devices, UserRoles, Paths } from "../common/constants";
 import Info from "./Info";
 
 const isBlank = (value) => value == null || value === "";
@@ -57,7 +57,8 @@ const ControlServerForm = ({ clients, startApp }) => {
   }) => {
     const participant = participants.find((p) => p.id === pid);
     startApp(targetExperiment, participant.id, {
-      ...participant.info,
+      participant: participant.info.participant,
+      device: participant.info.device,
       ...omitBy(args, isBlank),
     });
   };
@@ -113,8 +114,8 @@ const ControlServerForm = ({ clients, startApp }) => {
 
           <div className={style.formRow}>
             <Field name="targetExperiment" as={RadioBoxGroup}>
-              <option value="typing">Typing Speed Test</option>
-              <option value="experiment">Experiment</option>
+              <option value={Paths.typingTest}>Typing Speed Test</option>
+              <option value={Paths.experiment}>Experiment</option>
             </Field>
             <ErrorMessage
               name="targetExperiment"
@@ -134,7 +135,7 @@ const ControlServerForm = ({ clients, startApp }) => {
               htmlFor={`${id}-config`}
               className={
                 values.targetExperiment == null ||
-                values.targetExperiment === "experiment"
+                values.targetExperiment === Paths.experiment
                   ? null
                   : style.disabledLabel
               }
@@ -146,7 +147,7 @@ const ControlServerForm = ({ clients, startApp }) => {
               id={`${id}-config`}
               type="text"
               disabled={
-                values.targetExperiment !== "experiment" &&
+                values.targetExperiment !== Paths.experiment &&
                 values.targetExperiment != null
               }
             />{" "}

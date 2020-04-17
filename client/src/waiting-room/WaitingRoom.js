@@ -1,7 +1,8 @@
 import React, { useMemo, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import ParticipantStartupClient from "./ParticipantStartupClient";
-import style from "./ParticipantStartup.module.css";
+import style from "./WaitingRoom.module.css";
+import { Paths } from "../common/constants";
 
 // eslint-disable-next-line react/prop-types
 function Wrapper({ children }) {
@@ -12,7 +13,7 @@ function Wrapper({ children }) {
   );
 }
 
-export default function ParticipantStartup() {
+export default function WaitingRoom() {
   const history = useHistory();
   const location = useLocation();
   const qsArgs = useMemo(() => {
@@ -27,10 +28,7 @@ export default function ParticipantStartup() {
 
   useEffect(() => {
     if (!isValid) {
-      history.push({
-        pathname: "/",
-        search: location.search,
-      });
+      history.push({ pathname: Paths.setup, search: location.search });
     }
   }, [isValid, history, location]);
 
@@ -48,10 +46,7 @@ export default function ParticipantStartup() {
         participant={qsArgs.participant}
         device={qsArgs.device}
         onEdit={() => {
-          history.push({
-            pathname: "/",
-            search: location.search,
-          });
+          history.push({ pathname: Paths.setup, search: location.search });
         }}
       />
     </Wrapper>

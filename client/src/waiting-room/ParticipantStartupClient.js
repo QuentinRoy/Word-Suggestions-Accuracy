@@ -15,7 +15,7 @@ const Controller = (history) => (command, args) => {
       // Doing this asynchronously so we have the time to answer.
       setTimeout(() => {
         history.push({
-          pathname: `/${args.app}`,
+          pathname: args.app,
           search: `?${stringify(omit(args, "app"))}`,
         });
       });

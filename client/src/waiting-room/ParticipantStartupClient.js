@@ -5,7 +5,7 @@ import omit from "lodash/omit";
 import { useHistory } from "react-router-dom";
 import { Devices, ReadyStates } from "../common/constants";
 import SetupSummary from "./SetupSummary";
-import useControlClient from "./useControlClient";
+import useModerationClient from "./useModerationClient";
 import Loading from "../common/components/Loading";
 import style from "./ParticipantStartupClient.module.css";
 
@@ -79,7 +79,7 @@ export default function ParticipantStartupClient({
   device,
   onEdit,
 }) {
-  const controlClient = useControlClient({
+  const controlClient = useModerationClient({
     onCommand: Controller(useHistory()),
   });
   const [registrationStatus, dispatch] = useReducer(reducer, {

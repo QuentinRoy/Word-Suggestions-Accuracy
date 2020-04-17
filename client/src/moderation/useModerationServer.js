@@ -10,7 +10,7 @@ import useAsync from "../common/hooks/useAsync";
 import getEndPoints from "../common/utils/endpoints";
 import mergeReadyStates from "../common/utils/mergeReadyStates";
 
-const useControlServer = () => {
+const useModerationServer = () => {
   const [endPointsState, endpoints] = useAsync(getEndPoints);
   const [logInState, setLogInState] = useState(LogInStates.loggedOut);
   const [clients, setClients] = useState([]);
@@ -100,4 +100,4 @@ const useControlServer = () => {
   };
 };
 
-export default useControlServer;
+export default useModerationServer;

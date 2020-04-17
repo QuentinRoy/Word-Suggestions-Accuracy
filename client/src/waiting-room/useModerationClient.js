@@ -5,7 +5,7 @@ import useAsync from "../common/hooks/useAsync";
 import getEndPoints from "../common/utils/endpoints";
 import mergeReadyStates from "../common/utils/mergeReadyStates";
 
-const useControlClient = ({ onCommand } = {}) => {
+const useModerationClient = ({ onCommand } = {}) => {
   const [endPointsState, endpoints] = useAsync(getEndPoints);
 
   const onMessage = (message) => {
@@ -41,4 +41,4 @@ const useControlClient = ({ onCommand } = {}) => {
   );
 };
 
-export default useControlClient;
+export default useModerationClient;

@@ -3,7 +3,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import ControlServerLogin from "./ControlServerLogin";
 import Logs from "./Logs";
-import useControlServer from "./useControlServer";
+import useModerationServer from "./useModerationServer";
 import { LogInStates } from "../common/constants";
 import Area from "./Area";
 import RemoteStartup from "./RemoteStartup";
@@ -22,7 +22,7 @@ export default function RemoteModeration() {
     clearLogs,
     clients,
     startApp,
-  } = useControlServer();
+  } = useModerationServer();
   const [snack, setSnack] = useState({ isOpened: false });
 
   const handleSnackClose = () => {

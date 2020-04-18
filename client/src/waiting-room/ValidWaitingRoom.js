@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { stringify } from "qs";
@@ -90,26 +90,9 @@ const Controller = (history) => (command, args) => {
 };
 
 export default function ValidWaitingRoom() {
-  const { participant, device } = useClientInfo();
   const moderationClient = useSharedModerationClient({
     onCommand: Controller(useHistory()),
   });
-
-  useEffect(() => {
-    if (
-      moderationClient.state === ReadyStates.ready &&
-      moderationClient.registration.state === ReadyStates.idle
-    ) {
-      moderationClient.register({ participant, device, activity: "waiting" });
-    } else if (
-      moderationClient.state === ReadyStates.ready &&
-      moderationClient.registration.state === ReadyStates.ready &&
-      (moderationClient.registration.info.participant !== participant ||
-        moderationClient.registration.info.device !== device)
-    ) {
-      moderationClient.unregister();
-    }
-  }, [moderationClient, device, participant]);
 
   switch (moderationClient.state) {
     case ReadyStates.idle:

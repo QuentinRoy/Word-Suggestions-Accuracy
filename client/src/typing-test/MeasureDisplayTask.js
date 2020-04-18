@@ -8,7 +8,7 @@ import "@quentinroy/measure-display-view/lib/measure-display-view.css";
 import { Button } from "@material-ui/core";
 import TaskPaper from "../experiment/components/TaskPaper";
 import style from "./MeasureDisplayTask.module.scss";
-import { useSharedRegisteredModerationClient } from "../common/contexts/ModerationClient";
+import { useSharedModerationClient } from "../common/contexts/ModerationClient";
 import { LogTypes } from "../common/constants";
 
 export { Directions };
@@ -26,7 +26,7 @@ export default function MeasureDisplayTask({
   const ratioRef = useRef(initRatio);
   const [dimensions, setDimensions] = useState();
 
-  const { sendLog } = useSharedRegisteredModerationClient();
+  const { sendLog } = useSharedModerationClient();
 
   useLayoutEffect(() => {
     if (viewRef.current == null) return undefined;

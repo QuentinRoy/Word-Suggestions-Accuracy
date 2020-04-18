@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useCallback,
   useReducer,
+  useLayoutEffect,
 } from "react";
 import PropTypes from "prop-types";
 import useWebsocket from "../hooks/useWebsocket";
@@ -35,8 +36,9 @@ function reducer(state, action) {
         info: action.info,
       };
     case Actions.unregistered:
-    case Actions.clear:
       return { state: ReadyStates.idle };
+    case Actions.clear:
+      return { state: ReadyStates.done };
     case Actions.error:
       return {
         state: ReadyStates.crashed,
@@ -116,12 +118,17 @@ export const useOneModerationClient = ({ onCommand } = {}) => {
     [send]
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       socketState !== ReadyStates.ready &&
       registration.state === ReadyStates.ready
     ) {
       dispatch({ type: Actions.clear });
+    } else if (
+      socketState === ReadyStates.loading &&
+      registration.state !== ReadyStates.idle
+    ) {
+      dispatch({ type: Actions.unregistered });
     }
   }, [socketState, registration.state]);
 
@@ -137,20 +144,44 @@ export const useOneModerationClient = ({ onCommand } = {}) => {
 
 const context = createContext();
 
-export function ModerationClientProvider({ children }) {
+export function ModerationClientProvider({ children, isRegistered, info }) {
   const dispatcherRef = useRef();
   if (dispatcherRef.current == null) {
     dispatcherRef.current = Dispatcher();
   }
 
-  const moderationClient = useOneModerationClient({
+  const { register, unregister, ...moderationClient } = useOneModerationClient({
     onCommand: dispatcherRef.current.dispatch,
   });
+
+  // This should be incontrolled, but because this is used later, new values
+  // may still be taken into account. We put this into a ref to make sure it
+  // never changes.
+  const registrationRef = useRef({ isRegistered, info });
+
+  useEffect(() => {
+    if (
+      registrationRef.current.isRegistered &&
+      moderationClient.state === ReadyStates.ready &&
+      moderationClient.registration.state === ReadyStates.idle
+    ) {
+      register(registrationRef.current.info);
+    }
+  }, [moderationClient.state, moderationClient.registration.state, register]);
+
+  const state = registrationRef.current.isRegistered
+    ? mergeReadyStates(
+        moderationClient.state,
+        moderationClient.registration.state
+      )
+    : moderationClient.state;
 
   return (
     <context.Provider
       value={{
-        moderationClient,
+        ...moderationClient,
+        state,
+        socketState: moderationClient.state,
         addCommandListener: dispatcherRef.current.on,
         removeCommandListener: dispatcherRef.current.off,
       }}
@@ -159,14 +190,22 @@ export function ModerationClientProvider({ children }) {
     </context.Provider>
   );
 }
-ModerationClientProvider.propTypes = { children: PropTypes.node };
-ModerationClientProvider.defaultProps = { children: null };
+ModerationClientProvider.propTypes = {
+  children: PropTypes.node,
+  isRegistered: PropTypes.bool,
+  info: PropTypes.shape(),
+};
+ModerationClientProvider.defaultProps = {
+  children: null,
+  isRegistered: false,
+  info: undefined,
+};
 
 export function useSharedModerationClient({ onCommand } = {}) {
   const {
-    moderationClient,
     addCommandListener,
     removeCommandListener,
+    ...moderationClient
   } = useContext(context);
 
   const onCommandRef = useRef();
@@ -185,26 +224,4 @@ export function useSharedModerationClient({ onCommand } = {}) {
   }, [addCommandListener, removeCommandListener]);
 
   return moderationClient;
-}
-
-export function useSharedRegisteredModerationClient({ onCommand, info } = {}) {
-  const moderationClient = useSharedModerationClient({ onCommand });
-
-  useEffect(() => {
-    if (
-      moderationClient.state === ReadyStates.ready &&
-      moderationClient.registration.state === ReadyStates.idle
-    ) {
-      moderationClient.register(info);
-    }
-  }, [moderationClient, info]);
-
-  return {
-    ...moderationClient,
-    state: mergeReadyStates(
-      moderationClient.state,
-      moderationClient.registration.state
-    ),
-    clientState: moderationClient.state,
-  };
 }

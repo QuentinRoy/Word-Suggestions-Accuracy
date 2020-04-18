@@ -44,7 +44,7 @@ export default function WaitingRoom() {
     return (
       <Wrapper>
         <ClientInfoProvider clientInfo={qsArgs}>
-          <ModerationClientProvider>
+          <ModerationClientProvider info={qsArgs} isRegistered>
             <ValidWaitingRoom />
           </ModerationClientProvider>
         </ClientInfoProvider>

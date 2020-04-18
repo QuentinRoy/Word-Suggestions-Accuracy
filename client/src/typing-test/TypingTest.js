@@ -15,7 +15,7 @@ import useBodyBackgroundColor from "../common/hooks/useBodyBackgroundColor";
 import MeasureDisplayTask from "./MeasureDisplayTask";
 import {
   ModerationClientProvider,
-  useSharedRegisteredModerationClient,
+  useSharedModerationClient,
 } from "../common/contexts/ModerationClient";
 import Loading from "../common/components/Loading";
 
@@ -82,9 +82,7 @@ const getConfig = (startDate) => {
 function ReadyTypingTest() {
   const startDate = useRef(new Date());
   const config = useMemo(() => getConfig(startDate.current), []);
-  const moderationClient = useSharedRegisteredModerationClient({
-    info: { participant, device, activity: "typing-test" },
-  });
+  const moderationClient = useSharedModerationClient();
 
   switch (moderationClient.state) {
     case ReadyStates.ready:
@@ -106,7 +104,10 @@ export default function TypingTest() {
   }
   return (
     <WordSuggestionsProvider>
-      <ModerationClientProvider>
+      <ModerationClientProvider
+        isRegistered
+        info={{ participant, device, activity: "typing-test" }}
+      >
         <ReadyTypingTest />
       </ModerationClientProvider>
     </WordSuggestionsProvider>

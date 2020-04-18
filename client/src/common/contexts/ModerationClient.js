@@ -1,3 +1,6 @@
+// FIXME: This is unmaintainable. See
+// https://github.com/QuentinRoy/accuracy_autocorrect/issues/142.
+
 import React, {
   useRef,
   createContext,

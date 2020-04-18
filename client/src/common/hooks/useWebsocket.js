@@ -1,3 +1,6 @@
+// FIXME: It is probably a bad idea to use this. See
+// https://github.com/QuentinRoy/accuracy_autocorrect/issues/142.
+
 import { useEffect, useRef, useReducer, useCallback } from "react";
 import { ReadyStates, MessageTypes } from "../constants";
 

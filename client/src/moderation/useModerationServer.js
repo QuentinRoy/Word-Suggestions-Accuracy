@@ -1,3 +1,6 @@
+// FIXME: This type of hooks was a bad idea. See
+// https://github.com/QuentinRoy/accuracy_autocorrect/issues/142.
+
 import { useEffect, useState } from "react";
 import useWebsocket from "../common/hooks/useWebsocket";
 import {

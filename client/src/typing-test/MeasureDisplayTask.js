@@ -52,6 +52,7 @@ export default function MeasureDisplayTask({
   }, [rulersOrientation]);
 
   const handleSubmit = () => {
+    // eslint-disable-next-line no-console
     sendLog(LogTypes.measureDisplay, dimensions).catch(console.error);
     onLog("displayDimensions", dimensions);
     onAdvanceWorkflow();

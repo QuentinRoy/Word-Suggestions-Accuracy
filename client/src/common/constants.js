@@ -151,6 +151,7 @@ export const LogTypes = Object.freeze({
   switchDevice: "switch-device",
   typingSpeedResults: "typing-speed-results",
   measureDisplay: "measure-display",
+  resetDialog: "reset-dialog",
 });
 
 export const Paths = Object.freeze({

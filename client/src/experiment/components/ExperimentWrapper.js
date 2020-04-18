@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll } from "@hcikit/tasks";
 import { ThemeProvider } from "@material-ui/styles";
@@ -10,7 +10,6 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core";
-import { useLocation } from "react-router-dom";
 import TypingTask from "./TypingTask";
 import useConfiguration from "../hooks/useConfiguration";
 import Loading from "../../common/components/Loading";
@@ -33,6 +32,7 @@ import UploadTask from "./UploadTask";
 import useBodyBackgroundColor from "../../common/hooks/useBodyBackgroundColor";
 import getEndPoints from "../../common/utils/endpoints";
 import useAsync from "../../common/hooks/useAsync";
+import useLocationParams from "../../common/hooks/useLocationParams";
 
 registerAll(registerTask);
 registerTask(TaskTypes.typingTask, TypingTask);
@@ -82,17 +82,7 @@ function ResetDialog({ onClose, open }) {
 
 function ExperimentContent() {
   useBodyBackgroundColor("#EEE");
-  const location = useLocation();
-  const configArgs = useMemo(() => {
-    const urlParams = new URLSearchParams(location.search);
-    return {
-      participant: urlParams.get("participant"),
-      device: urlParams.get("device"),
-      isTest: urlParams.get("isTest"),
-      config: urlParams.get("config"),
-      reset: urlParams.get("reset") ?? false,
-    };
-  }, [location]);
+  const configArgs = useLocationParams();
   const [isAskingReset, setIsAskingReset] = useState(configArgs.reset);
   const [configLoadingState, configuration, error] = useConfiguration(
     configArgs

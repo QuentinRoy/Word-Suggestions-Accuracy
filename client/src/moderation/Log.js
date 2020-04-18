@@ -30,10 +30,18 @@ function Device() {
   );
 }
 
-function Result({ children }) {
-  return <span className={style.result}>{children}</span>;
+function Result({ children, danger }) {
+  return (
+    <span className={classNames(style.result, { [style.danger]: danger })}>
+      {children}
+    </span>
+  );
 }
-Result.propTypes = { children: PropTypes.node.isRequired };
+Result.propTypes = {
+  children: PropTypes.node.isRequired,
+  danger: PropTypes.bool,
+};
+Result.defaultProps = { danger: false };
 
 function SwitchDeviceLog() {
   const { content } = useLog();
@@ -67,6 +75,21 @@ function TypingSpeedResultLog() {
   );
 }
 
+function ResetDialogLog() {
+  const { content } = useLog();
+  return (
+    <>
+      <Participant /> has{" "}
+      {content.hasReset ? (
+        <Result danger>restarted</Result>
+      ) : (
+        <Result>resumed</Result>
+      )}{" "}
+      their experiment on <Device />
+    </>
+  );
+}
+
 function UnknownLog() {
   const { type } = useLog();
   return <>{type} log</>;
@@ -76,6 +99,7 @@ const contentMap = {
   [LogTypes.switchDevice]: SwitchDeviceLog,
   [LogTypes.measureDisplay]: MeasureLog,
   [LogTypes.typingSpeedResults]: TypingSpeedResultLog,
+  [LogTypes.resetDialog]: ResetDialogLog,
 };
 
 function LogHeader() {

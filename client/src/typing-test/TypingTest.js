@@ -1,7 +1,8 @@
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useState } from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll } from "@hcikit/tasks";
 import { TaskTypes, Devices, ReadyStates } from "../common/constants";
+import ResetDialog from "../common/components/ResetDialog";
 import configLaptop from "./configuration-laptop.json";
 import configPhone from "./configuration-phone.json";
 import configTablet from "./configuration-tablet.json";
@@ -18,6 +19,7 @@ import {
   useSharedModerationClient,
 } from "../common/contexts/ModerationClient";
 import Loading from "../common/components/Loading";
+import useLocationParams from "../common/hooks/useLocationParams";
 
 registerAll(registerTask);
 registerTask(TaskTypes.injectEnd, InjectEnd);
@@ -26,72 +28,75 @@ registerTask(TaskTypes.s3Upload, UploadTask);
 registerTask(TaskTypes.typingSpeedTask, TypingSpeedTask);
 registerTask(TaskTypes.results, ResultsTask);
 
-const urlParams = new URL(document.location).searchParams;
-const participant = urlParams.get("participant");
-const device = urlParams.get("device");
-const reset = urlParams.get("reset");
-let isTest = urlParams.get("isTest");
+const useConfig = () => {
+  const { participant, device, isTest } = useLocationParams();
+  const { current: startDate } = useRef(new Date());
 
-if (isTest != null) {
-  if (isTest.toLowerCase() === "true") isTest = true;
-  else if (isTest.toLowerCase() === "false") isTest = false;
-  else isTest = null;
-}
-
-if (
-  reset &&
-  // eslint-disable-next-line no-alert
-  window.confirm(
-    "Are you sure you do not want to resume the previous test? All unsaved data will be lost."
-  )
-) {
-  // This is the key used by hci kit.
-  localStorage.removeItem("state");
-}
-
-const getConfig = (startDate) => {
-  let baseConfig;
-  switch (device) {
-    case Devices.phone:
-      baseConfig = configPhone;
-      break;
-    case Devices.tablet:
-      baseConfig = configTablet;
-      break;
-    case Devices.laptop:
-      baseConfig = configLaptop;
-      break;
-    default:
-      throw new Error(`Unknown device: ${device}`);
-  }
-  // Add the target filename for every upload tasks.
-  return {
-    ...baseConfig,
-    isTest,
-    participant,
-    startDate,
-    [TaskTypes.s3Upload]: {
-      filename:
-        process.env.NODE_ENV === "development"
-          ? `typing-dev/${participant}-typing-${device}-${startDate.toISOString()}.json`
-          : `typing-prod/${participant}-typing-${device}-${startDate.toISOString()}.json`,
-    },
-  };
+  return useMemo(() => {
+    let baseConfig;
+    switch (device) {
+      case Devices.phone:
+        baseConfig = configPhone;
+        break;
+      case Devices.tablet:
+        baseConfig = configTablet;
+        break;
+      case Devices.laptop:
+        baseConfig = configLaptop;
+        break;
+      default:
+        throw new Error(`Unknown device: ${device}`);
+    }
+    // Add the target filename for every upload tasks.
+    return {
+      ...baseConfig,
+      isTest,
+      participant,
+      startDate,
+      [TaskTypes.s3Upload]: {
+        filename:
+          process.env.NODE_ENV === "development"
+            ? `typing-dev/${participant}-typing-${device}-${startDate.toISOString()}.json`
+            : `typing-prod/${participant}-typing-${device}-${startDate.toISOString()}.json`,
+      },
+    };
+  }, [device, isTest, participant, startDate]);
 };
 
 function ReadyTypingTest() {
-  const startDate = useRef(new Date());
-  const config = useMemo(() => getConfig(startDate.current), []);
+  const config = useConfig();
   const moderationClient = useSharedModerationClient();
+  const { reset } = useLocationParams();
+  const [askReset, setAskReset] = useState(reset != null && reset);
 
   switch (moderationClient.state) {
     case ReadyStates.ready:
     case ReadyStates.crashed:
     case ReadyStates.done:
+      if (askReset) {
+        return (
+          <>
+            <Loading>Managing state...</Loading>
+            <ResetDialog
+              open
+              moderationClient={moderationClient}
+              activity="typing-test"
+              onClose={() => {
+                setAskReset(false);
+              }}
+            />
+          </>
+        );
+      }
       return <Experiment configuration={config} />;
     case ReadyStates.idle:
     case ReadyStates.loading:
-      return <Loading>Connecting to moderation...</Loading>;
+      return (
+        <>
+          <Loading>Connecting to moderation...</Loading>
+          <ResetDialog open={false} onClose={() => setAskReset(false)} />
+        </>
+      );
     default:
       throw new Error(`Unexpected state ${moderationClient.state}`);
   }
@@ -99,14 +104,18 @@ function ReadyTypingTest() {
 
 export default function TypingTest() {
   useBodyBackgroundColor("#EEE");
+
+  const { participant, device, isTest } = useLocationParams();
+
   if (device == null || participant == null || isTest == null) {
     return <Crashed>Invalid page arguments</Crashed>;
   }
+
   return (
     <WordSuggestionsProvider>
       <ModerationClientProvider
         isRegistered
-        info={{ participant, device, activity: "typing-test" }}
+        info={{ participant, device, activity: "typing-test", isTest }}
       >
         <ReadyTypingTest />
       </ModerationClientProvider>

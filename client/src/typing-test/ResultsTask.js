@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { withRawConfiguration } from "@hcikit/workflow";
 import { Button } from "@material-ui/core";
 import { useHistory, useLocation } from "react-router-dom";
 import style from "./ResultsTask.module.css";
-import { TaskTypes, Paths } from "../common/constants";
+import { TaskTypes, Paths, LogTypes } from "../common/constants";
 import TaskPaper from "../experiment/components/TaskPaper";
+import { useSharedModerationClient } from "../common/contexts/ModerationClient";
 
 function ResultsTask({ participant, configuration }) {
   const history = useHistory();
   const location = useLocation();
+
   const typingTasks = configuration.children.filter(
     (t) => t.task === TaskTypes.typingSpeedTask
   );
@@ -22,6 +24,12 @@ function ResultsTask({ participant, configuration }) {
   });
   const avgSpeed =
     typingTaskSpeeds.reduce((a, b) => a + b, 0) / typingTaskSpeeds.length;
+
+  const { sendLog } = useSharedModerationClient();
+
+  useEffect(() => {
+    sendLog(LogTypes.typingSpeedResults, { avgSpeed });
+  }, [sendLog, avgSpeed]);
 
   return (
     <TaskPaper>

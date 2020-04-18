@@ -150,6 +150,7 @@ export const defaultMinSuggestionDelay = 200; // in ms.
 export const LogTypes = Object.freeze({
   switchDevice: "switch-device",
   typingSpeedResults: "typing-speed-results",
+  measureDisplay: "measure-display",
 });
 
 export const Paths = Object.freeze({

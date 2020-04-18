@@ -1,7 +1,7 @@
 import React, { useRef, useMemo } from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll } from "@hcikit/tasks";
-import { TaskTypes, Devices } from "../common/constants";
+import { TaskTypes, Devices, ReadyStates } from "../common/constants";
 import configLaptop from "./configuration-laptop.json";
 import configPhone from "./configuration-phone.json";
 import configTablet from "./configuration-tablet.json";
@@ -13,6 +13,11 @@ import InjectEnd from "../experiment/components/InjectEnd";
 import ResultsTask from "./ResultsTask";
 import useBodyBackgroundColor from "../common/hooks/useBodyBackgroundColor";
 import MeasureDisplayTask from "./MeasureDisplayTask";
+import {
+  ModerationClientProvider,
+  useSharedRegisteredModerationClient,
+} from "../common/contexts/ModerationClient";
+import Loading from "../common/components/Loading";
 
 registerAll(registerTask);
 registerTask(TaskTypes.injectEnd, InjectEnd);
@@ -74,16 +79,36 @@ const getConfig = (startDate) => {
   };
 };
 
-export default function TypingTest() {
+function ReadyTypingTest() {
   const startDate = useRef(new Date());
   const config = useMemo(() => getConfig(startDate.current), []);
+  const moderationClient = useSharedRegisteredModerationClient({
+    info: { participant, device, activity: "typing-test" },
+  });
+
+  switch (moderationClient.state) {
+    case ReadyStates.ready:
+    case ReadyStates.crashed:
+    case ReadyStates.done:
+      return <Experiment configuration={config} />;
+    case ReadyStates.idle:
+    case ReadyStates.loading:
+      return <Loading>Connecting to moderation...</Loading>;
+    default:
+      throw new Error(`Unexpected state ${moderationClient.state}`);
+  }
+}
+
+export default function TypingTest() {
   useBodyBackgroundColor("#EEE");
   if (device == null || participant == null || isTest == null) {
     return <Crashed>Invalid page arguments</Crashed>;
   }
   return (
     <WordSuggestionsProvider>
-      <Experiment configuration={config} />
+      <ModerationClientProvider>
+        <ReadyTypingTest />
+      </ModerationClientProvider>
     </WordSuggestionsProvider>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Info from "./Info";
 
 // This is the key used by hcikit. It is hacky to access it like this,
 // but there is no other way that I am aware of.
@@ -18,13 +19,16 @@ const PreviousState = () => {
     setStorageState(getPreviousState());
   };
 
-  if (storageState == null)
+  if (storageState == null) {
     return (
       <>
         <h2>Existing Experiment State</h2>
-        <p>No previous state.</p>
+        <p>
+          <Info>No previous state</Info>
+        </p>
       </>
     );
+  }
 
   const {
     isExperimentCompleted,

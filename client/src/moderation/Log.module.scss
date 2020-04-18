@@ -1,0 +1,31 @@
+.log {
+  margin: 1em 0;
+  color: #2e3440;
+}
+
+.log .logHeader {
+  font-size: x-small;
+  margin: 0 0 0.2em 0;
+  color: #4c566a;
+}
+
+.log .logContent {
+  margin: 0;
+}
+
+.participant {
+  color: #b48ead;
+}
+
+.device {
+  color: #a3be8c;
+}
+
+.unknownDevice,
+.unknownParticipant {
+  color: #d08770;
+}
+
+.result {
+  color: #5e81ac;
+}

@@ -186,3 +186,25 @@ export function useSharedModerationClient({ onCommand } = {}) {
 
   return moderationClient;
 }
+
+export function useSharedRegisteredModerationClient({ onCommand, info } = {}) {
+  const moderationClient = useSharedModerationClient({ onCommand });
+
+  useEffect(() => {
+    if (
+      moderationClient.state === ReadyStates.ready &&
+      moderationClient.registration.state === ReadyStates.idle
+    ) {
+      moderationClient.register(info);
+    }
+  }, [moderationClient, info]);
+
+  return {
+    ...moderationClient,
+    state: mergeReadyStates(
+      moderationClient.state,
+      moderationClient.registration.state
+    ),
+    clientState: moderationClient.state,
+  };
+}

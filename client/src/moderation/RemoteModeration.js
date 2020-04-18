@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import ControlServerLogin from "./ControlServerLogin";
-import Logs from "./Logs";
+import LogList from "./LogList";
 import useModerationServer from "./useModerationServer";
 import { LogInStates } from "../common/constants";
 import Area from "../common/components/Area";
@@ -52,7 +52,7 @@ export default function RemoteModeration() {
           <RemoteStartup clients={clients} onStartApp={handleStartApp} />
         </Area>
         <Area maxHeight={500} width={500}>
-          <Logs logs={logs} onClear={clearLogs} />
+          <LogList logs={logs} onClear={clearLogs} />
         </Area>
         <Snackbar open={snack.isOpened} onClose={handleSnackClose}>
           <Alert

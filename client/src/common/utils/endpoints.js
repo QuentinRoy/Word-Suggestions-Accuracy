@@ -5,14 +5,14 @@ const getEndPoint = (addressArg, portArg, defaultPort) => {
   if (addressArg != null) {
     return addressArg;
   }
-  const wsProtocol = document.location.protocol === "https " ? "wss" : "ws";
+  const wsProtocol = document.location.protocol === "https:" ? "wss:" : "ws:";
   if (portArg == null) {
-    return `${wsProtocol}://${document.location.hostname}:${defaultPort}`;
+    return `${wsProtocol}//${document.location.hostname}:${defaultPort}`;
   }
   if (portArg === "") {
-    return `${wsProtocol}://${document.location.host}`;
+    return `${wsProtocol}//${document.location.host}`;
   }
-  return `${wsProtocol}://${document.location.hostname}:${portArg}`;
+  return `${wsProtocol}//${document.location.hostname}:${portArg}`;
 };
 
 // Set this up outside the function so that it starts loading the end points as

@@ -1,23 +1,29 @@
 ARG APP_GIT_SHA
 
-FROM node:13.13.0-slim AS build
+# Use multi-stage build, to get rid of the client's dependencies once it has
+# been built.
+FROM node:13.13.0-slim AS build-client
 WORKDIR /app/client
 COPY ./client .
 RUN npm install --production
 ARG APP_GIT_SHA
 RUN REACT_APP_GIT_SHA=$APP_GIT_SHA npm run build
 
-# Use multi-stage build, to get rid of the client's dependencies once it has
-# been built.
-FROM node:13.13.0-slim
+FROM node:13.13.0-slim AS install-server
 WORKDIR /app/server
 COPY ./control-server .
-COPY --from=0 /app/client/build /app/client
-COPY --from=0 /app/client/scripts/endpoints-from-env.js /app/
-EXPOSE 80
 RUN npm install --production
+
+FROM node:13.13.0-slim AS runtime
+WORKDIR /app/server
+COPY --from=build-client /app/client/build /app/client
+COPY --from=install-server /app/server /app/server
+COPY ./client/scripts/endpoints-from-env.js /app/
+
+EXPOSE 80
 ENV STATIC_NOT_FOUND_FILE index.html
 ENV SERVER_PORT 80
 ENV STATIC_FILES /app/client
+ENV CONTROL_SERVER_PORT ""
 CMD node /app/endpoints-from-env > /app/client/endpoints.json \
   && node /app/server/index.js

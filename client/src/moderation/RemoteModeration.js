@@ -25,55 +25,53 @@ export default function RemoteModeration() {
   } = useModerationServer();
   const [snack, setSnack] = useState({ isOpened: false });
 
+  if (logInState !== LogInStates.loggedIn) {
+    return (
+      <Area>
+        <h2>Login</h2>
+        <ControlServerLogin
+          onLogin={(...args) => logIn(...args)}
+          serverState={loadingState}
+        />
+      </Area>
+    );
+  }
+
   const handleSnackClose = () => {
     setSnack({ ...snack, isOpened: false });
   };
 
-  if (logInState === LogInStates.loggedIn) {
-    const handleStartApp = (...args) => {
-      startApp(...args).then(
-        () =>
-          setSnack({
-            message: "App started",
-            severity: "success",
-            isOpened: true,
-          }),
-        (error) =>
-          setSnack({
-            message: error.message,
-            severity: "error",
-            isOpened: true,
-          })
-      );
-    };
-    return (
-      <>
-        <Area width={500}>
-          <RemoteStartup clients={clients} onStartApp={handleStartApp} />
-        </Area>
-        <Area maxHeight={500} width={500}>
-          <LogList logs={logs} onClear={clearLogs} clients={clients} />
-        </Area>
-        <Snackbar open={snack.isOpened} onClose={handleSnackClose}>
-          <Alert
-            onClose={handleSnackClose}
-            severity={snack?.severity ?? "info"}
-          >
-            {snack?.message}
-          </Alert>
-        </Snackbar>
-      </>
+  const handleStartApp = (...args) => {
+    startApp(...args).then(
+      () =>
+        setSnack({
+          message: "App started",
+          severity: "success",
+          isOpened: true,
+        }),
+      (error) =>
+        setSnack({
+          message: error.message,
+          severity: "error",
+          isOpened: true,
+        })
     );
-  }
+  };
 
   return (
-    <Area>
-      <h2>Login</h2>
-      <ControlServerLogin
-        onLogin={(...args) => logIn(...args)}
-        serverState={loadingState}
-      />
-    </Area>
+    <>
+      <Area width={500}>
+        <RemoteStartup clients={clients} onStartApp={handleStartApp} />
+      </Area>
+      <Area maxHeight={500} width={500}>
+        <LogList logs={logs} onClear={clearLogs} clients={clients} />
+      </Area>
+      <Snackbar open={snack.isOpened} onClose={handleSnackClose}>
+        <Alert onClose={handleSnackClose} severity={snack?.severity ?? "info"}>
+          {snack?.message}
+        </Alert>
+      </Snackbar>
+    </>
   );
 }
 RemoteModeration.propTypes = {};

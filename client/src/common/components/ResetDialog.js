@@ -69,6 +69,7 @@ export default function ResetDialog({
 ResetDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  activity: PropTypes.bool.isRequired,
   moderationClient: PropTypes.shape({
     state: PropTypes.oneOf(Object.values(ReadyStates)).isRequired,
     sendLog: PropTypes.func.isRequired,

@@ -8,6 +8,7 @@ import {
 } from "./errors.js";
 import loglevel from "loglevel";
 import { MessageTypes } from "./constants.js";
+import shortid from "shortid";
 
 const log = loglevel.getLogger("api");
 
@@ -106,14 +107,16 @@ addHandler(
     }).required(),
   }),
   ({ log }, client, context) => {
-    const newLog = { ...log, client, date: new Date() };
+    const newLog = {
+      ...log,
+      id: shortid(),
+      client: exportClient(client),
+      date: new Date(),
+    };
     logs.push(newLog);
 
     // Send the new log to all moderators, but do not wait for it.
-    const message = {
-      log: { ...newLog, client: exportClient(newLog.client) },
-      type: MessageTypes.log,
-    };
+    const message = { log: exportLog(newLog), type: MessageTypes.log };
     for (let client of context.clients.values()) {
       if (client.role !== UserRoles.moderator) continue;
       const messageId = client.send(message);
@@ -180,7 +183,9 @@ function exportClient(client) {
 }
 
 function exportLog(log) {
-  return { ...log, client: exportClient(log.client) };
+  // Clients are now exported before being stored as part of the log, so there
+  // is nothing to do here.
+  return log;
 }
 
 function handleError(message, error, client) {

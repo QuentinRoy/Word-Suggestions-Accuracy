@@ -4,10 +4,21 @@ import classNames from "classnames";
 import useUniqueId from "../hooks/useUniqueId";
 import style from "./RadioBoxGroup.module.css";
 
-function RadioBoxItem({ checked, name, onChange, value, children, onBlur }) {
+function RadioBoxItem({
+  checked,
+  name,
+  onChange,
+  value,
+  children,
+  onBlur,
+  disabled,
+}) {
   const id = useUniqueId();
   return (
-    <label htmlFor={id} className={style.radioBoxItem}>
+    <label
+      htmlFor={id}
+      className={classNames(style.radioBoxItem, { [style.disabled]: disabled })}
+    >
       <input
         onBlur={onBlur}
         id={id}
@@ -16,6 +27,7 @@ function RadioBoxItem({ checked, name, onChange, value, children, onBlur }) {
         value={value}
         checked={checked}
         onChange={onChange}
+        disabled={disabled}
       />{" "}
       <div>{children}</div>
     </label>
@@ -29,9 +41,11 @@ RadioBoxItem.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string.isRequired,
   children: PropTypes.node,
+  disabled: PropTypes.bool,
 };
 
 RadioBoxItem.defaultProps = {
+  disabled: false,
   checked: false,
   onChange: () => {},
   onBlur: () => {},
@@ -55,9 +69,10 @@ export default function RadioBoxGroup({
       {React.Children.map(children, ({ props: childProps }) => (
         <li key={childProps.value}>
           <RadioBoxItem
+            value={childProps.value}
+            disabled={childProps.disabled}
             checked={childProps.value === value}
             name={name}
-            value={childProps.value}
             onChange={onChange}
             onBlur={onBlur}
           >

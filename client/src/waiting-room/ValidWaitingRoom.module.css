@@ -5,3 +5,8 @@
 .reconnectButton {
   margin-left: 2em;
 }
+
+.instruction {
+  font-weight: bolder;
+  font-style: italic;
+}

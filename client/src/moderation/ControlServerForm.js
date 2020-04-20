@@ -102,6 +102,7 @@ const ControlServerForm = ({ clients, startApp }) => {
                       <option
                         value={targetParticipant.id}
                         key={targetParticipant.id}
+                        disabled={targetParticipant.info.activity !== "waiting"}
                       >
                         <Client {...targetParticipant} />
                       </option>

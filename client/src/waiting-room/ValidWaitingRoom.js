@@ -67,7 +67,9 @@ function Ready() {
     <>
       <SetupSummary />
       <div>
-        <strong>Please wait for your experimenter.</strong>
+        <strong className={style.instruction}>
+          Please wait for your experimenter.
+        </strong>
       </div>
     </>
   );

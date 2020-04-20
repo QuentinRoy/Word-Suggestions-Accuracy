@@ -8,9 +8,9 @@
   "numberOfPracticeTasks": 3,
   "numberOfTypingTasks": 20,
   "doNotShowDelayInstructions": true,
-  "wave": "multi-device",
+  "wave": "test",
   "children": [
     { "task": "BlockQuestionnaire", "key": "typing-questionnaire-phone" }
   ],
-  "device": "laptop"
+  "device": "phone"
 }

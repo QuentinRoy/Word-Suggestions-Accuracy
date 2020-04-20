@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
-import { registerAll } from "@hcikit/tasks";
+import { InformationScreen } from "@hcikit/tasks";
 import { ThemeProvider } from "@material-ui/styles";
 import {
   createMuiTheme,
@@ -27,14 +27,19 @@ import {
   WordSuggestionsProvider,
   useSuggestions,
 } from "../wordSuggestions/wordSuggestions";
-import { main } from "./styles/ExperimentWrapper.module.css";
+import {
+  ModerationClientProvider,
+  useSharedModerationClient,
+} from "../../common/contexts/ModerationClient";
 import UploadTask from "./UploadTask";
 import useBodyBackgroundColor from "../../common/hooks/useBodyBackgroundColor";
 import getEndPoints from "../../common/utils/endpoints";
 import useAsync from "../../common/hooks/useAsync";
 import useLocationParams from "../../common/hooks/useLocationParams";
+import style from "./styles/ExperimentWrapper.module.css";
+import SwitchDeviceInstruction from "./SwitchDeviceInstruction";
 
-registerAll(registerTask);
+registerTask(TaskTypes.informationScreen, InformationScreen);
 registerTask(TaskTypes.typingTask, TypingTask);
 registerTask(TaskTypes.s3Upload, UploadTask);
 registerTask(TaskTypes.endExperiment, EndExperiment);
@@ -45,6 +50,7 @@ registerTask(TaskTypes.tutorial, Tutorial);
 registerTask(TaskTypes.consentForm, ConsentForm);
 registerTask(TaskTypes.finalFeedbacks, FinalFeedbacks);
 registerTask(TaskTypes.injectEnd, InjectEnd);
+registerTask(TaskTypes.switchDevice, SwitchDeviceInstruction);
 
 // eslint-disable-next-line react/prop-types
 function ResetDialog({ onClose, open }) {
@@ -88,19 +94,28 @@ function ExperimentContent() {
     configArgs
   );
   const { loadingState: suggestionsLoadingState } = useSuggestions();
-
-  if (isAskingReset) {
-    return <ResetDialog open onClose={() => setIsAskingReset(false)} />;
-  }
+  const { state: moderationState } = useSharedModerationClient();
 
   if (
     configLoadingState === ReadyStates.loading ||
-    configLoadingState === ReadyStates.idle
+    configLoadingState === ReadyStates.idle ||
+    isAskingReset
   ) {
-    return <Loading>Loading experiment...</Loading>;
+    return (
+      <>
+        <Loading>Loading experiment...</Loading>
+        <ResetDialog
+          open={isAskingReset}
+          onClose={() => setIsAskingReset(false)}
+        />
+      </>
+    );
+  }
+  if (moderationState === ReadyStates.loading) {
+    return <Loading>Connecting to experimenter...</Loading>;
   }
   if (suggestionsLoadingState === ReadyStates.loading) {
-    return <Loading>Loading suggestions...</Loading>;
+    return <Loading>Connection to word suggestions...</Loading>;
   }
   if (
     configLoadingState === ReadyStates.ready &&
@@ -119,12 +134,11 @@ function ExperimentContent() {
 // Change Material-ui default font for their widgets. It is using a font that
 // is not included by default.
 const theme = createMuiTheme({
-  typography: {
-    fontFamily: '"Helvetica Neue", "sans-serif"',
-  },
+  typography: { fontFamily: '"Helvetica Neue", "sans-serif"' },
 });
 
 export default function ExperimentWrapper() {
+  const locationParams = useLocationParams();
   const [endPointsLoadingState, endpoints] = useAsync(getEndPoints);
 
   if (endPointsLoadingState === ReadyStates.crashed) {
@@ -148,9 +162,14 @@ export default function ExperimentWrapper() {
   return (
     <ThemeProvider theme={theme}>
       <WordSuggestionsProvider serverAddress={endpoints.suggestionServer}>
-        <div className={main}>
-          <ExperimentContent />
-        </div>
+        <ModerationClientProvider
+          isRegistered
+          info={{ ...locationParams, activity: "experiment" }}
+        >
+          <div className={style.main}>
+            <ExperimentContent />
+          </div>
+        </ModerationClientProvider>
       </WordSuggestionsProvider>
     </ThemeProvider>
   );

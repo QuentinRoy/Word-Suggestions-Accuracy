@@ -44,7 +44,10 @@ export default function WaitingRoom() {
     return (
       <Wrapper>
         <ClientInfoProvider clientInfo={qsArgs}>
-          <ModerationClientProvider info={qsArgs} isRegistered>
+          <ModerationClientProvider
+            info={{ ...qsArgs, activity: "waiting" }}
+            isRegistered
+          >
             <ValidWaitingRoom />
           </ModerationClientProvider>
         </ClientInfoProvider>

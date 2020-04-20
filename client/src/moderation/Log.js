@@ -4,13 +4,12 @@ import classNames from "classnames";
 import style from "./Log.module.scss";
 import { LogTypes } from "../common/constants";
 
-const context = React.createContext();
-
-const useLog = () => useContext(context);
+const logContext = React.createContext();
+const useLog = () => useContext(logContext);
 
 function Participant() {
   const { client } = useLog();
-  return client?.info?.participant ? (
+  return client?.info?.participant != null ? (
     <span className={style.participant}>{client.info.participant}</span>
   ) : (
     <span className={classNames(style.participant, style.unknownParticipant)}>
@@ -21,7 +20,7 @@ function Participant() {
 
 function Device() {
   const { client } = useLog();
-  return client?.info?.device ? (
+  return client?.info?.device != null ? (
     <span className={style.device}>{client.info.device}</span>
   ) : (
     <span className={classNames(style.device, style.unknownDevice)}>
@@ -47,7 +46,8 @@ function SwitchDeviceLog() {
   const { content } = useLog();
   return (
     <>
-      <Participant /> should switch to <Result>{content.device}</Result>
+      <Participant /> has been asked to switch from <Device /> to{" "}
+      <Result>{content.nextDevice}</Result>
     </>
   );
 }
@@ -118,14 +118,14 @@ function Log({ date, client, type, content }) {
   }
   const Content = contentMap[type] ?? UnknownLog;
   return (
-    <context.Provider value={{ date, client, type, content }}>
+    <logContext.Provider value={{ date, client, type, content }}>
       <div className={style.log}>
         <LogHeader />
         <div className={style.logContent}>
           <Content />
         </div>
       </div>
-    </context.Provider>
+    </logContext.Provider>
   );
 }
 Log.propTypes = {
@@ -133,7 +133,13 @@ Log.propTypes = {
   content: PropTypes.shape().isRequired,
   date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
     .isRequired,
-  client: PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired,
+  client: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    info: PropTypes.shape({
+      device: PropTypes.string,
+      participant: PropTypes.string,
+    }),
+  }).isRequired,
 };
 Log.defaultProps = { type: undefined };
 

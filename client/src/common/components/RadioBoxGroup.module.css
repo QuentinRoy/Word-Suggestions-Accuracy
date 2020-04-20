@@ -27,3 +27,7 @@
 .radioBoxItem > input {
   margin-right: 0.5em;
 }
+
+.disabled {
+  color: #808080;
+}

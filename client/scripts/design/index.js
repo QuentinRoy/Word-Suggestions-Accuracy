@@ -62,15 +62,10 @@ const createInitBlock = ({ firstDevice }) => {
   ];
   if (firstDevice !== "laptop") {
     children.push({
-      task: "InformationScreen",
-      content: minify(`
-        <p>Now switch to the ${firstDevice}.</p>
-        <p>
-          <strong>Do not press continue</strong>
-          before you are told to switch to the laptop again.
-        </p>
-      `),
-      key: `info-first-switch`,
+      task: "SwitchDevice",
+      nextDevice: firstDevice,
+      isCurrentDeviceDone: false,
+      key: `first-switch`,
     });
   }
   return { device: "laptop", children };
@@ -163,28 +158,12 @@ const createTypingBlock = ({
   if (isDoneAfter) {
     children.push({ task: "InjectEnd", key: `final-inject-end` });
   }
-  if (nextDevice !== device && !isDoneAfter) {
-    children.push({
-      task: "InformationScreen",
-      content: minify(`
-        <p>Now switch to the ${nextDevice}.</p>
-        <p>
-          <strong>Do not press continue</strong>
-          before you are told to switch to the ${device} again.
-        </p>
-      `),
-      key: `typing-${device}-info-typing-end`,
-    });
-  } else if (nextDevice !== device) {
-    children.push({
-      task: "InformationScreen",
-      content: minify(`
-        <p>You are now done with this device</p>
-        <p>Switch to the ${nextDevice}.</p>
-      `),
-      key: `typing-${device}-info-typing-end`,
-    });
-  }
+  children.push({
+    task: "SwitchDevice",
+    nextDevice,
+    isCurrentDeviceDone: isDoneAfter,
+    key: `typing-${device}-switch-device`,
+  });
   return {
     device,
     children,

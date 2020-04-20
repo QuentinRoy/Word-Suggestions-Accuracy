@@ -1,0 +1,27 @@
+{
+  "config": "test-tuto",
+  "deviceOrder": ["phone", "laptop", "tablet"],
+  "targetAccuracy": 0.5,
+  "keyStrokeDelay": 0,
+  "totalSuggestions": 3,
+  "suggestionsType": "BAR",
+  "numberOfPracticeTasks": 3,
+  "numberOfTypingTasks": 20,
+  "wave": "test",
+  "doNotShowDelayInstructions": true,
+  "children": [
+    {
+      "task": "SwitchDevice",
+      "nextDevice": "tablet",
+      "isCurrentDeviceDone": false,
+      "key": "switch-1"
+    },
+    {
+      "task": "SwitchDevice",
+      "nextDevice": "phone",
+      "isCurrentDeviceDone": true,
+      "key": "switch-2"
+    }
+  ],
+  "device": "laptop"
+}

@@ -52,7 +52,7 @@ export default function RemoteModeration() {
           <RemoteStartup clients={clients} onStartApp={handleStartApp} />
         </Area>
         <Area maxHeight={500} width={500}>
-          <LogList logs={logs} onClear={clearLogs} />
+          <LogList logs={logs} onClear={clearLogs} clients={clients} />
         </Area>
         <Snackbar open={snack.isOpened} onClose={handleSnackClose}>
           <Alert

@@ -78,6 +78,7 @@ export const TaskTypes = Object.freeze({
   // These tasks are built in @hcikit
   informationScreen: "InformationScreen",
   experimentProgress: "ExperimentProgress",
+  switchDevice: "SwitchDevice",
 });
 
 export const TutorialSteps = Object.freeze({

@@ -80,7 +80,6 @@ function ReadyTypingTest() {
             <ResetDialog
               open
               moderationClient={moderationClient}
-              activity="typing-test"
               onClose={() => {
                 setAskReset(false);
               }}

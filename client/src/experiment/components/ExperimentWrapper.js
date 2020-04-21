@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
 import { InformationScreen } from "@hcikit/tasks";
 import { ThemeProvider } from "@material-ui/styles";
-import {
-  createMuiTheme,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from "@material-ui/core";
+import { createMuiTheme } from "@material-ui/core";
 import TypingTask from "./TypingTask";
 import useConfiguration from "../hooks/useConfiguration";
 import Loading from "../../common/components/Loading";
@@ -38,6 +31,7 @@ import useAsync from "../../common/hooks/useAsync";
 import useLocationParams from "../../common/hooks/useLocationParams";
 import style from "./styles/ExperimentWrapper.module.css";
 import SwitchDeviceInstruction from "./SwitchDeviceInstruction";
+import ResetDialog from "../../common/components/ResetDialog";
 
 registerTask(TaskTypes.informationScreen, InformationScreen);
 registerTask(TaskTypes.typingTask, TypingTask);
@@ -52,40 +46,6 @@ registerTask(TaskTypes.finalFeedbacks, FinalFeedbacks);
 registerTask(TaskTypes.injectEnd, InjectEnd);
 registerTask(TaskTypes.switchDevice, SwitchDeviceInstruction);
 
-// eslint-disable-next-line react/prop-types
-function ResetDialog({ onClose, open }) {
-  return (
-    <Dialog open={open}>
-      <DialogTitle>Reset State</DialogTitle>
-      <DialogContent>
-        Are you sure you do not want to resume the previous experiment?
-        <br />
-        All unsaved data will be lost.
-      </DialogContent>
-      <DialogActions>
-        <Button
-          onClick={() => {
-            localStorage.removeItem("state");
-            onClose();
-          }}
-          color="secondary"
-        >
-          Clear State
-        </Button>
-        <Button
-          autoFocus
-          onClick={() => {
-            onClose();
-          }}
-          color="primary"
-        >
-          Resume Experiment
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-}
-
 function ExperimentContent() {
   useBodyBackgroundColor("#EEE");
   const configArgs = useLocationParams();
@@ -94,7 +54,7 @@ function ExperimentContent() {
     configArgs
   );
   const { loadingState: suggestionsLoadingState } = useSuggestions();
-  const { state: moderationState } = useSharedModerationClient();
+  const moderationClient = useSharedModerationClient();
 
   if (
     configLoadingState === ReadyStates.loading ||
@@ -105,13 +65,14 @@ function ExperimentContent() {
       <>
         <Loading>Loading experiment...</Loading>
         <ResetDialog
+          moderationClient={moderationClient}
           open={isAskingReset}
           onClose={() => setIsAskingReset(false)}
         />
       </>
     );
   }
-  if (moderationState === ReadyStates.loading) {
+  if (moderationClient.state === ReadyStates.loading) {
     return <Loading>Connecting to experimenter...</Loading>;
   }
   if (suggestionsLoadingState === ReadyStates.loading) {

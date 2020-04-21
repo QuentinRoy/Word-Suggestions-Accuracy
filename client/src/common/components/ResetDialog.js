@@ -8,12 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
 import { ReadyStates, LogTypes } from "../constants";
 
-export default function ResetDialog({
-  open,
-  onClose,
-  moderationClient,
-  activity,
-}) {
+export default function ResetDialog({ open, onClose, moderationClient }) {
   const notifyClient = (hasReset) => {
     if (moderationClient == null) {
       return Promise.resolve();
@@ -21,7 +16,6 @@ export default function ResetDialog({
     if (moderationClient.state === ReadyStates.ready) {
       return moderationClient.sendLog(LogTypes.resetDialog, {
         hasReset,
-        activity,
       });
     }
     return Promise.reject(new Error(`No moderation client  not ready`));
@@ -68,8 +62,7 @@ export default function ResetDialog({
 
 ResetDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  activity: PropTypes.bool.isRequired,
+  open: PropTypes.bool,
   moderationClient: PropTypes.shape({
     state: PropTypes.oneOf(Object.values(ReadyStates)).isRequired,
     sendLog: PropTypes.func.isRequired,
@@ -77,5 +70,6 @@ ResetDialog.propTypes = {
 };
 
 ResetDialog.defaultProps = {
+  open: false,
   moderationClient: undefined,
 };

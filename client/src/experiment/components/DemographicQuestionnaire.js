@@ -19,6 +19,34 @@ const questions = {
     answers: ["Male", "Female", "Non-binary", "Other", "Prefer not to say"],
     isAnswerRequired: false,
   },
+  typingUseDesktop: {
+    text: "I frequently type on a laptop or desktop computer.",
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true,
+  },
+  typingUseTablet: {
+    text: "I frequently type on a touch tablet without a physical keyboard.",
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true,
+  },
+  typingUsePhone: {
+    text: "I frequently type on a phone.",
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true,
+  },
+  typingUsePhoneOneHand: {
+    text: "I frequently type on a phone with one hand.",
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true,
+  },
   suggestionsUseFrequencyDesktop: {
     text:
       "I frequently use word suggestions when typing on a laptop or desktop computer.",
@@ -37,6 +65,14 @@ const questions = {
   },
   suggestionsUseFrequencyPhone: {
     text: "I frequently use word suggestions when typing on a phone.",
+    inputType: InputTypes.choice,
+    direction: Directions.horizontal,
+    answers: agreementScaleAnswers,
+    isAnswerRequired: true,
+  },
+  suggestionsUseFrequencyPhoneOneHand: {
+    text:
+      "I frequently use word suggestions when typing on a phone with one hand.",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
     answers: agreementScaleAnswers,

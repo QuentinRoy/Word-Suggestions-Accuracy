@@ -1,16 +1,14 @@
 {
-  "config": "test-block",
+  "config": "test-demographic",
   "deviceOrder": ["phone", "laptop", "tablet"],
-  "targetAccuracy": 0.1,
+  "targetAccuracy": 0.5,
   "keyStrokeDelay": 0,
   "totalSuggestions": 3,
   "suggestionsType": "BAR",
   "numberOfPracticeTasks": 3,
   "numberOfTypingTasks": 20,
-  "doNotShowDelayInstructions": true,
   "wave": "test",
-  "children": [
-    { "task": "BlockQuestionnaire", "key": "typing-questionnaire-phone" }
-  ],
-  "device": "phone"
+  "doNotShowDelayInstructions": true,
+  "children": [{ "task": "DemographicQuestionnaire" }],
+  "device": "laptop"
 }

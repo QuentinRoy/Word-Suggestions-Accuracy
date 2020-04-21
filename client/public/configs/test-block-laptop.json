@@ -1,5 +1,5 @@
 {
-  "config": "test-blockq",
+  "config": "test-block",
   "deviceOrder": ["phone", "laptop", "tablet"],
   "targetAccuracy": 0.1,
   "keyStrokeDelay": 0,

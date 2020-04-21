@@ -11,6 +11,7 @@ const pkgInfo = require("../../package.json");
 log.setDefaultLevel(log.levels.DEBUG);
 
 const numberOfPracticeTasks = 3;
+const minSuggestionsDelay = 150;
 const numberOfTypingTasks = 20;
 const minParticipants = 30;
 const accuracyValues = [0.1, 0.5, 0.9];
@@ -218,6 +219,7 @@ const createRun = async ({ accuracy, deviceOrder, configId }) => {
     configGenerationGitSha: await gitShaPromise,
     configGenerationVersion: pkgInfo.version,
     deviceOrder,
+    minSuggestionsDelay,
     targetAccuracy: accuracy,
     keyStrokeDelay: 0,
     totalSuggestions: 3,

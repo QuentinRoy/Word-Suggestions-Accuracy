@@ -5,7 +5,6 @@ import {
   KeyboardLayoutNames,
   SuggestionTypes,
   FocusTargetTypes,
-  defaultMinSuggestionDelay,
 } from "../../common/constants";
 import "react-simple-keyboard/build/css/index.css";
 import useActionScheduler from "./useActionScheduler";
@@ -69,7 +68,7 @@ const useTrial = ({
   totalKss,
   sdWordsKss,
   onLog,
-  minSuggestionDelay = defaultMinSuggestionDelay,
+  minSuggestionsDelay,
   getEventLog = defaultGetEventLog,
   getTrialLog = defaultGetTrialLog,
   reducer: controlInversionReducer = defaultControlInversionReducer,
@@ -199,9 +198,20 @@ const useTrial = ({
     [actionScheduler, keyStrokeDelay]
   );
 
+  // Check if the trial is still on going or not. This is used to ignore
+  // non cancellable asynchronous operations, and avoid updating a finished
+  // trial state.
+  const isTrialFinishedRef = useRef(false);
+  useEffect(() => {
+    isTrialFinishedRef.current = false;
+    return () => {
+      isTrialFinishedRef.current = true;
+    };
+  }, []);
+
   const { requestSuggestions } = useSuggestions();
-  const minSuggestionDelayRef = useRef();
-  minSuggestionDelayRef.current = minSuggestionDelay;
+  const minSuggestionsDelayRef = useRef();
+  minSuggestionsDelayRef.current = minSuggestionsDelay;
 
   // This is ugly, we would want to request the suggestions when receiving the
   // action instead of waiting for the next render... But it works good enough.
@@ -215,9 +225,11 @@ const useTrial = ({
         input,
         canReplaceLetters: suggestionsType === SuggestionTypes.bar,
       }),
-      minSuggestionDelayRef.current
+      minSuggestionsDelayRef.current
     ).then(
       (newSuggestions) => {
+        // Check if the trial is finished first.
+        if (isTrialFinishedRef.current) return;
         dispatchWrapper({
           requestInput: input,
           requestTime,

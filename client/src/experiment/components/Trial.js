@@ -18,6 +18,7 @@ const Trial = ({
   device,
   totalSuggestions,
   isVirtualKeyboardEnabled,
+  minSuggestionsDelay,
 }) => {
   const {
     dispatch,
@@ -32,6 +33,7 @@ const Trial = ({
     isFullScreen,
   } = useTrial({
     totalSuggestions,
+    minSuggestionsDelay,
     suggestionsType,
     onComplete: onAdvanceWorkflow,
     onLog,
@@ -83,6 +85,7 @@ Trial.propTypes = {
   suggestionsType: PropTypes.oneOf(Object.values(SuggestionTypes)).isRequired,
   device: PropTypes.oneOf(Object.values(Devices)).isRequired,
   isVirtualKeyboardEnabled: PropTypes.bool.isRequired,
+  minSuggestionsDelay: PropTypes.number.isRequired,
 };
 
 export default Trial;

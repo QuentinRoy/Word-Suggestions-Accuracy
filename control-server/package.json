@@ -9,6 +9,9 @@
   "scripts": {
     "start": "cross-env SERVER_PORT=9090 node index.js"
   },
+  "engines": {
+    "node": ">=14"
+  },
   "type": "module",
   "author": "Quentin Roy <quentin@quentinroy.fr>",
   "license": "MIT",

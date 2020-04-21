@@ -1,7 +1,11 @@
-FROM golang:1.13.9-alpine
+FROM golang:1.13.9-alpine AS builder
+WORKDIR /app
+COPY ./suggestionServer .
+RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /app/suggestions
+
+FROM alpine:3.11.5
 WORKDIR /app
 EXPOSE 80
-COPY ./suggestionServer .
-ENV TOTAL_PARTICIPANTS 1
-RUN go build
-CMD ./suggestionServer -addr=:80 -total-participants=${TOTAL_PARTICIPANTS}
+COPY --from=builder /app/assets ./assets
+COPY --from=builder /app/suggestions .
+CMD ./suggestions -addr=:80 -total-participants=1

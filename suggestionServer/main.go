@@ -13,6 +13,11 @@ import (
 	"runtime"
 )
 
+const (
+	dictionaryPath = "./assets/dictionary.xml"
+	homePath       = "./assets/home.html"
+)
+
 var addr = flag.String("addr", ":8080", "HTTP service address")
 var totalParticipants = flag.Int(
 	"total-participants",
@@ -30,12 +35,12 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	http.ServeFile(w, r, "home.html")
+	http.ServeFile(w, r, homePath)
 }
 
 func main() {
 	flag.Parse()
-	dict := dictionary.LoadFromXML("./dictionary.xml")
+	dict := dictionary.LoadFromXML(dictionaryPath)
 	// It is unclear why the hub is important at the moment, but we keep it just in case.
 	hub := newHub()
 	go hub.run()

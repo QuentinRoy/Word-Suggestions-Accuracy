@@ -23,7 +23,7 @@ async function associateQualification(workerId) {
       QualificationTypeId: qualificationId /* required */,
       WorkerId: workerId /* required */,
       IntegerValue: 1,
-      SendNotification: false
+      SendNotification: false,
     })
     .promise();
   log.debug(resp);
@@ -35,11 +35,11 @@ async function getAllQualificationWorkers({ nextToken, acc = new Set() } = {}) {
     .listWorkersWithQualificationType({
       QualificationTypeId: qualificationId,
       MaxResults: 100,
-      NextToken: nextToken
+      NextToken: nextToken,
     })
     .promise();
 
-  resp.Qualifications.filter(q => q.Status === "Granted").forEach(q => {
+  resp.Qualifications.filter((q) => q.Status === "Granted").forEach((q) => {
     acc.add(q.WorkerId);
   });
 
@@ -57,7 +57,7 @@ async function getWorkerIdFromLog(logFilePath) {
 const Actions = {
   notWorker: Symbol("not a worker"),
   hasQualif: Symbol("already has the qualification"),
-  associated: Symbol("associated with the qualification")
+  associated: Symbol("associated with the qualification"),
 };
 
 async function main() {
@@ -69,8 +69,8 @@ async function main() {
   // qualification if it does not already have it.
   const results = await Promise.all(
     logFiles
-      .filter(fileName => path.extname(fileName).toLowerCase() === ".json")
-      .map(async fileName => {
+      .filter((fileName) => path.extname(fileName).toLowerCase() === ".json")
+      .map(async (fileName) => {
         // Get the worker Id from the log file.
         const workerId = await getWorkerIdFromLog(
           path.join(logDirPath, fileName)
@@ -104,5 +104,5 @@ async function main() {
 }
 
 if (require.main === module) {
-  main().catch(err => log.error(err));
+  main().catch((err) => log.error(err));
 }

@@ -34,14 +34,14 @@ async function fileLastModifiedDate(filePath) {
 const Actions = Object.freeze({
   downloaded: Symbol("downloaded"),
   updated: Symbol("updated"),
-  skipped: Symbol("skipped")
+  skipped: Symbol("skipped"),
 });
 
 async function downloadObject({
   key,
   targetFileName,
   modificationDate,
-  shouldOverwrite = false
+  shouldOverwrite = false,
 }) {
   // const exists = await fileExists(targetFileName);
   // const mDate = exists && (await fileLastModifiedDate());
@@ -71,15 +71,15 @@ async function downloadObjects(objectEntries, shouldOverwrite) {
         key,
         targetFileName,
         modificationDate,
-        shouldOverwrite
-      }).then(action => ({ key, targetFileName, modificationDate, action }))
+        shouldOverwrite,
+      }).then((action) => ({ key, targetFileName, modificationDate, action }))
     )
   );
 }
 
 async function doMain({
   startAfter = undefined,
-  shouldOverwrite = false
+  shouldOverwrite = false,
 } = {}) {
   try {
     await fs.mkdir(outputDir);
@@ -92,22 +92,25 @@ async function doMain({
       Bucket: bucket,
       StartAfter: startAfter,
       Prefix: objectsRemoteDirectory,
-      MaxKeys: 100
+      MaxKeys: 100,
     })
     .promise();
 
   // Create a map of object keys to the file they should be downloaded to.
-  const toDlKeyFileMap = listObjRequest.Contents.map(o => ({
+  const toDlKeyFileMap = listObjRequest.Contents.map((o) => ({
     key: o.Key,
     targetFileName: path.join(outputDir, getObjectFileName(o)),
-    modificationDate: o.LastModified
+    modificationDate: o.LastModified,
   }));
 
   if (listObjRequest.IsTruncated) {
     return Promise.all([
       downloadObjects(toDlKeyFileMap),
-      doMain({ startAfter: last(listObjRequest.Contents).Key, shouldOverwrite })
-    ]).then(results => results.flat());
+      doMain({
+        startAfter: last(listObjRequest.Contents).Key,
+        shouldOverwrite,
+      }),
+    ]).then((results) => results.flat());
   }
   return downloadObjects(toDlKeyFileMap, shouldOverwrite);
 }
@@ -117,7 +120,7 @@ async function main() {
   const counts = fileActions.reduce(
     (acc, { action }) => ({
       ...acc,
-      [action]: acc[action] + 1
+      [action]: acc[action] + 1,
     }),
     { [Actions.downloaded]: 0, [Actions.skipped]: 0, [Actions.updated]: 0 }
   );
@@ -133,5 +136,5 @@ async function main() {
 }
 
 if (require.main === module) {
-  main().catch(err => log.error(err));
+  main().catch((err) => log.error(err));
 }

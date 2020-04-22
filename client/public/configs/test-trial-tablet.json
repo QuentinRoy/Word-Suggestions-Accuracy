@@ -7,6 +7,7 @@
   "suggestionsType": "BAR",
   "numberOfPracticeTasks": 3,
   "numberOfTypingTasks": 20,
+  "minSuggestionsDelay": 150,
   "doNotShowDelayInstructions": true,
   "wave": "test",
   "children": [

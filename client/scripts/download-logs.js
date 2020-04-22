@@ -4,12 +4,11 @@ const path = require("path");
 const sanitizeFileName = require("sanitize-filename");
 const last = require("lodash/last");
 const log = require("loglevel");
+const meow = require("meow");
 
 log.setDefaultLevel(log.levels.INFO);
 
-const bucket = "exii-accuracy-control-uploads";
-const objectsRemoteDirectory = "prod/";
-const outputDir = path.join(__dirname, "../logs/multi-device");
+const defaultBucket = "exii-accuracy-control-uploads";
 
 const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
@@ -37,12 +36,10 @@ const Actions = Object.freeze({
   skipped: Symbol("skipped"),
 });
 
-async function downloadObject({
-  key,
-  targetFileName,
-  modificationDate,
-  shouldOverwrite = false,
-}) {
+async function downloadObject(
+  { key, targetFileName, modificationDate },
+  { shouldOverwrite = false, bucket }
+) {
   // const exists = await fileExists(targetFileName);
   // const mDate = exists && (await fileLastModifiedDate());
   const doesFileExists = await fileExists(targetFileName);
@@ -64,23 +61,24 @@ async function downloadObject({
   return Actions.downloaded;
 }
 
-async function downloadObjects(objectEntries, shouldOverwrite) {
+async function downloadObjects(objectEntries, options) {
   return Promise.all(
     objectEntries.map(({ key, targetFileName, modificationDate }) =>
-      downloadObject({
-        key,
-        targetFileName,
-        modificationDate,
-        shouldOverwrite,
-      }).then((action) => ({ key, targetFileName, modificationDate, action }))
+      downloadObject(
+        { key, targetFileName, modificationDate },
+        options
+      ).then((action) => ({ key, targetFileName, modificationDate, action }))
     )
   );
 }
 
 async function doMain({
   startAfter = undefined,
-  shouldOverwrite = false,
-} = {}) {
+  overwrite: shouldOverwrite = false,
+  bucket,
+  output: outputDir,
+  input: objectsRemoteDirectory,
+}) {
   try {
     await fs.mkdir(outputDir);
   } catch (err) {
@@ -105,18 +103,18 @@ async function doMain({
 
   if (listObjRequest.IsTruncated) {
     return Promise.all([
-      downloadObjects(toDlKeyFileMap),
+      downloadObjects(toDlKeyFileMap, { shouldOverwrite, bucket }),
       doMain({
         startAfter: last(listObjRequest.Contents).Key,
         shouldOverwrite,
       }),
     ]).then((results) => results.flat());
   }
-  return downloadObjects(toDlKeyFileMap, shouldOverwrite);
+  return downloadObjects(toDlKeyFileMap, { shouldOverwrite, bucket });
 }
 
-async function main() {
-  const fileActions = await doMain();
+async function main(options) {
+  const fileActions = await doMain(options);
   const counts = fileActions.reduce(
     (acc, { action }) => ({
       ...acc,
@@ -136,5 +134,44 @@ async function main() {
 }
 
 if (require.main === module) {
-  main().catch((err) => log.error(err));
+  const { flags, showHelp } = meow(
+    `
+      Usage
+        $ node download-logs.js -i <remote-dir> -o <output-dir>
+
+      Options:
+        --bucket, -b    AWS bucket. Default: ${defaultBucket}.
+                                                                        [string]
+        --input, -i     The AWS bucket directory to download.           [string]
+        --output, -o    The directory where to put the downloaded files.
+                                                                        [string]
+        --overwrite, -w True if already downloaded logs should be overwritten
+                        even when the remote log is not more recent.   
+                        Default: false.                                [boolean]
+
+      Example:
+        $ node download-logs.js -i prod -o logs/multi-device
+    `,
+    {
+      description: false,
+      booleanDefault: false,
+      flags: {
+        bucket: { type: "string", alias: "b", default: defaultBucket },
+        input: { type: "string", alias: "i" },
+        output: { type: "string", alias: "o" },
+        overwrite: { type: "boolean", alias: "w", default: false },
+      },
+    }
+  );
+
+  if (flags.input == null || flags.output == null) {
+    process.stderr.write("ERROR: You must provide an input and an output");
+    // Show the help and exit.
+    showHelp();
+  }
+
+  main(flags).catch((err) => {
+    log.error(err);
+    process.exit(1);
+  });
 }

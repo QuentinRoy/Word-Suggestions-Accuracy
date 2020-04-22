@@ -9,6 +9,7 @@ from config_tasks import (
     BLOCK_QUESTIONNAIRE,
     STARTUP,
     CONSENT_FORM,
+    MEASURE_DISPLAY,
 )
 from utils import to_snake_case, copy_rename
 
@@ -16,6 +17,12 @@ from utils import to_snake_case, copy_rename
 this_dir = os.path.dirname(os.path.abspath(__file__))
 json_logs_dir = os.path.join(this_dir, "../../logs/multi-device/")
 output_file_path = os.path.abspath(os.path.join(json_logs_dir, "runs.csv"))
+
+typing_test_json_logs_dir = os.path.join(this_dir, "../../logs/multi-device-typing")
+typing_test_output_file_path = os.path.abspath(
+    os.path.join(typing_test_json_logs_dir, "runs.csv")
+)
+
 p_registry_path = os.path.abspath(os.path.join(json_logs_dir, "p_registry.csv"))
 
 record_columns = dict(
@@ -42,15 +49,19 @@ record_columns = dict(
     ]
 )
 
-
 other_columns = ["feedbacks", "start_up_questionnaire_trials", "file_name"]
 
 demo_questionnaire_columns = {
     "age": "age",
     "gender": "gender",
+    "typing_use_desktop": "typingUseDesktop",
+    "typing_use_tablet": "typingUseTablet",
+    "typing_use_phone": "typingUsePhone",
+    "typing_use_phone_one_hand": "typingUsePhoneOneHand",
     "suggestions_use_frequency_desktop": "suggestionsUseFrequencyDesktop",
-    "suggestions_use_frequency_phone": "suggestionsUseFrequencyPhone",
     "suggestions_use_frequency_tablet": "suggestionsUseFrequencyTablet",
+    "suggestions_use_frequency_phone": "suggestionsUseFrequencyPhone",
+    "suggestions_use_frequency_phone_one_hand": "suggestionsUseFrequencyPhoneOneHand",
 }
 
 block_questionnaire_columns = {
@@ -65,6 +76,8 @@ block_questionnaire_columns = {
     "effort": "effort",
     "frustration": "frustration",
 }
+
+display_size_columns = {"display_width": "width", "display_height": "height"}
 
 
 def use_one_task(task_type, is_one_required=False):
@@ -107,6 +120,11 @@ def get_block_questionnaire(task):
     return get_task_prop(task, prop_name="log", default={})
 
 
+@use_one_task(MEASURE_DISPLAY)
+def get_display_size(task):
+    return get_task_prop(task, prop_name="displayDimensions", default={})
+
+
 # This should just yield once, but we still use an iterators for consistency
 # with export_events.
 def iter_run_record(run_record, file_name, **kwargs):
@@ -122,6 +140,7 @@ def iter_run_record(run_record, file_name, **kwargs):
     copy_rename(
         get_block_questionnaire(run_record), result, block_questionnaire_columns
     )
+    copy_rename(get_display_size(run_record), result, display_size_columns)
     yield result
 
 
@@ -130,6 +149,7 @@ if __name__ == "__main__":
         list(record_columns.keys())
         + other_columns
         + list(demo_questionnaire_columns.keys())
+        + list(display_size_columns.keys())
         + list(block_questionnaire_columns.keys())
     )
     csv_export(
@@ -140,3 +160,11 @@ if __name__ == "__main__":
         participant_registry_path=None,
     )
     print("{} written.".format(output_file_path))
+    csv_export(
+        typing_test_json_logs_dir,
+        typing_test_output_file_path,
+        header,
+        iter_run_record,
+        participant_registry_path=None,
+    )
+    print("{} written.".format(typing_test_output_file_path))

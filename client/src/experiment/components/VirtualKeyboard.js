@@ -1,4 +1,4 @@
-import React, { useEffect, memo, useCallback, useRef } from "react";
+import React, { useEffect, memo } from "react";
 import Keyboard from "react-simple-keyboard";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -109,24 +109,6 @@ const VirtualKeyboard = memo(
     const keyboardProps =
       device === Devices.phone ? phoneKeyboardProps : tabletKeyboardProps;
 
-    // react-simple-keyboard is fully remounted when props change. Since
-    // in our case they change on each render, it breaks buttons' active
-    // state.
-    const callbacksRef = useRef();
-    callbacksRef.current = { onVirtualKeyDown, onVirtualKeyUp };
-
-    const handleKeyPress = useCallback((...args) => {
-      if (callbacksRef.current.onVirtualKeyDown != null) {
-        callbacksRef.current.onVirtualKeyDown(...args);
-      }
-    }, []);
-
-    const handleKeyRelease = useCallback((...args) => {
-      if (callbacksRef.current.onVirtualKeyUp != null) {
-        callbacksRef.current.onVirtualKeyUp(...args);
-      }
-    }, []);
-
     return (
       <div
         className={classNames(main, {
@@ -143,8 +125,8 @@ const VirtualKeyboard = memo(
           layoutName={layout}
           layout={keyboardProps.layout}
           display={keyboardProps.display}
-          onKeyPress={handleKeyPress}
-          onKeyReleased={handleKeyRelease}
+          onKeyPress={onVirtualKeyDown}
+          onKeyReleased={onVirtualKeyUp}
         />
       </div>
     );

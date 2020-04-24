@@ -52,9 +52,11 @@ export default function useWebsocket(url, { onMessage, timeOut = 10000 } = {}) {
 
   // Put on message in a ref because we do not want to reconnect every time it
   // changes.
+  // FIXME: this makes this hook impure and will break with react concurrent!
   const onMessageRef = useRef();
   onMessageRef.current = onMessage;
 
+  // FIXME: this makes this hook impure!
   const timeOutRef = useRef();
   timeOutRef.current = timeOut;
 

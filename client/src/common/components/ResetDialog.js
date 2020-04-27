@@ -13,10 +13,8 @@ export default function ResetDialog({ open, onClose, moderationClient }) {
     if (moderationClient == null) {
       return Promise.resolve();
     }
-    if (moderationClient.state === ReadyStates.ready) {
-      return moderationClient.sendLog(LogTypes.resetDialog, {
-        hasReset,
-      });
+    if (moderationClient.readyState === ReadyStates.ready) {
+      return moderationClient.sendLog(LogTypes.resetDialog, { hasReset });
     }
     return Promise.reject(new Error(`No moderation client  not ready`));
   };
@@ -64,7 +62,7 @@ ResetDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool,
   moderationClient: PropTypes.shape({
-    state: PropTypes.oneOf(Object.values(ReadyStates)).isRequired,
+    readyState: PropTypes.oneOf(Object.values(ReadyStates)).isRequired,
     sendLog: PropTypes.func.isRequired,
   }),
 };

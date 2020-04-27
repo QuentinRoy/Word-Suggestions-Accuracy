@@ -37,6 +37,7 @@
     "short-uuid": "^3.1.1",
     "shortid": "^2.2.15",
     "styled-components": "^4.4.1",
+    "use-effect-reducer": "^0.5.0",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {

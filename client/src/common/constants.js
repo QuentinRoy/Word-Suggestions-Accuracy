@@ -117,12 +117,6 @@ export const agreementScaleAnswers = Object.freeze([
   "Strongly agree",
 ]);
 
-export const LogInStates = Object.freeze({
-  loggedIn: "LOGGED_IN",
-  loggingIn: "LOGGING_IN",
-  loggedOut: "LOGGED_OUT",
-});
-
 // This is copied from the control-server module.
 export const MessageTypes = Object.freeze({
   response: "response",

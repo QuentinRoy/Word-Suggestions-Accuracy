@@ -56,7 +56,9 @@ const ControlServerForm = ({ clients, startApp }) => {
     ...args
   }) => {
     const participant = participants.find((p) => p.id === pid);
-    startApp(targetExperiment, participant.id, {
+    startApp({
+      app: targetExperiment,
+      target: participant.id,
       participant: participant.info.participant,
       device: participant.info.device,
       ...omitBy(args, isBlank),

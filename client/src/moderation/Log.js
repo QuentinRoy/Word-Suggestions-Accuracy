@@ -92,7 +92,8 @@ function ResetDialogLog() {
 
 function UnknownLog() {
   const { type } = useLog();
-  return <>{type} log</>;
+  const typeDescr = type ?? "undefined";
+  return <>{typeDescr} log</>;
 }
 
 const contentMap = {
@@ -104,9 +105,10 @@ const contentMap = {
 
 function LogHeader() {
   const { client, date, type } = useLog();
+  const typeDescr = type ?? "?";
   return (
     <div className={style.logHeader}>
-      {date.toLocaleString()} – {client.id} – {type}
+      {date.toLocaleString()} – {client.id} – {typeDescr}
     </div>
   );
 }
@@ -130,7 +132,7 @@ function Log({ date, client, type, content }) {
 }
 Log.propTypes = {
   type: PropTypes.string,
-  content: PropTypes.shape().isRequired,
+  content: PropTypes.shape(),
   date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
     .isRequired,
   client: PropTypes.shape({
@@ -141,6 +143,6 @@ Log.propTypes = {
     }),
   }).isRequired,
 };
-Log.defaultProps = { type: undefined };
+Log.defaultProps = { type: undefined, content: undefined };
 
 export default React.memo(Log);

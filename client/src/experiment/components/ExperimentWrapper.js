@@ -7,7 +7,7 @@ import TypingTask from "./TypingTask";
 import useConfiguration from "../hooks/useConfiguration";
 import Loading from "../../common/components/Loading";
 import Crashed from "../../common/components/Crashed";
-import { ReadyStates, TaskTypes } from "../../common/constants";
+import { ReadyStates, TaskTypes, UserRoles } from "../../common/constants";
 import EndExperiment from "./EndExperiment";
 import Startup from "./Startup";
 import BlockQuestionnaire from "./BlockQuestionnaire";
@@ -21,9 +21,9 @@ import {
   useSuggestions,
 } from "../wordSuggestions/wordSuggestions";
 import {
-  ModerationClientProvider,
-  useSharedModerationClient,
-} from "../../common/contexts/ModerationClient";
+  ModerationProvider,
+  useModeration,
+} from "../../common/moderation/Moderation";
 import UploadTask from "./UploadTask";
 import useBodyBackgroundColor from "../../common/hooks/useBodyBackgroundColor";
 import getEndPoints from "../../common/utils/endpoints";
@@ -54,26 +54,25 @@ function ExperimentContent() {
     configArgs
   );
   const { loadingState: suggestionsLoadingState } = useSuggestions();
-  const moderationClient = useSharedModerationClient();
+  const moderationClient = useModeration();
 
   if (
     configLoadingState === ReadyStates.loading ||
-    configLoadingState === ReadyStates.idle ||
-    isAskingReset
+    configLoadingState === ReadyStates.idle
   ) {
-    return (
-      <>
-        <Loading>Loading experiment...</Loading>
-        <ResetDialog
-          moderationClient={moderationClient}
-          open={isAskingReset}
-          onClose={() => setIsAskingReset(false)}
-        />
-      </>
-    );
+    return <Loading>Loading experiment...</Loading>;
   }
-  if (moderationClient.state === ReadyStates.loading) {
+  if (moderationClient.readyState === ReadyStates.loading) {
     return <Loading>Connecting to experimenter...</Loading>;
+  }
+  if (isAskingReset) {
+    return (
+      <ResetDialog
+        moderationClient={moderationClient}
+        open={isAskingReset}
+        onClose={() => setIsAskingReset(false)}
+      />
+    );
   }
   if (suggestionsLoadingState === ReadyStates.loading) {
     return <Loading>Connection to word suggestions...</Loading>;
@@ -123,14 +122,17 @@ export default function ExperimentWrapper() {
   return (
     <ThemeProvider theme={theme}>
       <WordSuggestionsProvider serverAddress={endpoints.suggestionServer}>
-        <ModerationClientProvider
-          isRegistered
-          info={{ ...locationParams, activity: "experiment" }}
+        <ModerationProvider
+          initConnection={{
+            url: endpoints.controlServer,
+            role: UserRoles.participant,
+            info: { ...locationParams, activity: "experiment" },
+          }}
         >
           <div className={style.main}>
             <ExperimentContent />
           </div>
-        </ModerationClientProvider>
+        </ModerationProvider>
       </WordSuggestionsProvider>
     </ThemeProvider>
   );

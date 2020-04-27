@@ -6,7 +6,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import style from "./ResultsTask.module.css";
 import { TaskTypes, Paths, LogTypes } from "../common/constants";
 import TaskPaper from "../experiment/components/TaskPaper";
-import { useSharedModerationClient } from "../common/contexts/ModerationClient";
+import { useModeration } from "../common/moderation/Moderation";
 
 function ResultsTask({ participant, configuration }) {
   const history = useHistory();
@@ -25,7 +25,7 @@ function ResultsTask({ participant, configuration }) {
   const avgSpeed =
     typingTaskSpeeds.reduce((a, b) => a + b, 0) / typingTaskSpeeds.length;
 
-  const { sendLog } = useSharedModerationClient();
+  const { sendLog } = useModeration();
 
   useEffect(() => {
     sendLog(LogTypes.typingSpeedResults, { avgSpeed });

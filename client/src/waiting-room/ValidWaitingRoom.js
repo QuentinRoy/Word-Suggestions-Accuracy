@@ -1,18 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
-import { stringify } from "qs";
-import omit from "lodash/omit";
+
 import { ReadyStates } from "../common/constants";
 import Loading from "../common/components/Loading";
 import style from "./ValidWaitingRoom.module.css";
 import SetupSummary from "./SetupSummary";
 import { useClientInfo } from "./ClientInfo";
-import { useSharedModerationClient } from "../common/contexts/ModerationClient";
+import { useModeration } from "../common/moderation/Moderation";
 
 // eslint-disable-next-line react/prop-types
 function ConnectionError({ buttonLabel = "Retry", children }) {
-  const { reconnect } = useSharedModerationClient();
+  const { reconnect } = useModeration();
   const { participant, device } = useClientInfo();
   return (
     <>
@@ -49,10 +47,6 @@ function ServerCrashed() {
   return <ConnectionError>Server connection error...</ConnectionError>;
 }
 
-function Registering() {
-  return <Loading>Connecting...</Loading>;
-}
-
 function RegistrationCrashed({ error }) {
   return (
     <ConnectionError>Registration error: ${error.message}...</ConnectionError>
@@ -75,28 +69,10 @@ function Ready() {
   );
 }
 
-const Controller = (history) => (command, args) => {
-  switch (command) {
-    case "start-app":
-      // Doing this asynchronously so we have the time to answer.
-      setTimeout(() => {
-        history.push({
-          pathname: args.app,
-          search: `?${stringify(omit(args, "app"))}`,
-        });
-      });
-      break;
-    default:
-      throw new Error(`Unsupported command: ${command}`);
-  }
-};
-
 export default function ValidWaitingRoom() {
-  const moderationClient = useSharedModerationClient({
-    onCommand: Controller(useHistory()),
-  });
+  const moderationClient = useModeration();
 
-  switch (moderationClient.state) {
+  switch (moderationClient.readyState) {
     case ReadyStates.idle:
       return <NotConnected />;
     case ReadyStates.done:
@@ -105,22 +81,9 @@ export default function ValidWaitingRoom() {
       return <Connecting />;
     case ReadyStates.crashed:
       return <ServerCrashed />;
-    default:
-      break;
-  }
-  switch (moderationClient.registration.state) {
-    case ReadyStates.idle:
-    case ReadyStates.loading:
-      return <Registering />;
-    case ReadyStates.crashed:
-      return (
-        <RegistrationCrashed error={moderationClient.registration.error} />
-      );
     case ReadyStates.ready:
       return <Ready />;
     default:
-      throw new Error(
-        `Unexpected state: ${moderationClient.registration.state}`
-      );
+      throw new Error(`Unexpected state: ${moderationClient.state}`);
   }
 }

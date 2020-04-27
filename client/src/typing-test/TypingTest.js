@@ -1,7 +1,12 @@
 import React, { useRef, useMemo, useState } from "react";
 import Experiment, { registerTask } from "@hcikit/workflow";
 import { registerAll } from "@hcikit/tasks";
-import { TaskTypes, Devices, ReadyStates } from "../common/constants";
+import {
+  TaskTypes,
+  Devices,
+  ReadyStates,
+  UserRoles,
+} from "../common/constants";
 import ResetDialog from "../common/components/ResetDialog";
 import configLaptop from "./configuration-laptop.json";
 import configPhone from "./configuration-phone.json";
@@ -15,11 +20,13 @@ import ResultsTask from "./ResultsTask";
 import useBodyBackgroundColor from "../common/hooks/useBodyBackgroundColor";
 import MeasureDisplayTask from "./MeasureDisplayTask";
 import {
-  ModerationClientProvider,
-  useSharedModerationClient,
-} from "../common/contexts/ModerationClient";
+  ModerationProvider,
+  useModeration,
+} from "../common/moderation/Moderation";
 import Loading from "../common/components/Loading";
 import useLocationParams from "../common/hooks/useLocationParams";
+import useAsync from "../common/hooks/useAsync";
+import getEndPoints from "../common/utils/endpoints";
 
 registerAll(registerTask);
 registerTask(TaskTypes.injectEnd, InjectEnd);
@@ -65,11 +72,11 @@ const useConfig = () => {
 
 function ReadyTypingTest() {
   const config = useConfig();
-  const moderationClient = useSharedModerationClient();
+  const moderationClient = useModeration();
   const { reset } = useLocationParams();
   const [askReset, setAskReset] = useState(reset != null && reset);
 
-  switch (moderationClient.state) {
+  switch (moderationClient.readyState) {
     case ReadyStates.ready:
     case ReadyStates.crashed:
     case ReadyStates.done:
@@ -106,18 +113,39 @@ export default function TypingTest() {
 
   const { participant, device, isTest } = useLocationParams();
 
+  const [endPointsReadyState, endpoints] = useAsync(getEndPoints);
+
   if (device == null || participant == null || isTest == null) {
     return <Crashed>Invalid page arguments</Crashed>;
   }
 
+  switch (endPointsReadyState) {
+    case ReadyStates.loading:
+      return <Loading />;
+    case ReadyStates.crashed:
+      return <Crashed>Could not find moderation server</Crashed>;
+    case ReadyStates.ready:
+      break;
+    default:
+      throw new Error(`Unexpected state: ${endPointsReadyState}`);
+  }
+
   return (
     <WordSuggestionsProvider>
-      <ModerationClientProvider
-        isRegistered
-        info={{ participant, device, activity: "typing-test", isTest }}
+      <ModerationProvider
+        initConnection={{
+          url: endpoints.controlServer,
+          role: UserRoles.participant,
+          info: {
+            activity: "typing-test",
+            participant,
+            device,
+            isTest,
+          },
+        }}
       >
         <ReadyTypingTest />
-      </ModerationClientProvider>
+      </ModerationProvider>
     </WordSuggestionsProvider>
   );
 }

@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { Button } from "@material-ui/core";
 import TaskPaper from "./TaskPaper";
 import style from "./styles/SwitchDeviceInstruction.module.scss";
-import { useSharedModerationClient } from "../../common/contexts/ModerationClient";
 import { ReadyStates, LogTypes } from "../../common/constants";
+import { useModeration } from "../../common/moderation/Moderation";
 
 export default function SwitchDeviceInstruction({
   nextDevice,
@@ -12,18 +12,22 @@ export default function SwitchDeviceInstruction({
   isCurrentDeviceDone,
   onAdvanceWorkflow,
 }) {
-  const { state, sendLog } = useSharedModerationClient();
+  const { readyState, sendLog } = useModeration();
   const hasNotifiedRef = useRef(false);
   useEffect(() => {
-    if (state === ReadyStates.ready && !hasNotifiedRef.current) {
+    let isEffectCleanedUp = false;
+    if (readyState === ReadyStates.ready && !hasNotifiedRef.current) {
       hasNotifiedRef.current = true;
       sendLog(LogTypes.switchDevice, { nextDevice, isCurrentDeviceDone }).catch(
         () => {
-          hasNotifiedRef.current = false;
+          if (!isEffectCleanedUp) hasNotifiedRef.current = false;
         }
       );
     }
-  }, [currentDevice, isCurrentDeviceDone, nextDevice, sendLog, state]);
+    return () => {
+      isEffectCleanedUp = true;
+    };
+  }, [currentDevice, isCurrentDeviceDone, nextDevice, sendLog, readyState]);
 
   if (isCurrentDeviceDone) {
     return (

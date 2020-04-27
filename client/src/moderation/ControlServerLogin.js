@@ -4,7 +4,10 @@ import { Formik, Field, ErrorMessage, Form } from "formik";
 import useUniqueId from "../common/hooks/useUniqueId";
 import style from "./ControlServerLogin.module.scss";
 import FormErrorMessage from "../common/components/FormErrorMessage";
-import { ReadyStates } from "../common/constants";
+import { ReadyStates, UserRoles } from "../common/constants";
+import getEndPoints from "../common/utils/endpoints";
+import useAsync from "../common/hooks/useAsync";
+import { useModeration } from "../common/moderation/Moderation";
 
 function ControlServerLoginForm({ onLogin, canSubmit }) {
   const id = useUniqueId();
@@ -52,36 +55,65 @@ ControlServerLoginForm.propTypes = {
   canSubmit: PropTypes.bool.isRequired,
 };
 
-function StatusMessage({ state }) {
+function ModerationStatusMessage() {
+  const moderation = useModeration();
+
+  switch (moderation.readyState) {
+    case ReadyStates.done:
+      return "Server connection closed.";
+    case ReadyStates.crashed:
+      return moderation.error?.message
+        ? `Server connection error: ${moderation.error.message}`
+        : `Server connection error...`;
+    case ReadyStates.loading:
+      return "Connecting to server...";
+    case ReadyStates.ready:
+    case ReadyStates.idle:
+      return null;
+    default:
+      throw new Error(`Unexpected state: ${moderation.readyState}`);
+  }
+}
+
+function EndpointsStatusMessage({ state }) {
   switch (state) {
     case ReadyStates.done:
-    case ReadyStates.idle:
-      return <>Server connection closed.</>;
-    case ReadyStates.crashed:
-      return <>Server connection lost...</>;
-    case ReadyStates.loading:
-      return <>Connecting to server...</>;
     case ReadyStates.ready:
       return null;
+    case ReadyStates.crashed:
+      return "Could not find moderation server...";
+    case ReadyStates.loading:
+    case ReadyStates.idle:
+      return "Loading...";
     default:
       throw new Error(`Unexpected state: ${state}`);
   }
 }
 
-export default function ControlServerLogin({ onLogin, serverState }) {
+export default function ControlServerLogin() {
+  const moderation = useModeration();
+  const [endPointsReadyState, endPoints] = useAsync(getEndPoints);
+
   return (
     <>
       <ControlServerLoginForm
-        onLogin={onLogin}
-        canSubmit={serverState === ReadyStates.ready}
+        onLogin={(pass) =>
+          moderation.reconnect({
+            url: endPoints.controlServer,
+            pass,
+            role: UserRoles.moderator,
+          })
+        }
+        canSubmit={endPointsReadyState === ReadyStates.ready}
       />
       <div className={style.statusMessage}>
-        <StatusMessage state={serverState} />
+        {endPointsReadyState === ReadyStates.ready ? (
+          <ModerationStatusMessage />
+        ) : (
+          <EndpointsStatusMessage state={endPointsReadyState} />
+        )}
       </div>
     </>
   );
 }
-ControlServerLogin.propTypes = {
-  onLogin: PropTypes.func.isRequired,
-  serverState: PropTypes.oneOf(Object.values(ReadyStates)).isRequired,
-};
+ControlServerLogin.propTypes = {};

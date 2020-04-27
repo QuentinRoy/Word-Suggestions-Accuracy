@@ -3,39 +3,22 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import ControlServerLogin from "./ControlServerLogin";
 import LogList from "./LogList";
-import useModerationServer from "./useModerationServer";
-import { LogInStates } from "../common/constants";
+import { ReadyStates } from "../common/constants";
 import Area from "../common/components/Area";
 import RemoteStartup from "./RemoteStartup";
+import {
+  useModeration,
+  ModerationProvider,
+} from "../common/moderation/Moderation";
 
 function Alert(props) {
   // eslint-disable-next-line react/jsx-props-no-spreading
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function RemoteModeration() {
-  const {
-    loadingState,
-    logInState,
-    logIn,
-    logs,
-    clearLogs,
-    clients,
-    startApp,
-  } = useModerationServer();
+function ConnectedRemoteModeration() {
+  const { startApp, clients, clearLogs, logs } = useModeration();
   const [snack, setSnack] = useState({ isOpened: false });
-
-  if (logInState !== LogInStates.loggedIn) {
-    return (
-      <Area>
-        <h2>Login</h2>
-        <ControlServerLogin
-          onLogin={(...args) => logIn(...args)}
-          serverState={loadingState}
-        />
-      </Area>
-    );
-  }
 
   const handleSnackClose = () => {
     setSnack({ ...snack, isOpened: false });
@@ -61,10 +44,14 @@ export default function RemoteModeration() {
   return (
     <>
       <Area width={500}>
-        <RemoteStartup clients={clients} onStartApp={handleStartApp} />
+        <RemoteStartup clients={clients ?? []} onStartApp={handleStartApp} />
       </Area>
       <Area maxHeight={500} width={500}>
-        <LogList logs={logs} onClear={clearLogs} clients={clients} />
+        <LogList
+          logs={logs ?? []}
+          onClear={clearLogs}
+          clients={clients ?? []}
+        />
       </Area>
       <Snackbar open={snack.isOpened} onClose={handleSnackClose}>
         <Alert onClose={handleSnackClose} severity={snack?.severity ?? "info"}>
@@ -72,6 +59,29 @@ export default function RemoteModeration() {
         </Alert>
       </Snackbar>
     </>
+  );
+}
+
+function RemoteModerationContent() {
+  const moderation = useModeration();
+
+  if (moderation.readyState !== ReadyStates.ready) {
+    return (
+      <Area>
+        <h2>Login</h2>
+        <ControlServerLogin />
+      </Area>
+    );
+  }
+
+  return <ConnectedRemoteModeration />;
+}
+
+export default function RemoteModeration() {
+  return (
+    <ModerationProvider>
+      <RemoteModerationContent />
+    </ModerationProvider>
   );
 }
 RemoteModeration.propTypes = {};

@@ -1,12 +1,18 @@
 import React, { useMemo, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import style from "./WaitingRoom.module.css";
-import { Paths } from "../common/constants";
+import { stringify } from "qs";
+import omit from "lodash/omit";
+import { Paths, ReadyStates, UserRoles } from "../common/constants";
 import Area from "../common/components/Area";
 import useBodyBackgroundColor from "../common/hooks/useBodyBackgroundColor";
 import ValidWaitingRoom from "./ValidWaitingRoom";
 import { ClientInfoProvider } from "./ClientInfo";
-import { ModerationClientProvider } from "../common/contexts/ModerationClient";
+import getEndPoints from "../common/utils/endpoints";
+import useAsync from "../common/hooks/useAsync";
+import Loading from "../common/components/Loading";
+import Crashed from "../common/components/Crashed";
+import { ModerationProvider } from "../common/moderation/Moderation";
+import style from "./WaitingRoom.module.css";
 
 // eslint-disable-next-line react/prop-types
 function Wrapper({ children }) {
@@ -20,10 +26,27 @@ function Wrapper({ children }) {
   );
 }
 
+const Controller = (history) => (command, args) => {
+  switch (command) {
+    case "start-app":
+      // Doing this asynchronously so we have the time to answer.
+      setTimeout(() => {
+        history.push({
+          pathname: args.app,
+          search: `?${stringify(omit(args, "app"))}`,
+        });
+      });
+      break;
+    default:
+      throw new Error(`Unsupported command: ${command}`);
+  }
+};
+
 export default function WaitingRoom() {
   useBodyBackgroundColor("#EEE");
   const history = useHistory();
   const location = useLocation();
+
   const qsArgs = useMemo(() => {
     const urlParams = new URLSearchParams(location.search);
     return {
@@ -40,16 +63,34 @@ export default function WaitingRoom() {
     }
   }, [isValid, history, location]);
 
+  const [endPointsState, endpoints] = useAsync(getEndPoints);
+
+  switch (endPointsState) {
+    case ReadyStates.idle:
+    case ReadyStates.loading:
+      return <Loading />;
+    case ReadyStates.crashed:
+      return <Crashed>Could not find moderation server</Crashed>;
+    case ReadyStates.ready:
+      break;
+    default:
+      throw new Error(`Unexpected state: ${endPointsState}`);
+  }
+
   if (isValid) {
     return (
       <Wrapper>
         <ClientInfoProvider clientInfo={qsArgs}>
-          <ModerationClientProvider
-            info={{ ...qsArgs, activity: "waiting" }}
-            isRegistered
+          <ModerationProvider
+            onCommand={Controller(history)}
+            initConnection={{
+              url: endpoints.controlServer,
+              role: UserRoles.participant,
+              info: { ...qsArgs, activity: "waiting" },
+            }}
           >
             <ValidWaitingRoom />
-          </ModerationClientProvider>
+          </ModerationProvider>
         </ClientInfoProvider>
       </Wrapper>
     );

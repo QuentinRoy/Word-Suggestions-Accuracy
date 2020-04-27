@@ -24,7 +24,7 @@ const reducer = (state, action) => {
 };
 
 const useAsync = (createPromise, deps = []) => {
-  const [state, dispatch] = useReducer(reducer, [ReadyStates.idle, null]);
+  const [state, dispatch] = useReducer(reducer, [ReadyStates.loading, null]);
 
   // useEffect will create the promise. Most of the time this should only happen
   // once, event if createPromise changes. The deps argument may be used

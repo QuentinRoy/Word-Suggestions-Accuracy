@@ -60,6 +60,12 @@ const useConfig = () => {
       isTest,
       participant,
       startDate,
+      mode: process.env.NODE_ENV,
+      gitSha: process.env.REACT_APP_GIT_SHA,
+      version: process.env.REACT_APP_VERSION,
+      href: window.location.href,
+      userAgent: navigator.userAgent,
+      isExperimentCompleted: false,
       [TaskTypes.s3Upload]: {
         filename:
           process.env.NODE_ENV === "development"

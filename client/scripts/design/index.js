@@ -2,6 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const lodash = require("lodash");
 const log = require("loglevel");
+const { v4: uuidv4 } = require("uuid");
 // eslint-disable-next-line import/no-extraneous-dependencies
 const htmlMinifier = require("html-minifier");
 const { exec } = require("child_process");
@@ -29,6 +30,8 @@ const getRunOutputPath = (config, device) =>
   path.join(outputDir, `${config}-${device}.json`);
 
 const createConfigurationId = (configNumber) => `C${configNumber}`;
+const createRunUuid = uuidv4;
+const createConfigurationUuid = uuidv4;
 
 const minify = (str, opts = {}) => {
   return htmlMinifier.minify(str, {
@@ -215,6 +218,7 @@ const gitShaPromise = new Promise((resolve, reject) => {
 const createRun = async ({ accuracy, deviceOrder, configId }) => {
   return {
     config: configId,
+    configUuid: createConfigurationUuid(),
     configGenerationDate: new Date(),
     configGenerationGitSha: await gitShaPromise,
     configGenerationVersion: pkgInfo.version,
@@ -236,6 +240,18 @@ const createRun = async ({ accuracy, deviceOrder, configId }) => {
   };
 };
 
+const splitRun = (run) =>
+  Promise.all(
+    ["laptop", "phone", "tablet"].map(async (device) => ({
+      ...run,
+      device,
+      runUuid: createRunUuid(),
+      children: run.children
+        .filter((child) => child.device === device)
+        .map((child) => lodash.omit(child, "device")),
+    }))
+  );
+
 const createDesign = async () => {
   try {
     await fs.mkdir(outputDir);
@@ -252,30 +268,24 @@ const createDesign = async () => {
       for (const deviceOrder of deviceOrders) {
         const cid = createConfigurationId(totalConfig + 1);
         promises.push(
-          createRun({
-            accuracy,
-            deviceOrder,
-            configId: cid,
-          }).then((run) => {
-            // Split the run into three different files, one for each device.
-            // Each of these config files contain only the tasks specific
-            // to that device.
-            return Promise.all(
-              ["laptop", "phone", "tablet"].map(async (device) => {
-                await fs.writeFile(
-                  getRunOutputPath(cid, device),
-                  JSON.stringify({
-                    ...run,
-                    device,
-                    children: run.children
-                      .filter((child) => child.device === device)
-                      .map(({ device: _, ...child }) => child),
-                  })
-                );
-                log.info(`${cid} written.`);
-              })
-            );
-          })
+          createRun({ accuracy, deviceOrder, configId: cid })
+            .then(splitRun)
+            .then((runs) =>
+              // Split the run into three different files, one for each device.
+              // Each of these config files contain only the tasks specific
+              // to that device.
+              Promise.all(
+                runs.map((run) =>
+                  fs.writeFile(
+                    getRunOutputPath(cid, run.device),
+                    JSON.stringify(run)
+                  )
+                )
+              )
+            )
+            .then(() => {
+              log.info(`${cid} written.`);
+            })
         );
         totalConfig += 1;
       }

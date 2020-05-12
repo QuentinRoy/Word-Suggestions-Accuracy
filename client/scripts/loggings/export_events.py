@@ -17,12 +17,16 @@ typing_test_output_file_path = os.path.abspath(
 )
 
 log_columns = {
+    "wave": "wave",
+    "version": "version",
+    "git_sha": "gitSha",
+    "run_uuid": "runUuid",
+    "config_uuid": "configUuid",
     "participant": "participant",
     "trial_id": "key",
     "accuracy": "targetAccuracy",
     "is_practice": "isPractice",
     "device": "device",
-    "wave": "wave",
     "config": "config",
 }
 
@@ -93,4 +97,3 @@ if __name__ == "__main__":
         participant_registry_path=None,
     )
     print("{} written.".format(typing_test_output_file_path))
-

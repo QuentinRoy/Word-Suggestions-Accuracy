@@ -30,6 +30,8 @@ log_columns = {
     "is_practice": "isPractice",
     "suggestions_type": "suggestionsType",
     "config": "config",
+    "run_uuid": "runUuid",
+    "config_uuid": "configUuid",
     "device": "device",
     "wave": "wave",
 }
@@ -122,4 +124,3 @@ if __name__ == "__main__":
         participant_registry_path=None,
     )
     print("{} written.".format(typing_test_output_file_path))
-

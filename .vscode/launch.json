@@ -22,7 +22,8 @@
       "type": "node",
       "request": "launch",
       "name": "Node: Current file",
-      "program": "${file}"
+      "program": "${file}",
+      "outputCapture": "std"
     },
     {
       "name": "Debug CRA Tests",

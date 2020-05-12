@@ -13,7 +13,6 @@ import Startup from "./Startup";
 import BlockQuestionnaire from "./BlockQuestionnaire";
 import DemographicQuestionnaire from "./DemographicQuestionnaire";
 import Tutorial from "./Tutorial";
-import ConsentForm from "./ConsentForm";
 import FinalFeedbacks from "./FinalFeedbacks";
 import InjectEnd from "./InjectEnd";
 import {
@@ -41,7 +40,6 @@ registerTask(TaskTypes.startup, Startup);
 registerTask(TaskTypes.blockQuestionnaire, BlockQuestionnaire);
 registerTask(TaskTypes.demographicQuestionnaire, DemographicQuestionnaire);
 registerTask(TaskTypes.tutorial, Tutorial);
-registerTask(TaskTypes.consentForm, ConsentForm);
 registerTask(TaskTypes.finalFeedbacks, FinalFeedbacks);
 registerTask(TaskTypes.injectEnd, InjectEnd);
 registerTask(TaskTypes.switchDevice, SwitchDeviceInstruction);

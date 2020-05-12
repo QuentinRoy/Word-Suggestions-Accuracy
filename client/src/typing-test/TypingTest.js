@@ -27,8 +27,10 @@ import Loading from "../common/components/Loading";
 import useLocationParams from "../common/hooks/useLocationParams";
 import useAsync from "../common/hooks/useAsync";
 import getEndPoints from "../common/utils/endpoints";
+import ConsentForm from "./ConsentForm";
 
 registerAll(registerTask);
+registerTask(TaskTypes.consentForm, ConsentForm);
 registerTask(TaskTypes.injectEnd, InjectEnd);
 registerTask(TaskTypes.measureDisplay, MeasureDisplayTask);
 registerTask(TaskTypes.s3Upload, UploadTask);

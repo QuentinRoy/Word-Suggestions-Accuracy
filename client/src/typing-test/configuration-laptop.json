@@ -3,6 +3,10 @@
   "wave": "multi-device-typing-test",
   "children": [
     {
+      "task": "ConsentForm",
+      "key": "consent-form"
+    },
+    {
       "task": "MeasureDisplay",
       "rulersOrientation": "vertical",
       "key": "laptop-measure-display"

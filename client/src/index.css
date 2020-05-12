@@ -20,3 +20,12 @@ html,
 body {
   background-color: white;
 }
+
+a {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

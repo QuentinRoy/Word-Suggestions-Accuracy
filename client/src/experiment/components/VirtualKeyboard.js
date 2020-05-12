@@ -122,6 +122,7 @@ const VirtualKeyboard = memo(
         <Keyboard
           theme={`${vkTheme} hg-theme-default`}
           useTouchEvents
+          useButtonTag
           layoutName={layout}
           layout={keyboardProps.layout}
           display={keyboardProps.display}

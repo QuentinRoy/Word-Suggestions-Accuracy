@@ -84,7 +84,11 @@ function ExperimentContent() {
     return <Experiment configuration={configuration} />;
   }
   if (configLoadingState === ReadyStates.crashed) {
-    return <Crashed>Failed to load the experiment: {error.message}</Crashed>;
+    return (
+      <Crashed>
+        Failed to load the configuration of the experiment: {error.message}
+      </Crashed>
+    );
   }
   return (
     <Crashed>Something went wrong, probably the suggestion engine.</Crashed>

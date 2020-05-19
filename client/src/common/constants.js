@@ -102,9 +102,9 @@ export const Directions = Object.freeze({
 });
 
 export const Devices = Object.freeze({
-  phone: "phone",
   laptop: "laptop",
   tablet: "tablet",
+  phone: "phone",
 });
 
 export const agreementScaleAnswers = Object.freeze([

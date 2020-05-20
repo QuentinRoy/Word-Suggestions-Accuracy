@@ -422,7 +422,7 @@ TrialPresenter.defaultProps = {
   isSystemKeyboardEnabled: true,
   tutorialStep: null,
   isFocusAlertShown: false,
-  showsHelp: true,
+  showsHelp: false,
   shouldUseNumberToInputBarSuggestions: true,
 };
 

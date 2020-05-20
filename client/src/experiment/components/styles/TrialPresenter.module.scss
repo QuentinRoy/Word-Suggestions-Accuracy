@@ -33,9 +33,16 @@ $maxContentWidth: 800px;
     }
 
     .input {
-      margin-top: 40px;
+      margin-top: 20px;
       grid-row-start: input-start;
       grid-row-end: input-end;
+    }
+
+    @media (max-height: 530px) {
+      .input {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
     }
 
     .controls {

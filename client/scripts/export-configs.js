@@ -9,6 +9,7 @@ const configsPath = path.join(__dirname, "../public/configs");
 const columns = [
   "config",
   "runUuid",
+  "configUuid",
   "device",
   "wave",
   "targetAccuracy",

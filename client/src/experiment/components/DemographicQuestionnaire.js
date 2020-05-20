@@ -97,7 +97,8 @@ const questions = {
     isAnswerRequired: true,
   },
   typingUsePhone: {
-    text: "In the last 7 days, in total, how long have you typed on a phone?",
+    text:
+      "In the last 7 days, in total, how long have you typed on a phone (using any typing method)?",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
     answers: weeklyUseAnswers,

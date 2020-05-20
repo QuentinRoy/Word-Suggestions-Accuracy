@@ -1,10 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  InputTypes,
-  Directions,
-  agreementScaleAnswers,
-} from "../../common/constants";
+import { InputTypes, Directions } from "../../common/constants";
 import QuestionnaireTask from "./QuestionnaireTask";
 
 const weeklyUseAnswers = Object.freeze([

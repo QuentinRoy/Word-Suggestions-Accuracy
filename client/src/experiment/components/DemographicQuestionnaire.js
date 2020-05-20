@@ -116,7 +116,7 @@ const questions = {
       "In the last 24 hours, how many word suggestions have you used when typing on a phone?",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
-    answers: agreementScaleAnswers,
+    answers: suggestionsUseAnswers,
     isAnswerRequired: true,
   },
 

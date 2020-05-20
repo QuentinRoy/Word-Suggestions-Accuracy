@@ -1,0 +1,6 @@
+{
+  "config": "test-end",
+  "wave": "test",
+  "children": [{ "task": "EndExperiment", "key": "final-end" }],
+  "device": "laptop"
+}

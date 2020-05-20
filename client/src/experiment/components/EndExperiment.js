@@ -8,20 +8,20 @@ import { Paths } from "../../common/constants";
 const EndExperiment = () => {
   const history = useHistory();
   const location = useLocation();
+
+  function handleClick() {
+    localStorage.removeItem("state");
+    history.push({
+      pathname: Paths.waitingRoom,
+      search: location.search,
+    });
+  }
+
   return (
     <TaskPaper>
       <h1>Thank you!</h1>
       <div className={styles.controls}>
-        <Button
-          color="primary"
-          onClick={() => {
-            localStorage.removeItem("state");
-            history.push({
-              pathname: Paths.waitingRoom,
-              search: location.search,
-            });
-          }}
-        >
+        <Button variant="contained" color="primary" onClick={handleClick}>
           Finish
         </Button>
       </div>

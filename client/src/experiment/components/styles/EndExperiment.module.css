@@ -2,3 +2,9 @@
   font-weight: bolder;
   font-family: "Courier New", Courier, monospace;
 }
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}

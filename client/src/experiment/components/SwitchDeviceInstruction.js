@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Button } from "@material-ui/core";
+import { useHistory, useLocation } from "react-router-dom";
 import TaskPaper from "./TaskPaper";
 import style from "./styles/SwitchDeviceInstruction.module.scss";
-import { ReadyStates, LogTypes } from "../../common/constants";
+import { ReadyStates, LogTypes, Paths } from "../../common/constants";
 import { useModeration } from "../../common/moderation/Moderation";
 
 export default function SwitchDeviceInstruction({
@@ -14,6 +15,9 @@ export default function SwitchDeviceInstruction({
 }) {
   const { readyState, sendLog } = useModeration();
   const hasNotifiedRef = useRef(false);
+  const location = useLocation();
+  const history = useHistory();
+
   useEffect(() => {
     let isEffectCleanedUp = false;
     if (readyState === ReadyStates.ready && !hasNotifiedRef.current) {
@@ -35,6 +39,21 @@ export default function SwitchDeviceInstruction({
         <div className={style.content}>
           <p>You are done with your {currentDevice}.</p>
           <p>Please switch to your {nextDevice}.</p>
+        </div>
+        <div className={style.controls}>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => {
+              localStorage.removeItem("state");
+              history.push({
+                pathname: Paths.waitingRoom,
+                search: location.search,
+              });
+            }}
+          >
+            Finish
+          </Button>
         </div>
       </TaskPaper>
     );

@@ -42,7 +42,7 @@ const DistributionViewer = () => {
       if (evt.keyCode === KeyCodes.top) {
         evt.preventDefault();
         // If the slider is focused, it will automatically move when arrow keys
-        //  are pressed. The next line overrides this behavior.
+        // are pressed. The next line overrides this behavior.
         setAccuracy(accuracy);
         document.activeElement.blur();
         setSentenceIndex(

@@ -21,7 +21,7 @@ function ConnectedRemoteModeration() {
   const [snack, setSnack] = useState({ isOpened: false });
 
   const handleSnackClose = () => {
-    setSnack({ ...snack, isOpened: false });
+    setSnack((s) => ({ ...s, isOpened: false }));
   };
 
   const handleStartApp = (...args) => {

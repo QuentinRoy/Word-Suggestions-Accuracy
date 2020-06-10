@@ -69,7 +69,7 @@ function TypingSpeedResultLog() {
   return (
     <>
       <Participant /> typed at{" "}
-      <Result>{((content.avgSpeed * 5) / 60).toFixed(2)} wpm</Result> on{" "}
+      <Result>{((content.avgSpeed / 5) * 60).toFixed(2)} wpm</Result> on{" "}
       <Device />
     </>
   );

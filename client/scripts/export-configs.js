@@ -43,7 +43,11 @@ async function getDirJSONs(
 
 async function getConfigs() {
   const deviceConfigs = await getDirJSONs(configsPath, (data) =>
-    _({ ...data, deviceOrder: data.deviceOrder.indexOf(data.device) })
+    _({
+      ...data,
+      deviceOrder:
+        data.deviceOrder == null ? null : data.deviceOrder.indexOf(data.device),
+    })
       .pick(...columns)
       .mapKeys((v, k) => snakeCase(k))
       .value()

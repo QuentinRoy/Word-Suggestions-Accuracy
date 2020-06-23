@@ -50,6 +50,8 @@ event_columns = {
     "is_input_correct": "isInputCorrect",
     "is_target_completed": "isTargetCompleted",
     "action_start_time": "actionStartTime",
+    "request_time": "requestTime",
+    "response_time": "responseTime",
     "time": "time",
 }
 

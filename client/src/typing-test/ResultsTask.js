@@ -16,7 +16,9 @@ function ResultsTask({ participant, configuration }) {
     (t) => t.task === TaskTypes.typingSpeedTask
   );
   const typingTaskSpeeds = typingTasks.map((t) => {
-    const firstCharEvent = t.events.find((e) => e.input !== "");
+    const firstCharEvent = t.events.find(
+      (e) => e.input !== "" && e.input != null
+    );
     const completionEvent = t.events.find((e) => e.isTargetCompleted);
     return (
       t.phrase.length / ((completionEvent.time - firstCharEvent.time) / 1000)

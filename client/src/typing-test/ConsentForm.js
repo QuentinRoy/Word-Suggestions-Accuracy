@@ -62,6 +62,8 @@ const HostingCompany = () => (
   <>Amazon Web Services, Inc. and the University of Waterloo</>
 );
 
+const OreApprovalNumber = () => "ORE# 31173";
+
 // Body of the consent form.
 
 const ConsentForm = ({ onAdvanceWorkflow }) => {
@@ -199,9 +201,10 @@ const ConsentForm = ({ onAdvanceWorkflow }) => {
       <h3>Has the study received ethics clearance?</h3>
       <p>
         This study has been reviewed and received ethics clearance through a
-        University of Waterloo Research Ethics Committee (ORE# 31173). If you
-        have questions for the Committee contact the Office of Research Ethics
-        at 1-519-888-4567 ext. 36005 or <Email>ore-ceo@uwaterloo.ca</Email>.
+        University of Waterloo Research Ethics Committee (<OreApprovalNumber />
+        ). If you have questions for the Committee contact the Office of
+        Research Ethics at 1-519-888-4567 ext. 36005 or{" "}
+        <Email>ore-ceo@uwaterloo.ca</Email>.
       </p>
       <h3>
         Who should I contact if I have questions regarding my participation in

@@ -31,20 +31,17 @@ SUBMIT_EVENT = "SUBMIT"
 
 def iter_config_tasks(config):
     properties = config.copy()
-
     if "children" not in config:
         yield properties
         return
-
     del properties["children"]
-
     for child in config["children"]:
         for sub_config in iter_config_tasks(child):
             yield {**properties, **sub_config}
 
 
 def iter_task_of_type(log, task_type):
-    if not isinstance(task_type, Iterable):
+    if type(task_type) is str:
         task_type = [task_type]
     for task in iter_config_tasks(log):
         if "task" in task:
@@ -55,7 +52,6 @@ def iter_task_of_type(log, task_type):
 def create_task_iterator(task_type):
     def iterator(log):
         yield from iter_task_of_type(log, task_type)
-
     return iterator
 
 

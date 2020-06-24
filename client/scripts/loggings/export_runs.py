@@ -93,9 +93,7 @@ def use_one_task(task_type, is_one_required=False):
                 return func(None)
             assert len(tasks) == 1
             return func(tasks[0])
-
         return wrapper
-
     return inject
 
 

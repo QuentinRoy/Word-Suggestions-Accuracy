@@ -69,7 +69,7 @@ const questions = {
   },
   typingUseTabletLandscape: {
     text:
-      "In the last 7 days, in total, how long have you typed on a touch tablet in lanscape orientation without a physical keyboard?",
+      "In the last 7 days, in total, how long have you typed on a touch tablet in landscape orientation without a physical keyboard?",
     inputType: InputTypes.choice,
     direction: Directions.horizontal,
     answers: weeklyUseAnswers,

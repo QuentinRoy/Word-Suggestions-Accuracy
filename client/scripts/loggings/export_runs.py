@@ -59,6 +59,9 @@ other_columns = ["feedbacks", "start_up_questionnaire_trials", "file_name"]
 demo_questionnaire_columns = {
     "age": "age",
     "gender": "gender",
+    "use_desktop": "typingUseDesktop",
+    "use_tablet": "typingUseTablet",
+    "use_phone": "typingUsePhone",
     "typing_use_desktop": "typingUseDesktop",
     "typing_use_tablet": "typingUseTablet",
     "typing_use_phone": "typingUsePhone",
@@ -67,6 +70,9 @@ demo_questionnaire_columns = {
     "suggestions_use_frequency_tablet": "suggestionsUseFrequencyTablet",
     "suggestions_use_frequency_phone": "suggestionsUseFrequencyPhone",
     "suggestions_use_frequency_phone_one_hand": "suggestionsUseFrequencyPhoneOneHand",
+    "suggestions_use_frequency_tablet": "suggestionsUseFrequencyTablet",
+    "typing_use_phone_one_hand": "typingUsePhoneOneHand",
+    "swipe_typing_use": "swipeTyping"
 }
 
 block_questionnaire_columns = {

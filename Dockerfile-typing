@@ -2,7 +2,7 @@ ARG APP_GIT_SHA
 
 # Use multi-stage build, to get rid of the client's dependencies once it has
 # been built.
-FROM  mhart/alpine-node:14.2.0 AS build-client
+FROM node:14.5.0-alpine3.11 AS build-client
 WORKDIR /app/client
 COPY ./client/package.json ./client/package-lock.json ./
 RUN npm install --production
@@ -10,12 +10,12 @@ COPY ./client .
 ARG APP_GIT_SHA
 RUN REACT_APP_GIT_SHA=$APP_GIT_SHA npm run build
 
-FROM mhart/alpine-node:14.2.0 AS install-server
+FROM node:14.5.0-alpine3.11 AS install-server
 WORKDIR /app/server
 COPY ./control-server .
 RUN npm install --production
 
-FROM mhart/alpine-node:slim-14.2.0 AS runtime
+FROM node:14.5.0-alpine3.11 AS runtime
 WORKDIR /app/server
 COPY --from=build-client /app/client/build /app/client
 COPY --from=install-server /app/server /app/server

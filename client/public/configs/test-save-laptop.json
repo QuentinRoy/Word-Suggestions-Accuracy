@@ -1,0 +1,70 @@
+{
+  "config": "test-save",
+  "keyStrokeDelay": 0,
+  "totalSuggestions": 3,
+  "suggestionsType": "BAR",
+  "numberOfPracticeTasks": 3,
+  "numberOfTypingTasks": 20,
+  "minSuggestionsDelay": 150,
+  "doNotShowDelayInstructions": true,
+  "wave": "test",
+  "children": [
+    {
+      "totalKss": 0.48484848484848486,
+      "meanWordsKss": 0.564141414141414,
+      "sdWordsKss": 0.20090347915843942,
+      "diffTotalKss": 0.015151515151515138,
+      "diffWordsMeanKss": 0.06414141414141405,
+      "diffSdWordsKss": 0.0009034791584394131,
+      "score": 0.008027497154977276,
+      "usable": true,
+      "task": "TypingTask",
+      "sksDistribution": [
+        {
+          "word": "the ",
+          "sks": 3,
+          "correctSuggestionPositions": [-1, 0, 0, 0, 0]
+        },
+        {
+          "word": "treasury ",
+          "sks": 5,
+          "correctSuggestionPositions": [-1, -1, -1, -1, 0, 0, 0, 0, 0, 0]
+        },
+        {
+          "word": "department ",
+          "sks": 2,
+          "correctSuggestionPositions": [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "word": "is ",
+          "sks": 2,
+          "correctSuggestionPositions": [-1, 0, 0, 0]
+        },
+        {
+          "word": "broke ",
+          "sks": 4,
+          "correctSuggestionPositions": [-1, -1, 2, 0, 0, 0, 0]
+        }
+      ],
+      "isPractice": true,
+      "id": "typing-laptop-practice-0",
+      "key": "typing-laptop-practice-0"
+    },
+    { "task": "S3Upload", "key": "typing-upload-tablet" }
+  ],
+  "isVirtualKeyboardEnabled": false,
+  "device": "laptop"
+}

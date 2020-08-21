@@ -72,6 +72,7 @@ const ControlServerForm = ({ clients, startApp }) => {
         // uncontrolled.
         {
           config: "",
+          suggestionServer: "",
           isTest: false,
           targetParticipant: "",
           targetExperiment: null,
@@ -155,6 +156,33 @@ const ControlServerForm = ({ clients, startApp }) => {
               }
             />{" "}
             <ErrorMessage name="config" component={FormErrorMessage} />
+          </div>
+
+          <div className={style.formRow}>
+            <label
+              htmlFor={`${id}-suggestion-server`}
+              className={
+                values.targetExperiment == null ||
+                values.targetExperiment === Paths.experiment
+                  ? null
+                  : style.disabledLabel
+              }
+            >
+              Suggestion Server:{" "}
+            </label>
+            <Field
+              name="suggestionServer"
+              id={`${id}-suggestion-server`}
+              type="text"
+              disabled={
+                values.targetExperiment !== Paths.experiment &&
+                values.targetExperiment != null
+              }
+            />{" "}
+            <ErrorMessage
+              name="suggestionServer"
+              component={FormErrorMessage}
+            />
           </div>
 
           <div className={style.formRow}>

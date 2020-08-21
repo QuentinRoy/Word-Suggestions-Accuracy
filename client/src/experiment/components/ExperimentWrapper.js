@@ -121,9 +121,15 @@ export default function ExperimentWrapper() {
     );
   }
 
+  const suggestionServer =
+    locationParams.suggestionServer == null ||
+    locationParams.suggestionServer === ""
+      ? endpoints.suggestionServer
+      : locationParams.suggestionServer;
+
   return (
     <ThemeProvider theme={theme}>
-      <WordSuggestionsProvider serverAddress={endpoints.suggestionServer}>
+      <WordSuggestionsProvider serverAddress={suggestionServer}>
         <ModerationProvider
           initConnection={{
             url: endpoints.controlServer,

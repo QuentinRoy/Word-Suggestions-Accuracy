@@ -33,6 +33,7 @@ record_columns = dict(
         "keyStrokeDelay",
         "targetAccuracy",
         "version",
+        "isTest",
         "totalSuggestions",
         "suggestionsType",
         "numberOfPracticeTasks",

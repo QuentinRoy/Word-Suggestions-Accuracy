@@ -72,13 +72,16 @@ async function downloadObjects(objectEntries, options) {
   );
 }
 
-async function doMain({
-  startAfter = undefined,
-  overwrite: shouldOverwrite = false,
-  bucket,
-  output: outputDir,
-  input: objectsRemoteDirectory,
-}) {
+async function doMain(opts) {
+  // Do not spread from the arguments to keep the opts parameter because we
+  // re-use it when calling doMain again.
+  const {
+    startAfter = undefined,
+    overwrite: shouldOverwrite = false,
+    bucket,
+    output: outputDir,
+    input: objectsRemoteDirectory,
+  } = opts;
   try {
     await fs.mkdir(outputDir);
   } catch (err) {
@@ -104,10 +107,7 @@ async function doMain({
   if (listObjRequest.IsTruncated) {
     return Promise.all([
       downloadObjects(toDlKeyFileMap, { shouldOverwrite, bucket }),
-      doMain({
-        startAfter: last(listObjRequest.Contents).Key,
-        shouldOverwrite,
-      }),
+      doMain({ ...opts, startAfter: last(listObjRequest.Contents).Key }),
     ]).then((results) => results.flat());
   }
   return downloadObjects(toDlKeyFileMap, { shouldOverwrite, bucket });

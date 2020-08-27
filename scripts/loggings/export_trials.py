@@ -17,6 +17,7 @@ this_dir = os.path.dirname(os.path.abspath(__file__))
 json_logs_dir = os.path.join(this_dir, "../../participants-logs/")
 output_file_path = os.path.abspath(os.path.join(json_logs_dir, "trials.csv"))
 p_registry_path = os.path.abspath(os.path.join(json_logs_dir, "p_registry.csv"))
+r_registry_path = os.path.abspath(os.path.join(json_logs_dir, "r_registry.csv"))
 
 log_columns = {
     "participant": "participant",
@@ -51,6 +52,7 @@ if not IS_ANONYMOUS:
     trial_columns.update({"git_sha": "gitSha"})
 
 other_columns = [
+    "run_id",
     "total_removed_manual_chars",
     "total_removed_suggestion_chars",
     "total_final_suggestion_chars",
@@ -92,7 +94,9 @@ def get_ks_info(task):
 # This should just yield once, but we still use an iterators for consistency
 # with export_events.
 def iter_trials(task, file_name, **kwargs):
-    record = {} if IS_ANONYMOUS else {"file_name": file_name}
+    record = {"run_id": file_name} 
+    if not IS_ANONYMOUS:
+        record["file_name"] = file_name
     copy_rename(task, record, log_columns)
     if "trial" in task:
         copy_rename(task["trial"], record, trial_columns)
@@ -109,5 +113,6 @@ if __name__ == "__main__":
         iter_trials,
         iter_typing_tasks,
         participant_registry_path=p_registry_path if IS_ANONYMOUS else None,
+        run_registry_path=r_registry_path,
     )
     print("{} written.".format(output_file_path))

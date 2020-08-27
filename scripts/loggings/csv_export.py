@@ -1,7 +1,7 @@
 import json
 import csv
 import os
-from participants_registry import ParticipantsRegistry
+from registry import Registry
 
 
 def null_iterator(log):
@@ -15,11 +15,28 @@ def csv_export(
     reader,
     iterator=null_iterator,
     participant_registry_path=None,
+    run_registry_path=None,
 ):
 
     p_registry = (
-        ParticipantsRegistry(participant_registry_path)
+        Registry(
+            participant_registry_path,
+            input_col_name="worker_id",
+            output_col_name="participant_id",
+            id_prefix="P",
+        )
         if participant_registry_path
+        else None
+    )
+
+    r_registry = (
+        Registry(
+            run_registry_path,
+            input_col_name="run_id",
+            output_col_name="anonymized_run_id",
+            id_prefix="R",
+        )
+        if run_registry_path
         else None
     )
 
@@ -30,6 +47,13 @@ def csv_export(
         new_row["participant"] = p_registry.get(row["participant"])
         return new_row
 
+    def encrypt_run_id(row):
+        if not r_registry or not "run_id" in row:
+            return row
+        new_row = row.copy()
+        new_row["run_id"] = r_registry.get(row["run_id"])
+        return new_row
+
     with open(output_file_path, "w") as log_file:
         writer = csv.DictWriter(log_file, header, quoting=csv.QUOTE_NONNUMERIC)
         writer.writeheader()
@@ -37,13 +61,18 @@ def csv_export(
         for p_file_name in os.listdir(json_logs_dir):
             if not os.path.splitext(p_file_name)[1].lower() == ".json":
                 continue
-            with open(
-                os.path.join(json_logs_dir, p_file_name), "r"
-            ) as participant_file:
+            file_path = os.path.join(json_logs_dir, p_file_name)
+            with open(file_path, "r") as participant_file:
                 log = json.loads(participant_file.read())
+
+                def map_row(row):
+                    row = encrypt_run_id(row)
+                    row = encrypt_participant(row)
+                    return row
+
                 for record in iterator(log):
                     writer.writerows(
-                        map(encrypt_participant, reader(record, file_name=p_file_name))
+                        map(map_row, reader(record, file_name=p_file_name))
                     )
 
     if p_registry is not None:

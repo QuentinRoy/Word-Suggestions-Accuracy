@@ -12,6 +12,7 @@ this_dir = os.path.dirname(os.path.abspath(__file__))
 json_logs_dir = os.path.join(this_dir, "../../participants-logs/")
 output_file_path = os.path.abspath(os.path.join(json_logs_dir, "events.csv"))
 p_registry_path = os.path.abspath(os.path.join(json_logs_dir, "p_registry.csv"))
+r_registry_path = os.path.abspath(os.path.join(json_logs_dir, "r_registry.csv"))
 
 log_columns = {
     "participant": "participant",
@@ -51,7 +52,11 @@ trial_columns = {"sentence": "sentence"}
 def iter_events(task, file_name, **kwargs):
     if not "start" in task:
         return
-    base = {} if IS_ANONYMOUS else {"file_name": file_name}
+    base = (
+        {"run_id": file_name}
+        if IS_ANONYMOUS
+        else {"run_id": file_name, "file_name": file_name}
+    )
     copy_rename(task, base, log_columns)
     copy_rename(task["trial"], base, trial_columns)
     for event_number, event in enumerate(task["events"]):
@@ -64,7 +69,9 @@ def iter_events(task, file_name, **kwargs):
 if __name__ == "__main__":
     header = list(
         chain(
-            ["event_number"] if IS_ANONYMOUS else ["file_name", "event_number"],
+            ["run_id", "event_number"]
+            if IS_ANONYMOUS
+            else ["run_id", "file_name", "event_number"],
             log_columns.keys(),
             trial_columns.keys(),
             event_columns.keys(),
@@ -77,5 +84,6 @@ if __name__ == "__main__":
         iter_events,
         iter_typing_tasks,
         participant_registry_path=p_registry_path if IS_ANONYMOUS else None,
+        run_registry_path=r_registry_path,
     )
     print("{} written.".format(output_file_path))

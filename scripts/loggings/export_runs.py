@@ -17,6 +17,7 @@ this_dir = os.path.dirname(os.path.abspath(__file__))
 json_logs_dir = os.path.join(this_dir, "../../participants-logs/")
 output_file_path = os.path.abspath(os.path.join(json_logs_dir, "runs.csv"))
 p_registry_path = os.path.abspath(os.path.join(json_logs_dir, "p_registry.csv"))
+r_registry_path = os.path.abspath(os.path.join(json_logs_dir, "r_registry.csv"))
 
 record_columns = dict(
     (to_snake_case(col), col)
@@ -62,7 +63,12 @@ corpus_columns = {
     "was_corpus_shuffled": "shuffled",
 }
 
-other_columns = ["feedbacks", "start_up_questionnaire_trials", "accepted_consent_form"]
+other_columns = [
+    "run_id",
+    "feedbacks",
+    "start_up_questionnaire_trials",
+    "accepted_consent_form",
+]
 
 if not IS_ANONYMOUS:
     other_columns.insert(0, "file_name")
@@ -120,6 +126,7 @@ def accepted_consent_form(run_record):
 # with export_events.
 def iter_run_record(run_record, file_name, **kwargs):
     result = {
+        "run_id": file_name,
         "feedbacks": get_feedbacks(run_record),
         "start_up_questionnaire_trials": get_start_questionnaire_trials(run_record),
         "accepted_consent_form": accepted_consent_form(run_record),
@@ -145,5 +152,6 @@ if __name__ == "__main__":
         header,
         iter_run_record,
         participant_registry_path=p_registry_path if IS_ANONYMOUS else None,
+        run_registry_path=r_registry_path,
     )
     print("{} written.".format(output_file_path))

@@ -1,14 +1,13 @@
 import http from "http";
+import Koa from "koa";
+import koaStatic from "koa-static";
+import koaSend from "koa-send";
 import WebSocket from "ws";
 import log from "loglevel";
+import terminus from "@godaddy/terminus";
 import dedent from "dedent";
-import serveStatic from "node-static";
 import { handleMessage, handleConnection, handleClose } from "./api.js";
-import {
-  DEFAULT_PONG_DURATION,
-  DEFAULT_STATIC_FILES,
-  DEFAULT_STATIC_NOT_FOUND_FILE,
-} from "./constants.js";
+import { DEFAULT_PONG_DURATION, DEFAULT_STATIC_FILES } from "./constants.js";
 import dotenv from "dotenv";
 import Client from "./Client.js";
 import { noop } from "./utils.js";
@@ -27,31 +26,50 @@ log.setDefaultLevel(
   process.env.LOG_LEVEL == null ? log.levels.INFO : process.env.LOG_LEVEL
 );
 
-const fileServer = new serveStatic.Server(
+const app = new Koa();
+
+if (process.env.DYNAMIC_ENDPOINTS === "true") {
+  app.use(async function serveEndpoints(ctx, next) {
+    if ("/endpoints.json" == ctx.path) {
+      ctx.body = {
+        dynamic: "yep",
+        suggestionServer: process.env.SUGGESTION_SERVER || undefined,
+        suggestionServerPort:
+          process.env.SUGGESTION_SERVER == null &&
+          process.env.SUGGESTION_SERVER_PORT != null
+            ? process.env.SUGGESTION_SERVER_PORT
+            : undefined,
+        controlServer: process.env.CONTROL_SERVER || undefined,
+        controlServerPort:
+          process.env.CONTROL_SERVER == null &&
+          process.env.CONTROL_SERVER_PORT != null
+            ? process.env.CONTROL_SERVER_PORT
+            : undefined,
+      };
+    } else {
+      await next();
+    }
+  });
+}
+
+const staticRoot =
   process.env.STATIC_FILES == null
     ? DEFAULT_STATIC_FILES
-    : process.env.STATIC_FILES
-);
-const server = http.createServer(function onRequest(request, response) {
-  request
-    .addListener("end", () => {
-      fileServer.serve(request, response, (e) => {
-        if (e && e.status === 404) {
-          // If the file wasn't found
-          fileServer.serveFile(
-            process.env.STATIC_NOT_FOUND_FILE == null
-              ? DEFAULT_STATIC_NOT_FOUND_FILE
-              : process.env.STATIC_NOT_FOUND_FILE,
-            404,
-            {},
-            request,
-            response
-          );
-        }
+    : process.env.STATIC_FILES;
+
+app.use(koaStatic(staticRoot));
+
+if (process.env.STATIC_NOT_FOUND_FILE) {
+  app.use(async (ctx) => {
+    if (ctx.status === 404 && ctx.accepts("html")) {
+      await koaSend(ctx, process.env.STATIC_NOT_FOUND_FILE, {
+        root: staticRoot,
       });
-    })
-    .resume();
-});
+    }
+  });
+}
+
+const server = http.createServer(app.callback());
 const wss = new WebSocket.Server({ server });
 
 const clients = new Map();
@@ -100,4 +118,7 @@ wss.on("close", () => {
 });
 
 log.info(`Server listening on ${process.env.SERVER_PORT}`);
+
+terminus.createTerminus(server);
+
 server.listen(process.env.SERVER_PORT);

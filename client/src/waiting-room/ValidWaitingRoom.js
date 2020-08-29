@@ -20,7 +20,7 @@ function ConnectionError({ buttonLabel = "Retry", children }) {
         <button
           type="button"
           className={style.reconnectButton}
-          onClick={reconnect}
+          onClick={() => reconnect()}
         >
           {buttonLabel}
         </button>

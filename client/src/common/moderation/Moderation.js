@@ -125,9 +125,12 @@ function useOneModeration({ onCommand, initConnection }) {
     };
   });
 
-  const reconnect = React.useCallback(() => {
-    dispatch({ type: "reconnect:client", connection: state.connection });
-  }, [dispatch, state.connection]);
+  const reconnect = React.useCallback(
+    (connection) => {
+      dispatch({ type: "reconnect:client", connection });
+    },
+    [dispatch]
+  );
 
   // Patch client with a reconnect method and the readyState, and remove
   // onCommand that we do not want to share.

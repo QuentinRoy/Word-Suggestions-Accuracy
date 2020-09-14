@@ -9,7 +9,7 @@
     "@material-ui/core": "^4.9.14",
     "@material-ui/lab": "^4.0.0-alpha.53",
     "@material-ui/styles": "^4.9.14",
-    "@quentinroy/measure-display-view": "^1.0.0-alpha.3",
+    "@quentinroy/measure-display-view": "^1.0.0",
     "aws-sdk": "^2.674.0",
     "change-case": "^4.1.1",
     "classnames": "^2.2.6",

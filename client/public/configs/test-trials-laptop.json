@@ -1,5 +1,5 @@
 {
-  "config": "test-trial",
+  "config": "test-trials",
   "deviceOrder": ["phone", "laptop", "tablet"],
   "targetAccuracy": 0.5,
   "keyStrokeDelay": 0,

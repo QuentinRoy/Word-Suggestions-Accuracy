@@ -14,6 +14,58 @@
     {
       "children": [
         {
+          "totalKss": 0.5161290322580645,
+          "meanWordsKss": 0.5747619047619048,
+          "sdWordsKss": 0.19994103439154276,
+          "diffTotalKss": 0.016129032258064502,
+          "diffWordsMeanKss": 0.07476190476190481,
+          "diffSdWordsKss": 0.00005896560845725096,
+          "score": 0.008093998933260876,
+          "task": "TypingTask",
+          "sksDistribution": [
+            {
+              "word": "destruction ",
+              "sks": 3,
+              "correctSuggestionPositions": [
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                -1,
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "word": "of ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, 2, 0, 0]
+            },
+            {
+              "word": "the ",
+              "sks": 2,
+              "correctSuggestionPositions": [-1, -1, 2, 0, 0]
+            },
+            {
+              "word": "rain ",
+              "sks": 3,
+              "correctSuggestionPositions": [-1, -1, 1, 1, 0, 0]
+            },
+            {
+              "word": "forest ",
+              "sks": 6,
+              "correctSuggestionPositions": [-1, 0, 0, 0, 0, 0, 0, 0]
+            }
+          ],
+          "usable": true
+        },
+        {
           "totalKss": 0.48484848484848486,
           "meanWordsKss": 0.564141414141414,
           "sdWordsKss": 0.20090347915843942,

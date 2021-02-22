@@ -14,7 +14,7 @@
         </a>
         <div class="panel-body" id="instructionBody">
           <p>
-            This task is a part of an academic study by the HCI Lab at the
+            This task is a part of an academic study by the HCI Lab of the
             University of Waterloo.
           </p>
 
@@ -130,11 +130,11 @@
 
 <!-- Open internal javascript -->
 <script>
-  var targetAccuracies = [0.1, 0.5, 0.9];
+  var targetAccuracies = [0.3, 0.7];
   var suggestionsType = "BAR";
-  var keyStrokeDelays = [0, 100, 200];
-  // Extra conditions format: [keyStrokeDelay]-[targetAccuracy]
-  var extraConditions = ["0-0.3", "0-0.7"];
+  var keyStrokeDelays = [100, 200];
+  // Extra conditions format: [keyStrokeDelay]-[targetAccuracy], e.g. "0-0.3".
+  var extraConditions = [];
   var wave = "template";
 
   var workerID = turkGetParam("workerId", false);

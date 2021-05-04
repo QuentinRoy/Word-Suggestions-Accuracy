@@ -1,4 +1,3 @@
-ARG APP_GIT_SHA
 
 # Use multi-stage build, to get rid of the client's dependencies once it has
 # been built.
@@ -8,8 +7,8 @@ COPY ./client/package.json ./client/package-lock.json ./
 RUN npm install --production
 COPY ./client/src ./src
 COPY ./client/public ./public
-ARG APP_GIT_SHA
-RUN REACT_APP_GIT_SHA=$APP_GIT_SHA npm run build
+ARG gitCommit
+RUN REACT_APP_GIT_SHA=$gitCommit npm run build
 
 # npm install may install cache stuff, separating the installation in its
 # own stage should help getting rid of it.

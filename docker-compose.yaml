@@ -1,18 +1,24 @@
-version: '3.8'
+version: "3.8"
 
 services:
   typing:
-    image: "control-acc/typing-exp"
-    environment: 
-      MODERATOR_PASSWORD: "cheval"
+    build:
+      context: .
+      args:
+        - gitCommit
+    image: "suggestion-experiment/experiment"
+    environment:
+      MODERATOR_PASSWORD: "waterlooHCI"
       SUGGESTION_SERVER: "ws://localhost:8080"
     restart: on-failure
     ports:
       - target: 80
         published: 5000
     container_name: typing-exp
+
   words:
-    image: "control-acc/words"
+    build: suggestionServer
+    image: "suggestion-experiment/words-api"
     restart: on-failure
     ports:
       - target: 80

@@ -9,7 +9,7 @@ This code base is composed of three different components:
 
 - The client, located in the `/client` directory, is the most important. It contains the code source of the webpage served to participants.
 - The control server, located in the `/control-server` directory, enables the experimenter to track a participant's progress. It is also used to serve the client after its compilation.
-- The suggestion server, located in the `/suggestionServer`, is a secondary server providing a web api to computer word suggestions.
+- The suggestion server, located in the `/suggestionServer` directory, is a secondary server providing a web api to computer word suggestions.
 
 ## Installation and start up
 

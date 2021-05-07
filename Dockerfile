@@ -2,13 +2,17 @@
 # Use multi-stage build, to get rid of the client's dependencies once it has
 # been built.
 FROM mhart/alpine-node:14.8.0 AS build-client
-WORKDIR /app
+WORKDIR /repo/client
+# Git is required by the build process.
+RUN apk add --no-cache git 
 COPY ./client/package.json ./client/package-lock.json ./
 RUN npm install --production
-COPY ./client/src ./src
 COPY ./client/public ./public
-ARG gitCommit
-RUN REACT_APP_GIT_SHA=$gitCommit npm run build
+COPY ./client/src ./src
+# The git repository is likely to be the thing that changes the most, so we make
+# sure this is only copied at the end.
+COPY ./.git /repo/.git
+RUN npm run build
 
 # npm install may install cache stuff, separating the installation in its
 # own stage should help getting rid of it.
@@ -16,7 +20,7 @@ FROM mhart/alpine-node:14.8.0 AS install-server
 WORKDIR /app
 COPY ./control-server .
 RUN npm install --production
-COPY --from=build-client /app/build/ ./static/
+COPY --from=build-client /repo/client/build/ ./static/
 
 # The slim image does not even includes npm.
 FROM mhart/alpine-node:slim-14.8.0

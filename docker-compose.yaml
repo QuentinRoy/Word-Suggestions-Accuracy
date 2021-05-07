@@ -2,10 +2,7 @@ version: "3.8"
 
 services:
   typing:
-    build:
-      context: .
-      args:
-        - gitCommit
+    build: .
     image: "suggestion-experiment/experiment"
     environment:
       MODERATOR_PASSWORD: "waterlooHCI"

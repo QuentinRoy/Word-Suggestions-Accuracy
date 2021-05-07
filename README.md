@@ -19,7 +19,7 @@ Docker enables consistent build and distribution of the experiment.
 To build the docker images run:
 
 ```sh
-docker compose build --build-arg gitCommit=`git rev-parse --short HEAD`
+docker compose build
 ```
 
 To run the experiment, then run:

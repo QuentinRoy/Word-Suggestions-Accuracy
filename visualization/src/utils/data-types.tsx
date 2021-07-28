@@ -47,30 +47,26 @@ export const deviceLabels: Readonly<Record<DeviceId, string>> = Object.freeze({
   phone: "Phone",
 })
 
-export const questionLabels: Readonly<Record<
-  QuestionId,
-  string
->> = Object.freeze({
-  controls_satisfactory:
-    "The controls (keyboard and word suggestions) are satisfactory for the completion of the task.",
-  suggestions_accuracy: "The word suggestions are accurate.",
-  keyboard_use_efficiency: "The use of the keyboard is efficient in this task.",
-  suggestion_distraction: "The word suggestions are distracting.",
-})
+export const questionLabels: Readonly<Record<QuestionId, string>> =
+  Object.freeze({
+    controls_satisfactory:
+      "The controls (keyboard and word suggestions) are satisfactory for the completion of the task.",
+    suggestions_accuracy: "The word suggestions are accurate.",
+    keyboard_use_efficiency:
+      "The use of the keyboard is efficient in this task.",
+    suggestion_distraction: "The word suggestions are distracting.",
+  })
 
-export const experimentLabels: Readonly<Record<
-  ExperimentId,
-  string
->> = Object.freeze({
-  devices: "Desktop, Tablet, and phone; and three suggestions",
-  amt_bar: "Keytime and three suggestions",
-  amt_inline: "Keytime and one suggestion",
-})
+export const experimentLabels: Readonly<Record<ExperimentId, string>> =
+  Object.freeze({
+    devices: "Desktop, Tablet, and phone; and three suggestions",
+    amt_bar: "Keytime and three suggestions",
+    amt_inline: "Keytime and one suggestion",
+  })
 
-export const efficiencyFactors: Readonly<Record<
-  ExperimentId,
-  EfficiencyFactor
->> = Object.freeze({
+export const efficiencyFactors: Readonly<
+  Record<ExperimentId, EfficiencyFactor>
+> = Object.freeze({
   devices: "device",
   amt_bar: "keyStrokeDelay",
   amt_inline: "keyStrokeDelay",
@@ -83,10 +79,9 @@ export const keyStrokeDelayLabels = Object.freeze(
   )
 )
 
-export const labelsByFactors: Readonly<Record<
-  EfficiencyFactor,
-  { [group: string]: string }
->> = Object.freeze({
+export const labelsByFactors: Readonly<
+  Record<EfficiencyFactor, { [group: string]: string }>
+> = Object.freeze({
   device: deviceLabels,
   keyStrokeDelay: keyStrokeDelayLabels,
 })

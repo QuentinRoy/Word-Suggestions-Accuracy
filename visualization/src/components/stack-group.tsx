@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useSpring, animated } from "react-spring"
+import { useSpring, animated } from "@react-spring/web"
 import { StackData } from "../utils/diverging-stack"
 import { translate } from "../utils/transforms"
 import Stack from "./stack"

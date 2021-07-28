@@ -7,7 +7,7 @@ import {
 } from "d3-scale"
 import { extent, max, min, range, rollup } from "d3-array"
 import { schemeRdBu } from "d3-scale-chromatic"
-import { animated, useSprings, useSpring } from "react-spring"
+import { animated, useSprings, useSpring } from "@react-spring/web"
 import {
   AgreementAnswer,
   AgreementRow,

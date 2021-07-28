@@ -1,22 +1,10 @@
 import * as React from "react"
 import { graphql } from "gatsby"
 import AgreementGraph from "../components/agreement-chart"
-import Slider from "@material-ui/core/Slider"
 import SEO from "../components/seo"
-import {
-  Box,
-  Container,
-  CssBaseline,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Paper,
-  Radio,
-  RadioGroup,
-} from "@material-ui/core"
+import { Box, Container, CssBaseline, Paper } from "@material-ui/core"
 import {
   AgreementRow,
-  deviceLabels,
   efficiencyFactors,
   ExperimentId,
   experimentLabels,
@@ -27,6 +15,8 @@ import {
 import { ChartThemeProvider } from "../utils/chart-theme"
 import { findClosestNumber } from "../utils/find-closest"
 import { group } from "d3-array"
+import ChoiceControl from "../components/ChoiceControl"
+import AccuracyControl from "../components/AccuracyControl"
 
 export const query = graphql`
   query AgreementQuery {
@@ -43,10 +33,6 @@ export const query = graphql`
     }
   }
 `
-
-function formatAccuracy(x: number) {
-  return `${(x * 100).toFixed(0)}%`
-}
 
 function findFirstPossible<T>(values: T[], availableValues: Set<any>) {
   return values.find(v => availableValues.has(v))
@@ -249,76 +235,3 @@ export default function IndexPage({ data }: IndexPageProps) {
     </ChartThemeProvider>
   )
 }
-
-type ChoiceControlProps<ChoiceId extends string | number | symbol> = {
-  groupLabel: React.ReactNode
-  availableValues?: Set<any>
-  labels: Record<ChoiceId, string>
-  value: ChoiceId | undefined
-  onChange: (newValue: ChoiceId) => any
-}
-function ChoiceControl<ChoiceId extends string | number | symbol>({
-  groupLabel,
-  availableValues,
-  labels,
-  value,
-  onChange,
-}: ChoiceControlProps<ChoiceId>) {
-  return (
-    <FormControl fullWidth>
-      <FormLabel>{groupLabel}</FormLabel>
-      <RadioGroup
-        aria-label="questions"
-        name="questions"
-        value={value}
-        onChange={(evt, value) => {
-          onChange(value as ChoiceId)
-        }}
-      >
-        {Object.entries(labels).map(([questionId, label]) => (
-          <FormControlLabel
-            key={questionId}
-            value={questionId}
-            control={
-              <Radio
-                color="primary"
-                disabled={
-                  availableValues == null || !availableValues.has(questionId)
-                }
-              />
-            }
-            label={label as string}
-          />
-        ))}
-      </RadioGroup>
-    </FormControl>
-  )
-}
-
-type AccuracyControlProps = {
-  availableValues: number[]
-  value?: number
-  onChange: (newValue: number) => any
-}
-const AccuracyControl: React.FC<AccuracyControlProps> = ({
-  availableValues,
-  value,
-  onChange,
-}) => (
-  <FormControl fullWidth>
-    <FormLabel>Accuracy</FormLabel>
-    <Slider
-      value={value}
-      onChange={(evt, newValue) => {
-        onChange(newValue as number)
-      }}
-      step={null}
-      min={0}
-      max={1}
-      marks={availableValues.map(a => ({
-        value: a,
-        label: formatAccuracy(a),
-      }))}
-    />
-  </FormControl>
-)

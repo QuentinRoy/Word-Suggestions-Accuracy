@@ -1,10 +1,12 @@
 import * as React from "react"
-import { graphql } from "gatsby"
+import fs from "fs/promises"
+import path from "path"
 import AgreementGraph from "../components/agreement-chart"
-import SEO from "../components/seo"
-import { Box, Container, CssBaseline, Paper } from "@material-ui/core"
+import { Box, Container, Paper } from "@material-ui/core"
 import {
+  AgreementAnswer,
   AgreementRow,
+  DeviceId,
   efficiencyFactors,
   ExperimentId,
   experimentLabels,
@@ -12,27 +14,14 @@ import {
   QuestionId,
   questionLabels,
 } from "../utils/data-types"
+import { csvParse } from "d3-dsv"
 import { ChartThemeProvider } from "../utils/chart-theme"
 import { findClosestNumber } from "../utils/find-closest"
 import { group } from "d3-array"
 import ChoiceControl from "../components/ChoiceControl"
 import AccuracyControl from "../components/AccuracyControl"
-
-export const query = graphql`
-  query AgreementQuery {
-    allAgreementDataCsv {
-      nodes {
-        experiment
-        accuracy
-        device
-        keyStrokeDelay
-        question
-        answer
-        totalAnswers
-      }
-    }
-  }
-`
+import { GetStaticProps, InferGetStaticPropsType } from "next"
+import Head from "next/head"
 
 function findFirstPossible<T>(values: T[], availableValues: Set<any>) {
   return values.find(v => availableValues.has(v))
@@ -51,6 +40,89 @@ type Action =
   | { type: "setExperiment"; experiment: ExperimentId }
   | { type: "setQuestion"; question: QuestionId }
   | { type: "setAccuracy"; accuracy: number }
+
+export default function IndexPage({
+  data,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [
+    {
+      groupedRows,
+      selectedAccuracy,
+      selectedExperiment,
+      selectedQuestion,
+      availableQuestions,
+      availableAccuracies,
+      availableExperiments,
+    },
+    dispatch,
+  ] = React.useReducer(reducer, data, initState)
+
+  let selectedRows =
+    (selectedExperiment != null &&
+      selectedQuestion != null &&
+      selectedAccuracy != null &&
+      groupedRows
+        .get(selectedExperiment)
+        ?.get(selectedQuestion)
+        ?.get(selectedAccuracy)) ||
+    []
+
+  let groups = efficiencyFactors[selectedExperiment!]
+  let groupLabels = labelsByFactors[groups]
+
+  return (
+    <>
+      <Head>
+        <title>Experiment Results</title>
+      </Head>
+      <ChartThemeProvider>
+        <Container maxWidth="md">
+          <Box component="header">
+            <Box my={4}>
+              <ChoiceControl
+                groupLabel="Experiment"
+                value={selectedExperiment}
+                onChange={experiment =>
+                  dispatch({ type: "setExperiment", experiment })
+                }
+                availableValues={availableExperiments}
+                labels={experimentLabels}
+              />
+            </Box>
+            <Box my={4}>
+              <ChoiceControl
+                groupLabel="Question"
+                value={selectedQuestion}
+                onChange={question =>
+                  dispatch({ type: "setQuestion", question })
+                }
+                availableValues={availableQuestions}
+                labels={questionLabels}
+              />
+            </Box>
+            <Box my={4}>
+              <AccuracyControl
+                value={selectedAccuracy}
+                onChange={accuracy =>
+                  dispatch({ type: "setAccuracy", accuracy })
+                }
+                availableValues={availableAccuracies}
+              />
+            </Box>
+          </Box>
+
+          <Paper>
+            <AgreementGraph
+              groups={groups}
+              data={selectedRows}
+              groupLabels={groupLabels}
+            />
+          </Paper>
+        </Container>
+      </ChartThemeProvider>
+    </>
+  )
+}
 
 function initState(rows: AgreementRow[]): State {
   let groupedRows = group(
@@ -73,12 +145,13 @@ function initState(rows: AgreementRow[]): State {
     availableQuestions
   )
 
-  let availableAccuracies = [
-    ...((selectedQuestion != null &&
+  let availableAccuracies = Array.from(
+    (selectedQuestion != null &&
       selectedExperiment != null &&
       groupedRows.get(selectedExperiment)?.get(selectedQuestion)?.keys()) ||
-      []),
-  ]
+      []
+  )
+
   let selectedAccuracy = availableAccuracies[0]
 
   return {
@@ -137,12 +210,12 @@ function reducer(prevState: State, action: Action): State {
     availableQuestions,
     questionIds
   )
-  availableAccuracies = [
-    ...((selectedQuestion != null &&
+  availableAccuracies = Array.from(
+    (selectedQuestion != null &&
       selectedExperiment != null &&
       groupedRows.get(selectedExperiment)?.get(selectedQuestion)?.keys()) ||
-      []),
-  ]
+      []
+  )
   selectedAccuracy = findClosestNumber(
     selectedAccuracy ?? 0,
     availableAccuracies
@@ -159,79 +232,21 @@ function reducer(prevState: State, action: Action): State {
   }
 }
 
-type IndexPageProps = {
-  data: { allAgreementDataCsv: { nodes: AgreementRow[] } }
-}
-export default function IndexPage({ data }: IndexPageProps) {
-  const [
-    {
-      groupedRows,
-      selectedAccuracy,
-      selectedExperiment,
-      selectedQuestion,
-      availableQuestions,
-      availableAccuracies,
-      availableExperiments,
-    },
-    dispatch,
-  ] = React.useReducer(reducer, data.allAgreementDataCsv.nodes, initState)
-
-  let selectedRows =
-    (selectedExperiment != null &&
-      selectedQuestion != null &&
-      selectedAccuracy != null &&
-      groupedRows
-        .get(selectedExperiment)
-        ?.get(selectedQuestion)
-        ?.get(selectedAccuracy)) ||
-    []
-
-  let groups = efficiencyFactors[selectedExperiment!]
-  let groupLabels = labelsByFactors[groups]
-
-  return (
-    <ChartThemeProvider>
-      <CssBaseline />
-      <SEO title="Home" />
-      <Container maxWidth="md">
-        <Box component="header">
-          <Box my={4}>
-            <ChoiceControl
-              groupLabel="Experiment"
-              value={selectedExperiment}
-              onChange={experiment =>
-                dispatch({ type: "setExperiment", experiment })
-              }
-              availableValues={availableExperiments}
-              labels={experimentLabels}
-            />
-          </Box>
-          <Box my={4}>
-            <ChoiceControl
-              groupLabel="Question"
-              value={selectedQuestion}
-              onChange={question => dispatch({ type: "setQuestion", question })}
-              availableValues={availableQuestions}
-              labels={questionLabels}
-            />
-          </Box>
-          <Box my={4}>
-            <AccuracyControl
-              value={selectedAccuracy}
-              onChange={accuracy => dispatch({ type: "setAccuracy", accuracy })}
-              availableValues={availableAccuracies}
-            />
-          </Box>
-        </Box>
-
-        <Paper>
-          <AgreementGraph
-            groups={groups}
-            data={selectedRows}
-            groupLabels={groupLabels}
-          />
-        </Paper>
-      </Container>
-    </ChartThemeProvider>
+export const getStaticProps: GetStaticProps<{
+  data: AgreementRow[]
+}> = async () => {
+  let csvData = await fs.readFile(
+    path.join(process.cwd(), "data", "agreement-data.csv"),
+    "utf-8"
   )
+  let data = csvParse<AgreementRow, string>(csvData, rawRow => ({
+    experiment: rawRow.experiment as ExperimentId,
+    accuracy: parseFloat(rawRow.accuracy as string),
+    device: rawRow.device as DeviceId,
+    keyStrokeDelay: parseInt(rawRow.keyStrokeDelay as string, 10),
+    question: rawRow.question as QuestionId,
+    answer: rawRow.answer as AgreementAnswer,
+    totalAnswers: parseInt(rawRow.totalAnswers as string, 10),
+  }))
+  return { props: { data } }
 }

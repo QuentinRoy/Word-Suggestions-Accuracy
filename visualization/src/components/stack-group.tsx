@@ -25,7 +25,7 @@ export default function StackGroup<Group, Category>({
     return x - x0
   }
 
-  let bands = [...stacks.entries()].map(([key, value]) =>
+  let bands = Array.from(stacks.entries(), ([key, value]) =>
     value == null ? null : (
       <Stack
         key={String(key)}

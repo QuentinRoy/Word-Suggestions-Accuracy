@@ -71,7 +71,7 @@ export default function AgreementGraph({
     .range([height, 0])
     .domain(
       sortBy(
-        [...dataGroups.keys()],
+        Array.from(dataGroups.keys()),
         id => -Object.keys(groupLabels).indexOf(id)
       )
     )
@@ -95,7 +95,7 @@ export default function AgreementGraph({
         <XAxis y={height} scale={xScale} tickHeight={height} />
         <YAxis
           x={-theme.axises.y.ticks.margin}
-          groups={[...dataGroups.keys()]}
+          groups={Array.from(dataGroups.keys())}
           labels={groupLabels}
           bandwidth={bandwidth}
           scale={yScale}

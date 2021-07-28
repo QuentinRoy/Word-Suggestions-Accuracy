@@ -2,20 +2,6 @@ import { defaultsDeep } from "lodash"
 import * as React from "react"
 import { PartialDeep } from "type-fest"
 
-type TextTransform =
-  | "none"
-  | "inherit"
-  | "initial"
-  | "-moz-initial"
-  | "revert"
-  | "unset"
-  | "capitalize"
-  | "full-size-kana"
-  | "full-width"
-  | "lowercase"
-  | "uppercase"
-  | undefined
-
 interface Text {
   size: number
   color: string

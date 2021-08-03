@@ -15,11 +15,11 @@ import {
   negativeAgreementAnswers,
   neutralAgreementAnswer,
   positiveAgreementAnswers,
-} from "../utils/data"
+} from "../lib/data"
 import ColorLegend from "./color-legend"
-import DivergentStack from "../utils/diverging-stack"
-import { Margin, useChartTheme } from "../utils/chart-theme"
-import { translate } from "../utils/transforms"
+import DivergentStack from "../lib/diverging-stack"
+import { Margin, useChartTheme } from "../lib/chart-theme"
+import { translate } from "../lib/transforms"
 import StackGroup from "./stack-group"
 import { sortBy } from "lodash"
 

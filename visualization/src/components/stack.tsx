@@ -1,8 +1,8 @@
 import * as React from "react"
 import { useSprings, animated } from "@react-spring/web"
-import { useChartTheme } from "../utils/chart-theme"
-import { Bar } from "../utils/diverging-stack"
-import { rotate, translate, transform } from "../utils/transforms"
+import { useChartTheme } from "../lib/chart-theme"
+import { Bar } from "../lib/diverging-stack"
+import { rotate, translate, transform } from "../lib/transforms"
 
 const labelFormat = (n: number) => `${Math.round(n * 10) / 10}`
 

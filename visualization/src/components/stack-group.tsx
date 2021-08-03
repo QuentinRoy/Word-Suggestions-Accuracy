@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useSpring, animated } from "@react-spring/web"
-import { StackData } from "../utils/diverging-stack"
-import { translate } from "../utils/transforms"
+import { StackData } from "../lib/diverging-stack"
+import { translate } from "../lib/transforms"
 import Stack from "./stack"
 
 type StackGroupProps<Group, Category> = {

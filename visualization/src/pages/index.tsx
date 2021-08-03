@@ -7,9 +7,9 @@ import {
   DeviceId,
   ExperimentId,
   QuestionId,
-} from "../utils/data-types"
+} from "../lib/data"
 import { csvParse } from "d3-dsv"
-import { ChartThemeProvider } from "../utils/chart-theme"
+import { ChartThemeProvider } from "../lib/chart-theme"
 import Visualization from "../components/Visualization"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import Head from "next/head"

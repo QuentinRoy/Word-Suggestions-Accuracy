@@ -9,8 +9,8 @@ import {
   labelsByFactors,
   QuestionId,
   questionLabels,
-} from "../utils/data"
-import { findClosestNumber } from "../utils/find-closest"
+} from "../lib/data"
+import { findClosestNumber } from "../lib/find-closest"
 import { group } from "d3-array"
 import ChoiceControl from "./ChoiceControl"
 import AccuracyControl from "./AccuracyControl"

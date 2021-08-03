@@ -1,13 +1,8 @@
 import * as React from "react"
-import {
-  scaleBand,
-  ScaleContinuousNumeric,
-  scaleLinear,
-  scaleOrdinal,
-} from "d3-scale"
-import { extent, max, min, range, rollup } from "d3-array"
+import { scaleBand, scaleLinear, scaleOrdinal } from "d3-scale"
+import { max, min, rollup } from "d3-array"
 import { schemeRdBu } from "d3-scale-chromatic"
-import { animated, useSprings, useSpring } from "@react-spring/web"
+import { animated, useSpring } from "@react-spring/web"
 import {
   AgreementAnswer,
   AgreementRow,
@@ -15,13 +10,14 @@ import {
   negativeAgreementAnswers,
   neutralAgreementAnswer,
   positiveAgreementAnswers,
-} from "../lib/data"
-import ColorLegend from "./color-legend"
-import DivergentStack from "../lib/diverging-stack"
-import { Margin, useChartTheme } from "../lib/chart-theme"
-import { translate } from "../lib/transforms"
-import StackGroup from "./stack-group"
+} from "../../lib/data"
+import ColorLegend from "./ColorLegend"
+import DivergentStack from "../../lib/diverging-stack"
+import { Margin, useChartTheme } from "../../lib/chart-theme"
+import StackGroup from "./StackGroup"
 import { sortBy } from "lodash"
+import XAxis from "./XAxis"
+import YAxis from "./YAxis"
 
 const orderedAnswers = [
   ...negativeAgreementAnswers,
@@ -37,7 +33,9 @@ const AgreementDivergentStack = DivergentStack<AgreementAnswer, AgreementRow>({
   positives: positiveAgreementAnswers,
 })
 
-type AgreementGraphProps = {
+const defaultMargin = { top: 15, right: 25, left: 100, bottom: 120 }
+
+type AgreementChartProps = {
   data: AgreementRow[]
   margin?: Partial<Margin>
   width?: number
@@ -47,9 +45,8 @@ type AgreementGraphProps = {
   groupLabels: { [key: string]: string }
   legendColumnCount?: number
 }
-const defaultMargin = { top: 15, right: 25, left: 100, bottom: 120 }
 // Device: on y, proportion on x and color, accuracy and question as parameters.
-export default function AgreementGraph({
+export default function AgreementChart({
   data,
   margin: partialMargin,
   width = 785,
@@ -60,7 +57,7 @@ export default function AgreementGraph({
   ).domain(Object.values(AgreementAnswer).reverse()),
   groups,
   groupLabels,
-}: AgreementGraphProps) {
+}: AgreementChartProps) {
   let margin: Margin = { ...partialMargin, ...defaultMargin }
 
   const theme = useChartTheme()
@@ -107,7 +104,7 @@ export default function AgreementGraph({
           colorScale={colorScale}
           bandwidth={bandwidth}
         />
-        <XAxisForeground y={height} scale={xScale} tickHeight={height} />
+        <MiddleLine y={height} scale={xScale} tickHeight={height} />
         <ColorLegend
           x={(width - theme.legend.width) / 2}
           y={height + theme.legend.margin.top}
@@ -121,73 +118,13 @@ export default function AgreementGraph({
   )
 }
 
-const ticks = range(-1, 1, 0.2)
-const tickFormat = (x: number) => `${(Math.abs(x) * 100).toFixed(0)}%`
-const isInDomain = (t: number, start: number, end: number) =>
-  t >= start && t <= end
-
-type XAxisProps = {
-  scale: ScaleContinuousNumeric<number, number>
-  tickHeight: number
-  x?: number
-  y?: number
-}
-function XAxis({ scale, tickHeight, x = 0, y }: XAxisProps) {
-  const theme = useChartTheme()
-  const [start, end] = extent(scale.domain())
-  const springs = useSprings(
-    ticks.length,
-    ticks.map(t => ({
-      opacity:
-        start != null && end != null && isInDomain(t, start, end) ? 1 : 0,
-      transform: translate(scale(t), 0),
-      from: {
-        opacity: 0,
-        transform: translate(scale(t), 0),
-      },
-    }))
-  )
-
-  return (
-    <g transform={translate(x, y)}>
-      {springs.map(({ opacity, transform }, i) => (
-        <animated.g style={{ opacity }} transform={transform} key={i}>
-          <line
-            x1={0}
-            x2={0}
-            y1={-tickHeight}
-            y2={0}
-            stroke={theme.axises.x.ticks.color}
-            strokeWidth={theme.axises.x.ticks.width}
-          />
-          <text
-            x={0}
-            y={theme.axises.x.ticks.margin}
-            textAnchor="middle"
-            dominantBaseline="hanging"
-            fill={theme.axises.x.ticks.label.color}
-            style={{ fontSize: theme.axises.x.ticks.label.size }}
-          >
-            {tickFormat(ticks[i])}
-          </text>
-        </animated.g>
-      ))}
-    </g>
-  )
-}
-
-type XAxisForegroundProps = {
+type MiddleLine = {
   scale: (val: number) => number | undefined
   tickHeight: number
   x?: number
   y?: number
 }
-function XAxisForeground({
-  scale,
-  tickHeight,
-  x = 0,
-  y = 0,
-}: XAxisForegroundProps) {
+function MiddleLine({ scale, tickHeight, x = 0, y = 0 }: MiddleLine) {
   const theme = useChartTheme()
   const middle = scale(0)!
   const middleLineSpring = useSpring({
@@ -199,38 +136,4 @@ function XAxisForeground({
     strokeWidth: theme.lines.width,
   })
   return <animated.line {...middleLineSpring} />
-}
-
-type YAxisProps<GroupId extends string | number> = {
-  groups: GroupId[]
-  bandwidth: number
-  scale: (val: GroupId) => number | undefined
-  labels: { [key: string]: string }
-  x?: number
-  y?: number
-}
-function YAxis<GroupId extends string | number>({
-  groups,
-  bandwidth,
-  labels,
-  scale,
-  x = 0,
-  y,
-}: YAxisProps<GroupId>) {
-  const theme = useChartTheme()
-  return (
-    <g transform={translate(x, y)}>
-      {groups.map(key => (
-        <text
-          key={key}
-          y={scale(key)! + bandwidth / 2}
-          textAnchor="end"
-          fill={theme.axises.y.ticks.label.color}
-          style={{ fontSize: theme.axises.y.ticks.label.size }}
-        >
-          {labels[key]}
-        </text>
-      ))}
-    </g>
-  )
 }

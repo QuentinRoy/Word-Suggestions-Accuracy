@@ -1,5 +1,5 @@
 import * as React from "react"
-import AgreementGraph from "./agreement-chart"
+import AgreementChart from "./chart/AgreementChart"
 import { Box, Container, Paper } from "@material-ui/core"
 import {
   AgreementRow,
@@ -96,7 +96,7 @@ export default function Visualization({ data }: VisualizationProps) {
       </Box>
 
       <Paper>
-        <AgreementGraph
+        <AgreementChart
           groups={groups}
           data={selectedRows}
           groupLabels={groupLabels}

@@ -1,7 +1,7 @@
 import { chunk } from "lodash"
 import * as React from "react"
-import { useChartTheme } from "../lib/chart-theme"
-import { translate } from "../lib/transforms"
+import { useChartTheme } from "../../lib/chart-theme"
+import { translate } from "../../lib/transforms"
 
 type LegendProps<T = any> = {
   columnCount: number

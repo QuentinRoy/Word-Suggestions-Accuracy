@@ -15,7 +15,7 @@ import {
   negativeAgreementAnswers,
   neutralAgreementAnswer,
   positiveAgreementAnswers,
-} from "../utils/data-types"
+} from "../utils/data"
 import ColorLegend from "./color-legend"
 import DivergentStack from "../utils/diverging-stack"
 import { Margin, useChartTheme } from "../utils/chart-theme"

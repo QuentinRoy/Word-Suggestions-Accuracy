@@ -11,13 +11,22 @@ export default function AccuracyControl({
   value,
   onChange,
 }: AccuracyControlProps) {
+  // I could not make FormLabel or FormControlLabel to work well with Slider
+  // so I am dealing with the focus prop manually.
+  const [isFocused, setIsFocused] = React.useState(false)
   return (
     <FormControl fullWidth>
-      <FormLabel>Accuracy</FormLabel>
+      <FormLabel focused={isFocused}>Accuracy</FormLabel>
       <Slider
         value={value}
         onChange={(evt, newValue) => {
           onChange(newValue as number)
+        }}
+        onBlur={() => {
+          setIsFocused(false)
+        }}
+        onFocus={() => {
+          setIsFocused(true)
         }}
         step={null}
         min={0}

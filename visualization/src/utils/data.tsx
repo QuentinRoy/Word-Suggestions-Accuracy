@@ -60,8 +60,8 @@ export const questionLabels: Readonly<Record<QuestionId, string>> =
 export const experimentLabels: Readonly<Record<ExperimentId, string>> =
   Object.freeze({
     devices: "Desktop, Tablet, and phone; and three suggestions",
-    amt_bar: "Keytime and three suggestions",
-    amt_inline: "Keytime and one suggestion",
+    amt_bar: "Keytime and one suggestion in a suggestion bar",
+    amt_inline: "Keytime and one inline suggestion",
   })
 
 export const efficiencyFactors: Readonly<

@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core"
 
 type ChoiceControlProps<ChoiceId extends string | number | symbol> = {
-  groupLabel: React.ReactNode
+  groupLabel: string
   availableValues?: Set<any>
   labels: Record<ChoiceId, string>
   value: ChoiceId | undefined
@@ -27,26 +27,25 @@ export default function ChoiceControl<
     <FormControl fullWidth>
       <FormLabel>{groupLabel}</FormLabel>
       <RadioGroup
-        aria-label="questions"
-        name="questions"
+        aria-label={groupLabel}
         value={value}
-        onChange={(evt, value) => {
-          onChange(value as ChoiceId)
+        onChange={(evt, newValue) => {
+          onChange(newValue as ChoiceId)
         }}
       >
-        {Object.entries(labels).map(([questionId, label]) => (
+        {Object.entries<string>(labels).map(([choiceId, label]) => (
           <FormControlLabel
-            key={questionId}
-            value={questionId}
+            key={choiceId}
+            label={label}
+            value={choiceId}
             control={
               <Radio
                 color="primary"
                 disabled={
-                  availableValues == null || !availableValues.has(questionId)
+                  availableValues == null || !availableValues.has(choiceId)
                 }
               />
             }
-            label={label as string}
           />
         ))}
       </RadioGroup>

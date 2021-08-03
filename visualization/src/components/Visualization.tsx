@@ -1,19 +1,15 @@
 import * as React from "react"
-import fs from "fs/promises"
-import path from "path"
 import AgreementGraph from "./agreement-chart"
 import { Box, Container, Paper } from "@material-ui/core"
 import {
-  AgreementAnswer,
   AgreementRow,
-  DeviceId,
   efficiencyFactors,
   ExperimentId,
   experimentLabels,
   labelsByFactors,
   QuestionId,
   questionLabels,
-} from "../utils/data-types"
+} from "../utils/data"
 import { findClosestNumber } from "../utils/find-closest"
 import { group } from "d3-array"
 import ChoiceControl from "./ChoiceControl"
@@ -52,7 +48,7 @@ export default function Visualization({ data }: VisualizationProps) {
       availableExperiments,
     },
     dispatch,
-  ] = React.useReducer(reducer, data, initState)
+  ] = React.useReducer(reducer, data, getInitState)
 
   let selectedRows =
     (selectedExperiment != null &&
@@ -110,7 +106,7 @@ export default function Visualization({ data }: VisualizationProps) {
   )
 }
 
-function initState(rows: AgreementRow[]): State {
+function getInitState(rows: AgreementRow[]): State {
   let groupedRows = group(
     rows,
     d => d.experiment,

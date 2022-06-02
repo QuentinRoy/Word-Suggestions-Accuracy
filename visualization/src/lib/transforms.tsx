@@ -4,13 +4,10 @@ export function transform(...transforms: string[]): string {
   else return "none"
 }
 
-export function translate(x?: number, y?: number): string {
-  if (y == null && x == null) return "none"
-  if (x == null) return `translate(0,${y})`
-  if (y == null) return `translate(${x})`
-  return `translate(${x},${y})`
+export function translate(x: number, y: number, unit = "") {
+  return `translate(${x}${unit},${y}${unit})`
 }
 
-export function rotate(x?: number) {
-  return `rotate(${x})`
+export function rotate(x: number, unit = "") {
+  return `rotate(${x}${unit})`
 }

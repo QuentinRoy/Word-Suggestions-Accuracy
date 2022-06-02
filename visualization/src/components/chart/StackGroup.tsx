@@ -38,7 +38,7 @@ export default function StackGroup<Group, Category>({
     )
   )
 
-  const spring = useSpring({ transform: translate(x0) })
+  const spring = useSpring({ transform: translate(x0 ?? 0, 0) })
 
   return <animated.g transform={spring.transform}>{bands}</animated.g>
 }

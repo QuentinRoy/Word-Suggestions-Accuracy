@@ -16,7 +16,7 @@ export default function YAxis<GroupId extends string | number>({
   labels,
   scale,
   x = 0,
-  y,
+  y = 0,
 }: YAxisProps<GroupId>) {
   const theme = useChartTheme()
   return (

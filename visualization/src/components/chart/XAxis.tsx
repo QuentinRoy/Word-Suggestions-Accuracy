@@ -6,8 +6,13 @@ import { animated, useSprings } from "@react-spring/web"
 import { useChartTheme } from "../../lib/chart-theme"
 import { translate } from "../../lib/transforms"
 
-const ticks = range(-1, 1, 0.2)
 const tickFormat = (x: number) => `${(Math.abs(x) * 100).toFixed(0)}%`
+const tickKey = (t: number) => `${(t * 100).toFixed(0)}%`
+const ticks = range(-1, 1, 0.2).map(value => ({
+  value,
+  label: tickFormat(value),
+  key: tickKey(value),
+}))
 const isInDomain = (t: number, start: number, end: number) =>
   t >= start && t <= end
 
@@ -24,19 +29,19 @@ export default function XAxis({ scale, tickHeight, x = 0, y }: XAxisProps) {
     ticks.length,
     ticks.map(t => ({
       opacity:
-        start != null && end != null && isInDomain(t, start, end) ? 1 : 0,
-      transform: translate(scale(t), 0),
-      from: {
-        opacity: 0,
-        transform: translate(scale(t), 0),
-      },
+        start != null && end != null && isInDomain(t.value, start, end) ? 1 : 0,
+      translateX: scale(t.value),
     }))
   )
 
   return (
-    <g transform={translate(x, y)}>
-      {springs.map(({ opacity, transform }, i) => (
-        <animated.g style={{ opacity }} transform={transform} key={i}>
+    <g transform={translate(x, y ?? 0)}>
+      {springs.map(({ opacity, translateX }, i) => (
+        <animated.g
+          key={ticks[i].key}
+          style={{ opacity }}
+          transform={translateX.to(x => translate(x, 0))}
+        >
           <line
             x1={0}
             x2={0}
@@ -53,7 +58,7 @@ export default function XAxis({ scale, tickHeight, x = 0, y }: XAxisProps) {
             fill={theme.axises.x.ticks.label.color}
             style={{ fontSize: theme.axises.x.ticks.label.size }}
           >
-            {tickFormat(ticks[i])}
+            {ticks[i].label}
           </text>
         </animated.g>
       ))}

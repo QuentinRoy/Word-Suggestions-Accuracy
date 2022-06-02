@@ -33,7 +33,7 @@ const AgreementDivergentStack = DivergentStack<AgreementAnswer, AgreementRow>({
   positives: positiveAgreementAnswers,
 })
 
-const defaultMargin = { top: 15, right: 25, left: 100, bottom: 120 }
+const defaultMargin = { top: 15, right: 25, left: 85, bottom: 120 }
 
 type AgreementChartProps = {
   data: AgreementRow[]
@@ -49,7 +49,7 @@ type AgreementChartProps = {
 export default function AgreementChart({
   data,
   margin: partialMargin,
-  width = 785,
+  width = 850 - defaultMargin.left - defaultMargin.right,
   height = 150,
   legendColumnCount = 3,
   colorScale = scaleOrdinal(

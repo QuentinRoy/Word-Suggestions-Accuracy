@@ -1,5 +1,5 @@
 import * as React from "react"
-import { FormControl, FormLabel, Slider } from "@material-ui/core"
+import { FormControl, FormLabel, Slider } from "@mui/material"
 
 type AccuracyControlProps = {
   availableValues: number[]

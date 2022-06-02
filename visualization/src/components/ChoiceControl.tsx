@@ -5,7 +5,7 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
-} from "@material-ui/core"
+} from "@mui/material"
 
 type ChoiceControlProps<ChoiceId extends string | number | symbol> = {
   groupLabel: string

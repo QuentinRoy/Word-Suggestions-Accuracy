@@ -1,6 +1,6 @@
 import * as React from "react"
 import AgreementChart from "./chart/AgreementChart"
-import { Box, Container, Paper } from "@material-ui/core"
+import { Box, Container, Paper } from "@mui/material"
 import {
   AgreementRow,
   efficiencyFactors,

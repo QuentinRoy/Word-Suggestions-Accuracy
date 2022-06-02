@@ -1,6 +1,12 @@
 import React from "react"
-import Document, { Html, Head, Main, NextScript } from "next/document"
-import { ServerStyleSheets } from "@material-ui/core/styles"
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentInitialProps,
+} from "next/document"
+import ServerStyleSheets from "@mui/styles/ServerStyleSheets"
 import theme from "../theme"
 
 export default class MyDocument extends Document {
@@ -22,7 +28,7 @@ export default class MyDocument extends Document {
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with server-side generation (SSG).
-MyDocument.getInitialProps = async ctx => {
+MyDocument.getInitialProps = async  (ctx): Promise<DocumentInitialProps> => {
   // Resolution order
   //
   // On the server:
@@ -60,7 +66,9 @@ MyDocument.getInitialProps = async ctx => {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
     styles: [
+      // @ts-ignore
       ...React.Children.toArray(initialProps.styles),
+      // @ts-ignore
       sheets.getStyleElement(),
     ],
   }

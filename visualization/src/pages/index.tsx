@@ -11,7 +11,7 @@ import {
   DeviceId,
   ExperimentId,
   QuestionId,
-  efficiencyFactors,
+  typingEfficiencyFactorIds,
   experimentLabels,
   labelsByFactors,
   questionLabels,
@@ -38,7 +38,7 @@ export default function IndexPage({
     selectAccuracy,
   } = useVisualizationData(data)
 
-  let groups = efficiencyFactors[selectedExperiment!]
+  let groups = typingEfficiencyFactorIds[selectedExperiment!]
   let groupLabels = labelsByFactors[groups]
 
   return (

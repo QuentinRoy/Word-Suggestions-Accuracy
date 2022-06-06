@@ -64,7 +64,7 @@ export const experimentLabels: Readonly<Record<ExperimentId, string>> =
     amt_inline: "Keytime and one inline suggestion",
   })
 
-export const efficiencyFactors: Readonly<
+export const typingEfficiencyFactorIds: Readonly<
   Record<ExperimentId, EfficiencyFactor>
 > = Object.freeze({
   devices: "device",

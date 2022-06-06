@@ -1,108 +1,58 @@
 import * as React from "react"
-import AgreementChart from "./chart/AgreementChart"
-import { Box, Container, Paper } from "@mui/material"
 import {
   AgreementRow,
-  efficiencyFactors,
   ExperimentId,
   experimentLabels,
-  labelsByFactors,
   QuestionId,
   questionLabels,
-} from "../lib/data"
-import { findClosestNumber } from "../lib/find-closest"
+} from "./data"
+import { findClosestNumber } from "./find-closest"
 import { group } from "d3-array"
-import ChoiceControl from "./ChoiceControl"
-import AccuracyControl from "./AccuracyControl"
 
-function findFirstPossible<T>(values: T[], availableValues: Set<any>) {
-  return values.find(v => availableValues.has(v))
-}
-
-interface State {
-  availableAccuracies: number[]
-  selectedAccuracy?: number
-  availableExperiments: Set<ExperimentId>
-  selectedExperiment?: ExperimentId
-  availableQuestions: Set<QuestionId>
-  selectedQuestion?: QuestionId
-  groupedRows: Map<ExperimentId, Map<QuestionId, Map<number, AgreementRow[]>>>
-}
-type Action =
-  | { type: "setExperiment"; experiment: ExperimentId }
-  | { type: "setQuestion"; question: QuestionId }
-  | { type: "setAccuracy"; accuracy: number }
-
-type VisualizationProps = {
-  data: AgreementRow[]
-}
-export default function Visualization({ data }: VisualizationProps) {
-  const [
-    {
-      groupedRows,
-      selectedAccuracy,
-      selectedExperiment,
-      selectedQuestion,
-      availableQuestions,
-      availableAccuracies,
-      availableExperiments,
-    },
-    dispatch,
-  ] = React.useReducer(reducer, data, getInitState)
-
-  let selectedRows =
-    (selectedExperiment != null &&
-      selectedQuestion != null &&
-      selectedAccuracy != null &&
-      groupedRows
-        .get(selectedExperiment)
-        ?.get(selectedQuestion)
-        ?.get(selectedAccuracy)) ||
-    []
-
-  let groups = efficiencyFactors[selectedExperiment!]
-  let groupLabels = labelsByFactors[groups]
-
-  return (
-    <Container maxWidth="md">
-      <Box component="header">
-        <Box my={4}>
-          <ChoiceControl
-            groupLabel="Experiment"
-            value={selectedExperiment}
-            onChange={experiment =>
-              dispatch({ type: "setExperiment", experiment })
-            }
-            availableValues={availableExperiments}
-            labels={experimentLabels}
-          />
-        </Box>
-        <Box my={4}>
-          <ChoiceControl
-            groupLabel="Question"
-            value={selectedQuestion}
-            onChange={question => dispatch({ type: "setQuestion", question })}
-            availableValues={availableQuestions}
-            labels={questionLabels}
-          />
-        </Box>
-        <Box my={4}>
-          <AccuracyControl
-            value={selectedAccuracy}
-            onChange={accuracy => dispatch({ type: "setAccuracy", accuracy })}
-            availableValues={availableAccuracies}
-          />
-        </Box>
-      </Box>
-
-      <Paper>
-        <AgreementChart
-          groups={groups}
-          data={selectedRows}
-          groupLabels={groupLabels}
-        />
-      </Paper>
-    </Container>
+// The data argument is not controlled, only the initial value will be used and
+// further changes will be ignored.
+export default function useVisualizationData(data: AgreementRow[]) {
+  // We use a reduce rather than different states because the different
+  // selections depend on each other; for example the selected question
+  // depends on the selected experiment.
+  // We extract groupedRows from the state because this is internal and we do
+  // not want it to be part of the result.
+  const [{ groupedRows, ...state }, dispatch] = React.useReducer(
+    reducer,
+    data,
+    getInitState
+  )
+  // useMemo ensures the functions do not change, and allows us to create all
+  // of them at once.
+  const callbacks = React.useMemo(
+    () => ({
+      selectExperiment(experiment: ExperimentId) {
+        dispatch({ type: "selectExperiment", experiment })
+      },
+      selectQuestion(question: QuestionId) {
+        dispatch({ type: "selectQuestion", question })
+      },
+      selectAccuracy(accuracy: number) {
+        dispatch({ type: "selectAccuracy", accuracy })
+      },
+    }),
+    [dispatch]
+  )
+  return React.useMemo(
+    () => ({
+      selectedRows:
+        (state.selectedExperiment != null &&
+          state.selectedQuestion != null &&
+          state.selectedAccuracy != null &&
+          groupedRows
+            .get(state.selectedExperiment)
+            ?.get(state.selectedQuestion)
+            ?.get(state.selectedAccuracy)) ||
+        [],
+      ...state,
+      ...callbacks,
+    }),
+    [state, groupedRows, callbacks]
   )
 }
 
@@ -113,7 +63,6 @@ function getInitState(rows: AgreementRow[]): State {
     d => d.question,
     d => d.accuracy
   )
-
   let availableExperiments = new Set(groupedRows.keys())
   let selectedExperiment = findFirstPossible(
     Object.keys(experimentLabels) as ExperimentId[],
@@ -126,16 +75,13 @@ function getInitState(rows: AgreementRow[]): State {
     Object.keys(questionLabels) as QuestionId[],
     availableQuestions
   )
-
   let availableAccuracies = Array.from(
     (selectedQuestion != null &&
       selectedExperiment != null &&
       groupedRows.get(selectedExperiment)?.get(selectedQuestion)?.keys()) ||
       []
   )
-
   let selectedAccuracy = availableAccuracies[0]
-
   return {
     groupedRows,
     availableExperiments,
@@ -157,6 +103,26 @@ function updateChoiceSelection<T>(
 }
 
 const questionIds = Object.keys(questionLabels) as QuestionId[]
+
+interface State {
+  availableAccuracies: number[]
+  selectedAccuracy?: number
+  availableExperiments: Set<ExperimentId>
+  selectedExperiment?: ExperimentId
+  availableQuestions: Set<QuestionId>
+  selectedQuestion?: QuestionId
+  groupedRows: Map<ExperimentId, Map<QuestionId, Map<number, AgreementRow[]>>>
+}
+
+type Action =
+  | { type: "selectExperiment"; experiment: ExperimentId }
+  | { type: "selectQuestion"; question: QuestionId }
+  | { type: "selectAccuracy"; accuracy: number }
+
+function findFirstPossible<T>(values: T[], availableValues: Set<any>) {
+  return values.find(v => availableValues.has(v))
+}
+
 function reducer(prevState: State, action: Action): State {
   let {
     selectedExperiment,
@@ -168,20 +134,20 @@ function reducer(prevState: State, action: Action): State {
     groupedRows,
   } = prevState
   switch (action.type) {
-    case "setExperiment":
+    case "selectExperiment":
       selectedExperiment = action.experiment
       if (!availableExperiments.has(selectedExperiment)) {
         throw new Error(`Unavailable experiment: ${selectedExperiment}`)
       }
       availableQuestions = new Set(groupedRows.get(action.experiment)?.keys())
       break
-    case "setQuestion":
+    case "selectQuestion":
       selectedQuestion = action.question
       if (!availableQuestions.has(selectedQuestion)) {
         throw new Error(`Unavailable question: ${selectedQuestion}`)
       }
       break
-    case "setAccuracy":
+    case "selectAccuracy":
       selectedAccuracy = action.accuracy
       if (!availableAccuracies.includes(selectedAccuracy)) {
         throw new Error(`Unavailable accuracy: ${selectedAccuracy}`)

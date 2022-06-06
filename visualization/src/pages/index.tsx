@@ -1,29 +1,90 @@
-import * as React from "react"
 import fs from "fs/promises"
 import path from "path"
+import * as React from "react"
+import { GetStaticProps, InferGetStaticPropsType } from "next"
+import Head from "next/head"
+import { Box, Container, Paper } from "@mui/material"
+import { csvParse } from "d3-dsv"
 import {
   AgreementAnswer,
   AgreementRow,
   DeviceId,
   ExperimentId,
   QuestionId,
+  efficiencyFactors,
+  experimentLabels,
+  labelsByFactors,
+  questionLabels,
 } from "../lib/data"
-import { csvParse } from "d3-dsv"
 import { ChartThemeProvider } from "../lib/chart-theme"
-import Visualization from "../components/Visualization"
-import { GetStaticProps, InferGetStaticPropsType } from "next"
-import Head from "next/head"
+import AgreementChart from "../components/chart/AgreementChart"
+import ChoiceControl from "../components/ChoiceControl"
+import AccuracyControl from "../components/AccuracyControl"
+import useVisualizationData from "../lib/use-visualization-data"
 
 export default function IndexPage({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const {
+    selectedRows,
+    selectedAccuracy,
+    selectedExperiment,
+    selectedQuestion,
+    availableQuestions,
+    availableAccuracies,
+    availableExperiments,
+    selectExperiment,
+    selectQuestion,
+    selectAccuracy,
+  } = useVisualizationData(data)
+
+  let groups = efficiencyFactors[selectedExperiment!]
+  let groupLabels = labelsByFactors[groups]
+
   return (
     <>
       <Head>
         <title>Experiment Results</title>
       </Head>
+
       <ChartThemeProvider>
-        <Visualization data={data} />
+        <Container maxWidth="md">
+          <Box component="header">
+            <Box my={4}>
+              <ChoiceControl
+                groupLabel="Experiment"
+                value={selectedExperiment}
+                onChange={experiment => selectExperiment(experiment)}
+                availableValues={availableExperiments}
+                labels={experimentLabels}
+              />
+            </Box>
+            <Box my={4}>
+              <ChoiceControl
+                groupLabel="Question"
+                value={selectedQuestion}
+                onChange={question => selectQuestion(question)}
+                availableValues={availableQuestions}
+                labels={questionLabels}
+              />
+            </Box>
+            <Box my={4}>
+              <AccuracyControl
+                value={selectedAccuracy}
+                onChange={accuracy => selectAccuracy(accuracy)}
+                availableValues={availableAccuracies}
+              />
+            </Box>
+          </Box>
+
+          <Paper>
+            <AgreementChart
+              groups={groups}
+              data={selectedRows}
+              groupLabels={groupLabels}
+            />
+          </Paper>
+        </Container>
       </ChartThemeProvider>
     </>
   )

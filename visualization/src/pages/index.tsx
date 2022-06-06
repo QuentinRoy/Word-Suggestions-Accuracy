@@ -68,15 +68,16 @@ export default function IndexPage({
                 labels={questionLabels}
               />
             </Box>
-            <Box my={4}>
-              <AccuracyControl
-                value={selectedAccuracy}
-                onChange={accuracy => selectAccuracy(accuracy)}
-                availableValues={availableAccuracies}
-              />
-            </Box>
+            {selectedAccuracy === "*" ? null : (
+              <Box my={4}>
+                <AccuracyControl
+                  value={selectedAccuracy}
+                  onChange={accuracy => selectAccuracy(accuracy)}
+                  availableValues={availableAccuracies}
+                />
+              </Box>
+            )}
           </Box>
-
           <Paper>
             <AgreementChart
               groups={groups}

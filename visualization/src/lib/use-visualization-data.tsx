@@ -12,7 +12,7 @@ import { group } from "d3-array"
 type InitialSelection = {
   experiment?: ExperimentId
   question?: QuestionId
-  accuracy?: number
+  accuracy?: number | "*"
 }
 
 // The data argument is not controlled, only the initial value will be used and
@@ -47,22 +47,28 @@ export default function useVisualizationData(
     }),
     [dispatch]
   )
-  return React.useMemo(
-    () => ({
-      selectedRows:
-        (state.selectedExperiment != null &&
-          state.selectedQuestion != null &&
-          state.selectedAccuracy != null &&
-          groupedRows
-            .get(state.selectedExperiment)
-            ?.get(state.selectedQuestion)
-            ?.get(state.selectedAccuracy)) ||
-        [],
+  return React.useMemo(() => {
+    let selectedRows: AgreementRow[] = []
+    if (
+      state.selectedExperiment != null &&
+      state.selectedQuestion != null &&
+      state.selectedAccuracy != null
+    ) {
+      let questionRows = groupedRows
+        .get(state.selectedExperiment)
+        ?.get(state.selectedQuestion)
+      if (state.selectedAccuracy === "*") {
+        questionRows?.forEach(rows => selectedRows.push(...rows))
+      } else {
+        selectedRows = questionRows?.get(state.selectedAccuracy) ?? []
+      }
+    }
+    return {
+      selectedRows,
       ...state,
       ...callbacks,
-    }),
-    [state, groupedRows, callbacks]
-  )
+    }
+  }, [state, groupedRows, callbacks])
 }
 
 type InitStateArgs = InitialSelection & { data: AgreementRow[] }
@@ -114,6 +120,7 @@ function getInitState({
   let selectedAccuracy = accuracy ?? availableAccuracies[0]
   if (
     selectedAccuracy != null &&
+    selectedAccuracy !== "*" &&
     !availableAccuracies.includes(selectedAccuracy)
   ) {
     throw new Error(`Unavailable accuracy: ${selectedAccuracy}`)
@@ -142,7 +149,7 @@ const questionIds = Object.keys(questionLabels) as QuestionId[]
 
 interface State {
   availableAccuracies: number[]
-  selectedAccuracy?: number
+  selectedAccuracy?: number | "*"
   availableExperiments: Set<ExperimentId>
   selectedExperiment?: ExperimentId
   availableQuestions: Set<QuestionId>
@@ -153,7 +160,7 @@ interface State {
 type Action =
   | { type: "selectExperiment"; experiment: ExperimentId }
   | { type: "selectQuestion"; question: QuestionId }
-  | { type: "selectAccuracy"; accuracy: number }
+  | { type: "selectAccuracy"; accuracy: number | "*" }
 
 function findFirstPossible<T>(values: T[], availableValues: Set<any>) {
   return values.find(v => availableValues.has(v))
@@ -185,7 +192,10 @@ function reducer(prevState: State, action: Action): State {
       break
     case "selectAccuracy":
       selectedAccuracy = action.accuracy
-      if (!availableAccuracies.includes(selectedAccuracy)) {
+      if (
+        selectedAccuracy !== "*" &&
+        !availableAccuracies.includes(selectedAccuracy)
+      ) {
         throw new Error(`Unavailable accuracy: ${selectedAccuracy}`)
       }
   }
@@ -200,10 +210,10 @@ function reducer(prevState: State, action: Action): State {
       groupedRows.get(selectedExperiment)?.get(selectedQuestion)?.keys()) ||
       []
   )
-  selectedAccuracy = findClosestNumber(
-    selectedAccuracy ?? 0,
-    availableAccuracies
-  )
+  selectedAccuracy =
+    selectedAccuracy === "*"
+      ? "*"
+      : findClosestNumber(selectedAccuracy ?? 0, availableAccuracies)
 
   return {
     ...prevState,

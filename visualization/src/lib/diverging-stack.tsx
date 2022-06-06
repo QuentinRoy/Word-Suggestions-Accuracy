@@ -22,7 +22,7 @@ interface DivergentStackProps<Category, Data> {
   positives: Category[]
 }
 
-// Create divergent stacks from the answers with most extrement answers in the
+// Create divergent stacks from the answers with most extreme answers in the
 // middle, c.f. https://www.linkedin.com/pulse/diverging-100-stacked-bars-useless-daniel-zvinca
 export default function DivergentStack<Category extends string, Data>({
   getCategory,

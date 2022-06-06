@@ -34,6 +34,7 @@ const AgreementDivergentStack = DivergentStack<AgreementAnswer, AgreementRow>({
 })
 
 const defaultMargin = { top: 15, right: 25, left: 85, bottom: 120 }
+const noLegendDefaultMargin = { ...defaultMargin, bottom: 30 }
 
 type AgreementChartProps = {
   data: AgreementRow[]
@@ -44,6 +45,7 @@ type AgreementChartProps = {
   groups: EfficiencyFactor
   groupLabels: { [key: string]: string }
   legendColumnCount?: number
+  noLegend?: boolean
 }
 // Device: on y, proportion on x and color, accuracy and question as parameters.
 export default function AgreementChart({
@@ -57,8 +59,12 @@ export default function AgreementChart({
   ).domain(Object.values(AgreementAnswer).reverse()),
   groups,
   groupLabels,
+  noLegend = false,
 }: AgreementChartProps) {
-  let margin: Margin = { ...partialMargin, ...defaultMargin }
+  let margin: Margin = {
+    ...partialMargin,
+    ...(noLegend ? noLegendDefaultMargin : defaultMargin),
+  }
 
   const theme = useChartTheme()
 
@@ -105,14 +111,16 @@ export default function AgreementChart({
           bandwidth={bandwidth}
         />
         <MiddleLine y={height} scale={xScale} tickHeight={height} />
-        <ColorLegend
-          x={(width - theme.legend.width) / 2}
-          y={height + theme.legend.margin.top}
-          scale={colorScale}
-          width={theme.legend.width}
-          values={orderedAnswers}
-          columnCount={legendColumnCount}
-        />
+        {!noLegend && (
+          <ColorLegend
+            x={(width - theme.legend.width) / 2}
+            y={height + theme.legend.margin.top}
+            scale={colorScale}
+            width={theme.legend.width}
+            values={orderedAnswers}
+            columnCount={legendColumnCount}
+          />
+        )}
       </g>
     </svg>
   )

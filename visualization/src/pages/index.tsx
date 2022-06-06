@@ -36,7 +36,7 @@ export default function IndexPage({
     selectExperiment,
     selectQuestion,
     selectAccuracy,
-  } = useVisualizationData(data)
+  } = useVisualizationData(data, { accuracy: 0.5 })
 
   let groups = typingEfficiencyFactorIds[selectedExperiment!]
   let groupLabels = labelsByFactors[groups]

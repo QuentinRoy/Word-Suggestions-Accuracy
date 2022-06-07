@@ -26,7 +26,18 @@ export interface Margin {
 }
 
 interface ChartTheme {
-  groups: {
+  facets: {
+    label: {
+      size: number
+      color: string
+      margin: number
+    },
+    padding: {
+      inner: number
+      outer: number
+    }
+  }
+  stacks: {
     padding: {
       inner: number
       outer: number
@@ -50,8 +61,12 @@ interface ChartTheme {
 }
 
 const defaultTheme: ChartTheme = {
-  groups: {
-    padding: { inner: 0.05, outer: 0.1 },
+  facets: {
+    label: { size: 14, color: "#4D4D4D", margin: 100 },
+    padding: { inner: 0.1, outer: 0.05 },
+  },
+  stacks: {
+    padding: { inner: 0.05, outer: 0 },
   },
   axises: {
     x: {

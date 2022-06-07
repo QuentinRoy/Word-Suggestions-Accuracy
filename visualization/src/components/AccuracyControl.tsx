@@ -1,10 +1,11 @@
 import * as React from "react"
 import { FormControl, FormLabel, Slider } from "@mui/material"
+import { Accuracy } from "../lib/data"
 
 type AccuracyControlProps = {
-  availableValues: number[]
-  value?: number
-  onChange: (newValue: number) => any
+  availableValues: Accuracy[]
+  value?: Accuracy
+  onChange: (newValue: Accuracy) => any
 }
 export default function AccuracyControl({
   availableValues,
@@ -18,9 +19,9 @@ export default function AccuracyControl({
     <FormControl fullWidth>
       <FormLabel focused={isFocused}>Accuracy</FormLabel>
       <Slider
-        value={value}
+        value={value == null ? 0 : parseFloat(value)}
         onChange={(evt, newValue) => {
-          onChange(newValue as number)
+          onChange(String(newValue) as Accuracy)
         }}
         onBlur={() => {
           setIsFocused(false)
@@ -31,10 +32,13 @@ export default function AccuracyControl({
         step={null}
         min={0}
         max={1}
-        marks={availableValues.map(a => ({
-          value: a,
-          label: formatAccuracy(a),
-        }))}
+        marks={availableValues.map(a => {
+          let aValue = parseFloat(a)
+          return {
+            value: aValue,
+            label: formatAccuracy(aValue),
+          }
+        })}
       />
     </FormControl>
   )

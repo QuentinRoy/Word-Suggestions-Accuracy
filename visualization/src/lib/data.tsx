@@ -22,20 +22,23 @@ export const negativeAgreementAnswers = [
   AgreementAnswer.SomewhatDisagree,
 ]
 
+export type ExperimentId = "devices" | "amt_bar" | "amt_inline"
 export type QuestionId =
   | "controls_satisfactory"
   | "suggestions_accuracy"
   | "keyboard_use_efficiency"
   | "suggestion_distraction"
 export type DeviceId = "desktop" | "tablet" | "phone"
-export type ExperimentId = "devices" | "amt_bar" | "amt_inline"
 export type EfficiencyFactor = "device" | "keyStrokeDelay"
+export type Factor = EfficiencyFactor | "accuracy"
+export type Accuracy = "0.1" | "0.3" | "0.5" | "0.7" | "0.9"
+export type KeyStrokeDelay = "0" | "50" | "100" | "150" | "200" | "250"
 
-export interface AgreementRow {
+export type AgreementRow = {
   experiment: ExperimentId
-  accuracy: number
+  accuracy: Accuracy
   device: DeviceId
-  keyStrokeDelay: number
+  keyStrokeDelay: KeyStrokeDelay
   question: QuestionId
   answer: AgreementAnswer
   totalAnswers: number
@@ -72,16 +75,29 @@ export const typingEfficiencyFactorIds: Readonly<
   amt_inline: "keyStrokeDelay",
 })
 
-const getKeyStrokeDelayLabel = (kt: number) => `${kt} ms`
-export const keyStrokeDelayLabels = Object.freeze(
-  Object.fromEntries(
-    range(0, 250, 50).map(kt => [`${kt}`, getKeyStrokeDelayLabel(kt)])
-  )
-)
+export const keyStrokeDelayLabels: Readonly<Record<KeyStrokeDelay, string>> =
+  Object.freeze({
+    "0": "0 ms",
+    "50": "50 ms",
+    "100": "100 ms",
+    "150": "150 ms",
+    "200": "200 ms",
+    "250": "250 ms",
+  })
+
+export const keyAccuracyLabels: Readonly<Record<Accuracy, string>> =
+  Object.freeze({
+    "0.1": "Accuracy 0.1",
+    "0.3": "Accuracy 0.3",
+    "0.5": "Accuracy 0.5",
+    "0.7": "Accuracy 0.7",
+    "0.9": "Accuracy 0.9",
+  })
 
 export const labelsByFactors: Readonly<
-  Record<EfficiencyFactor, { [group: string]: string }>
+  Record<Factor, { [group: string]: string }>
 > = Object.freeze({
+  accuracy: keyAccuracyLabels,
   device: deviceLabels,
   keyStrokeDelay: keyStrokeDelayLabels,
 })

@@ -12,7 +12,7 @@ import {
   positiveAgreementAnswers,
 } from "../../lib/data"
 import ColorLegend from "./ColorLegend"
-import DivergentStack from "../../lib/diverging-stack"
+import { DivergingStack, SolidStack } from "../../lib/stacks"
 import { Margin, useChartTheme } from "../../lib/chart-theme"
 import StackGroup from "./StackGroup"
 import { sortBy } from "lodash"
@@ -25,7 +25,7 @@ const orderedAnswers = [
   neutralAgreementAnswer,
 ]
 
-const AgreementDivergentStack = DivergentStack<AgreementAnswer, AgreementRow>({
+const AgreementDivergentStack = DivergingStack<AgreementAnswer, AgreementRow>({
   getCategory: d => d.answer,
   getValue: d => d.totalAnswers,
   negatives: negativeAgreementAnswers,
@@ -46,9 +46,10 @@ type AgreementChartProps = {
   groupLabels: { [key: string]: string }
   legendColumnCount?: number
   noLegend?: boolean
+  type: "diverging" | "solid"
 }
 // Device: on y, proportion on x and color, accuracy and question as parameters.
-export default function AgreementChart({
+export default function SimpleAgreementChart({
   data,
   margin: partialMargin,
   width = 850 - defaultMargin.left - defaultMargin.right,
@@ -60,6 +61,7 @@ export default function AgreementChart({
   groups,
   groupLabels,
   noLegend = false,
+  type,
 }: AgreementChartProps) {
   let margin: Margin = {
     ...partialMargin,
@@ -68,7 +70,7 @@ export default function AgreementChart({
 
   const theme = useChartTheme()
 
-  let dataGroups = rollup(data, AgreementDivergentStack, d => String(d[groups]))
+  let dataGroups = rollup(data, StackFactories[type], d => String(d[groups]))
 
   const yScale = scaleBand()
     .range([height, 0])
@@ -78,15 +80,14 @@ export default function AgreementChart({
         id => -Object.keys(groupLabels).indexOf(id)
       )
     )
-    .paddingInner(theme.groups.padding.inner)
-    .paddingOuter(theme.groups.padding.outer)
+    .paddingInner(theme.stacks.padding.inner)
+    .paddingOuter(theme.stacks.padding.outer)
 
   let domainStart = min(dataGroups.values(), d => d.start) ?? 0
   let domainEnd = max(dataGroups.values(), d => d.start + d.length) ?? 0
   const xScale = scaleLinear()
-    .range([0, width])
-    .domain([domainStart, domainEnd])
-    .nice()
+  .range([0, width])
+  .domain([domainStart, domainEnd])
   let bandwidth = yScale.bandwidth()
 
   return (
@@ -95,7 +96,7 @@ export default function AgreementChart({
       height={height + margin.top + margin.bottom}
     >
       <g transform={`translate(${margin.left},${margin.top})`}>
-        <XAxis y={height} scale={xScale} tickHeight={height} />
+        <XAxis y={height} scale={xScale} tickHeight={height} step={0.2} />
         <YAxis
           x={-theme.axises.y.ticks.margin}
           groups={Array.from(dataGroups.keys())}
@@ -132,6 +133,7 @@ type MiddleLine = {
   x?: number
   y?: number
 }
+
 function MiddleLine({ scale, tickHeight, x = 0, y = 0 }: MiddleLine) {
   const theme = useChartTheme()
   const middle = scale(0)!
@@ -144,4 +146,16 @@ function MiddleLine({ scale, tickHeight, x = 0, y = 0 }: MiddleLine) {
     strokeWidth: theme.lines.width,
   })
   return <animated.line {...middleLineSpring} />
+}
+
+let stackFactoryArgs = {
+  getCategory: (d: AgreementRow) => d.answer,
+  getValue: (d: AgreementRow) => d.totalAnswers,
+  negatives: negativeAgreementAnswers,
+  neutral: neutralAgreementAnswer,
+  positives: positiveAgreementAnswers,
+}
+const StackFactories = {
+  diverging: DivergingStack<AgreementAnswer, AgreementRow>(stackFactoryArgs),
+  solid: SolidStack<AgreementAnswer, AgreementRow>(stackFactoryArgs),
 }

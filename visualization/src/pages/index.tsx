@@ -3,7 +3,7 @@ import path from "path"
 import * as React from "react"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import Head from "next/head"
-import { Box, Container, Paper } from "@mui/material"
+import { Box, Card, Container, Paper } from "@mui/material"
 import { csvParse } from "d3-dsv"
 import {
   AgreementAnswer,
@@ -15,9 +15,11 @@ import {
   experimentLabels,
   labelsByFactors,
   questionLabels,
+  Accuracy,
+  KeyStrokeDelay,
 } from "../lib/data"
 import { ChartThemeProvider } from "../lib/chart-theme"
-import AgreementChart from "../components/chart/AgreementChart"
+import SimpleAgreementChart from "../components/chart/SimpleAgreementChart"
 import ChoiceControl from "../components/ChoiceControl"
 import AccuracyControl from "../components/AccuracyControl"
 import useVisualizationData from "../lib/use-visualization-data"
@@ -36,7 +38,7 @@ export default function IndexPage({
     selectExperiment,
     selectQuestion,
     selectAccuracy,
-  } = useVisualizationData(data, { accuracy: 0.5 })
+  } = useVisualizationData(data, { accuracy: "0.5" })
 
   let groups = typingEfficiencyFactorIds[selectedExperiment!]
   let groupLabels = labelsByFactors[groups]
@@ -48,9 +50,9 @@ export default function IndexPage({
       </Head>
 
       <ChartThemeProvider>
-        <Container maxWidth="md">
-          <Box component="header">
-            <Box my={4}>
+        <Container maxWidth="md" sx={{ my: 2 }}>
+          <Paper component="header" sx={{ p: 2, mb: 2 }}>
+            <Box mb={2}>
               <ChoiceControl
                 groupLabel="Experiment"
                 value={selectedExperiment}
@@ -59,7 +61,7 @@ export default function IndexPage({
                 labels={experimentLabels}
               />
             </Box>
-            <Box my={4}>
+            <Box mb={selectedAccuracy === "*" ? 0 : 2}>
               <ChoiceControl
                 groupLabel="Question"
                 value={selectedQuestion}
@@ -69,7 +71,7 @@ export default function IndexPage({
               />
             </Box>
             {selectedAccuracy === "*" ? null : (
-              <Box my={4}>
+              <Box>
                 <AccuracyControl
                   value={selectedAccuracy}
                   onChange={accuracy => selectAccuracy(accuracy)}
@@ -77,14 +79,15 @@ export default function IndexPage({
                 />
               </Box>
             )}
-          </Box>
-          <Paper>
-            <AgreementChart
+          </Paper>
+          <Card>
+            <SimpleAgreementChart
+              type="diverging"
               groups={groups}
               data={selectedRows}
               groupLabels={groupLabels}
             />
-          </Paper>
+          </Card>
         </Container>
       </ChartThemeProvider>
     </>
@@ -100,9 +103,11 @@ export const getStaticProps: GetStaticProps<{
   )
   let data = csvParse<AgreementRow, string>(csvData, rawRow => ({
     experiment: rawRow.experiment as ExperimentId,
-    accuracy: parseFloat(rawRow.accuracy as string),
+    // Do not convert accuracy and keyStrokeDelay to numbers, because it could
+    // cause floating point issues, and they are discreet values anyway.
+    accuracy: rawRow.accuracy as Accuracy,
+    keyStrokeDelay: rawRow.keyStrokeDelay as KeyStrokeDelay,
     device: rawRow.device as DeviceId,
-    keyStrokeDelay: parseInt(rawRow.keyStrokeDelay as string, 10),
     question: rawRow.question as QuestionId,
     answer: rawRow.answer as AgreementAnswer,
     totalAnswers: parseInt(rawRow.totalAnswers as string, 10),

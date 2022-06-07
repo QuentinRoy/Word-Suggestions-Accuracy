@@ -8,22 +8,33 @@ import { translate } from "../../lib/transforms"
 
 const tickFormat = (x: number) => `${(Math.abs(x) * 100).toFixed(0)}%`
 const tickKey = (t: number) => `${(t * 100).toFixed(0)}%`
-const ticks = range(-1, 1, 0.2).map(value => ({
-  value,
-  label: tickFormat(value),
-  key: tickKey(value),
-}))
+
 const isInDomain = (t: number, start: number, end: number) =>
   t >= start && t <= end
 
 type XAxisProps = {
   scale: ScaleContinuousNumeric<number, number>
   tickHeight: number
+  noLabels?: boolean
   x?: number
   y?: number
+  step?: number
 }
-export default function XAxis({ scale, tickHeight, x = 0, y }: XAxisProps) {
+export default function XAxis({
+  scale,
+  tickHeight,
+  x = 0,
+  y,
+  noLabels,
+  step = 0.1,
+}: XAxisProps) {
   const theme = useChartTheme()
+  // the last value in range is not included, so we have to go 1 tick further.
+  const ticks = range(-1, 1 + step, step).map(value => ({
+    value,
+    label: tickFormat(value),
+    key: tickKey(value),
+  }))
   const [start, end] = extent(scale.domain())
   const springs = useSprings(
     ticks.length,
@@ -50,16 +61,18 @@ export default function XAxis({ scale, tickHeight, x = 0, y }: XAxisProps) {
             stroke={theme.axises.x.ticks.color}
             strokeWidth={theme.axises.x.ticks.width}
           />
-          <text
-            x={0}
-            y={theme.axises.x.ticks.margin}
-            textAnchor="middle"
-            dominantBaseline="hanging"
-            fill={theme.axises.x.ticks.label.color}
-            style={{ fontSize: theme.axises.x.ticks.label.size }}
-          >
-            {ticks[i].label}
-          </text>
+          {!noLabels && (
+            <text
+              x={0}
+              y={theme.axises.x.ticks.margin}
+              textAnchor="middle"
+              dominantBaseline="hanging"
+              fill={theme.axises.x.ticks.label.color}
+              style={{ fontSize: theme.axises.x.ticks.label.size }}
+            >
+              {ticks[i].label}
+            </text>
+          )}
         </animated.g>
       ))}
     </g>

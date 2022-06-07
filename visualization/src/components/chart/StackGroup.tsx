@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useSpring, animated } from "@react-spring/web"
-import { StackData } from "../../lib/diverging-stack"
+import { StackData } from "../../lib/stacks"
 import { translate } from "../../lib/transforms"
 import Stack from "./Stack"
 

@@ -1,4 +1,4 @@
-import { group, sum } from "d3-array"
+import { group, reverse, sum } from "d3-array"
 
 export interface Bar<Category, Data> {
   start: number
@@ -14,7 +14,7 @@ export interface StackData<Category, Data> {
   length: number
 }
 
-interface DivergentStackProps<Category, Data> {
+interface StackProps<Category, Data> {
   getCategory: (d: Data) => Category
   getValue: (d: Data) => number
   negatives: Category[]
@@ -22,15 +22,15 @@ interface DivergentStackProps<Category, Data> {
   positives: Category[]
 }
 
-// Create divergent stacks from the answers with most extreme answers in the
+// Create diverging stacks from the answers with most extreme answers in the
 // middle, c.f. https://www.linkedin.com/pulse/diverging-100-stacked-bars-useless-daniel-zvinca
-export default function DivergentStack<Category extends string, Data>({
+export function DivergingStack<Category extends string, Data>({
   getCategory,
   getValue,
   negatives: negativeCats,
   neutral: neutralCat,
   positives: positiveCat,
-}: DivergentStackProps<Category, Data>) {
+}: StackProps<Category, Data>) {
   return (data: Data[]): StackData<Category, Data> => {
     let total = sum(data, getValue)
     let dataMap = group(data, getCategory)
@@ -105,6 +105,45 @@ export default function DivergentStack<Category extends string, Data>({
       bars,
       start: -negativeSideLength,
       length: positiveSideLength + negativeSideLength,
+    }
+  }
+}
+
+export function SolidStack<Category extends string, Data>({
+  getCategory,
+  getValue,
+  negatives: negativeCats,
+  neutral: neutralCat,
+  positives: positiveCat,
+}: StackProps<Category, Data>) {
+  return (data: Data[]): StackData<Category, Data> => {
+    let total = sum(data, getValue)
+    let dataMap = group(data, getCategory)
+
+    let bars: Bar<Category, Data>[] = []
+
+    let cats = [...negativeCats, neutralCat, ...reverse(positiveCat)]
+    let stackLength = 0
+    for (let category of cats) {
+      let data = dataMap.get(category) ?? []
+      let value = sum(data, getValue)
+      let catLength = value / total
+      bars.push({
+        data,
+        category,
+        id: category,
+        start: stackLength,
+        length: catLength,
+        value,
+      })
+      stackLength += catLength
+    }
+
+    // At the end, length should always be 1.
+    return {
+      bars,
+      start: 0,
+      length: stackLength,
     }
   }
 }

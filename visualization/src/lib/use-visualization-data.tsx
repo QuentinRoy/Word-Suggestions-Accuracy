@@ -1,18 +1,19 @@
 import * as React from "react"
 import {
+  Accuracy,
   AgreementRow,
   ExperimentId,
   experimentLabels,
   QuestionId,
   questionLabels,
 } from "./data"
-import { findClosestNumber } from "./find-closest"
+import { findClosest, findClosestNumber } from "./find-closest"
 import { group } from "d3-array"
 
 type InitialSelection = {
   experiment?: ExperimentId
   question?: QuestionId
-  accuracy?: number | "*"
+  accuracy?: Accuracy | "*"
 }
 
 // The data argument is not controlled, only the initial value will be used and
@@ -41,7 +42,7 @@ export default function useVisualizationData(
       selectQuestion(question: QuestionId) {
         dispatch({ type: "selectQuestion", question })
       },
-      selectAccuracy(accuracy: number) {
+      selectAccuracy(accuracy: Accuracy) {
         dispatch({ type: "selectAccuracy", accuracy })
       },
     }),
@@ -148,19 +149,19 @@ function updateChoiceSelection<T>(
 const questionIds = Object.keys(questionLabels) as QuestionId[]
 
 interface State {
-  availableAccuracies: number[]
-  selectedAccuracy?: number | "*"
+  availableAccuracies: Accuracy[]
+  selectedAccuracy?: Accuracy | "*"
   availableExperiments: Set<ExperimentId>
   selectedExperiment?: ExperimentId
   availableQuestions: Set<QuestionId>
   selectedQuestion?: QuestionId
-  groupedRows: Map<ExperimentId, Map<QuestionId, Map<number, AgreementRow[]>>>
+  groupedRows: Map<ExperimentId, Map<QuestionId, Map<Accuracy, AgreementRow[]>>>
 }
 
 type Action =
   | { type: "selectExperiment"; experiment: ExperimentId }
   | { type: "selectQuestion"; question: QuestionId }
-  | { type: "selectAccuracy"; accuracy: number | "*" }
+  | { type: "selectAccuracy"; accuracy: Accuracy | "*" }
 
 function findFirstPossible<T>(values: T[], availableValues: Set<any>) {
   return values.find(v => availableValues.has(v))
@@ -213,7 +214,10 @@ function reducer(prevState: State, action: Action): State {
   selectedAccuracy =
     selectedAccuracy === "*"
       ? "*"
-      : findClosestNumber(selectedAccuracy ?? 0, availableAccuracies)
+      : findClosestAccuracy(
+          selectedAccuracy != null ? parseFloat(selectedAccuracy) : 0,
+          availableAccuracies
+        )
 
   return {
     ...prevState,
@@ -224,4 +228,8 @@ function reducer(prevState: State, action: Action): State {
     selectedAccuracy,
     availableAccuracies,
   }
+}
+
+function findClosestAccuracy(value: number, accuracies: Accuracy[]): Accuracy {
+  return findClosest(value, accuracies, (v, a) => Math.abs(v - parseFloat(a)))
 }

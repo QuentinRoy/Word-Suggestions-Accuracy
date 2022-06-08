@@ -46,29 +46,29 @@ export default function IndexPage({
         <title>Experiment Results</title>
       </Head>
 
-      <ChartThemeProvider>
-        <Container maxWidth="md" sx={{ my: 2 }}>
-          <Paper component="header" sx={{ p: 2, mb: 2 }}>
-            <Box mb={2}>
-              <ChoiceControl
-                groupLabel="Experiment"
-                value={selectedExperiment}
-                onChange={experiment => selectExperiment(experiment)}
-                availableValues={availableExperiments}
-                labels={experimentLabels}
-              />
-            </Box>
-            <Box>
-              <ChoiceControl
-                groupLabel="Question"
-                value={selectedQuestion}
-                onChange={question => selectQuestion(question)}
-                availableValues={availableQuestions}
-                labels={questionLabels}
-              />
-            </Box>
-          </Paper>
-          <Card>
+      <Container maxWidth="md" sx={{ my: 2 }}>
+        <Paper component="header" sx={{ p: 2, mb: 2 }}>
+          <Box mb={2}>
+            <ChoiceControl
+              groupLabel="Experiment"
+              value={selectedExperiment}
+              onChange={experiment => selectExperiment(experiment)}
+              availableValues={availableExperiments}
+              labels={experimentLabels}
+            />
+          </Box>
+          <Box>
+            <ChoiceControl
+              groupLabel="Question"
+              value={selectedQuestion}
+              onChange={question => selectQuestion(question)}
+              availableValues={availableQuestions}
+              labels={questionLabels}
+            />
+          </Box>
+        </Paper>
+        <Card>
+          <ChartThemeProvider>
             <CompoundAgreementChart
               height={selectedExperiment === "devices" ? 300 : 520}
               facets="accuracy"
@@ -78,9 +78,9 @@ export default function IndexPage({
               facetLabels={accuracyLabels}
               type="solid"
             />
-          </Card>
-        </Container>
-      </ChartThemeProvider>
+          </ChartThemeProvider>
+        </Card>
+      </Container>
     </>
   )
 }

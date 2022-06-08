@@ -1,6 +1,6 @@
 import * as React from "react"
 import { scaleBand, scaleLinear, scaleOrdinal } from "d3-scale"
-import { max, min, rollup } from "d3-array"
+import { max, min, rollup, sort } from "d3-array"
 import { schemeRdBu } from "d3-scale-chromatic"
 import { animated, useSpring } from "@react-spring/web"
 import {
@@ -14,7 +14,6 @@ import ColorLegend from "./ColorLegend"
 import { DivergingStack, SolidStack } from "../../lib/stacks"
 import { Margin, useChartTheme } from "../../lib/chart-theme"
 import StackGroup from "./StackGroup"
-import { merge, sortBy } from "lodash"
 import XAxis from "./XAxis"
 import YAxis from "./YAxis"
 import { rotate, transform, translate } from "../../lib/transforms"
@@ -76,7 +75,6 @@ export default function CompoundAgreementChart({
     noLegend ? noLegendDefaultMargin : defaultMargin,
     partialMargin == null ? {} : partialMargin
   )
-
   const theme = useChartTheme()
 
   let dataGroups = rollup(
@@ -86,23 +84,22 @@ export default function CompoundAgreementChart({
     d => String(d[groups])
   )
 
+  let facetOrder = Object.keys(facetLabels)
   let facetScale = scaleBand()
     .range([height, 0])
-    .domain(
-      sortBy(
-        Array.from(dataGroups.keys()),
-        id => -Object.keys(facetLabels).indexOf(id)
-      )
-    )
+    .domain(sort(dataGroups.keys(), id => -facetOrder.indexOf(id)))
     .paddingInner(theme.facets.padding.inner)
     .paddingOuter(theme.facets.padding.outer)
   let facetHeight = facetScale.bandwidth()
 
-  let domainStart =
-    min(dataGroups.values(), g => min(g.values(), d => d.start)) ?? 0
-  let domainEnd =
-    max(dataGroups.values(), g => max(g.values(), d => d.start + d.length)) ?? 0
-  let xScale = scaleLinear().range([0, width]).domain([domainStart, domainEnd])
+  let xDomain = [
+    min(dataGroups.values(), g => min(g.values(), d => d.start)) ?? 0,
+    max(dataGroups.values(), g => max(g.values(), d => d.start + d.length)) ??
+      0,
+  ]
+  let xScale = scaleLinear().range([0, width]).domain(xDomain)
+
+  let groupOrder = Object.keys(groupLabels)
 
   return (
     <svg
@@ -119,12 +116,7 @@ export default function CompoundAgreementChart({
         {Array.from(dataGroups, ([key, stacks], i) => {
           let yScale = scaleBand()
             .range([facetHeight, 0])
-            .domain(
-              sortBy(
-                Array.from(stacks.keys()),
-                id => -Object.keys(groupLabels).indexOf(id)
-              )
-            )
+            .domain(sort(stacks.keys(), id => -groupOrder.indexOf(id)))
             .paddingInner(theme.stacks.padding.inner)
             .paddingOuter(theme.stacks.padding.outer)
           let bandwidth = yScale.bandwidth()

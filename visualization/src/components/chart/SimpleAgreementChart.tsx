@@ -1,6 +1,6 @@
 import * as React from "react"
 import { scaleBand, scaleLinear, scaleOrdinal } from "d3-scale"
-import { max, min, rollup } from "d3-array"
+import { max, min, rollup, sort } from "d3-array"
 import { schemeRdBu } from "d3-scale-chromatic"
 import { animated, useSpring } from "@react-spring/web"
 import {
@@ -15,7 +15,6 @@ import ColorLegend from "./ColorLegend"
 import { DivergingStack, SolidStack } from "../../lib/stacks"
 import { Margin, useChartTheme } from "../../lib/chart-theme"
 import StackGroup from "./StackGroup"
-import { sortBy } from "lodash"
 import XAxis from "./XAxis"
 import YAxis from "./YAxis"
 import { useMemoMerge } from "../../lib/use-memo-merge"
@@ -66,21 +65,17 @@ export default function SimpleAgreementChart({
 }: AgreementChartProps) {
   let margin = useMemoMerge(
     noLegend ? noLegendDefaultMargin : defaultMargin,
-    partialMargin ?? {},
+    partialMargin ?? {}
   )
 
   const theme = useChartTheme()
 
   let dataGroups = rollup(data, StackFactories[type], d => String(d[groups]))
-
+  
+  let groupOrder = Object.keys(groupLabels)
   const yScale = scaleBand()
     .range([height, 0])
-    .domain(
-      sortBy(
-        Array.from(dataGroups.keys()),
-        id => -Object.keys(groupLabels).indexOf(id)
-      )
-    )
+    .domain(sort(dataGroups.keys(), id => -groupOrder.indexOf(id)))
     .paddingInner(theme.stacks.padding.inner)
     .paddingOuter(theme.stacks.padding.outer)
 

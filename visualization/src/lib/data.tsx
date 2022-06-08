@@ -1,5 +1,3 @@
-import { range } from "d3-array"
-
 export enum AgreementAnswer {
   StronglyAgree = "Strongly agree",
   Agree = "Agree",
@@ -32,7 +30,7 @@ export type DeviceId = "desktop" | "tablet" | "phone"
 export type EfficiencyFactor = "device" | "keyStrokeDelay"
 export type Factor = EfficiencyFactor | "accuracy"
 export type Accuracy = "0.1" | "0.3" | "0.5" | "0.7" | "0.9"
-export type KeyStrokeDelay = "0" | "50" | "100" | "150" | "200" | "250"
+export type KeyStrokeDelay = "0" | "50" | "100" | "200"
 
 export type AgreementRow = {
   experiment: ExperimentId
@@ -80,9 +78,7 @@ export const keyStrokeDelayLabels: Readonly<Record<KeyStrokeDelay, string>> =
     "0": "0 ms",
     "50": "50 ms",
     "100": "100 ms",
-    "150": "150 ms",
     "200": "200 ms",
-    "250": "250 ms",
   })
 
 export const keyAccuracyLabels: Readonly<Record<Accuracy, string>> =

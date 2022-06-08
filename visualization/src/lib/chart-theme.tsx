@@ -1,4 +1,4 @@
-import { defaultsDeep } from "lodash"
+import { merge } from "lodash"
 import * as React from "react"
 import { PartialDeep } from "type-fest"
 
@@ -31,7 +31,7 @@ interface ChartTheme {
       size: number
       color: string
       margin: number
-    },
+    }
     padding: {
       inner: number
       outer: number
@@ -108,7 +108,9 @@ type ChartProviderProps = {
   children?: React.ReactNode
 }
 export const ChartThemeProvider = ({ theme, children }: ChartProviderProps) => {
-  const themeWithDefaults: ChartTheme = defaultsDeep({}, theme, defaultTheme)
+  // Using merge instead of defaultsDeep because merge is already imported
+  // by userMemoMerge.
+  const themeWithDefaults: ChartTheme = merge({}, defaultTheme, theme)
   return (
     <themeContext.Provider value={themeWithDefaults}>
       {children}

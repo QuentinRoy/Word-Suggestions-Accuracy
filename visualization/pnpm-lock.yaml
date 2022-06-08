@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@babel/core': ^7.0.0
+  '@emotion/babel-plugin': ^11.9.2
   '@emotion/cache': ^11.7.1
   '@emotion/react': ^11.9.0
   '@emotion/server': ^11.4.0
@@ -32,6 +33,7 @@ specifiers:
 
 dependencies:
   '@babel/core': 7.18.2
+  '@emotion/babel-plugin': 11.9.2_@babel+core@7.18.2
   '@emotion/cache': 11.7.1
   '@emotion/react': 11.9.0_3dj5wppwohj5ocihzt4m54mr2a
   '@emotion/server': 11.4.0

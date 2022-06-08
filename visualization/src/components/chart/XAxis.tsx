@@ -1,4 +1,3 @@
-import * as React from "react"
 import { ScaleContinuousNumeric } from "d3-scale"
 import { extent, range } from "d3-array"
 import { animated, useSprings } from "@react-spring/web"

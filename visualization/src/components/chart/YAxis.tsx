@@ -1,4 +1,3 @@
-import * as React from "react"
 import { useChartTheme } from "../../lib/chart-theme"
 import { translate } from "../../lib/transforms"
 

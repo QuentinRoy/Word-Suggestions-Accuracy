@@ -7,7 +7,7 @@ import {
   QuestionId,
   questionLabels,
 } from "./data"
-import { findClosest, findClosestNumber } from "./find-closest"
+import { findClosest } from "./find-closest"
 import { group } from "d3-array"
 
 type InitialSelection = {

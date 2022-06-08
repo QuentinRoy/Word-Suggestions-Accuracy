@@ -1,4 +1,3 @@
-import * as React from "react"
 import { useSprings, animated } from "@react-spring/web"
 import { useChartTheme } from "../../lib/chart-theme"
 import { Bar } from "../../lib/stacks"

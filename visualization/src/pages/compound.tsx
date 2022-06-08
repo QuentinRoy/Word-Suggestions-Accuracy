@@ -1,6 +1,5 @@
 import fs from "fs/promises"
 import path from "path"
-import * as React from "react"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import Head from "next/head"
 import { Box, Card, Container, Paper } from "@mui/material"

@@ -1,4 +1,3 @@
-import * as React from "react"
 import PropTypes from "prop-types"
 import Head from "next/head"
 import { ThemeProvider } from "@mui/material/styles"
@@ -9,7 +8,6 @@ import createEmotionCache from "../lib/create-emotion-cache"
 import { AppProps } from "next/app"
 import type { EmotionCache } from "@emotion/cache"
 import "../styles/linux-libertine.css"
-
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()

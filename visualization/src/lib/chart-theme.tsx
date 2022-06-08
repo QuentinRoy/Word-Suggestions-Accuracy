@@ -1,4 +1,3 @@
-import { merge } from "lodash"
 import * as React from "react"
 import { PartialDeep } from "type-fest"
 import { useMemoMerge } from "./use-memo-merge"

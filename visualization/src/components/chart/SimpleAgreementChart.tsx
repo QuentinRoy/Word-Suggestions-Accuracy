@@ -18,6 +18,7 @@ import StackGroup from "./StackGroup"
 import { sortBy } from "lodash"
 import XAxis from "./XAxis"
 import YAxis from "./YAxis"
+import { useMemoMerge } from "../../lib/use-memo-merge"
 
 const orderedAnswers = [
   ...negativeAgreementAnswers,
@@ -63,10 +64,10 @@ export default function SimpleAgreementChart({
   noLegend = false,
   type,
 }: AgreementChartProps) {
-  let margin: Margin = {
-    ...partialMargin,
-    ...(noLegend ? noLegendDefaultMargin : defaultMargin),
-  }
+  let margin = useMemoMerge(
+    noLegend ? noLegendDefaultMargin : defaultMargin,
+    partialMargin ?? {},
+  )
 
   const theme = useChartTheme()
 
@@ -86,8 +87,8 @@ export default function SimpleAgreementChart({
   let domainStart = min(dataGroups.values(), d => d.start) ?? 0
   let domainEnd = max(dataGroups.values(), d => d.start + d.length) ?? 0
   const xScale = scaleLinear()
-  .range([0, width])
-  .domain([domainStart, domainEnd])
+    .range([0, width])
+    .domain([domainStart, domainEnd])
   let bandwidth = yScale.bandwidth()
 
   return (

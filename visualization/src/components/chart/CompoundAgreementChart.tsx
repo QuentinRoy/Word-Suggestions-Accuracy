@@ -14,10 +14,11 @@ import ColorLegend from "./ColorLegend"
 import { DivergingStack, SolidStack } from "../../lib/stacks"
 import { Margin, useChartTheme } from "../../lib/chart-theme"
 import StackGroup from "./StackGroup"
-import { sortBy } from "lodash"
+import { merge, sortBy } from "lodash"
 import XAxis from "./XAxis"
 import YAxis from "./YAxis"
-import { translate } from "../../lib/transforms"
+import { rotate, transform, translate } from "../../lib/transforms"
+import { useMemoMerge } from "../../lib/use-memo-merge"
 
 const orderedAnswers = [
   ...negativeAgreementAnswers,
@@ -71,10 +72,10 @@ export default function CompoundAgreementChart({
   type,
   noLegend = false,
 }: CompoundAgreementChartProps) {
-  let margin: Margin = {
-    ...partialMargin,
-    ...(noLegend ? noLegendDefaultMargin : defaultMargin),
-  }
+  let margin: Margin = useMemoMerge(
+    noLegend ? noLegendDefaultMargin : defaultMargin,
+    partialMargin == null ? {} : partialMargin
+  )
 
   const theme = useChartTheme()
 
@@ -101,9 +102,7 @@ export default function CompoundAgreementChart({
     min(dataGroups.values(), g => min(g.values(), d => d.start)) ?? 0
   let domainEnd =
     max(dataGroups.values(), g => max(g.values(), d => d.start + d.length)) ?? 0
-  let xScale = scaleLinear()
-    .range([0, width])
-    .domain([domainStart, domainEnd])
+  let xScale = scaleLinear().range([0, width]).domain([domainStart, domainEnd])
 
   return (
     <svg
@@ -134,10 +133,10 @@ export default function CompoundAgreementChart({
               <text
                 x={0}
                 y={0}
-                transform={
-                  translate(-theme.facets.label.margin, facetHeight / 2) +
-                  " rotate(-90)"
-                }
+                transform={transform(
+                  translate(-theme.facets.label.margin, facetHeight / 2),
+                  rotate(-90)
+                )}
                 textAnchor="middle"
                 dominantBaseline="hanging"
                 fill={theme.axises.x.ticks.label.color}

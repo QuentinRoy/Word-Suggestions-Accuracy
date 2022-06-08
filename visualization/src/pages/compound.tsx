@@ -23,7 +23,7 @@ import ChoiceControl from "../components/ChoiceControl"
 import useVisualizationData from "../lib/use-visualization-data"
 import CompoundAgreementChart from "../components/chart/CompoundAgreementChart"
 
-export default function IndexPage({
+export default function CompoundPage({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const {

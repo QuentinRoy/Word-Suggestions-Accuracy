@@ -1,10 +1,10 @@
-import * as React from "react"
 import { scaleBand, scaleLinear, scaleOrdinal } from "d3-scale"
-import { max, min, rollup, sort } from "d3-array"
+import { max, min, reverse, rollup, sort } from "d3-array"
 import { schemeRdBu } from "d3-scale-chromatic"
 import { animated, useSpring } from "@react-spring/web"
 import {
   AgreementAnswer,
+  agreementAnswerLabels,
   AgreementRow,
   EfficiencyFactor,
   negativeAgreementAnswers,
@@ -19,22 +19,39 @@ import XAxis from "./XAxis"
 import YAxis from "./YAxis"
 import { useMemoMerge } from "../../lib/use-memo-merge"
 
-const orderedAnswers = [
+const orderedAgreementAnswers = [
   ...negativeAgreementAnswers,
-  ...positiveAgreementAnswers,
   neutralAgreementAnswer,
+  ...reverse(positiveAgreementAnswers),
 ]
-
-const AgreementDivergentStack = DivergingStack<AgreementAnswer, AgreementRow>({
-  getCategory: d => d.answer,
-  getValue: d => d.totalAnswers,
-  negatives: negativeAgreementAnswers,
-  neutral: neutralAgreementAnswer,
-  positives: positiveAgreementAnswers,
-})
+const divergingOrderLegendRows = [
+  negativeAgreementAnswers,
+  positiveAgreementAnswers,
+  [neutralAgreementAnswer, null, null],
+]
+const positivityOrderLegendRows = [
+  negativeAgreementAnswers,
+  [neutralAgreementAnswer, null, null],
+  reverse(positiveAgreementAnswers),
+]
 
 const defaultMargin = { top: 15, right: 25, left: 85, bottom: 120 }
 const noLegendDefaultMargin = { ...defaultMargin, bottom: 30 }
+const defaultColorScale = scaleOrdinal(
+  schemeRdBu[orderedAgreementAnswers.length]
+).domain(orderedAgreementAnswers)
+
+let stackFactoryArgs = {
+  getCategory: (d: AgreementRow) => d.answer,
+  getValue: (d: AgreementRow) => d.totalAnswers,
+  negatives: negativeAgreementAnswers,
+  neutral: neutralAgreementAnswer,
+  positives: positiveAgreementAnswers,
+}
+const StackFactories = {
+  diverging: DivergingStack<AgreementAnswer, AgreementRow>(stackFactoryArgs),
+  solid: SolidStack<AgreementAnswer, AgreementRow>(stackFactoryArgs),
+}
 
 type AgreementChartProps = {
   data: AgreementRow[]
@@ -54,10 +71,7 @@ export default function SimpleAgreementChart({
   margin: partialMargin,
   width = 850 - defaultMargin.left - defaultMargin.right,
   height = 150,
-  legendColumnCount = 3,
-  colorScale = scaleOrdinal(
-    schemeRdBu[Object.values(AgreementAnswer).length]
-  ).domain(Object.values(AgreementAnswer).reverse()),
+  colorScale = defaultColorScale,
   groups,
   groupLabels,
   noLegend = false,
@@ -65,13 +79,13 @@ export default function SimpleAgreementChart({
 }: AgreementChartProps) {
   let margin = useMemoMerge(
     noLegend ? noLegendDefaultMargin : defaultMargin,
-    partialMargin ?? {}
-  )
+    partialMargin
+  ) as Margin
 
   const theme = useChartTheme()
 
   let dataGroups = rollup(data, StackFactories[type], d => String(d[groups]))
-  
+
   let groupOrder = Object.keys(groupLabels)
   const yScale = scaleBand()
     .range([height, 0])
@@ -112,10 +126,14 @@ export default function SimpleAgreementChart({
           <ColorLegend
             x={(width - theme.legend.width) / 2}
             y={height + theme.legend.margin.top}
-            scale={colorScale}
+            colorScale={colorScale}
             width={theme.legend.width}
-            values={orderedAnswers}
-            columnCount={legendColumnCount}
+            getLabel={d => agreementAnswerLabels[d]}
+            rows={
+              type == "diverging"
+                ? divergingOrderLegendRows
+                : positivityOrderLegendRows
+            }
           />
         )}
       </g>
@@ -142,16 +160,4 @@ function MiddleLine({ scale, tickHeight, x = 0, y = 0 }: MiddleLine) {
     strokeWidth: theme.lines.width,
   })
   return <animated.line {...middleLineSpring} />
-}
-
-let stackFactoryArgs = {
-  getCategory: (d: AgreementRow) => d.answer,
-  getValue: (d: AgreementRow) => d.totalAnswers,
-  negatives: negativeAgreementAnswers,
-  neutral: neutralAgreementAnswer,
-  positives: positiveAgreementAnswers,
-}
-const StackFactories = {
-  diverging: DivergingStack<AgreementAnswer, AgreementRow>(stackFactoryArgs),
-  solid: SolidStack<AgreementAnswer, AgreementRow>(stackFactoryArgs),
 }

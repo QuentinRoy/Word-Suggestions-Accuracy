@@ -1,1159 +1,1159 @@
 question,experiment,accuracy,keyStrokeDelay,device,answer,totalAnswers
-controls_satisfactory,amt_bar,0.1,0,desktop,Agree,9
-controls_satisfactory,amt_bar,0.1,0,desktop,Disagree,1
-controls_satisfactory,amt_bar,0.1,0,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_bar,0.1,0,desktop,Somewhat agree,3
-controls_satisfactory,amt_bar,0.1,0,desktop,Somewhat disagree,2
-controls_satisfactory,amt_bar,0.1,0,desktop,Strongly agree,9
-controls_satisfactory,amt_bar,0.1,0,desktop,Strongly disagree,2
-controls_satisfactory,amt_bar,0.1,100,desktop,Agree,7
-controls_satisfactory,amt_bar,0.1,100,desktop,Disagree,9
-controls_satisfactory,amt_bar,0.1,100,desktop,Somewhat agree,5
-controls_satisfactory,amt_bar,0.1,100,desktop,Somewhat disagree,3
-controls_satisfactory,amt_bar,0.1,100,desktop,Strongly agree,1
-controls_satisfactory,amt_bar,0.1,100,desktop,Strongly disagree,4
-controls_satisfactory,amt_bar,0.1,200,desktop,Agree,6
-controls_satisfactory,amt_bar,0.1,200,desktop,Disagree,6
-controls_satisfactory,amt_bar,0.1,200,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_bar,0.1,200,desktop,Somewhat agree,3
-controls_satisfactory,amt_bar,0.1,200,desktop,Somewhat disagree,7
-controls_satisfactory,amt_bar,0.1,200,desktop,Strongly agree,2
-controls_satisfactory,amt_bar,0.1,200,desktop,Strongly disagree,4
-controls_satisfactory,amt_bar,0.1,50,desktop,Agree,4
-controls_satisfactory,amt_bar,0.1,50,desktop,Disagree,9
-controls_satisfactory,amt_bar,0.1,50,desktop,Neither agree nor disagree,7
-controls_satisfactory,amt_bar,0.1,50,desktop,Somewhat agree,5
-controls_satisfactory,amt_bar,0.1,50,desktop,Somewhat disagree,3
-controls_satisfactory,amt_bar,0.1,50,desktop,Strongly agree,2
-controls_satisfactory,amt_bar,0.3,0,desktop,Agree,5
-controls_satisfactory,amt_bar,0.3,0,desktop,Disagree,4
-controls_satisfactory,amt_bar,0.3,0,desktop,Neither agree nor disagree,5
-controls_satisfactory,amt_bar,0.3,0,desktop,Somewhat agree,7
-controls_satisfactory,amt_bar,0.3,0,desktop,Somewhat disagree,1
-controls_satisfactory,amt_bar,0.3,0,desktop,Strongly agree,6
-controls_satisfactory,amt_bar,0.3,0,desktop,Strongly disagree,1
-controls_satisfactory,amt_bar,0.3,100,desktop,Agree,4
-controls_satisfactory,amt_bar,0.3,100,desktop,Disagree,3
-controls_satisfactory,amt_bar,0.3,100,desktop,Somewhat agree,7
-controls_satisfactory,amt_bar,0.3,100,desktop,Somewhat disagree,4
-controls_satisfactory,amt_bar,0.3,100,desktop,Strongly agree,6
-controls_satisfactory,amt_bar,0.3,100,desktop,Strongly disagree,4
-controls_satisfactory,amt_bar,0.3,200,desktop,Agree,6
-controls_satisfactory,amt_bar,0.3,200,desktop,Disagree,1
-controls_satisfactory,amt_bar,0.3,200,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_bar,0.3,200,desktop,Somewhat agree,9
-controls_satisfactory,amt_bar,0.3,200,desktop,Somewhat disagree,2
-controls_satisfactory,amt_bar,0.3,200,desktop,Strongly agree,7
-controls_satisfactory,amt_bar,0.3,200,desktop,Strongly disagree,2
-controls_satisfactory,amt_bar,0.3,50,desktop,Agree,4
-controls_satisfactory,amt_bar,0.3,50,desktop,Disagree,2
-controls_satisfactory,amt_bar,0.3,50,desktop,Neither agree nor disagree,4
-controls_satisfactory,amt_bar,0.3,50,desktop,Somewhat agree,9
-controls_satisfactory,amt_bar,0.3,50,desktop,Somewhat disagree,6
-controls_satisfactory,amt_bar,0.3,50,desktop,Strongly agree,5
-controls_satisfactory,amt_bar,0.5,0,desktop,Agree,9
-controls_satisfactory,amt_bar,0.5,0,desktop,Neither agree nor disagree,3
-controls_satisfactory,amt_bar,0.5,0,desktop,Somewhat agree,10
-controls_satisfactory,amt_bar,0.5,0,desktop,Somewhat disagree,4
-controls_satisfactory,amt_bar,0.5,0,desktop,Strongly agree,3
-controls_satisfactory,amt_bar,0.5,100,desktop,Agree,6
-controls_satisfactory,amt_bar,0.5,100,desktop,Disagree,5
-controls_satisfactory,amt_bar,0.5,100,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_bar,0.5,100,desktop,Somewhat agree,6
-controls_satisfactory,amt_bar,0.5,100,desktop,Somewhat disagree,5
-controls_satisfactory,amt_bar,0.5,100,desktop,Strongly agree,3
-controls_satisfactory,amt_bar,0.5,100,desktop,Strongly disagree,2
-controls_satisfactory,amt_bar,0.5,200,desktop,Agree,10
-controls_satisfactory,amt_bar,0.5,200,desktop,Disagree,2
-controls_satisfactory,amt_bar,0.5,200,desktop,Neither agree nor disagree,3
-controls_satisfactory,amt_bar,0.5,200,desktop,Somewhat agree,4
-controls_satisfactory,amt_bar,0.5,200,desktop,Somewhat disagree,5
-controls_satisfactory,amt_bar,0.5,200,desktop,Strongly agree,1
-controls_satisfactory,amt_bar,0.5,200,desktop,Strongly disagree,5
-controls_satisfactory,amt_bar,0.5,50,desktop,Agree,8
-controls_satisfactory,amt_bar,0.5,50,desktop,Disagree,3
-controls_satisfactory,amt_bar,0.5,50,desktop,Neither agree nor disagree,3
-controls_satisfactory,amt_bar,0.5,50,desktop,Somewhat agree,10
-controls_satisfactory,amt_bar,0.5,50,desktop,Somewhat disagree,1
-controls_satisfactory,amt_bar,0.5,50,desktop,Strongly agree,5
-controls_satisfactory,amt_bar,0.7,0,desktop,Agree,9
-controls_satisfactory,amt_bar,0.7,0,desktop,Disagree,1
-controls_satisfactory,amt_bar,0.7,0,desktop,Neither agree nor disagree,4
-controls_satisfactory,amt_bar,0.7,0,desktop,Somewhat agree,12
-controls_satisfactory,amt_bar,0.7,0,desktop,Strongly agree,2
-controls_satisfactory,amt_bar,0.7,100,desktop,Agree,13
-controls_satisfactory,amt_bar,0.7,100,desktop,Disagree,1
-controls_satisfactory,amt_bar,0.7,100,desktop,Neither agree nor disagree,3
-controls_satisfactory,amt_bar,0.7,100,desktop,Somewhat agree,8
-controls_satisfactory,amt_bar,0.7,100,desktop,Somewhat disagree,2
-controls_satisfactory,amt_bar,0.7,100,desktop,Strongly agree,3
-controls_satisfactory,amt_bar,0.7,200,desktop,Agree,12
-controls_satisfactory,amt_bar,0.7,200,desktop,Disagree,1
-controls_satisfactory,amt_bar,0.7,200,desktop,Neither agree nor disagree,4
-controls_satisfactory,amt_bar,0.7,200,desktop,Somewhat agree,9
-controls_satisfactory,amt_bar,0.7,200,desktop,Strongly agree,3
-controls_satisfactory,amt_bar,0.7,50,desktop,Agree,10
-controls_satisfactory,amt_bar,0.7,50,desktop,Disagree,2
-controls_satisfactory,amt_bar,0.7,50,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_bar,0.7,50,desktop,Somewhat agree,9
-controls_satisfactory,amt_bar,0.7,50,desktop,Somewhat disagree,1
-controls_satisfactory,amt_bar,0.7,50,desktop,Strongly agree,2
-controls_satisfactory,amt_bar,0.9,0,desktop,Agree,12
-controls_satisfactory,amt_bar,0.9,0,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_bar,0.9,0,desktop,Somewhat agree,4
-controls_satisfactory,amt_bar,0.9,0,desktop,Strongly agree,11
-controls_satisfactory,amt_bar,0.9,100,desktop,Agree,10
-controls_satisfactory,amt_bar,0.9,100,desktop,Neither agree nor disagree,1
-controls_satisfactory,amt_bar,0.9,100,desktop,Somewhat agree,9
-controls_satisfactory,amt_bar,0.9,100,desktop,Somewhat disagree,2
-controls_satisfactory,amt_bar,0.9,100,desktop,Strongly agree,8
-controls_satisfactory,amt_bar,0.9,200,desktop,Agree,10
-controls_satisfactory,amt_bar,0.9,200,desktop,Disagree,1
-controls_satisfactory,amt_bar,0.9,200,desktop,Neither agree nor disagree,1
-controls_satisfactory,amt_bar,0.9,200,desktop,Somewhat agree,7
-controls_satisfactory,amt_bar,0.9,200,desktop,Somewhat disagree,2
-controls_satisfactory,amt_bar,0.9,200,desktop,Strongly agree,7
-controls_satisfactory,amt_bar,0.9,200,desktop,Strongly disagree,2
-controls_satisfactory,amt_bar,0.9,50,desktop,Agree,15
-controls_satisfactory,amt_bar,0.9,50,desktop,Neither agree nor disagree,1
-controls_satisfactory,amt_bar,0.9,50,desktop,Somewhat agree,6
-controls_satisfactory,amt_bar,0.9,50,desktop,Strongly agree,6
-controls_satisfactory,amt_inline,0.1,0,desktop,Agree,9
-controls_satisfactory,amt_inline,0.1,0,desktop,Disagree,6
-controls_satisfactory,amt_inline,0.1,0,desktop,Neither agree nor disagree,3
-controls_satisfactory,amt_inline,0.1,0,desktop,Somewhat agree,3
-controls_satisfactory,amt_inline,0.1,0,desktop,Somewhat disagree,2
-controls_satisfactory,amt_inline,0.1,0,desktop,Strongly agree,7
-controls_satisfactory,amt_inline,0.1,100,desktop,Agree,2
-controls_satisfactory,amt_inline,0.1,100,desktop,Disagree,4
-controls_satisfactory,amt_inline,0.1,100,desktop,Neither agree nor disagree,3
-controls_satisfactory,amt_inline,0.1,100,desktop,Somewhat agree,3
-controls_satisfactory,amt_inline,0.1,100,desktop,Somewhat disagree,8
-controls_satisfactory,amt_inline,0.1,100,desktop,Strongly agree,1
-controls_satisfactory,amt_inline,0.1,100,desktop,Strongly disagree,9
-controls_satisfactory,amt_inline,0.1,200,desktop,Agree,2
-controls_satisfactory,amt_inline,0.1,200,desktop,Disagree,6
-controls_satisfactory,amt_inline,0.1,200,desktop,Neither agree nor disagree,3
-controls_satisfactory,amt_inline,0.1,200,desktop,Somewhat agree,6
-controls_satisfactory,amt_inline,0.1,200,desktop,Somewhat disagree,7
-controls_satisfactory,amt_inline,0.1,200,desktop,Strongly agree,1
-controls_satisfactory,amt_inline,0.1,200,desktop,Strongly disagree,5
-controls_satisfactory,amt_inline,0.1,50,desktop,Agree,5
-controls_satisfactory,amt_inline,0.1,50,desktop,Disagree,6
-controls_satisfactory,amt_inline,0.1,50,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_inline,0.1,50,desktop,Somewhat agree,8
-controls_satisfactory,amt_inline,0.1,50,desktop,Somewhat disagree,5
-controls_satisfactory,amt_inline,0.1,50,desktop,Strongly agree,3
-controls_satisfactory,amt_inline,0.1,50,desktop,Strongly disagree,2
-controls_satisfactory,amt_inline,0.3,0,desktop,Agree,4
-controls_satisfactory,amt_inline,0.3,0,desktop,Disagree,1
-controls_satisfactory,amt_inline,0.3,0,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_inline,0.3,0,desktop,Somewhat agree,11
-controls_satisfactory,amt_inline,0.3,0,desktop,Somewhat disagree,4
-controls_satisfactory,amt_inline,0.3,0,desktop,Strongly agree,6
-controls_satisfactory,amt_inline,0.3,100,desktop,Agree,8
-controls_satisfactory,amt_inline,0.3,100,desktop,Disagree,7
-controls_satisfactory,amt_inline,0.3,100,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_inline,0.3,100,desktop,Somewhat agree,9
-controls_satisfactory,amt_inline,0.3,100,desktop,Somewhat disagree,2
-controls_satisfactory,amt_inline,0.3,100,desktop,Strongly agree,1
-controls_satisfactory,amt_inline,0.3,100,desktop,Strongly disagree,1
-controls_satisfactory,amt_inline,0.3,200,desktop,Agree,6
-controls_satisfactory,amt_inline,0.3,200,desktop,Disagree,5
-controls_satisfactory,amt_inline,0.3,200,desktop,Neither agree nor disagree,5
-controls_satisfactory,amt_inline,0.3,200,desktop,Somewhat agree,8
-controls_satisfactory,amt_inline,0.3,200,desktop,Somewhat disagree,4
-controls_satisfactory,amt_inline,0.3,200,desktop,Strongly agree,1
-controls_satisfactory,amt_inline,0.3,200,desktop,Strongly disagree,1
-controls_satisfactory,amt_inline,0.3,50,desktop,Agree,5
-controls_satisfactory,amt_inline,0.3,50,desktop,Disagree,6
-controls_satisfactory,amt_inline,0.3,50,desktop,Neither agree nor disagree,1
-controls_satisfactory,amt_inline,0.3,50,desktop,Somewhat agree,12
-controls_satisfactory,amt_inline,0.3,50,desktop,Somewhat disagree,1
-controls_satisfactory,amt_inline,0.3,50,desktop,Strongly agree,4
-controls_satisfactory,amt_inline,0.3,50,desktop,Strongly disagree,1
-controls_satisfactory,amt_inline,0.5,0,desktop,Agree,9
-controls_satisfactory,amt_inline,0.5,0,desktop,Disagree,1
-controls_satisfactory,amt_inline,0.5,0,desktop,Neither agree nor disagree,5
-controls_satisfactory,amt_inline,0.5,0,desktop,Somewhat agree,7
-controls_satisfactory,amt_inline,0.5,0,desktop,Somewhat disagree,1
-controls_satisfactory,amt_inline,0.5,0,desktop,Strongly agree,6
-controls_satisfactory,amt_inline,0.5,0,desktop,Strongly disagree,1
-controls_satisfactory,amt_inline,0.5,100,desktop,Agree,4
-controls_satisfactory,amt_inline,0.5,100,desktop,Disagree,2
-controls_satisfactory,amt_inline,0.5,100,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_inline,0.5,100,desktop,Somewhat agree,9
-controls_satisfactory,amt_inline,0.5,100,desktop,Somewhat disagree,7
-controls_satisfactory,amt_inline,0.5,100,desktop,Strongly agree,1
-controls_satisfactory,amt_inline,0.5,100,desktop,Strongly disagree,5
-controls_satisfactory,amt_inline,0.5,200,desktop,Agree,10
-controls_satisfactory,amt_inline,0.5,200,desktop,Disagree,3
-controls_satisfactory,amt_inline,0.5,200,desktop,Neither agree nor disagree,7
-controls_satisfactory,amt_inline,0.5,200,desktop,Somewhat agree,3
-controls_satisfactory,amt_inline,0.5,200,desktop,Somewhat disagree,1
-controls_satisfactory,amt_inline,0.5,200,desktop,Strongly agree,2
-controls_satisfactory,amt_inline,0.5,200,desktop,Strongly disagree,4
-controls_satisfactory,amt_inline,0.5,50,desktop,Agree,10
-controls_satisfactory,amt_inline,0.5,50,desktop,Disagree,1
-controls_satisfactory,amt_inline,0.5,50,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_inline,0.5,50,desktop,Somewhat agree,9
-controls_satisfactory,amt_inline,0.5,50,desktop,Somewhat disagree,2
-controls_satisfactory,amt_inline,0.5,50,desktop,Strongly agree,4
-controls_satisfactory,amt_inline,0.5,50,desktop,Strongly disagree,1
-controls_satisfactory,amt_inline,0.7,0,desktop,Agree,12
-controls_satisfactory,amt_inline,0.7,0,desktop,Neither agree nor disagree,3
-controls_satisfactory,amt_inline,0.7,0,desktop,Somewhat agree,9
-controls_satisfactory,amt_inline,0.7,0,desktop,Somewhat disagree,1
-controls_satisfactory,amt_inline,0.7,0,desktop,Strongly agree,4
-controls_satisfactory,amt_inline,0.7,0,desktop,Strongly disagree,1
-controls_satisfactory,amt_inline,0.7,100,desktop,Agree,10
-controls_satisfactory,amt_inline,0.7,100,desktop,Disagree,3
-controls_satisfactory,amt_inline,0.7,100,desktop,Neither agree nor disagree,1
-controls_satisfactory,amt_inline,0.7,100,desktop,Somewhat agree,7
-controls_satisfactory,amt_inline,0.7,100,desktop,Somewhat disagree,5
-controls_satisfactory,amt_inline,0.7,100,desktop,Strongly agree,2
-controls_satisfactory,amt_inline,0.7,100,desktop,Strongly disagree,2
-controls_satisfactory,amt_inline,0.7,200,desktop,Agree,13
-controls_satisfactory,amt_inline,0.7,200,desktop,Disagree,3
-controls_satisfactory,amt_inline,0.7,200,desktop,Neither agree nor disagree,2
-controls_satisfactory,amt_inline,0.7,200,desktop,Somewhat agree,9
-controls_satisfactory,amt_inline,0.7,200,desktop,Somewhat disagree,3
-controls_satisfactory,amt_inline,0.7,200,desktop,Strongly agree,3
-controls_satisfactory,amt_inline,0.7,200,desktop,Strongly disagree,1
-controls_satisfactory,amt_inline,0.7,50,desktop,Agree,9
-controls_satisfactory,amt_inline,0.7,50,desktop,Somewhat agree,7
-controls_satisfactory,amt_inline,0.7,50,desktop,Somewhat disagree,6
-controls_satisfactory,amt_inline,0.7,50,desktop,Strongly agree,7
-controls_satisfactory,amt_inline,0.7,50,desktop,Strongly disagree,1
-controls_satisfactory,amt_inline,0.9,0,desktop,Agree,12
-controls_satisfactory,amt_inline,0.9,0,desktop,Neither agree nor disagree,1
-controls_satisfactory,amt_inline,0.9,0,desktop,Somewhat agree,4
-controls_satisfactory,amt_inline,0.9,0,desktop,Somewhat disagree,5
-controls_satisfactory,amt_inline,0.9,0,desktop,Strongly agree,8
-controls_satisfactory,amt_inline,0.9,100,desktop,Agree,15
-controls_satisfactory,amt_inline,0.9,100,desktop,Disagree,3
-controls_satisfactory,amt_inline,0.9,100,desktop,Somewhat agree,5
-controls_satisfactory,amt_inline,0.9,100,desktop,Somewhat disagree,2
-controls_satisfactory,amt_inline,0.9,100,desktop,Strongly agree,5
-controls_satisfactory,amt_inline,0.9,200,desktop,Agree,17
-controls_satisfactory,amt_inline,0.9,200,desktop,Disagree,1
-controls_satisfactory,amt_inline,0.9,200,desktop,Neither agree nor disagree,1
-controls_satisfactory,amt_inline,0.9,200,desktop,Somewhat agree,3
-controls_satisfactory,amt_inline,0.9,200,desktop,Somewhat disagree,1
-controls_satisfactory,amt_inline,0.9,200,desktop,Strongly agree,6
-controls_satisfactory,amt_inline,0.9,200,desktop,Strongly disagree,1
-controls_satisfactory,amt_inline,0.9,50,desktop,Agree,12
-controls_satisfactory,amt_inline,0.9,50,desktop,Neither agree nor disagree,1
-controls_satisfactory,amt_inline,0.9,50,desktop,Somewhat agree,9
-controls_satisfactory,amt_inline,0.9,50,desktop,Somewhat disagree,1
-controls_satisfactory,amt_inline,0.9,50,desktop,Strongly agree,5
-controls_satisfactory,devices,0.1,0,desktop,Disagree,1
-controls_satisfactory,devices,0.1,0,desktop,Neither agree nor disagree,1
-controls_satisfactory,devices,0.1,0,desktop,Somewhat agree,3
-controls_satisfactory,devices,0.1,0,desktop,Strongly agree,5
-controls_satisfactory,devices,0.1,0,desktop,Strongly disagree,2
-controls_satisfactory,devices,0.1,0,phone,Agree,1
-controls_satisfactory,devices,0.1,0,phone,Neither agree nor disagree,2
-controls_satisfactory,devices,0.1,0,phone,Somewhat agree,1
-controls_satisfactory,devices,0.1,0,phone,Somewhat disagree,2
-controls_satisfactory,devices,0.1,0,phone,Strongly agree,1
-controls_satisfactory,devices,0.1,0,phone,Strongly disagree,5
-controls_satisfactory,devices,0.1,0,tablet,Agree,1
-controls_satisfactory,devices,0.1,0,tablet,Disagree,2
-controls_satisfactory,devices,0.1,0,tablet,Neither agree nor disagree,1
-controls_satisfactory,devices,0.1,0,tablet,Somewhat agree,2
-controls_satisfactory,devices,0.1,0,tablet,Somewhat disagree,4
-controls_satisfactory,devices,0.1,0,tablet,Strongly disagree,2
-controls_satisfactory,devices,0.5,0,desktop,Agree,4
-controls_satisfactory,devices,0.5,0,desktop,Neither agree nor disagree,3
-controls_satisfactory,devices,0.5,0,desktop,Somewhat agree,1
-controls_satisfactory,devices,0.5,0,desktop,Somewhat disagree,1
-controls_satisfactory,devices,0.5,0,desktop,Strongly agree,3
-controls_satisfactory,devices,0.5,0,phone,Disagree,2
-controls_satisfactory,devices,0.5,0,phone,Neither agree nor disagree,2
-controls_satisfactory,devices,0.5,0,phone,Somewhat agree,4
-controls_satisfactory,devices,0.5,0,phone,Somewhat disagree,3
-controls_satisfactory,devices,0.5,0,phone,Strongly agree,1
-controls_satisfactory,devices,0.5,0,tablet,Neither agree nor disagree,1
-controls_satisfactory,devices,0.5,0,tablet,Somewhat agree,6
-controls_satisfactory,devices,0.5,0,tablet,Somewhat disagree,5
-controls_satisfactory,devices,0.9,0,desktop,Agree,4
-controls_satisfactory,devices,0.9,0,desktop,Disagree,1
-controls_satisfactory,devices,0.9,0,desktop,Neither agree nor disagree,1
-controls_satisfactory,devices,0.9,0,desktop,Somewhat agree,4
-controls_satisfactory,devices,0.9,0,desktop,Strongly agree,2
-controls_satisfactory,devices,0.9,0,phone,Agree,6
-controls_satisfactory,devices,0.9,0,phone,Disagree,1
-controls_satisfactory,devices,0.9,0,phone,Neither agree nor disagree,1
-controls_satisfactory,devices,0.9,0,phone,Somewhat agree,1
-controls_satisfactory,devices,0.9,0,phone,Strongly agree,3
-controls_satisfactory,devices,0.9,0,tablet,Agree,4
-controls_satisfactory,devices,0.9,0,tablet,Neither agree nor disagree,1
-controls_satisfactory,devices,0.9,0,tablet,Somewhat agree,3
-controls_satisfactory,devices,0.9,0,tablet,Somewhat disagree,3
-controls_satisfactory,devices,0.9,0,tablet,Strongly agree,1
-keyboard_use_efficiency,amt_bar,0.1,0,desktop,Agree,14
-keyboard_use_efficiency,amt_bar,0.1,0,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_bar,0.1,0,desktop,Somewhat agree,5
-keyboard_use_efficiency,amt_bar,0.1,0,desktop,Somewhat disagree,2
-keyboard_use_efficiency,amt_bar,0.1,0,desktop,Strongly agree,5
-keyboard_use_efficiency,amt_bar,0.1,0,desktop,Strongly disagree,1
-keyboard_use_efficiency,amt_bar,0.1,100,desktop,Agree,8
-keyboard_use_efficiency,amt_bar,0.1,100,desktop,Disagree,5
-keyboard_use_efficiency,amt_bar,0.1,100,desktop,Neither agree nor disagree,4
-keyboard_use_efficiency,amt_bar,0.1,100,desktop,Somewhat agree,2
-keyboard_use_efficiency,amt_bar,0.1,100,desktop,Somewhat disagree,2
-keyboard_use_efficiency,amt_bar,0.1,100,desktop,Strongly agree,2
-keyboard_use_efficiency,amt_bar,0.1,100,desktop,Strongly disagree,6
-keyboard_use_efficiency,amt_bar,0.1,200,desktop,Agree,5
-keyboard_use_efficiency,amt_bar,0.1,200,desktop,Disagree,5
-keyboard_use_efficiency,amt_bar,0.1,200,desktop,Neither agree nor disagree,2
-keyboard_use_efficiency,amt_bar,0.1,200,desktop,Somewhat agree,3
-keyboard_use_efficiency,amt_bar,0.1,200,desktop,Somewhat disagree,5
-keyboard_use_efficiency,amt_bar,0.1,200,desktop,Strongly agree,4
-keyboard_use_efficiency,amt_bar,0.1,200,desktop,Strongly disagree,6
-keyboard_use_efficiency,amt_bar,0.1,50,desktop,Agree,4
-keyboard_use_efficiency,amt_bar,0.1,50,desktop,Disagree,7
-keyboard_use_efficiency,amt_bar,0.1,50,desktop,Neither agree nor disagree,2
-keyboard_use_efficiency,amt_bar,0.1,50,desktop,Somewhat agree,8
-keyboard_use_efficiency,amt_bar,0.1,50,desktop,Somewhat disagree,4
-keyboard_use_efficiency,amt_bar,0.1,50,desktop,Strongly agree,5
-keyboard_use_efficiency,amt_bar,0.3,0,desktop,Agree,13
-keyboard_use_efficiency,amt_bar,0.3,0,desktop,Disagree,2
-keyboard_use_efficiency,amt_bar,0.3,0,desktop,Neither agree nor disagree,2
-keyboard_use_efficiency,amt_bar,0.3,0,desktop,Somewhat agree,6
-keyboard_use_efficiency,amt_bar,0.3,0,desktop,Somewhat disagree,1
-keyboard_use_efficiency,amt_bar,0.3,0,desktop,Strongly agree,3
-keyboard_use_efficiency,amt_bar,0.3,0,desktop,Strongly disagree,2
-keyboard_use_efficiency,amt_bar,0.3,100,desktop,Agree,8
-keyboard_use_efficiency,amt_bar,0.3,100,desktop,Disagree,6
-keyboard_use_efficiency,amt_bar,0.3,100,desktop,Somewhat agree,5
-keyboard_use_efficiency,amt_bar,0.3,100,desktop,Somewhat disagree,1
-keyboard_use_efficiency,amt_bar,0.3,100,desktop,Strongly agree,4
-keyboard_use_efficiency,amt_bar,0.3,100,desktop,Strongly disagree,4
-keyboard_use_efficiency,amt_bar,0.3,200,desktop,Agree,5
-keyboard_use_efficiency,amt_bar,0.3,200,desktop,Disagree,4
-keyboard_use_efficiency,amt_bar,0.3,200,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_bar,0.3,200,desktop,Somewhat agree,7
-keyboard_use_efficiency,amt_bar,0.3,200,desktop,Somewhat disagree,5
-keyboard_use_efficiency,amt_bar,0.3,200,desktop,Strongly agree,2
-keyboard_use_efficiency,amt_bar,0.3,200,desktop,Strongly disagree,5
-keyboard_use_efficiency,amt_bar,0.3,50,desktop,Agree,7
-keyboard_use_efficiency,amt_bar,0.3,50,desktop,Disagree,2
-keyboard_use_efficiency,amt_bar,0.3,50,desktop,Neither agree nor disagree,2
-keyboard_use_efficiency,amt_bar,0.3,50,desktop,Somewhat agree,6
-keyboard_use_efficiency,amt_bar,0.3,50,desktop,Somewhat disagree,6
-keyboard_use_efficiency,amt_bar,0.3,50,desktop,Strongly agree,6
-keyboard_use_efficiency,amt_bar,0.3,50,desktop,Strongly disagree,1
-keyboard_use_efficiency,amt_bar,0.5,0,desktop,Agree,13
-keyboard_use_efficiency,amt_bar,0.5,0,desktop,Disagree,1
-keyboard_use_efficiency,amt_bar,0.5,0,desktop,Somewhat agree,6
-keyboard_use_efficiency,amt_bar,0.5,0,desktop,Somewhat disagree,1
-keyboard_use_efficiency,amt_bar,0.5,0,desktop,Strongly agree,8
-keyboard_use_efficiency,amt_bar,0.5,100,desktop,Agree,8
-keyboard_use_efficiency,amt_bar,0.5,100,desktop,Disagree,1
-keyboard_use_efficiency,amt_bar,0.5,100,desktop,Neither agree nor disagree,2
-keyboard_use_efficiency,amt_bar,0.5,100,desktop,Somewhat agree,5
-keyboard_use_efficiency,amt_bar,0.5,100,desktop,Somewhat disagree,6
-keyboard_use_efficiency,amt_bar,0.5,100,desktop,Strongly agree,1
-keyboard_use_efficiency,amt_bar,0.5,100,desktop,Strongly disagree,6
-keyboard_use_efficiency,amt_bar,0.5,200,desktop,Agree,2
-keyboard_use_efficiency,amt_bar,0.5,200,desktop,Disagree,4
-keyboard_use_efficiency,amt_bar,0.5,200,desktop,Neither agree nor disagree,3
-keyboard_use_efficiency,amt_bar,0.5,200,desktop,Somewhat agree,5
-keyboard_use_efficiency,amt_bar,0.5,200,desktop,Somewhat disagree,7
-keyboard_use_efficiency,amt_bar,0.5,200,desktop,Strongly agree,2
-keyboard_use_efficiency,amt_bar,0.5,200,desktop,Strongly disagree,7
-keyboard_use_efficiency,amt_bar,0.5,50,desktop,Agree,12
-keyboard_use_efficiency,amt_bar,0.5,50,desktop,Disagree,3
-keyboard_use_efficiency,amt_bar,0.5,50,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_bar,0.5,50,desktop,Somewhat agree,4
-keyboard_use_efficiency,amt_bar,0.5,50,desktop,Somewhat disagree,2
-keyboard_use_efficiency,amt_bar,0.5,50,desktop,Strongly agree,6
-keyboard_use_efficiency,amt_bar,0.5,50,desktop,Strongly disagree,2
-keyboard_use_efficiency,amt_bar,0.7,0,desktop,Agree,14
-keyboard_use_efficiency,amt_bar,0.7,0,desktop,Disagree,1
-keyboard_use_efficiency,amt_bar,0.7,0,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_bar,0.7,0,desktop,Somewhat agree,4
-keyboard_use_efficiency,amt_bar,0.7,0,desktop,Somewhat disagree,1
-keyboard_use_efficiency,amt_bar,0.7,0,desktop,Strongly agree,6
-keyboard_use_efficiency,amt_bar,0.7,0,desktop,Strongly disagree,1
-keyboard_use_efficiency,amt_bar,0.7,100,desktop,Agree,5
-keyboard_use_efficiency,amt_bar,0.7,100,desktop,Disagree,6
-keyboard_use_efficiency,amt_bar,0.7,100,desktop,Neither agree nor disagree,5
-keyboard_use_efficiency,amt_bar,0.7,100,desktop,Somewhat agree,6
-keyboard_use_efficiency,amt_bar,0.7,100,desktop,Somewhat disagree,3
-keyboard_use_efficiency,amt_bar,0.7,100,desktop,Strongly agree,4
-keyboard_use_efficiency,amt_bar,0.7,100,desktop,Strongly disagree,1
-keyboard_use_efficiency,amt_bar,0.7,200,desktop,Agree,10
-keyboard_use_efficiency,amt_bar,0.7,200,desktop,Disagree,5
-keyboard_use_efficiency,amt_bar,0.7,200,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_bar,0.7,200,desktop,Somewhat agree,5
-keyboard_use_efficiency,amt_bar,0.7,200,desktop,Somewhat disagree,4
-keyboard_use_efficiency,amt_bar,0.7,200,desktop,Strongly agree,2
-keyboard_use_efficiency,amt_bar,0.7,200,desktop,Strongly disagree,2
-keyboard_use_efficiency,amt_bar,0.7,50,desktop,Agree,8
-keyboard_use_efficiency,amt_bar,0.7,50,desktop,Disagree,2
-keyboard_use_efficiency,amt_bar,0.7,50,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_bar,0.7,50,desktop,Somewhat agree,8
-keyboard_use_efficiency,amt_bar,0.7,50,desktop,Somewhat disagree,3
-keyboard_use_efficiency,amt_bar,0.7,50,desktop,Strongly agree,4
-keyboard_use_efficiency,amt_bar,0.9,0,desktop,Agree,11
-keyboard_use_efficiency,amt_bar,0.9,0,desktop,Disagree,1
-keyboard_use_efficiency,amt_bar,0.9,0,desktop,Somewhat agree,9
-keyboard_use_efficiency,amt_bar,0.9,0,desktop,Strongly agree,8
-keyboard_use_efficiency,amt_bar,0.9,100,desktop,Agree,9
-keyboard_use_efficiency,amt_bar,0.9,100,desktop,Disagree,3
-keyboard_use_efficiency,amt_bar,0.9,100,desktop,Neither agree nor disagree,4
-keyboard_use_efficiency,amt_bar,0.9,100,desktop,Somewhat agree,3
-keyboard_use_efficiency,amt_bar,0.9,100,desktop,Somewhat disagree,6
-keyboard_use_efficiency,amt_bar,0.9,100,desktop,Strongly agree,5
-keyboard_use_efficiency,amt_bar,0.9,200,desktop,Agree,10
-keyboard_use_efficiency,amt_bar,0.9,200,desktop,Disagree,8
-keyboard_use_efficiency,amt_bar,0.9,200,desktop,Somewhat agree,4
-keyboard_use_efficiency,amt_bar,0.9,200,desktop,Somewhat disagree,3
-keyboard_use_efficiency,amt_bar,0.9,200,desktop,Strongly agree,1
-keyboard_use_efficiency,amt_bar,0.9,200,desktop,Strongly disagree,4
-keyboard_use_efficiency,amt_bar,0.9,50,desktop,Agree,9
-keyboard_use_efficiency,amt_bar,0.9,50,desktop,Disagree,2
-keyboard_use_efficiency,amt_bar,0.9,50,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_bar,0.9,50,desktop,Somewhat agree,6
-keyboard_use_efficiency,amt_bar,0.9,50,desktop,Somewhat disagree,3
-keyboard_use_efficiency,amt_bar,0.9,50,desktop,Strongly agree,7
-keyboard_use_efficiency,amt_inline,0.1,0,desktop,Agree,10
-keyboard_use_efficiency,amt_inline,0.1,0,desktop,Disagree,1
-keyboard_use_efficiency,amt_inline,0.1,0,desktop,Neither agree nor disagree,2
-keyboard_use_efficiency,amt_inline,0.1,0,desktop,Somewhat agree,2
-keyboard_use_efficiency,amt_inline,0.1,0,desktop,Somewhat disagree,1
-keyboard_use_efficiency,amt_inline,0.1,0,desktop,Strongly agree,13
-keyboard_use_efficiency,amt_inline,0.1,0,desktop,Strongly disagree,1
-keyboard_use_efficiency,amt_inline,0.1,100,desktop,Agree,2
-keyboard_use_efficiency,amt_inline,0.1,100,desktop,Disagree,5
-keyboard_use_efficiency,amt_inline,0.1,100,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_inline,0.1,100,desktop,Somewhat agree,9
-keyboard_use_efficiency,amt_inline,0.1,100,desktop,Somewhat disagree,2
-keyboard_use_efficiency,amt_inline,0.1,100,desktop,Strongly agree,1
-keyboard_use_efficiency,amt_inline,0.1,100,desktop,Strongly disagree,10
-keyboard_use_efficiency,amt_inline,0.1,200,desktop,Agree,2
-keyboard_use_efficiency,amt_inline,0.1,200,desktop,Disagree,6
-keyboard_use_efficiency,amt_inline,0.1,200,desktop,Neither agree nor disagree,2
-keyboard_use_efficiency,amt_inline,0.1,200,desktop,Somewhat agree,4
-keyboard_use_efficiency,amt_inline,0.1,200,desktop,Somewhat disagree,3
-keyboard_use_efficiency,amt_inline,0.1,200,desktop,Strongly agree,2
-keyboard_use_efficiency,amt_inline,0.1,200,desktop,Strongly disagree,11
-keyboard_use_efficiency,amt_inline,0.1,50,desktop,Agree,7
-keyboard_use_efficiency,amt_inline,0.1,50,desktop,Disagree,3
-keyboard_use_efficiency,amt_inline,0.1,50,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_inline,0.1,50,desktop,Somewhat agree,6
-keyboard_use_efficiency,amt_inline,0.1,50,desktop,Somewhat disagree,4
-keyboard_use_efficiency,amt_inline,0.1,50,desktop,Strongly agree,7
-keyboard_use_efficiency,amt_inline,0.1,50,desktop,Strongly disagree,3
-keyboard_use_efficiency,amt_inline,0.3,0,desktop,Agree,14
-keyboard_use_efficiency,amt_inline,0.3,0,desktop,Disagree,2
-keyboard_use_efficiency,amt_inline,0.3,0,desktop,Somewhat agree,4
-keyboard_use_efficiency,amt_inline,0.3,0,desktop,Strongly agree,8
-keyboard_use_efficiency,amt_inline,0.3,100,desktop,Agree,2
-keyboard_use_efficiency,amt_inline,0.3,100,desktop,Disagree,5
-keyboard_use_efficiency,amt_inline,0.3,100,desktop,Neither agree nor disagree,3
-keyboard_use_efficiency,amt_inline,0.3,100,desktop,Somewhat agree,12
-keyboard_use_efficiency,amt_inline,0.3,100,desktop,Strongly agree,2
-keyboard_use_efficiency,amt_inline,0.3,100,desktop,Strongly disagree,6
-keyboard_use_efficiency,amt_inline,0.3,200,desktop,Agree,3
-keyboard_use_efficiency,amt_inline,0.3,200,desktop,Disagree,8
-keyboard_use_efficiency,amt_inline,0.3,200,desktop,Somewhat agree,8
-keyboard_use_efficiency,amt_inline,0.3,200,desktop,Somewhat disagree,2
-keyboard_use_efficiency,amt_inline,0.3,200,desktop,Strongly agree,3
-keyboard_use_efficiency,amt_inline,0.3,200,desktop,Strongly disagree,6
-keyboard_use_efficiency,amt_inline,0.3,50,desktop,Agree,7
-keyboard_use_efficiency,amt_inline,0.3,50,desktop,Disagree,4
-keyboard_use_efficiency,amt_inline,0.3,50,desktop,Neither agree nor disagree,3
-keyboard_use_efficiency,amt_inline,0.3,50,desktop,Somewhat agree,6
-keyboard_use_efficiency,amt_inline,0.3,50,desktop,Somewhat disagree,3
-keyboard_use_efficiency,amt_inline,0.3,50,desktop,Strongly agree,5
-keyboard_use_efficiency,amt_inline,0.3,50,desktop,Strongly disagree,2
-keyboard_use_efficiency,amt_inline,0.5,0,desktop,Agree,11
-keyboard_use_efficiency,amt_inline,0.5,0,desktop,Somewhat agree,6
-keyboard_use_efficiency,amt_inline,0.5,0,desktop,Somewhat disagree,3
-keyboard_use_efficiency,amt_inline,0.5,0,desktop,Strongly agree,9
-keyboard_use_efficiency,amt_inline,0.5,0,desktop,Strongly disagree,1
-keyboard_use_efficiency,amt_inline,0.5,100,desktop,Agree,1
-keyboard_use_efficiency,amt_inline,0.5,100,desktop,Disagree,7
-keyboard_use_efficiency,amt_inline,0.5,100,desktop,Neither agree nor disagree,3
-keyboard_use_efficiency,amt_inline,0.5,100,desktop,Somewhat agree,10
-keyboard_use_efficiency,amt_inline,0.5,100,desktop,Somewhat disagree,4
-keyboard_use_efficiency,amt_inline,0.5,100,desktop,Strongly disagree,5
-keyboard_use_efficiency,amt_inline,0.5,200,desktop,Agree,3
-keyboard_use_efficiency,amt_inline,0.5,200,desktop,Disagree,4
-keyboard_use_efficiency,amt_inline,0.5,200,desktop,Neither agree nor disagree,5
-keyboard_use_efficiency,amt_inline,0.5,200,desktop,Somewhat agree,7
-keyboard_use_efficiency,amt_inline,0.5,200,desktop,Somewhat disagree,4
-keyboard_use_efficiency,amt_inline,0.5,200,desktop,Strongly agree,3
-keyboard_use_efficiency,amt_inline,0.5,200,desktop,Strongly disagree,4
-keyboard_use_efficiency,amt_inline,0.5,50,desktop,Agree,13
-keyboard_use_efficiency,amt_inline,0.5,50,desktop,Disagree,2
-keyboard_use_efficiency,amt_inline,0.5,50,desktop,Neither agree nor disagree,2
-keyboard_use_efficiency,amt_inline,0.5,50,desktop,Somewhat agree,3
-keyboard_use_efficiency,amt_inline,0.5,50,desktop,Somewhat disagree,3
-keyboard_use_efficiency,amt_inline,0.5,50,desktop,Strongly agree,5
-keyboard_use_efficiency,amt_inline,0.5,50,desktop,Strongly disagree,1
-keyboard_use_efficiency,amt_inline,0.7,0,desktop,Agree,13
-keyboard_use_efficiency,amt_inline,0.7,0,desktop,Neither agree nor disagree,3
-keyboard_use_efficiency,amt_inline,0.7,0,desktop,Somewhat agree,3
-keyboard_use_efficiency,amt_inline,0.7,0,desktop,Somewhat disagree,2
-keyboard_use_efficiency,amt_inline,0.7,0,desktop,Strongly agree,9
-keyboard_use_efficiency,amt_inline,0.7,100,desktop,Agree,5
-keyboard_use_efficiency,amt_inline,0.7,100,desktop,Disagree,4
-keyboard_use_efficiency,amt_inline,0.7,100,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_inline,0.7,100,desktop,Somewhat agree,9
-keyboard_use_efficiency,amt_inline,0.7,100,desktop,Somewhat disagree,7
-keyboard_use_efficiency,amt_inline,0.7,100,desktop,Strongly agree,1
-keyboard_use_efficiency,amt_inline,0.7,100,desktop,Strongly disagree,3
-keyboard_use_efficiency,amt_inline,0.7,200,desktop,Agree,7
-keyboard_use_efficiency,amt_inline,0.7,200,desktop,Disagree,7
-keyboard_use_efficiency,amt_inline,0.7,200,desktop,Somewhat agree,6
-keyboard_use_efficiency,amt_inline,0.7,200,desktop,Somewhat disagree,5
-keyboard_use_efficiency,amt_inline,0.7,200,desktop,Strongly agree,4
-keyboard_use_efficiency,amt_inline,0.7,200,desktop,Strongly disagree,5
-keyboard_use_efficiency,amt_inline,0.7,50,desktop,Agree,9
-keyboard_use_efficiency,amt_inline,0.7,50,desktop,Disagree,2
-keyboard_use_efficiency,amt_inline,0.7,50,desktop,Somewhat agree,12
-keyboard_use_efficiency,amt_inline,0.7,50,desktop,Somewhat disagree,2
-keyboard_use_efficiency,amt_inline,0.7,50,desktop,Strongly agree,4
-keyboard_use_efficiency,amt_inline,0.7,50,desktop,Strongly disagree,1
-keyboard_use_efficiency,amt_inline,0.9,0,desktop,Agree,12
-keyboard_use_efficiency,amt_inline,0.9,0,desktop,Disagree,1
-keyboard_use_efficiency,amt_inline,0.9,0,desktop,Somewhat agree,5
-keyboard_use_efficiency,amt_inline,0.9,0,desktop,Somewhat disagree,1
-keyboard_use_efficiency,amt_inline,0.9,0,desktop,Strongly agree,11
-keyboard_use_efficiency,amt_inline,0.9,100,desktop,Agree,11
-keyboard_use_efficiency,amt_inline,0.9,100,desktop,Disagree,2
-keyboard_use_efficiency,amt_inline,0.9,100,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_inline,0.9,100,desktop,Somewhat agree,9
-keyboard_use_efficiency,amt_inline,0.9,100,desktop,Somewhat disagree,1
-keyboard_use_efficiency,amt_inline,0.9,100,desktop,Strongly agree,5
-keyboard_use_efficiency,amt_inline,0.9,100,desktop,Strongly disagree,1
-keyboard_use_efficiency,amt_inline,0.9,200,desktop,Agree,10
-keyboard_use_efficiency,amt_inline,0.9,200,desktop,Disagree,3
-keyboard_use_efficiency,amt_inline,0.9,200,desktop,Neither agree nor disagree,3
-keyboard_use_efficiency,amt_inline,0.9,200,desktop,Somewhat agree,7
-keyboard_use_efficiency,amt_inline,0.9,200,desktop,Somewhat disagree,2
-keyboard_use_efficiency,amt_inline,0.9,200,desktop,Strongly agree,3
-keyboard_use_efficiency,amt_inline,0.9,200,desktop,Strongly disagree,2
-keyboard_use_efficiency,amt_inline,0.9,50,desktop,Agree,15
-keyboard_use_efficiency,amt_inline,0.9,50,desktop,Disagree,1
-keyboard_use_efficiency,amt_inline,0.9,50,desktop,Neither agree nor disagree,1
-keyboard_use_efficiency,amt_inline,0.9,50,desktop,Somewhat agree,7
-keyboard_use_efficiency,amt_inline,0.9,50,desktop,Strongly agree,4
-keyboard_use_efficiency,devices,0.1,0,desktop,Agree,2
-keyboard_use_efficiency,devices,0.1,0,desktop,Strongly agree,7
-keyboard_use_efficiency,devices,0.1,0,desktop,Strongly disagree,3
-keyboard_use_efficiency,devices,0.1,0,phone,Agree,3
-keyboard_use_efficiency,devices,0.1,0,phone,Disagree,4
-keyboard_use_efficiency,devices,0.1,0,phone,Neither agree nor disagree,1
-keyboard_use_efficiency,devices,0.1,0,phone,Somewhat agree,2
-keyboard_use_efficiency,devices,0.1,0,phone,Somewhat disagree,1
-keyboard_use_efficiency,devices,0.1,0,phone,Strongly disagree,1
-keyboard_use_efficiency,devices,0.1,0,tablet,Agree,1
-keyboard_use_efficiency,devices,0.1,0,tablet,Disagree,3
-keyboard_use_efficiency,devices,0.1,0,tablet,Neither agree nor disagree,2
-keyboard_use_efficiency,devices,0.1,0,tablet,Somewhat agree,4
-keyboard_use_efficiency,devices,0.1,0,tablet,Somewhat disagree,1
-keyboard_use_efficiency,devices,0.1,0,tablet,Strongly disagree,1
-keyboard_use_efficiency,devices,0.5,0,desktop,Agree,3
-keyboard_use_efficiency,devices,0.5,0,desktop,Disagree,1
-keyboard_use_efficiency,devices,0.5,0,desktop,Somewhat agree,1
-keyboard_use_efficiency,devices,0.5,0,desktop,Strongly agree,7
-keyboard_use_efficiency,devices,0.5,0,phone,Agree,1
-keyboard_use_efficiency,devices,0.5,0,phone,Disagree,3
-keyboard_use_efficiency,devices,0.5,0,phone,Neither agree nor disagree,1
-keyboard_use_efficiency,devices,0.5,0,phone,Somewhat agree,2
-keyboard_use_efficiency,devices,0.5,0,phone,Somewhat disagree,3
-keyboard_use_efficiency,devices,0.5,0,phone,Strongly agree,1
-keyboard_use_efficiency,devices,0.5,0,phone,Strongly disagree,1
-keyboard_use_efficiency,devices,0.5,0,tablet,Agree,3
-keyboard_use_efficiency,devices,0.5,0,tablet,Disagree,2
-keyboard_use_efficiency,devices,0.5,0,tablet,Neither agree nor disagree,1
-keyboard_use_efficiency,devices,0.5,0,tablet,Somewhat agree,3
-keyboard_use_efficiency,devices,0.5,0,tablet,Somewhat disagree,3
-keyboard_use_efficiency,devices,0.9,0,desktop,Agree,3
-keyboard_use_efficiency,devices,0.9,0,desktop,Somewhat agree,1
-keyboard_use_efficiency,devices,0.9,0,desktop,Strongly agree,8
-keyboard_use_efficiency,devices,0.9,0,phone,Agree,2
-keyboard_use_efficiency,devices,0.9,0,phone,Neither agree nor disagree,3
-keyboard_use_efficiency,devices,0.9,0,phone,Somewhat agree,2
-keyboard_use_efficiency,devices,0.9,0,phone,Somewhat disagree,2
-keyboard_use_efficiency,devices,0.9,0,phone,Strongly agree,1
-keyboard_use_efficiency,devices,0.9,0,phone,Strongly disagree,2
-keyboard_use_efficiency,devices,0.9,0,tablet,Agree,2
-keyboard_use_efficiency,devices,0.9,0,tablet,Disagree,2
-keyboard_use_efficiency,devices,0.9,0,tablet,Neither agree nor disagree,2
-keyboard_use_efficiency,devices,0.9,0,tablet,Somewhat agree,3
-keyboard_use_efficiency,devices,0.9,0,tablet,Somewhat disagree,3
-suggestion_distraction,amt_bar,0.1,0,desktop,Agree,7
-suggestion_distraction,amt_bar,0.1,0,desktop,Disagree,10
-suggestion_distraction,amt_bar,0.1,0,desktop,Somewhat agree,4
-suggestion_distraction,amt_bar,0.1,0,desktop,Somewhat disagree,4
-suggestion_distraction,amt_bar,0.1,0,desktop,Strongly agree,3
-suggestion_distraction,amt_bar,0.1,100,desktop,Agree,3
-suggestion_distraction,amt_bar,0.1,100,desktop,Disagree,2
-suggestion_distraction,amt_bar,0.1,100,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_bar,0.1,100,desktop,Somewhat agree,11
-suggestion_distraction,amt_bar,0.1,100,desktop,Somewhat disagree,7
-suggestion_distraction,amt_bar,0.1,100,desktop,Strongly agree,2
-suggestion_distraction,amt_bar,0.1,100,desktop,Strongly disagree,3
-suggestion_distraction,amt_bar,0.1,200,desktop,Agree,8
-suggestion_distraction,amt_bar,0.1,200,desktop,Disagree,7
-suggestion_distraction,amt_bar,0.1,200,desktop,Neither agree nor disagree,3
-suggestion_distraction,amt_bar,0.1,200,desktop,Somewhat agree,6
-suggestion_distraction,amt_bar,0.1,200,desktop,Somewhat disagree,2
-suggestion_distraction,amt_bar,0.1,200,desktop,Strongly agree,2
-suggestion_distraction,amt_bar,0.1,200,desktop,Strongly disagree,2
-suggestion_distraction,amt_bar,0.1,50,desktop,Agree,8
-suggestion_distraction,amt_bar,0.1,50,desktop,Disagree,7
-suggestion_distraction,amt_bar,0.1,50,desktop,Somewhat agree,9
-suggestion_distraction,amt_bar,0.1,50,desktop,Somewhat disagree,1
-suggestion_distraction,amt_bar,0.1,50,desktop,Strongly agree,2
-suggestion_distraction,amt_bar,0.1,50,desktop,Strongly disagree,3
-suggestion_distraction,amt_bar,0.3,0,desktop,Agree,2
-suggestion_distraction,amt_bar,0.3,0,desktop,Disagree,2
-suggestion_distraction,amt_bar,0.3,0,desktop,Neither agree nor disagree,3
-suggestion_distraction,amt_bar,0.3,0,desktop,Somewhat agree,7
-suggestion_distraction,amt_bar,0.3,0,desktop,Somewhat disagree,5
-suggestion_distraction,amt_bar,0.3,0,desktop,Strongly agree,6
-suggestion_distraction,amt_bar,0.3,0,desktop,Strongly disagree,4
-suggestion_distraction,amt_bar,0.3,100,desktop,Agree,5
-suggestion_distraction,amt_bar,0.3,100,desktop,Disagree,9
-suggestion_distraction,amt_bar,0.3,100,desktop,Somewhat agree,8
-suggestion_distraction,amt_bar,0.3,100,desktop,Somewhat disagree,2
-suggestion_distraction,amt_bar,0.3,100,desktop,Strongly agree,2
-suggestion_distraction,amt_bar,0.3,100,desktop,Strongly disagree,2
-suggestion_distraction,amt_bar,0.3,200,desktop,Agree,2
-suggestion_distraction,amt_bar,0.3,200,desktop,Disagree,8
-suggestion_distraction,amt_bar,0.3,200,desktop,Somewhat agree,9
-suggestion_distraction,amt_bar,0.3,200,desktop,Somewhat disagree,6
-suggestion_distraction,amt_bar,0.3,200,desktop,Strongly agree,3
-suggestion_distraction,amt_bar,0.3,200,desktop,Strongly disagree,1
-suggestion_distraction,amt_bar,0.3,50,desktop,Agree,8
-suggestion_distraction,amt_bar,0.3,50,desktop,Disagree,5
-suggestion_distraction,amt_bar,0.3,50,desktop,Neither agree nor disagree,3
-suggestion_distraction,amt_bar,0.3,50,desktop,Somewhat agree,7
-suggestion_distraction,amt_bar,0.3,50,desktop,Somewhat disagree,4
-suggestion_distraction,amt_bar,0.3,50,desktop,Strongly agree,1
-suggestion_distraction,amt_bar,0.3,50,desktop,Strongly disagree,2
-suggestion_distraction,amt_bar,0.5,0,desktop,Agree,3
-suggestion_distraction,amt_bar,0.5,0,desktop,Disagree,6
-suggestion_distraction,amt_bar,0.5,0,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_bar,0.5,0,desktop,Somewhat agree,7
-suggestion_distraction,amt_bar,0.5,0,desktop,Somewhat disagree,6
-suggestion_distraction,amt_bar,0.5,0,desktop,Strongly agree,5
-suggestion_distraction,amt_bar,0.5,0,desktop,Strongly disagree,1
-suggestion_distraction,amt_bar,0.5,100,desktop,Agree,3
-suggestion_distraction,amt_bar,0.5,100,desktop,Disagree,8
-suggestion_distraction,amt_bar,0.5,100,desktop,Neither agree nor disagree,2
-suggestion_distraction,amt_bar,0.5,100,desktop,Somewhat agree,6
-suggestion_distraction,amt_bar,0.5,100,desktop,Somewhat disagree,7
-suggestion_distraction,amt_bar,0.5,100,desktop,Strongly agree,1
-suggestion_distraction,amt_bar,0.5,100,desktop,Strongly disagree,2
-suggestion_distraction,amt_bar,0.5,200,desktop,Agree,1
-suggestion_distraction,amt_bar,0.5,200,desktop,Disagree,6
-suggestion_distraction,amt_bar,0.5,200,desktop,Neither agree nor disagree,2
-suggestion_distraction,amt_bar,0.5,200,desktop,Somewhat agree,7
-suggestion_distraction,amt_bar,0.5,200,desktop,Somewhat disagree,9
-suggestion_distraction,amt_bar,0.5,200,desktop,Strongly agree,2
-suggestion_distraction,amt_bar,0.5,200,desktop,Strongly disagree,3
-suggestion_distraction,amt_bar,0.5,50,desktop,Agree,1
-suggestion_distraction,amt_bar,0.5,50,desktop,Disagree,8
-suggestion_distraction,amt_bar,0.5,50,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_bar,0.5,50,desktop,Somewhat agree,9
-suggestion_distraction,amt_bar,0.5,50,desktop,Somewhat disagree,3
-suggestion_distraction,amt_bar,0.5,50,desktop,Strongly agree,3
-suggestion_distraction,amt_bar,0.5,50,desktop,Strongly disagree,5
-suggestion_distraction,amt_bar,0.7,0,desktop,Agree,2
-suggestion_distraction,amt_bar,0.7,0,desktop,Disagree,5
-suggestion_distraction,amt_bar,0.7,0,desktop,Somewhat agree,7
-suggestion_distraction,amt_bar,0.7,0,desktop,Somewhat disagree,10
-suggestion_distraction,amt_bar,0.7,0,desktop,Strongly agree,3
-suggestion_distraction,amt_bar,0.7,0,desktop,Strongly disagree,1
-suggestion_distraction,amt_bar,0.7,100,desktop,Agree,1
-suggestion_distraction,amt_bar,0.7,100,desktop,Disagree,12
-suggestion_distraction,amt_bar,0.7,100,desktop,Somewhat agree,5
-suggestion_distraction,amt_bar,0.7,100,desktop,Somewhat disagree,9
-suggestion_distraction,amt_bar,0.7,100,desktop,Strongly agree,1
-suggestion_distraction,amt_bar,0.7,100,desktop,Strongly disagree,2
-suggestion_distraction,amt_bar,0.7,200,desktop,Agree,1
-suggestion_distraction,amt_bar,0.7,200,desktop,Disagree,10
-suggestion_distraction,amt_bar,0.7,200,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_bar,0.7,200,desktop,Somewhat agree,1
-suggestion_distraction,amt_bar,0.7,200,desktop,Somewhat disagree,11
-suggestion_distraction,amt_bar,0.7,200,desktop,Strongly agree,1
-suggestion_distraction,amt_bar,0.7,200,desktop,Strongly disagree,4
-suggestion_distraction,amt_bar,0.7,50,desktop,Agree,2
-suggestion_distraction,amt_bar,0.7,50,desktop,Disagree,7
-suggestion_distraction,amt_bar,0.7,50,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_bar,0.7,50,desktop,Somewhat agree,5
-suggestion_distraction,amt_bar,0.7,50,desktop,Somewhat disagree,5
-suggestion_distraction,amt_bar,0.7,50,desktop,Strongly agree,2
-suggestion_distraction,amt_bar,0.7,50,desktop,Strongly disagree,4
-suggestion_distraction,amt_bar,0.9,0,desktop,Disagree,12
-suggestion_distraction,amt_bar,0.9,0,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_bar,0.9,0,desktop,Somewhat agree,4
-suggestion_distraction,amt_bar,0.9,0,desktop,Somewhat disagree,7
-suggestion_distraction,amt_bar,0.9,0,desktop,Strongly agree,1
-suggestion_distraction,amt_bar,0.9,0,desktop,Strongly disagree,4
-suggestion_distraction,amt_bar,0.9,100,desktop,Agree,1
-suggestion_distraction,amt_bar,0.9,100,desktop,Disagree,9
-suggestion_distraction,amt_bar,0.9,100,desktop,Neither agree nor disagree,2
-suggestion_distraction,amt_bar,0.9,100,desktop,Somewhat agree,3
-suggestion_distraction,amt_bar,0.9,100,desktop,Somewhat disagree,12
-suggestion_distraction,amt_bar,0.9,100,desktop,Strongly agree,1
-suggestion_distraction,amt_bar,0.9,100,desktop,Strongly disagree,2
-suggestion_distraction,amt_bar,0.9,200,desktop,Disagree,11
-suggestion_distraction,amt_bar,0.9,200,desktop,Somewhat agree,3
-suggestion_distraction,amt_bar,0.9,200,desktop,Somewhat disagree,8
-suggestion_distraction,amt_bar,0.9,200,desktop,Strongly disagree,8
-suggestion_distraction,amt_bar,0.9,50,desktop,Agree,4
-suggestion_distraction,amt_bar,0.9,50,desktop,Disagree,10
-suggestion_distraction,amt_bar,0.9,50,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_bar,0.9,50,desktop,Somewhat agree,3
-suggestion_distraction,amt_bar,0.9,50,desktop,Somewhat disagree,3
-suggestion_distraction,amt_bar,0.9,50,desktop,Strongly agree,1
-suggestion_distraction,amt_bar,0.9,50,desktop,Strongly disagree,6
-suggestion_distraction,amt_inline,0.1,0,desktop,Agree,6
-suggestion_distraction,amt_inline,0.1,0,desktop,Disagree,3
-suggestion_distraction,amt_inline,0.1,0,desktop,Neither agree nor disagree,3
-suggestion_distraction,amt_inline,0.1,0,desktop,Somewhat agree,7
-suggestion_distraction,amt_inline,0.1,0,desktop,Somewhat disagree,3
-suggestion_distraction,amt_inline,0.1,0,desktop,Strongly agree,6
-suggestion_distraction,amt_inline,0.1,0,desktop,Strongly disagree,2
-suggestion_distraction,amt_inline,0.1,100,desktop,Agree,10
-suggestion_distraction,amt_inline,0.1,100,desktop,Disagree,4
-suggestion_distraction,amt_inline,0.1,100,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_inline,0.1,100,desktop,Somewhat agree,8
-suggestion_distraction,amt_inline,0.1,100,desktop,Somewhat disagree,4
-suggestion_distraction,amt_inline,0.1,100,desktop,Strongly agree,1
-suggestion_distraction,amt_inline,0.1,100,desktop,Strongly disagree,2
-suggestion_distraction,amt_inline,0.1,200,desktop,Agree,5
-suggestion_distraction,amt_inline,0.1,200,desktop,Disagree,4
-suggestion_distraction,amt_inline,0.1,200,desktop,Neither agree nor disagree,2
-suggestion_distraction,amt_inline,0.1,200,desktop,Somewhat agree,9
-suggestion_distraction,amt_inline,0.1,200,desktop,Somewhat disagree,4
-suggestion_distraction,amt_inline,0.1,200,desktop,Strongly agree,5
-suggestion_distraction,amt_inline,0.1,200,desktop,Strongly disagree,1
-suggestion_distraction,amt_inline,0.1,50,desktop,Agree,7
-suggestion_distraction,amt_inline,0.1,50,desktop,Disagree,5
-suggestion_distraction,amt_inline,0.1,50,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_inline,0.1,50,desktop,Somewhat agree,9
-suggestion_distraction,amt_inline,0.1,50,desktop,Somewhat disagree,4
-suggestion_distraction,amt_inline,0.1,50,desktop,Strongly agree,4
-suggestion_distraction,amt_inline,0.1,50,desktop,Strongly disagree,1
-suggestion_distraction,amt_inline,0.3,0,desktop,Agree,6
-suggestion_distraction,amt_inline,0.3,0,desktop,Disagree,3
-suggestion_distraction,amt_inline,0.3,0,desktop,Somewhat agree,12
-suggestion_distraction,amt_inline,0.3,0,desktop,Somewhat disagree,2
-suggestion_distraction,amt_inline,0.3,0,desktop,Strongly agree,3
-suggestion_distraction,amt_inline,0.3,0,desktop,Strongly disagree,2
-suggestion_distraction,amt_inline,0.3,100,desktop,Agree,9
-suggestion_distraction,amt_inline,0.3,100,desktop,Disagree,4
-suggestion_distraction,amt_inline,0.3,100,desktop,Neither agree nor disagree,4
-suggestion_distraction,amt_inline,0.3,100,desktop,Somewhat agree,6
-suggestion_distraction,amt_inline,0.3,100,desktop,Somewhat disagree,5
-suggestion_distraction,amt_inline,0.3,100,desktop,Strongly agree,1
-suggestion_distraction,amt_inline,0.3,100,desktop,Strongly disagree,1
-suggestion_distraction,amt_inline,0.3,200,desktop,Agree,3
-suggestion_distraction,amt_inline,0.3,200,desktop,Disagree,9
-suggestion_distraction,amt_inline,0.3,200,desktop,Somewhat agree,9
-suggestion_distraction,amt_inline,0.3,200,desktop,Somewhat disagree,5
-suggestion_distraction,amt_inline,0.3,200,desktop,Strongly agree,2
-suggestion_distraction,amt_inline,0.3,200,desktop,Strongly disagree,2
-suggestion_distraction,amt_inline,0.3,50,desktop,Agree,7
-suggestion_distraction,amt_inline,0.3,50,desktop,Disagree,6
-suggestion_distraction,amt_inline,0.3,50,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_inline,0.3,50,desktop,Somewhat agree,7
-suggestion_distraction,amt_inline,0.3,50,desktop,Somewhat disagree,5
-suggestion_distraction,amt_inline,0.3,50,desktop,Strongly agree,3
-suggestion_distraction,amt_inline,0.3,50,desktop,Strongly disagree,1
-suggestion_distraction,amt_inline,0.5,0,desktop,Agree,5
-suggestion_distraction,amt_inline,0.5,0,desktop,Disagree,5
-suggestion_distraction,amt_inline,0.5,0,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_inline,0.5,0,desktop,Somewhat agree,10
-suggestion_distraction,amt_inline,0.5,0,desktop,Somewhat disagree,3
-suggestion_distraction,amt_inline,0.5,0,desktop,Strongly agree,4
-suggestion_distraction,amt_inline,0.5,0,desktop,Strongly disagree,2
-suggestion_distraction,amt_inline,0.5,100,desktop,Agree,4
-suggestion_distraction,amt_inline,0.5,100,desktop,Disagree,4
-suggestion_distraction,amt_inline,0.5,100,desktop,Somewhat agree,11
-suggestion_distraction,amt_inline,0.5,100,desktop,Somewhat disagree,6
-suggestion_distraction,amt_inline,0.5,100,desktop,Strongly agree,4
-suggestion_distraction,amt_inline,0.5,100,desktop,Strongly disagree,1
-suggestion_distraction,amt_inline,0.5,200,desktop,Agree,3
-suggestion_distraction,amt_inline,0.5,200,desktop,Disagree,5
-suggestion_distraction,amt_inline,0.5,200,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_inline,0.5,200,desktop,Somewhat agree,5
-suggestion_distraction,amt_inline,0.5,200,desktop,Somewhat disagree,9
-suggestion_distraction,amt_inline,0.5,200,desktop,Strongly agree,2
-suggestion_distraction,amt_inline,0.5,200,desktop,Strongly disagree,5
-suggestion_distraction,amt_inline,0.5,50,desktop,Agree,6
-suggestion_distraction,amt_inline,0.5,50,desktop,Disagree,3
-suggestion_distraction,amt_inline,0.5,50,desktop,Neither agree nor disagree,3
-suggestion_distraction,amt_inline,0.5,50,desktop,Somewhat agree,9
-suggestion_distraction,amt_inline,0.5,50,desktop,Somewhat disagree,4
-suggestion_distraction,amt_inline,0.5,50,desktop,Strongly agree,2
-suggestion_distraction,amt_inline,0.5,50,desktop,Strongly disagree,2
-suggestion_distraction,amt_inline,0.7,0,desktop,Agree,3
-suggestion_distraction,amt_inline,0.7,0,desktop,Disagree,3
-suggestion_distraction,amt_inline,0.7,0,desktop,Neither agree nor disagree,3
-suggestion_distraction,amt_inline,0.7,0,desktop,Somewhat agree,8
-suggestion_distraction,amt_inline,0.7,0,desktop,Somewhat disagree,7
-suggestion_distraction,amt_inline,0.7,0,desktop,Strongly agree,3
-suggestion_distraction,amt_inline,0.7,0,desktop,Strongly disagree,3
-suggestion_distraction,amt_inline,0.7,100,desktop,Agree,2
-suggestion_distraction,amt_inline,0.7,100,desktop,Disagree,9
-suggestion_distraction,amt_inline,0.7,100,desktop,Neither agree nor disagree,2
-suggestion_distraction,amt_inline,0.7,100,desktop,Somewhat agree,5
-suggestion_distraction,amt_inline,0.7,100,desktop,Somewhat disagree,8
-suggestion_distraction,amt_inline,0.7,100,desktop,Strongly disagree,4
-suggestion_distraction,amt_inline,0.7,200,desktop,Agree,3
-suggestion_distraction,amt_inline,0.7,200,desktop,Disagree,15
-suggestion_distraction,amt_inline,0.7,200,desktop,Somewhat agree,5
-suggestion_distraction,amt_inline,0.7,200,desktop,Somewhat disagree,8
-suggestion_distraction,amt_inline,0.7,200,desktop,Strongly agree,1
-suggestion_distraction,amt_inline,0.7,200,desktop,Strongly disagree,2
-suggestion_distraction,amt_inline,0.7,50,desktop,Agree,2
-suggestion_distraction,amt_inline,0.7,50,desktop,Disagree,4
-suggestion_distraction,amt_inline,0.7,50,desktop,Neither agree nor disagree,2
-suggestion_distraction,amt_inline,0.7,50,desktop,Somewhat agree,7
-suggestion_distraction,amt_inline,0.7,50,desktop,Somewhat disagree,11
-suggestion_distraction,amt_inline,0.7,50,desktop,Strongly agree,1
-suggestion_distraction,amt_inline,0.7,50,desktop,Strongly disagree,3
-suggestion_distraction,amt_inline,0.9,0,desktop,Agree,2
-suggestion_distraction,amt_inline,0.9,0,desktop,Disagree,7
-suggestion_distraction,amt_inline,0.9,0,desktop,Somewhat agree,6
-suggestion_distraction,amt_inline,0.9,0,desktop,Somewhat disagree,8
-suggestion_distraction,amt_inline,0.9,0,desktop,Strongly agree,2
-suggestion_distraction,amt_inline,0.9,0,desktop,Strongly disagree,5
-suggestion_distraction,amt_inline,0.9,100,desktop,Agree,1
-suggestion_distraction,amt_inline,0.9,100,desktop,Disagree,14
-suggestion_distraction,amt_inline,0.9,100,desktop,Neither agree nor disagree,1
-suggestion_distraction,amt_inline,0.9,100,desktop,Somewhat agree,5
-suggestion_distraction,amt_inline,0.9,100,desktop,Somewhat disagree,4
-suggestion_distraction,amt_inline,0.9,100,desktop,Strongly disagree,5
-suggestion_distraction,amt_inline,0.9,200,desktop,Disagree,11
-suggestion_distraction,amt_inline,0.9,200,desktop,Somewhat agree,4
-suggestion_distraction,amt_inline,0.9,200,desktop,Somewhat disagree,8
-suggestion_distraction,amt_inline,0.9,200,desktop,Strongly agree,1
-suggestion_distraction,amt_inline,0.9,200,desktop,Strongly disagree,6
-suggestion_distraction,amt_inline,0.9,50,desktop,Agree,3
-suggestion_distraction,amt_inline,0.9,50,desktop,Disagree,12
-suggestion_distraction,amt_inline,0.9,50,desktop,Neither agree nor disagree,2
-suggestion_distraction,amt_inline,0.9,50,desktop,Somewhat agree,4
-suggestion_distraction,amt_inline,0.9,50,desktop,Somewhat disagree,4
-suggestion_distraction,amt_inline,0.9,50,desktop,Strongly agree,1
-suggestion_distraction,amt_inline,0.9,50,desktop,Strongly disagree,2
-suggestion_distraction,devices,0.1,0,desktop,Agree,1
-suggestion_distraction,devices,0.1,0,desktop,Disagree,2
-suggestion_distraction,devices,0.1,0,desktop,Neither agree nor disagree,2
-suggestion_distraction,devices,0.1,0,desktop,Somewhat agree,3
-suggestion_distraction,devices,0.1,0,desktop,Strongly agree,2
-suggestion_distraction,devices,0.1,0,desktop,Strongly disagree,2
-suggestion_distraction,devices,0.1,0,phone,Agree,1
-suggestion_distraction,devices,0.1,0,phone,Disagree,3
-suggestion_distraction,devices,0.1,0,phone,Neither agree nor disagree,2
-suggestion_distraction,devices,0.1,0,phone,Somewhat agree,5
-suggestion_distraction,devices,0.1,0,phone,Somewhat disagree,1
-suggestion_distraction,devices,0.1,0,tablet,Agree,3
-suggestion_distraction,devices,0.1,0,tablet,Disagree,1
-suggestion_distraction,devices,0.1,0,tablet,Neither agree nor disagree,3
-suggestion_distraction,devices,0.1,0,tablet,Somewhat agree,3
-suggestion_distraction,devices,0.1,0,tablet,Somewhat disagree,1
-suggestion_distraction,devices,0.1,0,tablet,Strongly disagree,1
-suggestion_distraction,devices,0.5,0,desktop,Agree,2
-suggestion_distraction,devices,0.5,0,desktop,Disagree,2
-suggestion_distraction,devices,0.5,0,desktop,Neither agree nor disagree,3
-suggestion_distraction,devices,0.5,0,desktop,Somewhat agree,3
-suggestion_distraction,devices,0.5,0,desktop,Strongly agree,1
-suggestion_distraction,devices,0.5,0,desktop,Strongly disagree,1
-suggestion_distraction,devices,0.5,0,phone,Agree,2
-suggestion_distraction,devices,0.5,0,phone,Disagree,3
-suggestion_distraction,devices,0.5,0,phone,Neither agree nor disagree,2
-suggestion_distraction,devices,0.5,0,phone,Somewhat agree,2
-suggestion_distraction,devices,0.5,0,phone,Somewhat disagree,2
-suggestion_distraction,devices,0.5,0,phone,Strongly agree,1
-suggestion_distraction,devices,0.5,0,tablet,Agree,2
-suggestion_distraction,devices,0.5,0,tablet,Disagree,2
-suggestion_distraction,devices,0.5,0,tablet,Neither agree nor disagree,2
-suggestion_distraction,devices,0.5,0,tablet,Somewhat agree,5
-suggestion_distraction,devices,0.5,0,tablet,Strongly disagree,1
-suggestion_distraction,devices,0.9,0,desktop,Agree,1
-suggestion_distraction,devices,0.9,0,desktop,Disagree,4
-suggestion_distraction,devices,0.9,0,desktop,Neither agree nor disagree,3
-suggestion_distraction,devices,0.9,0,desktop,Somewhat agree,3
-suggestion_distraction,devices,0.9,0,desktop,Somewhat disagree,1
-suggestion_distraction,devices,0.9,0,phone,Disagree,9
-suggestion_distraction,devices,0.9,0,phone,Somewhat disagree,1
-suggestion_distraction,devices,0.9,0,phone,Strongly disagree,2
-suggestion_distraction,devices,0.9,0,tablet,Disagree,5
-suggestion_distraction,devices,0.9,0,tablet,Neither agree nor disagree,1
-suggestion_distraction,devices,0.9,0,tablet,Somewhat agree,3
-suggestion_distraction,devices,0.9,0,tablet,Somewhat disagree,2
-suggestion_distraction,devices,0.9,0,tablet,Strongly disagree,1
-suggestions_accuracy,amt_bar,0.1,0,desktop,Agree,3
-suggestions_accuracy,amt_bar,0.1,0,desktop,Disagree,5
-suggestions_accuracy,amt_bar,0.1,0,desktop,Neither agree nor disagree,5
-suggestions_accuracy,amt_bar,0.1,0,desktop,Somewhat agree,3
-suggestions_accuracy,amt_bar,0.1,0,desktop,Somewhat disagree,9
-suggestions_accuracy,amt_bar,0.1,0,desktop,Strongly agree,2
-suggestions_accuracy,amt_bar,0.1,0,desktop,Strongly disagree,1
-suggestions_accuracy,amt_bar,0.1,100,desktop,Agree,1
-suggestions_accuracy,amt_bar,0.1,100,desktop,Disagree,13
-suggestions_accuracy,amt_bar,0.1,100,desktop,Neither agree nor disagree,3
-suggestions_accuracy,amt_bar,0.1,100,desktop,Somewhat agree,1
-suggestions_accuracy,amt_bar,0.1,100,desktop,Somewhat disagree,5
-suggestions_accuracy,amt_bar,0.1,100,desktop,Strongly disagree,6
-suggestions_accuracy,amt_bar,0.1,200,desktop,Agree,3
-suggestions_accuracy,amt_bar,0.1,200,desktop,Disagree,11
-suggestions_accuracy,amt_bar,0.1,200,desktop,Neither agree nor disagree,3
-suggestions_accuracy,amt_bar,0.1,200,desktop,Somewhat disagree,5
-suggestions_accuracy,amt_bar,0.1,200,desktop,Strongly agree,1
-suggestions_accuracy,amt_bar,0.1,200,desktop,Strongly disagree,7
-suggestions_accuracy,amt_bar,0.1,50,desktop,Agree,3
-suggestions_accuracy,amt_bar,0.1,50,desktop,Disagree,6
-suggestions_accuracy,amt_bar,0.1,50,desktop,Neither agree nor disagree,2
-suggestions_accuracy,amt_bar,0.1,50,desktop,Somewhat agree,3
-suggestions_accuracy,amt_bar,0.1,50,desktop,Somewhat disagree,8
-suggestions_accuracy,amt_bar,0.1,50,desktop,Strongly agree,1
-suggestions_accuracy,amt_bar,0.1,50,desktop,Strongly disagree,7
-suggestions_accuracy,amt_bar,0.3,0,desktop,Agree,2
-suggestions_accuracy,amt_bar,0.3,0,desktop,Disagree,6
-suggestions_accuracy,amt_bar,0.3,0,desktop,Neither agree nor disagree,8
-suggestions_accuracy,amt_bar,0.3,0,desktop,Somewhat agree,6
-suggestions_accuracy,amt_bar,0.3,0,desktop,Somewhat disagree,6
-suggestions_accuracy,amt_bar,0.3,0,desktop,Strongly agree,1
-suggestions_accuracy,amt_bar,0.3,100,desktop,Agree,5
-suggestions_accuracy,amt_bar,0.3,100,desktop,Disagree,4
-suggestions_accuracy,amt_bar,0.3,100,desktop,Neither agree nor disagree,1
-suggestions_accuracy,amt_bar,0.3,100,desktop,Somewhat agree,9
-suggestions_accuracy,amt_bar,0.3,100,desktop,Somewhat disagree,5
-suggestions_accuracy,amt_bar,0.3,100,desktop,Strongly agree,4
-suggestions_accuracy,amt_bar,0.3,200,desktop,Agree,6
-suggestions_accuracy,amt_bar,0.3,200,desktop,Disagree,4
-suggestions_accuracy,amt_bar,0.3,200,desktop,Neither agree nor disagree,2
-suggestions_accuracy,amt_bar,0.3,200,desktop,Somewhat agree,11
-suggestions_accuracy,amt_bar,0.3,200,desktop,Somewhat disagree,2
-suggestions_accuracy,amt_bar,0.3,200,desktop,Strongly agree,1
-suggestions_accuracy,amt_bar,0.3,200,desktop,Strongly disagree,3
-suggestions_accuracy,amt_bar,0.3,50,desktop,Agree,6
-suggestions_accuracy,amt_bar,0.3,50,desktop,Disagree,3
-suggestions_accuracy,amt_bar,0.3,50,desktop,Neither agree nor disagree,2
-suggestions_accuracy,amt_bar,0.3,50,desktop,Somewhat agree,6
-suggestions_accuracy,amt_bar,0.3,50,desktop,Somewhat disagree,10
-suggestions_accuracy,amt_bar,0.3,50,desktop,Strongly agree,2
-suggestions_accuracy,amt_bar,0.3,50,desktop,Strongly disagree,1
-suggestions_accuracy,amt_bar,0.5,0,desktop,Agree,4
-suggestions_accuracy,amt_bar,0.5,0,desktop,Disagree,1
-suggestions_accuracy,amt_bar,0.5,0,desktop,Neither agree nor disagree,4
-suggestions_accuracy,amt_bar,0.5,0,desktop,Somewhat agree,13
-suggestions_accuracy,amt_bar,0.5,0,desktop,Somewhat disagree,5
-suggestions_accuracy,amt_bar,0.5,0,desktop,Strongly agree,2
-suggestions_accuracy,amt_bar,0.5,100,desktop,Agree,6
-suggestions_accuracy,amt_bar,0.5,100,desktop,Disagree,4
-suggestions_accuracy,amt_bar,0.5,100,desktop,Neither agree nor disagree,3
-suggestions_accuracy,amt_bar,0.5,100,desktop,Somewhat agree,11
-suggestions_accuracy,amt_bar,0.5,100,desktop,Somewhat disagree,4
-suggestions_accuracy,amt_bar,0.5,100,desktop,Strongly agree,1
-suggestions_accuracy,amt_bar,0.5,200,desktop,Agree,8
-suggestions_accuracy,amt_bar,0.5,200,desktop,Disagree,1
-suggestions_accuracy,amt_bar,0.5,200,desktop,Neither agree nor disagree,3
-suggestions_accuracy,amt_bar,0.5,200,desktop,Somewhat agree,12
-suggestions_accuracy,amt_bar,0.5,200,desktop,Somewhat disagree,5
-suggestions_accuracy,amt_bar,0.5,200,desktop,Strongly agree,1
-suggestions_accuracy,amt_bar,0.5,50,desktop,Agree,4
-suggestions_accuracy,amt_bar,0.5,50,desktop,Neither agree nor disagree,6
-suggestions_accuracy,amt_bar,0.5,50,desktop,Somewhat agree,10
-suggestions_accuracy,amt_bar,0.5,50,desktop,Somewhat disagree,6
-suggestions_accuracy,amt_bar,0.5,50,desktop,Strongly agree,4
-suggestions_accuracy,amt_bar,0.7,0,desktop,Agree,9
-suggestions_accuracy,amt_bar,0.7,0,desktop,Disagree,1
-suggestions_accuracy,amt_bar,0.7,0,desktop,Somewhat agree,16
-suggestions_accuracy,amt_bar,0.7,0,desktop,Somewhat disagree,1
-suggestions_accuracy,amt_bar,0.7,0,desktop,Strongly agree,1
-suggestions_accuracy,amt_bar,0.7,100,desktop,Agree,9
-suggestions_accuracy,amt_bar,0.7,100,desktop,Somewhat agree,15
-suggestions_accuracy,amt_bar,0.7,100,desktop,Somewhat disagree,2
-suggestions_accuracy,amt_bar,0.7,100,desktop,Strongly agree,4
-suggestions_accuracy,amt_bar,0.7,200,desktop,Agree,10
-suggestions_accuracy,amt_bar,0.7,200,desktop,Neither agree nor disagree,1
-suggestions_accuracy,amt_bar,0.7,200,desktop,Somewhat agree,15
-suggestions_accuracy,amt_bar,0.7,200,desktop,Somewhat disagree,1
-suggestions_accuracy,amt_bar,0.7,200,desktop,Strongly agree,2
-suggestions_accuracy,amt_bar,0.7,50,desktop,Agree,10
-suggestions_accuracy,amt_bar,0.7,50,desktop,Neither agree nor disagree,8
-suggestions_accuracy,amt_bar,0.7,50,desktop,Somewhat agree,6
-suggestions_accuracy,amt_bar,0.7,50,desktop,Somewhat disagree,1
-suggestions_accuracy,amt_bar,0.7,50,desktop,Strongly agree,1
-suggestions_accuracy,amt_bar,0.9,0,desktop,Agree,11
-suggestions_accuracy,amt_bar,0.9,0,desktop,Neither agree nor disagree,4
-suggestions_accuracy,amt_bar,0.9,0,desktop,Somewhat agree,12
-suggestions_accuracy,amt_bar,0.9,0,desktop,Strongly agree,2
-suggestions_accuracy,amt_bar,0.9,100,desktop,Agree,9
-suggestions_accuracy,amt_bar,0.9,100,desktop,Somewhat agree,12
-suggestions_accuracy,amt_bar,0.9,100,desktop,Somewhat disagree,2
-suggestions_accuracy,amt_bar,0.9,100,desktop,Strongly agree,7
-suggestions_accuracy,amt_bar,0.9,200,desktop,Agree,9
-suggestions_accuracy,amt_bar,0.9,200,desktop,Disagree,1
-suggestions_accuracy,amt_bar,0.9,200,desktop,Somewhat agree,16
-suggestions_accuracy,amt_bar,0.9,200,desktop,Strongly agree,4
-suggestions_accuracy,amt_bar,0.9,50,desktop,Agree,12
-suggestions_accuracy,amt_bar,0.9,50,desktop,Neither agree nor disagree,1
-suggestions_accuracy,amt_bar,0.9,50,desktop,Somewhat agree,10
-suggestions_accuracy,amt_bar,0.9,50,desktop,Somewhat disagree,1
-suggestions_accuracy,amt_bar,0.9,50,desktop,Strongly agree,4
-suggestions_accuracy,amt_inline,0.1,0,desktop,Disagree,6
-suggestions_accuracy,amt_inline,0.1,0,desktop,Neither agree nor disagree,6
-suggestions_accuracy,amt_inline,0.1,0,desktop,Somewhat agree,6
-suggestions_accuracy,amt_inline,0.1,0,desktop,Somewhat disagree,3
-suggestions_accuracy,amt_inline,0.1,0,desktop,Strongly agree,3
-suggestions_accuracy,amt_inline,0.1,0,desktop,Strongly disagree,6
-suggestions_accuracy,amt_inline,0.1,100,desktop,Disagree,7
-suggestions_accuracy,amt_inline,0.1,100,desktop,Neither agree nor disagree,2
-suggestions_accuracy,amt_inline,0.1,100,desktop,Somewhat agree,3
-suggestions_accuracy,amt_inline,0.1,100,desktop,Somewhat disagree,7
-suggestions_accuracy,amt_inline,0.1,100,desktop,Strongly disagree,11
-suggestions_accuracy,amt_inline,0.1,200,desktop,Agree,2
-suggestions_accuracy,amt_inline,0.1,200,desktop,Disagree,10
-suggestions_accuracy,amt_inline,0.1,200,desktop,Somewhat agree,3
-suggestions_accuracy,amt_inline,0.1,200,desktop,Somewhat disagree,6
-suggestions_accuracy,amt_inline,0.1,200,desktop,Strongly disagree,9
-suggestions_accuracy,amt_inline,0.1,50,desktop,Agree,1
-suggestions_accuracy,amt_inline,0.1,50,desktop,Disagree,8
-suggestions_accuracy,amt_inline,0.1,50,desktop,Neither agree nor disagree,3
-suggestions_accuracy,amt_inline,0.1,50,desktop,Somewhat agree,4
-suggestions_accuracy,amt_inline,0.1,50,desktop,Somewhat disagree,9
-suggestions_accuracy,amt_inline,0.1,50,desktop,Strongly agree,3
-suggestions_accuracy,amt_inline,0.1,50,desktop,Strongly disagree,3
-suggestions_accuracy,amt_inline,0.3,0,desktop,Agree,2
-suggestions_accuracy,amt_inline,0.3,0,desktop,Disagree,4
-suggestions_accuracy,amt_inline,0.3,0,desktop,Neither agree nor disagree,1
-suggestions_accuracy,amt_inline,0.3,0,desktop,Somewhat agree,5
-suggestions_accuracy,amt_inline,0.3,0,desktop,Somewhat disagree,16
-suggestions_accuracy,amt_inline,0.3,100,desktop,Agree,3
-suggestions_accuracy,amt_inline,0.3,100,desktop,Disagree,2
-suggestions_accuracy,amt_inline,0.3,100,desktop,Neither agree nor disagree,2
-suggestions_accuracy,amt_inline,0.3,100,desktop,Somewhat agree,11
-suggestions_accuracy,amt_inline,0.3,100,desktop,Somewhat disagree,7
-suggestions_accuracy,amt_inline,0.3,100,desktop,Strongly agree,2
-suggestions_accuracy,amt_inline,0.3,100,desktop,Strongly disagree,3
-suggestions_accuracy,amt_inline,0.3,200,desktop,Agree,3
-suggestions_accuracy,amt_inline,0.3,200,desktop,Disagree,2
-suggestions_accuracy,amt_inline,0.3,200,desktop,Neither agree nor disagree,3
-suggestions_accuracy,amt_inline,0.3,200,desktop,Somewhat agree,10
-suggestions_accuracy,amt_inline,0.3,200,desktop,Somewhat disagree,10
-suggestions_accuracy,amt_inline,0.3,200,desktop,Strongly agree,1
-suggestions_accuracy,amt_inline,0.3,200,desktop,Strongly disagree,1
-suggestions_accuracy,amt_inline,0.3,50,desktop,Agree,6
-suggestions_accuracy,amt_inline,0.3,50,desktop,Disagree,2
-suggestions_accuracy,amt_inline,0.3,50,desktop,Neither agree nor disagree,3
-suggestions_accuracy,amt_inline,0.3,50,desktop,Somewhat agree,6
-suggestions_accuracy,amt_inline,0.3,50,desktop,Somewhat disagree,10
-suggestions_accuracy,amt_inline,0.3,50,desktop,Strongly agree,1
-suggestions_accuracy,amt_inline,0.3,50,desktop,Strongly disagree,2
-suggestions_accuracy,amt_inline,0.5,0,desktop,Agree,4
-suggestions_accuracy,amt_inline,0.5,0,desktop,Disagree,3
-suggestions_accuracy,amt_inline,0.5,0,desktop,Neither agree nor disagree,3
-suggestions_accuracy,amt_inline,0.5,0,desktop,Somewhat agree,9
-suggestions_accuracy,amt_inline,0.5,0,desktop,Somewhat disagree,9
-suggestions_accuracy,amt_inline,0.5,0,desktop,Strongly agree,2
-suggestions_accuracy,amt_inline,0.5,100,desktop,Agree,2
-suggestions_accuracy,amt_inline,0.5,100,desktop,Disagree,3
-suggestions_accuracy,amt_inline,0.5,100,desktop,Neither agree nor disagree,4
-suggestions_accuracy,amt_inline,0.5,100,desktop,Somewhat agree,13
-suggestions_accuracy,amt_inline,0.5,100,desktop,Somewhat disagree,7
-suggestions_accuracy,amt_inline,0.5,100,desktop,Strongly agree,1
-suggestions_accuracy,amt_inline,0.5,200,desktop,Agree,9
-suggestions_accuracy,amt_inline,0.5,200,desktop,Disagree,3
-suggestions_accuracy,amt_inline,0.5,200,desktop,Neither agree nor disagree,6
-suggestions_accuracy,amt_inline,0.5,200,desktop,Somewhat agree,6
-suggestions_accuracy,amt_inline,0.5,200,desktop,Somewhat disagree,2
-suggestions_accuracy,amt_inline,0.5,200,desktop,Strongly agree,4
-suggestions_accuracy,amt_inline,0.5,50,desktop,Agree,1
-suggestions_accuracy,amt_inline,0.5,50,desktop,Disagree,2
-suggestions_accuracy,amt_inline,0.5,50,desktop,Neither agree nor disagree,5
-suggestions_accuracy,amt_inline,0.5,50,desktop,Somewhat agree,11
-suggestions_accuracy,amt_inline,0.5,50,desktop,Somewhat disagree,9
-suggestions_accuracy,amt_inline,0.5,50,desktop,Strongly agree,1
-suggestions_accuracy,amt_inline,0.7,0,desktop,Agree,10
-suggestions_accuracy,amt_inline,0.7,0,desktop,Neither agree nor disagree,3
-suggestions_accuracy,amt_inline,0.7,0,desktop,Somewhat agree,12
-suggestions_accuracy,amt_inline,0.7,0,desktop,Somewhat disagree,2
-suggestions_accuracy,amt_inline,0.7,0,desktop,Strongly agree,3
-suggestions_accuracy,amt_inline,0.7,100,desktop,Agree,11
-suggestions_accuracy,amt_inline,0.7,100,desktop,Disagree,1
-suggestions_accuracy,amt_inline,0.7,100,desktop,Neither agree nor disagree,2
-suggestions_accuracy,amt_inline,0.7,100,desktop,Somewhat agree,15
-suggestions_accuracy,amt_inline,0.7,100,desktop,Somewhat disagree,1
-suggestions_accuracy,amt_inline,0.7,200,desktop,Agree,10
-suggestions_accuracy,amt_inline,0.7,200,desktop,Disagree,1
-suggestions_accuracy,amt_inline,0.7,200,desktop,Somewhat agree,19
-suggestions_accuracy,amt_inline,0.7,200,desktop,Somewhat disagree,1
-suggestions_accuracy,amt_inline,0.7,200,desktop,Strongly agree,2
-suggestions_accuracy,amt_inline,0.7,200,desktop,Strongly disagree,1
-suggestions_accuracy,amt_inline,0.7,50,desktop,Agree,11
-suggestions_accuracy,amt_inline,0.7,50,desktop,Neither agree nor disagree,1
-suggestions_accuracy,amt_inline,0.7,50,desktop,Somewhat agree,9
-suggestions_accuracy,amt_inline,0.7,50,desktop,Somewhat disagree,5
-suggestions_accuracy,amt_inline,0.7,50,desktop,Strongly agree,3
-suggestions_accuracy,amt_inline,0.7,50,desktop,Strongly disagree,1
-suggestions_accuracy,amt_inline,0.9,0,desktop,Agree,6
-suggestions_accuracy,amt_inline,0.9,0,desktop,Neither agree nor disagree,3
-suggestions_accuracy,amt_inline,0.9,0,desktop,Somewhat agree,14
-suggestions_accuracy,amt_inline,0.9,0,desktop,Somewhat disagree,2
-suggestions_accuracy,amt_inline,0.9,0,desktop,Strongly agree,5
-suggestions_accuracy,amt_inline,0.9,100,desktop,Agree,14
-suggestions_accuracy,amt_inline,0.9,100,desktop,Somewhat agree,13
-suggestions_accuracy,amt_inline,0.9,100,desktop,Strongly agree,2
-suggestions_accuracy,amt_inline,0.9,100,desktop,Strongly disagree,1
-suggestions_accuracy,amt_inline,0.9,200,desktop,Agree,9
-suggestions_accuracy,amt_inline,0.9,200,desktop,Disagree,1
-suggestions_accuracy,amt_inline,0.9,200,desktop,Somewhat agree,15
-suggestions_accuracy,amt_inline,0.9,200,desktop,Strongly agree,5
-suggestions_accuracy,amt_inline,0.9,50,desktop,Agree,13
-suggestions_accuracy,amt_inline,0.9,50,desktop,Somewhat agree,11
-suggestions_accuracy,amt_inline,0.9,50,desktop,Strongly agree,4
-suggestions_accuracy,devices,0.1,0,desktop,Disagree,4
-suggestions_accuracy,devices,0.1,0,desktop,Neither agree nor disagree,4
-suggestions_accuracy,devices,0.1,0,desktop,Somewhat disagree,3
-suggestions_accuracy,devices,0.1,0,desktop,Strongly disagree,1
-suggestions_accuracy,devices,0.1,0,phone,Disagree,3
-suggestions_accuracy,devices,0.1,0,phone,Neither agree nor disagree,1
-suggestions_accuracy,devices,0.1,0,phone,Somewhat agree,1
-suggestions_accuracy,devices,0.1,0,phone,Somewhat disagree,2
-suggestions_accuracy,devices,0.1,0,phone,Strongly disagree,5
-suggestions_accuracy,devices,0.1,0,tablet,Disagree,5
-suggestions_accuracy,devices,0.1,0,tablet,Somewhat disagree,3
-suggestions_accuracy,devices,0.1,0,tablet,Strongly disagree,4
-suggestions_accuracy,devices,0.5,0,desktop,Agree,1
-suggestions_accuracy,devices,0.5,0,desktop,Disagree,1
-suggestions_accuracy,devices,0.5,0,desktop,Neither agree nor disagree,7
-suggestions_accuracy,devices,0.5,0,desktop,Somewhat disagree,3
-suggestions_accuracy,devices,0.5,0,phone,Agree,1
-suggestions_accuracy,devices,0.5,0,phone,Disagree,1
-suggestions_accuracy,devices,0.5,0,phone,Neither agree nor disagree,4
-suggestions_accuracy,devices,0.5,0,phone,Somewhat agree,3
-suggestions_accuracy,devices,0.5,0,phone,Somewhat disagree,3
-suggestions_accuracy,devices,0.5,0,tablet,Agree,2
-suggestions_accuracy,devices,0.5,0,tablet,Disagree,3
-suggestions_accuracy,devices,0.5,0,tablet,Neither agree nor disagree,1
-suggestions_accuracy,devices,0.5,0,tablet,Somewhat agree,4
-suggestions_accuracy,devices,0.5,0,tablet,Somewhat disagree,2
-suggestions_accuracy,devices,0.9,0,desktop,Agree,2
-suggestions_accuracy,devices,0.9,0,desktop,Neither agree nor disagree,5
-suggestions_accuracy,devices,0.9,0,desktop,Somewhat agree,3
-suggestions_accuracy,devices,0.9,0,desktop,Strongly agree,2
-suggestions_accuracy,devices,0.9,0,phone,Agree,6
-suggestions_accuracy,devices,0.9,0,phone,Neither agree nor disagree,1
-suggestions_accuracy,devices,0.9,0,phone,Somewhat agree,2
-suggestions_accuracy,devices,0.9,0,phone,Strongly agree,3
-suggestions_accuracy,devices,0.9,0,tablet,Agree,4
-suggestions_accuracy,devices,0.9,0,tablet,Neither agree nor disagree,1
-suggestions_accuracy,devices,0.9,0,tablet,Somewhat agree,4
-suggestions_accuracy,devices,0.9,0,tablet,Somewhat disagree,1
-suggestions_accuracy,devices,0.9,0,tablet,Strongly agree,2
+controls_satisfactory,amt_bar,0.1,0,desktop,agree,9
+controls_satisfactory,amt_bar,0.1,0,desktop,disagree,1
+controls_satisfactory,amt_bar,0.1,0,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_bar,0.1,0,desktop,somewhat agree,3
+controls_satisfactory,amt_bar,0.1,0,desktop,somewhat disagree,2
+controls_satisfactory,amt_bar,0.1,0,desktop,strongly agree,9
+controls_satisfactory,amt_bar,0.1,0,desktop,strongly disagree,2
+controls_satisfactory,amt_bar,0.1,100,desktop,agree,7
+controls_satisfactory,amt_bar,0.1,100,desktop,disagree,9
+controls_satisfactory,amt_bar,0.1,100,desktop,somewhat agree,5
+controls_satisfactory,amt_bar,0.1,100,desktop,somewhat disagree,3
+controls_satisfactory,amt_bar,0.1,100,desktop,strongly agree,1
+controls_satisfactory,amt_bar,0.1,100,desktop,strongly disagree,4
+controls_satisfactory,amt_bar,0.1,200,desktop,agree,6
+controls_satisfactory,amt_bar,0.1,200,desktop,disagree,6
+controls_satisfactory,amt_bar,0.1,200,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_bar,0.1,200,desktop,somewhat agree,3
+controls_satisfactory,amt_bar,0.1,200,desktop,somewhat disagree,7
+controls_satisfactory,amt_bar,0.1,200,desktop,strongly agree,2
+controls_satisfactory,amt_bar,0.1,200,desktop,strongly disagree,4
+controls_satisfactory,amt_bar,0.1,50,desktop,agree,4
+controls_satisfactory,amt_bar,0.1,50,desktop,disagree,9
+controls_satisfactory,amt_bar,0.1,50,desktop,neither agree nor disagree,7
+controls_satisfactory,amt_bar,0.1,50,desktop,somewhat agree,5
+controls_satisfactory,amt_bar,0.1,50,desktop,somewhat disagree,3
+controls_satisfactory,amt_bar,0.1,50,desktop,strongly agree,2
+controls_satisfactory,amt_bar,0.3,0,desktop,agree,5
+controls_satisfactory,amt_bar,0.3,0,desktop,disagree,4
+controls_satisfactory,amt_bar,0.3,0,desktop,neither agree nor disagree,5
+controls_satisfactory,amt_bar,0.3,0,desktop,somewhat agree,7
+controls_satisfactory,amt_bar,0.3,0,desktop,somewhat disagree,1
+controls_satisfactory,amt_bar,0.3,0,desktop,strongly agree,6
+controls_satisfactory,amt_bar,0.3,0,desktop,strongly disagree,1
+controls_satisfactory,amt_bar,0.3,100,desktop,agree,4
+controls_satisfactory,amt_bar,0.3,100,desktop,disagree,3
+controls_satisfactory,amt_bar,0.3,100,desktop,somewhat agree,7
+controls_satisfactory,amt_bar,0.3,100,desktop,somewhat disagree,4
+controls_satisfactory,amt_bar,0.3,100,desktop,strongly agree,6
+controls_satisfactory,amt_bar,0.3,100,desktop,strongly disagree,4
+controls_satisfactory,amt_bar,0.3,200,desktop,agree,6
+controls_satisfactory,amt_bar,0.3,200,desktop,disagree,1
+controls_satisfactory,amt_bar,0.3,200,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_bar,0.3,200,desktop,somewhat agree,9
+controls_satisfactory,amt_bar,0.3,200,desktop,somewhat disagree,2
+controls_satisfactory,amt_bar,0.3,200,desktop,strongly agree,7
+controls_satisfactory,amt_bar,0.3,200,desktop,strongly disagree,2
+controls_satisfactory,amt_bar,0.3,50,desktop,agree,4
+controls_satisfactory,amt_bar,0.3,50,desktop,disagree,2
+controls_satisfactory,amt_bar,0.3,50,desktop,neither agree nor disagree,4
+controls_satisfactory,amt_bar,0.3,50,desktop,somewhat agree,9
+controls_satisfactory,amt_bar,0.3,50,desktop,somewhat disagree,6
+controls_satisfactory,amt_bar,0.3,50,desktop,strongly agree,5
+controls_satisfactory,amt_bar,0.5,0,desktop,agree,9
+controls_satisfactory,amt_bar,0.5,0,desktop,neither agree nor disagree,3
+controls_satisfactory,amt_bar,0.5,0,desktop,somewhat agree,10
+controls_satisfactory,amt_bar,0.5,0,desktop,somewhat disagree,4
+controls_satisfactory,amt_bar,0.5,0,desktop,strongly agree,3
+controls_satisfactory,amt_bar,0.5,100,desktop,agree,6
+controls_satisfactory,amt_bar,0.5,100,desktop,disagree,5
+controls_satisfactory,amt_bar,0.5,100,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_bar,0.5,100,desktop,somewhat agree,6
+controls_satisfactory,amt_bar,0.5,100,desktop,somewhat disagree,5
+controls_satisfactory,amt_bar,0.5,100,desktop,strongly agree,3
+controls_satisfactory,amt_bar,0.5,100,desktop,strongly disagree,2
+controls_satisfactory,amt_bar,0.5,200,desktop,agree,10
+controls_satisfactory,amt_bar,0.5,200,desktop,disagree,2
+controls_satisfactory,amt_bar,0.5,200,desktop,neither agree nor disagree,3
+controls_satisfactory,amt_bar,0.5,200,desktop,somewhat agree,4
+controls_satisfactory,amt_bar,0.5,200,desktop,somewhat disagree,5
+controls_satisfactory,amt_bar,0.5,200,desktop,strongly agree,1
+controls_satisfactory,amt_bar,0.5,200,desktop,strongly disagree,5
+controls_satisfactory,amt_bar,0.5,50,desktop,agree,8
+controls_satisfactory,amt_bar,0.5,50,desktop,disagree,3
+controls_satisfactory,amt_bar,0.5,50,desktop,neither agree nor disagree,3
+controls_satisfactory,amt_bar,0.5,50,desktop,somewhat agree,10
+controls_satisfactory,amt_bar,0.5,50,desktop,somewhat disagree,1
+controls_satisfactory,amt_bar,0.5,50,desktop,strongly agree,5
+controls_satisfactory,amt_bar,0.7,0,desktop,agree,9
+controls_satisfactory,amt_bar,0.7,0,desktop,disagree,1
+controls_satisfactory,amt_bar,0.7,0,desktop,neither agree nor disagree,4
+controls_satisfactory,amt_bar,0.7,0,desktop,somewhat agree,12
+controls_satisfactory,amt_bar,0.7,0,desktop,strongly agree,2
+controls_satisfactory,amt_bar,0.7,100,desktop,agree,13
+controls_satisfactory,amt_bar,0.7,100,desktop,disagree,1
+controls_satisfactory,amt_bar,0.7,100,desktop,neither agree nor disagree,3
+controls_satisfactory,amt_bar,0.7,100,desktop,somewhat agree,8
+controls_satisfactory,amt_bar,0.7,100,desktop,somewhat disagree,2
+controls_satisfactory,amt_bar,0.7,100,desktop,strongly agree,3
+controls_satisfactory,amt_bar,0.7,200,desktop,agree,12
+controls_satisfactory,amt_bar,0.7,200,desktop,disagree,1
+controls_satisfactory,amt_bar,0.7,200,desktop,neither agree nor disagree,4
+controls_satisfactory,amt_bar,0.7,200,desktop,somewhat agree,9
+controls_satisfactory,amt_bar,0.7,200,desktop,strongly agree,3
+controls_satisfactory,amt_bar,0.7,50,desktop,agree,10
+controls_satisfactory,amt_bar,0.7,50,desktop,disagree,2
+controls_satisfactory,amt_bar,0.7,50,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_bar,0.7,50,desktop,somewhat agree,9
+controls_satisfactory,amt_bar,0.7,50,desktop,somewhat disagree,1
+controls_satisfactory,amt_bar,0.7,50,desktop,strongly agree,2
+controls_satisfactory,amt_bar,0.9,0,desktop,agree,12
+controls_satisfactory,amt_bar,0.9,0,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_bar,0.9,0,desktop,somewhat agree,4
+controls_satisfactory,amt_bar,0.9,0,desktop,strongly agree,11
+controls_satisfactory,amt_bar,0.9,100,desktop,agree,10
+controls_satisfactory,amt_bar,0.9,100,desktop,neither agree nor disagree,1
+controls_satisfactory,amt_bar,0.9,100,desktop,somewhat agree,9
+controls_satisfactory,amt_bar,0.9,100,desktop,somewhat disagree,2
+controls_satisfactory,amt_bar,0.9,100,desktop,strongly agree,8
+controls_satisfactory,amt_bar,0.9,200,desktop,agree,10
+controls_satisfactory,amt_bar,0.9,200,desktop,disagree,1
+controls_satisfactory,amt_bar,0.9,200,desktop,neither agree nor disagree,1
+controls_satisfactory,amt_bar,0.9,200,desktop,somewhat agree,7
+controls_satisfactory,amt_bar,0.9,200,desktop,somewhat disagree,2
+controls_satisfactory,amt_bar,0.9,200,desktop,strongly agree,7
+controls_satisfactory,amt_bar,0.9,200,desktop,strongly disagree,2
+controls_satisfactory,amt_bar,0.9,50,desktop,agree,15
+controls_satisfactory,amt_bar,0.9,50,desktop,neither agree nor disagree,1
+controls_satisfactory,amt_bar,0.9,50,desktop,somewhat agree,6
+controls_satisfactory,amt_bar,0.9,50,desktop,strongly agree,6
+controls_satisfactory,amt_inline,0.1,0,desktop,agree,9
+controls_satisfactory,amt_inline,0.1,0,desktop,disagree,6
+controls_satisfactory,amt_inline,0.1,0,desktop,neither agree nor disagree,3
+controls_satisfactory,amt_inline,0.1,0,desktop,somewhat agree,3
+controls_satisfactory,amt_inline,0.1,0,desktop,somewhat disagree,2
+controls_satisfactory,amt_inline,0.1,0,desktop,strongly agree,7
+controls_satisfactory,amt_inline,0.1,100,desktop,agree,2
+controls_satisfactory,amt_inline,0.1,100,desktop,disagree,4
+controls_satisfactory,amt_inline,0.1,100,desktop,neither agree nor disagree,3
+controls_satisfactory,amt_inline,0.1,100,desktop,somewhat agree,3
+controls_satisfactory,amt_inline,0.1,100,desktop,somewhat disagree,8
+controls_satisfactory,amt_inline,0.1,100,desktop,strongly agree,1
+controls_satisfactory,amt_inline,0.1,100,desktop,strongly disagree,9
+controls_satisfactory,amt_inline,0.1,200,desktop,agree,2
+controls_satisfactory,amt_inline,0.1,200,desktop,disagree,6
+controls_satisfactory,amt_inline,0.1,200,desktop,neither agree nor disagree,3
+controls_satisfactory,amt_inline,0.1,200,desktop,somewhat agree,6
+controls_satisfactory,amt_inline,0.1,200,desktop,somewhat disagree,7
+controls_satisfactory,amt_inline,0.1,200,desktop,strongly agree,1
+controls_satisfactory,amt_inline,0.1,200,desktop,strongly disagree,5
+controls_satisfactory,amt_inline,0.1,50,desktop,agree,5
+controls_satisfactory,amt_inline,0.1,50,desktop,disagree,6
+controls_satisfactory,amt_inline,0.1,50,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_inline,0.1,50,desktop,somewhat agree,8
+controls_satisfactory,amt_inline,0.1,50,desktop,somewhat disagree,5
+controls_satisfactory,amt_inline,0.1,50,desktop,strongly agree,3
+controls_satisfactory,amt_inline,0.1,50,desktop,strongly disagree,2
+controls_satisfactory,amt_inline,0.3,0,desktop,agree,4
+controls_satisfactory,amt_inline,0.3,0,desktop,disagree,1
+controls_satisfactory,amt_inline,0.3,0,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_inline,0.3,0,desktop,somewhat agree,11
+controls_satisfactory,amt_inline,0.3,0,desktop,somewhat disagree,4
+controls_satisfactory,amt_inline,0.3,0,desktop,strongly agree,6
+controls_satisfactory,amt_inline,0.3,100,desktop,agree,8
+controls_satisfactory,amt_inline,0.3,100,desktop,disagree,7
+controls_satisfactory,amt_inline,0.3,100,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_inline,0.3,100,desktop,somewhat agree,9
+controls_satisfactory,amt_inline,0.3,100,desktop,somewhat disagree,2
+controls_satisfactory,amt_inline,0.3,100,desktop,strongly agree,1
+controls_satisfactory,amt_inline,0.3,100,desktop,strongly disagree,1
+controls_satisfactory,amt_inline,0.3,200,desktop,agree,6
+controls_satisfactory,amt_inline,0.3,200,desktop,disagree,5
+controls_satisfactory,amt_inline,0.3,200,desktop,neither agree nor disagree,5
+controls_satisfactory,amt_inline,0.3,200,desktop,somewhat agree,8
+controls_satisfactory,amt_inline,0.3,200,desktop,somewhat disagree,4
+controls_satisfactory,amt_inline,0.3,200,desktop,strongly agree,1
+controls_satisfactory,amt_inline,0.3,200,desktop,strongly disagree,1
+controls_satisfactory,amt_inline,0.3,50,desktop,agree,5
+controls_satisfactory,amt_inline,0.3,50,desktop,disagree,6
+controls_satisfactory,amt_inline,0.3,50,desktop,neither agree nor disagree,1
+controls_satisfactory,amt_inline,0.3,50,desktop,somewhat agree,12
+controls_satisfactory,amt_inline,0.3,50,desktop,somewhat disagree,1
+controls_satisfactory,amt_inline,0.3,50,desktop,strongly agree,4
+controls_satisfactory,amt_inline,0.3,50,desktop,strongly disagree,1
+controls_satisfactory,amt_inline,0.5,0,desktop,agree,9
+controls_satisfactory,amt_inline,0.5,0,desktop,disagree,1
+controls_satisfactory,amt_inline,0.5,0,desktop,neither agree nor disagree,5
+controls_satisfactory,amt_inline,0.5,0,desktop,somewhat agree,7
+controls_satisfactory,amt_inline,0.5,0,desktop,somewhat disagree,1
+controls_satisfactory,amt_inline,0.5,0,desktop,strongly agree,6
+controls_satisfactory,amt_inline,0.5,0,desktop,strongly disagree,1
+controls_satisfactory,amt_inline,0.5,100,desktop,agree,4
+controls_satisfactory,amt_inline,0.5,100,desktop,disagree,2
+controls_satisfactory,amt_inline,0.5,100,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_inline,0.5,100,desktop,somewhat agree,9
+controls_satisfactory,amt_inline,0.5,100,desktop,somewhat disagree,7
+controls_satisfactory,amt_inline,0.5,100,desktop,strongly agree,1
+controls_satisfactory,amt_inline,0.5,100,desktop,strongly disagree,5
+controls_satisfactory,amt_inline,0.5,200,desktop,agree,10
+controls_satisfactory,amt_inline,0.5,200,desktop,disagree,3
+controls_satisfactory,amt_inline,0.5,200,desktop,neither agree nor disagree,7
+controls_satisfactory,amt_inline,0.5,200,desktop,somewhat agree,3
+controls_satisfactory,amt_inline,0.5,200,desktop,somewhat disagree,1
+controls_satisfactory,amt_inline,0.5,200,desktop,strongly agree,2
+controls_satisfactory,amt_inline,0.5,200,desktop,strongly disagree,4
+controls_satisfactory,amt_inline,0.5,50,desktop,agree,10
+controls_satisfactory,amt_inline,0.5,50,desktop,disagree,1
+controls_satisfactory,amt_inline,0.5,50,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_inline,0.5,50,desktop,somewhat agree,9
+controls_satisfactory,amt_inline,0.5,50,desktop,somewhat disagree,2
+controls_satisfactory,amt_inline,0.5,50,desktop,strongly agree,4
+controls_satisfactory,amt_inline,0.5,50,desktop,strongly disagree,1
+controls_satisfactory,amt_inline,0.7,0,desktop,agree,12
+controls_satisfactory,amt_inline,0.7,0,desktop,neither agree nor disagree,3
+controls_satisfactory,amt_inline,0.7,0,desktop,somewhat agree,9
+controls_satisfactory,amt_inline,0.7,0,desktop,somewhat disagree,1
+controls_satisfactory,amt_inline,0.7,0,desktop,strongly agree,4
+controls_satisfactory,amt_inline,0.7,0,desktop,strongly disagree,1
+controls_satisfactory,amt_inline,0.7,100,desktop,agree,10
+controls_satisfactory,amt_inline,0.7,100,desktop,disagree,3
+controls_satisfactory,amt_inline,0.7,100,desktop,neither agree nor disagree,1
+controls_satisfactory,amt_inline,0.7,100,desktop,somewhat agree,7
+controls_satisfactory,amt_inline,0.7,100,desktop,somewhat disagree,5
+controls_satisfactory,amt_inline,0.7,100,desktop,strongly agree,2
+controls_satisfactory,amt_inline,0.7,100,desktop,strongly disagree,2
+controls_satisfactory,amt_inline,0.7,200,desktop,agree,13
+controls_satisfactory,amt_inline,0.7,200,desktop,disagree,3
+controls_satisfactory,amt_inline,0.7,200,desktop,neither agree nor disagree,2
+controls_satisfactory,amt_inline,0.7,200,desktop,somewhat agree,9
+controls_satisfactory,amt_inline,0.7,200,desktop,somewhat disagree,3
+controls_satisfactory,amt_inline,0.7,200,desktop,strongly agree,3
+controls_satisfactory,amt_inline,0.7,200,desktop,strongly disagree,1
+controls_satisfactory,amt_inline,0.7,50,desktop,agree,9
+controls_satisfactory,amt_inline,0.7,50,desktop,somewhat agree,7
+controls_satisfactory,amt_inline,0.7,50,desktop,somewhat disagree,6
+controls_satisfactory,amt_inline,0.7,50,desktop,strongly agree,7
+controls_satisfactory,amt_inline,0.7,50,desktop,strongly disagree,1
+controls_satisfactory,amt_inline,0.9,0,desktop,agree,12
+controls_satisfactory,amt_inline,0.9,0,desktop,neither agree nor disagree,1
+controls_satisfactory,amt_inline,0.9,0,desktop,somewhat agree,4
+controls_satisfactory,amt_inline,0.9,0,desktop,somewhat disagree,5
+controls_satisfactory,amt_inline,0.9,0,desktop,strongly agree,8
+controls_satisfactory,amt_inline,0.9,100,desktop,agree,15
+controls_satisfactory,amt_inline,0.9,100,desktop,disagree,3
+controls_satisfactory,amt_inline,0.9,100,desktop,somewhat agree,5
+controls_satisfactory,amt_inline,0.9,100,desktop,somewhat disagree,2
+controls_satisfactory,amt_inline,0.9,100,desktop,strongly agree,5
+controls_satisfactory,amt_inline,0.9,200,desktop,agree,17
+controls_satisfactory,amt_inline,0.9,200,desktop,disagree,1
+controls_satisfactory,amt_inline,0.9,200,desktop,neither agree nor disagree,1
+controls_satisfactory,amt_inline,0.9,200,desktop,somewhat agree,3
+controls_satisfactory,amt_inline,0.9,200,desktop,somewhat disagree,1
+controls_satisfactory,amt_inline,0.9,200,desktop,strongly agree,6
+controls_satisfactory,amt_inline,0.9,200,desktop,strongly disagree,1
+controls_satisfactory,amt_inline,0.9,50,desktop,agree,12
+controls_satisfactory,amt_inline,0.9,50,desktop,neither agree nor disagree,1
+controls_satisfactory,amt_inline,0.9,50,desktop,somewhat agree,9
+controls_satisfactory,amt_inline,0.9,50,desktop,somewhat disagree,1
+controls_satisfactory,amt_inline,0.9,50,desktop,strongly agree,5
+controls_satisfactory,devices,0.1,0,desktop,disagree,1
+controls_satisfactory,devices,0.1,0,desktop,neither agree nor disagree,1
+controls_satisfactory,devices,0.1,0,desktop,somewhat agree,3
+controls_satisfactory,devices,0.1,0,desktop,strongly agree,5
+controls_satisfactory,devices,0.1,0,desktop,strongly disagree,2
+controls_satisfactory,devices,0.1,0,phone,agree,1
+controls_satisfactory,devices,0.1,0,phone,neither agree nor disagree,2
+controls_satisfactory,devices,0.1,0,phone,somewhat agree,1
+controls_satisfactory,devices,0.1,0,phone,somewhat disagree,2
+controls_satisfactory,devices,0.1,0,phone,strongly agree,1
+controls_satisfactory,devices,0.1,0,phone,strongly disagree,5
+controls_satisfactory,devices,0.1,0,tablet,agree,1
+controls_satisfactory,devices,0.1,0,tablet,disagree,2
+controls_satisfactory,devices,0.1,0,tablet,neither agree nor disagree,1
+controls_satisfactory,devices,0.1,0,tablet,somewhat agree,2
+controls_satisfactory,devices,0.1,0,tablet,somewhat disagree,4
+controls_satisfactory,devices,0.1,0,tablet,strongly disagree,2
+controls_satisfactory,devices,0.5,0,desktop,agree,4
+controls_satisfactory,devices,0.5,0,desktop,neither agree nor disagree,3
+controls_satisfactory,devices,0.5,0,desktop,somewhat agree,1
+controls_satisfactory,devices,0.5,0,desktop,somewhat disagree,1
+controls_satisfactory,devices,0.5,0,desktop,strongly agree,3
+controls_satisfactory,devices,0.5,0,phone,disagree,2
+controls_satisfactory,devices,0.5,0,phone,neither agree nor disagree,2
+controls_satisfactory,devices,0.5,0,phone,somewhat agree,4
+controls_satisfactory,devices,0.5,0,phone,somewhat disagree,3
+controls_satisfactory,devices,0.5,0,phone,strongly agree,1
+controls_satisfactory,devices,0.5,0,tablet,neither agree nor disagree,1
+controls_satisfactory,devices,0.5,0,tablet,somewhat agree,6
+controls_satisfactory,devices,0.5,0,tablet,somewhat disagree,5
+controls_satisfactory,devices,0.9,0,desktop,agree,4
+controls_satisfactory,devices,0.9,0,desktop,disagree,1
+controls_satisfactory,devices,0.9,0,desktop,neither agree nor disagree,1
+controls_satisfactory,devices,0.9,0,desktop,somewhat agree,4
+controls_satisfactory,devices,0.9,0,desktop,strongly agree,2
+controls_satisfactory,devices,0.9,0,phone,agree,6
+controls_satisfactory,devices,0.9,0,phone,disagree,1
+controls_satisfactory,devices,0.9,0,phone,neither agree nor disagree,1
+controls_satisfactory,devices,0.9,0,phone,somewhat agree,1
+controls_satisfactory,devices,0.9,0,phone,strongly agree,3
+controls_satisfactory,devices,0.9,0,tablet,agree,4
+controls_satisfactory,devices,0.9,0,tablet,neither agree nor disagree,1
+controls_satisfactory,devices,0.9,0,tablet,somewhat agree,3
+controls_satisfactory,devices,0.9,0,tablet,somewhat disagree,3
+controls_satisfactory,devices,0.9,0,tablet,strongly agree,1
+keyboard_use_efficiency,amt_bar,0.1,0,desktop,agree,14
+keyboard_use_efficiency,amt_bar,0.1,0,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_bar,0.1,0,desktop,somewhat agree,5
+keyboard_use_efficiency,amt_bar,0.1,0,desktop,somewhat disagree,2
+keyboard_use_efficiency,amt_bar,0.1,0,desktop,strongly agree,5
+keyboard_use_efficiency,amt_bar,0.1,0,desktop,strongly disagree,1
+keyboard_use_efficiency,amt_bar,0.1,100,desktop,agree,8
+keyboard_use_efficiency,amt_bar,0.1,100,desktop,disagree,5
+keyboard_use_efficiency,amt_bar,0.1,100,desktop,neither agree nor disagree,4
+keyboard_use_efficiency,amt_bar,0.1,100,desktop,somewhat agree,2
+keyboard_use_efficiency,amt_bar,0.1,100,desktop,somewhat disagree,2
+keyboard_use_efficiency,amt_bar,0.1,100,desktop,strongly agree,2
+keyboard_use_efficiency,amt_bar,0.1,100,desktop,strongly disagree,6
+keyboard_use_efficiency,amt_bar,0.1,200,desktop,agree,5
+keyboard_use_efficiency,amt_bar,0.1,200,desktop,disagree,5
+keyboard_use_efficiency,amt_bar,0.1,200,desktop,neither agree nor disagree,2
+keyboard_use_efficiency,amt_bar,0.1,200,desktop,somewhat agree,3
+keyboard_use_efficiency,amt_bar,0.1,200,desktop,somewhat disagree,5
+keyboard_use_efficiency,amt_bar,0.1,200,desktop,strongly agree,4
+keyboard_use_efficiency,amt_bar,0.1,200,desktop,strongly disagree,6
+keyboard_use_efficiency,amt_bar,0.1,50,desktop,agree,4
+keyboard_use_efficiency,amt_bar,0.1,50,desktop,disagree,7
+keyboard_use_efficiency,amt_bar,0.1,50,desktop,neither agree nor disagree,2
+keyboard_use_efficiency,amt_bar,0.1,50,desktop,somewhat agree,8
+keyboard_use_efficiency,amt_bar,0.1,50,desktop,somewhat disagree,4
+keyboard_use_efficiency,amt_bar,0.1,50,desktop,strongly agree,5
+keyboard_use_efficiency,amt_bar,0.3,0,desktop,agree,13
+keyboard_use_efficiency,amt_bar,0.3,0,desktop,disagree,2
+keyboard_use_efficiency,amt_bar,0.3,0,desktop,neither agree nor disagree,2
+keyboard_use_efficiency,amt_bar,0.3,0,desktop,somewhat agree,6
+keyboard_use_efficiency,amt_bar,0.3,0,desktop,somewhat disagree,1
+keyboard_use_efficiency,amt_bar,0.3,0,desktop,strongly agree,3
+keyboard_use_efficiency,amt_bar,0.3,0,desktop,strongly disagree,2
+keyboard_use_efficiency,amt_bar,0.3,100,desktop,agree,8
+keyboard_use_efficiency,amt_bar,0.3,100,desktop,disagree,6
+keyboard_use_efficiency,amt_bar,0.3,100,desktop,somewhat agree,5
+keyboard_use_efficiency,amt_bar,0.3,100,desktop,somewhat disagree,1
+keyboard_use_efficiency,amt_bar,0.3,100,desktop,strongly agree,4
+keyboard_use_efficiency,amt_bar,0.3,100,desktop,strongly disagree,4
+keyboard_use_efficiency,amt_bar,0.3,200,desktop,agree,5
+keyboard_use_efficiency,amt_bar,0.3,200,desktop,disagree,4
+keyboard_use_efficiency,amt_bar,0.3,200,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_bar,0.3,200,desktop,somewhat agree,7
+keyboard_use_efficiency,amt_bar,0.3,200,desktop,somewhat disagree,5
+keyboard_use_efficiency,amt_bar,0.3,200,desktop,strongly agree,2
+keyboard_use_efficiency,amt_bar,0.3,200,desktop,strongly disagree,5
+keyboard_use_efficiency,amt_bar,0.3,50,desktop,agree,7
+keyboard_use_efficiency,amt_bar,0.3,50,desktop,disagree,2
+keyboard_use_efficiency,amt_bar,0.3,50,desktop,neither agree nor disagree,2
+keyboard_use_efficiency,amt_bar,0.3,50,desktop,somewhat agree,6
+keyboard_use_efficiency,amt_bar,0.3,50,desktop,somewhat disagree,6
+keyboard_use_efficiency,amt_bar,0.3,50,desktop,strongly agree,6
+keyboard_use_efficiency,amt_bar,0.3,50,desktop,strongly disagree,1
+keyboard_use_efficiency,amt_bar,0.5,0,desktop,agree,13
+keyboard_use_efficiency,amt_bar,0.5,0,desktop,disagree,1
+keyboard_use_efficiency,amt_bar,0.5,0,desktop,somewhat agree,6
+keyboard_use_efficiency,amt_bar,0.5,0,desktop,somewhat disagree,1
+keyboard_use_efficiency,amt_bar,0.5,0,desktop,strongly agree,8
+keyboard_use_efficiency,amt_bar,0.5,100,desktop,agree,8
+keyboard_use_efficiency,amt_bar,0.5,100,desktop,disagree,1
+keyboard_use_efficiency,amt_bar,0.5,100,desktop,neither agree nor disagree,2
+keyboard_use_efficiency,amt_bar,0.5,100,desktop,somewhat agree,5
+keyboard_use_efficiency,amt_bar,0.5,100,desktop,somewhat disagree,6
+keyboard_use_efficiency,amt_bar,0.5,100,desktop,strongly agree,1
+keyboard_use_efficiency,amt_bar,0.5,100,desktop,strongly disagree,6
+keyboard_use_efficiency,amt_bar,0.5,200,desktop,agree,2
+keyboard_use_efficiency,amt_bar,0.5,200,desktop,disagree,4
+keyboard_use_efficiency,amt_bar,0.5,200,desktop,neither agree nor disagree,3
+keyboard_use_efficiency,amt_bar,0.5,200,desktop,somewhat agree,5
+keyboard_use_efficiency,amt_bar,0.5,200,desktop,somewhat disagree,7
+keyboard_use_efficiency,amt_bar,0.5,200,desktop,strongly agree,2
+keyboard_use_efficiency,amt_bar,0.5,200,desktop,strongly disagree,7
+keyboard_use_efficiency,amt_bar,0.5,50,desktop,agree,12
+keyboard_use_efficiency,amt_bar,0.5,50,desktop,disagree,3
+keyboard_use_efficiency,amt_bar,0.5,50,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_bar,0.5,50,desktop,somewhat agree,4
+keyboard_use_efficiency,amt_bar,0.5,50,desktop,somewhat disagree,2
+keyboard_use_efficiency,amt_bar,0.5,50,desktop,strongly agree,6
+keyboard_use_efficiency,amt_bar,0.5,50,desktop,strongly disagree,2
+keyboard_use_efficiency,amt_bar,0.7,0,desktop,agree,14
+keyboard_use_efficiency,amt_bar,0.7,0,desktop,disagree,1
+keyboard_use_efficiency,amt_bar,0.7,0,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_bar,0.7,0,desktop,somewhat agree,4
+keyboard_use_efficiency,amt_bar,0.7,0,desktop,somewhat disagree,1
+keyboard_use_efficiency,amt_bar,0.7,0,desktop,strongly agree,6
+keyboard_use_efficiency,amt_bar,0.7,0,desktop,strongly disagree,1
+keyboard_use_efficiency,amt_bar,0.7,100,desktop,agree,5
+keyboard_use_efficiency,amt_bar,0.7,100,desktop,disagree,6
+keyboard_use_efficiency,amt_bar,0.7,100,desktop,neither agree nor disagree,5
+keyboard_use_efficiency,amt_bar,0.7,100,desktop,somewhat agree,6
+keyboard_use_efficiency,amt_bar,0.7,100,desktop,somewhat disagree,3
+keyboard_use_efficiency,amt_bar,0.7,100,desktop,strongly agree,4
+keyboard_use_efficiency,amt_bar,0.7,100,desktop,strongly disagree,1
+keyboard_use_efficiency,amt_bar,0.7,200,desktop,agree,10
+keyboard_use_efficiency,amt_bar,0.7,200,desktop,disagree,5
+keyboard_use_efficiency,amt_bar,0.7,200,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_bar,0.7,200,desktop,somewhat agree,5
+keyboard_use_efficiency,amt_bar,0.7,200,desktop,somewhat disagree,4
+keyboard_use_efficiency,amt_bar,0.7,200,desktop,strongly agree,2
+keyboard_use_efficiency,amt_bar,0.7,200,desktop,strongly disagree,2
+keyboard_use_efficiency,amt_bar,0.7,50,desktop,agree,8
+keyboard_use_efficiency,amt_bar,0.7,50,desktop,disagree,2
+keyboard_use_efficiency,amt_bar,0.7,50,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_bar,0.7,50,desktop,somewhat agree,8
+keyboard_use_efficiency,amt_bar,0.7,50,desktop,somewhat disagree,3
+keyboard_use_efficiency,amt_bar,0.7,50,desktop,strongly agree,4
+keyboard_use_efficiency,amt_bar,0.9,0,desktop,agree,11
+keyboard_use_efficiency,amt_bar,0.9,0,desktop,disagree,1
+keyboard_use_efficiency,amt_bar,0.9,0,desktop,somewhat agree,9
+keyboard_use_efficiency,amt_bar,0.9,0,desktop,strongly agree,8
+keyboard_use_efficiency,amt_bar,0.9,100,desktop,agree,9
+keyboard_use_efficiency,amt_bar,0.9,100,desktop,disagree,3
+keyboard_use_efficiency,amt_bar,0.9,100,desktop,neither agree nor disagree,4
+keyboard_use_efficiency,amt_bar,0.9,100,desktop,somewhat agree,3
+keyboard_use_efficiency,amt_bar,0.9,100,desktop,somewhat disagree,6
+keyboard_use_efficiency,amt_bar,0.9,100,desktop,strongly agree,5
+keyboard_use_efficiency,amt_bar,0.9,200,desktop,agree,10
+keyboard_use_efficiency,amt_bar,0.9,200,desktop,disagree,8
+keyboard_use_efficiency,amt_bar,0.9,200,desktop,somewhat agree,4
+keyboard_use_efficiency,amt_bar,0.9,200,desktop,somewhat disagree,3
+keyboard_use_efficiency,amt_bar,0.9,200,desktop,strongly agree,1
+keyboard_use_efficiency,amt_bar,0.9,200,desktop,strongly disagree,4
+keyboard_use_efficiency,amt_bar,0.9,50,desktop,agree,9
+keyboard_use_efficiency,amt_bar,0.9,50,desktop,disagree,2
+keyboard_use_efficiency,amt_bar,0.9,50,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_bar,0.9,50,desktop,somewhat agree,6
+keyboard_use_efficiency,amt_bar,0.9,50,desktop,somewhat disagree,3
+keyboard_use_efficiency,amt_bar,0.9,50,desktop,strongly agree,7
+keyboard_use_efficiency,amt_inline,0.1,0,desktop,agree,10
+keyboard_use_efficiency,amt_inline,0.1,0,desktop,disagree,1
+keyboard_use_efficiency,amt_inline,0.1,0,desktop,neither agree nor disagree,2
+keyboard_use_efficiency,amt_inline,0.1,0,desktop,somewhat agree,2
+keyboard_use_efficiency,amt_inline,0.1,0,desktop,somewhat disagree,1
+keyboard_use_efficiency,amt_inline,0.1,0,desktop,strongly agree,13
+keyboard_use_efficiency,amt_inline,0.1,0,desktop,strongly disagree,1
+keyboard_use_efficiency,amt_inline,0.1,100,desktop,agree,2
+keyboard_use_efficiency,amt_inline,0.1,100,desktop,disagree,5
+keyboard_use_efficiency,amt_inline,0.1,100,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_inline,0.1,100,desktop,somewhat agree,9
+keyboard_use_efficiency,amt_inline,0.1,100,desktop,somewhat disagree,2
+keyboard_use_efficiency,amt_inline,0.1,100,desktop,strongly agree,1
+keyboard_use_efficiency,amt_inline,0.1,100,desktop,strongly disagree,10
+keyboard_use_efficiency,amt_inline,0.1,200,desktop,agree,2
+keyboard_use_efficiency,amt_inline,0.1,200,desktop,disagree,6
+keyboard_use_efficiency,amt_inline,0.1,200,desktop,neither agree nor disagree,2
+keyboard_use_efficiency,amt_inline,0.1,200,desktop,somewhat agree,4
+keyboard_use_efficiency,amt_inline,0.1,200,desktop,somewhat disagree,3
+keyboard_use_efficiency,amt_inline,0.1,200,desktop,strongly agree,2
+keyboard_use_efficiency,amt_inline,0.1,200,desktop,strongly disagree,11
+keyboard_use_efficiency,amt_inline,0.1,50,desktop,agree,7
+keyboard_use_efficiency,amt_inline,0.1,50,desktop,disagree,3
+keyboard_use_efficiency,amt_inline,0.1,50,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_inline,0.1,50,desktop,somewhat agree,6
+keyboard_use_efficiency,amt_inline,0.1,50,desktop,somewhat disagree,4
+keyboard_use_efficiency,amt_inline,0.1,50,desktop,strongly agree,7
+keyboard_use_efficiency,amt_inline,0.1,50,desktop,strongly disagree,3
+keyboard_use_efficiency,amt_inline,0.3,0,desktop,agree,14
+keyboard_use_efficiency,amt_inline,0.3,0,desktop,disagree,2
+keyboard_use_efficiency,amt_inline,0.3,0,desktop,somewhat agree,4
+keyboard_use_efficiency,amt_inline,0.3,0,desktop,strongly agree,8
+keyboard_use_efficiency,amt_inline,0.3,100,desktop,agree,2
+keyboard_use_efficiency,amt_inline,0.3,100,desktop,disagree,5
+keyboard_use_efficiency,amt_inline,0.3,100,desktop,neither agree nor disagree,3
+keyboard_use_efficiency,amt_inline,0.3,100,desktop,somewhat agree,12
+keyboard_use_efficiency,amt_inline,0.3,100,desktop,strongly agree,2
+keyboard_use_efficiency,amt_inline,0.3,100,desktop,strongly disagree,6
+keyboard_use_efficiency,amt_inline,0.3,200,desktop,agree,3
+keyboard_use_efficiency,amt_inline,0.3,200,desktop,disagree,8
+keyboard_use_efficiency,amt_inline,0.3,200,desktop,somewhat agree,8
+keyboard_use_efficiency,amt_inline,0.3,200,desktop,somewhat disagree,2
+keyboard_use_efficiency,amt_inline,0.3,200,desktop,strongly agree,3
+keyboard_use_efficiency,amt_inline,0.3,200,desktop,strongly disagree,6
+keyboard_use_efficiency,amt_inline,0.3,50,desktop,agree,7
+keyboard_use_efficiency,amt_inline,0.3,50,desktop,disagree,4
+keyboard_use_efficiency,amt_inline,0.3,50,desktop,neither agree nor disagree,3
+keyboard_use_efficiency,amt_inline,0.3,50,desktop,somewhat agree,6
+keyboard_use_efficiency,amt_inline,0.3,50,desktop,somewhat disagree,3
+keyboard_use_efficiency,amt_inline,0.3,50,desktop,strongly agree,5
+keyboard_use_efficiency,amt_inline,0.3,50,desktop,strongly disagree,2
+keyboard_use_efficiency,amt_inline,0.5,0,desktop,agree,11
+keyboard_use_efficiency,amt_inline,0.5,0,desktop,somewhat agree,6
+keyboard_use_efficiency,amt_inline,0.5,0,desktop,somewhat disagree,3
+keyboard_use_efficiency,amt_inline,0.5,0,desktop,strongly agree,9
+keyboard_use_efficiency,amt_inline,0.5,0,desktop,strongly disagree,1
+keyboard_use_efficiency,amt_inline,0.5,100,desktop,agree,1
+keyboard_use_efficiency,amt_inline,0.5,100,desktop,disagree,7
+keyboard_use_efficiency,amt_inline,0.5,100,desktop,neither agree nor disagree,3
+keyboard_use_efficiency,amt_inline,0.5,100,desktop,somewhat agree,10
+keyboard_use_efficiency,amt_inline,0.5,100,desktop,somewhat disagree,4
+keyboard_use_efficiency,amt_inline,0.5,100,desktop,strongly disagree,5
+keyboard_use_efficiency,amt_inline,0.5,200,desktop,agree,3
+keyboard_use_efficiency,amt_inline,0.5,200,desktop,disagree,4
+keyboard_use_efficiency,amt_inline,0.5,200,desktop,neither agree nor disagree,5
+keyboard_use_efficiency,amt_inline,0.5,200,desktop,somewhat agree,7
+keyboard_use_efficiency,amt_inline,0.5,200,desktop,somewhat disagree,4
+keyboard_use_efficiency,amt_inline,0.5,200,desktop,strongly agree,3
+keyboard_use_efficiency,amt_inline,0.5,200,desktop,strongly disagree,4
+keyboard_use_efficiency,amt_inline,0.5,50,desktop,agree,13
+keyboard_use_efficiency,amt_inline,0.5,50,desktop,disagree,2
+keyboard_use_efficiency,amt_inline,0.5,50,desktop,neither agree nor disagree,2
+keyboard_use_efficiency,amt_inline,0.5,50,desktop,somewhat agree,3
+keyboard_use_efficiency,amt_inline,0.5,50,desktop,somewhat disagree,3
+keyboard_use_efficiency,amt_inline,0.5,50,desktop,strongly agree,5
+keyboard_use_efficiency,amt_inline,0.5,50,desktop,strongly disagree,1
+keyboard_use_efficiency,amt_inline,0.7,0,desktop,agree,13
+keyboard_use_efficiency,amt_inline,0.7,0,desktop,neither agree nor disagree,3
+keyboard_use_efficiency,amt_inline,0.7,0,desktop,somewhat agree,3
+keyboard_use_efficiency,amt_inline,0.7,0,desktop,somewhat disagree,2
+keyboard_use_efficiency,amt_inline,0.7,0,desktop,strongly agree,9
+keyboard_use_efficiency,amt_inline,0.7,100,desktop,agree,5
+keyboard_use_efficiency,amt_inline,0.7,100,desktop,disagree,4
+keyboard_use_efficiency,amt_inline,0.7,100,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_inline,0.7,100,desktop,somewhat agree,9
+keyboard_use_efficiency,amt_inline,0.7,100,desktop,somewhat disagree,7
+keyboard_use_efficiency,amt_inline,0.7,100,desktop,strongly agree,1
+keyboard_use_efficiency,amt_inline,0.7,100,desktop,strongly disagree,3
+keyboard_use_efficiency,amt_inline,0.7,200,desktop,agree,7
+keyboard_use_efficiency,amt_inline,0.7,200,desktop,disagree,7
+keyboard_use_efficiency,amt_inline,0.7,200,desktop,somewhat agree,6
+keyboard_use_efficiency,amt_inline,0.7,200,desktop,somewhat disagree,5
+keyboard_use_efficiency,amt_inline,0.7,200,desktop,strongly agree,4
+keyboard_use_efficiency,amt_inline,0.7,200,desktop,strongly disagree,5
+keyboard_use_efficiency,amt_inline,0.7,50,desktop,agree,9
+keyboard_use_efficiency,amt_inline,0.7,50,desktop,disagree,2
+keyboard_use_efficiency,amt_inline,0.7,50,desktop,somewhat agree,12
+keyboard_use_efficiency,amt_inline,0.7,50,desktop,somewhat disagree,2
+keyboard_use_efficiency,amt_inline,0.7,50,desktop,strongly agree,4
+keyboard_use_efficiency,amt_inline,0.7,50,desktop,strongly disagree,1
+keyboard_use_efficiency,amt_inline,0.9,0,desktop,agree,12
+keyboard_use_efficiency,amt_inline,0.9,0,desktop,disagree,1
+keyboard_use_efficiency,amt_inline,0.9,0,desktop,somewhat agree,5
+keyboard_use_efficiency,amt_inline,0.9,0,desktop,somewhat disagree,1
+keyboard_use_efficiency,amt_inline,0.9,0,desktop,strongly agree,11
+keyboard_use_efficiency,amt_inline,0.9,100,desktop,agree,11
+keyboard_use_efficiency,amt_inline,0.9,100,desktop,disagree,2
+keyboard_use_efficiency,amt_inline,0.9,100,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_inline,0.9,100,desktop,somewhat agree,9
+keyboard_use_efficiency,amt_inline,0.9,100,desktop,somewhat disagree,1
+keyboard_use_efficiency,amt_inline,0.9,100,desktop,strongly agree,5
+keyboard_use_efficiency,amt_inline,0.9,100,desktop,strongly disagree,1
+keyboard_use_efficiency,amt_inline,0.9,200,desktop,agree,10
+keyboard_use_efficiency,amt_inline,0.9,200,desktop,disagree,3
+keyboard_use_efficiency,amt_inline,0.9,200,desktop,neither agree nor disagree,3
+keyboard_use_efficiency,amt_inline,0.9,200,desktop,somewhat agree,7
+keyboard_use_efficiency,amt_inline,0.9,200,desktop,somewhat disagree,2
+keyboard_use_efficiency,amt_inline,0.9,200,desktop,strongly agree,3
+keyboard_use_efficiency,amt_inline,0.9,200,desktop,strongly disagree,2
+keyboard_use_efficiency,amt_inline,0.9,50,desktop,agree,15
+keyboard_use_efficiency,amt_inline,0.9,50,desktop,disagree,1
+keyboard_use_efficiency,amt_inline,0.9,50,desktop,neither agree nor disagree,1
+keyboard_use_efficiency,amt_inline,0.9,50,desktop,somewhat agree,7
+keyboard_use_efficiency,amt_inline,0.9,50,desktop,strongly agree,4
+keyboard_use_efficiency,devices,0.1,0,desktop,agree,2
+keyboard_use_efficiency,devices,0.1,0,desktop,strongly agree,7
+keyboard_use_efficiency,devices,0.1,0,desktop,strongly disagree,3
+keyboard_use_efficiency,devices,0.1,0,phone,agree,3
+keyboard_use_efficiency,devices,0.1,0,phone,disagree,4
+keyboard_use_efficiency,devices,0.1,0,phone,neither agree nor disagree,1
+keyboard_use_efficiency,devices,0.1,0,phone,somewhat agree,2
+keyboard_use_efficiency,devices,0.1,0,phone,somewhat disagree,1
+keyboard_use_efficiency,devices,0.1,0,phone,strongly disagree,1
+keyboard_use_efficiency,devices,0.1,0,tablet,agree,1
+keyboard_use_efficiency,devices,0.1,0,tablet,disagree,3
+keyboard_use_efficiency,devices,0.1,0,tablet,neither agree nor disagree,2
+keyboard_use_efficiency,devices,0.1,0,tablet,somewhat agree,4
+keyboard_use_efficiency,devices,0.1,0,tablet,somewhat disagree,1
+keyboard_use_efficiency,devices,0.1,0,tablet,strongly disagree,1
+keyboard_use_efficiency,devices,0.5,0,desktop,agree,3
+keyboard_use_efficiency,devices,0.5,0,desktop,disagree,1
+keyboard_use_efficiency,devices,0.5,0,desktop,somewhat agree,1
+keyboard_use_efficiency,devices,0.5,0,desktop,strongly agree,7
+keyboard_use_efficiency,devices,0.5,0,phone,agree,1
+keyboard_use_efficiency,devices,0.5,0,phone,disagree,3
+keyboard_use_efficiency,devices,0.5,0,phone,neither agree nor disagree,1
+keyboard_use_efficiency,devices,0.5,0,phone,somewhat agree,2
+keyboard_use_efficiency,devices,0.5,0,phone,somewhat disagree,3
+keyboard_use_efficiency,devices,0.5,0,phone,strongly agree,1
+keyboard_use_efficiency,devices,0.5,0,phone,strongly disagree,1
+keyboard_use_efficiency,devices,0.5,0,tablet,agree,3
+keyboard_use_efficiency,devices,0.5,0,tablet,disagree,2
+keyboard_use_efficiency,devices,0.5,0,tablet,neither agree nor disagree,1
+keyboard_use_efficiency,devices,0.5,0,tablet,somewhat agree,3
+keyboard_use_efficiency,devices,0.5,0,tablet,somewhat disagree,3
+keyboard_use_efficiency,devices,0.9,0,desktop,agree,3
+keyboard_use_efficiency,devices,0.9,0,desktop,somewhat agree,1
+keyboard_use_efficiency,devices,0.9,0,desktop,strongly agree,8
+keyboard_use_efficiency,devices,0.9,0,phone,agree,2
+keyboard_use_efficiency,devices,0.9,0,phone,neither agree nor disagree,3
+keyboard_use_efficiency,devices,0.9,0,phone,somewhat agree,2
+keyboard_use_efficiency,devices,0.9,0,phone,somewhat disagree,2
+keyboard_use_efficiency,devices,0.9,0,phone,strongly agree,1
+keyboard_use_efficiency,devices,0.9,0,phone,strongly disagree,2
+keyboard_use_efficiency,devices,0.9,0,tablet,agree,2
+keyboard_use_efficiency,devices,0.9,0,tablet,disagree,2
+keyboard_use_efficiency,devices,0.9,0,tablet,neither agree nor disagree,2
+keyboard_use_efficiency,devices,0.9,0,tablet,somewhat agree,3
+keyboard_use_efficiency,devices,0.9,0,tablet,somewhat disagree,3
+suggestion_distraction,amt_bar,0.1,0,desktop,agree,7
+suggestion_distraction,amt_bar,0.1,0,desktop,disagree,10
+suggestion_distraction,amt_bar,0.1,0,desktop,somewhat agree,4
+suggestion_distraction,amt_bar,0.1,0,desktop,somewhat disagree,4
+suggestion_distraction,amt_bar,0.1,0,desktop,strongly agree,3
+suggestion_distraction,amt_bar,0.1,100,desktop,agree,3
+suggestion_distraction,amt_bar,0.1,100,desktop,disagree,2
+suggestion_distraction,amt_bar,0.1,100,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_bar,0.1,100,desktop,somewhat agree,11
+suggestion_distraction,amt_bar,0.1,100,desktop,somewhat disagree,7
+suggestion_distraction,amt_bar,0.1,100,desktop,strongly agree,2
+suggestion_distraction,amt_bar,0.1,100,desktop,strongly disagree,3
+suggestion_distraction,amt_bar,0.1,200,desktop,agree,8
+suggestion_distraction,amt_bar,0.1,200,desktop,disagree,7
+suggestion_distraction,amt_bar,0.1,200,desktop,neither agree nor disagree,3
+suggestion_distraction,amt_bar,0.1,200,desktop,somewhat agree,6
+suggestion_distraction,amt_bar,0.1,200,desktop,somewhat disagree,2
+suggestion_distraction,amt_bar,0.1,200,desktop,strongly agree,2
+suggestion_distraction,amt_bar,0.1,200,desktop,strongly disagree,2
+suggestion_distraction,amt_bar,0.1,50,desktop,agree,8
+suggestion_distraction,amt_bar,0.1,50,desktop,disagree,7
+suggestion_distraction,amt_bar,0.1,50,desktop,somewhat agree,9
+suggestion_distraction,amt_bar,0.1,50,desktop,somewhat disagree,1
+suggestion_distraction,amt_bar,0.1,50,desktop,strongly agree,2
+suggestion_distraction,amt_bar,0.1,50,desktop,strongly disagree,3
+suggestion_distraction,amt_bar,0.3,0,desktop,agree,2
+suggestion_distraction,amt_bar,0.3,0,desktop,disagree,2
+suggestion_distraction,amt_bar,0.3,0,desktop,neither agree nor disagree,3
+suggestion_distraction,amt_bar,0.3,0,desktop,somewhat agree,7
+suggestion_distraction,amt_bar,0.3,0,desktop,somewhat disagree,5
+suggestion_distraction,amt_bar,0.3,0,desktop,strongly agree,6
+suggestion_distraction,amt_bar,0.3,0,desktop,strongly disagree,4
+suggestion_distraction,amt_bar,0.3,100,desktop,agree,5
+suggestion_distraction,amt_bar,0.3,100,desktop,disagree,9
+suggestion_distraction,amt_bar,0.3,100,desktop,somewhat agree,8
+suggestion_distraction,amt_bar,0.3,100,desktop,somewhat disagree,2
+suggestion_distraction,amt_bar,0.3,100,desktop,strongly agree,2
+suggestion_distraction,amt_bar,0.3,100,desktop,strongly disagree,2
+suggestion_distraction,amt_bar,0.3,200,desktop,agree,2
+suggestion_distraction,amt_bar,0.3,200,desktop,disagree,8
+suggestion_distraction,amt_bar,0.3,200,desktop,somewhat agree,9
+suggestion_distraction,amt_bar,0.3,200,desktop,somewhat disagree,6
+suggestion_distraction,amt_bar,0.3,200,desktop,strongly agree,3
+suggestion_distraction,amt_bar,0.3,200,desktop,strongly disagree,1
+suggestion_distraction,amt_bar,0.3,50,desktop,agree,8
+suggestion_distraction,amt_bar,0.3,50,desktop,disagree,5
+suggestion_distraction,amt_bar,0.3,50,desktop,neither agree nor disagree,3
+suggestion_distraction,amt_bar,0.3,50,desktop,somewhat agree,7
+suggestion_distraction,amt_bar,0.3,50,desktop,somewhat disagree,4
+suggestion_distraction,amt_bar,0.3,50,desktop,strongly agree,1
+suggestion_distraction,amt_bar,0.3,50,desktop,strongly disagree,2
+suggestion_distraction,amt_bar,0.5,0,desktop,agree,3
+suggestion_distraction,amt_bar,0.5,0,desktop,disagree,6
+suggestion_distraction,amt_bar,0.5,0,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_bar,0.5,0,desktop,somewhat agree,7
+suggestion_distraction,amt_bar,0.5,0,desktop,somewhat disagree,6
+suggestion_distraction,amt_bar,0.5,0,desktop,strongly agree,5
+suggestion_distraction,amt_bar,0.5,0,desktop,strongly disagree,1
+suggestion_distraction,amt_bar,0.5,100,desktop,agree,3
+suggestion_distraction,amt_bar,0.5,100,desktop,disagree,8
+suggestion_distraction,amt_bar,0.5,100,desktop,neither agree nor disagree,2
+suggestion_distraction,amt_bar,0.5,100,desktop,somewhat agree,6
+suggestion_distraction,amt_bar,0.5,100,desktop,somewhat disagree,7
+suggestion_distraction,amt_bar,0.5,100,desktop,strongly agree,1
+suggestion_distraction,amt_bar,0.5,100,desktop,strongly disagree,2
+suggestion_distraction,amt_bar,0.5,200,desktop,agree,1
+suggestion_distraction,amt_bar,0.5,200,desktop,disagree,6
+suggestion_distraction,amt_bar,0.5,200,desktop,neither agree nor disagree,2
+suggestion_distraction,amt_bar,0.5,200,desktop,somewhat agree,7
+suggestion_distraction,amt_bar,0.5,200,desktop,somewhat disagree,9
+suggestion_distraction,amt_bar,0.5,200,desktop,strongly agree,2
+suggestion_distraction,amt_bar,0.5,200,desktop,strongly disagree,3
+suggestion_distraction,amt_bar,0.5,50,desktop,agree,1
+suggestion_distraction,amt_bar,0.5,50,desktop,disagree,8
+suggestion_distraction,amt_bar,0.5,50,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_bar,0.5,50,desktop,somewhat agree,9
+suggestion_distraction,amt_bar,0.5,50,desktop,somewhat disagree,3
+suggestion_distraction,amt_bar,0.5,50,desktop,strongly agree,3
+suggestion_distraction,amt_bar,0.5,50,desktop,strongly disagree,5
+suggestion_distraction,amt_bar,0.7,0,desktop,agree,2
+suggestion_distraction,amt_bar,0.7,0,desktop,disagree,5
+suggestion_distraction,amt_bar,0.7,0,desktop,somewhat agree,7
+suggestion_distraction,amt_bar,0.7,0,desktop,somewhat disagree,10
+suggestion_distraction,amt_bar,0.7,0,desktop,strongly agree,3
+suggestion_distraction,amt_bar,0.7,0,desktop,strongly disagree,1
+suggestion_distraction,amt_bar,0.7,100,desktop,agree,1
+suggestion_distraction,amt_bar,0.7,100,desktop,disagree,12
+suggestion_distraction,amt_bar,0.7,100,desktop,somewhat agree,5
+suggestion_distraction,amt_bar,0.7,100,desktop,somewhat disagree,9
+suggestion_distraction,amt_bar,0.7,100,desktop,strongly agree,1
+suggestion_distraction,amt_bar,0.7,100,desktop,strongly disagree,2
+suggestion_distraction,amt_bar,0.7,200,desktop,agree,1
+suggestion_distraction,amt_bar,0.7,200,desktop,disagree,10
+suggestion_distraction,amt_bar,0.7,200,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_bar,0.7,200,desktop,somewhat agree,1
+suggestion_distraction,amt_bar,0.7,200,desktop,somewhat disagree,11
+suggestion_distraction,amt_bar,0.7,200,desktop,strongly agree,1
+suggestion_distraction,amt_bar,0.7,200,desktop,strongly disagree,4
+suggestion_distraction,amt_bar,0.7,50,desktop,agree,2
+suggestion_distraction,amt_bar,0.7,50,desktop,disagree,7
+suggestion_distraction,amt_bar,0.7,50,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_bar,0.7,50,desktop,somewhat agree,5
+suggestion_distraction,amt_bar,0.7,50,desktop,somewhat disagree,5
+suggestion_distraction,amt_bar,0.7,50,desktop,strongly agree,2
+suggestion_distraction,amt_bar,0.7,50,desktop,strongly disagree,4
+suggestion_distraction,amt_bar,0.9,0,desktop,disagree,12
+suggestion_distraction,amt_bar,0.9,0,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_bar,0.9,0,desktop,somewhat agree,4
+suggestion_distraction,amt_bar,0.9,0,desktop,somewhat disagree,7
+suggestion_distraction,amt_bar,0.9,0,desktop,strongly agree,1
+suggestion_distraction,amt_bar,0.9,0,desktop,strongly disagree,4
+suggestion_distraction,amt_bar,0.9,100,desktop,agree,1
+suggestion_distraction,amt_bar,0.9,100,desktop,disagree,9
+suggestion_distraction,amt_bar,0.9,100,desktop,neither agree nor disagree,2
+suggestion_distraction,amt_bar,0.9,100,desktop,somewhat agree,3
+suggestion_distraction,amt_bar,0.9,100,desktop,somewhat disagree,12
+suggestion_distraction,amt_bar,0.9,100,desktop,strongly agree,1
+suggestion_distraction,amt_bar,0.9,100,desktop,strongly disagree,2
+suggestion_distraction,amt_bar,0.9,200,desktop,disagree,11
+suggestion_distraction,amt_bar,0.9,200,desktop,somewhat agree,3
+suggestion_distraction,amt_bar,0.9,200,desktop,somewhat disagree,8
+suggestion_distraction,amt_bar,0.9,200,desktop,strongly disagree,8
+suggestion_distraction,amt_bar,0.9,50,desktop,agree,4
+suggestion_distraction,amt_bar,0.9,50,desktop,disagree,10
+suggestion_distraction,amt_bar,0.9,50,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_bar,0.9,50,desktop,somewhat agree,3
+suggestion_distraction,amt_bar,0.9,50,desktop,somewhat disagree,3
+suggestion_distraction,amt_bar,0.9,50,desktop,strongly agree,1
+suggestion_distraction,amt_bar,0.9,50,desktop,strongly disagree,6
+suggestion_distraction,amt_inline,0.1,0,desktop,agree,6
+suggestion_distraction,amt_inline,0.1,0,desktop,disagree,3
+suggestion_distraction,amt_inline,0.1,0,desktop,neither agree nor disagree,3
+suggestion_distraction,amt_inline,0.1,0,desktop,somewhat agree,7
+suggestion_distraction,amt_inline,0.1,0,desktop,somewhat disagree,3
+suggestion_distraction,amt_inline,0.1,0,desktop,strongly agree,6
+suggestion_distraction,amt_inline,0.1,0,desktop,strongly disagree,2
+suggestion_distraction,amt_inline,0.1,100,desktop,agree,10
+suggestion_distraction,amt_inline,0.1,100,desktop,disagree,4
+suggestion_distraction,amt_inline,0.1,100,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_inline,0.1,100,desktop,somewhat agree,8
+suggestion_distraction,amt_inline,0.1,100,desktop,somewhat disagree,4
+suggestion_distraction,amt_inline,0.1,100,desktop,strongly agree,1
+suggestion_distraction,amt_inline,0.1,100,desktop,strongly disagree,2
+suggestion_distraction,amt_inline,0.1,200,desktop,agree,5
+suggestion_distraction,amt_inline,0.1,200,desktop,disagree,4
+suggestion_distraction,amt_inline,0.1,200,desktop,neither agree nor disagree,2
+suggestion_distraction,amt_inline,0.1,200,desktop,somewhat agree,9
+suggestion_distraction,amt_inline,0.1,200,desktop,somewhat disagree,4
+suggestion_distraction,amt_inline,0.1,200,desktop,strongly agree,5
+suggestion_distraction,amt_inline,0.1,200,desktop,strongly disagree,1
+suggestion_distraction,amt_inline,0.1,50,desktop,agree,7
+suggestion_distraction,amt_inline,0.1,50,desktop,disagree,5
+suggestion_distraction,amt_inline,0.1,50,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_inline,0.1,50,desktop,somewhat agree,9
+suggestion_distraction,amt_inline,0.1,50,desktop,somewhat disagree,4
+suggestion_distraction,amt_inline,0.1,50,desktop,strongly agree,4
+suggestion_distraction,amt_inline,0.1,50,desktop,strongly disagree,1
+suggestion_distraction,amt_inline,0.3,0,desktop,agree,6
+suggestion_distraction,amt_inline,0.3,0,desktop,disagree,3
+suggestion_distraction,amt_inline,0.3,0,desktop,somewhat agree,12
+suggestion_distraction,amt_inline,0.3,0,desktop,somewhat disagree,2
+suggestion_distraction,amt_inline,0.3,0,desktop,strongly agree,3
+suggestion_distraction,amt_inline,0.3,0,desktop,strongly disagree,2
+suggestion_distraction,amt_inline,0.3,100,desktop,agree,9
+suggestion_distraction,amt_inline,0.3,100,desktop,disagree,4
+suggestion_distraction,amt_inline,0.3,100,desktop,neither agree nor disagree,4
+suggestion_distraction,amt_inline,0.3,100,desktop,somewhat agree,6
+suggestion_distraction,amt_inline,0.3,100,desktop,somewhat disagree,5
+suggestion_distraction,amt_inline,0.3,100,desktop,strongly agree,1
+suggestion_distraction,amt_inline,0.3,100,desktop,strongly disagree,1
+suggestion_distraction,amt_inline,0.3,200,desktop,agree,3
+suggestion_distraction,amt_inline,0.3,200,desktop,disagree,9
+suggestion_distraction,amt_inline,0.3,200,desktop,somewhat agree,9
+suggestion_distraction,amt_inline,0.3,200,desktop,somewhat disagree,5
+suggestion_distraction,amt_inline,0.3,200,desktop,strongly agree,2
+suggestion_distraction,amt_inline,0.3,200,desktop,strongly disagree,2
+suggestion_distraction,amt_inline,0.3,50,desktop,agree,7
+suggestion_distraction,amt_inline,0.3,50,desktop,disagree,6
+suggestion_distraction,amt_inline,0.3,50,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_inline,0.3,50,desktop,somewhat agree,7
+suggestion_distraction,amt_inline,0.3,50,desktop,somewhat disagree,5
+suggestion_distraction,amt_inline,0.3,50,desktop,strongly agree,3
+suggestion_distraction,amt_inline,0.3,50,desktop,strongly disagree,1
+suggestion_distraction,amt_inline,0.5,0,desktop,agree,5
+suggestion_distraction,amt_inline,0.5,0,desktop,disagree,5
+suggestion_distraction,amt_inline,0.5,0,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_inline,0.5,0,desktop,somewhat agree,10
+suggestion_distraction,amt_inline,0.5,0,desktop,somewhat disagree,3
+suggestion_distraction,amt_inline,0.5,0,desktop,strongly agree,4
+suggestion_distraction,amt_inline,0.5,0,desktop,strongly disagree,2
+suggestion_distraction,amt_inline,0.5,100,desktop,agree,4
+suggestion_distraction,amt_inline,0.5,100,desktop,disagree,4
+suggestion_distraction,amt_inline,0.5,100,desktop,somewhat agree,11
+suggestion_distraction,amt_inline,0.5,100,desktop,somewhat disagree,6
+suggestion_distraction,amt_inline,0.5,100,desktop,strongly agree,4
+suggestion_distraction,amt_inline,0.5,100,desktop,strongly disagree,1
+suggestion_distraction,amt_inline,0.5,200,desktop,agree,3
+suggestion_distraction,amt_inline,0.5,200,desktop,disagree,5
+suggestion_distraction,amt_inline,0.5,200,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_inline,0.5,200,desktop,somewhat agree,5
+suggestion_distraction,amt_inline,0.5,200,desktop,somewhat disagree,9
+suggestion_distraction,amt_inline,0.5,200,desktop,strongly agree,2
+suggestion_distraction,amt_inline,0.5,200,desktop,strongly disagree,5
+suggestion_distraction,amt_inline,0.5,50,desktop,agree,6
+suggestion_distraction,amt_inline,0.5,50,desktop,disagree,3
+suggestion_distraction,amt_inline,0.5,50,desktop,neither agree nor disagree,3
+suggestion_distraction,amt_inline,0.5,50,desktop,somewhat agree,9
+suggestion_distraction,amt_inline,0.5,50,desktop,somewhat disagree,4
+suggestion_distraction,amt_inline,0.5,50,desktop,strongly agree,2
+suggestion_distraction,amt_inline,0.5,50,desktop,strongly disagree,2
+suggestion_distraction,amt_inline,0.7,0,desktop,agree,3
+suggestion_distraction,amt_inline,0.7,0,desktop,disagree,3
+suggestion_distraction,amt_inline,0.7,0,desktop,neither agree nor disagree,3
+suggestion_distraction,amt_inline,0.7,0,desktop,somewhat agree,8
+suggestion_distraction,amt_inline,0.7,0,desktop,somewhat disagree,7
+suggestion_distraction,amt_inline,0.7,0,desktop,strongly agree,3
+suggestion_distraction,amt_inline,0.7,0,desktop,strongly disagree,3
+suggestion_distraction,amt_inline,0.7,100,desktop,agree,2
+suggestion_distraction,amt_inline,0.7,100,desktop,disagree,9
+suggestion_distraction,amt_inline,0.7,100,desktop,neither agree nor disagree,2
+suggestion_distraction,amt_inline,0.7,100,desktop,somewhat agree,5
+suggestion_distraction,amt_inline,0.7,100,desktop,somewhat disagree,8
+suggestion_distraction,amt_inline,0.7,100,desktop,strongly disagree,4
+suggestion_distraction,amt_inline,0.7,200,desktop,agree,3
+suggestion_distraction,amt_inline,0.7,200,desktop,disagree,15
+suggestion_distraction,amt_inline,0.7,200,desktop,somewhat agree,5
+suggestion_distraction,amt_inline,0.7,200,desktop,somewhat disagree,8
+suggestion_distraction,amt_inline,0.7,200,desktop,strongly agree,1
+suggestion_distraction,amt_inline,0.7,200,desktop,strongly disagree,2
+suggestion_distraction,amt_inline,0.7,50,desktop,agree,2
+suggestion_distraction,amt_inline,0.7,50,desktop,disagree,4
+suggestion_distraction,amt_inline,0.7,50,desktop,neither agree nor disagree,2
+suggestion_distraction,amt_inline,0.7,50,desktop,somewhat agree,7
+suggestion_distraction,amt_inline,0.7,50,desktop,somewhat disagree,11
+suggestion_distraction,amt_inline,0.7,50,desktop,strongly agree,1
+suggestion_distraction,amt_inline,0.7,50,desktop,strongly disagree,3
+suggestion_distraction,amt_inline,0.9,0,desktop,agree,2
+suggestion_distraction,amt_inline,0.9,0,desktop,disagree,7
+suggestion_distraction,amt_inline,0.9,0,desktop,somewhat agree,6
+suggestion_distraction,amt_inline,0.9,0,desktop,somewhat disagree,8
+suggestion_distraction,amt_inline,0.9,0,desktop,strongly agree,2
+suggestion_distraction,amt_inline,0.9,0,desktop,strongly disagree,5
+suggestion_distraction,amt_inline,0.9,100,desktop,agree,1
+suggestion_distraction,amt_inline,0.9,100,desktop,disagree,14
+suggestion_distraction,amt_inline,0.9,100,desktop,neither agree nor disagree,1
+suggestion_distraction,amt_inline,0.9,100,desktop,somewhat agree,5
+suggestion_distraction,amt_inline,0.9,100,desktop,somewhat disagree,4
+suggestion_distraction,amt_inline,0.9,100,desktop,strongly disagree,5
+suggestion_distraction,amt_inline,0.9,200,desktop,disagree,11
+suggestion_distraction,amt_inline,0.9,200,desktop,somewhat agree,4
+suggestion_distraction,amt_inline,0.9,200,desktop,somewhat disagree,8
+suggestion_distraction,amt_inline,0.9,200,desktop,strongly agree,1
+suggestion_distraction,amt_inline,0.9,200,desktop,strongly disagree,6
+suggestion_distraction,amt_inline,0.9,50,desktop,agree,3
+suggestion_distraction,amt_inline,0.9,50,desktop,disagree,12
+suggestion_distraction,amt_inline,0.9,50,desktop,neither agree nor disagree,2
+suggestion_distraction,amt_inline,0.9,50,desktop,somewhat agree,4
+suggestion_distraction,amt_inline,0.9,50,desktop,somewhat disagree,4
+suggestion_distraction,amt_inline,0.9,50,desktop,strongly agree,1
+suggestion_distraction,amt_inline,0.9,50,desktop,strongly disagree,2
+suggestion_distraction,devices,0.1,0,desktop,agree,1
+suggestion_distraction,devices,0.1,0,desktop,disagree,2
+suggestion_distraction,devices,0.1,0,desktop,neither agree nor disagree,2
+suggestion_distraction,devices,0.1,0,desktop,somewhat agree,3
+suggestion_distraction,devices,0.1,0,desktop,strongly agree,2
+suggestion_distraction,devices,0.1,0,desktop,strongly disagree,2
+suggestion_distraction,devices,0.1,0,phone,agree,1
+suggestion_distraction,devices,0.1,0,phone,disagree,3
+suggestion_distraction,devices,0.1,0,phone,neither agree nor disagree,2
+suggestion_distraction,devices,0.1,0,phone,somewhat agree,5
+suggestion_distraction,devices,0.1,0,phone,somewhat disagree,1
+suggestion_distraction,devices,0.1,0,tablet,agree,3
+suggestion_distraction,devices,0.1,0,tablet,disagree,1
+suggestion_distraction,devices,0.1,0,tablet,neither agree nor disagree,3
+suggestion_distraction,devices,0.1,0,tablet,somewhat agree,3
+suggestion_distraction,devices,0.1,0,tablet,somewhat disagree,1
+suggestion_distraction,devices,0.1,0,tablet,strongly disagree,1
+suggestion_distraction,devices,0.5,0,desktop,agree,2
+suggestion_distraction,devices,0.5,0,desktop,disagree,2
+suggestion_distraction,devices,0.5,0,desktop,neither agree nor disagree,3
+suggestion_distraction,devices,0.5,0,desktop,somewhat agree,3
+suggestion_distraction,devices,0.5,0,desktop,strongly agree,1
+suggestion_distraction,devices,0.5,0,desktop,strongly disagree,1
+suggestion_distraction,devices,0.5,0,phone,agree,2
+suggestion_distraction,devices,0.5,0,phone,disagree,3
+suggestion_distraction,devices,0.5,0,phone,neither agree nor disagree,2
+suggestion_distraction,devices,0.5,0,phone,somewhat agree,2
+suggestion_distraction,devices,0.5,0,phone,somewhat disagree,2
+suggestion_distraction,devices,0.5,0,phone,strongly agree,1
+suggestion_distraction,devices,0.5,0,tablet,agree,2
+suggestion_distraction,devices,0.5,0,tablet,disagree,2
+suggestion_distraction,devices,0.5,0,tablet,neither agree nor disagree,2
+suggestion_distraction,devices,0.5,0,tablet,somewhat agree,5
+suggestion_distraction,devices,0.5,0,tablet,strongly disagree,1
+suggestion_distraction,devices,0.9,0,desktop,agree,1
+suggestion_distraction,devices,0.9,0,desktop,disagree,4
+suggestion_distraction,devices,0.9,0,desktop,neither agree nor disagree,3
+suggestion_distraction,devices,0.9,0,desktop,somewhat agree,3
+suggestion_distraction,devices,0.9,0,desktop,somewhat disagree,1
+suggestion_distraction,devices,0.9,0,phone,disagree,9
+suggestion_distraction,devices,0.9,0,phone,somewhat disagree,1
+suggestion_distraction,devices,0.9,0,phone,strongly disagree,2
+suggestion_distraction,devices,0.9,0,tablet,disagree,5
+suggestion_distraction,devices,0.9,0,tablet,neither agree nor disagree,1
+suggestion_distraction,devices,0.9,0,tablet,somewhat agree,3
+suggestion_distraction,devices,0.9,0,tablet,somewhat disagree,2
+suggestion_distraction,devices,0.9,0,tablet,strongly disagree,1
+suggestions_accuracy,amt_bar,0.1,0,desktop,agree,3
+suggestions_accuracy,amt_bar,0.1,0,desktop,disagree,5
+suggestions_accuracy,amt_bar,0.1,0,desktop,neither agree nor disagree,5
+suggestions_accuracy,amt_bar,0.1,0,desktop,somewhat agree,3
+suggestions_accuracy,amt_bar,0.1,0,desktop,somewhat disagree,9
+suggestions_accuracy,amt_bar,0.1,0,desktop,strongly agree,2
+suggestions_accuracy,amt_bar,0.1,0,desktop,strongly disagree,1
+suggestions_accuracy,amt_bar,0.1,100,desktop,agree,1
+suggestions_accuracy,amt_bar,0.1,100,desktop,disagree,13
+suggestions_accuracy,amt_bar,0.1,100,desktop,neither agree nor disagree,3
+suggestions_accuracy,amt_bar,0.1,100,desktop,somewhat agree,1
+suggestions_accuracy,amt_bar,0.1,100,desktop,somewhat disagree,5
+suggestions_accuracy,amt_bar,0.1,100,desktop,strongly disagree,6
+suggestions_accuracy,amt_bar,0.1,200,desktop,agree,3
+suggestions_accuracy,amt_bar,0.1,200,desktop,disagree,11
+suggestions_accuracy,amt_bar,0.1,200,desktop,neither agree nor disagree,3
+suggestions_accuracy,amt_bar,0.1,200,desktop,somewhat disagree,5
+suggestions_accuracy,amt_bar,0.1,200,desktop,strongly agree,1
+suggestions_accuracy,amt_bar,0.1,200,desktop,strongly disagree,7
+suggestions_accuracy,amt_bar,0.1,50,desktop,agree,3
+suggestions_accuracy,amt_bar,0.1,50,desktop,disagree,6
+suggestions_accuracy,amt_bar,0.1,50,desktop,neither agree nor disagree,2
+suggestions_accuracy,amt_bar,0.1,50,desktop,somewhat agree,3
+suggestions_accuracy,amt_bar,0.1,50,desktop,somewhat disagree,8
+suggestions_accuracy,amt_bar,0.1,50,desktop,strongly agree,1
+suggestions_accuracy,amt_bar,0.1,50,desktop,strongly disagree,7
+suggestions_accuracy,amt_bar,0.3,0,desktop,agree,2
+suggestions_accuracy,amt_bar,0.3,0,desktop,disagree,6
+suggestions_accuracy,amt_bar,0.3,0,desktop,neither agree nor disagree,8
+suggestions_accuracy,amt_bar,0.3,0,desktop,somewhat agree,6
+suggestions_accuracy,amt_bar,0.3,0,desktop,somewhat disagree,6
+suggestions_accuracy,amt_bar,0.3,0,desktop,strongly agree,1
+suggestions_accuracy,amt_bar,0.3,100,desktop,agree,5
+suggestions_accuracy,amt_bar,0.3,100,desktop,disagree,4
+suggestions_accuracy,amt_bar,0.3,100,desktop,neither agree nor disagree,1
+suggestions_accuracy,amt_bar,0.3,100,desktop,somewhat agree,9
+suggestions_accuracy,amt_bar,0.3,100,desktop,somewhat disagree,5
+suggestions_accuracy,amt_bar,0.3,100,desktop,strongly agree,4
+suggestions_accuracy,amt_bar,0.3,200,desktop,agree,6
+suggestions_accuracy,amt_bar,0.3,200,desktop,disagree,4
+suggestions_accuracy,amt_bar,0.3,200,desktop,neither agree nor disagree,2
+suggestions_accuracy,amt_bar,0.3,200,desktop,somewhat agree,11
+suggestions_accuracy,amt_bar,0.3,200,desktop,somewhat disagree,2
+suggestions_accuracy,amt_bar,0.3,200,desktop,strongly agree,1
+suggestions_accuracy,amt_bar,0.3,200,desktop,strongly disagree,3
+suggestions_accuracy,amt_bar,0.3,50,desktop,agree,6
+suggestions_accuracy,amt_bar,0.3,50,desktop,disagree,3
+suggestions_accuracy,amt_bar,0.3,50,desktop,neither agree nor disagree,2
+suggestions_accuracy,amt_bar,0.3,50,desktop,somewhat agree,6
+suggestions_accuracy,amt_bar,0.3,50,desktop,somewhat disagree,10
+suggestions_accuracy,amt_bar,0.3,50,desktop,strongly agree,2
+suggestions_accuracy,amt_bar,0.3,50,desktop,strongly disagree,1
+suggestions_accuracy,amt_bar,0.5,0,desktop,agree,4
+suggestions_accuracy,amt_bar,0.5,0,desktop,disagree,1
+suggestions_accuracy,amt_bar,0.5,0,desktop,neither agree nor disagree,4
+suggestions_accuracy,amt_bar,0.5,0,desktop,somewhat agree,13
+suggestions_accuracy,amt_bar,0.5,0,desktop,somewhat disagree,5
+suggestions_accuracy,amt_bar,0.5,0,desktop,strongly agree,2
+suggestions_accuracy,amt_bar,0.5,100,desktop,agree,6
+suggestions_accuracy,amt_bar,0.5,100,desktop,disagree,4
+suggestions_accuracy,amt_bar,0.5,100,desktop,neither agree nor disagree,3
+suggestions_accuracy,amt_bar,0.5,100,desktop,somewhat agree,11
+suggestions_accuracy,amt_bar,0.5,100,desktop,somewhat disagree,4
+suggestions_accuracy,amt_bar,0.5,100,desktop,strongly agree,1
+suggestions_accuracy,amt_bar,0.5,200,desktop,agree,8
+suggestions_accuracy,amt_bar,0.5,200,desktop,disagree,1
+suggestions_accuracy,amt_bar,0.5,200,desktop,neither agree nor disagree,3
+suggestions_accuracy,amt_bar,0.5,200,desktop,somewhat agree,12
+suggestions_accuracy,amt_bar,0.5,200,desktop,somewhat disagree,5
+suggestions_accuracy,amt_bar,0.5,200,desktop,strongly agree,1
+suggestions_accuracy,amt_bar,0.5,50,desktop,agree,4
+suggestions_accuracy,amt_bar,0.5,50,desktop,neither agree nor disagree,6
+suggestions_accuracy,amt_bar,0.5,50,desktop,somewhat agree,10
+suggestions_accuracy,amt_bar,0.5,50,desktop,somewhat disagree,6
+suggestions_accuracy,amt_bar,0.5,50,desktop,strongly agree,4
+suggestions_accuracy,amt_bar,0.7,0,desktop,agree,9
+suggestions_accuracy,amt_bar,0.7,0,desktop,disagree,1
+suggestions_accuracy,amt_bar,0.7,0,desktop,somewhat agree,16
+suggestions_accuracy,amt_bar,0.7,0,desktop,somewhat disagree,1
+suggestions_accuracy,amt_bar,0.7,0,desktop,strongly agree,1
+suggestions_accuracy,amt_bar,0.7,100,desktop,agree,9
+suggestions_accuracy,amt_bar,0.7,100,desktop,somewhat agree,15
+suggestions_accuracy,amt_bar,0.7,100,desktop,somewhat disagree,2
+suggestions_accuracy,amt_bar,0.7,100,desktop,strongly agree,4
+suggestions_accuracy,amt_bar,0.7,200,desktop,agree,10
+suggestions_accuracy,amt_bar,0.7,200,desktop,neither agree nor disagree,1
+suggestions_accuracy,amt_bar,0.7,200,desktop,somewhat agree,15
+suggestions_accuracy,amt_bar,0.7,200,desktop,somewhat disagree,1
+suggestions_accuracy,amt_bar,0.7,200,desktop,strongly agree,2
+suggestions_accuracy,amt_bar,0.7,50,desktop,agree,10
+suggestions_accuracy,amt_bar,0.7,50,desktop,neither agree nor disagree,8
+suggestions_accuracy,amt_bar,0.7,50,desktop,somewhat agree,6
+suggestions_accuracy,amt_bar,0.7,50,desktop,somewhat disagree,1
+suggestions_accuracy,amt_bar,0.7,50,desktop,strongly agree,1
+suggestions_accuracy,amt_bar,0.9,0,desktop,agree,11
+suggestions_accuracy,amt_bar,0.9,0,desktop,neither agree nor disagree,4
+suggestions_accuracy,amt_bar,0.9,0,desktop,somewhat agree,12
+suggestions_accuracy,amt_bar,0.9,0,desktop,strongly agree,2
+suggestions_accuracy,amt_bar,0.9,100,desktop,agree,9
+suggestions_accuracy,amt_bar,0.9,100,desktop,somewhat agree,12
+suggestions_accuracy,amt_bar,0.9,100,desktop,somewhat disagree,2
+suggestions_accuracy,amt_bar,0.9,100,desktop,strongly agree,7
+suggestions_accuracy,amt_bar,0.9,200,desktop,agree,9
+suggestions_accuracy,amt_bar,0.9,200,desktop,disagree,1
+suggestions_accuracy,amt_bar,0.9,200,desktop,somewhat agree,16
+suggestions_accuracy,amt_bar,0.9,200,desktop,strongly agree,4
+suggestions_accuracy,amt_bar,0.9,50,desktop,agree,12
+suggestions_accuracy,amt_bar,0.9,50,desktop,neither agree nor disagree,1
+suggestions_accuracy,amt_bar,0.9,50,desktop,somewhat agree,10
+suggestions_accuracy,amt_bar,0.9,50,desktop,somewhat disagree,1
+suggestions_accuracy,amt_bar,0.9,50,desktop,strongly agree,4
+suggestions_accuracy,amt_inline,0.1,0,desktop,disagree,6
+suggestions_accuracy,amt_inline,0.1,0,desktop,neither agree nor disagree,6
+suggestions_accuracy,amt_inline,0.1,0,desktop,somewhat agree,6
+suggestions_accuracy,amt_inline,0.1,0,desktop,somewhat disagree,3
+suggestions_accuracy,amt_inline,0.1,0,desktop,strongly agree,3
+suggestions_accuracy,amt_inline,0.1,0,desktop,strongly disagree,6
+suggestions_accuracy,amt_inline,0.1,100,desktop,disagree,7
+suggestions_accuracy,amt_inline,0.1,100,desktop,neither agree nor disagree,2
+suggestions_accuracy,amt_inline,0.1,100,desktop,somewhat agree,3
+suggestions_accuracy,amt_inline,0.1,100,desktop,somewhat disagree,7
+suggestions_accuracy,amt_inline,0.1,100,desktop,strongly disagree,11
+suggestions_accuracy,amt_inline,0.1,200,desktop,agree,2
+suggestions_accuracy,amt_inline,0.1,200,desktop,disagree,10
+suggestions_accuracy,amt_inline,0.1,200,desktop,somewhat agree,3
+suggestions_accuracy,amt_inline,0.1,200,desktop,somewhat disagree,6
+suggestions_accuracy,amt_inline,0.1,200,desktop,strongly disagree,9
+suggestions_accuracy,amt_inline,0.1,50,desktop,agree,1
+suggestions_accuracy,amt_inline,0.1,50,desktop,disagree,8
+suggestions_accuracy,amt_inline,0.1,50,desktop,neither agree nor disagree,3
+suggestions_accuracy,amt_inline,0.1,50,desktop,somewhat agree,4
+suggestions_accuracy,amt_inline,0.1,50,desktop,somewhat disagree,9
+suggestions_accuracy,amt_inline,0.1,50,desktop,strongly agree,3
+suggestions_accuracy,amt_inline,0.1,50,desktop,strongly disagree,3
+suggestions_accuracy,amt_inline,0.3,0,desktop,agree,2
+suggestions_accuracy,amt_inline,0.3,0,desktop,disagree,4
+suggestions_accuracy,amt_inline,0.3,0,desktop,neither agree nor disagree,1
+suggestions_accuracy,amt_inline,0.3,0,desktop,somewhat agree,5
+suggestions_accuracy,amt_inline,0.3,0,desktop,somewhat disagree,16
+suggestions_accuracy,amt_inline,0.3,100,desktop,agree,3
+suggestions_accuracy,amt_inline,0.3,100,desktop,disagree,2
+suggestions_accuracy,amt_inline,0.3,100,desktop,neither agree nor disagree,2
+suggestions_accuracy,amt_inline,0.3,100,desktop,somewhat agree,11
+suggestions_accuracy,amt_inline,0.3,100,desktop,somewhat disagree,7
+suggestions_accuracy,amt_inline,0.3,100,desktop,strongly agree,2
+suggestions_accuracy,amt_inline,0.3,100,desktop,strongly disagree,3
+suggestions_accuracy,amt_inline,0.3,200,desktop,agree,3
+suggestions_accuracy,amt_inline,0.3,200,desktop,disagree,2
+suggestions_accuracy,amt_inline,0.3,200,desktop,neither agree nor disagree,3
+suggestions_accuracy,amt_inline,0.3,200,desktop,somewhat agree,10
+suggestions_accuracy,amt_inline,0.3,200,desktop,somewhat disagree,10
+suggestions_accuracy,amt_inline,0.3,200,desktop,strongly agree,1
+suggestions_accuracy,amt_inline,0.3,200,desktop,strongly disagree,1
+suggestions_accuracy,amt_inline,0.3,50,desktop,agree,6
+suggestions_accuracy,amt_inline,0.3,50,desktop,disagree,2
+suggestions_accuracy,amt_inline,0.3,50,desktop,neither agree nor disagree,3
+suggestions_accuracy,amt_inline,0.3,50,desktop,somewhat agree,6
+suggestions_accuracy,amt_inline,0.3,50,desktop,somewhat disagree,10
+suggestions_accuracy,amt_inline,0.3,50,desktop,strongly agree,1
+suggestions_accuracy,amt_inline,0.3,50,desktop,strongly disagree,2
+suggestions_accuracy,amt_inline,0.5,0,desktop,agree,4
+suggestions_accuracy,amt_inline,0.5,0,desktop,disagree,3
+suggestions_accuracy,amt_inline,0.5,0,desktop,neither agree nor disagree,3
+suggestions_accuracy,amt_inline,0.5,0,desktop,somewhat agree,9
+suggestions_accuracy,amt_inline,0.5,0,desktop,somewhat disagree,9
+suggestions_accuracy,amt_inline,0.5,0,desktop,strongly agree,2
+suggestions_accuracy,amt_inline,0.5,100,desktop,agree,2
+suggestions_accuracy,amt_inline,0.5,100,desktop,disagree,3
+suggestions_accuracy,amt_inline,0.5,100,desktop,neither agree nor disagree,4
+suggestions_accuracy,amt_inline,0.5,100,desktop,somewhat agree,13
+suggestions_accuracy,amt_inline,0.5,100,desktop,somewhat disagree,7
+suggestions_accuracy,amt_inline,0.5,100,desktop,strongly agree,1
+suggestions_accuracy,amt_inline,0.5,200,desktop,agree,9
+suggestions_accuracy,amt_inline,0.5,200,desktop,disagree,3
+suggestions_accuracy,amt_inline,0.5,200,desktop,neither agree nor disagree,6
+suggestions_accuracy,amt_inline,0.5,200,desktop,somewhat agree,6
+suggestions_accuracy,amt_inline,0.5,200,desktop,somewhat disagree,2
+suggestions_accuracy,amt_inline,0.5,200,desktop,strongly agree,4
+suggestions_accuracy,amt_inline,0.5,50,desktop,agree,1
+suggestions_accuracy,amt_inline,0.5,50,desktop,disagree,2
+suggestions_accuracy,amt_inline,0.5,50,desktop,neither agree nor disagree,5
+suggestions_accuracy,amt_inline,0.5,50,desktop,somewhat agree,11
+suggestions_accuracy,amt_inline,0.5,50,desktop,somewhat disagree,9
+suggestions_accuracy,amt_inline,0.5,50,desktop,strongly agree,1
+suggestions_accuracy,amt_inline,0.7,0,desktop,agree,10
+suggestions_accuracy,amt_inline,0.7,0,desktop,neither agree nor disagree,3
+suggestions_accuracy,amt_inline,0.7,0,desktop,somewhat agree,12
+suggestions_accuracy,amt_inline,0.7,0,desktop,somewhat disagree,2
+suggestions_accuracy,amt_inline,0.7,0,desktop,strongly agree,3
+suggestions_accuracy,amt_inline,0.7,100,desktop,agree,11
+suggestions_accuracy,amt_inline,0.7,100,desktop,disagree,1
+suggestions_accuracy,amt_inline,0.7,100,desktop,neither agree nor disagree,2
+suggestions_accuracy,amt_inline,0.7,100,desktop,somewhat agree,15
+suggestions_accuracy,amt_inline,0.7,100,desktop,somewhat disagree,1
+suggestions_accuracy,amt_inline,0.7,200,desktop,agree,10
+suggestions_accuracy,amt_inline,0.7,200,desktop,disagree,1
+suggestions_accuracy,amt_inline,0.7,200,desktop,somewhat agree,19
+suggestions_accuracy,amt_inline,0.7,200,desktop,somewhat disagree,1
+suggestions_accuracy,amt_inline,0.7,200,desktop,strongly agree,2
+suggestions_accuracy,amt_inline,0.7,200,desktop,strongly disagree,1
+suggestions_accuracy,amt_inline,0.7,50,desktop,agree,11
+suggestions_accuracy,amt_inline,0.7,50,desktop,neither agree nor disagree,1
+suggestions_accuracy,amt_inline,0.7,50,desktop,somewhat agree,9
+suggestions_accuracy,amt_inline,0.7,50,desktop,somewhat disagree,5
+suggestions_accuracy,amt_inline,0.7,50,desktop,strongly agree,3
+suggestions_accuracy,amt_inline,0.7,50,desktop,strongly disagree,1
+suggestions_accuracy,amt_inline,0.9,0,desktop,agree,6
+suggestions_accuracy,amt_inline,0.9,0,desktop,neither agree nor disagree,3
+suggestions_accuracy,amt_inline,0.9,0,desktop,somewhat agree,14
+suggestions_accuracy,amt_inline,0.9,0,desktop,somewhat disagree,2
+suggestions_accuracy,amt_inline,0.9,0,desktop,strongly agree,5
+suggestions_accuracy,amt_inline,0.9,100,desktop,agree,14
+suggestions_accuracy,amt_inline,0.9,100,desktop,somewhat agree,13
+suggestions_accuracy,amt_inline,0.9,100,desktop,strongly agree,2
+suggestions_accuracy,amt_inline,0.9,100,desktop,strongly disagree,1
+suggestions_accuracy,amt_inline,0.9,200,desktop,agree,9
+suggestions_accuracy,amt_inline,0.9,200,desktop,disagree,1
+suggestions_accuracy,amt_inline,0.9,200,desktop,somewhat agree,15
+suggestions_accuracy,amt_inline,0.9,200,desktop,strongly agree,5
+suggestions_accuracy,amt_inline,0.9,50,desktop,agree,13
+suggestions_accuracy,amt_inline,0.9,50,desktop,somewhat agree,11
+suggestions_accuracy,amt_inline,0.9,50,desktop,strongly agree,4
+suggestions_accuracy,devices,0.1,0,desktop,disagree,4
+suggestions_accuracy,devices,0.1,0,desktop,neither agree nor disagree,4
+suggestions_accuracy,devices,0.1,0,desktop,somewhat disagree,3
+suggestions_accuracy,devices,0.1,0,desktop,strongly disagree,1
+suggestions_accuracy,devices,0.1,0,phone,disagree,3
+suggestions_accuracy,devices,0.1,0,phone,neither agree nor disagree,1
+suggestions_accuracy,devices,0.1,0,phone,somewhat agree,1
+suggestions_accuracy,devices,0.1,0,phone,somewhat disagree,2
+suggestions_accuracy,devices,0.1,0,phone,strongly disagree,5
+suggestions_accuracy,devices,0.1,0,tablet,disagree,5
+suggestions_accuracy,devices,0.1,0,tablet,somewhat disagree,3
+suggestions_accuracy,devices,0.1,0,tablet,strongly disagree,4
+suggestions_accuracy,devices,0.5,0,desktop,agree,1
+suggestions_accuracy,devices,0.5,0,desktop,disagree,1
+suggestions_accuracy,devices,0.5,0,desktop,neither agree nor disagree,7
+suggestions_accuracy,devices,0.5,0,desktop,somewhat disagree,3
+suggestions_accuracy,devices,0.5,0,phone,agree,1
+suggestions_accuracy,devices,0.5,0,phone,disagree,1
+suggestions_accuracy,devices,0.5,0,phone,neither agree nor disagree,4
+suggestions_accuracy,devices,0.5,0,phone,somewhat agree,3
+suggestions_accuracy,devices,0.5,0,phone,somewhat disagree,3
+suggestions_accuracy,devices,0.5,0,tablet,agree,2
+suggestions_accuracy,devices,0.5,0,tablet,disagree,3
+suggestions_accuracy,devices,0.5,0,tablet,neither agree nor disagree,1
+suggestions_accuracy,devices,0.5,0,tablet,somewhat agree,4
+suggestions_accuracy,devices,0.5,0,tablet,somewhat disagree,2
+suggestions_accuracy,devices,0.9,0,desktop,agree,2
+suggestions_accuracy,devices,0.9,0,desktop,neither agree nor disagree,5
+suggestions_accuracy,devices,0.9,0,desktop,somewhat agree,3
+suggestions_accuracy,devices,0.9,0,desktop,strongly agree,2
+suggestions_accuracy,devices,0.9,0,phone,agree,6
+suggestions_accuracy,devices,0.9,0,phone,neither agree nor disagree,1
+suggestions_accuracy,devices,0.9,0,phone,somewhat agree,2
+suggestions_accuracy,devices,0.9,0,phone,strongly agree,3
+suggestions_accuracy,devices,0.9,0,tablet,agree,4
+suggestions_accuracy,devices,0.9,0,tablet,neither agree nor disagree,1
+suggestions_accuracy,devices,0.9,0,tablet,somewhat agree,4
+suggestions_accuracy,devices,0.9,0,tablet,somewhat disagree,1
+suggestions_accuracy,devices,0.9,0,tablet,strongly agree,2

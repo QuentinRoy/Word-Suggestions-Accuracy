@@ -1,27 +1,26 @@
-import { chunk } from "lodash"
-import * as React from "react"
+import { max } from "d3-array"
 import { useChartTheme } from "../../lib/chart-theme"
 import { translate } from "../../lib/transforms"
 
-type LegendProps<T = any> = {
-  columnCount: number
+type LegendProps<T> = {
   width: number
-  values: T[]
-  scale: (value: T) => string
+  rows: (T | null)[][]
+  colorScale: (value: T) => string
+  getLabel: (value: T) => string
   x?: number
   y?: number
 }
-const ColorLegend: React.FC<LegendProps> = ({
-  columnCount,
-  values,
+export default function ColorLegend<T>({
+  rows,
   width,
-  scale,
+  colorScale,
+  getLabel,
   x = 0,
   y = 0,
-}) => {
+}: LegendProps<T>): JSX.Element {
   const { legend } = useChartTheme()
+  let columnCount = max(rows, row => row.length) || 1
   let itemWidth = width / columnCount
-  let rows = chunk(values, columnCount)
   return (
     <g transform={translate(x, y)}>
       {rows.map((row, i) => (
@@ -32,30 +31,32 @@ const ColorLegend: React.FC<LegendProps> = ({
             i * (legend.items.size + legend.items.margin)
           )}
         >
-          {row.map((answer, i) => (
-            <g key={answer}>
-              <rect
-                fill={scale(answer)}
-                width={legend.items.size}
-                height={legend.items.size}
-                y={0}
-                x={i * itemWidth}
-              />
-              <text
-                x={i * itemWidth + legend.items.size + legend.items.margin}
-                y={legend.items.size / 2}
-                dominantBaseline="middle"
-                fill={legend.items.label.color}
-                style={{ fontSize: legend.items.label.size }}
-              >
-                {answer}
-              </text>
-            </g>
-          ))}
+          {row.map((answer, i) => {
+            if (answer === null) return null
+            let color = colorScale(answer)
+            return (
+              <g key={color}>
+                <rect
+                  fill={colorScale(answer)}
+                  width={legend.items.size}
+                  height={legend.items.size}
+                  y={0}
+                  x={i * itemWidth}
+                />
+                <text
+                  x={i * itemWidth + legend.items.size + legend.items.margin}
+                  y={legend.items.size / 2}
+                  dominantBaseline="middle"
+                  fill={legend.items.label.color}
+                  style={{ fontSize: legend.items.label.size }}
+                >
+                  {getLabel(answer)}
+                </text>
+              </g>
+            )
+          })}
         </g>
       ))}
     </g>
   )
 }
-
-export default ColorLegend

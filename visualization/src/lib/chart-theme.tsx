@@ -1,31 +1,32 @@
 import { merge } from "lodash"
 import * as React from "react"
 import { PartialDeep } from "type-fest"
+import { useMemoMerge } from "./use-memo-merge"
 
-interface Text {
+export type Text = {
   size: number
   color: string
 }
 
-interface Tick {
+export type Tick = {
   margin: number
   color: string
   width: number
   label: Text
 }
 
-interface Axis {
+export type Axis = {
   ticks: Tick
 }
 
-export interface Margin {
+export type Margin = {
   left: number
   top: number
   bottom: number
   right: number
 }
 
-interface ChartTheme {
+export type ChartTheme = {
   facets: {
     label: {
       size: number
@@ -108,9 +109,8 @@ type ChartProviderProps = {
   children?: React.ReactNode
 }
 export const ChartThemeProvider = ({ theme, children }: ChartProviderProps) => {
-  // Using merge instead of defaultsDeep because merge is already imported
-  // by userMemoMerge.
-  const themeWithDefaults: ChartTheme = merge({}, defaultTheme, theme)
+  const themeWithDefaults = useMemoMerge(defaultTheme, theme) as ChartTheme
+
   return (
     <themeContext.Provider value={themeWithDefaults}>
       {children}

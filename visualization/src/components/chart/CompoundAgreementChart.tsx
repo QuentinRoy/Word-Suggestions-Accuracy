@@ -1,10 +1,10 @@
-import * as React from "react"
 import { scaleBand, scaleLinear, scaleOrdinal } from "d3-scale"
-import { max, min, rollup, sort } from "d3-array"
+import { max, min, reverse, rollup, sort } from "d3-array"
 import { schemeRdBu } from "d3-scale-chromatic"
 import { animated, useSpring } from "@react-spring/web"
 import {
   AgreementAnswer,
+  agreementAnswerLabels,
   AgreementRow,
   negativeAgreementAnswers,
   neutralAgreementAnswer,
@@ -19,10 +19,20 @@ import YAxis from "./YAxis"
 import { rotate, transform, translate } from "../../lib/transforms"
 import { useMemoMerge } from "../../lib/use-memo-merge"
 
-const orderedAnswers = [
+const orderedAgreementAnswers = [
   ...negativeAgreementAnswers,
-  ...positiveAgreementAnswers,
   neutralAgreementAnswer,
+  ...reverse(positiveAgreementAnswers),
+]
+const divergingOrderLegendRows = [
+  negativeAgreementAnswers,
+  [neutralAgreementAnswer, null, null],
+  positiveAgreementAnswers,
+]
+const positivityOrderLegendRows = [
+  negativeAgreementAnswers,
+  [neutralAgreementAnswer, null, null],
+  reverse(positiveAgreementAnswers),
 ]
 
 let stackFactoryArgs = {
@@ -39,6 +49,9 @@ const StackFactories = {
 
 const defaultMargin = { top: 15, right: 25, left: 115, bottom: 120 }
 const noLegendDefaultMargin = { ...defaultMargin, bottom: 30 }
+const defaultColorScale = scaleOrdinal(
+  schemeRdBu[orderedAgreementAnswers.length]
+).domain(orderedAgreementAnswers)
 
 type CompoundAgreementChartProps = {
   data: AgreementRow[]
@@ -50,7 +63,6 @@ type CompoundAgreementChartProps = {
   groups: keyof AgreementRow
   groupLabels: Record<string, string>
   facetLabels: Record<string, string>
-  legendColumnCount?: number
   noLegend?: boolean
   type: "diverging" | "solid"
 }
@@ -60,10 +72,7 @@ export default function CompoundAgreementChart({
   margin: partialMargin,
   width = 850 - defaultMargin.left - defaultMargin.right,
   height = 350,
-  legendColumnCount = 3,
-  colorScale = scaleOrdinal(
-    schemeRdBu[Object.values(AgreementAnswer).length]
-  ).domain(Object.values(AgreementAnswer).reverse()),
+  colorScale = defaultColorScale,
   facets,
   groups,
   groupLabels,
@@ -71,10 +80,10 @@ export default function CompoundAgreementChart({
   type,
   noLegend = false,
 }: CompoundAgreementChartProps) {
-  let margin: Margin = useMemoMerge(
+  let margin = useMemoMerge(
     noLegend ? noLegendDefaultMargin : defaultMargin,
-    partialMargin == null ? {} : partialMargin
-  )
+    partialMargin
+  ) as Margin
   const theme = useChartTheme()
 
   let dataGroups = rollup(
@@ -165,10 +174,14 @@ export default function CompoundAgreementChart({
           <ColorLegend
             x={(width - theme.legend.width) / 2}
             y={height + theme.legend.margin.top}
-            scale={colorScale}
+            colorScale={colorScale}
+            getLabel={d => agreementAnswerLabels[d]}
             width={theme.legend.width}
-            values={orderedAnswers}
-            columnCount={legendColumnCount}
+            rows={
+              type == "diverging"
+                ? divergingOrderLegendRows
+                : positivityOrderLegendRows
+            }
           />
         )}
       </g>

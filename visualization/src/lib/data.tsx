@@ -1,25 +1,3 @@
-export enum AgreementAnswer {
-  StronglyAgree = "Strongly agree",
-  Agree = "Agree",
-  SomewhatAgree = "Somewhat agree",
-  NeitherAgreeNorDisagree = "Neither agree nor disagree",
-  SomewhatDisagree = "Somewhat disagree",
-  Disagree = "Disagree",
-  StronglyDisagree = "Strongly disagree",
-}
-// All the possible answers ordered by strength.
-export const neutralAgreementAnswer = AgreementAnswer.NeitherAgreeNorDisagree
-export const positiveAgreementAnswers = [
-  AgreementAnswer.StronglyAgree,
-  AgreementAnswer.Agree,
-  AgreementAnswer.SomewhatAgree,
-]
-export const negativeAgreementAnswers = [
-  AgreementAnswer.StronglyDisagree,
-  AgreementAnswer.Disagree,
-  AgreementAnswer.SomewhatDisagree,
-]
-
 export type ExperimentId = "devices" | "amt_bar" | "amt_inline"
 export type QuestionId =
   | "controls_satisfactory"
@@ -31,6 +9,28 @@ export type EfficiencyFactor = "device" | "keyStrokeDelay"
 export type Factor = EfficiencyFactor | "accuracy"
 export type Accuracy = "0.1" | "0.3" | "0.5" | "0.7" | "0.9"
 export type KeyStrokeDelay = "0" | "50" | "100" | "200"
+export type AgreementAnswer =
+  | "strongly agree"
+  | "agree"
+  | "somewhat agree"
+  | "neither agree nor disagree"
+  | "somewhat disagree"
+  | "disagree"
+  | "strongly disagree"
+
+// All the possible answers ordered by strength.
+export const neutralAgreementAnswer =
+  "neither agree nor disagree" as AgreementAnswer
+export const positiveAgreementAnswers = [
+  "strongly agree",
+  "agree",
+  "somewhat agree",
+] as AgreementAnswer[]
+export const negativeAgreementAnswers = [
+  "strongly disagree",
+  "disagree",
+  "somewhat disagree",
+] as AgreementAnswer[]
 
 export type AgreementRow = {
   experiment: ExperimentId
@@ -43,9 +43,9 @@ export type AgreementRow = {
 }
 
 export const deviceLabels: Readonly<Record<DeviceId, string>> = Object.freeze({
-  desktop: "Desktop",
-  tablet: "Tablet",
-  phone: "Phone",
+  desktop: "desktop",
+  tablet: "tablet",
+  phone: "phone",
 })
 
 export const questionLabels: Readonly<Record<QuestionId, string>> =
@@ -63,6 +63,17 @@ export const experimentLabels: Readonly<Record<ExperimentId, string>> =
     devices: "Desktop, Tablet, and phone; and three suggestions",
     amt_bar: "Keytime and one suggestion in a suggestion bar",
     amt_inline: "Keytime and one inline suggestion",
+  })
+
+export const agreementAnswerLabels: Readonly<Record<AgreementAnswer, string>> =
+  Object.freeze({
+    "strongly agree": "strongly agree",
+    agree: "agree",
+    "somewhat agree": "somewhat agree",
+    "neither agree nor disagree": "neither agree nor disagree",
+    "somewhat disagree": "somewhat disagree",
+    disagree: "disagree",
+    "strongly disagree": "strongly disagree",
   })
 
 export const typingEfficiencyFactorIds: Readonly<
@@ -83,11 +94,11 @@ export const keyStrokeDelayLabels: Readonly<Record<KeyStrokeDelay, string>> =
 
 export const keyAccuracyLabels: Readonly<Record<Accuracy, string>> =
   Object.freeze({
-    "0.1": "Accuracy 0.1",
-    "0.3": "Accuracy 0.3",
-    "0.5": "Accuracy 0.5",
-    "0.7": "Accuracy 0.7",
-    "0.9": "Accuracy 0.9",
+    "0.1": "accuracy 0.1",
+    "0.3": "accuracy 0.3",
+    "0.5": "accuracy 0.5",
+    "0.7": "accuracy 0.7",
+    "0.9": "accuracy 0.9",
   })
 
 export const labelsByFactors: Readonly<

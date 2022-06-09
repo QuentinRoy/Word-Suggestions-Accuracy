@@ -10,7 +10,7 @@ services:
     restart: on-failure
     ports:
       - target: 80
-        published: 5000
+        published: 8000
     container_name: typing-exp
 
   words:

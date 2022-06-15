@@ -54,45 +54,60 @@ export default function CompoundPage({
       <Head>
         <title>Experiment Results</title>
       </Head>
-
-      <Container maxWidth="md" sx={{ my: 2 }}>
-        <Paper component="header" sx={{ p: 2, mb: 2 }}>
-          <Box mb={2}>
-            <ChoiceControl
-              groupLabel="Experiment"
-              value={selectedExperiment}
-              onChange={experiment => {
-                setSelectedExperiments([experiment])
-              }}
-              availableValues={availableExperiments}
-              labels={experimentLabels}
-            />
-          </Box>
-          <Box>
-            <ChoiceControl
-              groupLabel="Question"
-              value={selectedQuestion}
-              onChange={question => {
-                setSelectedQuestions([question])
-              }}
-              availableValues={availableQuestions}
-              labels={questionLabels}
-            />
-          </Box>
-        </Paper>
-        <Card>
-          <CompoundAgreementChart
-            height={selectedExperiment === "devices" ? 300 : 520}
-            theme={{ plot: { margin: { left: 110 } } }}
-            facets="accuracy"
-            groups={groups}
-            data={selectedRows}
-            groupLabels={groupLabels}
-            facetLabels={accuracyLabels}
-            type="solid"
+      <Paper component="header" sx={{ p: 2, mb: 2 }}>
+        <Box mb={2}>
+          <ChoiceControl
+            groupLabel="Experiment"
+            value={selectedExperiment}
+            onChange={experiment => {
+              setSelectedExperiments([experiment])
+            }}
+            availableValues={availableExperiments}
+            labels={experimentLabels}
           />
-        </Card>
-      </Container>
+        </Box>
+        <Box>
+          <ChoiceControl
+            groupLabel="Question"
+            value={selectedQuestion}
+            onChange={question => {
+              setSelectedQuestions([question])
+            }}
+            availableValues={availableQuestions}
+            labels={questionLabels}
+          />
+        </Box>
+      </Paper>
+
+      <div
+        css={{
+          width: "fit-content",
+          margin: "20px auto",
+          background: "white",
+          fontFamily: '"Linux Libertine"',
+        }}
+      >
+        <CompoundAgreementChart
+          height={selectedExperiment === "devices" ? 300 : 520}
+          theme={
+            selectedExperiment === "devices"
+              ? {
+                  plot: { margin: { left: 100 } },
+                  facets: { label: { margin: 90 } },
+                }
+              : {
+                  plot: { margin: { left: 90 } },
+                  facets: { label: { margin: 80 } },
+                }
+          }
+          facets="accuracy"
+          groups={groups}
+          data={selectedRows}
+          groupLabels={groupLabels}
+          facetLabels={accuracyLabels}
+          type="solid"
+        />
+      </div>
     </>
   )
 }
@@ -116,4 +131,16 @@ export const getStaticProps: GetStaticProps<{
     totalAnswers: parseInt(rawRow.totalAnswers as string, 10),
   }))
   return { props: { data } }
+}
+
+type Action =
+  | { type: "selectExperiment"; experiment: ExperimentId }
+  | { type: "setSelectedQuestions"; questions: QuestionId[] }
+
+type State = {
+  selectedRows: AgreementRow[]
+  selectedExperiment: ExperimentId
+  selectedQuestions: QuestionId[]
+  availableQuestions: QuestionId[]
+  availableExperiments: ExperimentId[]
 }

@@ -2,6 +2,7 @@ import { scaleBand, scaleLinear, scaleOrdinal } from "d3-scale"
 import { max, min, reverse, rollup, sort } from "d3-array"
 import { schemeRdBu } from "d3-scale-chromatic"
 import { animated, useSpring } from "@react-spring/web"
+import { PartialDeep } from "type-fest"
 import {
   AgreementAnswer,
   agreementAnswerLabels,
@@ -13,11 +14,10 @@ import {
 } from "../../lib/data"
 import ColorLegend from "./ColorLegend"
 import { DivergingStack, SolidStack } from "../../lib/stacks"
-import { Margin, useChartTheme } from "../../lib/chart-theme"
+import { ChartTheme, defaultTheme, useChartTheme } from "../../lib/chart-theme"
 import StackGroup from "./StackGroup"
 import XAxis from "./XAxis"
 import YAxis from "./YAxis"
-import { useMemoMerge } from "../../lib/use-memo-merge"
 
 const orderedAgreementAnswers = [
   ...negativeAgreementAnswers,
@@ -35,8 +35,6 @@ const positivityOrderLegendRows = [
   reverse(positiveAgreementAnswers),
 ]
 
-const defaultMargin = { top: 15, right: 25, left: 85, bottom: 120 }
-const noLegendDefaultMargin = { ...defaultMargin, bottom: 30 }
 const defaultColorScale = scaleOrdinal(
   schemeRdBu[orderedAgreementAnswers.length]
 ).domain(orderedAgreementAnswers)
@@ -55,7 +53,7 @@ const StackFactories = {
 
 type AgreementChartProps = {
   data: AgreementRow[]
-  margin?: Partial<Margin>
+  theme?: PartialDeep<ChartTheme>
   width?: number
   height?: number
   colorScale?: (answer: AgreementAnswer) => string
@@ -68,8 +66,8 @@ type AgreementChartProps = {
 // Device: on y, proportion on x and color, accuracy and question as parameters.
 export default function SimpleAgreementChart({
   data,
-  margin: partialMargin,
-  width = 850 - defaultMargin.left - defaultMargin.right,
+  theme: partialTheme,
+  width = 850 - defaultTheme.plot.margin.left - defaultTheme.plot.margin.right,
   height = 150,
   colorScale = defaultColorScale,
   groups,
@@ -77,12 +75,7 @@ export default function SimpleAgreementChart({
   noLegend = false,
   type,
 }: AgreementChartProps) {
-  let margin = useMemoMerge(
-    noLegend ? noLegendDefaultMargin : defaultMargin,
-    partialMargin
-  ) as Margin
-
-  const theme = useChartTheme()
+  const theme = useChartTheme(partialTheme)
 
   let dataGroups = rollup(data, StackFactories[type], d => String(d[groups]))
 
@@ -102,10 +95,12 @@ export default function SimpleAgreementChart({
 
   return (
     <svg
-      width={width + margin.left + margin.right}
-      height={height + margin.top + margin.bottom}
+      width={width + theme.plot.margin.left + theme.plot.margin.right}
+      height={height + theme.plot.margin.top + theme.plot.margin.bottom}
     >
-      <g transform={`translate(${margin.left},${margin.top})`}>
+      <g
+        transform={`translate(${theme.plot.margin.left},${theme.plot.margin.top})`}
+      >
         <XAxis y={height} scale={xScale} tickHeight={height} step={0.2} />
         <YAxis
           x={-theme.axises.y.ticks.margin}

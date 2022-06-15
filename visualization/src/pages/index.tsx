@@ -18,7 +18,6 @@ import {
   Accuracy,
   KeyStrokeDelay,
 } from "../lib/data"
-import { ChartThemeProvider } from "../lib/chart-theme"
 import SimpleAgreementChart from "../components/chart/SimpleAgreementChart"
 import ChoiceControl from "../components/ChoiceControl"
 import AccuracyControl from "../components/AccuracyControl"
@@ -29,18 +28,32 @@ export default function IndexPage({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const {
     selectedRows,
-    selectedAccuracy,
-    selectedExperiment,
-    selectedQuestion,
+    selectedAccuracies,
+    selectedExperiments,
+    selectedQuestions,
     availableQuestions,
     availableAccuracies,
     availableExperiments,
-    selectExperiment,
-    selectQuestion,
-    selectAccuracy,
-  } = useVisualizationData(data, { accuracy: "0.5" })
+    setSelectedExperiments,
+    setSelectedQuestions,
+    setSelectedAccuracies,
+  } = useVisualizationData(data, { accuracies: ["0.5"] })
 
-  let groups = typingEfficiencyFactorIds[selectedExperiment!]
+  if (
+    selectedExperiments.size !== 1 ||
+    selectedQuestions.size !== 1 ||
+    selectedAccuracies.size !== 1
+  ) {
+    throw new Error(
+      "Expected exactly one selected experiment, one selected question and one selected accuracy"
+    )
+  }
+
+  let [selectedExperiment] = selectedExperiments
+  let [selectedQuestion] = selectedQuestions
+  let [selectedAccuracy] = selectedAccuracies
+
+  let groups = typingEfficiencyFactorIds[selectedExperiment]
   let groupLabels = labelsByFactors[groups]
 
   return (
@@ -55,39 +68,41 @@ export default function IndexPage({
             <ChoiceControl
               groupLabel="Experiment"
               value={selectedExperiment}
-              onChange={experiment => selectExperiment(experiment)}
+              onChange={experiment => {
+                setSelectedExperiments([experiment])
+              }}
               availableValues={availableExperiments}
               labels={experimentLabels}
             />
           </Box>
-          <Box mb={selectedAccuracy === "*" ? 0 : 2}>
+          <Box mb={2}>
             <ChoiceControl
               groupLabel="Question"
               value={selectedQuestion}
-              onChange={question => selectQuestion(question)}
+              onChange={question => {
+                setSelectedQuestions([question])
+              }}
               availableValues={availableQuestions}
               labels={questionLabels}
             />
           </Box>
-          {selectedAccuracy === "*" ? null : (
-            <Box>
-              <AccuracyControl
-                value={selectedAccuracy}
-                onChange={accuracy => selectAccuracy(accuracy)}
-                availableValues={availableAccuracies}
-              />
-            </Box>
-          )}
+          <Box>
+            <AccuracyControl
+              value={selectedAccuracy}
+              onChange={accuracy => {
+                setSelectedAccuracies([accuracy])
+              }}
+              availableValues={availableAccuracies}
+            />
+          </Box>
         </Paper>
         <Card>
-          <ChartThemeProvider>
-            <SimpleAgreementChart
-              type="diverging"
-              groups={groups}
-              data={selectedRows}
-              groupLabels={groupLabels}
-            />
-          </ChartThemeProvider>
+          <SimpleAgreementChart
+            type="diverging"
+            groups={groups}
+            data={selectedRows}
+            groupLabels={groupLabels}
+          />
         </Card>
       </Container>
     </>

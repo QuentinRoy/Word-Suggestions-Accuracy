@@ -92,19 +92,20 @@ export const keyStrokeDelayLabels: Readonly<Record<KeyStrokeDelay, string>> =
     "200": "200 ms",
   })
 
-export const keyAccuracyLabels: Readonly<Record<Accuracy, string>> =
-  Object.freeze({
+export const accuracyLabels: Readonly<Record<Accuracy, string>> = Object.freeze(
+  {
     "0.1": "accuracy 0.1",
     "0.3": "accuracy 0.3",
     "0.5": "accuracy 0.5",
     "0.7": "accuracy 0.7",
     "0.9": "accuracy 0.9",
-  })
+  }
+)
 
 export const labelsByFactors: Readonly<
   Record<Factor, { [group: string]: string }>
 > = Object.freeze({
-  accuracy: keyAccuracyLabels,
+  accuracy: accuracyLabels,
   device: deviceLabels,
   keyStrokeDelay: keyStrokeDelayLabels,
 })

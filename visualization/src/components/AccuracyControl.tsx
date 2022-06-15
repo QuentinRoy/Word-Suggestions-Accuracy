@@ -3,9 +3,9 @@ import { FormControl, FormLabel, Slider } from "@mui/material"
 import { Accuracy } from "../lib/data"
 
 type AccuracyControlProps = {
-  availableValues: Accuracy[]
+  availableValues: Iterable<Accuracy>
   value?: Accuracy
-  onChange: (newValue: Accuracy) => any
+  onChange: (newValue: Accuracy) => unknown
 }
 export default function AccuracyControl({
   availableValues,
@@ -32,7 +32,7 @@ export default function AccuracyControl({
         step={null}
         min={0}
         max={1}
-        marks={availableValues.map(a => {
+        marks={Array.from(availableValues, a => {
           let aValue = parseFloat(a)
           return {
             value: aValue,

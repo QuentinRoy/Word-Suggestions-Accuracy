@@ -8,10 +8,10 @@ import {
 
 type ChoiceControlProps<ChoiceId extends string | number | symbol> = {
   groupLabel: string
-  availableValues?: Set<any>
+  availableValues?: Set<unknown>
   labels: Record<ChoiceId, string>
   value: ChoiceId | undefined
-  onChange: (newValue: ChoiceId) => any
+  onChange: (newValue: ChoiceId) => unknown
 }
 export default function ChoiceControl<
   ChoiceId extends string | number | symbol

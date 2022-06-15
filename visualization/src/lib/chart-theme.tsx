@@ -26,6 +26,9 @@ export type Margin = {
 }
 
 export type ChartTheme = {
+  plot: {
+    margin: Margin
+  }
   facets: {
     label: {
       size: number
@@ -56,11 +59,17 @@ export type ChartTheme = {
       margin: number
     }
   }
-  lines: { color: string; width: number }
+  lines: {
+    color: string
+    width: number
+  }
   labels: Text
 }
 
-const defaultTheme: ChartTheme = {
+export const defaultTheme: ChartTheme = {
+  plot: {
+    margin: { top: 15, right: 25, left: 100, bottom: 120 },
+  },
   facets: {
     label: { size: 14, color: "#4D4D4D", margin: 100 },
     padding: { inner: 0.1, outer: 0.05 },
@@ -101,12 +110,16 @@ const defaultTheme: ChartTheme = {
 
 const themeContext = React.createContext<ChartTheme>(defaultTheme)
 
-export const useChartTheme = () => React.useContext(themeContext)
+export const useChartTheme = (localTheme?: PartialDeep<ChartTheme>) => {
+  let themeFromContext = React.useContext(themeContext)
+  return useMemoMerge(themeFromContext, localTheme) as ChartTheme
+}
 
 type ChartProviderProps = {
-  theme?: PartialDeep<ChartTheme>
-  children?: React.ReactNode
+  theme: PartialDeep<ChartTheme>
+  children: React.ReactNode
 }
+
 export const ChartThemeProvider = ({ theme, children }: ChartProviderProps) => {
   const themeWithDefaults = useMemoMerge(defaultTheme, theme) as ChartTheme
 

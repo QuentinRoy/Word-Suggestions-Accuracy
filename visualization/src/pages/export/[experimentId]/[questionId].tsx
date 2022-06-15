@@ -16,7 +16,6 @@ import {
   Accuracy,
   KeyStrokeDelay,
 } from "../../../lib/data"
-import { ChartThemeProvider } from "../../../lib/chart-theme"
 import CompoundAgreementChart from "../../../components/chart/CompoundAgreementChart"
 
 export default function IndexPage({
@@ -34,22 +33,32 @@ export default function IndexPage({
       </Head>
       <div
         css={{
-          padding: "32px",
+          width: "fit-content",
+          margin: "20px auto",
           background: "white",
           fontFamily: '"Linux Libertine"',
         }}
       >
-        <ChartThemeProvider>
-          <CompoundAgreementChart
-            height={experiment === "devices" ? 300 : 520}
-            facets="accuracy"
-            groups={groups}
-            data={data}
-            groupLabels={groupLabels}
-            facetLabels={accuracyLabels}
-            type="solid"
-          />
-        </ChartThemeProvider>
+        <CompoundAgreementChart
+          height={experiment === "devices" ? 300 : 520}
+          theme={
+            experiment === "devices"
+              ? {
+                  plot: { margin: { left: 100 } },
+                  facets: { label: { margin: 90 } },
+                }
+              : {
+                  plot: { margin: { left: 90 } },
+                  facets: { label: { margin: 80 } },
+                }
+          }
+          facets="accuracy"
+          groups={groups}
+          data={data}
+          groupLabels={groupLabels}
+          facetLabels={accuracyLabels}
+          type="solid"
+        />
       </div>
     </>
   )

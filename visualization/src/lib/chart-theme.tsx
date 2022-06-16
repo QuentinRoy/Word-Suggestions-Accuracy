@@ -29,6 +29,12 @@ export type ChartTheme = {
   plot: {
     margin: Margin
   }
+  subPlot: {
+    gap: {
+      vertical: number
+      horizontal: number
+    }
+  }
   facets: {
     label: {
       size: number
@@ -70,6 +76,9 @@ export const defaultTheme: ChartTheme = {
   plot: {
     margin: { top: 15, right: 25, left: 100, bottom: 120 },
   },
+  subPlot: {
+    gap: { vertical: 50, horizontal: 50 },
+  },
   facets: {
     label: { size: 14, color: "#4D4D4D", margin: 100 },
     padding: { inner: 0.1, outer: 0.05 },
@@ -80,7 +89,7 @@ export const defaultTheme: ChartTheme = {
   axises: {
     x: {
       ticks: {
-        margin: 10,
+        margin: 5,
         color: "#EBEBEB",
         width: 1,
         label: { size: 10, color: "#4D4D4D" },
@@ -88,7 +97,7 @@ export const defaultTheme: ChartTheme = {
     },
     y: {
       ticks: {
-        margin: 15,
+        margin: 10,
         color: "#EBEBEB",
         width: 1,
         label: { size: 14, color: "#4D4D4D" },

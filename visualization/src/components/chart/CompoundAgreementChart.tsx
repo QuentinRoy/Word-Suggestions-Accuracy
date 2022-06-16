@@ -120,7 +120,7 @@ export default function CompoundAgreementChart({
           tickHeight={height}
           step={type == "diverging" ? 0.2 : 0.1}
         />
-        {Array.from(dataGroups, ([key, stacks], i) => {
+        {Array.from(dataGroups, ([key, stacks]) => {
           let yScale = scaleBand()
             .range([facetHeight, 0])
             .domain(sort(stacks.keys(), id => -groupOrder.indexOf(id)))

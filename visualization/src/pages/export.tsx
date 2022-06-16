@@ -13,13 +13,13 @@ import {
   typingEfficiencyFactorIds,
   experimentLabels,
   labelsByFactors,
-  questionLabels,
   Accuracy,
   KeyStrokeDelay,
+  questionLabels,
 } from "../lib/data"
 import ChoiceControl from "../components/ChoiceControl"
 import useVisualizationData from "../lib/use-visualization-data"
-import CompoundAgreementChart from "../components/chart/CompoundAgreementChart"
+import Compound2dAgreementChart from "../components/chart/Compound2dAgreementChart"
 
 const accuracyLabels = labelsByFactors.accuracy
 
@@ -30,13 +30,11 @@ export default function CompoundPage({
     selectedRows,
     selectedExperiments,
     selectedQuestions,
-    availableQuestions,
     availableExperiments,
     setSelectedExperiments,
-    setSelectedQuestions,
-  } = useVisualizationData(data, { accuracies: "*" })
+  } = useVisualizationData(data, { accuracies: "*", questions: "*" })
 
-  if (selectedExperiments.size !== 1 || selectedQuestions.size !== 1) {
+  if (selectedExperiments.size !== 1) {
     throw new Error(
       "Expected exactly one selected experiment and one selected question"
     )
@@ -44,9 +42,8 @@ export default function CompoundPage({
 
   // There should always be only one experiment and question selected.
   let [selectedExperiment] = selectedExperiments
-  let [selectedQuestion] = selectedQuestions
 
-  let groups = typingEfficiencyFactorIds[selectedExperiment!]
+  let groups = typingEfficiencyFactorIds[selectedExperiment]
   let groupLabels = labelsByFactors[groups]
 
   return (
@@ -54,30 +51,29 @@ export default function CompoundPage({
       <Head>
         <title>Experiment Results</title>
       </Head>
-      <Paper component="header" sx={{ p: 2, mb: 2 }}>
-        <Box mb={2}>
-          <ChoiceControl
-            groupLabel="Experiment"
-            value={selectedExperiment}
-            onChange={experiment => {
-              setSelectedExperiments([experiment])
-            }}
-            availableValues={availableExperiments}
-            labels={experimentLabels}
-          />
-        </Box>
-        <Box>
-          <ChoiceControl
-            groupLabel="Question"
-            value={selectedQuestion}
-            onChange={question => {
-              setSelectedQuestions([question])
-            }}
-            availableValues={availableQuestions}
-            labels={questionLabels}
-          />
-        </Box>
-      </Paper>
+      <div
+        css={{
+          "@media print": {
+            display: "none",
+          },
+        }}
+      >
+        <Container maxWidth="md">
+          <Paper component="header" sx={{ my: 2, p: 2 }}>
+            <Box mb={2}>
+              <ChoiceControl
+                groupLabel="Experiment"
+                value={selectedExperiment}
+                onChange={experiment => {
+                  setSelectedExperiments([experiment])
+                }}
+                availableValues={availableExperiments}
+                labels={experimentLabels}
+              />
+            </Box>
+          </Paper>
+        </Container>
+      </div>
 
       <div
         css={{
@@ -85,26 +81,33 @@ export default function CompoundPage({
           margin: "20px auto",
           background: "white",
           fontFamily: '"Linux Libertine"',
+          "@media print": {
+            border: "solid 1px black",
+          },
         }}
       >
-        <CompoundAgreementChart
-          height={selectedExperiment === "devices" ? 300 : 520}
+        <Compound2dAgreementChart
+          height={selectedExperiment === "devices" ? 600 : 1000}
+          width={1000}
           theme={
             selectedExperiment === "devices"
               ? {
-                  plot: { margin: { left: 100 } },
+                  plot: { margin: { left: 100, top: 20, bottom: 100 } },
                   facets: { label: { margin: 90 } },
                 }
               : {
-                  plot: { margin: { left: 90 } },
+                  plot: { margin: { left: 90, top: 20, bottom: 100 } },
                   facets: { label: { margin: 80 } },
                 }
           }
-          facets="accuracy"
+          facet1="accuracy"
+          facet2="question"
           groups={groups}
           data={selectedRows}
-          groupLabels={groupLabels}
-          facetLabels={accuracyLabels}
+          groupLabels={groupLabels as Record<string, string>}
+          facet1Labels={accuracyLabels}
+          facet2Labels={questionLabels}
+          facet2Columns={2}
           type="solid"
         />
       </div>
@@ -131,16 +134,4 @@ export const getStaticProps: GetStaticProps<{
     totalAnswers: parseInt(rawRow.totalAnswers as string, 10),
   }))
   return { props: { data } }
-}
-
-type Action =
-  | { type: "selectExperiment"; experiment: ExperimentId }
-  | { type: "setSelectedQuestions"; questions: QuestionId[] }
-
-type State = {
-  selectedRows: AgreementRow[]
-  selectedExperiment: ExperimentId
-  selectedQuestions: QuestionId[]
-  availableQuestions: QuestionId[]
-  availableExperiments: ExperimentId[]
 }

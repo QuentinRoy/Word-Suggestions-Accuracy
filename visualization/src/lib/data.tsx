@@ -51,7 +51,7 @@ export const deviceLabels: Readonly<Record<DeviceId, string>> = Object.freeze({
 export const questionLabels: Readonly<Record<QuestionId, string>> =
   Object.freeze({
     controls_satisfactory:
-      "The controls (keyboard and word suggestions) are satisfactory for the completion of the task.",
+      "The controls [...] are satisfactory for the completion of the task.",
     suggestions_accuracy: "The word suggestions are accurate.",
     keyboard_use_efficiency:
       "The use of the keyboard is efficient in this task.",
@@ -102,9 +102,7 @@ export const accuracyLabels: Readonly<Record<Accuracy, string>> = Object.freeze(
   }
 )
 
-export const labelsByFactors: Readonly<
-  Record<Factor, { [group: string]: string }>
-> = Object.freeze({
+export const labelsByFactors = Object.freeze({
   accuracy: accuracyLabels,
   device: deviceLabels,
   keyStrokeDelay: keyStrokeDelayLabels,

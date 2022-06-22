@@ -119,21 +119,18 @@ export default function Compound2dAgreementChart<
   )
 
   let facet2Order = Object.keys(facet2Labels) as (keyof typeof facet2Labels)[]
-  let facet2Grid = createPlotGrid(
+  let facet2Grid = createGrid(
     facet2Order.filter(d => dataGroups.has(d)),
     facet2Columns
   )
   let getFacet2Coords = (d: AgreementRow[Facet2Prop]): [number, number] => {
-    for (let x = 0; x < facet2Grid.length; x++) {
-      let col = facet2Grid[x]
-      for (let y = 0; y < col.length; y++) {
-        if (col[y] === d) {
-          return [x, y]
-        }
-      }
+    let coords = getGridCoords(facet2Grid, d)
+    if (coords == null) {
+      throw new Error(`${d} not found in Facet2 (${facet2}) grid`)
     }
-    throw new Error(`${d} not found in Facet2 (${facet2}) grid`)
+    return coords
   }
+
   let columnScale = scaleBand<number>()
     .domain(range(0, max(facet2Grid, d => d.length) ?? 0))
     .paddingInner(theme.subPlot.gap.horizontal / width)
@@ -317,7 +314,7 @@ function MiddleLine({ scale, tickHeight, x = 0, y = 0 }: MiddleLine) {
   return <animated.line {...middleLineSpring} />
 }
 
-function createPlotGrid<T>(values: Iterable<T>, cols: number): T[][] {
+function createGrid<T>(values: Iterable<T>, cols: number): T[][] {
   let grid: T[][] = []
   let currentRow: T[] = []
   for (let v of values) {
@@ -328,4 +325,16 @@ function createPlotGrid<T>(values: Iterable<T>, cols: number): T[][] {
     }
   }
   return grid
+}
+
+function getGridCoords<T>(grid: T[][], d: T): [number, number] | null {
+  for (let y = 0; y < grid.length; y++) {
+    let row = grid[y]
+    for (let x = 0; x < row.length; x++) {
+      if (row[x] === d) {
+        return [x, y]
+      }
+    }
+  }
+  return null
 }

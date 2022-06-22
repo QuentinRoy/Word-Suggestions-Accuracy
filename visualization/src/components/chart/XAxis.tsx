@@ -38,6 +38,7 @@ export default function XAxis({
   const springs = useSprings(
     ticks.length,
     ticks.map(t => ({
+      immediate: theme.animation === "none",
       opacity:
         start != null && end != null && isInDomain(t.value, start, end) ? 1 : 0,
       translateX: scale(t.value),
@@ -67,7 +68,8 @@ export default function XAxis({
               textAnchor="middle"
               dominantBaseline="hanging"
               fill={theme.axises.x.ticks.label.color}
-              style={{ fontSize: theme.axises.x.ticks.label.size }}
+              fontSize={theme.axises.x.ticks.label.size}
+              fontFamily={theme.axises.x.ticks.label.fontFamily}
             >
               {ticks[i].label}
             </text>

@@ -1,8 +1,9 @@
+import * as React from "react"
 import fs from "fs/promises"
 import path from "path"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import Head from "next/head"
-import { Box, Card, Container, Paper } from "@mui/material"
+import { Box, Container, Paper } from "@mui/material"
 import { csvParse } from "d3-dsv"
 import {
   AgreementAnswer,
@@ -20,8 +21,62 @@ import {
 import ChoiceControl from "../components/ChoiceControl"
 import useVisualizationData from "../lib/use-visualization-data"
 import Compound2dAgreementChart from "../components/chart/Compound2dAgreementChart"
+import { ptToMM } from "../lib/units"
+import { useMemoMerge } from "../lib/use-memo-merge"
+import { ChartTheme } from "../lib/chart-theme"
+import { PartialDeep } from "type-fest"
+
+const PAPER_TEXT_WIDTH = 139.0959 // mm
 
 const accuracyLabels = labelsByFactors.accuracy
+
+const baseTheme: PartialDeep<ChartTheme> = {
+  animation: "none",
+  plot: {
+    margin: { top: 3, right: 3, left: 10, bottom: 15 },
+  },
+  subPlot: {
+    gap: { vertical: 8, horizontal: 10 },
+    label: { size: ptToMM(7), fontFamily: "Linux Libertine", margin: 1 },
+  },
+  facets: {
+    label: {
+      size: ptToMM(7),
+      fontFamily: "Linux Libertine Capitals",
+    },
+    padding: { inner: 0.1, outer: 0.05 },
+  },
+  stacks: {
+    padding: { inner: 0.05, outer: 0 },
+  },
+  axises: {
+    x: {
+      ticks: {
+        margin: 0,
+        width: 0.1,
+        label: { size: ptToMM(6), fontFamily: "Linux Libertine Capitals" },
+      },
+    },
+    y: {
+      ticks: {
+        margin: 1,
+        width: 0.1,
+        label: { size: ptToMM(7), fontFamily: "Linux Libertine Capitals" },
+      },
+    },
+  },
+  lines: { width: 0.1 },
+  labels: { size: ptToMM(6), fontFamily: "Linux Libertine Capitals" },
+  legend: {
+    margin: { top: 5, right: 5, bottom: 5, left: 5 },
+    width: 120,
+    items: {
+      size: ptToMM(7),
+      margin: 1,
+      label: { size: ptToMM(7), fontFamily: "Linux Libertine Capitals" },
+    },
+  },
+}
 
 export default function CompoundPage({
   data,
@@ -29,7 +84,6 @@ export default function CompoundPage({
   const {
     selectedRows,
     selectedExperiments,
-    selectedQuestions,
     availableExperiments,
     setSelectedExperiments,
   } = useVisualizationData(data, { accuracies: "*", questions: "*" })
@@ -46,10 +100,29 @@ export default function CompoundPage({
   let groups = typingEfficiencyFactorIds[selectedExperiment]
   let groupLabels = labelsByFactors[groups]
 
+  let experimentLabel = experimentLabels[selectedExperiment]
+
+  let theme = useMemoMerge(
+    baseTheme,
+    selectedExperiment === "devices"
+      ? {
+          plot: { margin: { left: 14.5 } },
+          facets: { label: { margin: 14.5 } },
+        }
+      : {
+          plot: { margin: { left: 12.5 } },
+          facets: { label: { margin: 12.5 } },
+        }
+  ) as ChartTheme
+
+  let plotWidth =
+    PAPER_TEXT_WIDTH - theme.plot.margin.left - theme.plot.margin.right
+  let plotHeight = selectedExperiment === "devices" ? 70 : 130
+
   return (
     <>
       <Head>
-        <title>Experiment Results</title>
+        <title>{experimentLabel} - Results</title>
       </Head>
       <div
         css={{
@@ -74,32 +147,34 @@ export default function CompoundPage({
           </Paper>
         </Container>
       </div>
-
+      <h1
+        css={{
+          display: "none",
+          fontSize: "small",
+          textAlign: "center",
+          "@media print": {
+            display: "block",
+          },
+        }}
+      >
+        {experimentLabel}
+      </h1>
       <div
         css={{
-          width: "fit-content",
           margin: "20px auto",
           background: "white",
           fontFamily: '"Linux Libertine"',
+          width: "800px",
           "@media print": {
+            width: `${plotWidth}mm`,
             border: "solid 1px black",
           },
         }}
       >
         <Compound2dAgreementChart
-          height={selectedExperiment === "devices" ? 600 : 1000}
-          width={1000}
-          theme={
-            selectedExperiment === "devices"
-              ? {
-                  plot: { margin: { left: 100, top: 20, bottom: 100 } },
-                  facets: { label: { margin: 90 } },
-                }
-              : {
-                  plot: { margin: { left: 90, top: 20, bottom: 100 } },
-                  facets: { label: { margin: 80 } },
-                }
-          }
+          width={plotWidth}
+          height={plotHeight}
+          theme={theme}
           facet1="accuracy"
           facet2="question"
           groups={groups}

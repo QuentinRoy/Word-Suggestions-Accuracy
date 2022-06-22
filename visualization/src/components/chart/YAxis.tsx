@@ -30,7 +30,8 @@ export default function YAxis<GroupId extends string | number>({
             textAnchor="end"
             dominantBaseline="central"
             fill={theme.axises.y.ticks.label.color}
-            style={{ fontSize: theme.axises.y.ticks.label.size }}
+            fontSize={theme.axises.y.ticks.label.size}
+            fontFamily={theme.axises.y.ticks.label.fontFamily}
           >
             {labels[groupId]}
           </text>

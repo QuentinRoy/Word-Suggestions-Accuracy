@@ -48,7 +48,8 @@ export default function ColorLegend<T>({
                   y={legend.items.size / 2}
                   dominantBaseline="middle"
                   fill={legend.items.label.color}
-                  style={{ fontSize: legend.items.label.size }}
+                  fontSize={legend.items.label.size}
+                  fontFamily={legend.items.label.fontFamily}
                 >
                   {getLabel(answer)}
                 </text>

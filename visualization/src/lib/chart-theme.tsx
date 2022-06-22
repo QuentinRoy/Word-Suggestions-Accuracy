@@ -5,6 +5,7 @@ import { useMemoMerge } from "./use-memo-merge"
 export type Text = {
   size: number
   color: string
+  fontFamily: string
 }
 
 export type Tick = {
@@ -26,6 +27,7 @@ export type Margin = {
 }
 
 export type ChartTheme = {
+  animation: "none" | "fast"
   plot: {
     margin: Margin
   }
@@ -34,13 +36,10 @@ export type ChartTheme = {
       vertical: number
       horizontal: number
     }
+    label: Text & { margin: number }
   }
   facets: {
-    label: {
-      size: number
-      color: string
-      margin: number
-    }
+    label: Text & { margin: number }
     padding: {
       inner: number
       outer: number
@@ -73,14 +72,16 @@ export type ChartTheme = {
 }
 
 export const defaultTheme: ChartTheme = {
+  animation: "fast",
   plot: {
     margin: { top: 15, right: 25, left: 100, bottom: 120 },
   },
   subPlot: {
     gap: { vertical: 50, horizontal: 50 },
+    label: { size: 14, color: "#000", fontFamily: "Roboto", margin: 1 },
   },
   facets: {
-    label: { size: 14, color: "#4D4D4D", margin: 100 },
+    label: { size: 14, color: "#4D4D4D", fontFamily: "Roboto", margin: 100 },
     padding: { inner: 0.1, outer: 0.05 },
   },
   stacks: {
@@ -92,7 +93,7 @@ export const defaultTheme: ChartTheme = {
         margin: 5,
         color: "#EBEBEB",
         width: 1,
-        label: { size: 10, color: "#4D4D4D" },
+        label: { size: 10, color: "#4D4D4D", fontFamily: "Roboto" },
       },
     },
     y: {
@@ -100,19 +101,19 @@ export const defaultTheme: ChartTheme = {
         margin: 10,
         color: "#EBEBEB",
         width: 1,
-        label: { size: 14, color: "#4D4D4D" },
+        label: { size: 14, color: "#4D4D4D", fontFamily: "Roboto" },
       },
     },
   },
   lines: { color: "#000", width: 1 },
-  labels: { size: 10, color: "#000" },
+  labels: { size: 10, color: "#000", fontFamily: "Roboto" },
   legend: {
     margin: { top: 50, right: 50, bottom: 50, left: 50 },
     width: 600,
     items: {
       size: 14,
       margin: 5,
-      label: { size: 14, color: "#000" },
+      label: { size: 14, color: "#000", fontFamily: "Roboto" },
     },
   },
 }

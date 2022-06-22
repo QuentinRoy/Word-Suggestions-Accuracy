@@ -21,7 +21,7 @@ export default function Stack<Category>({
   height,
   colorScale,
 }: StackProps<Category>) {
-  const { labels } = useChartTheme()
+  const theme = useChartTheme()
   let y = height / 2
 
   const springs = useSprings(
@@ -32,10 +32,11 @@ export default function Stack<Category>({
       let width = xScale(d.length + d.start)! - x
       let centerX = x + width / 2
       let rotation =
-        d.value == 0 || width > labels.size * labelFormat(d.value).length
+        d.value < 10 || width > theme.labels.size * labelFormat(d.value).length
           ? 0
           : -90
       return {
+        immediate: theme.animation === "none",
         from: {
           width: 0,
           x: x0 + gx,
@@ -85,9 +86,10 @@ export default function Stack<Category>({
             dominantBaseline="central"
             textAnchor="middle"
             opacity={textOpacity}
-            fill={labels.color}
+            fill={theme.labels.color}
             transform={textTransform}
-            style={{ fontSize: labels.size }}
+            fontSize={theme.labels.size}
+            fontFamily={theme.labels.fontFamily}
           >
             {text.to(labelFormat)}
           </animated.text>

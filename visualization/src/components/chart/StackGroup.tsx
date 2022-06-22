@@ -1,4 +1,5 @@
 import { useSpring, animated } from "@react-spring/web"
+import { useChartTheme } from "../../lib/chart-theme"
 import { StackData } from "../../lib/stacks"
 import { translate } from "../../lib/transforms"
 import Stack from "./Stack"
@@ -17,6 +18,7 @@ export default function StackGroup<Group, Category>({
   colorScale,
   bandwidth,
 }: StackGroupProps<Group, Category>) {
+  const theme = useChartTheme()
   let x0 = xScale(0)
   let bandsXScale = (value: number) => {
     let x = xScale(value)
@@ -37,7 +39,10 @@ export default function StackGroup<Group, Category>({
     )
   )
 
-  const spring = useSpring({ transform: translate(x0 ?? 0, 0) })
+  const spring = useSpring({
+    immediate: theme.animation === "none",
+    transform: translate(x0 ?? 0, 0),
+  })
 
   return <animated.g transform={spring.transform}>{bands}</animated.g>
 }

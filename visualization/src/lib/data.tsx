@@ -50,8 +50,7 @@ export const deviceLabels: Readonly<Record<DeviceId, string>> = Object.freeze({
 
 export const questionLabels: Readonly<Record<QuestionId, string>> =
   Object.freeze({
-    controls_satisfactory:
-      "The controls [...] are satisfactory for the completion of the task.",
+    controls_satisfactory: "The controls [...] are satisfactory [...].",
     suggestions_accuracy: "The word suggestions are accurate.",
     keyboard_use_efficiency:
       "The use of the keyboard is efficient in this task.",
@@ -86,19 +85,19 @@ export const typingEfficiencyFactorIds: Readonly<
 
 export const keyStrokeDelayLabels: Readonly<Record<KeyStrokeDelay, string>> =
   Object.freeze({
-    "0": "0 ms",
-    "50": "50 ms",
-    "100": "100 ms",
-    "200": "200 ms",
+    "0": "0 ms",
+    "50": "50 ms",
+    "100": "100 ms",
+    "200": "200 ms",
   })
 
 export const accuracyLabels: Readonly<Record<Accuracy, string>> = Object.freeze(
   {
-    "0.1": "accuracy 0.1",
-    "0.3": "accuracy 0.3",
-    "0.5": "accuracy 0.5",
-    "0.7": "accuracy 0.7",
-    "0.9": "accuracy 0.9",
+    "0.1": "acc. 0.1",
+    "0.3": "acc. 0.3",
+    "0.5": "acc. 0.5",
+    "0.7": "acc. 0.7",
+    "0.9": "acc. 0.9",
   }
 )
 

@@ -14,7 +14,11 @@ import {
 } from "../../lib/data"
 import ColorLegend from "./ColorLegend"
 import { DivergingStack, SolidStack } from "../../lib/stacks"
-import { ChartTheme, defaultTheme, useChartTheme } from "../../lib/chart-theme"
+import {
+  ChartTheme,
+  ChartThemeProvider,
+  useChartTheme,
+} from "../../lib/chart-theme"
 import StackGroup from "./StackGroup"
 import XAxis from "./XAxis"
 import YAxis from "./YAxis"
@@ -94,6 +98,7 @@ export default function Compound2dAgreementChart<
   noLegend = false,
 }: Compound2dAgreementChartProps<Facet1Prop, Facet2Prop, GroupProp>) {
   const theme = useChartTheme(partialTheme)
+
   // Creates a new variable because _width is number|undefined
   // but we need to use it as a number.
   let width =
@@ -177,103 +182,118 @@ export default function Compound2dAgreementChart<
 
   let groupOrder = Object.keys(groupLabels) as (keyof typeof groupLabels)[]
 
+  let fullWidth = width + theme.plot.margin.left + theme.plot.margin.right
+  let fullHeight = height + theme.plot.margin.top + theme.plot.margin.bottom
+
   return (
-    <svg
-      width={width + theme.plot.margin.left + theme.plot.margin.right}
-      height={height + theme.plot.margin.top + theme.plot.margin.bottom}
-    >
-      <g transform={translate(theme.plot.margin.left, theme.plot.margin.top)}>
-        {Array.from(dataGroups, ([facet2Key, facet2Group]) => {
-          let [col, row] = getFacet2Coords(facet2Key)
-          return (
-            <g
-              key={facet2Key}
-              transform={translate(columnScale(col) ?? 0, rowScale(row) ?? 0)}
-            >
-              <text textAnchor="middle" x={facet2ScaleXBandwidth / 2}>
-                {facet2Labels[facet2Key]}
-              </text>
-              <XAxis
-                y={facet2ScaleYBandwidth}
-                scale={xScale}
-                tickHeight={facet2ScaleYBandwidth}
-                step={type == "diverging" ? 0.2 : 0.1}
-                noLabels={facet2Grid[row + 1]?.[col] != null}
-              />
-              {Array.from(facet2Group, ([facet1Key, facet1Group]) => {
-                let yScale = scaleBand<AgreementRow[GroupProp]>()
-                  .range([facet1Height, 0])
-                  .domain(sort(facet1Group.keys(), k => -groupOrder.indexOf(k)))
-                  .paddingInner(theme.stacks.padding.inner)
-                  .paddingOuter(theme.stacks.padding.outer)
-                let bandwidth = yScale.bandwidth()
-                let y = facet1Scale(facet1Key) ?? 0
-                return (
-                  <g transform={translate(0, y)} key={facet1Key}>
-                    {col === 0 ? (
-                      <>
-                        <text
-                          transform={transform(
-                            // Use translate from (0,0) to simplify the
-                            // transform.
-                            translate(
-                              -theme.facets.label.margin,
-                              facet1Height / 2
-                            ),
-                            rotate(-90)
-                          )}
-                          textAnchor="middle"
-                          dominantBaseline="hanging"
-                          fill={theme.axises.x.ticks.label.color}
-                          style={{ fontSize: theme.facets.label.size }}
-                        >
-                          {facet1Labels[facet1Key]}
-                        </text>
-                        <YAxis
-                          x={-theme.axises.y.ticks.margin}
-                          groups={Array.from(facet1Group.keys())}
-                          labels={groupLabels}
-                          bandwidth={bandwidth}
-                          scale={yScale}
-                        />
-                      </>
-                    ) : null}
-                    <StackGroup
-                      stacks={facet1Group}
-                      xScale={xScale}
-                      yScale={yScale}
-                      colorScale={colorScale}
-                      bandwidth={bandwidth}
-                    />
-                    {type === "diverging" && (
-                      <MiddleLine
-                        y={facet1Height}
-                        scale={xScale}
-                        tickHeight={facet1Height}
+    <ChartThemeProvider theme={theme}>
+      <svg
+        css={{ width: "100%", display: "block" }}
+        viewBox={`0 0 ${fullWidth} ${fullHeight}`}
+      >
+        <g transform={translate(theme.plot.margin.left, theme.plot.margin.top)}>
+          {Array.from(dataGroups, ([facet2Key, facet2Group]) => {
+            let [col, row] = getFacet2Coords(facet2Key)
+            return (
+              <g
+                key={facet2Key}
+                transform={translate(columnScale(col) ?? 0, rowScale(row) ?? 0)}
+              >
+                <text
+                  textAnchor="middle"
+                  x={facet2ScaleXBandwidth / 2}
+                  y={-theme.subPlot.label.margin}
+                  fontSize={theme.subPlot.label.size}
+                  fontFamily={theme.subPlot.label.fontFamily}
+                  fill={theme.subPlot.label.color}
+                >
+                  {facet2Labels[facet2Key]}
+                </text>
+                <XAxis
+                  y={facet2ScaleYBandwidth}
+                  scale={xScale}
+                  tickHeight={facet2ScaleYBandwidth}
+                  step={type == "diverging" ? 0.2 : 0.1}
+                  noLabels={facet2Grid[row + 1]?.[col] != null}
+                />
+                {Array.from(facet2Group, ([facet1Key, facet1Group]) => {
+                  let yScale = scaleBand<AgreementRow[GroupProp]>()
+                    .range([facet1Height, 0])
+                    .domain(
+                      sort(facet1Group.keys(), k => -groupOrder.indexOf(k))
+                    )
+                    .paddingInner(theme.stacks.padding.inner)
+                    .paddingOuter(theme.stacks.padding.outer)
+                  let bandwidth = yScale.bandwidth()
+                  let y = facet1Scale(facet1Key) ?? 0
+                  return (
+                    <g transform={translate(0, y)} key={facet1Key}>
+                      {col === 0 ? (
+                        <>
+                          <text
+                            transform={transform(
+                              // Use translate from (0,0) to simplify the
+                              // transform.
+                              translate(
+                                -theme.facets.label.margin,
+                                facet1Height / 2
+                              ),
+                              rotate(-90)
+                            )}
+                            textAnchor="middle"
+                            dominantBaseline="hanging"
+                            fill={theme.axises.x.ticks.label.color}
+                            fontSize={theme.facets.label.size}
+                            fontFamily={theme.facets.label.fontFamily}
+                          >
+                            {facet1Labels[facet1Key]}
+                          </text>
+                          <YAxis
+                            x={-theme.axises.y.ticks.margin}
+                            groups={Array.from(facet1Group.keys())}
+                            labels={groupLabels}
+                            bandwidth={bandwidth}
+                            scale={yScale}
+                          />
+                        </>
+                      ) : null}
+                      <StackGroup
+                        stacks={facet1Group}
+                        xScale={xScale}
+                        yScale={yScale}
+                        colorScale={colorScale}
+                        bandwidth={bandwidth}
                       />
-                    )}
-                  </g>
-                )
-              })}
-            </g>
-          )
-        })}
-        {!noLegend && (
-          <ColorLegend
-            x={(width - theme.legend.width) / 2}
-            y={height + theme.legend.margin.top}
-            colorScale={colorScale}
-            getLabel={d => agreementAnswerLabels[d]}
-            width={theme.legend.width}
-            rows={
-              type == "diverging"
-                ? divergingOrderLegendRows
-                : positivityOrderLegendRows
-            }
-          />
-        )}
-      </g>
-    </svg>
+                      {type === "diverging" && (
+                        <MiddleLine
+                          y={facet1Height}
+                          scale={xScale}
+                          tickHeight={facet1Height}
+                        />
+                      )}
+                    </g>
+                  )
+                })}
+              </g>
+            )
+          })}
+          {!noLegend && (
+            <ColorLegend
+              x={(width - theme.legend.width) / 2}
+              y={height + theme.legend.margin.top}
+              colorScale={colorScale}
+              getLabel={d => agreementAnswerLabels[d]}
+              width={theme.legend.width}
+              rows={
+                type == "diverging"
+                  ? divergingOrderLegendRows
+                  : positivityOrderLegendRows
+              }
+            />
+          )}
+        </g>
+      </svg>
+    </ChartThemeProvider>
   )
 }
 

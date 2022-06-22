@@ -13,7 +13,11 @@ import {
 } from "../../lib/data"
 import ColorLegend from "./ColorLegend"
 import { DivergingStack, SolidStack } from "../../lib/stacks"
-import { ChartTheme, defaultTheme, useChartTheme } from "../../lib/chart-theme"
+import {
+  ChartTheme,
+  ChartThemeProvider,
+  useChartTheme,
+} from "../../lib/chart-theme"
 import StackGroup from "./StackGroup"
 import XAxis from "./XAxis"
 import YAxis from "./YAxis"
@@ -108,82 +112,89 @@ export default function CompoundAgreementChart({
 
   let groupOrder = Object.keys(groupLabels)
 
-  return (
-    <svg
-      width={width + theme.plot.margin.left + theme.plot.margin.right}
-      height={height + theme.plot.margin.top + theme.plot.margin.bottom}
-    >
-      <g transform={translate(theme.plot.margin.left, theme.plot.margin.top)}>
-        <XAxis
-          y={height}
-          scale={xScale}
-          tickHeight={height}
-          step={type == "diverging" ? 0.2 : 0.1}
-        />
-        {Array.from(dataGroups, ([key, stacks]) => {
-          let yScale = scaleBand()
-            .range([facetHeight, 0])
-            .domain(sort(stacks.keys(), id => -groupOrder.indexOf(id)))
-            .paddingInner(theme.stacks.padding.inner)
-            .paddingOuter(theme.stacks.padding.outer)
-          let bandwidth = yScale.bandwidth()
-          return (
-            <g transform={translate(0, facetScale(key) ?? 0)} key={key}>
-              <text
-                x={0}
-                y={0}
-                transform={transform(
-                  translate(-theme.facets.label.margin, facetHeight / 2),
-                  rotate(-90)
-                )}
-                textAnchor="middle"
-                dominantBaseline="hanging"
-                fill={theme.axises.x.ticks.label.color}
-                style={{ fontSize: theme.facets.label.size }}
-              >
-                {facetLabels[key]}
-              </text>
-              <YAxis
-                x={-theme.axises.y.ticks.margin}
-                groups={Array.from(stacks.keys())}
-                labels={groupLabels}
-                bandwidth={bandwidth}
-                scale={yScale}
-              />
-              <StackGroup
-                stacks={stacks}
-                xScale={xScale}
-                yScale={yScale}
-                colorScale={colorScale}
-                bandwidth={bandwidth}
-              />
-              {type === "diverging" && (
-                <MiddleLine
-                  y={facetHeight}
-                  scale={xScale}
-                  tickHeight={facetHeight}
-                />
-              )}
-            </g>
-          )
-        })}
+  let fullWidth = width + theme.plot.margin.left + theme.plot.margin.right
+  let fullHeight = height + theme.plot.margin.top + theme.plot.margin.bottom
 
-        {!noLegend && (
-          <ColorLegend
-            x={(width - theme.legend.width) / 2}
-            y={height + theme.legend.margin.top}
-            colorScale={colorScale}
-            getLabel={d => agreementAnswerLabels[d]}
-            width={theme.legend.width}
-            rows={
-              type == "diverging"
-                ? divergingOrderLegendRows
-                : positivityOrderLegendRows
-            }
+  return (
+    <ChartThemeProvider theme={theme}>
+      <svg
+        width={fullWidth}
+        height={fullHeight}
+        viewBox={`0 0 ${fullWidth} ${fullHeight}`}
+      >
+        <g transform={translate(theme.plot.margin.left, theme.plot.margin.top)}>
+          <XAxis
+            y={height}
+            scale={xScale}
+            tickHeight={height}
+            step={type == "diverging" ? 0.2 : 0.1}
           />
-        )}
-      </g>
-    </svg>
+          {Array.from(dataGroups, ([key, stacks]) => {
+            let yScale = scaleBand()
+              .range([facetHeight, 0])
+              .domain(sort(stacks.keys(), id => -groupOrder.indexOf(id)))
+              .paddingInner(theme.stacks.padding.inner)
+              .paddingOuter(theme.stacks.padding.outer)
+            let bandwidth = yScale.bandwidth()
+            return (
+              <g transform={translate(0, facetScale(key) ?? 0)} key={key}>
+                <text
+                  x={0}
+                  y={0}
+                  transform={transform(
+                    translate(-theme.facets.label.margin, facetHeight / 2),
+                    rotate(-90)
+                  )}
+                  textAnchor="middle"
+                  dominantBaseline="hanging"
+                  fill={theme.axises.x.ticks.label.color}
+                  fontSize={theme.facets.label.size}
+                  fontFamily={theme.facets.label.fontFamily}
+                >
+                  {facetLabels[key]}
+                </text>
+                <YAxis
+                  x={-theme.axises.y.ticks.margin}
+                  groups={Array.from(stacks.keys())}
+                  labels={groupLabels}
+                  bandwidth={bandwidth}
+                  scale={yScale}
+                />
+                <StackGroup
+                  stacks={stacks}
+                  xScale={xScale}
+                  yScale={yScale}
+                  colorScale={colorScale}
+                  bandwidth={bandwidth}
+                />
+                {type === "diverging" && (
+                  <MiddleLine
+                    y={facetHeight}
+                    scale={xScale}
+                    tickHeight={facetHeight}
+                  />
+                )}
+              </g>
+            )
+          })}
+
+          {!noLegend && (
+            <ColorLegend
+              x={(width - theme.legend.width) / 2}
+              y={height + theme.legend.margin.top}
+              colorScale={colorScale}
+              getLabel={d => agreementAnswerLabels[d]}
+              width={theme.legend.width}
+              rows={
+                type == "diverging"
+                  ? divergingOrderLegendRows
+                  : positivityOrderLegendRows
+              }
+            />
+          )}
+        </g>
+      </svg>
+    </ChartThemeProvider>
   )
 }
 

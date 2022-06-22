@@ -14,7 +14,12 @@ import {
 } from "../../lib/data"
 import ColorLegend from "./ColorLegend"
 import { DivergingStack, SolidStack } from "../../lib/stacks"
-import { ChartTheme, defaultTheme, useChartTheme } from "../../lib/chart-theme"
+import {
+  ChartTheme,
+  ChartThemeProvider,
+  defaultTheme,
+  useChartTheme,
+} from "../../lib/chart-theme"
 import StackGroup from "./StackGroup"
 import XAxis from "./XAxis"
 import YAxis from "./YAxis"
@@ -93,46 +98,52 @@ export default function SimpleAgreementChart({
     .domain([domainStart, domainEnd])
   let bandwidth = yScale.bandwidth()
 
+  let fullWidth = width + theme.plot.margin.left + theme.plot.margin.right
+  let fullHeight = height + theme.plot.margin.top + theme.plot.margin.bottom
+
   return (
-    <svg
-      width={width + theme.plot.margin.left + theme.plot.margin.right}
-      height={height + theme.plot.margin.top + theme.plot.margin.bottom}
-    >
-      <g
-        transform={`translate(${theme.plot.margin.left},${theme.plot.margin.top})`}
+    <ChartThemeProvider theme={theme}>
+      <svg
+        width={fullWidth}
+        height={fullHeight}
+        viewBox={`0 0 ${fullWidth} ${fullHeight}`}
       >
-        <XAxis y={height} scale={xScale} tickHeight={height} step={0.2} />
-        <YAxis
-          x={-theme.axises.y.ticks.margin}
-          groups={Array.from(dataGroups.keys())}
-          labels={groupLabels}
-          bandwidth={bandwidth}
-          scale={yScale}
-        />
-        <StackGroup
-          stacks={dataGroups}
-          xScale={xScale}
-          yScale={yScale}
-          colorScale={colorScale}
-          bandwidth={bandwidth}
-        />
-        <MiddleLine y={height} scale={xScale} tickHeight={height} />
-        {!noLegend && (
-          <ColorLegend
-            x={(width - theme.legend.width) / 2}
-            y={height + theme.legend.margin.top}
-            colorScale={colorScale}
-            width={theme.legend.width}
-            getLabel={d => agreementAnswerLabels[d]}
-            rows={
-              type == "diverging"
-                ? divergingOrderLegendRows
-                : positivityOrderLegendRows
-            }
+        <g
+          transform={`translate(${theme.plot.margin.left},${theme.plot.margin.top})`}
+        >
+          <XAxis y={height} scale={xScale} tickHeight={height} step={0.2} />
+          <YAxis
+            x={-theme.axises.y.ticks.margin}
+            groups={Array.from(dataGroups.keys())}
+            labels={groupLabels}
+            bandwidth={bandwidth}
+            scale={yScale}
           />
-        )}
-      </g>
-    </svg>
+          <StackGroup
+            stacks={dataGroups}
+            xScale={xScale}
+            yScale={yScale}
+            colorScale={colorScale}
+            bandwidth={bandwidth}
+          />
+          <MiddleLine y={height} scale={xScale} tickHeight={height} />
+          {!noLegend && (
+            <ColorLegend
+              x={(width - theme.legend.width) / 2}
+              y={height + theme.legend.margin.top}
+              colorScale={colorScale}
+              width={theme.legend.width}
+              getLabel={d => agreementAnswerLabels[d]}
+              rows={
+                type == "diverging"
+                  ? divergingOrderLegendRows
+                  : positivityOrderLegendRows
+              }
+            />
+          )}
+        </g>
+      </svg>
+    </ChartThemeProvider>
   )
 }
 

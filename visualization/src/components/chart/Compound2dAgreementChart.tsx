@@ -1,6 +1,6 @@
 import * as React from "react"
 import { scaleBand, scaleLinear, scaleOrdinal } from "d3-scale"
-import { max, min, range, reverse, rollup, sort } from "d3-array"
+import { max, range, reverse, rollup, sort } from "d3-array"
 import { schemeRdBu } from "d3-scale-chromatic"
 import { animated, useSpring } from "@react-spring/web"
 import { PartialDeep, ValueOf } from "type-fest"
@@ -23,6 +23,9 @@ import StackGroup from "./StackGroup"
 import XAxis from "./XAxis"
 import YAxis from "./YAxis"
 import { rotate, transform, translate } from "../../lib/transforms"
+
+const PLOT_PREFIXES = "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ"
+const PREFIX_SIZE_FACTOR = 1.4
 
 const orderedAgreementAnswers = [
   ...negativeAgreementAnswers,
@@ -130,6 +133,10 @@ export default function Compound2dAgreementChart<
     }
     return coords
   }
+  let getFacetPrefix = (d: AgreementRow[Facet2Prop]): string => {
+    let prefixIndex = facet2Order.indexOf(d)
+    return PLOT_PREFIXES[prefixIndex]
+  }
 
   let columnScale = scaleBand<number>()
     .domain(range(0, max(facet2Grid, d => d.length) ?? 0))
@@ -204,7 +211,23 @@ export default function Compound2dAgreementChart<
                   fontFamily={theme.subPlot.label.fontFamily}
                   fill={theme.subPlot.label.color}
                 >
-                  {facet2Labels[facet2Key]}
+                  <tspan
+                    fontSize={theme.subPlot.label.size * PREFIX_SIZE_FACTOR}
+                    dy={
+                      // I do not know why dy needs to be evenly divided across
+                      // tspans, but I can't get it proper without doing this.
+                      theme.subPlot.label.size * ((PREFIX_SIZE_FACTOR - 1) / 4)
+                    }
+                  >
+                    {getFacetPrefix(facet2Key)}
+                  </tspan>{" "}
+                  <tspan
+                    dy={
+                      -theme.subPlot.label.size * ((PREFIX_SIZE_FACTOR - 1) / 4)
+                    }
+                  >
+                    {facet2Labels[facet2Key]}
+                  </tspan>
                 </text>
                 <XAxis
                   y={facet2ScaleYBandwidth}

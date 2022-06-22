@@ -1,4 +1,3 @@
-import * as React from "react"
 import fs from "fs/promises"
 import path from "path"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
@@ -16,7 +15,7 @@ import {
   labelsByFactors,
   Accuracy,
   KeyStrokeDelay,
-  questionLabels,
+  questionExportLabels,
 } from "../lib/data"
 import ChoiceControl from "../components/ChoiceControl"
 import useVisualizationData from "../lib/use-visualization-data"
@@ -33,7 +32,7 @@ const accuracyLabels = labelsByFactors.accuracy
 const baseTheme: PartialDeep<ChartTheme> = {
   animation: "none",
   plot: {
-    margin: { top: 3, right: 3, left: 10, bottom: 15 },
+    margin: { top: 3.5, right: 3, left: 10, bottom: 15 },
   },
   subPlot: {
     gap: { vertical: 8, horizontal: 10 },
@@ -181,7 +180,7 @@ export default function CompoundPage({
           data={selectedRows}
           groupLabels={groupLabels as Record<string, string>}
           facet1Labels={accuracyLabels}
-          facet2Labels={questionLabels}
+          facet2Labels={questionExportLabels}
           facet2Columns={2}
           type="solid"
         />

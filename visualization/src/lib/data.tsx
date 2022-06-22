@@ -50,11 +50,20 @@ export const deviceLabels: Readonly<Record<DeviceId, string>> = Object.freeze({
 
 export const questionLabels: Readonly<Record<QuestionId, string>> =
   Object.freeze({
-    controls_satisfactory: "The controls [...] are satisfactory [...].",
+    controls_satisfactory:
+      "The controls (keyboard and word suggestions) are satisfactory for the completion of the task.",
     suggestions_accuracy: "The word suggestions are accurate.",
     keyboard_use_efficiency:
       "The use of the keyboard is efficient in this task.",
     suggestion_distraction: "The word suggestions are distracting.",
+  })
+
+export const questionExportLabels: Readonly<Record<QuestionId, string>> =
+  Object.freeze({
+    suggestions_accuracy: "Perceived Accuracy",
+    keyboard_use_efficiency: "Perceived Keyboard Efficiency",
+    controls_satisfactory: "Satisfaction",
+    suggestion_distraction: "Disruptivity of the Suggestions",
   })
 
 export const experimentLabels: Readonly<Record<ExperimentId, string>> =
